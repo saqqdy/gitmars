@@ -2,12 +2,12 @@
   "name": "gitman",
   "description": "git tool for newbes",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "bin/gitm.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "bin": {
-    "gitm": "./bin/index.js"
+    "gitm": "./bin/gitm.js"
   },
   "dependencies": {
     "commander": "^4.1.0",
