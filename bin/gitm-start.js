@@ -29,16 +29,17 @@ let doShellProgram = list => {
  * gitm admin end
  */
 program
-	.name('gitm admin')
-	.usage('<command> <type> <name>')
-	.command('start <type> <name>')
-	.description('对发版分支bugfix、release的操作')
+	.name('gitm start')
+	.usage('<type> <name>')
+	.arguments('<type> <name>')
+	.description('创建bugfix任务分支、创建feature功能开发分支')
 	.action((type, name) => {
 		if (configFrom === 0) {
 			shell.echo(warning('您还没有初始化项目\n请先执行: gitm init'))
 			shell.exit(1)
 		}
-		if (['bugfix', 'release', 'support', 'feature'].includes(type)) {
+		console.log(type, name)
+		if (['bugfix', 'feature'].includes(type)) {
 			// feature从dev拉取，其他从master拉取
 			let base = type === 'feature' ? config.develop : config.master,
 				cmd = [`cd ${pwd}`, `git checkout -b ${type}/${name} ${base}`]
@@ -51,35 +52,5 @@ program
 			})
 		}
 	})
-program
-	.name('gitm admin')
-	.usage('<command> <type> <name>')
-	.command('end <type> <name>')
-	.description('对发版分支bugfix、release的操作')
-	.action((type, name) => {
-		if (configFrom === 0) {
-			shell.echo(warning('您还没有初始化项目\n请先执行: gitm init'))
-			shell.exit(1)
-		}
-		if (['bugfix', 'release', 'support'].includes(type)) {
-			// feature从dev拉取，其他从master拉取
-			let cmd = [`cd ${pwd}`, `git checkout ${config.master} && git merge --no-ff ${type}/${name} && git push`]
-			if (type === 'bugfix') {
-				cmd.push(`git checkout ${config.release} && git merge --no-ff ${type}/${name} && git push`)
-			} else if (type === 'support') {
-				cmd.push(`git checkout ${config.release} && git merge --no-ff ${type}/${name} && git push`)
-				cmd.push(`git checkout ${config.bugfix} && git merge --no-ff ${type}/${name} && git push`)
-			}
-			cmd.push(`git branch -D ${type}/${name}`)
-			doShellProgram(cmd).then(data => {
-				if (data[1].code === 0) {
-					shell.echo(`${name}分支已合并，tag已打`)
-				} else {
-					shell.echo(data[1].err, data[1].code)
-				}
-			})
-		} else {
-			// type === feature
-		}
-	})
 program.parse(process.argv)
+// console.log(process.argv)

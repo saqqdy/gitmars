@@ -2,9 +2,9 @@
 const set = require('./../package.json')
 const program = require('commander')
 const shell = require('shelljs')
-// const { warning } = require('./index')
+const { warning } = require('./index')
 if (!shell.which('git')) {
-	// shell.echo(warning('gitman只能在git项目中执行'))
+	shell.echo(warning('gitman只能在git项目中执行'))
 	shell.exit(1)
 }
 program.version('v' + set.version + ', powered by saqqdy', '-v, --version', '查看gitman版本')

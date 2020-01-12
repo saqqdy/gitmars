@@ -87,4 +87,4 @@ class Gitman {
 		console.log(a + '222')
 	}
 }
-module.exports = { warning, success, defaults, config, configFrom, wait, handleConfigOutput }
+module.exports = { pwd, warning, success, defaults, config, configFrom, wait, handleConfigOutput }
