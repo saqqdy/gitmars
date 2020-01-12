@@ -1,3 +1,7 @@
-ss = 22
-aa = 22
-bb = 22
+master = master
+develop = dev
+release = release
+bugfix = bug
+support = support
+user = saqqdy
+email = saqqdy@qq.com
