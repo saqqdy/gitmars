@@ -1,6 +1,6 @@
 {
 	"name": "gitmars",
-	"description": "git tool for newbes",
+	"description": "git tool for newbees",
 	"version": "1.0.0",
 	"main": "bin/gitm.js",
 	"scripts": {
@@ -18,10 +18,10 @@
 	"devDependencies": {},
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/saqqdy/gitman.git"
+		"url": "git+https://github.com/saqqdy/gitmars.git"
 	},
 	"keywords": [
-		"gitman",
+		"gitmars",
 		"git",
 		"tool"
 	],
