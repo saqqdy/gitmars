@@ -3,10 +3,10 @@ const program = require('commander')
 const shell = require('shelljs')
 const { warning, success, defaults, config, configFrom, wait, queue, pwd } = require('./index')
 /**
- * gitm start
+ * gitm comb
  */
 program
-	.name('gitm start')
+	.name('gitm comb')
 	.usage('<type> <name>')
 	.arguments('<type> <name>')
 	.description('创建bugfix任务分支、创建feature功能开发分支')
@@ -27,13 +27,27 @@ program
 				} else {
 					// feature从release拉取，bugfix从bug拉取
 					let base = type === 'bugfix' ? config.bugfix : config.release,
-						cmd = [`cd ${pwd}`, `git checkout -b ${type}/${name} ${base}`]
+					cmd = [
+						`cd ${pwd}`,
+						`git checkout ${base}`,
+						`git pull`,
+						`git merge --no-ff ${type}/${name}`,
+						`git push`,
+						`git checkout ${type}/${name}`
+					]
 					queue(cmd).then(data => {
-						if (data[1].code === 0) {
-							shell.echo(`${name}分支创建成功，该分支基于${base}创建，您当前已经切换到${type}/${name}\n如果需要提测，请执行${success('gitm merge ' + type + ' ' + name)}\n开发完成后，记得执行: ${success('gitm end ' + type + ' ' + name)}`)
-						} else {
-							shell.echo(data[1].err, data[1].code)
-						}
+						data.forEach((el, index) => {
+							if (index === 3 || index === 4) {
+								if (el.code === 0) {
+									shell.echo(success(index === 3 ? '分支合并成功！' : '推送远程成功!'))
+								} else {
+									shell.echo(warning(el.out))
+								}
+							}
+							if (el.code !== 0) {
+								shell.echo(warning('指令' + cmd[index] + '执行失败，请联系管理员'))
+							}
+						})
 					})
 				}
 			})

@@ -1,7 +1,7 @@
 {
 	"name": "gitmars",
 	"description": "git tool for newbees",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"main": "bin/gitm.js",
 	"scripts": {
 		"start": "react-scripts start"
@@ -28,7 +28,7 @@
 	"author": "saqqdy.com",
 	"license": "ISC",
 	"bugs": {
-		"url": "https://github.com/saqqdy/gitman/issues"
+		"url": "https://github.com/saqqdy/gitmars/issues"
 	},
-	"homepage": "https://github.com/saqqdy/gitman#readme"
+	"homepage": "https://github.com/saqqdy/gitmars#readme"
 }

@@ -1,29 +1,7 @@
 #!/usr/bin/env node
 const program = require('commander')
 const shell = require('shelljs')
-const { warning, success, defaults, config, configFrom, wait, pwd } = require('./index')
-let doShellProgram = list => {
-	return new Promise((resolve, reject) => {
-		let r = []
-		if (list.length === 0) reject('指令名称不能为空')
-		wait(list, (data, cb) => {
-			if (!data) {
-				// 只有一条指令，不需返回数组形式
-				resolve(r.length === 1 ? r[0] : r)
-			} else {
-				shell.exec(data, { silent: true }, (code, out, err) => {
-					try {
-						out = JSON.parse(out)
-					} catch (err) {
-						out = out.replace(/\n*$/g, '')
-					}
-					r.push({ code, out, err })
-					cb()
-				})
-			}
-		})
-	})
-}
+const { warning, success, defaults, config, configFrom, wait, queue, pwd } = require('./index')
 /**
  * gitm admin start
  * gitm admin end
@@ -42,7 +20,7 @@ program
 			// feature从dev拉取，其他从master拉取
 			let base = type === 'feature' ? config.develop : config.master,
 				cmd = [`cd ${pwd}`, `git checkout -b ${type}/${name} ${base}`]
-			doShellProgram(cmd).then(data => {
+			queue(cmd).then(data => {
 				if (data[1].code === 0) {
 					shell.echo(`${name}分支创建成功，该分支基于${base}创建，您当前已经切换到${type}/${name}\n开发完成后，记得执行: ${success('gitm admin end ' + type + ' ' + name)}`)
 				} else {
@@ -71,7 +49,7 @@ program
 				cmd.push(`git checkout ${config.bugfix} && git merge --no-ff ${type}/${name} && git push`)
 			}
 			cmd.push(`git branch -D ${type}/${name}`)
-			doShellProgram(cmd).then(data => {
+			queue(cmd).then(data => {
 				if (data[1].code === 0) {
 					shell.echo(`${name}分支已合并，tag已打`)
 				} else {
