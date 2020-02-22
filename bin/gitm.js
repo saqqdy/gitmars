@@ -31,10 +31,4 @@ program.on('--help', function() {
 	console.log('  $ gitm -h')
 })
 
-// 未知命令会报错
-program.on('command:*', function() {
-	console.log(warning('您输入的指令 %s 不存在，请输入 gitm --help 查看帮助.'), program.args.join(' '))
-	process.exit(1)
-})
-
 program.parse(process.argv)

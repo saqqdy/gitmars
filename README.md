@@ -7,7 +7,7 @@
 npm install -g gitmars
 
 # 或者通过yarn安装
-yarn add globel gitmars
+yarn global add gitmars
 ```
 
 ## 使用
