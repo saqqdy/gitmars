@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 const program = require('commander')
-const shell = require('shelljs')
+const sh = require('shelljs')
 const { warning, success, defaults, config, configFrom, wait, queue, pwd } = require('./index')
 /**
  * gitm admin start
@@ -15,14 +15,14 @@ program
 	.option('-a, --author [author]', '提交者', '')
 	.action((commitid, opts) => {
 		if (configFrom === 0) {
-			shell.echo(warning('您还没有初始化项目\n请先执行: gitm init'))
-			shell.exit(1)
+			sh.echo(warning('您还没有初始化项目\n请先执行: gitm init'))
+			sh.exit(1)
 		}
 		if (opts.grep !== '' || opts.author !== '') {
 			let cmd = [`cd ${pwd}`, `git log --grep=${opts.grep} --author=${opts.author}`]
 			if (!/^\d{4,}$/.test(opts.grep)) {
-				shell.echo(warning('为确保copy准确，关键词必须是4位以上的任务号'))
-				shell.exit(1)
+				sh.echo(warning('为确保copy准确，关键词必须是4位以上的任务号'))
+				sh.exit(1)
 			}
 			queue(cmd).then(data => {
 				let commits = []
@@ -36,7 +36,7 @@ program
 							data.err && console.log(data.err)
 						})
 				} else {
-					shell.echo(data[1].err)
+					sh.echo(data[1].err)
 				}
 			})
 		} else {
