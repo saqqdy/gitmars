@@ -1,6 +1,6 @@
-const shell = require('shelljs')
+const sh = require('shelljs')
 const colors = require('colors')
-let pwd = shell.pwd() + '/',
+let pwd = sh.pwd() + '/',
 	configFrom = 0,
 	config = {}
 const warning = txt => {
@@ -19,9 +19,9 @@ const defaults = {
 	email: 'saqqdy_wu@kingdee.com'
 }
 const getConfigFrom = () => {
-	if (shell.test('-f', pwd + '.gitmarsrc')) {
+	if (sh.test('-f', pwd + '.gitmarsrc')) {
 		return 1
-	} else if (shell.test('-f', 'gitmarsconfig.json')) {
+	} else if (sh.test('-f', 'gitmarsconfig.json')) {
 		return 2
 	}
 	return 0
@@ -29,7 +29,7 @@ const getConfigFrom = () => {
 configFrom = getConfigFrom()
 function getConfig() {
 	if (configFrom === 1) {
-		let str = (shell.cat('.gitmarsrc') + '')
+		let str = (sh.cat('.gitmarsrc') + '')
 				.replace(/(^\n*)|(\n*$)/g, '')
 				.replace(/\n{2,}/g, '\n')
 				.replace(/[^\S\x0a\x0d]/g, ''),
@@ -47,43 +47,58 @@ function getConfig() {
 }
 config = getConfig()
 
-const wait = (list, cb) => {
+/**
+ * wait
+ * @description 递归执行程序
+ */
+const wait = (list, fun) => {
+	// 最后一条指令，执行完成之后退出递归
 	if (list.length === 0) {
-		cb()
+		fun()
 		return
 	} else {
-		cb(list[0], () => {
+		fun(list[0], (kill = false) => {
+			// 强制中断
+			if (kill) return
 			list.shift()
-			wait(list, cb)
+			wait(list, fun)
 		})
 	}
 }
-
 const queue = list => {
 	return new Promise((resolve, reject) => {
 		let returns = []
 		if (list.length === 0) reject('指令名称不能为空')
-		wait(list, (data, cb) => {
-			let defaults = {
-				silent: true
+		list = JSON.parse(JSON.stringify(list))
+		wait(list, (cmd, cb) => {
+			let config = {
+				silent: true,
+				kill: true
 			}
 			// 传入对象形式：{ cmd: '', config: {} }
-			if (data instanceof Object) {
-				defaults = Object.assign(defaults, data.config)
-				data = data.cmd
+			if (cmd instanceof Object) {
+				config = Object.assign(config, cmd.config)
+				cmd = cmd.cmd
 			}
-			if (!data) {
+			if (!cmd) {
 				// 只有一条指令，不需返回数组形式
 				resolve(returns.length === 1 ? returns[0] : returns)
 			} else {
-				shell.exec(data, defaults, (code, out, err) => {
+				sh.exec(cmd, config, (code, out, err) => {
 					try {
 						out = JSON.parse(out)
 					} catch (err) {
 						out = out.replace(/\n*$/g, '')
 					}
 					returns.push({ code, out, err })
-					cb()
+					if (code !== 0 && config.kill) {
+						let rest = JSON.parse(JSON.stringify(list))
+						rest.shift()
+						cb(true)
+						reject({ result: returns.length === 1 ? returns[0] : returns, cmd: cmd, rest: rest }) // 抛出异常
+					} else {
+						cb()
+					}
 				})
 			}
 		})
@@ -98,24 +113,5 @@ const handleConfigOutput = name => {
 	}
 	return '请输入' + name + '分支名称，默认为：' + defaults[name]
 }
-// class gitmars {
-// 	constructor(props) {
-// 		// super(props)
-// 		this.defaults = {
-// 			master: 'master',
-// 			develop: 'dev',
-// 			release: 'release',
-// 			bugfix: 'bug',
-// 			support: 'support',
-// 			user: 'saqqdy_wu',
-// 			email: 'saqqdy_wu@kingdee.com'
-// 		}
-// 	}
-// 	// toggleTheme = a => {
-// 	// 	console.log(this.state, a)
-// 	// }
-// 	handleConfigOutput(a) {
-// 		//
-// 	}
-// }
+
 module.exports = { pwd, warning, success, defaults, config, configFrom, wait, queue, handleConfigOutput }

@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 const program = require('commander')
-const shell = require('shelljs')
+const sh = require('shelljs')
 const { warning, success, defaults, config, configFrom, wait, queue, pwd } = require('./index')
 /**
  * gitm get
@@ -12,9 +12,9 @@ program
 	.action(() => {
 		queue(['git stash pop']).then(data => {
 			if (data.code === 0) {
-				shell.echo(success('文件恢复成功！'))
+				sh.echo(success('文件恢复成功！'))
 			} else {
-				shell.echo(warning(data.err))
+				sh.echo(warning(data.err))
 			}
 		})
 	})
