@@ -34,8 +34,8 @@ gitm start bugfix 20001
 
 任务阶段提测，这部操作把分支代码合并到dev和bug分支
 ```
-# 形式：gitm comb <type> <name>
-gitm comb bugfix 20001
+# 形式：gitm combine <type> <name>
+gitm combine bugfix 20001
 ```
 
 任务完成，合并并删除分支，这个操作会把20001这个分支代码合并到bug分支并删除20001分支
