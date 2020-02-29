@@ -19,6 +19,8 @@ program
 	.alias('st')
 	.command('end <type> <name>', '完成开发某项功能')
 	.alias('ed')
+	.command('branch', '列出分支列表')
+	.alias('bh')
 	.command('save', '暂存当前分支文件')
 	.alias('sv')
 	.command('get', '恢复暂存区最近一次暂存的文件')
@@ -27,14 +29,25 @@ program
 	.alias('cp')
 	.command('merge <name>', '合并代码')
 	.alias('mg')
+	.command('continue', '继续未完成的操作')
+	.alias('ct')
 	.command('admin <command>', '管理员功能，包含对发版分支bugfix、release的操作')
 
 // 自定义帮助
 program.on('--help', function() {
-	console.log('Examples:')
+	console.log('使用案例:')
 	console.log('  $ gitm init')
 	console.log('  $ gitm --help')
 	console.log('  $ gitm -h')
+})
+
+// 映射不存在的指令
+program.on('command:*', function(types, opts) {
+	let cmd = ['init', 'config', 'combine', 'cb', 'start', 'st', 'end', 'ed', 'branch', 'bh', 'save', 'sv', 'get', 'gt', 'copy', 'cp', 'merge', 'mg', 'continue', 'ct', 'admin']
+	if (!cmd.includes(types[0])) {
+		let arr = [].concat(types).concat(opts)
+		sh.exec('git ' + arr.join(' '), { silent: false })
+	}
 })
 
 program.parse(process.argv)

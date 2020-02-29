@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 const program = require('commander')
 const sh = require('shelljs')
-const { warning, success, defaults, config, configFrom, wait, queue, pwd } = require('./index')
+const { warning, success, config, configFrom, queue, pwd } = require('./index')
 /**
  * gitm update
  */
@@ -12,10 +12,6 @@ program
 	.description('更新bug任务分支、更新feature功能开发分支')
 	.action((type, name) => {
 		const opts = ['bugfix', 'feature'] // 允许执行的指令
-		if (configFrom === 0) {
-			sh.echo(warning('您还没有初始化项目\n请先执行: gitm init'))
-			sh.exit(1)
-		}
 		if (opts.includes(type)) {
 			queue(['git status']).then(d => {
 				if (d.out.indexOf('Changes to be committed') > -1 || d.out.indexOf('Changes not staged for commit') > -1) {

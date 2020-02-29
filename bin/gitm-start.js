@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 const program = require('commander')
 const sh = require('shelljs')
-const { warning, success, defaults, config, configFrom, wait, queue, pwd } = require('./index')
+const { warning, success, config, configFrom, queue, pwd } = require('./index')
 /**
  * gitm start
  */
@@ -12,10 +12,6 @@ program
 	.description('创建bugfix任务分支、创建feature功能开发分支')
 	.action((type, name) => {
 		const opts = ['bugfix', 'feature'] // 允许执行的指令
-		if (configFrom === 0) {
-			sh.echo(warning('您还没有初始化项目\n请先执行: gitm init'))
-			sh.exit(1)
-		}
 		if (opts.includes(type)) {
 			queue(['git status']).then(d => {
 				if (d.out.indexOf('Changes to be committed') > -1 || d.out.indexOf('Changes not staged for commit') > -1) {
@@ -33,7 +29,7 @@ program
 							sh.echo(`${name}分支创建成功，该分支基于${base}创建，您当前已经切换到${type}/${name}\n如果需要提测，请执行${success('gitm combine ' + type + ' ' + name)}\n开发完成后，记得执行: ${success('gitm end ' + type + ' ' + name)}`)
 						}
 					}).catch(err => {
-						sh.echo(warning('指令' + err.cmd + '执行失败，请联系管理员'))
+						sh.echo(warning('指令 ' + err.cmd + ' 执行失败，请联系管理员'))
 					})
 				}
 			})

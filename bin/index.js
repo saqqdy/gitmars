@@ -15,8 +15,8 @@ const defaults = {
 	release: 'release',
 	bugfix: 'bug',
 	support: 'support',
-	user: 'saqqdy_wu',
-	email: 'saqqdy_wu@kingdee.com'
+	user: '',
+	email: ''
 }
 const getConfigFrom = () => {
 	if (sh.test('-f', pwd + '.gitmarsrc')) {
@@ -27,6 +27,12 @@ const getConfigFrom = () => {
 	return 0
 }
 configFrom = getConfigFrom()
+
+/**
+ * getConfig
+ * @description 读取配置
+ * @returns {Object} arr 返回配置对象
+ */
 function getConfig() {
 	if (configFrom === 1) {
 		let str = (sh.cat('.gitmarsrc') + '')
@@ -43,7 +49,7 @@ function getConfig() {
 	} else if (configFrom === 2) {
 		return require(pwd + 'gitmarsconfig.json')
 	}
-	return {}
+	return defaults
 }
 config = getConfig()
 
@@ -65,6 +71,12 @@ const wait = (list, fun) => {
 		})
 	}
 }
+
+/**
+ * queue
+ * @description 脚本执行主程序
+ * @param {Array} list 脚本序列
+ */
 const queue = list => {
 	return new Promise((resolve, reject) => {
 		let returns = []
@@ -91,18 +103,43 @@ const queue = list => {
 						out = out.replace(/\n*$/g, '')
 					}
 					returns.push({ code, out, err })
+					if (code !== 0) sh.exec(`echo '${JSON.stringify({ cmd, code, out, err })}' >>.git/.gitmarslog`)
+					// 当前指令执行错误且设置该条指令需要中断，则中断递归
 					if (code !== 0 && config.kill) {
 						let rest = JSON.parse(JSON.stringify(list))
 						rest.shift()
-						cb(true)
-						reject({ result: returns.length === 1 ? returns[0] : returns, cmd: cmd, rest: rest }) // 抛出异常
+						cb(true) // 回调并中断执行
+						sh.exec(`echo '${JSON.stringify(rest)}' >.git/.gitmarscommands`)
+						// 抛出异常
+						reject({
+							result: returns.length === 1 ? returns[0] : returns,
+							cmd: cmd,
+							rest: rest
+						})
 					} else {
-						cb()
+						cb() // 回调，继续执行吓一条
 					}
 				})
 			}
 		})
 	})
+}
+
+/**
+ * getCache
+ * @description 获取未执行脚本列表
+ * @returns {Array} arr 返回数组
+ */
+const getCache = () => {
+	let arr = []
+	if (sh.test('-f', pwd + '.git/.gitmarscommands')) {
+		arr = (sh.cat('.git/.gitmarscommands') + '')
+			.replace(/(^\n*)|(\n*$)/g, '')
+			.replace(/\n{2,}/g, '\n')
+			.replace(/[^\S\x0a\x0d]/g, '')
+		arr = JSON.parse(arr)
+	}
+	return arr
 }
 
 const handleConfigOutput = name => {
@@ -114,4 +151,4 @@ const handleConfigOutput = name => {
 	return '请输入' + name + '分支名称，默认为：' + defaults[name]
 }
 
-module.exports = { pwd, warning, success, defaults, config, configFrom, wait, queue, handleConfigOutput }
+module.exports = { pwd, warning, success, defaults, config, configFrom, wait, queue, getCache, handleConfigOutput }
