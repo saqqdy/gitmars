@@ -29,10 +29,6 @@ program
 	.command('set <option> [value]')
 	.description('设置gitmars的配置项')
 	.action((option, value) => {
-		if (configFrom === 0) {
-			sh.echo(gitm.warning('您还没有初始化项目\n请先执行: gitm init'))
-			sh.exit(1)
-		}
 		if (value) {
 			let o = { ...config }
 			if (Object.keys(gitm.defaults).includes(option)) {

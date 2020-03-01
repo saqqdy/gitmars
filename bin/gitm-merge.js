@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 const program = require('commander')
 const sh = require('shelljs')
-const { warning, success, defaults, config, configFrom, wait, queue, pwd } = require('./index')
+const { warning, success, config, configFrom, queue, pwd } = require('./index')
 /**
  * gitm merge
  */
@@ -11,11 +11,14 @@ program
 	.arguments('<name>')
 	.description('合并分支代码')
 	.action(name => {
-		if (configFrom === 0) {
-			sh.echo(warning('您还没有初始化项目\n请先执行: gitm init'))
-			sh.exit(1)
-		}
-		let cmd = [`cd ${pwd}`, `git merge --no-ff ${name}`, `git push`]
+		let cmd = [
+			`cd ${pwd}`,
+			{
+				cmd: `git merge --no-ff ${name}`,
+				config: { slient: false }
+			},
+			`git push`
+		]
 		queue(cmd).then(data => {
 			data.forEach((el, index) => {
 				if (index === 1) {

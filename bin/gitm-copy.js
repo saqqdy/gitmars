@@ -1,48 +1,63 @@
 #!/usr/bin/env node
 const program = require('commander')
 const sh = require('shelljs')
-const { warning, success, defaults, config, configFrom, wait, queue, pwd } = require('./index')
+const { warning, success, queue, getStatus, getCurrent } = require('./index')
 /**
- * gitm admin start
- * gitm admin end
+ * gitm copy
  */
 program
 	.name('gitm copy')
-	.usage('[commitid...] [-w] [-a]')
-	.arguments('[commitid...]')
-	.description('cherry-pick易用版本')
-	.option('-w, --grep [grep]', '模糊搜索commit信息关键词', '')
+	.usage('<from> [commitid...] [-k] [-a]')
+	.arguments('<from> [commitid...]')
+	.description('cherry-pick易用版本，从某个分支拷贝某条记录合并到当前分支')
+	.option('-k, --key [keyword]', '模糊搜索commit信息关键词', '')
 	.option('-a, --author [author]', '提交者', '')
-	.action((commitid, opts) => {
-		if (configFrom === 0) {
-			sh.echo(warning('您还没有初始化项目\n请先执行: gitm init'))
-			sh.exit(1)
-		}
-		if (opts.grep !== '' || opts.author !== '') {
-			let cmd = [`cd ${pwd}`, `git log --grep=${opts.grep} --author=${opts.author}`]
-			if (!/^\d{4,}$/.test(opts.grep)) {
-				sh.echo(warning('为确保copy准确，关键词必须是4位以上的任务号'))
+	.action(async (from, commitid, opts) => {
+		let status = await getStatus(),
+			cur = await getCurrent()
+		if (!status) sh.exit(1)
+		if (opts.key !== '' || opts.author !== '') {
+			let cmd = [`git checkout ${from}`, `git log --grep=${opts.key} --author=${opts.author}`]
+			if (!/^\d{4,}$/.test(opts.key)) {
+				sh.echo(warning('为确保copy准确，关键词必须是4位以上的任务号或者bug修复编号'))
 				sh.exit(1)
 			}
 			queue(cmd).then(data => {
 				let commits = []
 				if (data[1].code === 0) {
-					let c = data[1].out.match(/(commit\s[a-z0-9]*\n+)/g) || []
-					c.forEach(el => {
+					let logs = data[1].out.match(/(commit\s[a-z0-9]*\n+)/g) || [],
+						cmds = [`git checkout ${cur}`]
+					logs.forEach(el => {
 						commits.push(el.replace(/(commit\s)|\n/g, ''))
 					})
-					commits.length > 0 &&
-						queue([`git cherry-pick ${commits.join(' ')}`]).then(data => {
-							data.err && console.log(data.err)
-						})
+					if (commits.length > 0) {
+						cmds = cmds.concat([
+							{
+								cmd: `git cherry-pick ${commits.join(' ')}`,
+								config: { silent: false }
+							},
+							{ cmd: `git push`, config: { silent: false } }
+						])
+					} else {
+						sh.echo('没有找到任何记录')
+					}
+					queue(cmds).then(data1 => {
+						sh.echo(success('指令执行完毕'))
+					})
 				} else {
 					sh.echo(data[1].err)
 				}
 			})
 		} else {
-			let cmd = [`cd ${pwd}`, `git cherry-pick ${commitid.join(' ')}`]
+			let cmd = [
+				{
+					cmd: `git cherry-pick ${commitid.join(' ')}`,
+					config: { silent: false }
+				},
+				{ cmd: `git push`, config: { silent: false } }
+			]
 			queue(cmd).then(data => {
-				data[1].err && console.log(data[1].err)
+				sh.echo(success('指令执行完毕'))
 			})
 		}
 	})
