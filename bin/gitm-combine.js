@@ -15,7 +15,8 @@ program
 	.action(async (type, name, opt) => {
 		const allow = ['bugfix', 'feature'] // 允许执行的指令
 		let status = await getStatus()
-		if (allow.includes(type) && status) {
+		if (!status) sh.exit(1)
+		if (allow.includes(type)) {
 			// feature从release拉取，bugfix从bug拉取
 			let base = type === 'bugfix' ? config.bugfix : config.release,
 				cmd = [
@@ -46,21 +47,20 @@ program
 					`git checkout ${type}/${name}`
 				])
 			}
-			queue(cmd)
-				.then(data => {
-					data.forEach((el, index) => {
-						if (index === 2 || index === 3) {
-							if (el.code === 0) {
-								sh.echo(success(index === 3 ? '分支合并成功！' : '推送远程成功!'))
-							} else {
-								sh.echo(warning(el.out))
-							}
+			queue(cmd).then(data => {
+				data.forEach((el, index) => {
+					if (index === 2 || index === 3) {
+						if (el.code === 0) {
+							sh.echo(success(index === 3 ? '分支合并成功！' : '推送远程成功!'))
+						} else {
+							sh.echo(warning(el.out))
 						}
-						// if (el.code !== 0) {
-						// 	sh.echo(warning('指令' + cmd[index] + '执行失败，请联系管理员'))
-						// }
-					})
+					}
+					// if (el.code !== 0) {
+					// 	sh.echo(warning('指令' + cmd[index] + '执行失败，请联系管理员'))
+					// }
 				})
+			})
 		} else {
 			sh.echo(warning('type只允许输入：' + JSON.stringify(allow)))
 			sh.exit(1)

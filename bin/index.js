@@ -120,7 +120,6 @@ const queue = list => {
 						sh.echo(warning('指令 ' + cmd + ' 执行失败，中断了进程'))
 						rest.length > 0 && sh.echo(warning('请处理相关问题之后输入gitm continue继续'))
 						sh.exit(1)
-						// sh.exit(1)
 						// 抛出异常
 						// reject({
 						// 	// result: returns.length === 1 ? returns[0] : returns,

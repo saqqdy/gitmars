@@ -13,7 +13,8 @@ program
 	.action(async (type, name) => {
 		const opts = ['bugfix', 'feature'] // 允许执行的指令
 		let status = await getStatus()
-		if (opts.includes(type) && status) {
+		if (!status) sh.exit(1)
+		if (opts.includes(type)) {
 			// feature从release拉取，bugfix从bug拉取
 			let base = type === 'bugfix' ? config.bugfix : config.release,
 				cmd = [`cd ${pwd}`, `git checkout ${base}`, `git pull`, `git merge --no-ff ${type}/${name}`, `git push`, `git branch -D ${type}/${name}`]

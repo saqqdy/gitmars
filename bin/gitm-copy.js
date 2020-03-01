@@ -15,7 +15,8 @@ program
 	.action(async (from, commitid, opts) => {
 		let status = await getStatus(),
 			cur = await getCurrent()
-		if ((opts.key !== '' || opts.author !== '') && status) {
+		if (!status) sh.exit(1)
+		if (opts.key !== '' || opts.author !== '') {
 			let cmd = [`git checkout ${from}`, `git log --grep=${opts.key} --author=${opts.author}`]
 			if (!/^\d{4,}$/.test(opts.key)) {
 				sh.echo(warning('为确保copy准确，关键词必须是4位以上的任务号或者bug修复编号'))
