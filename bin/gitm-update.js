@@ -17,30 +17,30 @@ program
 		if (opts.includes(type)) {
 			// feature从release拉取，bugfix从bug拉取
 			let base = type === 'bugfix' ? config.bugfix : config.release,
-				cmd = [`cd ${pwd}`, `git checkout ${base}`, `git pull`, `git checkout ${type}/${name}``git rebase ${base}`]
-			queue(cmd)
-				.then(data => {
-					data.forEach((el, index) => {
-						if (index === 3 || index === 4) {
-							if (el.code === 0) {
-								sh.echo(success(index === 3 ? '分支更新成功！' : '推送远程成功!'))
-							} else {
-								sh.echo(warning(el.out))
-							}
+				cmd = [
+					`git checkout ${base}`,
+					`git pull origin ${base} --rebase`,
+					`git checkout ${type}/${name}`,
+					{
+						cmd: `git rebase ${base}`,
+						config: { slient: false, again: false, success: '分支合并成功', fail: '合并失败，请根据提示处理' }
+					},
+					{
+						cmd: `git push`,
+						config: { slient: false, again: true, success: '推送成功', fail: '推送失败，请根据提示处理' }
+					}
+				]
+			queue(cmd).then(data => {
+				data.forEach((el, index) => {
+					if (index === 3 || index === 4) {
+						if (el.code === 0) {
+							sh.echo(success(index === 3 ? '分支更新成功！' : '推送远程成功!'))
+						} else {
+							sh.echo(warning(el.out))
 						}
-						// if (el.code !== 0) {
-						// 	sh.echo(warning('指令' + cmd[index] + '执行失败，请联系管理员'))
-						// }
-					})
-				})
-				.catch(err => {
-					let last = err.result.pop()
-					if (cmd.length - err.rest.length === 5) {
-						// 执行到merge的时候中断
-						sh.echo('合并过程出现了文件冲突\n' + warning(last.out))
-						err.rest.length > 0 && sh.echo('\n请解决冲突后吧文件加入暂存区，并继续执行以下指令：\n    ' + success(err.rest.join('\n    ')))
 					}
 				})
+			})
 		} else {
 			sh.echo(warning('type只允许输入：' + JSON.stringify(opts)))
 			sh.exit(1)

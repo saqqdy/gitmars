@@ -106,7 +106,7 @@ const queue = list => {
 					} catch (err) {
 						out = out.replace(/\n*$/g, '')
 					}
-					returns.push({ code, out, err })
+					returns.push({ code, out, err, config, cmd })
 					// console.log('log: ', { code, out, err })
 					if (code !== 0) setLog({ command, code, out, err })
 					if (code !== 0 && config.kill) {

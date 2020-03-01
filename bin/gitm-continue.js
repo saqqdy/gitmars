@@ -23,7 +23,7 @@ program
 						if (el.code === 0) {
 							let c = typeof cmd[index] !== 'string' ? cmd[index].cmd : cmd[index]
 							sh.echo(success('指令 ' + c + ' 执行完毕'))
-							sh.exit(0)
+							index === cmd.length - 1 && sh.exit(0)
 						}
 					})
 				})
