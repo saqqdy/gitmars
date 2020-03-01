@@ -35,10 +35,10 @@ gitm start bugfix 20001
 ```
 
 #### gitm combine
-任务阶段提测，这部操作把分支代码合并到dev和bug分支
+任务阶段提测，这部操作把分支代码合并到dev和bug分支，环境参数必填
 ```
-# 形式：gitm combine <type> <name>
-gitm combine bugfix 20001
+# 形式：gitm combine <type> <name> [-d --dev] [-p --prod]
+gitm combine bugfix 20001 -pd
 ```
 
 #### gitm end
