@@ -11,7 +11,7 @@ program
 	.description('恢复暂存区最近一次暂存的文件')
 	.action(() => {
 		queue(['git stash pop']).then(data => {
-			if (data.code === 0) {
+			if (data[0].code === 0) {
 				sh.echo(success('文件恢复成功！'))
 			} else {
 				sh.echo(warning(data.err))
