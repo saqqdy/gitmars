@@ -36,7 +36,7 @@ program
 					},
 					{
 						cmd: `git push`,
-						config: { slient: false, again: false, success: '推送成功', fail: '推送失败，请根据提示处理' }
+						config: { slient: false, again: true, success: '推送成功', fail: '推送失败，请根据提示处理' }
 					},
 					`git branch -D ${type}/${name}`,
 					`git checkout ${config.develop}`
@@ -46,8 +46,6 @@ program
 					if (index === 2 || index === 3 || index === 6 || index === 7) {
 						if (el.code === 0) {
 							sh.echo(success(index === 3 || index === 7 ? '分支合并成功！' : '推送远程成功!'))
-						} else {
-							sh.echo(warning(el.out))
 						}
 					}
 				})
