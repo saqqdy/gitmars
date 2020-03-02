@@ -44,7 +44,7 @@ program
 	.name('gitm admin')
 	.usage('<command> <type>')
 	.command('publish <type>')
-	.description('对发版分支bugfix、release的操作')
+	.description('发布bugfix、release、support分支')
 	.action(async type => {
 		const opts = ['bugfix', 'release', 'support'] // 允许执行的指令
 		let status = await getStatus()
