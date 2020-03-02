@@ -19,6 +19,8 @@ program
 	.alias('st')
 	.command('end <type> <name>', '完成开发某项功能')
 	.alias('ed')
+	.command('update <type> <name>', '更新bug任务分支、更新feature功能开发分支')
+	.alias('up')
 	.command('branch', '列出分支列表')
 	.alias('bh')
 	.command('save', '暂存当前分支文件')
@@ -31,6 +33,8 @@ program
 	.alias('mg')
 	.command('continue', '继续未完成的操作')
 	.alias('ct')
+	.command('revert', '继续未完成的操作')
+	.alias('rt')
 	.command('admin <command>', '管理员功能，包含对发版分支bugfix、release的操作')
 
 // 自定义帮助
@@ -43,7 +47,7 @@ program.on('--help', function() {
 
 // 映射不存在的指令
 program.on('command:*', function(types, opts) {
-	let cmd = ['init', 'config', 'combine', 'cb', 'start', 'st', 'end', 'ed', 'branch', 'bh', 'save', 'sv', 'get', 'gt', 'copy', 'cp', 'merge', 'mg', 'continue', 'ct', 'admin']
+	let cmd = ['init', 'config', 'combine', 'cb', 'start', 'st', 'end', 'ed', 'update', 'up', 'branch', 'bh', 'save', 'sv', 'get', 'gt', 'copy', 'cp', 'merge', 'mg', 'continue', 'ct', 'revert', 'rt', 'admin']
 	if (!cmd.includes(types[0])) {
 		let arr = [].concat(types).concat(opts)
 		sh.exec('git ' + arr.join(' '), { silent: false })
