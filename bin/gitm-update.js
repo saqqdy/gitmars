@@ -19,7 +19,7 @@ program
 			let base = type === 'bugfix' ? config.bugfix : config.release,
 				cmd = [
 					`git checkout ${base}`,
-					`git pull origin ${base} --rebase`,
+					`git pull`,
 					`git checkout ${type}/${name}`,
 					{
 						cmd: `git rebase ${base}`,
@@ -35,8 +35,6 @@ program
 					if (index === 3 || index === 4) {
 						if (el.code === 0) {
 							sh.echo(success(index === 3 ? '分支更新成功！' : '推送远程成功!'))
-						} else {
-							sh.echo(warning(el.out))
 						}
 					}
 				})

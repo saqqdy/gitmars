@@ -28,27 +28,27 @@ gitm --help
 
 ## 日常任务
 创建任务分支(release)、BUG分支(bugfix)这两种类型的分支
-#### gitm start
+### gitm start
 ```
 # 形式：gitm start <type> <name>
 gitm start bugfix 20001
 ```
 
-#### gitm combine
+### gitm combine
 任务阶段提测，这部操作把分支代码合并到dev和bug分支，环境参数必填
 ```
 # 形式：gitm combine <type> <name> [-d --dev] [-p --prod]
 gitm combine bugfix 20001 -pd
 ```
 
-#### gitm end
+### gitm end
 任务完成，合并并删除分支，这个操作会把20001这个分支代码合并到bug分支并删除20001分支
 ```
 # 形式：gitm end <type> <name>
 gitm end bugfix 20001
 ```
 
-#### gitm update
+### gitm update
 把bug分支的最新代码同步到20001分支上
 ```
 # 形式：gitm update <type> <name>
@@ -56,14 +56,14 @@ gitm update bugfix 20001
 ```
 
 ## 扩展
-#### gitm merge
+### gitm merge
 合并分支，类似git merge功能
 ```
 # 形式：gitm merge <name>
 gitm merge 20001
 ```
 
-#### gitm copy
+### gitm copy
 复制其他分支上的提交记录到当前分支（注意关键词必须是4位以上的数字，任务号或者bug编号），gitm copy一共有两种使用方式
 1. 传入commit-id，把其他分支上的commit-id复制过来，执行下面指令
 ```
@@ -78,7 +78,7 @@ gitm copy release xxxxxx xxxxxx xxxxxx
 gitm copy dev --key 100000 --author saqqdy
 ```
 
-#### gitm branch
+### gitm branch
 提供分支搜索和删除功能（不开放删除远程分支功能）
 1. 查询本地feature功能分支
 ```
@@ -93,28 +93,37 @@ gitm branch --key bug001 -r -t feature
 gitm branch -d bugfix/bug001
 ```
 
-#### gitm save
+### gitm save
 暂存代码
 ```
 # 传入-f或者--force，程序会把没有版本库的文件执行add之后暂存起来
 gitm save [-f --force]
 ```
 
-#### gitm get
+### gitm get
 恢复暂存代码
 ```
 gitm get
 ```
 
 ## 管理员
-创建release、bug、support分支
+### gitm admin create
+创建release、bugfix、support和develop分支
 ```
-# 形式：gitm admin start <type> <name>
-gitm admin start release v1.0.0
+# 形式：gitm admin create <type>
+gitm admin create release
 ```
 
-发版之后合代码
+### gitm admin publish
+发版操作
 ```
-# 形式：gitm admin end <type> <name>
-gitm admin end release v1.0.0
+# 形式：gitm admin publish <type>
+gitm admin publish release
+```
+
+### gitm admin update
+更新release、bugfix、support分支代码
+```
+# 形式：gitm admin update <type>
+gitm admin update bug
 ```

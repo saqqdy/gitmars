@@ -189,6 +189,16 @@ const getStatus = async () => {
 }
 
 /**
+ * checkBranch
+ * @description 获取是否有某个分支
+ * @returns {Boolean} true 返回true/false
+ */
+const checkBranch = async name => {
+	const data = await queue([`gitm branch -k ${name}`])
+	return data[0].out.replace(/^\s+/, '')
+}
+
+/**
  * getCurrent
  * @description 获取当前分支
  * @returns {String} 返回名称
@@ -207,4 +217,4 @@ const handleConfigOutput = name => {
 	return '请输入' + name + '分支名称，默认为：' + defaults[name]
 }
 
-module.exports = { pwd, warning, success, defaults, config, configFrom, wait, queue, getCache, setCache, getStatus, getCurrent, handleConfigOutput }
+module.exports = { pwd, warning, success, defaults, config, configFrom, wait, queue, getCache, setCache, getStatus, checkBranch, getCurrent, handleConfigOutput }

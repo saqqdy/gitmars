@@ -34,9 +34,12 @@ program
 						cmds = cmds.concat([
 							{
 								cmd: `git cherry-pick ${commits.join(' ')}`,
-								config: { silent: false }
+								config: { slient: false, again: false, success: '记录合并成功', fail: '合并失败，请根据提示处理' }
 							},
-							{ cmd: `git push`, config: { silent: false } }
+							{
+								cmd: `git push`,
+								config: { slient: false, again: true, success: '推送成功', fail: '推送失败，请根据提示处理' }
+							}
 						])
 					} else {
 						sh.echo('没有找到任何记录')
@@ -52,9 +55,12 @@ program
 			let cmd = [
 				{
 					cmd: `git cherry-pick ${commitid.join(' ')}`,
-					config: { silent: false }
+					config: { slient: false, again: false, success: '记录合并成功', fail: '合并失败，请根据提示处理' }
 				},
-				{ cmd: `git push`, config: { silent: false } }
+				{
+					cmd: `git push`,
+					config: { slient: false, again: true, success: '推送成功', fail: '推送失败，请根据提示处理' }
+				}
 			]
 			queue(cmd).then(data => {
 				sh.echo(success('指令执行完毕'))
