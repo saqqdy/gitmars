@@ -6,6 +6,7 @@ const { warning, success, config, queue, getStatus, checkBranch } = require('./i
  * gitm admin create
  * gitm admin publish
  * gitm admin update
+ * gitm admin clean
  */
 program
 	.name('gitm admin')
@@ -171,6 +172,41 @@ program
 						}
 					}
 				})
+			})
+		} else {
+			sh.echo(warning('type只允许输入：' + opts.join(',')))
+			sh.exit(1)
+		}
+	})
+program
+	.name('gitm admin')
+	.usage('<command> <type>')
+	.command('clean <type>')
+	.description('构建清理工作')
+	.action(async type => {
+		const opts = ['bugfix', 'release', 'develop', 'master'] // 允许执行的指令
+		let status = await getStatus()
+		if (!status) sh.exit(1)
+		if (opts.includes(type)) {
+			let cmd = [
+				`git checkout .`,
+				`git clean -fd`,
+				`git checkout ${config.master}`,
+				`git branch -D ${config[type]}`,
+				`git fetch`,
+				`git checkout ${config[type]}`,
+				`git pull`
+			]
+			if (type === 'master') cmd = [
+				`git checkout .`,
+				`git clean -fd`,
+				`git checkout ${config.master}`,
+				`git clean -fd`,
+				`git fetch`,
+				`git pull`
+			]
+			queue(cmd).then(data => {
+				sh.echo(success('处理完毕'))
 			})
 		} else {
 			sh.echo(warning('type只允许输入：' + opts.join(',')))
