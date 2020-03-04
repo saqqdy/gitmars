@@ -1,6 +1,6 @@
 # gitmars
 一个定制化的git工作流操作工具
-每一个子命令都带了help功能，可输入 gitm command-name --help 获取对应指令的帮助信息
+每一个子命令都带了help功能，可输入 gitm command-name --help 获取对应子指令的帮助信息
 
 ## 安装
 ```
@@ -24,10 +24,11 @@ gitm -v
 
 # 查看帮助信息
 gitm --help
+gitm copy -h
 ```
 
 ## 日常任务
-创建任务分支(release)、BUG分支(bugfix)这两种类型的分支
+创建周四任务分支(release)、日常更新BUG分支(bugfix)这两种类型的分支
 ### gitm start
 #### 短指令：gitm st
 ```
@@ -80,7 +81,6 @@ gitm copy release xxxxxx xxxxxx xxxxxx
 2. 传入查询关键词，gitm会根据提供的关键词（目前限制关键词必须是4位以上的数字，可以是任务号或者bug编号），在对应分支的提交记录里面搜索提交记录并自动执行copy指令
 ```
 # 指令形式：gitm copy <from> [-k --key] [-a --author]
-# 
 gitm copy dev --key 100000 --author saqqdy
 ```
 
@@ -152,4 +152,11 @@ gitm admin publish release
 ```
 # 形式：gitm admin update <type>
 gitm admin update bug
+```
+
+### gitm admin clean
+Jenkins构建清理git分支专用，可传入release、bugfix、develop分支代码
+```
+# 形式：gitm admin clean <type>
+gitm admin clean bugfix
 ```
