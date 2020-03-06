@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 const program = require('commander')
 const sh = require('shelljs')
-const { warning, success, config, configFrom, queue, getStatus, pwd } = require('./index')
+const { error, success, config, configFrom, queue, getStatus, pwd } = require('./index')
 /**
  * gitm start
  */
@@ -18,17 +18,13 @@ program
 			// feature从release拉取，bugfix从bug拉取
 			let base = type === 'bugfix' ? config.bugfix : config.release,
 				cmd = [`cd ${pwd}`, `git checkout -b ${type}/${name} ${base}`]
-			queue(cmd)
-				.then(data => {
-					if (data[1].code === 0) {
-						sh.echo(`${name}分支创建成功，该分支基于${base}创建，您当前已经切换到${type}/${name}\n如果需要提测，请执行${success('gitm combine ' + type + ' ' + name)}\n开发完成后，记得执行: ${success('gitm end ' + type + ' ' + name)}`)
-					}
-				})
-				.catch(err => {
-					sh.echo(warning('指令 ' + err.cmd + ' 执行失败，请联系管理员'))
-				})
+			queue(cmd).then(data => {
+				if (data[1].code === 0) {
+					sh.echo(`${name}分支创建成功，该分支基于${base}创建，您当前已经切换到${type}/${name}\n如果需要提测，请执行${success('gitm combine ' + type + ' ' + name)}\n开发完成后，记得执行: ${success('gitm end ' + type + ' ' + name)}`)
+				}
+			})
 		} else {
-			sh.echo(warning('type只允许输入：' + JSON.stringify(opts)))
+			sh.echo(error('type只允许输入：' + JSON.stringify(opts)))
 			sh.exit(1)
 		}
 	})

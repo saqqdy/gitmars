@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 const program = require('commander')
 const sh = require('shelljs')
-const { warning, success, queue, getStatus, getCurrent } = require('./index')
+const { error, success, queue, getStatus, getCurrent } = require('./index')
 /**
  * gitm copy
  */
@@ -19,7 +19,7 @@ program
 		if (opts.key !== '' || opts.author !== '') {
 			let cmd = [`git checkout ${from}`, `git log --grep=${opts.key} --author=${opts.author}`]
 			if (!/^\d{4,}$/.test(opts.key)) {
-				sh.echo(warning('为确保copy准确，关键词必须是4位以上的任务号或者bug修复编号'))
+				sh.echo(error('为确保copy准确，关键词必须是4位以上的任务号或者bug修复编号'))
 				sh.exit(1)
 			}
 			queue(cmd).then(data => {
@@ -44,9 +44,7 @@ program
 					} else {
 						sh.echo('没有找到任何记录')
 					}
-					queue(cmds).then(data1 => {
-						sh.echo(success('指令执行完毕'))
-					})
+					queue(cmds)
 				} else {
 					sh.echo(data[1].err)
 				}
@@ -62,9 +60,7 @@ program
 					config: { slient: false, again: true, success: '推送成功', fail: '推送失败，请根据提示处理' }
 				}
 			]
-			queue(cmd).then(data => {
-				sh.echo(success('指令执行完毕'))
-			})
+			queue(cmd)
 		}
 	})
 program.parse(process.argv)

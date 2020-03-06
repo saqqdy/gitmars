@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 const program = require('commander')
 const sh = require('shelljs')
-const { warning, success, config, configFrom, queue, pwd } = require('./index')
+const { error, success, config, configFrom, queue, pwd } = require('./index')
 /**
  * gitm get
  */
@@ -10,12 +10,6 @@ program
 	.usage('')
 	.description('恢复暂存区最近一次暂存的文件')
 	.action(() => {
-		queue(['git stash pop']).then(data => {
-			if (data[0].code === 0) {
-				sh.echo(success('文件恢复成功！'))
-			} else {
-				sh.echo(warning(data.err))
-			}
-		})
+		queue([{ cmd: 'git stash pop', config: { success: '文件恢复成功', fail: '恢复失败，请检查冲突' } }])
 	})
 program.parse(process.argv)

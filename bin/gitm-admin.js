@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 const program = require('commander')
 const sh = require('shelljs')
-const { warning, success, config, queue, getStatus, checkBranch } = require('./index')
+const { error, success, config, queue, getStatus, checkBranch } = require('./index')
 /**
  * gitm admin create
  * gitm admin publish
@@ -21,11 +21,11 @@ program
 			exits = await checkBranch(config[type])
 		if (!status) sh.exit(1)
 		if (!hasBase) {
-			sh.echo(warning(base + '分支不存在，请先创建' + base + '分支'))
+			sh.echo(error(base + '分支不存在，请先创建' + base + '分支'))
 			sh.exit(1)
 		}
 		if (exits) {
-			sh.echo(warning(config[type] + '分支已存在，不需要重复创建'))
+			sh.echo(error(config[type] + '分支已存在，不需要重复创建'))
 			sh.exit(1)
 		}
 		if (opts.includes(type)) {
@@ -37,7 +37,7 @@ program
 				}
 			})
 		} else {
-			sh.echo(warning('type只允许输入：' + opts.join(',')))
+			sh.echo(error('type只允许输入：' + opts.join(',')))
 			sh.exit(1)
 		}
 	})
@@ -121,17 +121,9 @@ program
 					}
 				]
 			}
-			queue(cmd[type]).then(data => {
-				data.forEach((el, index) => {
-					if (index === 4 || index === 5 || index === 8 || index === 9) {
-						if (el.code === 0) {
-							sh.echo(success(index === 4 || index === 8 ? '分支合并成功！' : '推送远程成功!'))
-						}
-					}
-				})
-			})
+			queue(cmd[type])
 		} else {
-			sh.echo(warning('type只允许输入：' + opts.join(',')))
+			sh.echo(error('type只允许输入：' + opts.join(',')))
 			sh.exit(1)
 		}
 	})
@@ -164,17 +156,9 @@ program
 					config: { slient: false, again: true, success: '推送成功', fail: '推送失败，请根据提示处理' }
 				}
 			]
-			queue(cmd).then(data => {
-				data.forEach((el, index) => {
-					if (index === 4 || index === 5) {
-						if (el.code === 0) {
-							sh.echo(success(index === 4 ? '分支合并成功！' : '推送远程成功!'))
-						}
-					}
-				})
-			})
+			queue(cmd)
 		} else {
-			sh.echo(warning('type只允许输入：' + opts.join(',')))
+			sh.echo(error('type只允许输入：' + opts.join(',')))
 			sh.exit(1)
 		}
 	})
@@ -205,11 +189,9 @@ program
 				`git fetch`,
 				`git pull`
 			]
-			queue(cmd).then(data => {
-				sh.echo(success('处理完毕'))
-			})
+			queue(cmd)
 		} else {
-			sh.echo(warning('type只允许输入：' + opts.join(',')))
+			sh.echo(error('type只允许输入：' + opts.join(',')))
 			sh.exit(1)
 		}
 	})

@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 const program = require('commander')
 const sh = require('shelljs')
-const { warning, success, config, configFrom, queue, pwd } = require('./index')
+const { error, success, config, configFrom, queue, pwd } = require('./index')
 /**
  * gitm branch
  */
@@ -25,50 +25,31 @@ program
 		} else {
 			// 分支查询
 			cmd.push(`git branch -a`)
-			queue(cmd)
-				.then(data => {
-					data.forEach((el, index) => {
-						if (index === 1 && el.code === 0) {
-							let list = el.out.split('\n')
-							list = list.filter(el => {
-								let fit = true
-								if (opt.key) {
-									fit = fit && el.indexOf(opt.key) > -1
-								}
-								if (opt.type) {
-									fit = fit && el.indexOf(opt.type) > -1
-								}
-								if (opt.remote) {
-									fit = fit && el.indexOf('remotes/origin') > -1
-								} else {
-									fit = fit && el.indexOf('remotes/origin') === -1
-								}
-								return fit
-							})
-							sh.echo(list.join('\n'))
-						}
-					})
+			queue(cmd).then(data => {
+				data.forEach((el, index) => {
+					if (index === 1 && el.code === 0) {
+						let list = el.out.split('\n')
+						list = list.filter(el => {
+							let fit = true
+							if (opt.key) {
+								fit = fit && el.indexOf(opt.key) > -1
+							}
+							if (opt.type) {
+								fit = fit && el.indexOf(opt.type) > -1
+							}
+							if (opt.remote) {
+								fit = fit && el.indexOf('remotes/origin') > -1
+							} else {
+								fit = fit && el.indexOf('remotes/origin') === -1
+							}
+							return fit
+						})
+						sh.echo(list.join('\n'))
+					}
 				})
-				.catch(err => {
-					sh.echo(warning('指令 ' + err.cmd + ' 执行失败，请联系管理员'))
-				})
+			})
 			return
 		}
-		queue(cmd).then(data => {
-			data.forEach((el, index) => {
-				if (index === 1 && el.code === 0) {
-					sh.echo(success('分支删除成功'))
-				}
-			})
-		})
-		// .catch(err => {
-		// 	let msg = err.result[err.result.length - 1].err
-		// 	sh.echo(warning(msg))
-		// 	if (msg.indexOf('checked out at') > -1) {
-		// 		sh.echo(warning('不能删除当前分支，请先切换到其他分支'))
-		// 	} else {
-		// 		sh.echo(warning('指令 ' + err.cmd + ' 执行失败，请联系管理员'))
-		// 	}
-		// })
+		queue(cmd)
 	})
 program.parse(process.argv)

@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 const program = require('commander')
 const sh = require('shelljs')
-const { warning, success, queue, pwd } = require('./index')
+const { error, success, queue, pwd } = require('./index')
 /**
  * gitm revert
  */
@@ -17,15 +17,10 @@ program
 			let n = Math.abs(Number(opt.number)),
 				set = 'HEAD'
 			if (n > 1) set += '~' + (n - 1)
-			console.log(set)
 			cmd.push({ cmd: `git revert ${set}`, config: { slient: false, again: true, success: '撤销成功', fail: '出错了，请根据提示处理' } })
 		} else {
 			cmd.push({ cmd: `git revert ${commitid}`, config: { slient: false, again: true, success: '撤销成功', fail: '出错了，请根据提示处理' } })
 		}
-		queue(cmd).then(data => {
-			if (data[0].code === 0) {
-				sh.echo(success('撤销成功'))
-			}
-		})
+		queue(cmd)
 	})
 program.parse(process.argv)

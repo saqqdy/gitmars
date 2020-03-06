@@ -4,6 +4,9 @@ let pwd = sh.pwd() + '/',
 	configFrom = 0,
 	config = {}
 const warning = txt => {
+	return colors.yellow(txt)
+}
+const error = txt => {
 	return colors.red(txt)
 }
 const success = txt => {
@@ -94,10 +97,8 @@ const queue = list => {
 				config = Object.assign(config, command.config || {})
 				cmd = command.cmd
 			}
-			// console.log(4000000, cmd)
 			if (!cmd) {
 				// 只有一条指令，不需返回数组形式
-				// resolve(returns.length === 1 ? returns[0] : returns)
 				resolve(returns)
 			} else {
 				sh.exec(cmd, config, (code, out, err) => {
@@ -107,7 +108,6 @@ const queue = list => {
 						out = out.replace(/\n*$/g, '')
 					}
 					returns.push({ code, out, err, config, cmd })
-					// console.log('log: ', { code, out, err })
 					if (code !== 0) setLog({ command, code, out, err })
 					if (code !== 0 && config.kill) {
 						// 当前指令执行错误且设置该条指令需要中断，则中断递归
@@ -116,20 +116,16 @@ const queue = list => {
 						cb(true) // 回调并中断执行
 						setCache(rest)
 						// 只有silent模式才需要输出信息
-						config.silent && sh.echo(warning(err))
-						sh.echo(warning('指令 ' + cmd + ' 执行失败，中断了进程'))
-						rest.length > 0 && sh.echo(warning('请处理相关问题之后输入gitm continue继续'))
+						config.silent && sh.echo(error(err))
+						sh.echo(error('指令 ' + cmd + ' 执行失败，中断了进程'))
+						rest.length > 0 && sh.echo(error('请处理相关问题之后输入gitm continue继续'))
 						sh.exit(1)
-						// 抛出异常
-						// reject({
-						// 	// result: returns.length === 1 ? returns[0] : returns,
-						// 	result: returns, // 执行完的指令序列返回值
-						// 	cmd: cmd, // 最后一次执行的指令
-						// 	msg: { code, out, err }, // 最后一条消息
-						// 	config: config, // 指令配置
-						// 	rest: rest // 剩余未执行的指令
-						// })
 					} else {
+						if (code === 0) {
+							sh.echo(success(config.success || '指令 ' + cmd + ' 执行成功'))
+						} else {
+							sh.echo(warning(config.fail || '指令 ' + cmd + ' 执行失败'))
+						}
 						cb() // 回调，继续执行吓一条
 					}
 				})
@@ -217,4 +213,4 @@ const handleConfigOutput = name => {
 	return '请输入' + name + '分支名称，默认为：' + defaults[name]
 }
 
-module.exports = { pwd, warning, success, defaults, config, configFrom, wait, queue, getCache, setCache, getStatus, checkBranch, getCurrent, handleConfigOutput }
+module.exports = { pwd, warning, error, success, defaults, config, configFrom, wait, queue, getCache, setCache, getStatus, checkBranch, getCurrent, handleConfigOutput }
