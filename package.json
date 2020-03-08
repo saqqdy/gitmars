@@ -1,7 +1,7 @@
 {
 	"name": "gitmars",
 	"description": "git tool for newbees",
-	"version": "1.0.6",
+	"version": "1.0.7",
 	"main": "bin/gitm.js",
 	"scripts": {
 		"start": "react-scripts start"
@@ -11,7 +11,7 @@
 	},
 	"dependencies": {
 		"colors": "^1.4.0",
-		"commander": "^4.1.0",
+		"commander": "4.1.1",
 		"shelljs": "^0.8.3",
 		"tracer": "^1.0.2"
 	},

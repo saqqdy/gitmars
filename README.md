@@ -102,19 +102,19 @@ gitm branch -d bugfix/bug001
 
 ### gitm revert
 #### 短指令：gitm rt
-撤销当前分支的某条提交记录
+撤销当前分支的某条提交记录，如果需要撤销一条merge记录，需要传入撤销方式，1 = 保留当前分支代码；2 = 保留传入代码
 1. 撤销最后一次提交（或者撤销倒数第n次提交）
 ```
 # 形式：gitm revert [commitid] [-n --number]
 # 撤销最后一次提交
-gitm revert -n 1
+gitm revert -n 1 --mode 1
 # 或者
 gitm revert -n 3
 ```
 2. 撤销某条提交id
 ```
-# 形式：gitm revert [commitid]
-gitm revert xxxxxx
+# 形式：gitm revert [commitid] [-m --mode [mode]]
+gitm revert xxxxxx -m 1
 ```
 
 ### gitm save

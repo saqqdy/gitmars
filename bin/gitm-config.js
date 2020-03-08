@@ -43,7 +43,7 @@ program
 					sh.exec(`echo '${arr.join('\n')}' >.gitmarsrc`)
 				}
 			} else {
-				sh.echo(gitm.warning('不支持' + option + '这个配置项'))
+				sh.echo(gitm.error('不支持' + option + '这个配置项'))
 				process.exit(1)
 			}
 		} else {
@@ -66,7 +66,7 @@ program
 					}
 					process.exit(0)
 				} else {
-					sh.echo(gitm.warning('不支持' + option + '这个配置项'))
+					sh.echo(gitm.error('不支持' + option + '这个配置项'))
 					process.exit(1)
 				}
 			})

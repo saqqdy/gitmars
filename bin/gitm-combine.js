@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 const program = require('commander')
 const sh = require('shelljs')
-const { warning, success, config, queue, getStatus, pwd } = require('./index')
+const { error, success, config, queue, getStatus, pwd } = require('./index')
 /**
  * gitm combine
  */
@@ -51,17 +51,9 @@ program
 					`git checkout ${type}/${name}`
 				])
 			}
-			queue(cmd).then(data => {
-				data.forEach((el, index) => {
-					if (index === 2 || index === 3 || index === 7 || index === 8) {
-						if (el.code === 0) {
-							sh.echo(success(index === 3 || index === 8 ? '分支合并成功！' : '推送远程成功!'))
-						}
-					}
-				})
-			})
+			queue(cmd)
 		} else {
-			sh.echo(warning('type只允许输入：' + JSON.stringify(allow)))
+			sh.echo(error('type只允许输入：' + JSON.stringify(allow)))
 			sh.exit(1)
 		}
 	})

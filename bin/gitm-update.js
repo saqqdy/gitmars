@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 const program = require('commander')
 const sh = require('shelljs')
-const { warning, success, config, configFrom, queue, getStatus, pwd } = require('./index')
+const { error, success, config, configFrom, queue, getStatus, pwd } = require('./index')
 /**
  * gitm update
  */
@@ -23,24 +23,12 @@ program
 					`git checkout ${type}/${name}`,
 					{
 						cmd: `git rebase ${base}`,
-						config: { slient: false, again: false, success: '分支合并成功', fail: '合并失败，请根据提示处理' }
+						config: { slient: false, again: false, success: '分支更新成功', fail: '合并失败，请根据提示处理' }
 					},
-					{
-						cmd: `git push`,
-						config: { slient: false, again: true, success: '推送成功', fail: '推送失败，请根据提示处理' }
-					}
 				]
-			queue(cmd).then(data => {
-				data.forEach((el, index) => {
-					if (index === 3 || index === 4) {
-						if (el.code === 0) {
-							sh.echo(success(index === 3 ? '分支更新成功！' : '推送远程成功!'))
-						}
-					}
-				})
-			})
+			queue(cmd)
 		} else {
-			sh.echo(warning('type只允许输入：' + JSON.stringify(opts)))
+			sh.echo(error('type只允许输入：' + JSON.stringify(opts)))
 			sh.exit(1)
 		}
 	})

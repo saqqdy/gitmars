@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 const program = require('commander')
 const sh = require('shelljs')
-const { warning, success, config, configFrom, queue, pwd } = require('./index')
+const { error, success, config, configFrom, queue, pwd } = require('./index')
 /**
  * gitm save
  */
@@ -10,20 +10,11 @@ program
 	.usage('')
 	.description('暂存当前分支文件')
 	.option('-f, --force', '没有版本的文件也暂存，这会执行git add .', false)
-	.action((opt) => {
-		let cmd = [`cd ${pwd}`, 'git stash']
+	.action(opt => {
+		let cmd = [{ cmd: 'git stash', config: { success: '文件暂存成功', fail: '出错了，请联系管理员' } }]
 		if (opt.force) {
-			cmd = [`cd ${pwd}`, 'git add .', 'git stash']
+			cmd = ['git add .', { cmd: 'git stash', config: { success: '文件暂存成功', fail: '出错了，请联系管理员' } }]
 		}
-		queue(cmd).then(data => {
-			data.forEach((el, index) => {
-				if (index === data.length - 1 && el.code === 0) {
-					sh.echo(success('文件暂存成功！'))
-				}
-				if (el.code !== 0) {
-					sh.echo(warning('指令' + cmd[index] + '执行失败，请联系管理员'))
-				}
-			})
-		})
+		queue(cmd)
 	})
 program.parse(process.argv)
