@@ -28,7 +28,12 @@ program
 						cmd: `git push`,
 						config: { slient: false, again: true, success: '推送成功', fail: '推送失败，请根据提示处理' }
 					},
-					`git checkout ${base}`,
+					`git checkout ${type}/${name}`
+				]
+			// support分支需要合到bugfix
+			if (type === 'support') {
+				cmd = cmd.concat([
+					`git checkout ${config.bugfix}`,
 					`git pull`,
 					{
 						cmd: `git merge --no-ff ${type}/${name}`,
@@ -38,9 +43,23 @@ program
 						cmd: `git push`,
 						config: { slient: false, again: true, success: '推送成功', fail: '推送失败，请根据提示处理' }
 					},
-					`git branch -D ${type}/${name}`,
-					`git checkout ${config.develop}`
-				]
+					`git checkout ${type}/${name}`
+				])
+			}
+			cmd = cmd.concat([
+				`git checkout ${base}`,
+				`git pull`,
+				{
+					cmd: `git merge --no-ff ${type}/${name}`,
+					config: { slient: false, again: false, success: '分支合并成功', fail: '合并失败，请根据提示处理' }
+				},
+				{
+					cmd: `git push`,
+					config: { slient: false, again: true, success: '推送成功', fail: '推送失败，请根据提示处理' }
+				},
+				`git branch -D ${type}/${name}`,
+				`git checkout ${config.develop}`
+			])
 			queue(cmd)
 		} else {
 			sh.echo(error('type只允许输入：' + JSON.stringify(allow)))

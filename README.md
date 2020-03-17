@@ -28,7 +28,7 @@ gitm copy -h
 ```
 
 ## 日常任务
-创建周四任务分支(release)、日常更新BUG分支(bugfix)这两种类型的分支
+创建周四任务分支(release)、日常更新BUG分支(bugfix)这两种类型的分支、项目框架相关的support分支
 ### gitm start
 #### 短指令：gitm st
 ```
