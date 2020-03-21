@@ -9,6 +9,7 @@ if (sh.test('-f', '.gitmarsrc')) {
 	let str = (sh.cat('.gitmarsrc') + '')
 			.replace(/(^\n*)|(\n*$)/g, '')
 			.replace(/\n{2,}/g, '\n')
+			.replace(/\r/g, '')
 			.replace(/[^\S\x0a\x0d]/g, ''),
 		arr = []
 	if (str) arr = str.split('\n')
@@ -41,7 +42,8 @@ program
 			if (i < keys.length) {
 				sh.echo(gitm.success(gitm.handleConfigOutput(keys[i])))
 			} else {
-				let r = sh.exec(`echo '${o.join('\n')}' >.gitmarsrc`)
+				let r = sh.echo(o.join('\n')).to('.gitmarsrc')
+				// let r = sh.exec(`echo '${o.join('\n')}' >.gitmarsrc`)
 				if (r.code === 0) {
 					sh.echo(gitm.success('配置成功！'))
 					process.exit(0)

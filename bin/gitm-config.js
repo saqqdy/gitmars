@@ -7,9 +7,10 @@ let config = {},
 if (sh.test('-f', '.gitmarsrc')) {
 	configFrom = 1
 	let str = (sh.cat('.gitmarsrc') + '')
-			.replace(/(^\n*)|(\n*$)/g, '')
-			.replace(/\n{2,}/g, '\n')
-			.replace(/[^\S\x0a\x0d]/g, ''),
+		.replace(/(^\n*)|(\n*$)/g, '')
+		.replace(/\r/g, '')
+		.replace(/\n{2,}/g, '\n')
+		.replace(/[^\S\x0a\x0d]/g, ''),
 		arr = []
 	if (str) arr = str.split('\n')
 	arr.forEach((el) => {
@@ -20,6 +21,7 @@ if (sh.test('-f', '.gitmarsrc')) {
 	configFrom = 2
 	config = require('../gitmarsconfig.json')
 }
+// console.log(config)
 /**
  * gitm config set
  */
@@ -34,13 +36,15 @@ program
 			if (Object.keys(gitm.defaults).includes(option)) {
 				o[option] = value
 				if (configFrom === 2) {
-					sh.exec(`echo '${JSON.stringify(o, null, 4)}' >gitmarsconfig.json`)
+					sh.echo(JSON.stringify(o, null, 4)).to('gitmarsconfig.json')
+					// sh.exec(`echo '${JSON.stringify(o, null, 4)}' >gitmarsconfig.json`)
 				} else {
 					let arr = []
 					for (let k in o) {
 						arr.push(k + ' = ' + o[k])
 					}
-					sh.exec(`echo '${arr.join('\n')}' >.gitmarsrc`)
+					sh.echo(arr.join('\n')).to('.gitmarsrc')
+					// sh.exec(`echo ${arr.join('\n')}>.gitmarsrc`, { encoding: true })
 				}
 			} else {
 				sh.echo(gitm.error('不支持' + option + '这个配置项'))
@@ -56,13 +60,15 @@ program
 				if (Object.keys(gitm.defaults).includes(option)) {
 					o[option] = data.replace(/[\n\s]*/g, '') || gitm.defaults[option]
 					if (configFrom === 2) {
-						sh.exec(`echo '${JSON.stringify(o, null, 4)}' >gitmarsconfig.json`)
+						sh.echo(JSON.stringify(o, null, 4)).to('gitmarsconfig.json')
+						// sh.exec(`echo '${JSON.stringify(o, null, 4)}' >gitmarsconfig.json`)
 					} else {
 						let arr = []
 						for (let k in o) {
 							arr.push(k + ' = ' + o[k])
 						}
-						sh.exec(`echo '${arr.join('\n')}' >.gitmarsrc`)
+						sh.echo(arr.join('\n')).to('.gitmarsrc')
+						// sh.exec(`echo '${arr.join('\n')}' >.gitmarsrc`)
 					}
 					process.exit(0)
 				} else {
