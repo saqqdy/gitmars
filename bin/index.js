@@ -39,9 +39,10 @@ configFrom = getConfigFrom()
 function getConfig() {
 	if (configFrom === 1) {
 		let str = (sh.cat('.gitmarsrc') + '')
-				.replace(/(^\n*)|(\n*$)/g, '')
-				.replace(/\n{2,}/g, '\n')
-				.replace(/[^\S\x0a\x0d]/g, ''),
+			.replace(/(^\n*)|(\n*$)/g, '')
+			.replace(/\n{2,}/g, '\n')
+			.replace(/\r/g, '')
+			.replace(/[^\S\x0a\x0d]/g, ''),
 			arr = []
 		if (str) arr = str.split('\n')
 		arr.forEach(el => {
@@ -87,10 +88,10 @@ const queue = list => {
 		list = JSON.parse(JSON.stringify(list))
 		wait(list, (command, cb) => {
 			let config = {
-					silent: true,
-					kill: true,
-					again: false // 指令执行中断之后是否需要重新执行，类似冲突解决之后的指令，不再需要重复执行
-				},
+				silent: true,
+				kill: true,
+				again: false // 指令执行中断之后是否需要重新执行，类似冲突解决之后的指令，不再需要重复执行
+			},
 				cmd = command
 			// 传入对象形式：{ cmd: '', config: {} }
 			if (command instanceof Object) {
@@ -142,7 +143,10 @@ const queue = list => {
 const getCache = () => {
 	let arr = []
 	if (sh.test('-f', pwd + '.git/.gitmarscommands')) {
-		arr = (sh.cat('.git/.gitmarscommands') + '').replace(/(^\n*)|(\n*$)/g, '').replace(/\n{2,}/g, '\n')
+		arr = (sh.cat('.git/.gitmarscommands') + '')
+			.replace(/(^\n*)|(\n*$)/g, '')
+			.replace(/\n{2,}/g, '\n')
+			.replace(/\r/g, '')
 		arr = JSON.parse(arr)
 	}
 	return arr
@@ -153,7 +157,8 @@ const getCache = () => {
  * @description 存储未执行脚本列表
  */
 const setCache = rest => {
-	sh.exec(`echo '${JSON.stringify(rest)}' >.git/.gitmarscommands`)
+	sh.echo(JSON.stringify(rest)).to('.gitmarscommands')
+	// sh.exec(`echo ${JSON.stringify(rest)}>.git/.gitmarscommands`)
 }
 
 /**
@@ -161,7 +166,8 @@ const setCache = rest => {
  * @description 存储错误日志
  */
 const setLog = log => {
-	sh.exec(`echo '${JSON.stringify(log)}' >>.git/.gitmarslog`)
+	sh.echo(JSON.stringify(log)).to('.gitmarslog')
+	// sh.exec(`echo ${JSON.stringify(log)}>>.git/.gitmarslog`)
 }
 
 /**
