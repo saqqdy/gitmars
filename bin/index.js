@@ -157,7 +157,7 @@ const getCache = () => {
  * @description 存储未执行脚本列表
  */
 const setCache = rest => {
-	sh.echo(encodeURIComponent(JSON.stringify(rest))).to('.gitmarscommands')
+	sh.echo(encodeURIComponent(JSON.stringify(rest))).to('.git/.gitmarscommands')
 	// sh.exec(`echo ${JSON.stringify(rest)}>.git/.gitmarscommands`)
 }
 
@@ -166,7 +166,7 @@ const setCache = rest => {
  * @description 存储错误日志
  */
 const setLog = log => {
-	sh.echo(encodeURIComponent(JSON.stringify(log))).to('.gitmarslog')
+	sh.echo(encodeURIComponent(JSON.stringify(log))).to('.git/.gitmarslog')
 	// sh.exec(`echo ${JSON.stringify(log)}>>.git/.gitmarslog`)
 }
 
