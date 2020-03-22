@@ -7,13 +7,13 @@ let config = {},
 if (sh.test('-f', '.gitmarsrc')) {
 	configFrom = 1
 	let str = (sh.cat('.gitmarsrc') + '')
-		.replace(/(^\n*)|(\n*$)/g, '')
-		.replace(/\r/g, '')
-		.replace(/\n{2,}/g, '\n')
-		.replace(/[^\S\x0a\x0d]/g, ''),
+			.replace(/(^\n*)|(\n*$)/g, '')
+			.replace(/\r/g, '')
+			.replace(/\n{2,}/g, '\n')
+			.replace(/[^\S\x0a\x0d]/g, ''),
 		arr = []
 	if (str) arr = str.split('\n')
-	arr.forEach((el) => {
+	arr.forEach(el => {
 		let o = el.split('=')
 		config[o[0]] = o[1] || null
 	})
@@ -21,12 +21,11 @@ if (sh.test('-f', '.gitmarsrc')) {
 	configFrom = 2
 	config = require('../gitmarsconfig.json')
 }
-// console.log(config)
 /**
  * gitm config set
  */
 program
-	.name('gitm config set')
+	.name('gitm config')
 	.usage('<option> [value]')
 	.command('set <option> [value]')
 	.description('设置gitmars的配置项')
@@ -54,8 +53,8 @@ program
 			console.log('请输入：')
 			process.stdin.resume()
 			process.stdin.setEncoding('utf8')
-			process.stdin.on('data', (data) => {
-				process.stdout.write(data);
+			process.stdin.on('data', data => {
+				process.stdout.write(data)
 				let o = { ...config }
 				if (Object.keys(gitm.defaults).includes(option)) {
 					o[option] = data.replace(/[\n\s]*/g, '') || gitm.defaults[option]
@@ -78,8 +77,20 @@ program
 			})
 		}
 	})
+/**
+ * gitm config list
+ */
+program
+	.name('gitm config')
+	.usage('list [option]')
+	.command('list [option]')
+	.description('查询单个或全部gitmars的配置项')
+	.action(option => {
+		if (option) {
+			sh.echo(gitm.success(config[option]))
+		} else {
+			sh.echo(gitm.success(config))
+		}
+		sh.exit(1)
+	})
 program.parse(process.argv)
-
-if (process.argv.slice(2).length === 0) {
-	sh.echo(JSON.stringify(config))
-}

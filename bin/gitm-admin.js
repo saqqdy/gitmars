@@ -46,7 +46,9 @@ program
 	.usage('<command> <type>')
 	.command('publish <type>')
 	.description('发布bugfix、release、support分支')
-	.action(async type => {
+	.option('-c, --combine', '是否把release代码同步到bug', false)
+	.option('-r, --rebase', '是否使用rebase方式更新，默认merge', false)
+	.action(async (type, opt) => {
 		const opts = ['bugfix', 'release', 'support'] // 允许执行的指令
 		let status = await getStatus()
 		if (!status) sh.exit(1)
@@ -121,6 +123,44 @@ program
 					}
 				]
 			}
+			if (type === 'release' && opt.combine) {
+				if (opt.rebase) {
+					cmd[type] = cmd[type].concat([
+						`git checkout ${config.release}`,
+						`git pull`,
+						`git checkout ${config.bugfix}`,
+						{
+							cmd: `git pull origin ${config.bugfix} --rebase`,
+							config: { slient: false, again: true }
+						},
+						{
+							cmd: `git rebase ${config.release}`,
+							config: { slient: false, again: false, success: '分支合并成功', fail: '合并失败，请根据提示处理' }
+						},
+						{
+							cmd: `git push`,
+							config: { slient: false, again: true, success: '推送成功', fail: '推送失败，请根据提示处理' }
+						},
+						`git checkout ${config.release}`
+					])
+				} else {
+					cmd[type] = cmd[type].concat([
+						`git checkout ${config.release}`,
+						`git pull`,
+						`git checkout ${config.bugfix}`,
+						`git pull`,
+						{
+							cmd: `git merge --no-ff ${config.release}`,
+							config: { slient: false, again: false, success: '分支合并成功', fail: '合并失败，请根据提示处理' }
+						},
+						{
+							cmd: `git push`,
+							config: { slient: false, again: true, success: '推送成功', fail: '推送失败，请根据提示处理' }
+						},
+						`git checkout ${config.release}`
+					])
+				}
+			}
 			queue(cmd[type])
 		} else {
 			sh.echo(error('type只允许输入：' + opts.join(',')))
@@ -132,7 +172,8 @@ program
 	.usage('<command> <type>')
 	.command('update <type>')
 	.description('更新bugfix、release、support分支代码')
-	.action(async type => {
+	.option('-r, --rebase', '是否使用rebase方式更新，默认merge', false)
+	.action(async (type, opt) => {
 		const opts = ['bugfix', 'release', 'support'] // 允许执行的指令
 		let base = type === 'release' ? config.master : config.release,
 			status = await getStatus()
@@ -144,11 +185,11 @@ program
 				`git pull`,
 				`git checkout ${config[type]}`,
 				{
-					cmd: `git pull origin ${config[type]} --rebase`,
+					cmd: `git pull`,
 					config: { slient: false, again: true }
 				},
 				{
-					cmd: `git rebase ${base}`,
+					cmd: `git merge --no-ff ${base}`,
 					config: { slient: false, again: false, success: '分支合并成功', fail: '合并失败，请根据提示处理' }
 				},
 				{
@@ -156,6 +197,25 @@ program
 					config: { slient: false, again: true, success: '推送成功', fail: '推送失败，请根据提示处理' }
 				}
 			]
+			if (opt.rebase) {
+				cmd = [
+					`git checkout ${base}`,
+					`git pull`,
+					`git checkout ${config[type]}`,
+					{
+						cmd: `git pull origin ${config[type]} --rebase`,
+						config: { slient: false, again: true }
+					},
+					{
+						cmd: `git rebase ${base}`,
+						config: { slient: false, again: false, success: '分支合并成功', fail: '合并失败，请根据提示处理' }
+					},
+					{
+						cmd: `git push`,
+						config: { slient: false, again: true, success: '推送成功', fail: '推送失败，请根据提示处理' }
+					}
+				]
+			}
 			queue(cmd)
 		} else {
 			sh.echo(error('type只允许输入：' + opts.join(',')))
@@ -172,23 +232,8 @@ program
 		let status = await getStatus()
 		if (!status) sh.exit(1)
 		if (opts.includes(type)) {
-			let cmd = [
-				`git checkout .`,
-				`git clean -fd`,
-				`git checkout ${config.master}`,
-				`git branch -D ${config[type]}`,
-				`git fetch`,
-				`git checkout ${config[type]}`,
-				`git pull`
-			]
-			if (type === 'master') cmd = [
-				`git checkout .`,
-				`git clean -fd`,
-				`git checkout ${config.master}`,
-				`git clean -fd`,
-				`git fetch`,
-				`git pull`
-			]
+			let cmd = [`git checkout .`, `git clean -fd`, `git checkout ${config.master}`, `git branch -D ${config[type]}`, `git fetch`, `git checkout ${config[type]}`, `git pull`]
+			if (type === 'master') cmd = [`git checkout .`, `git clean -fd`, `git checkout ${config.master}`, `git clean -fd`, `git fetch`, `git pull`]
 			queue(cmd)
 		} else {
 			sh.echo(error('type只允许输入：' + opts.join(',')))
