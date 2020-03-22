@@ -4,7 +4,7 @@ const program = require('commander')
 const sh = require('shelljs')
 const { error } = require('./index')
 if (!sh.which('git')) {
-	sh.echo(error('gitmars只能在git项目中执行'))
+	sh.echo(error('gitmars只能在git环境下执行'))
 	sh.exit(1)
 }
 program.version('v' + set.version + ', powered by saqqdy', '-v, --version', '查看gitmars版本')
