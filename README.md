@@ -143,8 +143,10 @@ gitm admin create release
 ### gitm admin publish
 发版操作
 ```
-# 形式：gitm admin publish <type> [-c --combine] [-r --rebase]
-# 可传入2个参数，传入combine时合并release之后会把release同步到bugfix，传入rebase使用release方法合并
+# 形式：gitm admin publish <type> [-c --combine] [-r --rebase] [-p --prod]
+# 传入combine时合并release之后会把release同步到bugfix
+# 传入rebase使用release方法合并
+# 当需要发布bugfix时，传入prod会把bugfix同步到master，不传则不合并
 gitm admin publish release
 ```
 
