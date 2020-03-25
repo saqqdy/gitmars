@@ -48,6 +48,7 @@ program
 	.description('发布bugfix、release、support分支')
 	.option('-c, --combine', '是否把release代码同步到bug', false)
 	.option('-r, --rebase', '是否使用rebase方式更新，默认merge', false)
+	.option('-p, --prod', '发布bug分支时，是否合并bug到master', false)
 	.action(async (type, opt) => {
 		const opts = ['bugfix', 'release', 'support'] // 允许执行的指令
 		let status = await getStatus()
@@ -64,16 +65,6 @@ program
 					`git checkout ${config.bugfix}`,
 					`git pull`,
 					`git checkout ${config.release}`,
-					`git pull`,
-					{
-						cmd: `git merge --no-ff ${config.bugfix}`,
-						config: { slient: false, again: false, success: '分支合并成功', fail: '合并失败，请根据提示处理' }
-					},
-					{
-						cmd: `git push`,
-						config: { slient: false, again: true, success: '推送成功', fail: '推送失败，请根据提示处理' }
-					},
-					`git checkout ${config.master}`,
 					`git pull`,
 					{
 						cmd: `git merge --no-ff ${config.bugfix}`,
@@ -123,6 +114,20 @@ program
 					}
 				]
 			}
+			if (type === 'bugfix' && opt.prod) {
+				cmd[type] = cmd[type].concat([
+					`git checkout ${config.master}`,
+					`git pull`,
+					{
+						cmd: `git merge --no-ff ${config.bugfix}`,
+						config: { slient: false, again: false, success: '分支合并成功', fail: '合并失败，请根据提示处理' }
+					},
+					{
+						cmd: `git push`,
+						config: { slient: false, again: true, success: '推送成功', fail: '推送失败，请根据提示处理' }
+					}
+				])
+			}
 			if (type === 'release' && opt.combine) {
 				if (opt.rebase) {
 					cmd[type] = cmd[type].concat([
@@ -135,7 +140,7 @@ program
 						},
 						{
 							cmd: `git rebase ${config.release}`,
-							config: { slient: false, again: false, success: '分支合并成功', fail: '合并失败，请根据提示处理' }
+							config: { slient: false, again: false, postmsg: true, success: '分支合并成功', fail: '合并失败，请根据提示处理' }
 						},
 						{
 							cmd: `git push`,
@@ -151,7 +156,7 @@ program
 						`git pull`,
 						{
 							cmd: `git merge --no-ff ${config.release}`,
-							config: { slient: false, again: false, success: '分支合并成功', fail: '合并失败，请根据提示处理' }
+							config: { slient: false, again: false, postmsg: true, success: '分支合并成功', fail: '合并失败，请根据提示处理' }
 						},
 						{
 							cmd: `git push`,
@@ -190,7 +195,7 @@ program
 				},
 				{
 					cmd: `git merge --no-ff ${base}`,
-					config: { slient: false, again: false, success: '分支合并成功', fail: '合并失败，请根据提示处理' }
+					config: { slient: false, again: false, postmsg: true, success: '分支合并成功', fail: '合并失败，请根据提示处理' }
 				},
 				{
 					cmd: `git push`,
@@ -208,7 +213,7 @@ program
 					},
 					{
 						cmd: `git rebase ${base}`,
-						config: { slient: false, again: false, success: '分支合并成功', fail: '合并失败，请根据提示处理' }
+						config: { slient: false, again: false, postmsg: true, success: '分支合并成功', fail: '合并失败，请根据提示处理' }
 					},
 					{
 						cmd: `git push`,

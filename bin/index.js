@@ -19,7 +19,8 @@ const defaults = {
 	bugfix: 'bug',
 	support: 'support',
 	user: '',
-	email: ''
+	email: '',
+	msgUrl: 'http://crp.kingdee.com/cd/metroOperateOutside/startMetroByMetroId?metroId=305648017963220992&describe=1235&isCurlAnother=false'
 }
 const getConfigFrom = () => {
 	if (sh.test('-f', pwd + '.gitmarsrc')) {
@@ -39,10 +40,10 @@ configFrom = getConfigFrom()
 function getConfig() {
 	if (configFrom === 1) {
 		let str = (sh.cat('.gitmarsrc') + '')
-			.replace(/(^\n*)|(\n*$)/g, '')
-			.replace(/\n{2,}/g, '\n')
-			.replace(/\r/g, '')
-			.replace(/[^\S\x0a\x0d]/g, ''),
+				.replace(/(^\n*)|(\n*$)/g, '')
+				.replace(/\n{2,}/g, '\n')
+				.replace(/\r/g, '')
+				.replace(/[^\S\x0a\x0d]/g, ''),
 			arr = []
 		if (str) arr = str.split('\n')
 		arr.forEach(el => {
@@ -88,10 +89,11 @@ const queue = list => {
 		list = JSON.parse(JSON.stringify(list))
 		wait(list, (command, cb) => {
 			let config = {
-				silent: true,
-				kill: true,
-				again: false // 指令执行中断之后是否需要重新执行，类似冲突解决之后的指令，不再需要重复执行
-			},
+					silent: true,
+					postmsg: false,
+					kill: true,
+					again: false // 指令执行中断之后是否需要重新执行，类似冲突解决之后的指令，不再需要重复执行
+				},
 				cmd = command
 			// 传入对象形式：{ cmd: '', config: {} }
 			if (command instanceof Object) {
@@ -119,11 +121,13 @@ const queue = list => {
 						// 只有silent模式才需要输出信息
 						config.silent && sh.echo(error(err))
 						sh.echo(error('指令 ' + cmd + ' 执行失败，中断了进程'))
+						config.postmsg && postMessage('指令 ' + cmd + ' 执行失败，中断了进程')
 						rest.length > 0 && sh.echo(error('请处理相关问题之后输入gitm continue继续'))
 						sh.exit(1)
 					} else {
 						if (code === 0) {
 							sh.echo(success(config.success || '指令 ' + cmd + ' 执行成功'))
+							config.postmsg && postMessage(config.success || '指令 ' + cmd + ' 执行成功')
 						} else {
 							sh.echo(warning(config.fail || '指令 ' + cmd + ' 执行失败'))
 						}
@@ -178,13 +182,12 @@ const setLog = log => {
 const getStatus = async () => {
 	const data = await queue(['gitm status'])
 	if (data[0].out.indexOf('Changes to be committed') > -1 || data[0].out.indexOf('Changes not staged for commit') > -1) {
-		sh.echo(warning('您还有未提交的文件，请处理后再继续') + '\n如果需要暂存文件请执行: gitm save\n恢复时执行：gitm get')
+		sh.echo(error('您还有未提交的文件，请处理后再继续') + '\n如果需要暂存文件请执行: gitm save\n恢复时执行：gitm get')
 		sh.exit(1)
 		return false
 	} else if (data[0].out.indexOf('Untracked files') > -1) {
-		sh.echo(warning('您还有未加入版本的文件，请处理后再继续') + '\n如果需要暂存文件请执行: gitm save --force\n恢复时执行：gitm get')
-		sh.exit(1)
-		return false
+		sh.echo(warning('您有未加入版本的文件,') + '\n如果需要暂存文件请执行: gitm save --force\n恢复时执行：gitm get')
+		return true
 	} else {
 		return true
 	}
@@ -210,6 +213,15 @@ const getCurrent = async () => {
 	return data[0].out.replace(/^\*\s+/, '')
 }
 
+/**
+ * postMessage
+ * @description 发送消息
+ */
+const postMessage = msg => {
+	msg = msg.replace(/\s/g, '')
+	config.msgUrl && sh.exec(`curl -i -H "Content-Type: application/json" -X POST -d '{"envParams":{"error_msg":"'${msg}'"}}' "${config.msgUrl}"`)
+}
+
 const handleConfigOutput = name => {
 	if (name === 'user') {
 		return '请输入Git用户名(必填)'
@@ -219,4 +231,4 @@ const handleConfigOutput = name => {
 	return '请输入' + name + '分支名称，默认为：' + defaults[name]
 }
 
-module.exports = { pwd, warning, error, success, defaults, config, configFrom, wait, queue, getCache, setCache, getStatus, checkBranch, getCurrent, handleConfigOutput }
+module.exports = { pwd, warning, error, success, defaults, config, configFrom, wait, queue, getCache, setCache, getStatus, checkBranch, getCurrent, postMessage, handleConfigOutput }
