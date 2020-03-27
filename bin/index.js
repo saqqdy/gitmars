@@ -20,6 +20,7 @@ const defaults = {
 	support: 'support',
 	user: '',
 	email: '',
+	msgTemplate: '${message}；项目：${project}；路径：${pwd}',
 	msgUrl: 'http://crp.kingdee.com/cd/metroOperateOutside/startMetroByMetroId?metroId=305648017963220992&describe=1235&isCurlAnother=false'
 }
 const getConfigFrom = () => {
@@ -54,9 +55,9 @@ function getConfig() {
 	} else if (configFrom === 2) {
 		return require(pwd + 'gitmarsconfig.json')
 	}
-	return defaults
+	return {}
 }
-config = getConfig()
+config = { ...defaults, ...getConfig() }
 
 /**
  * wait
@@ -121,7 +122,7 @@ const queue = list => {
 						// 只有silent模式才需要输出信息
 						config.silent && sh.echo(error(err))
 						sh.echo(error('指令 ' + cmd + ' 执行失败，中断了进程'))
-						config.postmsg && postMessage('指令 ' + cmd + ' 执行失败，中断了进程')
+						config.postmsg && postMessage('出错了！指令 ' + cmd + ' 执行失败，中断了进程')
 						rest.length > 0 && sh.echo(error('请处理相关问题之后输入gitm continue继续'))
 						sh.exit(1)
 					} else {
@@ -218,8 +219,40 @@ const getCurrent = async () => {
  * @description 发送消息
  */
 const postMessage = msg => {
-	msg = msg.replace(/\s/g, '')
-	config.msgUrl && sh.exec(`curl -i -H "Content-Type: application/json" -X POST -d '{"envParams":{"error_msg":"'${msg}'"}}' "${config.msgUrl}"`)
+	if (!config.msgTemplate) return
+	let message = config.msgTemplate.replace(/\$\{([a-zA-Z0-9-_]+)\}/g, (a, b) => {
+		if (b === 'message') return msg
+		return getMessage(b)
+	})
+	message = message.replace(/\s/g, '')
+	config.msgUrl && sh.exec(`curl -i -H "Content-Type: application/json" -X POST -d '{"envParams":{"error_msg":"'${message}'"}}' "${config.msgUrl}"`, { silent: true })
+}
+
+/**
+ * getMessage
+ * @description 解析模板数据
+ */
+const getMessage = type => {
+	let str = '',
+		name = pwd.match(/\/([a-zA-Z0-9-_]+)\/?$/)
+	switch (type) {
+		case 'time':
+			str = new Date()
+			break
+		case 'pwd':
+			str = pwd
+			break
+		case 'project':
+			str = name ? name[1] : ''
+			break
+		case 'user':
+			str = config.user
+			break
+
+		default:
+			break
+	}
+	return str
 }
 
 const handleConfigOutput = name => {
@@ -227,6 +260,10 @@ const handleConfigOutput = name => {
 		return '请输入Git用户名(必填)'
 	} else if (name === 'email') {
 		return '请输入Git邮箱'
+	} else if (name === 'msgUrl') {
+		return '请输入云之家消息推送地址，默认：' + defaults.msgUrl
+	} else if (name === 'msgTemplate') {
+		return '请输入消息模板，默认：' + defaults.msgTemplate
 	}
 	return '请输入' + name + '分支名称，默认为：' + defaults[name]
 }

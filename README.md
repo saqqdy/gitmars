@@ -153,9 +153,10 @@ gitm admin publish release
 ### gitm admin update
 更新release、bugfix、support分支代码，默认走merge方法
 ```
-# 形式：gitm admin update <type> [-r --rebase]
-# 传入rebase使用release方法合并
-gitm admin update bug
+# 形式：gitm admin update <type> [-r --rebase] [-m --mode [mode]]
+# mode：出现冲突时，保留传入代码还是保留当前代码；1=采用当前 2=采用传入；默认为 0=手动处理。本参数不可与--rebase同时使用
+# release：传入rebase使用release方法合并，默认使用merge
+gitm admin update bugfix -m 2
 ```
 
 ### gitm admin clean
