@@ -234,10 +234,14 @@ const postMessage = msg => {
  */
 const getMessage = type => {
 	let str = '',
+		d = new Date(),
 		name = pwd.match(/\/([a-zA-Z0-9-_]+)\/?$/)
 	switch (type) {
 		case 'time':
-			str = new Date()
+			str = d
+			break
+		case 'timeNum':
+			str = d.getTime()
 			break
 		case 'pwd':
 			str = pwd
