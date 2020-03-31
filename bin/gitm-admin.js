@@ -30,9 +30,9 @@ program
 		}
 		if (opts.includes(type)) {
 			// release从master拉取，其他从release拉取
-			let cmd = [`git checkout -b ${config[type]} ${base}`]
+			let cmd = [`git checkout ${base}`, `git pull`, `git checkout -b ${config[type]} ${base}`]
 			queue(cmd).then(data => {
-				if (data[0].code === 0) {
+				if (data[2].code === 0) {
 					sh.echo(`${config[type]}分支创建成功，该分支基于${base}创建，您当前已经切换到${name}\n需要发版时，记得执行: ${success('gitm admin publish ' + type)}`)
 				}
 			})

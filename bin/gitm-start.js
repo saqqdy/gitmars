@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 const program = require('commander')
 const sh = require('shelljs')
-const { error, success, config, configFrom, queue, getStatus, pwd } = require('./index')
+const { error, success, config, queue, getStatus } = require('./index')
 /**
  * gitm start
  */
@@ -17,9 +17,9 @@ program
 		if (opts.includes(type)) {
 			// feature从release拉取，bugfix从bug拉取，support从master分支拉取
 			let base = type === 'bugfix' ? config.bugfix : type === 'support' ? config.master : config.release,
-				cmd = [`cd ${pwd}`, `git checkout -b ${type}/${name} ${base}`]
+				cmd = [`git checkout ${base}`, `git pull`, `git checkout -b ${type}/${name} ${base}`]
 			queue(cmd).then(data => {
-				if (data[1].code === 0) {
+				if (data[2].code === 0) {
 					sh.echo(`${name}分支创建成功，该分支基于${base}创建，您当前已经切换到${type}/${name}\n如果需要提测，请执行${success('gitm combine ' + type + ' ' + name)}\n开发完成后，记得执行: ${success('gitm end ' + type + ' ' + name)}`)
 				}
 			})
