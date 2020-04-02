@@ -14,20 +14,29 @@ program
 	.option('-t, --type [type]', '查询分支的类型，共有3种：feature、bugfix、support，不传则查询全部', null)
 	.option('-d, --delete [branch]', '删除分支', null)
 	.option('-D, --forcedelete [branch]', '强行删除分支', null)
+	.option('-u, --upstream [upstream]', '设置与远程分支关联')
 	.action(opt => {
-		let cmd = [`cd ${pwd}`]
+		let cmd = []
 		if (opt.delete) {
 			// 删除分支
 			cmd.push(`git branch -d ${opt.delete}`)
 		} else if (opt.forcedelete) {
 			// 强行删除分支
 			cmd.push(`git branch -D ${opt.forcedelete}`)
+		} else if (opt.upstream) {
+			if (typeof opt.upstream === 'string') {
+				// 与远程分支关联
+				cmd.push(`git branch --set-upstream-to origin/${opt.upstream}`)
+			} else {
+				// 取消远程分支关联
+				cmd.push(`git branch --unset-upstream`)
+			}
 		} else {
 			// 分支查询
 			cmd.push(`git branch -a`)
 			queue(cmd).then(data => {
 				data.forEach((el, index) => {
-					if (index === 1 && el.code === 0) {
+					if (index === 0 && el.code === 0) {
 						let list = el.out.split('\n')
 						list = list.filter(el => {
 							let fit = true
