@@ -22,7 +22,9 @@ program
 		if (!status) sh.exit(1)
 		if (allow.includes(type)) {
 			let base = type === 'bugfix' ? config.bugfix : config.release,
-				cmd = [
+				cmd = []
+			if (opt.dev) {
+				cmd = cmd.concat([
 					`git checkout ${config.develop}`,
 					`git pull`,
 					{
@@ -34,7 +36,8 @@ program
 						config: { slient: false, again: true, success: '推送成功', fail: '推送失败，请根据提示处理' }
 					},
 					`git checkout ${type}/${name}`
-				]
+				])
+			}
 			if (opt.prod) {
 				cmd = cmd.concat([
 					`git checkout ${base}`,
