@@ -93,11 +93,22 @@ gitm copy dev --key 100000 --author saqqdy
 # key是查询关键词，type是查询的类型，有support、bugfix、feature三种，默认查询全部，remote是否查询远程分支，默认否
 gitm branch --key bug001 -r -t feature
 ```
+
 2. 删除本地分支
 ```
 # 形式：gitm branch [-d --delete] [-D --forcedelete]
 # delete是正常删除分支，forcedelete强制删除
 gitm branch -d bugfix/bug001
+```
+
+3. 设置本地分支与远程分支关联
+```
+# 形式：gitm branch [-u --upstream [upstream]]
+# 设置当前分支与远程feature/1000分支关联
+gitm branch -u feature/1000
+
+# 取消当前分支与远程分支的关联
+gitm branch -u
 ```
 
 ### gitm revert
@@ -130,6 +141,14 @@ gitm save [-f --force]
 恢复暂存代码
 ```
 gitm get
+```
+
+### gitm upgrade
+#### 短指令：gitm ug
+升级gitmars版本
+```
+# 输入-m或者--mirror表示使用淘宝镜像升级
+gitm upgrade [-m --mirror]
 ```
 
 ## 管理员
