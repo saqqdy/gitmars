@@ -40,8 +40,12 @@ gitm start bugfix 20001
 #### 短指令：gitm cb
 任务阶段提测，这部操作把分支代码合并到dev和bug分支，环境参数必填
 ```
-# 形式：gitm combine <type> <name> [-d --dev] [-p --prod]
+# 形式：gitm combine <type> <name> [-d --dev] [-p --prod] [--no-bugfix]
 gitm combine bugfix 20001 -pd
+```
+```
+# support分支提交prod时会主动同步bugfix分支和release分支，传入--no-bugfix不同步到bugfix
+gitm combine support 20001 -pd --no-bugfix
 ```
 
 ### gitm end
@@ -172,9 +176,10 @@ gitm admin publish release
 ### gitm admin update
 更新release、bugfix、support分支代码，默认走merge方法
 ```
-# 形式：gitm admin update <type> [-r --rebase] [-m --mode [mode]]
+# 形式：gitm admin update <type> [-r --rebase] [-m --mode [mode]] [-p --postmsg]
 # mode：出现冲突时，保留传入代码还是保留当前代码；1=采用当前 2=采用传入；默认为 0=手动处理。本参数不可与--rebase同时使用
 # release：传入rebase使用release方法合并，默认使用merge
+# postmsg：传入时有配置postmsg的指令处理消息会推送到云之家
 gitm admin update bugfix -m 2
 ```
 
