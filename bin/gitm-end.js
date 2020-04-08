@@ -11,11 +11,10 @@ program
 	.arguments('<type> <name>')
 	.description('合并bugfix任务分支、合并feature功能开发分支，合并完成后将删除对应分支')
 	.action(async (type, name, opt) => {
-		const allow = ['bugfix', 'feature'] // 允许执行的指令
+		const allow = ['bugfix', 'feature', 'support'] // 允许执行的指令
 		let status = await getStatus()
 		if (!status) sh.exit(1)
 		if (allow.includes(type)) {
-			// feature从release拉取，bugfix从bug拉取
 			let base = type === 'bugfix' ? config.bugfix : config.release,
 				cmd = [
 					`git checkout ${config.develop}`,

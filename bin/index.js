@@ -106,6 +106,7 @@ const queue = list => {
 				resolve(returns)
 			} else {
 				sh.exec(cmd, config, (code, out, err) => {
+					let msg = getCommandMessage(cmd)
 					try {
 						out = JSON.parse(out)
 					} catch (err) {
@@ -121,16 +122,16 @@ const queue = list => {
 						setCache(rest)
 						// 只有silent模式才需要输出信息
 						config.silent && sh.echo(error(err))
-						sh.echo(error('指令 ' + cmd + ' 执行失败，中断了进程'))
+						sh.echo(error(config.fail || msg.fail || '出错了！指令 ' + cmd + ' 执行失败，中断了进程'))
 						config.postmsg && postMessage('出错了！指令 ' + cmd + ' 执行失败，中断了进程')
 						rest.length > 0 && sh.echo(error('请处理相关问题之后输入gitm continue继续'))
 						sh.exit(1)
 					} else {
 						if (code === 0) {
-							sh.echo(success(config.success || '指令 ' + cmd + ' 执行成功'))
-							config.postmsg && postMessage(config.success || '指令 ' + cmd + ' 执行成功')
+							sh.echo(success(config.success || msg.success || '指令 ' + cmd + ' 执行成功'))
+							config.postmsg && postMessage(config.success || msg.success || '指令 ' + cmd + ' 执行成功')
 						} else {
-							sh.echo(warning(config.fail || '指令 ' + cmd + ' 执行失败'))
+							sh.echo(warning(config.fail || msg.fail || '指令 ' + cmd + ' 执行失败'))
 						}
 						cb() // 回调，继续执行吓一条
 					}
@@ -257,6 +258,61 @@ const getMessage = type => {
 			break
 	}
 	return str
+}
+
+/**
+ * getCommandMessage
+ * @description 获取通用的指令提示信息
+ */
+const getCommandMessage = cmd => {
+	let msg = {
+			success: '执行成功',
+			fail: '执行失败'
+		},
+		arr = cmd.replace(/[\s]+/g, ' ').split(' ')
+	if (arr.length < 2 || arr[0] !== 'git') return msg
+	switch (arr[1]) {
+		case 'checkout':
+			msg.success = '切换分支成功'
+			msg.fail = '切换分支失败'
+			break
+		case 'pull':
+			msg.success = '拉取代码成功'
+			msg.fail = '拉取代码失败'
+			break
+		case 'fetch':
+			msg.success = '抓取成功'
+			msg.fail = '抓取失败'
+			break
+		case 'push':
+			msg.success = '推送成功'
+			msg.fail = '推送失败'
+			break
+		case 'cherry-pick':
+			msg.success = '同步提交记录成功'
+			msg.fail = '同步提交记录失败'
+			break
+		case 'merge':
+			msg.success = 'merge分支成功'
+			msg.fail = 'merge分支失败'
+			break
+		case 'rebase':
+			msg.success = 'rebase分支成功'
+			msg.fail = 'rebase分支失败'
+			break
+		case 'revert':
+			msg.success = '撤销成功'
+			msg.fail = '撤销失败'
+			break
+		case 'clean':
+			msg.success = '清理成功'
+			msg.fail = '清理失败'
+			break
+
+		default:
+			break
+	}
+	return msg
 }
 
 const handleConfigOutput = name => {

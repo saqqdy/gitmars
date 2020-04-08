@@ -179,6 +179,7 @@ program
 	.description('更新bugfix、release、support分支代码')
 	.option('-r, --rebase', '是否使用rebase方式更新，默认merge', false)
 	.option('-m, --mode [mode]', '出现冲突时，保留传入代码还是保留当前代码；1=采用当前 2=采用传入；默认为 0=手动处理。本参数不可与--rebase同时使用', 0)
+	.option('-p, --postmsg', '发送消息', false)
 	.action(async (type, opt) => {
 		const opts = ['bugfix', 'release', 'support'] // 允许执行的指令
 		let base = type === 'release' ? config.master : config.release,
@@ -201,7 +202,7 @@ program
 				},
 				{
 					cmd: `git merge --no-ff ${base}${mode}`,
-					config: { slient: false, again: false, postmsg: true, success: '分支合并成功', fail: '合并失败，请根据提示处理' }
+					config: { slient: false, again: false, postmsg: opt.postmsg, success: '分支合并成功', fail: '合并失败，请根据提示处理' }
 				},
 				{
 					cmd: `git push`,

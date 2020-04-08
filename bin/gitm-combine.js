@@ -12,6 +12,7 @@ program
 	.description('合并bugfix任务分支、合并feature功能开发分支、合并support分支')
 	.option('-d, --dev', '是否同步到alpha测试环境', false)
 	.option('-p, --prod', '是否同步到预发布环境', false)
+	.option('--no-bugfix', '不同步到bug分支')
 	.action(async (type, name, opt) => {
 		const allow = ['bugfix', 'feature', 'support'] // 允许执行的指令
 		let status = await getStatus()
@@ -53,7 +54,7 @@ program
 					`git checkout ${type}/${name}`
 				])
 				// support分支需要合到bugfix
-				if (type === 'support') {
+				if (type === 'support' && opt.bugfix) {
 					cmd = cmd.concat([
 						`git checkout ${config.bugfix}`,
 						`git pull`,

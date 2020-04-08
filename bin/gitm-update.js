@@ -9,14 +9,14 @@ program
 	.name('gitm update')
 	.usage('<type> <name>')
 	.arguments('<type> <name>')
-	.description('更新bug任务分支、更新feature功能开发分支')
+	.description('更新bug任务分支、更新feature功能开发分支、框架调整分支support')
 	.action(async (type, name) => {
-		const opts = ['bugfix', 'feature'] // 允许执行的指令
+		const opts = ['bugfix', 'feature', 'support'] // 允许执行的指令
 		let status = await getStatus()
 		if (!status) sh.exit(1)
 		if (opts.includes(type)) {
-			// feature从release拉取，bugfix从bug拉取
-			let base = type === 'bugfix' ? config.bugfix : config.release,
+			// feature从release拉取，bugfix从bug拉取，support从master分支拉取
+			let base = type === 'bugfix' ? config.bugfix : type === 'support' ? config.master : config.release,
 				cmd = [
 					`git checkout ${base}`,
 					`git pull`,
