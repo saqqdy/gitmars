@@ -18,6 +18,7 @@ program
 			// feature从release拉取，bugfix从bug拉取，support从master分支拉取
 			let base = type === 'bugfix' ? config.bugfix : type === 'support' ? config.master : config.release,
 				cmd = [
+					`git fetch`,
 					`git checkout ${base}`,
 					`git pull`,
 					`git checkout ${type}/${name}`,

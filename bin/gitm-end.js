@@ -17,6 +17,7 @@ program
 		if (allow.includes(type)) {
 			let base = type === 'bugfix' ? config.bugfix : config.release,
 				cmd = [
+					`git fetch`,
 					`git checkout ${config.develop}`,
 					`git pull`,
 					{
@@ -32,6 +33,7 @@ program
 			// support分支需要合到bugfix
 			if (type === 'support') {
 				cmd = cmd.concat([
+					`git fetch`,
 					`git checkout ${config.bugfix}`,
 					`git pull`,
 					{
@@ -46,6 +48,7 @@ program
 				])
 			}
 			cmd = cmd.concat([
+				`git fetch`,
 				`git checkout ${base}`,
 				`git pull`,
 				{
