@@ -30,9 +30,9 @@ program
 		}
 		if (opts.includes(type)) {
 			// release从master拉取，其他从release拉取
-			let cmd = [`git checkout ${base}`, `git pull`, `git checkout -b ${config[type]} ${base}`]
+			let cmd = [`git fetch`, `git checkout ${base}`, `git pull`, `git checkout -b ${config[type]} ${base}`]
 			queue(cmd).then(data => {
-				if (data[2].code === 0) {
+				if (data[3].code === 0) {
 					sh.echo(`${config[type]}分支创建成功，该分支基于${base}创建，您当前已经切换到${name}\n需要发版时，记得执行: ${success('gitm admin publish ' + type)}`)
 				}
 			})
@@ -49,6 +49,7 @@ program
 	.option('-c, --combine', '是否把release代码同步到bug', false)
 	.option('-r, --rebase', '是否使用rebase方式更新，默认merge', false)
 	.option('-p, --prod', '发布bug分支时，是否合并bug到master', false)
+	.option('--postmsg', '发送消息', false)
 	.action(async (type, opt) => {
 		const opts = ['bugfix', 'release', 'support'] // 允许执行的指令
 		let status = await getStatus()
@@ -62,13 +63,14 @@ program
 			 */
 			let cmd = {
 				bugfix: [
+					`git fetch`,
 					`git checkout ${config.bugfix}`,
 					`git pull`,
 					`git checkout ${config.release}`,
 					`git pull`,
 					{
 						cmd: `git merge --no-ff ${config.bugfix}`,
-						config: { slient: false, again: false, success: '分支合并成功', fail: '合并失败，请根据提示处理' }
+						config: { slient: false, again: false, postmsg: opt.postmsg, success: '分支合并成功', fail: '合并失败，请根据提示处理' }
 					},
 					{
 						cmd: `git push`,
@@ -76,6 +78,7 @@ program
 					}
 				],
 				support: [
+					`git fetch`,
 					`git checkout ${config.support}`,
 					`git pull`,
 					`git checkout ${config.release}`,
@@ -100,6 +103,7 @@ program
 					}
 				],
 				release: [
+					`git fetch`,
 					`git checkout ${config.release}`,
 					`git pull`,
 					`git checkout ${config.master}`,
@@ -140,7 +144,7 @@ program
 						},
 						{
 							cmd: `git rebase ${config.release}`,
-							config: { slient: false, again: false, postmsg: true, success: '分支合并成功', fail: '合并失败，请根据提示处理' }
+							config: { slient: false, again: false, postmsg: opt.postmsg, success: '分支合并成功', fail: '合并失败，请根据提示处理' }
 						},
 						{
 							cmd: `git push`,
@@ -156,7 +160,7 @@ program
 						`git pull`,
 						{
 							cmd: `git merge --no-ff ${config.release}`,
-							config: { slient: false, again: false, postmsg: true, success: '分支合并成功', fail: '合并失败，请根据提示处理' }
+							config: { slient: false, again: false, postmsg: opt.postmsg, success: '分支合并成功', fail: '合并失败，请根据提示处理' }
 						},
 						{
 							cmd: `git push`,
@@ -179,7 +183,7 @@ program
 	.description('更新bugfix、release、support分支代码')
 	.option('-r, --rebase', '是否使用rebase方式更新，默认merge', false)
 	.option('-m, --mode [mode]', '出现冲突时，保留传入代码还是保留当前代码；1=采用当前 2=采用传入；默认为 0=手动处理。本参数不可与--rebase同时使用', 0)
-	.option('-p, --postmsg', '发送消息', false)
+	.option('--postmsg', '发送消息', false)
 	.action(async (type, opt) => {
 		const opts = ['bugfix', 'release', 'support'] // 允许执行的指令
 		let base = type === 'release' ? config.master : config.release,
@@ -193,6 +197,7 @@ program
 		}
 		if (opts.includes(type)) {
 			let cmd = [
+				`git fetch`,
 				`git checkout ${base}`,
 				`git pull`,
 				`git checkout ${config[type]}`,
@@ -211,6 +216,7 @@ program
 			]
 			if (opt.rebase) {
 				cmd = [
+					`git fetch`,
 					`git checkout ${base}`,
 					`git pull`,
 					`git checkout ${config[type]}`,
@@ -220,7 +226,7 @@ program
 					},
 					{
 						cmd: `git rebase ${base}`,
-						config: { slient: false, again: false, postmsg: true, success: '分支合并成功', fail: '合并失败，请根据提示处理' }
+						config: { slient: false, again: false, postmsg: opt.postmsg, success: '分支合并成功', fail: '合并失败，请根据提示处理' }
 					},
 					{
 						cmd: `git push`,
@@ -244,7 +250,7 @@ program
 		let status = await getStatus()
 		if (!status) sh.exit(1)
 		if (opts.includes(type)) {
-			let cmd = [`git checkout .`, `git clean -fd`, `git checkout ${config.master}`, `git branch -D ${config[type]}`, `git fetch`, `git checkout ${config[type]}`, `git pull`]
+			let cmd = [`git fetch`, `git checkout . -f`, `git clean -fd`, `git checkout ${config.master}`, `git branch -D ${config[type]}`, `git fetch`, `git checkout ${config[type]}`, `git pull`]
 			if (type === 'master') cmd = [`git checkout .`, `git clean -fd`, `git checkout ${config.master}`, `git clean -fd`, `git fetch`, `git pull`]
 			queue(cmd)
 		} else {

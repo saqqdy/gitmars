@@ -26,6 +26,7 @@ program
 				cmd = []
 			if (opt.dev) {
 				cmd = cmd.concat([
+					`git fetch`,
 					`git checkout ${config.develop}`,
 					`git pull`,
 					{
@@ -41,6 +42,7 @@ program
 			}
 			if (opt.prod) {
 				cmd = cmd.concat([
+					`git fetch`,
 					`git checkout ${base}`,
 					`git pull`,
 					{
@@ -56,6 +58,7 @@ program
 				// support分支需要合到bugfix
 				if (type === 'support' && opt.bugfix) {
 					cmd = cmd.concat([
+						`git fetch`,
 						`git checkout ${config.bugfix}`,
 						`git pull`,
 						{

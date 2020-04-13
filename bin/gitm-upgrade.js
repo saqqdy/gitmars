@@ -13,7 +13,7 @@ program
 		let cmd = [
 			{
 				cmd: `npm install -g gitmars ${opt.mirror ? '--registry=https://registry.npm.taobao.org' : ''}`,
-				config: { slient: false, again: true, success: '安装成功', fail: '安装失败，请重试' }
+				config: { slient: false, again: true, success: '升级成功', fail: '升级失败，请重试' }
 			}
 		]
 		queue(cmd)
