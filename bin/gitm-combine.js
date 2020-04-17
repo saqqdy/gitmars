@@ -31,7 +31,7 @@ program
 					`git pull`,
 					{
 						cmd: `git merge --no-ff ${type}/${name}`,
-						config: { slient: false, again: false, success: '分支合并成功', fail: '合并失败，请根据提示处理' }
+						config: { slient: false, again: false, success: `${type}/${name}合并到${config.develop}成功`, fail: `${type}/${name}合并到${config.develop}出错了，请根据提示处理` }
 					},
 					{
 						cmd: `git push`,
@@ -47,7 +47,7 @@ program
 					`git pull`,
 					{
 						cmd: `git merge --no-ff ${type}/${name}`,
-						config: { slient: false, again: false, success: '分支合并成功', fail: '合并失败，请根据提示处理' }
+						config: { slient: false, again: false, success: `${type}/${name}合并到${base}成功`, fail: `${type}/${name}合并到${base}出错了，请根据提示处理` }
 					},
 					{
 						cmd: `git push`,
@@ -63,7 +63,7 @@ program
 						`git pull`,
 						{
 							cmd: `git merge --no-ff ${type}/${name}`,
-							config: { slient: false, again: false, success: '分支合并成功', fail: '合并失败，请根据提示处理' }
+							config: { slient: false, again: false, success: `${type}/${name}合并到${config.bugfix}成功`, fail: `${type}/${name}合并到${config.bugfix}出错了，请根据提示处理` }
 						},
 						{
 							cmd: `git push`,
