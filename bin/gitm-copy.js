@@ -34,7 +34,7 @@ program
 						cmds = cmds.concat([
 							{
 								cmd: `git cherry-pick ${commits.join(' ')}`,
-								config: { slient: false, again: false, success: '记录合并成功', fail: '合并失败，请根据提示处理' }
+								config: { slient: false, again: false, success: '记录合并成功', fail: `合并失败，请根据提示处理` }
 							},
 							{
 								cmd: `git push`,
@@ -53,7 +53,7 @@ program
 			let cmd = [
 				{
 					cmd: `git cherry-pick ${commitid.join(' ')}`,
-					config: { slient: false, again: false, success: '记录合并成功', fail: '合并失败，请根据提示处理' }
+					config: { slient: false, again: false, success: '记录合并成功', fail: `合并失败，请根据提示处理` }
 				},
 				{
 					cmd: `git push`,

@@ -24,7 +24,7 @@ program
 					`git checkout ${type}/${name}`,
 					{
 						cmd: `git rebase ${base}`,
-						config: { slient: false, again: false, success: '分支更新成功', fail: '合并失败，请根据提示处理' }
+						config: { slient: false, again: false, success: `${base}更新到${type}/${name}成功`, fail: `${base}更新到${type}/${name}出错了，请根据提示处理` }
 					},
 				]
 			queue(cmd)

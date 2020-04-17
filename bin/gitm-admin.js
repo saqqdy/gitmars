@@ -70,7 +70,7 @@ program
 					`git pull`,
 					{
 						cmd: `git merge --no-ff ${config.bugfix}`,
-						config: { slient: false, again: false, postmsg: opt.postmsg, success: '分支合并成功', fail: '合并失败，请根据提示处理' }
+						config: { slient: false, again: false, postmsg: opt.postmsg, success: `${config.bugfix}合并到${config.release}成功`, fail: `${config.bugfix}合并到${config.release}出错了，请根据提示处理` }
 					},
 					{
 						cmd: `git push`,
@@ -85,7 +85,7 @@ program
 					`git pull`,
 					{
 						cmd: `git merge --no-ff ${config.support}`,
-						config: { slient: false, again: false, success: '分支合并成功', fail: '合并失败，请根据提示处理' }
+						config: { slient: false, again: false, success: `${config.support}合并到${config.release}成功`, fail: `${config.support}合并到${config.release}出错了，请根据提示处理` }
 					},
 					{
 						cmd: `git push`,
@@ -95,7 +95,7 @@ program
 					`git pull`,
 					{
 						cmd: `git merge --no-ff ${config.support}`,
-						config: { slient: false, again: false, success: '分支合并成功', fail: '合并失败，请根据提示处理' }
+						config: { slient: false, again: false, success: `${config.support}合并到${config.bugfix}成功`, fail: `${config.support}合并到${config.bugfix}出错了，请根据提示处理` }
 					},
 					{
 						cmd: `git push`,
@@ -110,7 +110,7 @@ program
 					`git pull`,
 					{
 						cmd: `git merge --no-ff ${config.release}`,
-						config: { slient: false, again: false, success: '分支合并成功', fail: '合并失败，请根据提示处理' }
+						config: { slient: false, again: false, success: `${config.release}合并到${config.master}成功`, fail: `${config.release}合并到${config.master}出错了，请根据提示处理` }
 					},
 					{
 						cmd: `git push`,
@@ -124,7 +124,7 @@ program
 					`git pull`,
 					{
 						cmd: `git merge --no-ff ${config.bugfix}`,
-						config: { slient: false, again: false, success: '分支合并成功', fail: '合并失败，请根据提示处理' }
+						config: { slient: false, again: false, success: `${config.bugfix}合并到${config.master}成功`, fail: `${config.bugfix}合并到${config.master}出错了，请根据提示处理` }
 					},
 					{
 						cmd: `git push`,
@@ -144,7 +144,7 @@ program
 						},
 						{
 							cmd: `git rebase ${config.release}`,
-							config: { slient: false, again: false, postmsg: opt.postmsg, success: '分支合并成功', fail: '合并失败，请根据提示处理' }
+							config: { slient: false, again: false, postmsg: opt.postmsg, success: `${config.release}同步到${config.bugfix}成功`, fail: `${config.release}同步到${config.bugfix}出错了，请根据提示处理` }
 						},
 						{
 							cmd: `git push`,
@@ -160,7 +160,7 @@ program
 						`git pull`,
 						{
 							cmd: `git merge --no-ff ${config.release}`,
-							config: { slient: false, again: false, postmsg: opt.postmsg, success: '分支合并成功', fail: '合并失败，请根据提示处理' }
+							config: { slient: false, again: false, postmsg: opt.postmsg, success: `${config.release}合并到${config.bugfix}成功`, fail: `${config.release}合并到${config.bugfix}出错了，请根据提示处理` }
 						},
 						{
 							cmd: `git push`,
@@ -207,7 +207,7 @@ program
 				},
 				{
 					cmd: `git merge --no-ff ${base}${mode}`,
-					config: { slient: false, again: false, postmsg: opt.postmsg, success: '分支合并成功', fail: '合并失败，请根据提示处理' }
+					config: { slient: false, again: false, postmsg: opt.postmsg, success: `${base}同步到${config[type]}成功`, fail: `${base}同步到${config[type]}出错了，请根据提示处理` }
 				},
 				{
 					cmd: `git push`,
@@ -226,7 +226,7 @@ program
 					},
 					{
 						cmd: `git rebase ${base}`,
-						config: { slient: false, again: false, postmsg: opt.postmsg, success: '分支合并成功', fail: '合并失败，请根据提示处理' }
+						config: { slient: false, again: false, postmsg: opt.postmsg, success: `${base}同步到${config[type]}成功`, fail: `${base}同步到${config[type]}出错了，请根据提示处理` }
 					},
 					{
 						cmd: `git push`,
