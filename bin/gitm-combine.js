@@ -13,6 +13,7 @@ program
 	.option('-d, --dev', '是否同步到alpha测试环境', false)
 	.option('-p, --prod', '是否同步到预发布环境', false)
 	.option('--no-bugfix', '不同步到bug分支')
+	.option('--as-feature', 'bug分支合并到release')
 	.action(async (type, name, opt) => {
 		const allow = ['bugfix', 'feature', 'support'] // 允许执行的指令
 		let status = await getStatus()
@@ -55,6 +56,23 @@ program
 					},
 					`git checkout ${type}/${name}`
 				])
+				// bugfix分支走release发布
+				if (type === 'bugfix' && opt.asFeature) {
+					cmd = cmd.concat([
+						`git fetch`,
+						`git checkout ${config.release}`,
+						`git pull`,
+						{
+							cmd: `git merge --no-ff ${type}/${name}`,
+							config: { slient: false, again: false, success: `${type}/${name}合并到${config.release}成功`, fail: `${type}/${name}合并到${config.release}出错了，请根据提示处理` }
+						},
+						{
+							cmd: `git push`,
+							config: { slient: false, again: true, success: '推送成功', fail: '推送失败，请根据提示处理' }
+						},
+						`git checkout ${type}/${name}`
+					])
+				}
 				// support分支需要合到bugfix
 				if (type === 'support' && opt.bugfix) {
 					cmd = cmd.concat([

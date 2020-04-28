@@ -40,8 +40,12 @@ gitm start bugfix 20001
 #### 短指令：gitm cb
 任务阶段提测，这部操作把分支代码合并到dev和bug分支，环境参数必填
 ```
-# 形式：gitm combine <type> <name> [-d --dev] [-p --prod] [--no-bugfix]
+# 形式：gitm combine <type> <name> [-d --dev] [-p --prod] [--no-bugfix] [--as-feature]
 gitm combine bugfix 20001 -pd
+```
+```
+# bugfix分支特殊情况需要合并到release时，传入--as-feature
+gitm combine bugfix 20001 -p --as-feature
 ```
 ```
 # support分支提交prod时会主动同步bugfix分支和release分支，传入--no-bugfix不同步到bugfix
