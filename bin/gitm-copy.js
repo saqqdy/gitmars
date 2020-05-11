@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 const program = require('commander')
 const sh = require('shelljs')
-const { error, success, queue, getStatus, getCurrent } = require('./index')
+const { error, warning, success, queue, getStatus, getCurrent } = require('./index')
 /**
  * gitm copy
  */
@@ -18,10 +18,11 @@ program
 		if (!status) sh.exit(1)
 		if (opts.key !== '' || opts.author !== '') {
 			let cmd = [`git checkout ${from}`, `git log --grep=${opts.key} --author=${opts.author}`]
-			if (!/^\d{4,}$/.test(opts.key)) {
-				sh.echo(error('为确保copy准确，关键词必须是4位以上的任务号或者bug修复编号'))
-				sh.exit(1)
-			}
+			sh.echo(warning('为确保copy准确，请尽量完整填写关键词'))
+			// if (!/^\d{4,}$/.test(opts.key)) {
+			// 	sh.echo(error('为确保copy准确，关键词必须是4位以上的任务号或者bug修复编号'))
+			// 	sh.exit(1)
+			// }
 			queue(cmd).then(data => {
 				let commits = []
 				if (data[1].code === 0) {

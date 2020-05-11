@@ -19,6 +19,9 @@ gitm init
 # 查看配置
 gitm config list [option]
 
+# 版本升级[-m --mirror]使用淘宝镜像升级
+gitm upgrade --mirror
+
 # 查看版本
 gitm -v
 
@@ -86,7 +89,7 @@ gitm merge 20001
 gitm copy release xxxxxx xxxxxx xxxxxx
 ```
 
-2. 传入查询关键词，gitm会根据提供的关键词（目前限制关键词必须是4位以上的数字，可以是任务号或者bug编号），在对应分支的提交记录里面搜索提交记录并自动执行copy指令
+2. 传入查询关键词，gitm会根据提供的关键词（为确保copy准确，请尽量完整填写关键词），在对应分支的提交记录里面搜索提交记录并自动执行copy指令
 ```
 # 指令形式：gitm copy <from> [-k --key] [-a --author]
 gitm copy dev --key 100000 --author saqqdy
