@@ -128,10 +128,14 @@ const queue = list => {
 						sh.exit(1)
 					} else {
 						if (code === 0) {
-							sh.echo(success(config.success || msg.success || '指令 ' + cmd + ' 执行成功'))
-							config.postmsg && postMessage(config.success || msg.success || '指令 ' + cmd + ' 执行成功')
+							let m = config.success || msg.success
+							if (m) {
+								sh.echo(success(m))
+								config.postmsg && postMessage(m)
+							}
 						} else {
-							sh.echo(warning(config.fail || msg.fail || '指令 ' + cmd + ' 执行失败'))
+							let m = config.fail || msg.fail || '指令 ' + cmd + ' 执行失败'
+							m && sh.echo(warning(m))
 						}
 						cb() // 回调，继续执行吓一条
 					}
@@ -265,10 +269,7 @@ const getMessage = type => {
  * @description 获取通用的指令提示信息
  */
 const getCommandMessage = cmd => {
-	let msg = {
-			success: '执行成功',
-			fail: '执行失败'
-		},
+	let msg = {},
 		arr = cmd.replace(/[\s]+/g, ' ').split(' ')
 	if (arr.length < 2 || arr[0] !== 'git') return msg
 	switch (arr[1]) {
