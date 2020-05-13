@@ -173,7 +173,7 @@ gitm admin create release
 ### gitm admin publish
 发版操作
 ```
-# 形式：gitm admin publish <type> [-c --combine] [-r --rebase] [-p --prod] [-p --postmsg]
+# 形式：gitm admin publish <type> [-c --combine] [--use-rebase] [-p --prod] [-p --postmsg]
 # 传入combine时合并release之后会把release同步到bugfix
 # 传入rebase使用release方法合并
 # 当需要发布bugfix时，传入prod会把bugfix同步到master，不传则不合并
@@ -184,8 +184,8 @@ gitm admin publish release
 ### gitm admin update
 更新release、bugfix、support分支代码，默认走merge方法
 ```
-# 形式：gitm admin update <type> [-r --rebase] [-m --mode [mode]] [-p --postmsg]
-# mode：出现冲突时，保留传入代码还是保留当前代码；1=采用当前 2=采用传入；默认为 0=手动处理。本参数不可与--rebase同时使用
+# 形式：gitm admin update <type> [--use-rebase] [-m --mode [mode]] [-p --postmsg]
+# mode：出现冲突时，保留传入代码还是保留当前代码；1=采用当前 2=采用传入；默认为 0=手动处理。本参数不可与--use-rebase同时使用
 # release：传入rebase使用release方法合并，默认使用merge
 # postmsg：传入时有配置postmsg的指令处理消息会推送到云之家
 gitm admin update bugfix -m 2

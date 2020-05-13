@@ -47,7 +47,7 @@ program
 	.command('publish <type>')
 	.description('发布bugfix、release、support分支')
 	.option('-c, --combine', '是否把release代码同步到bug', false)
-	.option('-r, --rebase', '是否使用rebase方式更新，默认merge', false)
+	.option('--use-rebase', '是否使用rebase方式更新，默认merge', false)
 	.option('-p, --prod', '发布bug分支时，是否合并bug到master', false)
 	.option('--postmsg', '发送消息', false)
 	.action(async (type, opt) => {
@@ -133,7 +133,7 @@ program
 				])
 			}
 			if (type === 'release' && opt.combine) {
-				if (opt.rebase) {
+				if (opt.useRebase) {
 					cmd[type] = cmd[type].concat([
 						`git checkout ${config.release}`,
 						`git pull`,
@@ -181,8 +181,8 @@ program
 	.usage('<command> <type> [-m --mode [mode]]')
 	.command('update <type>')
 	.description('更新bugfix、release、support分支代码')
-	.option('-r, --rebase', '是否使用rebase方式更新，默认merge', false)
-	.option('-m, --mode [mode]', '出现冲突时，保留传入代码还是保留当前代码；1=采用当前 2=采用传入；默认为 0=手动处理。本参数不可与--rebase同时使用', 0)
+	.option('--use-rebase', '是否使用rebase方式更新，默认merge', false)
+	.option('-m, --mode [mode]', '出现冲突时，保留传入代码还是保留当前代码；1=采用当前 2=采用传入；默认为 0=手动处理。本参数不可与--use-rebase同时使用', 0)
 	.option('--postmsg', '发送消息', false)
 	.action(async (type, opt) => {
 		const opts = ['bugfix', 'release', 'support'] // 允许执行的指令
@@ -214,7 +214,7 @@ program
 					config: { slient: false, again: true, success: '推送成功', fail: '推送失败，请根据提示处理' }
 				}
 			]
-			if (opt.rebase) {
+			if (opt.useRebase) {
 				cmd = [
 					`git fetch`,
 					`git checkout ${base}`,
