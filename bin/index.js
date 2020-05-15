@@ -1,6 +1,7 @@
 const sh = require('shelljs')
 const colors = require('colors')
-let pwd = sh.pwd() + '/',
+let pwd = sh.exec('git rev-parse --show-toplevel', { silent: true }).stdout.replace(/[\n\s]*$/g, ''),
+	gitDir = sh.exec('git rev-parse --git-dir', { silent: true }).stdout.replace(/[\n\s]*$/g, ''),
 	configFrom = 0,
 	config = {}
 const warning = txt => {
@@ -24,9 +25,9 @@ const defaults = {
 	msgUrl: 'http://crp.kingdee.com/cd/metroOperateOutside/startMetroByMetroId?metroId=305648017963220992&describe=1235&isCurlAnother=false'
 }
 const getConfigFrom = () => {
-	if (sh.test('-f', pwd + '.gitmarsrc')) {
+	if (sh.test('-f', pwd + '/.gitmarsrc')) {
 		return 1
-	} else if (sh.test('-f', 'gitmarsconfig.json')) {
+	} else if (sh.test('-f', pwd + '/gitmarsconfig.json')) {
 		return 2
 	}
 	return 0
@@ -40,8 +41,9 @@ configFrom = getConfigFrom()
  */
 function getConfig() {
 	if (configFrom === 1) {
-		let str = (sh.cat('.gitmarsrc') + '')
-				.replace(/(^\n*)|(\n*$)/g, '')
+		let str = sh
+				.cat(pwd + '/.gitmarsrc')
+				.stdout.replace(/(^\n*)|(\n*$)/g, '')
 				.replace(/\n{2,}/g, '\n')
 				.replace(/\r/g, '')
 				.replace(/[^\S\x0a\x0d]/g, ''),
@@ -53,7 +55,7 @@ function getConfig() {
 		})
 		return config
 	} else if (configFrom === 2) {
-		return require(pwd + 'gitmarsconfig.json')
+		return require(pwd + '/gitmarsconfig.json')
 	}
 	return {}
 }
@@ -152,8 +154,10 @@ const queue = list => {
  */
 const getCache = () => {
 	let arr = []
-	if (sh.test('-f', pwd + '.git/.gitmarscommands')) {
-		arr = (sh.cat('.git/.gitmarscommands') + '')
+	if (sh.test('-f', gitDir + '/.gitmarscommands')) {
+		arr = sh
+			.cat(gitDir + '/.gitmarscommands')
+			.stdout.split('\n')[0]
 			.replace(/(^\n*)|(\n*$)/g, '')
 			.replace(/\n{2,}/g, '\n')
 			.replace(/\r/g, '')
@@ -167,8 +171,7 @@ const getCache = () => {
  * @description 存储未执行脚本列表
  */
 const setCache = rest => {
-	sh.echo(encodeURIComponent(JSON.stringify(rest))).to('.git/.gitmarscommands')
-	// sh.exec(`echo ${JSON.stringify(rest)}>.git/.gitmarscommands`)
+	sh.sed('-i', /[\s\S\n\r\x0a\x0d]*/, encodeURIComponent(JSON.stringify(rest)), gitDir + '/.gitmarscommands')
 }
 
 /**
@@ -176,8 +179,7 @@ const setCache = rest => {
  * @description 存储错误日志
  */
 const setLog = log => {
-	sh.echo(encodeURIComponent(JSON.stringify(log))).to('.git/.gitmarslog')
-	// sh.exec(`echo ${JSON.stringify(log)}>>.git/.gitmarslog`)
+	sh.sed('-i', /[\s\S\n\r\x0a\x0d]*/, encodeURIComponent(JSON.stringify(log)), gitDir + '/.gitmarslog')
 }
 
 /**
@@ -329,4 +331,4 @@ const handleConfigOutput = name => {
 	return '请输入' + name + '分支名称，默认为：' + defaults[name]
 }
 
-module.exports = { pwd, warning, error, success, defaults, config, configFrom, wait, queue, getCache, setCache, getStatus, checkBranch, getCurrent, postMessage, handleConfigOutput }
+module.exports = { pwd, gitDir, warning, error, success, defaults, config, configFrom, wait, queue, getCache, setCache, setLog, getStatus, checkBranch, getCurrent, postMessage, handleConfigOutput }

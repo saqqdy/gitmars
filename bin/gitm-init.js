@@ -1,12 +1,12 @@
 #!/usr/bin/env node
 const program = require('commander')
 const sh = require('shelljs')
-const gitm = require('./index')
+const { error, success, config, configFrom, queue, getCurrent, pwd, defaults, handleConfigOutput } = require('./index')
 let config = {},
 	configFrom = 0 // 0=没有配置文件 1=.gitmarsrc 2=gitmarsconfig.json
 if (sh.test('-f', '.gitmarsrc')) {
 	configFrom = 1
-	let str = (sh.cat('.gitmarsrc') + '')
+	let str = (sh.cat('.gitmarsrc').stdout)
 			.replace(/(^\n*)|(\n*$)/g, '')
 			.replace(/\n{2,}/g, '\n')
 			.replace(/\r/g, '')
@@ -32,20 +32,20 @@ program
 	.action(() => {
 		let o = [],
 			i = 0,
-			keys = Object.keys(gitm.defaults)
-		sh.echo(gitm.success(gitm.handleConfigOutput(keys[i])))
+			keys = Object.keys(defaults)
+		sh.echo(success(handleConfigOutput(keys[i])))
 		process.stdin.resume()
 		process.stdin.setEncoding('utf8')
 		process.stdin.on('data', data => {
-			o.push(keys[i] + ' = ' + (data.replace(/[\n\s]*/g, '') || gitm.defaults[keys[i]]))
+			o.push(keys[i] + ' = ' + (data.replace(/[\n\s]*/g, '') || defaults[keys[i]]))
 			i++
 			if (i < keys.length) {
-				sh.echo(gitm.success(gitm.handleConfigOutput(keys[i])))
+				sh.echo(success(handleConfigOutput(keys[i])))
 			} else {
 				let r = sh.echo(o.join('\n')).to('.gitmarsrc')
 				// let r = sh.exec(`echo '${o.join('\n')}' >.gitmarsrc`)
 				if (r.code === 0) {
-					sh.echo(gitm.success('配置成功！'))
+					sh.echo(success('配置成功！'))
 					process.exit(0)
 				} else {
 					process.exit(1)
