@@ -31,6 +31,7 @@ program
 					logs.forEach(el => {
 						commits.push(el.replace(/(commit\s)|\n/g, ''))
 					})
+					commits.reverse()
 					if (commits.length > 0) {
 						cmds = cmds.concat([
 							{
