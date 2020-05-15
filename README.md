@@ -65,9 +65,9 @@ gitm end bugfix 20001
 
 ### gitm update
 #### 短指令：gitm up
-把bug分支的最新代码同步到20001分支上
+把bug分支的最新代码同步到20001分支上（--use-merge使用merge方法合并，默认false）
 ```
-# 形式：gitm update <type> <name>
+# 形式：gitm update <type> <name> [--use-merge]
 gitm update bugfix 20001
 ```
 
