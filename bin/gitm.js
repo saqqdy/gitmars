@@ -16,7 +16,7 @@ d888      "  _d88__ 888-~88e-~88e   /~~~8e  888-~\  d88~\
 Y888   | 888  888   888  888  888 C888  888 888      888D 
  "88__/  888  "88_/ 888  888  888  "88_-888 888    \_88P  
                                                           
-v${set.version}, powered by saqqdy`,
+v${set.version}, powered by saqqdy\n`,
 	'-v, --version',
 	'查看gitmars版本'
 )
@@ -54,10 +54,10 @@ program
 
 // 自定义帮助
 program.on('--help', function () {
-	console.log('使用案例:')
-	console.log('  $ gitm init')
-	console.log('  $ gitm --help')
-	console.log('  $ gitm -h')
+	sh.echo('使用案例:')
+	sh.echo('  $ gitm init')
+	sh.echo('  $ gitm --help')
+	sh.echo('  $ gitm -h')
 })
 
 // 映射不存在的指令
