@@ -119,7 +119,11 @@ const queue = list => {
 					if (code !== 0 && config.kill) {
 						// 当前指令执行错误且设置该条指令需要中断，则中断递归
 						let rest = JSON.parse(JSON.stringify(list))
-						if (!config.again) rest.shift()
+						if (config.again && typeof config.again !== true) {
+							rest.splice(0, 1, config.again)
+						} else {
+							rest.shift()
+						}
 						cb(true) // 回调并中断执行
 						setCache(rest)
 						// 只有silent模式才需要输出信息
@@ -139,7 +143,7 @@ const queue = list => {
 							let m = config.fail || msg.fail || '指令 ' + cmd + ' 执行失败'
 							m && sh.echo(warning(m))
 						}
-						cb() // 回调，继续执行吓一条
+						cb() // 回调，继续执行下一条
 					}
 				})
 			}
@@ -171,6 +175,7 @@ const getCache = () => {
  * @description 存储未执行脚本列表
  */
 const setCache = rest => {
+	sh.touch(gitDir + '/.gitmarscommands')
 	sh.sed('-i', /[\s\S\n\r\x0a\x0d]*/, encodeURIComponent(JSON.stringify(rest)), gitDir + '/.gitmarscommands')
 }
 
@@ -179,6 +184,7 @@ const setCache = rest => {
  * @description 存储错误日志
  */
 const setLog = log => {
+	sh.touch(gitDir + '/.gitmarslog')
 	sh.sed('-i', /[\s\S\n\r\x0a\x0d]*/, encodeURIComponent(JSON.stringify(log)), gitDir + '/.gitmarslog')
 }
 
@@ -286,6 +292,10 @@ const getCommandMessage = cmd => {
 		case 'fetch':
 			msg.success = '抓取成功'
 			msg.fail = '抓取失败'
+			break
+		case 'commit':
+			msg.success = '提交成功'
+			msg.fail = '提交失败'
 			break
 		case 'push':
 			msg.success = '推送成功'
