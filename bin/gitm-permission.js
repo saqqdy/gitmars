@@ -7,7 +7,7 @@ const { error, success, config, configFrom, queue, getCurrent, gitDir } = requir
  */
 program
 	.name('gitm permission')
-	.usage('')
+	.usage('[message]')
 	.arguments('[message]')
 	.description('校验提交权限')
 	.option('--no-verify', '是否需要跳过校验权限', false)
