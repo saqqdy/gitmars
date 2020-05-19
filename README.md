@@ -156,10 +156,17 @@ gitm get
 
 ### gitm upgrade
 #### 短指令：gitm ug
-升级gitmars版本
+升级gitmars版本，可输入version指定版本，选填，默认安装最新版
 ```
 # 输入-m或者--mirror表示使用淘宝镜像升级
-gitm upgrade [-m --mirror]
+gitm upgrade [version] [-m --mirror]
+```
+
+### gitm clean
+清理gitmars缓存和本地配置，输入--force同时清理本地配置文件（慎用）
+```
+# 形式：gitm clean [-f --force]
+gitm clean
 ```
 
 ## 管理员
