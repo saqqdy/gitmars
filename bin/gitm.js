@@ -2,13 +2,17 @@
 const set = require('./../package.json')
 const program = require('commander')
 const sh = require('shelljs')
-const { error } = require('./index')
+const { error, system } = require('./index')
+let isWindows = system.indexOf('MINGW') > -1
+
 if (!sh.which('git')) {
 	sh.echo(error('gitmars只能在git环境下执行，请先安装git'))
 	sh.exit(1)
 }
 program.version(
-	`
+	(isWindows
+		? ''
+		: `
  e88~~\  ,e,   d8                                         
 d888      "  _d88__ 888-~88e-~88e   /~~~8e  888-~\  d88~\ 
 8888 __  888  888   888  888  888       88b 888    C888   
@@ -16,7 +20,7 @@ d888      "  _d88__ 888-~88e-~88e   /~~~8e  888-~\  d88~\
 Y888   | 888  888   888  888  888 C888  888 888      888D 
  "88__/  888  "88_/ 888  888  888  "88_-888 888    \_88P  
                                                           
-v${set.version}, powered by saqqdy\n`,
+`) + `v${set.version}, powered by saqqdy\n`,
 	'-v, --version',
 	'查看gitmars版本'
 )

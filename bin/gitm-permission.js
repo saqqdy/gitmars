@@ -13,10 +13,10 @@ program
 	.option('--no-verify', '是否需要跳过校验权限', false)
 	.action(async (message, opt) => {
 		const current = await getCurrent()
-		let msg = sh.cat(gitDir + '/COMMIT_EDITMSG').stdout.split('\n')[0]
+		let msg = sh.exec('git show', { silent: true }).stdout
 		// sh.echo(process.env.HUSKY_GIT_PARAMS)
 		// sh.echo(process.env.FORCE_COMMIT)
-		if (current === config.master && !opt.noVerify && msg && !/^Merge\s+branch/.test(msg)) {
+		if (current === config.master && !opt.noVerify && msg && msg.indexOf('Merge:') === -1 && msg.indexOf('Merge branch') === -1) {
 			sh.echo(error(`${config.master}分支不允许直接提交`))
 			sh.exit(1)
 		} else {
