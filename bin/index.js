@@ -2,7 +2,7 @@ const sh = require('shelljs')
 const colors = require('colors')
 let pwd = sh.exec('git rev-parse --show-toplevel', { silent: true }).stdout.replace(/[\n\s]*$/g, ''),
 	gitDir = sh.exec('git rev-parse --git-dir', { silent: true }).stdout.replace(/[\n\s]*$/g, ''),
-	system = sh.exec('uname -s', { silent: true }).stdout,
+	system = sh.exec('uname -s', { silent: true }).stdout || 'MINGW64_NT',
 	configFrom = 0,
 	config = {}
 const warning = txt => {
