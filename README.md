@@ -43,8 +43,10 @@ gitm start bugfix 20001
 #### 短指令：gitm cb
 任务阶段提测，这部操作把分支代码合并到dev和bug分支，环境参数必填
 ```
-# 形式：gitm combine <type> <name> [-d --dev] [-p --prod] [--no-bugfix] [--as-feature]
+# 形式：gitm combine <type> <name> [-d --dev] [-p --prod] [-b --build [build]] [--no-bugfix] [--as-feature]
 gitm combine bugfix 20001 -pd
+# 传入build名称可构建相应应用，build参数可传入all
+gitm combine bugfix 20001 -d --build cloud-ui
 ```
 ```
 # bugfix分支特殊情况需要合并到release时，传入--as-feature
@@ -93,6 +95,14 @@ gitm copy release xxxxxx xxxxxx xxxxxx
 ```
 # 指令形式：gitm copy <from> [-k --key] [-a --author]
 gitm copy dev --key 100000 --author saqqdy
+```
+
+### gitm build
+#### 短指令：gitm bd
+该指令用于发起Jenkins构建，project必传，app名称可传入all
+```
+# 形式：gitm build <project> [-e --env [env]] [-a --app [app]]
+gitm build wyweb --env dev --app cloud-ui
 ```
 
 ### gitm branch
