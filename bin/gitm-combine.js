@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 const program = require('commander')
 const sh = require('shelljs')
-const { error, success, config, queue, getStatus, pwd } = require('./index')
+const { error, success, config, queue, getStatus, pwd, runJenkins, appName } = require('./index')
 /**
  * gitm combine
  */
@@ -12,6 +12,7 @@ program
 	.description('合并bugfix任务分支、合并feature功能开发分支、合并support分支')
 	.option('-d, --dev', '是否同步到alpha测试环境', false)
 	.option('-p, --prod', '是否同步到预发布环境', false)
+	.option('-b, --build [build]', '需要构建的应用')
 	.option('--no-bugfix', '不同步到bug分支')
 	.option('--as-feature', 'bug分支合并到release')
 	.action(async (type, name, opt) => {
@@ -40,6 +41,14 @@ program
 					},
 					`git checkout ${type}/${name}`
 				])
+				if (opt.build) {
+					cmd = cmd.concat([
+						{
+							cmd: `gitm build jenkins --env dev --project ${appName} --app ${opt.build === true ? 'all' : opt.build}`,
+							config: { slient: true, again: false, success: '调起构建成功', fail: '调起构建失败' }
+						}
+					])
+				}
 			}
 			if (opt.prod) {
 				cmd = cmd.concat([
@@ -89,6 +98,26 @@ program
 						},
 						`git checkout ${type}/${name}`
 					])
+				}
+				// 仅支持构建bug
+				if (opt.build) {
+					if (type === 'bugfix') {
+						cmd = cmd.concat([
+							{
+								cmd: `gitm build jenkins --env bug --project ${appName} --app ${opt.build}`,
+								config: { slient: true, again: false, success: '调起构建成功', fail: '调起构建失败' }
+							}
+						])
+					}
+					// support分支要构建bug和release
+					if (type === 'support' && opt.bugfix) {
+						cmd = cmd.concat([
+							{
+								cmd: `gitm build jenkins --env bug --project ${appName} --app ${opt.build}`,
+								config: { slient: true, again: false, success: '调起构建成功', fail: '调起构建失败' }
+							}
+						])
+					}
 				}
 			}
 			queue(cmd)

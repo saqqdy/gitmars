@@ -2,9 +2,12 @@ const sh = require('shelljs')
 const colors = require('colors')
 let pwd = sh.exec('git rev-parse --show-toplevel', { silent: true }).stdout.replace(/[\n\s]*$/g, ''),
 	gitDir = sh.exec('git rev-parse --git-dir', { silent: true }).stdout.replace(/[\n\s]*$/g, ''),
+	gitUrl = sh.exec('git config --local --get remote.origin.url', { silent: true }).stdout.replace(/[\n\s]*$/g, ''),
+	appName = gitUrl.replace(/^[\s\S]+\/([a-z0-9A-Z]+)\.git$/, '$1'),
 	system = sh.exec('uname -s', { silent: true }).stdout || 'MINGW64_NT',
 	configFrom = 0,
-	config = {}
+	config = {},
+	buildConfig = null
 const warning = txt => {
 	return colors.yellow(txt)
 }
@@ -23,7 +26,9 @@ const defaults = {
 	user: '',
 	email: '',
 	msgTemplate: '${message}；项目：${project}；路径：${pwd}',
-	msgUrl: 'http://crp.kingdee.com/cd/metroOperateOutside/startMetroByMetroId?metroId=305648017963220992&describe=1235&isCurlAnother=false'
+	msgUrl: '',
+	jenkinsUrlTemplate: '',
+	crpUrlTemplate: ''
 }
 const getConfigFrom = () => {
 	if (sh.test('-f', pwd + '/.gitmarsrc')) {
@@ -51,8 +56,9 @@ function getConfig() {
 			arr = []
 		if (str) arr = str.split('\n')
 		arr.forEach(el => {
-			let o = el.split('=')
-			config[o[0]] = o[1] || null
+			el.replace(/^([a-zA-Z0-9]+)\=([\s\S]+)$/, (a, b, c) => {
+				config[b] = c || null
+			})
 		})
 		return config
 	} else if (configFrom === 2) {
@@ -61,6 +67,38 @@ function getConfig() {
 	return {}
 }
 config = { ...defaults, ...getConfig() }
+
+/**
+ * getBuildConfig
+ * @description 读取构建配置
+ * @returns {Object} arr 返回配置对象
+ */
+function getBuildConfig() {
+	if (sh.test('-f', pwd + '/buildConfig.json')) {
+		return require(pwd + '/buildConfig.json')
+	}
+	return null
+}
+buildConfig = getBuildConfig()
+
+/**
+ * mapTemplate
+ * @description 获取模板数据
+ */
+const mapTemplate = (tmp, data) => {
+	if (!tmp || !data) return null
+	let str = '' + tmp.replace(/\$\{([a-zA-Z0-9-_]+)\}/g, (a, b) => {
+		if (typeof data === 'function') {
+			return data(b)
+		}
+		for (let k in data) {
+			if (b === k) {
+				return data[k]
+			}
+		}
+	})
+	return str
+}
 
 /**
  * wait
@@ -120,10 +158,10 @@ const queue = list => {
 					if (code !== 0 && config.kill) {
 						// 当前指令执行错误且设置该条指令需要中断，则中断递归
 						let rest = JSON.parse(JSON.stringify(list))
-						if (config.again && typeof config.again !== true) {
-							rest.splice(0, 1, config.again)
-						} else {
+						if (!config.again) {
 							rest.shift()
+						} else if (typeof config.again !== true) {
+							rest.splice(0, 1, config.again)
 						}
 						cb(true) // 回调并中断执行
 						setCache(rest)
@@ -233,10 +271,13 @@ const getCurrent = async () => {
  * @description 发送消息
  */
 const postMessage = msg => {
-	if (!config.msgTemplate) return
-	let message = config.msgTemplate.replace(/\$\{([a-zA-Z0-9-_]+)\}/g, (a, b) => {
-		if (b === 'message') return msg
-		return getMessage(b)
+	if (!config.msgTemplate) {
+		sh.echo(error('请配置消息发送api地址'))
+		return
+	}
+	let message = mapTemplate(config.msgTemplate, key => {
+		if (key === 'message') return msg
+		return getMessage(key)
 	})
 	message = message.replace(/\s/g, '')
 	config.msgUrl && sh.exec(`curl -i -H "Content-Type: application/json" -X POST -d '{"envParams":{"error_msg":"'${message}'"}}' "${config.msgUrl}"`, { silent: true })
@@ -335,11 +376,81 @@ const handleConfigOutput = name => {
 	} else if (name === 'email') {
 		return '请输入Git邮箱'
 	} else if (name === 'msgUrl') {
-		return '请输入云之家消息推送地址，默认：' + defaults.msgUrl
+		return '请输入云之家消息推送地址'
 	} else if (name === 'msgTemplate') {
-		return '请输入消息模板，默认：' + defaults.msgTemplate
+		return '请输入消息模板, 默认为：' + defaults[msgTemplate]
+	} else if (name === 'jenkinsUrlTemplate') {
+		return '请输入Jenkins构建地址模板'
+	} else if (name === 'crpUrlTemplate') {
+		return '请输入CRP构建地址模板'
 	}
 	return '请输入' + name + '分支名称，默认为：' + defaults[name]
 }
 
-module.exports = { pwd, gitDir, system, warning, error, success, defaults, config, configFrom, wait, queue, getCache, setCache, setLog, getStatus, checkBranch, getCurrent, postMessage, handleConfigOutput }
+/**
+ * runJenkins
+ * @description 调起Jenkins构建
+ */
+const runJenkins = ({ env, project, app = 'all' }) => {
+	let e = buildConfig.jenkins,
+		p,
+		url
+	if (!e) {
+		sh.echo(error('请在buildConfig.json设置jenkins构建配置'))
+		sh.exit(1)
+		return
+	}
+	if (!e[env]) {
+		sh.echo(error('请输入正确的环境名称'))
+		sh.exit(1)
+		return
+	}
+	if (!e[env]) {
+		sh.echo(error('请输入正确的环境名称'))
+		sh.exit(1)
+		return
+	}
+	p = e[env].list.find(el => el.name === project)
+	if (!p) {
+		sh.echo(error('请输入正确的项目名称'))
+		sh.exit(1)
+		return
+	}
+	if (app && p.apps && !p.apps.includes(app)) {
+		sh.echo(error('请输入正确的应用名称'))
+		sh.exit(1)
+		return
+	}
+	if (!config.jenkinsUrlTemplate) {
+		sh.echo(error('请配置Jenkins构建地址模板'))
+		sh.exit(1)
+		return
+	}
+	url = mapTemplate(config.jenkinsUrlTemplate, {
+		line: e[env].line,
+		project: p.project,
+		token: e[env].token,
+		app: app
+	})
+	sh.exec(`curl -u ${e.username}:${e.password} "${url}"`, { silent: true })
+	sh.echo(success('成功调起Jenkins构建'))
+}
+
+/**
+ * runCRP
+ * @description 调起CRP构建
+ */
+const runCRP = ({ env, project, app = 'all' }) => {
+	let e = buildConfig.crp,
+		p,
+		url
+	if (!e) {
+		sh.echo(error('请在buildConfig.json设置CRP构建配置'))
+		sh.exit(1)
+		return
+	}
+	// sh.exec(`curl -H "Content-Type: application/json" -X POST -d '{"envParams":{"build_env":"预发","message":"'${message}'","status":"success"}}' "http://crp.kingdee.com/cd/metroOperateOutside/startMetroByMetroId?metroId=273045208667521024&describe=1235&isCurlAnother=false"`, { silent: true })
+	// sh.echo(success('成功调起CRP构建'))
+}
+
+module.exports = { pwd, gitDir, appName, system, warning, error, success, defaults, config, configFrom, wait, queue, getCache, setCache, setLog, getStatus, checkBranch, getCurrent, postMessage, handleConfigOutput, runJenkins, runCRP }
