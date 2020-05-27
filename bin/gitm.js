@@ -53,7 +53,7 @@ program
 	.alias('rt')
 	.command('upgrade', '升级gitmars')
 	.alias('ug')
-	.command('build', '构建Jenkins和CRP')
+	.command('build', '构建Jenkins')
 	.alias('bd')
 	.command('clean', '提交权限')
 	.command('permission', '提交权限')

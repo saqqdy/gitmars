@@ -87,16 +87,18 @@ buildConfig = getBuildConfig()
  */
 const mapTemplate = (tmp, data) => {
 	if (!tmp || !data) return null
-	let str = '' + tmp.replace(/\$\{([a-zA-Z0-9-_]+)\}/g, (a, b) => {
-		if (typeof data === 'function') {
-			return data(b)
-		}
-		for (let k in data) {
-			if (b === k) {
-				return data[k]
+	let str =
+		'' +
+		tmp.replace(/\$\{([a-zA-Z0-9-_]+)\}/g, (a, b) => {
+			if (typeof data === 'function') {
+				return data(b)
 			}
-		}
-	})
+			for (let k in data) {
+				if (b === k) {
+					return data[k]
+				}
+			}
+		})
 	return str
 }
 
@@ -392,25 +394,15 @@ const handleConfigOutput = name => {
  * @description 调起Jenkins构建
  */
 const runJenkins = ({ env, project, app = 'all' }) => {
-	let e = buildConfig.jenkins,
+	let cfg = buildConfig[env],
 		p,
 		url
-	if (!e) {
-		sh.echo(error('请在buildConfig.json设置jenkins构建配置'))
-		sh.exit(1)
-		return
-	}
-	if (!e[env]) {
+	if (!cfg) {
 		sh.echo(error('请输入正确的环境名称'))
 		sh.exit(1)
 		return
 	}
-	if (!e[env]) {
-		sh.echo(error('请输入正确的环境名称'))
-		sh.exit(1)
-		return
-	}
-	p = e[env].list.find(el => el.name === project)
+	p = cfg.list.find(el => el.name === project)
 	if (!p) {
 		sh.echo(error('请输入正确的项目名称'))
 		sh.exit(1)
@@ -427,30 +419,13 @@ const runJenkins = ({ env, project, app = 'all' }) => {
 		return
 	}
 	url = mapTemplate(config.jenkinsUrlTemplate, {
-		line: e[env].line,
+		line: cfg.line,
 		project: p.project,
-		token: e[env].token,
+		token: cfg.token,
 		app: app
 	})
-	sh.exec(`curl -u ${e.username}:${e.password} "${url}"`, { silent: true })
+	sh.exec(`curl -u ${buildConfig.username}:${buildConfig.password} "${url}"`, { silent: true })
 	sh.echo(success('成功调起Jenkins构建'))
 }
 
-/**
- * runCRP
- * @description 调起CRP构建
- */
-const runCRP = ({ env, project, app = 'all' }) => {
-	let e = buildConfig.crp,
-		p,
-		url
-	if (!e) {
-		sh.echo(error('请在buildConfig.json设置CRP构建配置'))
-		sh.exit(1)
-		return
-	}
-	// sh.exec(`curl -H "Content-Type: application/json" -X POST -d '{"envParams":{"build_env":"预发","message":"'${message}'","status":"success"}}' "http://crp.kingdee.com/cd/metroOperateOutside/startMetroByMetroId?metroId=273045208667521024&describe=1235&isCurlAnother=false"`, { silent: true })
-	// sh.echo(success('成功调起CRP构建'))
-}
-
-module.exports = { pwd, gitDir, appName, system, warning, error, success, defaults, config, configFrom, wait, queue, getCache, setCache, setLog, getStatus, checkBranch, getCurrent, postMessage, handleConfigOutput, runJenkins, runCRP }
+module.exports = { pwd, gitDir, appName, system, warning, error, success, defaults, config, configFrom, wait, queue, getCache, setCache, setLog, getStatus, checkBranch, getCurrent, postMessage, handleConfigOutput, runJenkins }
