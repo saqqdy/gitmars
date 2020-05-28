@@ -1,7 +1,8 @@
 #!/usr/bin/env node
 const program = require('commander')
 const sh = require('shelljs')
-const { error, success, warning, config, configFrom, queue, pwd, gitDir } = require('./index')
+const { success, warning } = require('../lib/index')
+const { pwd, gitDir } = require('../lib/global')
 /**
  * gitm clean
  */

@@ -1,7 +1,9 @@
 #!/usr/bin/env node
 const program = require('commander')
 const sh = require('shelljs')
-const { error, success, config, queue, getStatus, pwd, runJenkins, appName } = require('./index')
+const { error, queue, getStatus } = require('../lib/index')
+const { appName } = require('../lib/global')
+const config = require('../lib/config')
 /**
  * gitm combine
  */

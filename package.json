@@ -1,7 +1,7 @@
 {
 	"name": "gitmars",
 	"description": "一个高度定制化的git工作流工具",
-	"version": "1.2.0",
+	"version": "1.2.1",
 	"main": "bin/gitm.js",
 	"scripts": {
 		"eslint": "eslint --fix --ext .vue,.js",

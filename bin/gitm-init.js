@@ -1,27 +1,8 @@
 #!/usr/bin/env node
 const program = require('commander')
 const sh = require('shelljs')
-const { error, success, queue, pwd, defaults, handleConfigOutput } = require('./index')
-let config = {},
-	configFrom = 0 // 0=没有配置文件 1=.gitmarsrc 2=gitmarsconfig.json
-if (sh.test('-f', pwd + '/.gitmarsrc')) {
-	configFrom = 1
-	let str = sh
-			.cat(pwd + '/.gitmarsrc')
-			.stdout.replace(/(^\n*)|(\n*$)/g, '')
-			.replace(/\n{2,}/g, '\n')
-			.replace(/\r/g, '')
-			.replace(/[^\S\x0a\x0d]/g, ''),
-		arr = []
-	if (str) arr = str.split('\n')
-	arr.forEach(el => {
-		let o = el.split('=')
-		config[o[0]] = o[1] || null
-	})
-} else if (sh.test('-f', pwd + '/gitmarsconfig.json')) {
-	configFrom = 2
-	config = require(pwd + '/gitmarsconfig.json')
-}
+const { success, handleConfigOutput } = require('../lib/index')
+const { defaults, pwd } = require('../lib/global')
 /**
  * gitm init
  * @description 初始化gitmars配置
