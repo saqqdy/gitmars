@@ -1,27 +1,10 @@
 #!/usr/bin/env node
 const program = require('commander')
 const sh = require('shelljs')
-const { error, success, queue, getCurrent, pwd, defaults } = require('./index')
-let config = {},
-	configFrom = 0 // 0=没有配置文件 1=.gitmarsrc 2=gitmarsconfig.json
-if (sh.test('-f', pwd + '/.gitmarsrc')) {
-	configFrom = 1
-	let str = sh
-			.cat(pwd + '/.gitmarsrc')
-			.stdout.replace(/(^\n*)|(\n*$)/g, '')
-			.replace(/\r/g, '')
-			.replace(/\n{2,}/g, '\n')
-			.replace(/[^\S\x0a\x0d]/g, ''),
-		arr = []
-	if (str) arr = str.split('\n')
-	arr.forEach(el => {
-		let o = el.split('=')
-		config[o[0]] = o[1] || null
-	})
-} else if (sh.test('-f', pwd + '/gitmarsconfig.json')) {
-	configFrom = 2
-	config = require(pwd + '/gitmarsconfig.json')
-}
+const { error, success } = require('../lib/index')
+const { defaults, pwd } = require('../lib/global')
+const config = require('../lib/config')
+const configFrom = require('../lib/configFrom')
 /**
  * gitm config set
  */
@@ -54,7 +37,7 @@ program
 				process.exit(1)
 			}
 		} else {
-			console.log('请输入：')
+			sh.echo('请输入：')
 			process.stdin.resume()
 			process.stdin.setEncoding('utf8')
 			process.stdin.on('data', data => {

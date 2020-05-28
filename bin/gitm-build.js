@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 const program = require('commander')
 const sh = require('shelljs')
-const { error, success, config, configFrom, queue, getCurrent, gitDir, runJenkins } = require('./index')
+const runJenkins = require('../lib/runJenkins')
 /**
  * gitm build
  */

@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 const program = require('commander')
 const sh = require('shelljs')
-const { error, success, config, configFrom, queue, getStatus, pwd } = require('./index')
+const { queue } = require('../lib/index')
 /**
  * gitm upgrade
  */
@@ -12,7 +12,7 @@ program
 	.arguments('[version]')
 	.option('-m, --mirror', '是否使用淘宝镜像', false)
 	.action((version, opt) => {
-		let match = version && version.match(/[0-9.]+$/) || null,
+		let match = (version && version.match(/[0-9.]+$/)) || null,
 			v = match ? match[0] : 'latest',
 			cmd = [
 				{

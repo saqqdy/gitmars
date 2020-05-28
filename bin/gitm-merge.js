@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 const program = require('commander')
 const sh = require('shelljs')
-const { error, success, config, queue } = require('./index')
+const { queue } = require('../lib/index')
 /**
  * gitm merge
  */

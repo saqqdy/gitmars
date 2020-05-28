@@ -1,8 +1,9 @@
 #!/usr/bin/env node
-const set = require('./../package.json')
+const set = require('../package.json')
 const program = require('commander')
 const sh = require('shelljs')
-const { error, system } = require('./index')
+const { error } = require('../lib/index')
+const { system } = require('../lib/global')
 let isWindows = system.indexOf('MINGW') > -1
 
 if (!sh.which('git')) {
