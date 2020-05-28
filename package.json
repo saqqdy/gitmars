@@ -13,6 +13,7 @@
 	"dependencies": {
 		"colors": "^1.4.0",
 		"commander": "5.1.0",
+		"node-apollo": "^1.2.1",
 		"shelljs": "0.8.4",
 		"tracer": "1.1.1"
 	},

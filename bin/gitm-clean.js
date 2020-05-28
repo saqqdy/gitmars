@@ -10,7 +10,7 @@ program
 	.description('清理gitmars缓存')
 	.option('-f, --force', '强制清理', false)
 	.action(opt => {
-		sh.rm(gitDir + '/.gitmarscommands', gitDir + '/.gitmarslog')
+		sh.rm(gitDir + '/.gitmarscommands', gitDir + '/.gitmarslog', gitDir + '/buildConfig.json', gitDir + '/buildConfig.txt')
 		if (opt.force) {
 			sh.echo(warning('您输入了--force，将同时清理本地gitmars配置文件'))
 			sh.rm(pwd + '/gitmarsconfig.json', pwd + '/.gitmarsrc')
