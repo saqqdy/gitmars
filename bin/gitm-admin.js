@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 const program = require('commander')
 const sh = require('shelljs')
-const { error, success, config, queue, getStatus, checkBranch } = require('./index')
+const { error, success, config, queue, getStatus, checkBranch, appName } = require('./index')
 /**
  * gitm admin create
  * gitm admin publish
@@ -49,6 +49,7 @@ program
 	.option('-c, --combine', '是否把release代码同步到bug', false)
 	.option('--use-rebase', '是否使用rebase方式更新，默认merge', false)
 	.option('-p, --prod', '发布bug分支时，是否合并bug到master', false)
+	.option('-b, --build [build]', '需要构建的应用')
 	.option('--postmsg', '发送消息', false)
 	.action(async (type, opt) => {
 		const opts = ['bugfix', 'release', 'support'] // 允许执行的指令
@@ -118,6 +119,7 @@ program
 					}
 				]
 			}
+			// 发布bug分支且同步到master
 			if (type === 'bugfix' && opt.prod) {
 				cmd[type] = cmd[type].concat([
 					`git checkout ${config.master}`,
@@ -131,8 +133,27 @@ program
 						config: { slient: false, again: true, success: '推送成功', fail: '推送失败，请根据提示处理' }
 					}
 				])
+				if (opt.build) {
+					cmd[type] = cmd[type].concat([
+						{
+							cmd: `gitm build ${appName} --env bug --app ${opt.build === true ? 'all' : opt.build}`,
+							config: { slient: true, again: false, success: '调起构建成功', fail: '调起构建失败' }
+						}
+					])
+				}
 			}
+			// 发布release
+			if (type === 'release' && opt.build) {
+				cmd[type] = cmd[type].concat([
+					{
+						cmd: `gitm build ${appName} --env prod --app ${opt.build === true ? 'all' : opt.build}`,
+						config: { slient: true, again: false, success: '调起构建成功', fail: '调起构建失败' }
+					}
+				])
+			}
+			// 发布release分支且同步release代码到bug线
 			if (type === 'release' && opt.combine) {
+				// 使用rebase
 				if (opt.useRebase) {
 					cmd[type] = cmd[type].concat([
 						`git checkout ${config.release}`,
@@ -170,6 +191,7 @@ program
 					])
 				}
 			}
+
 			queue(cmd[type])
 		} else {
 			sh.echo(error('type只允许输入：' + opts.join(',')))

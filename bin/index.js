@@ -1,7 +1,12 @@
+const apolloConfig = require('../lib/apollo')
+
+let fs = require('fs'),
+	path = require('path')
 const sh = require('shelljs')
 const colors = require('colors')
 let pwd = sh.exec('git rev-parse --show-toplevel', { silent: true }).stdout.replace(/[\n\s]*$/g, ''),
-	gitDir = sh.exec('git rev-parse --git-dir', { silent: true }).stdout.replace(/[\n\s]*$/g, ''),
+	// gitDir = sh.exec('git rev-parse --git-dir', { silent: true }).stdout.replace(/[\n\s]*$/g, ''),
+	gitDir = pwd + '/.git',
 	gitUrl = sh.exec('git config --local --get remote.origin.url', { silent: true }).stdout.replace(/[\n\s]*$/g, ''),
 	appName = gitUrl.replace(/^[\s\S]+\/([a-z0-9A-Z]+)\.git$/, '$1'),
 	system = sh.exec('uname -s', { silent: true }).stdout || 'MINGW64_NT',
@@ -27,8 +32,7 @@ const defaults = {
 	email: '',
 	msgTemplate: '${message}；项目：${project}；路径：${pwd}',
 	msgUrl: '',
-	jenkinsUrlTemplate: '',
-	crpUrlTemplate: ''
+	apolloConfig: ''
 }
 const getConfigFrom = () => {
 	if (sh.test('-f', pwd + '/.gitmarsrc')) {
@@ -69,17 +73,22 @@ function getConfig() {
 config = { ...defaults, ...getConfig() }
 
 /**
- * getBuildConfig
- * @description 读取构建配置
- * @returns {Object} arr 返回配置对象
+ * writeFile
+ * @description 写文件
  */
-function getBuildConfig() {
-	if (sh.test('-f', pwd + '/buildConfig.json')) {
-		return require(pwd + '/buildConfig.json')
-	}
-	return null
+const writeFile = (url, data) => {
+	return new Promise((resolve, reject) => {
+		fs.writeFile(url, data, err => {
+			if (err) {
+				reject(new Error('文件写入错误'))
+			} else {
+				resolve()
+			}
+		})
+	})
 }
-buildConfig = getBuildConfig()
+
+buildConfig = apolloConfig({ config, pwd, gitDir, writeFile })
 
 /**
  * mapTemplate
@@ -291,8 +300,7 @@ const postMessage = msg => {
  */
 const getMessage = type => {
 	let str = '',
-		d = new Date(),
-		name = pwd.match(/\/([a-zA-Z0-9-_]+)\/?$/)
+		d = new Date()
 	switch (type) {
 		case 'time':
 			str = d
@@ -304,7 +312,7 @@ const getMessage = type => {
 			str = pwd
 			break
 		case 'project':
-			str = name ? name[1] : ''
+			str = appName
 			break
 		case 'user':
 			str = config.user
@@ -380,11 +388,9 @@ const handleConfigOutput = name => {
 	} else if (name === 'msgUrl') {
 		return '请输入云之家消息推送地址'
 	} else if (name === 'msgTemplate') {
-		return '请输入消息模板, 默认为：' + defaults[msgTemplate]
-	} else if (name === 'jenkinsUrlTemplate') {
-		return '请输入Jenkins构建地址模板'
-	} else if (name === 'crpUrlTemplate') {
-		return '请输入CRP构建地址模板'
+		return '请输入消息模板, 默认为：' + defaults[name]
+	} else if (name === 'apolloConfig') {
+		return '请配置apollo'
 	}
 	return '请输入' + name + '分支名称，默认为：' + defaults[name]
 }
@@ -413,12 +419,12 @@ const runJenkins = ({ env, project, app = 'all' }) => {
 		sh.exit(1)
 		return
 	}
-	if (!config.jenkinsUrlTemplate) {
+	if (!buildConfig.template) {
 		sh.echo(error('请配置Jenkins构建地址模板'))
 		sh.exit(1)
 		return
 	}
-	url = mapTemplate(config.jenkinsUrlTemplate, {
+	url = mapTemplate(buildConfig.template, {
 		line: cfg.line,
 		project: p.project,
 		token: cfg.token,

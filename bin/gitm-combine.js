@@ -44,7 +44,7 @@ program
 				if (opt.build) {
 					cmd = cmd.concat([
 						{
-							cmd: `gitm build jenkins --env dev --project ${appName} --app ${opt.build === true ? 'all' : opt.build}`,
+							cmd: `gitm build ${appName} --env dev --app ${opt.build === true ? 'all' : opt.build}`,
 							config: { slient: true, again: false, success: '调起构建成功', fail: '调起构建失败' }
 						}
 					])
@@ -104,8 +104,8 @@ program
 					if (type === 'bugfix') {
 						cmd = cmd.concat([
 							{
-								cmd: `gitm build jenkins --env bug --project ${appName} --app ${opt.build}`,
-								config: { slient: true, again: false, success: '调起构建成功', fail: '调起构建失败' }
+							cmd: `gitm build ${appName} --env bug --app ${opt.build === true ? 'all' : opt.build}`,
+							config: { slient: true, again: false, success: '调起构建成功', fail: '调起构建失败' }
 							}
 						])
 					}
@@ -113,7 +113,7 @@ program
 					if (type === 'support' && opt.bugfix) {
 						cmd = cmd.concat([
 							{
-								cmd: `gitm build jenkins --env bug --project ${appName} --app ${opt.build}`,
+								cmd: `gitm build ${appName} --env bug --app ${opt.build === true ? 'all' : opt.build}`,
 								config: { slient: true, again: false, success: '调起构建成功', fail: '调起构建失败' }
 							}
 						])

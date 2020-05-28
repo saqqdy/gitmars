@@ -2,6 +2,8 @@
 一个定制化的git工作流操作工具
 每一个子命令都带了help功能，可输入 gitm command-name --help 获取对应子指令的帮助信息
 
+> 注意：<type>意思是type必传；[type]意思是type选填；[-a --app [app]]其中-a是--app的简写，后面[app]指的是-a后面的传值
+
 ## 安装
 ```
 # 通过npm安装
@@ -84,7 +86,7 @@ gitm merge 20001
 
 ### gitm copy
 #### 短指令：gitm cp
-复制其他分支上的提交记录到当前分支（注意关键词必须是4位以上的数字，任务号或者bug编号），gitm copy一共有两种使用方式
+复制其他分支上的提交记录到当前分支（为确保copy准确，请尽量完整填写关键词），gitm copy一共有两种使用方式
 1. 传入commit-id，把其他分支上的commit-id复制过来，执行下面指令
 ```
 # 形式：gitm copy <from> [commitid...]
@@ -190,13 +192,21 @@ gitm admin create release
 ### gitm admin publish
 发版操作
 ```
-# 形式：gitm admin publish <type> [-c --combine] [--use-rebase] [-p --prod] [-p --postmsg]
+# 形式：gitm admin publish <type> [-c --combine] [--use-rebase] [-p --prod] [-b --build [build]] [-p --postmsg]
 # 传入combine时合并release之后会把release同步到bugfix
 # 传入rebase使用release方法合并
 # 当需要发布bugfix时，传入prod会把bugfix同步到master，不传则不合并
 # postmsg：传入时有配置postmsg的指令处理消息会推送到云之家
 gitm admin publish release
 ```
+
+```
+# 发布并执行构建全部
+gitm admin publish release --build
+# 发布并执行构建cloud-ui
+gitm admin publish release --build cloud-ui
+```
+
 
 ### gitm admin update
 更新release、bugfix、support分支代码，默认走merge方法
