@@ -2,8 +2,8 @@
 const set = require('../package.json')
 const program = require('commander')
 const sh = require('shelljs')
-const { error } = require('../src/index')
-const { system } = require('../src/global')
+const { error } = require('./src/index')
+const { system } = require('./src/global')
 let isWindows = system.indexOf('MINGW') > -1
 
 if (!sh.which('git')) {
