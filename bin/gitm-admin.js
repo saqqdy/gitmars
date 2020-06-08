@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 const program = require('commander')
 const sh = require('shelljs')
-const { error, success, queue, getStatus, checkBranch } = require('../lib/index')
-const { appName } = require('../lib/global')
-const config = require('../lib/config')
+const { error, success, queue, getStatus, checkBranch } = require('../src/index')
+const { appName } = require('../src/global')
+const config = require('../src/config')
 /**
  * gitm admin create
  * gitm admin publish

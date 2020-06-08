@@ -1,10 +1,10 @@
 #!/usr/bin/env node
 const program = require('commander')
 const sh = require('shelljs')
-const { error, success } = require('../lib/index')
-const { defaults, pwd } = require('../lib/global')
-const config = require('../lib/config')
-const configFrom = require('../lib/configFrom')
+const { error, success } = require('../src/index')
+const { defaults, pwd } = require('../src/global')
+const config = require('../src/config')
+const configFrom = require('../src/configFrom')
 /**
  * gitm config set
  */
