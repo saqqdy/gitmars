@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 const program = require('commander')
 const sh = require('shelljs')
-const { success, handleConfigOutput } = require('./src/index')
-const { defaults, pwd } = require('./src/global')
+const { success, handleConfigOutput } = require('./js/index')
+const { defaults, pwd } = require('./js/global')
 /**
  * gitm init
  * @description 初始化gitmars配置
