@@ -2,23 +2,28 @@
 	"name": "gitmars",
 	"description": "一个高度定制化的git工作流工具",
 	"version": "1.2.2",
-	"main": "bin/gitm.js",
+	"main": "lib/gitm.js",
 	"scripts": {
 		"eslint": "eslint --fix --ext .vue,.js",
-		"prettier": "prettier --write ./"
+		"prettier": "prettier --write ./",
+		"lib": "mkdir -p lib && rm -rf lib/* && npx babel bin -d lib"
 	},
 	"bin": {
-		"gitm": "./bin/gitm.js"
+		"gitm": "./lib/gitm.js"
 	},
 	"dependencies": {
 		"colors": "^1.4.0",
 		"commander": "5.1.0",
+		"core-js": "^3.6.5",
 		"node-apollo": "^1.2.1",
 		"shelljs": "0.8.4",
-		"tracer": "1.1.1"
+		"tracer": "1.1.2"
 	},
 	"devDependencies": {
-		"eslint": "^7.0.0",
+		"@babel/cli": "^7.10.1",
+		"@babel/core": "^7.10.2",
+		"@babel/preset-env": "^7.10.2",
+		"eslint": "7.2.0",
 		"prettier": "^2.0.5"
 	},
 	"repository": {
