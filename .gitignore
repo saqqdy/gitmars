@@ -5,6 +5,7 @@ yarn.lock
 /.pnp
 .pnp.js
 gitmarsconfig.json
+bin
 
 /tests/e2e/reports/
 selenium-debug.log
