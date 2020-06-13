@@ -4,6 +4,8 @@
 
 > 注意：<type>意思是type必传；[type]意思是type选填；[-a --app [app]]其中-a是--app的简写，后面[app]指的是-a后面的传值
 
+![gitmars.png](https://raw.githubusercontent.com/saqqdy/gitmars/master/lib/img/gitmars.png)
+
 ## 安装
 ```
 # 通过npm安装
