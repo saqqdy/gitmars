@@ -1,3 +1,7 @@
+# 2020.06.16 v1.2.3更新日志
+1. 修复在node v14版本下的兼容问题
+2. 代码转ES5发布
+
 # 2020.05.29 v1.2.2更新日志
 1. 新增build指令调起Jenkins构建
 2. combine和admin publish指令新增--build参数，在合并完代码时调起Jenkins构建
