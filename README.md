@@ -155,17 +155,46 @@ gitm revert xxxxxx -m 1
 
 ### gitm save
 #### 短指令：gitm sv
-暂存代码
+暂存当前分支代码
 ```
+# 指令形式：gitm save [message] [-f --force]
+# message可以不传，默认会存入当前分支名称作为暂存标记信息
 # 传入-f或者--force，程序会把没有版本库的文件执行add之后暂存起来
-gitm save [-f --force]
+
+# 简单使用
+gitm save
+gitm sv
+
+# 暂存没有加入版本控制的文件
+gitm save --force
+gitm save -f
+
+# 设置自定义暂存信息，方便取出
+gitm save feature/1000
+gitm save "test login"
 ```
 
 ### gitm get
 #### 短指令：gitm gt
 恢复暂存代码
 ```
+# 指令形式：gitm get [message] [index] [-k --keep]
+# message传入暂存时写入的全部完整信息，可以不传，默认获取在当前分支暂存的记录，存在多条记录时默认恢复最近的一条记录，或者可传入index恢复你需要的记录
+# 如果你希望在操作暂存区恢复之后保留暂存区的记录，传入--keep
+
+# 简单使用
 gitm get
+gitm gt
+
+# 恢复feature/1000分支的暂存记录到当前分支，取第2条记录(index不传默认取第1条记录：0)
+gitm get feature/1000 1
+
+# 恢复时不删除暂存区数据
+gitm get --keep
+gitm get -k
+
+# 恢复暂存信息为“test login”的暂存记录
+gitm get "test login"
 ```
 
 ### gitm upgrade
