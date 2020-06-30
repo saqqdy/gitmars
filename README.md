@@ -44,13 +44,45 @@ gitm start bugfix 20001
 ```
 
 ### gitm combine
+
 #### 短指令：gitm cb
 任务阶段提测，这部操作把分支代码合并到dev和bug分支，环境参数必填
+形式：gitm combine [type] [name] [-a --add] [-m --commit [message]] [-d --dev] [-p --prod] [-b --build [build]] [--no-bugfix] [--as-feature]
+
+#### 参数
+
+| 参数 | 说明     | 类型   | 可选值                 | 必填 | 默认         |
+| ---- | -------- | ------ | ---------------------- | ---- | ------------ |
+| type | 分支类型 | String | feature/bugfix/support | 否   | 当前分支类型 |
+| name | 分支名称 | String | -                      | 否   | 当前分支名称 |
+
+#### 传值
+
+| 名称         | 简写 | 说明                                                  | 类型    | 可选值  | 传值必填 | 默认  |
+| ------------ | ---- | ----------------------------------------------------- | ------- | ------- | -------- | ----- |
+| --add        | -a   | 是否需要执行add                                       | Boolean | -       | -        | false |
+| --commit     | -m   | 是否需要执行commit，需要填写message                   | String  | -       | 是       | ''    |
+| --dev        | -d   | 是否同步到dev，与--prod两者必传一个                   | Boolean | -       | -        | false |
+| --prod       | -p   | 是否同步到prod，与--dev两者必传一个                   | Boolean | -       | -        | false |
+| --build      | -b   | 需要构建的应用                                        | String  | all/... | 否       | all   |
+| --no-bugfix  |      | 是否不同步到bug分支，这个参数仅对support分支有效      | Boolean | -       | -        | false |
+| --as-feature |      | bugfix分支需要合并到release时使用，仅对bugfix分支有效 | Boolean | -       | -        | false |
+
 ```
-# 形式：gitm combine <type> <name> [-d --dev] [-p --prod] [-b --build [build]] [--no-bugfix] [--as-feature]
+# 合并当前分支到alpha
+gitm combine -d
+gitm cb -d
+# 
+# 合并当前分支到alpha并构建
+gitm combine -d -b
+gitm combine -d --build all
+gitm cb -d -b cloud-ui
+#
+# 合并bugfix/20001分支到alpha和prod
 gitm combine bugfix 20001 -pd
-# 传入build名称可构建相应应用，build参数可传入all
-gitm combine bugfix 20001 -d --build cloud-ui
+gitm cb bugfix 20001 -pd
+# 或者简写
+gitm combine 20001 -d
 ```
 ```
 # bugfix分支特殊情况需要合并到release时，传入--as-feature
@@ -64,17 +96,51 @@ gitm combine support 20001 -pd --no-bugfix
 ### gitm end
 #### 短指令：gitm ed
 任务完成，合并并删除分支，这个操作会把20001这个分支代码合并到bug分支并删除20001分支
+形式：gitm end [type] [name]
+
+#### 参数
+
+| 参数 | 说明     | 类型   | 可选值                 | 必填 | 默认         |
+| ---- | -------- | ------ | ---------------------- | ---- | ------------ |
+| type | 分支类型 | String | feature/bugfix/support | 否   | 当前分支类型 |
+| name | 分支名称 | String | -                      | 否   | 当前分支名称 |
+
 ```
-# 形式：gitm end <type> <name>
+# 结束bugfix/20001分支
 gitm end bugfix 20001
+gitm ed bugfix 20001
+# 
+# 结束当前分支
+gitm end
+gitm ed
 ```
 
-### gitm update
+## gitm update
 #### 短指令：gitm up
 把bug分支的最新代码同步到20001分支上（--use-merge使用merge方法合并，默认false）
+形式：gitm update [type] [name] [--use-merge]
+
+#### 参数
+
+| 参数 | 说明     | 类型   | 可选值                 | 必填 | 默认         |
+| ---- | -------- | ------ | ---------------------- | ---- | ------------ |
+| type | 分支类型 | String | feature/bugfix/support | 否   | 当前分支类型 |
+| name | 分支名称 | String | -                      | 否   | 当前分支名称 |
+
+#### 传值
+
+| 名称        | 简写 | 说明                      | 类型    | 可选值 | 传值必填 | 默认  |
+| ----------- | ---- | ------------------------- | ------- | ------ | -------- | ----- |
+| --use-merge |      | 是否使用merge方式更新代码 | Boolean | -      | -        | false |
+
 ```
-# 形式：gitm update <type> <name> [--use-merge]
+# 升级bugfix/20001分支
 gitm update bugfix 20001
+gitm up bugfix 20001
+# 
+# 使用merge方法升级当前分支
+gitm update --use-merge
+gitm up --use-merge
 ```
 
 ## 扩展
