@@ -28,7 +28,8 @@ gitm init
 gitm config list [option]
 
 # 版本升级[-m --mirror]使用淘宝镜像升级
-gitm upgrade --mirror
+Mac用户：gitm upgrade -m
+windows用户：npm i -g gitmars@latest
 
 # 查看版本
 gitm -v
@@ -45,9 +46,24 @@ gitm copy -h
 
 ## gitm start
 ### 短指令：gitm st
+开始任务，创建分支
+
 ```
-# 形式：gitm start <type> <name>
+形式：gitm start <type> <name>
+```
+
+### 参数
+
+| 参数 | 说明     | 类型   | 可选值                 | 必填 | 默认 |
+| ---- | -------- | ------ | ---------------------- | ---- | ---- |
+| type | 分支类型 | String | feature/bugfix/support | 是   | -    |
+| name | 分支名称 | String | -                      | 是   | -    |
+
+* 简单使用
+
+```
 gitm start bugfix 20001
+gitm start feature 1001
 ```
 
 
@@ -99,19 +115,21 @@ gitm cb -d -b cloud-ui
 gitm combine bugfix 20001 -pd
 gitm cb bugfix 20001 -pd
 # 或者简写
-gitm combine 20001 -d
+gitm cb 20001 -d
 ```
 
 4. bugfix分支特殊情况需要合并到release时，传入--as-feature
 
 ```
 gitm combine bugfix 20001 -p --as-feature
+gitm cb -p --as-feature
 ```
 
 5. support分支提交prod时会主动同步bugfix分支和release分支，传入--no-bugfix不同步到bugfix
 
 ```
 gitm combine support 20001 -pd --no-bugfix
+gitm cb -pd --no-bugfix
 ```
 
 
@@ -203,6 +221,7 @@ gitm up --use-merge
 
 ```
 gitm merge 20001
+gitm mg 20001
 ```
 
 
@@ -274,27 +293,50 @@ gitm build wyweb --env dev --app cloud-ui
 ## gitm branch
 ### 短指令：gitm bh
 提供分支搜索和删除功能（不开放删除远程分支功能）
+
+```
+形式1：gitm branch [-k --key] [-t --type] [-r --remote]
+形式2：gitm branch [-d --delete [name]] [-D --forcedelete [name]]
+形式3：gitm branch [-u --upstream [upstream]]
+```
+
+### 传值
+
+| 名称          | 简写 | 说明                                           | 类型    | 可选值                 | 传值必填 | 默认  |
+| ------------- | ---- | ---------------------------------------------- | ------- | ---------------------- | -------- | ----- |
+| --key         | -k   | 模糊匹配关键词                                 | String  | -                      | 否       | -     |
+| --type        | -t   | 分支类型，默认查询全部                         | String  | bugfix/feature/support | 否       | -     |
+| --remote      | -r   | 是否查询远程分支                               | Boolean | -                      | 否       | false |
+| --delete      | -d   | 删除本地分支                                   | String  | -                      | 是       | -     |
+| --forcedelete | -D   | 强制删除本地分支                               | String  | -                      | 是       | -     |
+| --upstream    | -u   | 传入分支名称可绑定分支，不传分支名称则取消绑定 | String  | -                      | 否       | ''    |
+
 1. 查询本地feature功能分支
+
 ```
 # 形式：gitm branch [-k --key] [-t --type] [-r --remote]
-# key是查询关键词，type是查询的类型，有support、bugfix、feature三种，默认查询全部，remote是否查询远程分支，默认否
 gitm branch --key bug001 -r -t feature
+gitm bh -k bug001 -r -t feature
 ```
 
 2. 删除本地分支
+
 ```
 # 形式：gitm branch [-d --delete] [-D --forcedelete]
-# delete是正常删除分支，forcedelete强制删除
 gitm branch -d bugfix/bug001
+gitm bh -d bugfix/bug001
 ```
 
-3. 设置本地分支与远程分支关联
+3. 设置当前分支与远程feature/1000分支关联
+
 ```
 # 形式：gitm branch [-u --upstream [upstream]]
-# 设置当前分支与远程feature/1000分支关联
 gitm branch -u feature/1000
-# 
-# 取消当前分支与远程分支的关联
+```
+
+4. 取消当前分支与远程分支的关联
+
+```
 gitm branch -u
 ```
 
@@ -302,18 +344,39 @@ gitm branch -u
 ## gitm revert
 ### 短指令：gitm rt
 撤销当前分支的某条提交记录，如果需要撤销一条merge记录，需要传入撤销方式，1 = 保留当前分支代码；2 = 保留传入代码
+
+```
+形式1：gitm revert [commitid] [-m --mode [mode]]
+形式2：gitm revert [-n --number] [-m --mode [mode]]
+```
+
+### 参数
+
+| 参数     | 说明       | 类型   | 可选值 | 必填 | 默认 |
+| -------- | ---------- | ------ | ------ | ---- | ---- |
+| commitid | 要撤回的id | String | -      | 否   | -    |
+
+### 传值
+
+| 名称     | 简写 | 说明                                                                | 类型   | 可选值 | 传值必填 | 默认  |
+| -------- | ---- | ------------------------------------------------------------------- | ------ | ------ | -------- | ----- |
+| --number | -n   | 撤回倒数N条记录，使用时不要传入commitID                             | Number | -      | 否       | false |
+| --mode   | -m   | 撤回merge记录时需要保留哪一方的代码，1=保留当前分支，2=保留传入分支 | Number | -      | 否       | -     |
+
 1. 撤销最后一次提交（或者撤销倒数第n次提交）
+
 ```
-# 形式：gitm revert [commitid] [-n --number]
-# 撤销最后一次提交
-gitm revert -n 1 --mode 1
-# 或者
-gitm revert -n 3
+# 形式：gitm revert [-n --number] [-m --mode [mode]]
+gitm revert -n 1
+gitm rt -n 3
 ```
+
 2. 撤销某条提交id
+
 ```
 # 形式：gitm revert [commitid] [-m --mode [mode]]
-gitm revert xxxxxx -m 1
+gitm revert xxxxxx --mode 1
+gitm rt xxxxxx -m 1
 ```
 
 
@@ -410,16 +473,47 @@ gitm get "test login"
 ## gitm upgrade
 ### 短指令：gitm ug
 升级gitmars版本，可输入version指定版本，选填，默认安装最新版
+
 ```
-# 输入-m或者--mirror表示使用淘宝镜像升级
-gitm upgrade [version] [-m --mirror]
+形式：gitm upgrade [version] [-m --mirror]
+```
+
+### 参数
+
+| 参数    | 说明           | 类型   | 可选值 | 必填 | 默认 |
+| ------- | -------------- | ------ | ------ | ---- | ---- |
+| version | 要升级的版本号 | String | -      | 否   | -    |
+
+### 传值
+
+| 名称     | 简写 | 说明                 | 类型    | 可选值 | 传值必填 | 默认  |
+| -------- | ---- | -------------------- | ------- | ------ | -------- | ----- |
+| --mirror | -m   | 是否使用淘宝镜像升级 | Boolean | -      | 否       | false |
+
+* 简单使用
+
+```
+gitm upgrade --mirror
+gitm ug -m
 ```
 
 
 ## gitm clean
 清理gitmars缓存和本地配置，输入--force同时清理本地配置文件（慎用）
+
 ```
-# 形式：gitm clean [-f --force]
+形式：gitm clean [-f --force]
+```
+
+### 传值
+
+| 名称    | 简写 | 说明                                  | 类型    | 可选值 | 传值必填 | 默认  |
+| ------- | ---- | ------------------------------------- | ------- | ------ | -------- | ----- |
+| --force | -f   | 是否清理gitmars配置文件（请谨慎使用） | Boolean | -      | 否       | false |
+
+* 简单使用
+
+```
 gitm clean
 ```
 
@@ -428,45 +522,109 @@ gitm clean
 # 管理员
 ## gitm admin create
 创建release、bugfix、support和develop分支
+
 ```
-# 形式：gitm admin create <type>
+形式：gitm admin create <type>
+```
+
+### 参数
+
+| 参数 | 说明     | 类型   | 可选值                 | 必填 | 默认 |
+| ---- | -------- | ------ | ---------------------- | ---- | ---- |
+| type | 分支类型 | String | bugfix/release/develop | 是   | -    |
+
+* 创建release分支
+
+```
 gitm admin create release
 ```
 
 
 ## gitm admin publish
-发版操作
+发布操作
+
 ```
-# 形式：gitm admin publish <type> [-c --combine] [--use-rebase] [-p --prod] [-b --build [build]] [-p --postmsg]
-# 传入combine时合并release之后会把release同步到bugfix
-# 传入rebase使用release方法合并
-# 当需要发布bugfix时，传入prod会把bugfix同步到master，不传则不合并
-# postmsg：传入时有配置postmsg的指令处理消息会推送到云之家
+形式：gitm admin publish <type> [-c --combine] [--use-rebase] [-p --prod] [-b --build [build]] [-p --postmsg]
+```
+
+### 参数
+
+| 参数 | 说明     | 类型   | 可选值                 | 必填 | 默认 |
+| ---- | -------- | ------ | ---------------------- | ---- | ---- |
+| type | 分支类型 | String | bugfix/release/support | 是   | -    |
+
+### 传值
+
+| 名称         | 简写 | 说明                                                                  | 类型    | 可选值 | 传值必填 | 默认  |
+| ------------ | ---- | --------------------------------------------------------------------- | ------- | ------ | -------- | ----- |
+| --combine    | -c   | 是否在合并release之后会把release同步到bugfix（仅在合并release时可用） | Boolean | -      | 否       | false |
+| --prod       | -p   | 发布bugfix时，是否需要把bugfix合并到master                            | Boolean | -      | 否       | false |
+| --build      | -b   | 是否使用淘宝镜像升级                                                  | Boolean | -      | 否       | false |
+| --use-rebase |      | 是否使用rebase执行合并                                                | Boolean | -      | 否       | false |
+| --postmsg    | -p   | 是否需要发送指令处理消息到云之家                                      | Boolean | -      | 否       | false |
+
+1. 合并release代码到预发环境
+
+```
 gitm admin publish release
 ```
 
+2. 发布并执行构建
+
 ```
-# 发布并执行构建全部
+# 构建全部
 gitm admin publish release --build
-# 发布并执行构建cloud-ui
+gitm admin publish release -b
+# 仅构建cloud-ui
 gitm admin publish release --build cloud-ui
+gitm admin publish release -b cloud-ui
 ```
 
 
 ## gitm admin update
 更新release、bugfix、support分支代码，默认走merge方法
+
 ```
-# 形式：gitm admin update <type> [--use-rebase] [-m --mode [mode]] [-p --postmsg]
-# mode：出现冲突时，保留传入代码还是保留当前代码；1=采用当前 2=采用传入；默认为 0=手动处理。本参数不可与--use-rebase同时使用
-# release：传入rebase使用release方法合并，默认使用merge
-# postmsg：传入时有配置postmsg的指令处理消息会推送到云之家
+形式：gitm admin update <type> [--use-rebase] [-m --mode [mode]] [-p --postmsg]
+```
+
+### 参数
+
+| 参数 | 说明     | 类型   | 可选值                 | 必填 | 默认 |
+| ---- | -------- | ------ | ---------------------- | ---- | ---- |
+| type | 分支类型 | String | bugfix/release/support | 是   | -    |
+
+### 传值
+
+| 名称         | 简写 | 说明                                                                                                                 | 类型    | 可选值 | 传值必填 | 默认  |
+| ------------ | ---- | -------------------------------------------------------------------------------------------------------------------- | ------- | ------ | -------- | ----- |
+| --mode       | -m   | 出现冲突时，保留传入代码还是保留当前代码；1=采用当前 2=采用传入；默认为 0=手动处理。本参数不可与--use-rebase同时使用 | Number  | 0/1/2  | 否       | 0     |
+| --use-rebase |      | 是否使用rebase执行同步                                                                                               | Boolean | -      | 否       | false |
+| --postmsg    | -p   | 是否需要发送指令处理消息到云之家                                                                                     | Boolean | -      | 否       | false |
+
+1. 更新bug分支代码
+
+```
 gitm admin update bugfix -m 2
+gitm admin up bugfix -m 2
 ```
 
 
 ## gitm admin clean
 Jenkins构建清理git分支专用，可传入release、bugfix、develop分支代码
+
 ```
-# 形式：gitm admin clean <type>
+形式：gitm admin clean <type>
+```
+
+### 参数
+
+| 参数 | 说明     | 类型   | 可选值                        | 必填 | 默认 |
+| ---- | -------- | ------ | ----------------------------- | ---- | ---- |
+| type | 分支类型 | String | bugfix/release/support/master | 是   | -    |
+
+* 清理分支
+
+```
 gitm admin clean bugfix
 ```
