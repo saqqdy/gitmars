@@ -1,7 +1,9 @@
 一个定制化的git工作流操作工具
 
-> 每一个子命令都带了help功能，可输入 gitm command-name --help 获取对应子指令的帮助信息
-> 注意：<type>意思是type必传；[type]意思是type选填；[-a --app [app]]其中-a是--app的简写，后面[app]指的是-a后面的传值
+```
+1. 每一个子命令都带了help功能，可输入 gitm command-name --help 获取对应子指令的帮助信息
+2. 注意：<type>意思是type必传；[type]意思是type选填；[-a --app [app]]其中-a是--app的简写，后面[app]指的是-a后面的传值
+```
 
 ![gitmars.png](https://raw.githubusercontent.com/saqqdy/gitmars/master/lib/img/gitmars.png)
 
