@@ -55,7 +55,9 @@ gitm start bugfix 20001
 ### 短指令：gitm cb
 任务阶段提测，这部操作把分支代码合并到dev和bug分支，环境参数必填
 
+```
 形式：gitm combine [type] [name] [-a --add] [-m --commit [message]] [-d --dev] [-p --prod] [-b --build [build]] [--no-bugfix] [--as-feature]
+```
 
 ### 参数
 
@@ -118,7 +120,9 @@ gitm combine support 20001 -pd --no-bugfix
 ### 短指令：gitm ed
 任务完成，合并并删除分支，这个操作会把20001这个分支代码合并到bug分支并删除20001分支
 
+```
 形式：gitm end [type] [name]
+```
 
 ### 参数
 
@@ -146,7 +150,9 @@ gitm ed
 ### 短指令：gitm up
 把bug分支的最新代码同步到20001分支上（--use-merge使用merge方法合并，默认false）
 
+```
 形式：gitm update [type] [name] [--use-merge]
+```
 
 ### 参数
 
@@ -183,7 +189,9 @@ gitm up --use-merge
 ### 短指令：gitm mg
 合并分支，类似git merge功能
 
+```
 形式：gitm merge <name>
+```
 
 ### 参数
 
@@ -202,8 +210,10 @@ gitm merge 20001
 ### 短指令：gitm cp
 复制其他分支上的提交记录到当前分支
 
+```
 形式1：gitm copy <from> [commitid...]
 形式2：gitm copy <from> [-k --key] [-a --author]
+```
 
 ### 参数
 
@@ -236,7 +246,9 @@ gitm copy dev --key 100000 --author saqqdy
 ### 短指令：gitm bd
 该指令用于发起Jenkins构建，project必传，app名称可传入all
 
+```
 形式：gitm build <project> [-e --env [env]] [-a --app [app]]
+```
 
 ### 参数
 
@@ -309,7 +321,9 @@ gitm revert xxxxxx -m 1
 ### 短指令：gitm sv
 暂存当前分支代码
 
+```
 形式：gitm save [message] [-f --force]
+```
 
 ### 参数
 
@@ -349,7 +363,9 @@ gitm save "test login"
 ### 短指令：gitm gt
 恢复暂存代码
 
+```
 形式：gitm get [message] [index] [-k --keep]
+```
 
 ### 参数
 
