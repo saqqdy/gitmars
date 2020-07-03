@@ -1,8 +1,17 @@
+
+
+![logo.png](https://raw.githubusercontent.com/saqqdy/gitmars/master/lib/img/logo.png)
+
 一个定制化的git工作流操作工具
 
+# gitmars工作流：
+
+周一-周三发布小版本，只修复bug不涉及功能迭代，从bug线拉取bugfix/xxxx分支，开发完成后提测合并到bug分支。并且在每天凌晨5点会同步代码到release；周四-周五发布大版本，包含新功能和bug修复，从release线拉取feature/xxxx分支，开发完成后合并到release分支。并且在每天凌晨5点会同步代码到bug线。
+
+
 ```
-1. 每一个子命令都带了help功能，可输入 gitm command-name --help 获取对应子指令的帮助信息
-2. 注意：<type>意思是type必传；[type]意思是type选填；[-a --app [app]]其中-a是--app的简写，后面[app]指的是-a后面的传值
+1. gitmars每一个子命令都带了help功能，可输入 gitm [command] --help 获取对应指令的帮助
+2. <type>意思是type必传；[type]意思是type选填；[-a --app [app]]其中-a是--app的简写，后面[app]指的是-a后面的传值
 ```
 
 ![gitmars.png](https://raw.githubusercontent.com/saqqdy/gitmars/master/lib/img/gitmars.png)
@@ -71,7 +80,7 @@ gitm start feature 1001
 
 ## gitm combine
 ### 短指令：gitm cb
-任务阶段提测，这部操作把分支代码合并到dev和bug分支，环境参数必填
+bugfix分支和feature分支需要提交到dev或者预发布环境时使用combine指令来自动执行合并
 
 ```
 形式：gitm combine [type] [name] [-a --add] [-m --commit [message]] [-d --dev] [-p --prod] [-b --build [build]] [--no-bugfix] [--as-feature]
