@@ -529,6 +529,47 @@ gitm clean
 ```
 
 
+## gitm link
+创建本地包软链接
+
+```
+形式：gitm link <name> <path>
+```
+
+### 参数
+
+| 参数 | 说明           | 类型   | 可选值 | 必填 | 默认 |
+| ---- | -------------- | ------ | ------ | ---- | ---- |
+| name | 包名称         | String | -      | 是   | -    |
+| path | 包本地绝对路径 | String | -      | 是   | -    |
+
+* 简单使用
+
+```
+gitm link tool /Users/saqqdy/www/wojiayun/tool
+```
+
+
+## gitm unlink
+解除本地包软链接
+
+```
+形式：gitm unlink <name>
+```
+
+### 参数
+
+| 参数 | 说明           | 类型   | 可选值 | 必填 | 默认 |
+| ---- | -------------- | ------ | ------ | ---- | ---- |
+| name | 包名称         | String | -      | 是   | -    |
+
+* 简单使用
+
+```
+gitm unlink tool
+```
+
+
 
 # 管理员
 ## gitm admin create
