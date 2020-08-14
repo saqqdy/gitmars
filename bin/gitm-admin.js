@@ -196,8 +196,7 @@ program
 			for (let key in cmd) {
 				cmd[key].push(`git checkout ${curBranch}`)
 			}
-			console.log(cmd)
-			// queue(cmd[type])
+			queue(cmd[type])
 		} else {
 			sh.echo(error('type只允许输入：' + opts.join(',')))
 			sh.exit(1)
