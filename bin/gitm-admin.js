@@ -18,7 +18,7 @@ program
 	.action(async type => {
 		const opts = ['bugfix', 'release', 'develop', 'support'] // 允许执行的指令
 		let base = type === 'release' ? config.master : config.release,
-			status = await getStatus(),
+			status = getStatus(),
 			hasBase = await checkBranch(base),
 			exits = await checkBranch(config[type])
 		if (!status) sh.exit(1)
@@ -55,7 +55,7 @@ program
 	.option('--postmsg', '发送消息', false)
 	.action(async (type, opt) => {
 		const opts = ['bugfix', 'release', 'support'] // 允许执行的指令
-		let status = await getStatus(),
+		let status = getStatus(),
 			curBranch = await getCurrent()
 		if (!status) sh.exit(1)
 		if (opts.includes(type)) {
@@ -210,11 +210,11 @@ program
 	.option('--use-rebase', '是否使用rebase方式更新，默认merge', false)
 	.option('-m, --mode [mode]', '出现冲突时，保留传入代码还是保留当前代码；1=采用当前 2=采用传入；默认为 0=手动处理。本参数不可与--use-rebase同时使用', 0)
 	.option('--postmsg', '发送消息', false)
-	.action(async (type, opt) => {
+	.action((type, opt) => {
 		const opts = ['bugfix', 'release', 'support'] // 允许执行的指令
 		let base = type === 'release' ? config.master : config.release,
 			mode = '', // 冲突时，保留哪方代码
-			status = await getStatus()
+			status = getStatus()
 		if (!status) sh.exit(1)
 		if (opt.mode === 1) {
 			mode = ' --strategy-option ours'
@@ -271,9 +271,9 @@ program
 	.usage('<command> <type>')
 	.command('clean <type>')
 	.description('构建清理工作')
-	.action(async type => {
+	.action(type => {
 		const opts = ['bugfix', 'release', 'develop', 'master'] // 允许执行的指令
-		let status = await getStatus()
+		let status = getStatus()
 		if (!status) sh.exit(1)
 		if (opts.includes(type)) {
 			let cmd = [`git fetch`, `git checkout . -f`, `git clean -fd`, `git checkout ${config.master}`, `git branch -D ${config[type]}`, `git fetch`, `git checkout ${config[type]}`, `git pull`]

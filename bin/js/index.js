@@ -183,18 +183,30 @@ const setLog = log => {
  * @description 获取是否有未提交的文件
  * @returns {Boolean} true 返回true/false
  */
-const getStatus = async () => {
-	const data = await queue(['gitm status'])
-	if (data[0].out.indexOf('Changes to be committed') > -1 || data[0].out.indexOf('Changes not staged for commit') > -1) {
+const getStatus = () => {
+	const out = sh.exec('git status -s --no-column', { silent: false }).stdout.replace(/(^\s+|\n*$)/g, '') // 去除首尾
+	let list = out ? out.replace(/\n(\s+)/g, '\n').split('\n') : [],
+		sum = {
+			A: [],
+			D: [],
+			M: [],
+			'??': []
+		}
+	if (list.length === 0) return true
+	list.forEach(str => {
+		let arr = str.trim().replace(/\s+/g, ' ').split(' '),
+			type = arr.splice(0, 1)
+		if (!sum[type]) sum[type] = []
+		sum[type].push(arr.join(' '))
+	})
+	if (sum.A.length > 0 || sum.D.length > 0 || sum.M.length > 0) {
 		sh.echo(error('您还有未提交的文件，请处理后再继续') + '\n如果需要暂存文件请执行: gitm save\n恢复时执行：gitm get')
 		sh.exit(1)
 		return false
-	} else if (data[0].out.indexOf('Untracked files') > -1) {
+	} else if (sum['??'].length > 0) {
 		sh.echo(warning('您有未加入版本的文件,') + '\n如果需要暂存文件请执行: gitm save --force\n恢复时执行：gitm get')
-		return true
-	} else {
-		return true
 	}
+	return true
 }
 
 /**

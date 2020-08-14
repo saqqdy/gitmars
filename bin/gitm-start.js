@@ -11,9 +11,9 @@ program
 	.usage('<type> <name>')
 	.arguments('<type> <name>')
 	.description('创建bugfix任务分支、创建feature功能开发分支、support框架支持分支')
-	.action(async (type, name) => {
+	.action((type, name) => {
 		const opts = ['bugfix', 'feature', 'support'] // 允许执行的指令
-		let status = await getStatus()
+		let status = getStatus()
 		if (!status) sh.exit(1)
 		if (opts.includes(type)) {
 			// feature从release拉取，bugfix从bug拉取，support从master分支拉取

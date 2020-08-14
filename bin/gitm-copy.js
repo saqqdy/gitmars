@@ -12,8 +12,8 @@ program
 	.description('cherry-pick易用版本，从某个分支拷贝某条记录合并到当前分支')
 	.option('-k, --key [keyword]', '模糊搜索commit信息关键词', '')
 	.option('-a, --author [author]', '提交者', '')
-	.action(async (from, commitid, opts) => {
-		let status = await getStatus(),
+	.action((from, commitid, opts) => {
+		let status = getStatus(),
 			cur = getCurrent()
 		if (!status) sh.exit(1)
 		if (opts.key !== '' || opts.author !== '') {

@@ -22,7 +22,7 @@ program
 	.action(async (type, name, opt) => {
 		const allow = ['bugfix', 'feature', 'support'] // 允许执行的指令
 		const deny = [defaults.master, defaults.develop, defaults.release, defaults.bugfix, defaults.support]
-		let status = !opt.add && opt.commit === '' ? await getStatus() : true
+		let status = !opt.add && opt.commit === '' ? getStatus() : true
 		if (!opt.dev && !opt.prod) {
 			sh.echo('请输入需要同步到的环境')
 			sh.exit(1)
