@@ -20,7 +20,6 @@ selenium-debug.log
 /coverage
 
 # production
-/build
 
 # Log files
 npm-debug.log*
