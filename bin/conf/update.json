@@ -1,0 +1,19 @@
+{
+	"args": [
+		{ "required": false, "name": "type", "variadic": false },
+		{ "required": false, "name": "name", "variadic": false }
+	],
+	"options": [
+		{
+			"flags": "--use-merge",
+			"required": false,
+			"optional": false,
+			"variadic": false,
+			"mandatory": false,
+			"long": "--use-merge",
+			"negate": false,
+			"description": "是否使用merge方式更新，默认rebase",
+			"defaultValue": false
+		}
+	]
+}

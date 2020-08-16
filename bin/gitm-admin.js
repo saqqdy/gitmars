@@ -1,7 +1,8 @@
 #!/usr/bin/env node
 const program = require('commander')
 const sh = require('shelljs')
-const { error, success, queue, getStatus, checkBranch, getCurrent } = require('./js/index')
+const { create, publish, update, clean } = require('./conf/admin')
+const { error, success, queue, getStatus, checkBranch, getCurrent, createArgs } = require('./js/index')
 const { appName } = require('./js/global')
 const config = require('./js/config')
 /**
@@ -10,12 +11,17 @@ const config = require('./js/config')
  * gitm admin update
  * gitm admin clean
  */
-program
-	.name('gitm admin')
-	.usage('<command> <type>')
-	.command('create <type>')
-	.description('创建bugfix、release、develop和support分支')
-	.action(async type => {
+if (create.args.length > 0) {
+	let _program = program
+		.name('gitm admin')
+		.usage('<command> <type>')
+		.description('创建bugfix、release、develop和support分支')
+		.command('create ' + createArgs(create.args))
+	create.options.forEach(o => {
+		_program.option(o.flags, o.description, o.defaultValue)
+	})
+	// .command('create <type>')
+	_program.action(async type => {
 		const opts = ['bugfix', 'release', 'develop', 'support'] // 允许执行的指令
 		let base = type === 'release' ? config.master : config.release,
 			status = getStatus(),
@@ -43,17 +49,24 @@ program
 			sh.exit(1)
 		}
 	})
-program
-	.name('gitm admin')
-	.usage('<command> <type>')
-	.command('publish <type>')
-	.description('发布bugfix、release、support分支')
-	.option('-c, --combine', '是否把release代码同步到bug', false)
-	.option('--use-rebase', '是否使用rebase方式更新，默认merge', false)
-	.option('-p, --prod', '发布bug分支时，是否合并bug到master', false)
-	.option('-b, --build [build]', '需要构建的应用')
-	.option('--postmsg', '发送消息', false)
-	.action(async (type, opt) => {
+}
+
+if (publish.args.length > 0) {
+	let _program = program
+		.name('gitm admin')
+		.usage('<command> <type>')
+		.description('发布bugfix、release、support分支')
+		.command('publish ' + createArgs(publish.args))
+	publish.options.forEach(o => {
+		_program.option(o.flags, o.description, o.defaultValue)
+	})
+	// .command('publish <type>')
+	// .option('-c, --combine', '是否把release代码同步到bug', false)
+	// .option('--use-rebase', '是否使用rebase方式更新，默认merge', false)
+	// .option('-p, --prod', '发布bug分支时，是否合并bug到master', false)
+	// .option('-b, --build [build]', '需要构建的应用')
+	// .option('--postmsg', '发送消息', false)
+	_program.action(async (type, opt) => {
 		const opts = ['bugfix', 'release', 'support'] // 允许执行的指令
 		let status = getStatus(),
 			curBranch = await getCurrent()
@@ -202,15 +215,22 @@ program
 			sh.exit(1)
 		}
 	})
-program
-	.name('gitm admin')
-	.usage('<command> <type> [-m --mode [mode]]')
-	.command('update <type>')
-	.description('更新bugfix、release、support分支代码')
-	.option('--use-rebase', '是否使用rebase方式更新，默认merge', false)
-	.option('-m, --mode [mode]', '出现冲突时，保留传入代码还是保留当前代码；1=采用当前 2=采用传入；默认为 0=手动处理。本参数不可与--use-rebase同时使用', 0)
-	.option('--postmsg', '发送消息', false)
-	.action((type, opt) => {
+}
+
+if (update.args.length > 0) {
+	let _program = program
+		.name('gitm admin')
+		.usage('<command> <type> [-m --mode [mode]]')
+		.description('更新bugfix、release、support分支代码')
+		.command('update ' + createArgs(update.args))
+	update.options.forEach(o => {
+		_program.option(o.flags, o.description, o.defaultValue)
+	})
+	// .command('update <type>')
+	// .option('--use-rebase', '是否使用rebase方式更新，默认merge', false)
+	// .option('-m, --mode [mode]', '出现冲突时，保留传入代码还是保留当前代码；1=采用当前 2=采用传入；默认为 0=手动处理。本参数不可与--use-rebase同时使用', 0)
+	// .option('--postmsg', '发送消息', false)
+	_program.action((type, opt) => {
 		const opts = ['bugfix', 'release', 'support'] // 允许执行的指令
 		let base = type === 'release' ? config.master : config.release,
 			mode = '', // 冲突时，保留哪方代码
@@ -266,12 +286,19 @@ program
 			sh.exit(1)
 		}
 	})
-program
-	.name('gitm admin')
-	.usage('<command> <type>')
-	.command('clean <type>')
-	.description('构建清理工作')
-	.action(type => {
+}
+
+if (clean.args.length > 0) {
+	let _program = program
+		.name('gitm admin')
+		.usage('<command> <type>')
+		.description('构建清理工作')
+		.command('clean ' + createArgs(clean.args))
+	clean.options.forEach(o => {
+		_program.option(o.flags, o.description, o.defaultValue)
+	})
+	// .command('clean <type>')
+	_program.action(type => {
 		const opts = ['bugfix', 'release', 'develop', 'master'] // 允许执行的指令
 		let status = getStatus()
 		if (!status) sh.exit(1)
@@ -284,4 +311,5 @@ program
 			sh.exit(1)
 		}
 	})
+}
 program.parse(process.argv)

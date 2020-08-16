@@ -1,0 +1,20 @@
+{
+	"args": [
+		{ "required": false, "name": "message", "variadic": false },
+		{ "required": false, "name": "index", "variadic": false }
+	],
+	"options": [
+		{
+			"flags": "-k, --keep [keep]",
+			"required": false,
+			"optional": true,
+			"variadic": false,
+			"mandatory": false,
+			"short": "-k",
+			"long": "--keep",
+			"negate": false,
+			"description": "保留暂存区不删除",
+			"defaultValue": false
+		}
+	]
+}

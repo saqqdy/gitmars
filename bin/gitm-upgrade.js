@@ -19,7 +19,7 @@ program
 			cmd = `install -g gitmars@${match ? match[0] : 'latest'} ${opt.mirror ? '--registry=https://registry.npm.taobao.org' : ''}`,
 			install = await execa('npm', cmd.split(' '), { cwd: process.cwd() }),
 			ver = await execa('gitm', ['-v'], { cwd: process.cwd() })
-		spinner.stop();
+		spinner.stop()
 		sh.echo(install.stdout + `\n${success('安装完成')}`)
 		sh.echo(ver.stdout)
 		// let match = (version && version.match(/[0-9.]+$/)) || null,

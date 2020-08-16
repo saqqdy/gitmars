@@ -387,6 +387,18 @@ const handleConfigOutput = name => {
 	return '请输入' + name + '分支名称，默认为：' + defaults[name]
 }
 
+const createArgs = args => {
+	let argArr = []
+	args.forEach(arg => {
+		let str = arg.name
+		if (arg.variadic) str += '...'
+		if (arg.required) str = '<' + str + '>'
+		else str = '[' + str + ']'
+		argArr.push(str)
+	})
+	return argArr.join(' ')
+}
+
 module.exports = {
 	warning,
 	error,
@@ -405,5 +417,6 @@ module.exports = {
 	getStashList,
 	postMessage,
 	getCommandMessage,
-	handleConfigOutput
+	handleConfigOutput,
+	createArgs
 }
