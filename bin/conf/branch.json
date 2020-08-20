@@ -71,7 +71,7 @@
 			"long": "--upstream",
 			"negate": false,
 			"description": "设置与远程分支关联",
-			"defaultValue": undefined
+			"defaultValue": ""
 		}
 	]
 }
