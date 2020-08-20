@@ -1,0 +1,35 @@
+{
+	"args": [
+		{
+			"required": true,
+			"name": "project",
+			"variadic": false
+		}
+	],
+	"options": [
+		{
+			"flags": "-e, --env [env]",
+			"required": false,
+			"optional": true,
+			"variadic": false,
+			"mandatory": false,
+			"short": "-e",
+			"long": "--env",
+			"negate": false,
+			"description": "需要构建的环境，可选dev、prod、bug、all",
+			"defaultValue": "dev"
+		},
+		{
+			"flags": "-a, --app [app]",
+			"required": false,
+			"optional": true,
+			"variadic": false,
+			"mandatory": false,
+			"short": "-a",
+			"long": "--app",
+			"negate": false,
+			"description": "需要构建的应用",
+			"defaultValue": "all"
+		}
+	]
+}

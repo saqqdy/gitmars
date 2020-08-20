@@ -1,0 +1,23 @@
+{
+	"args": [
+		{
+			"required": false,
+			"name": "message",
+			"variadic": false
+		}
+	],
+	"options": [
+		{
+			"flags": "-f, --force",
+			"required": false,
+			"optional": false,
+			"variadic": false,
+			"mandatory": false,
+			"short": "-f",
+			"long": "--force",
+			"negate": false,
+			"description": "没有版本的文件也暂存，这会执行git add .",
+			"defaultValue": false
+		}
+	]
+}

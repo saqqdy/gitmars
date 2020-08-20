@@ -1,0 +1,7 @@
+{
+	"args": [
+		{ "required": true, "name": "type", "variadic": false },
+		{ "required": true, "name": "name", "variadic": false }
+	],
+	"options": []
+}

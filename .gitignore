@@ -20,7 +20,6 @@ selenium-debug.log
 /coverage
 
 # production
-/build
 
 # Log files
 npm-debug.log*
@@ -35,3 +34,4 @@ yarn-error.log*
 *.njsproj
 *.sln
 *.sw*
+*.bak
