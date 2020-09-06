@@ -1,0 +1,25 @@
+.control {
+	height: 100%;
+	display: flex;
+	justify-items: stretch;
+	align-items: stretch;
+	ul {
+		width: 220px;
+		background: #1d2935;
+		li {
+			height: 44px;
+			line-height: 44px;
+			font-size: 16px;
+			padding: 0 18px;
+			cursor: pointer;
+			&:hover {
+				color: #fff;
+				background: #4e6e8e;
+			}
+			&.active {
+				color: #42b983;
+				background: rgba(66, 185, 131, 0.05) !important;
+			}
+		}
+	}
+}
