@@ -26,7 +26,9 @@ module.exports = {
 		'no-mixed-spaces-and-tabs': 0,
 		'space-before-function-paren': [0, 'always'],
 		'no-unused-vars': 0,
-		'vue/no-multiple-template-root': 0
+		'vue/no-multiple-template-root': 0,
+		'vue/no-v-model-argument': 0,
+		'no-prototype-builtins': 0
 	},
 
 	parserOptions: {
