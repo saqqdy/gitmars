@@ -88,20 +88,24 @@ program.action(async (type, name, opt) => {
 			}
 		}
 		if (opt.prod) {
-			cmd = cmd.concat([
-				`git fetch`,
-				`git checkout ${base}`,
-				`git pull`,
-				{
-					cmd: `git merge --no-ff ${type}/${name}`,
-					config: { slient: false, again: false, success: `${type}/${name}合并到${base}成功`, fail: `${type}/${name}合并到${base}出错了，请根据提示处理` }
-				},
-				{
-					cmd: `git push`,
-					config: { slient: false, again: true, success: '推送成功', fail: '推送失败，请根据提示处理' }
-				},
-				`git checkout ${type}/${name}`
-			])
+			if (!opt.noBugfix && !opt.asFeature) {
+				// 传入noBugfix不合bug
+				cmd = cmd.concat([
+					`git fetch`,
+					`git checkout ${base}`,
+					`git pull`,
+					{
+						cmd: `git merge --no-ff ${type}/${name}`,
+						config: { slient: false, again: false, success: `${type}/${name}合并到${base}成功`, fail: `${type}/${name}合并到${base}出错了，请根据提示处理` }
+					},
+					{
+						cmd: `git push`,
+						config: { slient: false, again: true, success: '推送成功', fail: '推送失败，请根据提示处理' }
+					},
+					`git checkout ${type}/${name}`
+				])
+			}
+
 			// bugfix分支走release发布
 			if (type === 'bugfix' && opt.asFeature) {
 				cmd = cmd.concat([
