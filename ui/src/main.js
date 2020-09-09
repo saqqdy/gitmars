@@ -11,19 +11,6 @@ import * as vvv from 'vue'
 console.log(App, vvv, process.env.NODE_ENV)
 console.log(components)
 
-// import yui from 'yun-ui'
-// console.log(yui)
-
-// import { nextTick } from 'vue'
-
-// const plugin = {
-// 	install: app => {
-// 		nextTick(() => {
-// 			// ...
-// 		})
-// 	}
-// }
-
 const app = createApp(App)
 app.config.isCustomElement = tag => tag.startsWith('ion-') || tag.startsWith('v3-')
 // 开启debug模式

@@ -42,10 +42,7 @@
 						<v3-collapse v-model="activeNames" :accordion="true" @change="handleChange">
 							<v3-collapse-item name="1">
 								<template #title>
-									<!-- <div class="collapse-title"> -->
-									<!-- gitm combine -->
 									<MapCommand :value="commandValue['combine']" :current="current" @exec="exec"></MapCommand>
-									<!-- </div> -->
 								</template>
 								<Command v-model:value="commandValue['combine']"></Command>
 							</v3-collapse-item>
@@ -121,8 +118,6 @@
 								<Command v-model:value="commandValue['unlink']"></Command>
 							</v3-collapse-item>
 						</v3-collapse>
-						<!-- <h4>其他</h4>
-						<v3-button type="primary" size="small" @click="saveStash" plain>gitm save</v3-button> -->
 					</div>
 				</div>
 				<Xterm ref="xterm" class="xterm" v-if="project" :id="project.id" :path="project.path"></Xterm>
@@ -405,7 +400,7 @@ export default {
 				flex: 1;
 				display: grid;
 				grid-template-columns: repeat(2, 1fr);
-				grid-template-rows: minmax(100px, auto) auto minmax(100px, auto);
+				grid-template-rows: minmax(0px, auto) auto minmax(0px, auto);
 				grid-template-areas: 'a' 'b';
 				grid-auto-flow: row dense;
 				justify-items: stretch;

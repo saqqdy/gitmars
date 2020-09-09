@@ -27,9 +27,9 @@ export default {
 			terminal.term.open(termWrap.value)
 			fitAddon.fit()
 			terminal.term.focus()
-			nextTick(() => {
-				socket.emit(terminal.name + '-input', 'll\r')
-			})
+			// nextTick(() => {
+			// 	socket.emit(terminal.name + '-input', 'll\r')
+			// })
 			// searchAddon.findNext('foo')
 		})
 		onBeforeUnmount(() => {})

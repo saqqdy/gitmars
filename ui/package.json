@@ -23,7 +23,7 @@
     "xterm-addon-fit": "^0.4.0",
     "xterm-addon-search": "^0.7.0",
     "xterm-addon-web-links": "^0.4.0",
-    "xterm-theme": "^1.1.0"
+    "xterm-style": "^1.0.0"
   },
   "devDependencies": {
     "@vue/babel-plugin-jsx": "^1.0.0-rc.2",
@@ -33,7 +33,6 @@
     "@vue/cli-plugin-vuex": "4.5.4",
     "@vue/cli-service": "4.5.4",
     "@vue/compiler-sfc": "^3.0.0-rc.10",
-    "@vue/eslint-config-prettier": "^6.0.0",
     "babel-eslint": "^10.1.0",
     "babel-plugin-import": "^1.13.0",
     "eslint": "7.8.1",

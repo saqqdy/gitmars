@@ -5,7 +5,6 @@
 			<router-link to="/project">project</router-link>
 			<router-link to="/main">main</router-link>
 		</div>
-		<!-- <v3-button type="primary" nativeType="button" icon="database-fill" @click="click" plain>确认</v3-button> -->
 		<router-view />
 	</teleport>
 </template>
@@ -14,6 +13,7 @@
 import { reactive, provide, onMounted } from 'vue'
 import io from 'socket.io-client'
 import { Terminal } from 'xterm'
+import xtermTheme from 'xterm-style'
 import 'xterm/css/xterm.css'
 import { AttachAddon } from 'xterm-addon-attach'
 import { FitAddon } from 'xterm-addon-fit'
@@ -22,7 +22,7 @@ import { WebLinksAddon } from 'xterm-addon-web-links'
 // import { v4 as uuidv4 } from 'uuid'
 
 export default {
-	name: 'App',
+	components: {},
 	setup() {
 		// data
 		const socket = io('http://127.0.0.1:3000/terminal', { reconnection: true })
@@ -36,7 +36,13 @@ export default {
 		const getTerminal = (id, cwd = null) => {
 			if (!terms[id]) {
 				terms[id] = {
-					term: new Terminal(),
+					term: new Terminal({
+						theme: xtermTheme,
+						fontSize: 12,
+						fontWeight: 300,
+						lineHeight: 1.1,
+						fontFamily: '"JetBrains Mono", Menlo, consolas, "Microsoft YaHei", "PingFangSC-Regular", Avenir, Helvetica, Arial, sans-serif'
+					}),
 					name: 'terminal-' + id,
 					pid: null
 				}
