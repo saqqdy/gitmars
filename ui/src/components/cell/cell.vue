@@ -5,7 +5,7 @@
 		:style="
 			cleanStyle({
 				marginTop: $px2rem(gutter),
-				padding: $px2rem(padding),
+				padding: $px2rem(padding)
 			})
 		"
 		@click="onClick"
@@ -31,7 +31,7 @@
 </template>
 
 <script>
-import mix from '../mix';
+import mix from '../mix'
 export default {
 	name: 'y-cell',
 	props: {
@@ -42,53 +42,53 @@ export default {
 		gutter: [String, Number],
 		padding: [String, Number],
 		disabled: Boolean,
-		arrowDirection: String,
+		arrowDirection: String
 	},
 	mixins: [mix],
 	data() {
 		return {
-			data: '',
-		};
+			data: ''
+		}
 	},
 	watch: {
 		value(val) {
-			if (this.data !== val) this.data = val;
+			if (this.data !== val) this.data = val
 		},
 		data(val) {
-			this.$emit('value', val);
-		},
+			this.$emit('value', val)
+		}
 	},
 	computed: {
 		valueClass() {
 			return {
 				'y-cell-arrow-transition': !!this.arrowDirection,
 				'y-cell-arrow-up': this.arrowDirection === 'up',
-				'y-cell-arrow-down': this.arrowDirection === 'down',
-			};
-		},
+				'y-cell-arrow-down': this.arrowDirection === 'down'
+			}
+		}
 	},
 	methods: {
 		onClick() {
-			!this.disabled && this.go(this.link);
+			!this.disabled && this.go(this.link)
 		},
 		go(url) {
 			if (!url) {
-				this.$emit('on-click');
-				return;
+				this.$emit('on-click')
+				return
 			}
-			const useRouter = typeof url === 'object' || (this.$router && typeof url === 'string' && !/http/.test(url));
+			const useRouter = typeof url === 'object' || (this.$router && typeof url === 'string' && !/http/.test(url))
 			if (useRouter) {
 				if (typeof url === 'object' && url.replace === true) {
-					this.$router.replace(url);
+					this.$router.replace(url)
 				} else {
-					url === 'BACK' ? this.$router.go(-1) : this.$router.push(url);
+					url === 'BACK' ? this.$router.go(-1) : this.$router.push(url)
 				}
 			} else {
-				window.location.href = url;
+				window.location.href = url
 			}
-		},
-	},
-};
+		}
+	}
+}
 </script>
 
 <style lang="less">

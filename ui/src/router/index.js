@@ -26,7 +26,7 @@ const routes = [
 	{
 		path: '/',
 		name: 'Home',
-		redirect: '/project/list',
+		redirect: '/project/list'
 		// component: Home
 	},
 	{

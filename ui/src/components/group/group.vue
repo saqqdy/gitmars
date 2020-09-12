@@ -4,7 +4,7 @@
 		:style="
 			cleanStyle({
 				marginTop: $px2rem(gutter),
-				padding: $px2rem(padding),
+				padding: $px2rem(padding)
 			})
 		"
 	>
@@ -19,17 +19,17 @@
 </template>
 
 <script>
-import mix from '../mix';
+import mix from '../mix'
 export default {
 	name: 'y-group',
 	props: {
 		title: String,
 		gutter: [String, Number],
-		padding: [String, Number],
+		padding: [String, Number]
 	},
 	mixins: [mix],
-	methods: {},
-};
+	methods: {}
+}
 </script>
 
 <style lang="less">

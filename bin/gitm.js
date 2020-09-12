@@ -52,6 +52,7 @@ program
 	.alias('ug')
 	.command('build', '构建Jenkins')
 	.alias('bd')
+	.command('ui', '启动网页版gitmars')
 	.command('unlink', '解除软链接')
 	.command('link', '软链接')
 	.command('clean', '提交权限')
@@ -68,7 +69,7 @@ program.on('--help', function () {
 
 // 映射不存在的指令
 program.on('command:*', function (types, opts) {
-	let cmd = ['init', 'config', 'combine', 'cb', 'start', 'st', 'end', 'ed', 'update', 'up', 'branch', 'bh', 'save', 'sv', 'get', 'gt', 'copy', 'cp', 'merge', 'mg', 'continue', 'ct', 'revert', 'rt', 'upgrade', 'ug', 'build', 'bd', 'unlink', 'link', 'clean', 'permission', 'admin']
+	let cmd = ['init', 'config', 'combine', 'cb', 'start', 'st', 'end', 'ed', 'update', 'up', 'branch', 'bh', 'save', 'sv', 'get', 'gt', 'copy', 'cp', 'merge', 'mg', 'continue', 'ct', 'revert', 'rt', 'upgrade', 'ug', 'build', 'bd', 'ui', 'unlink', 'link', 'clean', 'permission', 'admin']
 	if (!cmd.includes(types[0])) {
 		let arr = [].concat(types).concat(opts)
 		sh.exec('git ' + arr.join(' '), { silent: false })

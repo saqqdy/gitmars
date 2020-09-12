@@ -1,14 +1,14 @@
 <template>
 	<!-- <transition name="v3-message-fade" @after-leave="handleAfterLeave"> -->
-		<div :class="['v3-message', type && !iconClass ? `v3-message--${type}` : '', center ? 'is-center' : '', showClose ? 'is-closable' : '', customClass]" :style="positionStyle" v-show="visible" @mouseenter="clearTimer" @mouseleave="startTimer" role="alert">
-			<i :class="iconClass" v-if="iconClass"></i>
-			<i :class="typeClass" v-else></i>
-			<slot>
-				<p v-if="!dangerouslyUseHTMLString" class="v3-message__content">{{ message }}</p>
-				<p v-else v-html="message" class="v3-message__content"></p>
-			</slot>
-			<i v-if="showClose" class="v3-message__closeBtn v3-icon-close" @click="close"></i>
-		</div>
+	<div :class="['v3-message', type && !iconClass ? `v3-message--${type}` : '', center ? 'is-center' : '', showClose ? 'is-closable' : '', customClass]" :style="positionStyle" v-show="visible" @mouseenter="clearTimer" @mouseleave="startTimer" role="alert">
+		<i :class="iconClass" v-if="iconClass"></i>
+		<i :class="typeClass" v-else></i>
+		<slot>
+			<p v-if="!dangerouslyUseHTMLString" class="v3-message__content">{{ message }}</p>
+			<p v-else v-html="message" class="v3-message__content"></p>
+		</slot>
+		<i v-if="showClose" class="v3-message__closeBtn v3-icon-close" @click="close"></i>
+	</div>
 	<!-- </transition> -->
 </template>
 
