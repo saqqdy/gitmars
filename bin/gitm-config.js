@@ -44,7 +44,7 @@ program
 				process.stdout.write(data)
 				let o = { ...config }
 				if (Object.keys(defaults).includes(option)) {
-					o[option] = data.replace(/[\n\s]*/g, '') || defaults[option]
+					o[option] = data.replace(/[\s]*/g, '') || defaults[option]
 					if (configFrom === 2) {
 						sh.touch(pwd + '/gitmarsconfig.json')
 						sh.echo(JSON.stringify(o, null, 4)).to(pwd + '/gitmarsconfig.json')

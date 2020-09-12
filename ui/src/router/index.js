@@ -23,11 +23,12 @@ import { createRouter, createWebHashHistory } from 'vue-router'
 // })
 
 const routes = [
-	// {
-	// 	path: '/',
-	// 	name: 'Home',
-	// 	component: Home
-	// },
+	{
+		path: '/',
+		name: 'Home',
+		redirect: '/project/list',
+		// component: Home
+	},
 	{
 		path: '/project',
 		name: 'project',

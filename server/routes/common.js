@@ -1,5 +1,6 @@
 var express = require('express'),
 	router = express.Router()
+const path = require('path')
 const sh = require('shelljs')
 const db = require('../db/index')
 const { v4: uuidv4 } = require('../node_modules/uuid')
@@ -17,7 +18,7 @@ const error503 = res => {
 	res.status(503).send({ data: null, success: false, code: 0, msg: 'fail' })
 }
 const success = (res, { data, msg = 'success' }) => {
-	res.status(200).send({ data: data, success: true, code: 1, msg: msg })
+	res.status(200).send({ data, success: true, code: 1, msg })
 }
 
 // 获取项目列表
@@ -34,11 +35,19 @@ router.get('/project/list', (req, res, next) => {
 
 // 添加项目
 router.post('/project/add', (req, res, next) => {
-	if (!req.body.path) error503(res)
-	let id = uuidv4(),
-		url = sh.exec(`cd ${req.body.path} && git config --local --get remote.origin.url`, { silent: true }).stdout.replace(/[\n\s]*$/g, ''),
-		name = url.replace(/^[\s\S]+\/([a-z0-9A-Z-_]+)\.git$/, '$1')
-	db.get('projects').push({ id: id, name: name, path: req.body.path }).write()
+	const cwd = process.cwd()
+	let { path: dir = null } = req.body,
+		id,
+		url,
+		name
+	if (!dir) error503(res)
+	dir = dir.split(path.sep).join('/')
+	id = uuidv4()
+	process.chdir(dir)
+	url = sh.exec(`git config --local --get remote.origin.url`, { silent: true }).stdout.replace(/[\s]*$/g, '')
+	name = url ? url.replace(/^[\s\S]+\/([\w-]+)\.git$/, '$1') : dir.replace(/^[\s\S]+\/([\w-]+)$/, '$1')
+	process.chdir(cwd)
+	db.get('projects').push({ id, name, path: dir }).write()
 	success(res, { data: true })
 })
 
@@ -59,7 +68,7 @@ router.post('/project/update', (req, res, next) => {
 // 检测项目
 router.get('/project/check', (req, res, next) => {
 	if (!req.query.path) error503(res)
-	let code = sh.cd(`${req.query.path}/.git`).code,
+	let code = sh.test('-e', `${req.query.path}/.git`) ? 0 : 1,
 		msg
 	if (code === 0 && db.get('projects').find({ path: req.query.path }).value()) code = 2
 	switch (code) {
@@ -77,7 +86,7 @@ router.get('/project/check', (req, res, next) => {
 	}
 	success(res, {
 		data: {
-			code: code,
+			code,
 			message: msg
 		}
 	})

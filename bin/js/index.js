@@ -225,7 +225,8 @@ const checkBranch = async name => {
  * @returns {String} 返回名称
  */
 const getCurrent = () => {
-	return sh.exec('git symbolic-ref --short -q HEAD', { silent: true }).stdout.replace(/[\n\s]*$/g, '')
+	// return sh.exec('git symbolic-ref --short -q HEAD', { silent: true }).stdout.replace(/[\s]*$/g, '')
+	return sh.exec('git br --show-current', { silent: true }).stdout.replace(/[\s]*$/g, '')
 }
 
 /**
@@ -234,9 +235,21 @@ const getCurrent = () => {
  * @returns {Array} 返回列表数组
  */
 const searchBranch = async (key, type, remote = false) => {
-	const data = (await queue([`gitm branch${key ? ' -k ' + key : ''}${type ? ' -t ' + type : ''}${remote ? ' -r' : ''}`]))[0].out.replace(/^\*\s+/, '')
+	const data = (await queue([`gitm branch${key ? ' -k ' + key : ''}${type ? ' -t ' + type : ''}${remote ? ' -r' : ''}`]))[0].out.replace(/\*\s+/g, '')
 	let arr = data ? data.split('\n') : []
 	arr = arr.map(el => el.trim())
+	return arr
+}
+
+/**
+ * searchBranchs
+ * @description 获取当前分支
+ * @returns {Array} 返回列表数组
+ */
+const searchBranchs = (path = pwd, key, type, remote = false) => {
+	const data = sh.exec(`git ls-remote --heads --quiet --sort="version:refname" ${path}`, { silent: true }).stdout.replace(/\n*$/g, '')
+	let arr = data ? data.split('\n') : []
+	arr = arr.map(el => el.replace(/^\w+[\s]+refs\/heads\/([\w-\/]+)$/, '$1'))
 	return arr
 }
 
@@ -414,6 +427,7 @@ module.exports = {
 	checkBranch,
 	getCurrent,
 	searchBranch,
+	searchBranchs,
 	getStashList,
 	postMessage,
 	getCommandMessage,

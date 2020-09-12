@@ -24,4 +24,14 @@ router.get('/cwd', function (req, res) {
 	})
 })
 
+// 接收git钩子发来的状态变化
+router.get('/update', function (req, res) {
+	const { project } = req.query
+	promiseExec(`lsof -a -p ${pid} -d cwd -Fn | tail -1 | sed 's/.//'`).then(newCwd => {
+		// console.log(newCwd, newCwd.stdout)
+		const cwd = typeof newCwd === 'string' ? newCwd.trim() : newCwd.stdout.trim()
+		res.success(cwd)
+	})
+})
+
 module.exports = router

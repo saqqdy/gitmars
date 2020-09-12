@@ -26,15 +26,7 @@ export default {
 	},
 	setup(props, { slots, emit }) {
 		const cmd = ref('')
-		watch(
-			() => props.value,
-			val => {
-				cmd.value = mapComamnds(val)
-			},
-			{
-				deep: true
-			}
-		)
+		const { command, short: commandShort } = unref(props.value)
 		// 计算属性
 		const curBranch = computed(() => {
 			let arr = unref(props.current).split('/')
@@ -74,12 +66,22 @@ export default {
 			for (let arg of args) {
 				arg.value && argument.push(arg.value)
 			}
-			return `gitm ${unref(props.value.command)} ${argument.join(' ')} ${notOptional.join('')} ${optional.join(' ')}`.replace(/[\s]{2,}/g, ' ')
+			return `gitm ${command} ${argument.join(' ')} ${notOptional.join('')} ${optional.join(' ')}`.replace(/[\s]{2,}/g, ' ')
 		}
 		// 执行指令
 		const exec = () => {
 			emit('exec', unref(cmd))
 		}
+		watch(
+			() => props.value,
+			val => {
+				cmd.value = mapComamnds(val)
+			},
+			{
+				deep: true,
+				immediate: true
+			}
+		)
 		return {
 			curBranch,
 			cmd,

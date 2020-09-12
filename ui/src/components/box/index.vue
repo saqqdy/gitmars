@@ -5,7 +5,7 @@
 			<!-- <template v-if="!$slots.title">{{ title }}</template>
 				<slot name="title" v-if="$slots.title"></slot> -->
 
-			<div ref="boxContent" class="v3-box-content" v-if="message && !component" v-html="message" :style="{ height: data.mHeight || height, maxHeight: !data.max ? data.maxH : '', minHeight: data.mHeight }"></div>
+			<div ref="boxContent" class="v3-box-content message" v-if="message && !component" v-html="message" :style="{ height: data.mHeight || height, maxHeight: !data.max ? data.maxH : '', minHeight: data.mHeight }"></div>
 			<div ref="boxContent" class="v3-box-content" :class="{ 'no-header': !showHeader }" v-if="component && !message" :style="{ height: data.mHeight || height, maxHeight: !data.max ? data.maxH : '', minHeight: data.mHeight }">
 				<!-- <slot></slot> -->
 			</div>
@@ -350,6 +350,9 @@ export default {
 		overflow: auto;
 		&.no-header {
 			padding: 0;
+		}
+		&.message {
+			text-align: center;
 		}
 	}
 	.v3-box-footer {

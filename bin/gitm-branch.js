@@ -35,7 +35,7 @@ program.action(opt => {
 		}
 	} else {
 		// 分支查询
-		cmd.push(`git branch -a`)
+		cmd.push(`git branch -a --no-color`)
 		queue(cmd).then(data => {
 			data.forEach((el, index) => {
 				if (index === 0 && el.code === 0) {

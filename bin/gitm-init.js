@@ -19,7 +19,7 @@ program
 		process.stdin.resume()
 		process.stdin.setEncoding('utf8')
 		process.stdin.on('data', data => {
-			o.push(keys[i] + ' = ' + (data.replace(/[\n\s]*/g, '') || defaults[keys[i]]))
+			o.push(keys[i] + ' = ' + (data.replace(/[\s]*/g, '') || defaults[keys[i]]))
 			i++
 			if (i < keys.length) {
 				sh.echo(success(handleConfigOutput(keys[i])))

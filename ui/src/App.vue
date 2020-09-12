@@ -1,10 +1,10 @@
 <template>
 	<teleport to="#app" class="app">
-		<div id="nav">
+		<!-- <div id="nav">
 			<router-link to="/">Home</router-link>
 			<router-link to="/project">project</router-link>
 			<router-link to="/main">main</router-link>
-		</div>
+		</div> -->
 		<router-view />
 	</teleport>
 </template>
@@ -19,14 +19,13 @@ import { AttachAddon } from 'xterm-addon-attach'
 import { FitAddon } from 'xterm-addon-fit'
 import { SearchAddon } from 'xterm-addon-search'
 import { WebLinksAddon } from 'xterm-addon-web-links'
-// import { v4 as uuidv4 } from 'uuid'
 
 export default {
 	components: {},
 	setup() {
 		// data
 		const socket = io('http://127.0.0.1:3000/terminal', { reconnection: true })
-		// const socketGitmars = io('http://127.0.0.1:3000/gitmars', { reconnection: true })
+		const socketGitmars = io('http://127.0.0.1:3000/gitmars', { reconnection: true })
 		const attachAddon = new AttachAddon(socket)
 		const fitAddon = new FitAddon()
 		const searchAddon = new SearchAddon()
@@ -66,10 +65,6 @@ export default {
 					console.log(pid)
 					terms[id].pid = pid
 				})
-				// socket.on(terms[id].name + '-global', global => {
-				// 	console.log(global)
-				// 	global = global
-				// })
 				socket.emit('create', { name: terms[id].name, cwd })
 				window.addEventListener('resize', () => {
 					terms[id].term.fit()
@@ -77,15 +72,10 @@ export default {
 			}
 			return terms[id]
 		}
-		// const getGitmars = (id, cwd = null) => {
-		// 	socketGitmars.emit('create', { name: id, cwd })
-		// 	return socketGitmars
-		// }
 
 		// provide
-		provide('Socket', { socket /*, socketGitmars*/ })
+		provide('Socket', { socket, socketGitmars })
 		provide('Terminal', { getTerminal, fitAddon })
-		// provide('Gitmars', { getGitmars })
 
 		// hooks
 		onMounted(() => {})

@@ -30,14 +30,12 @@ export default {
 		const data = reactive({
 			list: []
 		})
-		console.log(route.value)
 		// getProjects
 		const getProjects = () => {
 			$axios({
 				url: '/common/project/list',
 				data: {}
 			}).then(res => {
-				console.log(200, res.data)
 				data.list = [].concat(res.data)
 			})
 		}
@@ -50,7 +48,6 @@ export default {
 		}
 		// del
 		const del = ({ id }) => {
-			console.log(id)
 			$axios({
 				url: '/common/project/del',
 				type: 'post',
@@ -58,7 +55,7 @@ export default {
 					id: id
 				}
 			}).then(res => {
-				console.log(200, res.data)
+				getProjects()
 			})
 		}
 		onMounted(() => {

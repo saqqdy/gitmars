@@ -1,14 +1,15 @@
 var express = require('express'),
 	router = express.Router()
-const sh = require('shelljs')
-const global = require('../../bin/js/global')
-const { getCurrent, searchBranch } = require('../../bin/js/index')
+const fs = require('fs')
+// const sh = require('shelljs')
+const glob = require('../../bin/js/global')
+const { getCurrent, searchBranchs } = require('../../bin/js/index')
 
 const error503 = res => {
 	res.status(503).send({ data: null, success: false, code: 0, msg: 'fail' })
 }
 const success = (res, { data, msg = 'success' }) => {
-	res.status(200).send({ data: data, success: true, code: 1, msg: msg })
+	res.status(200).send({ data, success: true, code: 1, msg })
 }
 
 // 开启跨域访问
@@ -21,25 +22,44 @@ router.all('*', (req, res, next) => {
 })
 
 router.get('/cd', function (req, res, next) {
-	sh.cd(decodeURIComponent(req.query.dir), { silent: true })
+	process.chdir(decodeURIComponent(req.query.dir))
 	success(res, { data: true })
 })
 
-router.get('/result', function (req, res, next) {
-	let out = sh.exec(decodeURIComponent(req.query.cmd) + '&& pwd', { silent: true }).stdout.replace(/[\n\s]*$/g, '')
-	res.status(200).send({ data: out, success: true, code: 1, msg: 'success' })
-})
+// router.get('/result', function (req, res, next) {
+// 	let out = sh.exec(decodeURIComponent(req.query.cmd) + '&& pwd', { silent: true }).stdout.replace(/[\s]*$/g, '')
+// 	res.status(200).send({ data: out, success: true, code: 1, msg: 'success' })
+// })
 
 // 获取当前状态
 router.get('/status', function (req, res, next) {
-	res.status(200).send({ data: global, success: true, code: 1, msg: 'success' })
+	res.status(200).send({ data: glob, success: true, code: 1, msg: 'success' })
 })
 
-// 添加项目
-router.get('/branch/list', async (req, res, next) => {
+// 获取项目列表
+router.get('/branch/list', (req, res, next) => {
 	const { key, type, remote } = req.query
-	let data = await searchBranch(key, type, remote)
-	success(res, { data: data })
+	// process.chdir('/Users/saqqdy/www/wojiayun/wyweb/webapp/app')
+	let data = searchBranchs(key, type, remote)
+	success(res, { data })
+})
+
+// 获取项目列表
+router.get('/branch/current', (req, res, next) => {
+	let data = getCurrent()
+	success(res, { data })
+})
+
+// 读取文件
+router.get('/fs/read', (req, res, next) => {
+	const {
+		query: { path: dir }
+	} = req
+	const type = dir.replace(/[\s\S]*\.([a-z]+)$/, '$1')
+	console.log(type)
+	let data = fs.readFileSync(dir).toString()
+	if (type === 'json') data = JSON.parse(data)
+	success(res, { data })
 })
 
 module.exports = router

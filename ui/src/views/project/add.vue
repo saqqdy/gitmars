@@ -18,11 +18,10 @@ import { reactive, getCurrentInstance } from 'vue'
 export default {
 	name: 'project-add',
 	setup() {
-		const {
-			ctx: { $axios }
-		} = getCurrentInstance()
+		const { ctx } = getCurrentInstance()
+		const { $axios, $router, $box } = ctx
 		const form = reactive({
-			path: ''
+			path: '/Users/saqqdy/www/saqqdy/lost-ui'
 		})
 
 		// checkPath
@@ -33,29 +32,48 @@ export default {
 					data: {
 						path: form.path
 					}
-				}).then(res => {
-					if (res.data.code !== 0) {
-						console.warn(res.data.message)
-						reject()
-					} else {
-						resolve()
-					}
 				})
+					.then(({ data: { code, message } }) => {
+						if (code !== 0) {
+							$box(null, {
+								width: '320px',
+								height: '80px',
+								message: message,
+								showHeader: false,
+								showMax: false,
+								showBtn: false
+							})
+							resolve(false)
+						} else {
+							resolve(true)
+						}
+					})
+					.finally(() => {
+						resolve(false)
+					})
 			})
 		}
 		// add
 		const add = async () => {
 			if (!form.path) alert('请输入项目完整路径')
-			await checkPath()
-			$axios({
-				url: '/common/project/add',
-				type: 'post',
-				data: {
-					path: form.path
-				}
-			}).then(res => {
-				console.log(200, res.data)
-			})
+			;(await checkPath()) &&
+				$axios({
+					url: '/common/project/add',
+					type: 'post',
+					data: {
+						path: form.path
+					}
+				}).then(res => {
+					$box(null, {
+						width: '320px',
+						height: '80px',
+						message: '操作成功！',
+						showHeader: false,
+						showMax: false,
+						showBtn: false
+					})
+					$router.push('/project/list')
+				})
 		}
 		return {
 			form,

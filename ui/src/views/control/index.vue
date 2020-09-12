@@ -8,12 +8,14 @@
 				<router-link :to="{ name: 'control_tasks', query: route.query }" title="任务"><span class="iconfont icon-detail"></span><span>任务</span></router-link>
 			</li>
 		</ul>
-		<div v-if="error">{{ error }}</div>
+		<div class="loading" v-if="error">{{ error }}</div>
 		<Suspense v-else>
 			<template #default>
 				<router-view class="routerView" />
 			</template>
-			<template #fallback> loading... </template>
+			<template #fallback>
+				<div class="loading">loading...</div>
+			</template>
 		</Suspense>
 	</div>
 </template>
@@ -30,6 +32,7 @@ export default {
 		if (route.value.name === 'control') ctx.$router.replace({ name: 'control_gitmars', query: route.value.query })
 		onErrorCaptured(err => {
 			error.value = err
+			console.log('error', err)
 			return true
 		})
 		return {
@@ -47,6 +50,13 @@ export default {
 	display: flex;
 	justify-items: stretch;
 	align-items: stretch;
+	.loading {
+		width: 100%;
+		height: 100%;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
 	.menu {
 		width: 220px;
 		background: #1d2935;

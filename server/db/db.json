@@ -1,15 +1,45 @@
 {
-	"projects": [
-		{
-			"id": "357a4f34-a528-46d5-b089-08716c53e61c",
-			"name": "wyweb",
-			"path": "/Users/saqqdy/www/wojiayun/wyweb"
-		},
-		{
-			"id": "217a4f34-a528-46d5-b089-08716c53e61c",
-			"name": "wj",
-			"path": "/Users/saqqdy/www/wojiayun/wj"
-		}
-	],
-	"user": {}
+  "projects": [
+    {
+      "id": "357a4f34-a528-46d5-b089-08716c53e61c",
+      "name": "wyweb",
+      "path": "/Users/saqqdy/www/wojiayun/wyweb"
+    },
+    {
+      "id": "217a4f34-a528-46d5-b089-08716c53e61c",
+      "name": "wj",
+      "path": "/Users/saqqdy/www/wojiayun/wj"
+    },
+    {
+      "id": "d69b1466-6b76-48bd-bc69-79ecc5f96e22",
+      "name": "gjweb",
+      "path": "/Users/saqqdy/www/wojiayun/gjweb"
+    },
+    {
+      "id": "7755a80f-1d0b-40e8-ba82-3ccad0e519f8",
+      "name": "sj",
+      "path": "/Users/saqqdy/www/wojiayun/sj"
+    },
+    {
+      "id": "b2899355-5ab9-4bb6-96ed-c3c16458672d",
+      "name": "gitmars",
+      "path": "/Users/saqqdy/www/saqqdy/gitmars"
+    },
+    {
+      "id": "ab35ce5d-bb4e-4e12-bcdd-f428e8c633bb",
+      "name": "fille",
+      "path": "/Users/saqqdy/www/saqqdy/fille"
+    },
+    {
+      "id": "ed1bff3a-6837-4553-8cbb-6dd15a482026",
+      "name": "lost-ui",
+      "path": "/Users/saqqdy/www/saqqdy/lost-ui"
+    },
+    {
+      "id": "d823df6f-c348-4366-b273-57b3d400f55a",
+      "name": "electron-demo1",
+      "path": "/Users/saqqdy/www/saqqdy/electron-demo1"
+    }
+  ],
+  "user": {}
 }

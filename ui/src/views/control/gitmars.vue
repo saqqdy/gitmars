@@ -1,5 +1,5 @@
 <template>
-	<div class="page">
+	<div class="page" v-if="ready">
 		<h1>
 			Gitmars工作流
 			<p>
@@ -9,25 +9,25 @@
 		</h1>
 		<div class="cont">
 			<div class="nav">
-				<dl class="bugfix">
+				<dl class="bugfix" v-if="branchList.bugfix.length">
 					<dt>bug分支</dt>
-					<dd v-for="el in branchList.bugfix" :class="{ active: el.indexOf('*') > -1 }" :key="el">
-						{{ el }}
-						<v3-button type="primary" size="mini" @click="checkout(el)" v-if="el.indexOf('*') === -1" plain>进入</v3-button>
+					<dd v-for="branch in branchList.bugfix" :class="{ active: branch === current }" :key="branch">
+						{{ branch }}
+						<v3-button type="primary" size="mini" @click="checkout(branch)" v-if="branch !== current" plain>进入</v3-button>
 					</dd>
 				</dl>
-				<dl class="feature">
+				<dl class="feature" v-if="branchList.feature.length">
 					<dt>feature分支</dt>
-					<dd v-for="el in branchList.feature" :class="{ active: el.indexOf('*') > -1 }" :key="el">
-						{{ el }}
-						<v3-button type="primary" size="mini" @click="checkout(el)" v-if="el.indexOf('*') === -1" plain>进入</v3-button>
+					<dd v-for="branch in branchList.feature" :class="{ active: branch === current }" :key="branch">
+						{{ branch }}
+						<v3-button type="primary" size="mini" @click="checkout(branch)" v-if="branch !== current" plain>进入</v3-button>
 					</dd>
 				</dl>
-				<dl class="others">
+				<dl class="others" v-if="branchList.others.length">
 					<dt>其他分支</dt>
-					<dd v-for="el in branchList.others" :class="{ active: el.indexOf('*') > -1 }" :key="el">
-						{{ el }}
-						<v3-button type="primary" size="mini" @click="checkout(el)" v-if="el.indexOf('*') === -1" plain>进入</v3-button>
+					<dd v-for="branch in branchList.others" :class="{ active: branch === current }" :key="branch">
+						{{ branch }}
+						<v3-button type="primary" size="mini" @click="checkout(branch)" v-if="branch !== current" plain>进入</v3-button>
 					</dd>
 				</dl>
 			</div>
@@ -127,7 +127,8 @@
 </template>
 
 <script>
-import { ref, getCurrentInstance, reactive, computed, onMounted, inject, watch, nextTick, provide, onBeforeUnmount } from 'vue'
+import { ref, getCurrentInstance, reactive, computed, onMounted, inject, watch, nextTick, provide, onBeforeUnmount, onErrorCaptured } from 'vue'
+import { onBeforeRouteLeave } from 'vue-router'
 import Command from './comp/command'
 import MapCommand from './comp/map-command'
 import Xterm from '@/components/xterm'
@@ -142,46 +143,29 @@ export default {
 	async setup() {
 		// data
 		const { getTerminal } = inject('Terminal')
-		const { socket } = inject('Socket')
+		const { socket, socketGitmars } = inject('Socket')
 		const { ctx } = getCurrentInstance()
 		const {
-			ctx: {
-				$axios,
-				$box,
-				$nextIndex,
-				$router: { currentRoute: route }
-			}
+			ctx: { $axios, $box, $nextIndex, $router }
 		} = getCurrentInstance()
+		const { currentRoute: route } = $router
 		const xterm = ref(null)
 		const project = ref(null)
 		const terminal = ref(null)
+		const gitmars = ref(null)
 		const commandValue = reactive(commandSets)
 		const activeNames = ref()
-		// const branchInterval = ref(null)
-		// const { getGitmars } = inject('Gitmars')
 		const branchs = ref([])
-		// watch
-		// watch(
-		// 	() => branchs.value,
-		// 	() => {
-		// 		branchInterval.value && clearInterval(branchInterval.value)
-		// 	}
-		// )
-		watch(
-			commandValue,
-			val => {
-				console.log(val)
-			},
-			{
-				deep: true
-			}
-		)
+		const current = ref(null)
+		const ready = ref(false)
+		const error = ref(null)
+
 		// 计算属性
-		const current = computed(() => {
-			let o = branchs.value.find(el => el.indexOf('*') > -1)
-			o = o.replace(/[\s\\*]+/, '')
-			return o
-		})
+		// const current = computed(() => {
+		// 	let o = branchs.value.find(el => el.indexOf('*') > -1)
+		// 	o =  o && o.replace(/[\s\\*]+/, '') || null
+		// 	return o
+		// })
 		const branchList = computed(() => {
 			let o = {
 				bugfix: [],
@@ -201,11 +185,26 @@ export default {
 		})
 		// 事件
 		onMounted(() => {
-			console.log(1, $nextIndex(), ctx, ctx.$el, xterm.value)
+			// console.log(1, $nextIndex(), ctx, ctx.$el, xterm.value)
+			socketGitmars.emit('create', { name: project.value.id, cwd: project.value.path })
+			socketGitmars.on(project.value.id + '-branch', data => {
+				// console.log(data)
+				if (data) branchs.value = data
+			})
+			socketGitmars.on(project.value.id + '-current', data => {
+				// console.log(data)
+				if (data) current.value = data
+			})
 		})
-		// onBeforeUnmount(() => {
-		// 	branchInterval.value && clearInterval(branchInterval.value)
-		// })
+		onBeforeRouteLeave(() => {
+			// socketGitmars.off(project.value.id + '-branch')
+			// socketGitmars.off(project.value.id + '-current')
+			socketGitmars.emit('remove', project.value.id)
+		})
+		onErrorCaptured(err => {
+			error.value = err
+			return true
+		})
 		// 获取分支列表
 		const getProject = async () => {
 			return (
@@ -226,6 +225,15 @@ export default {
 				})
 			).data
 		}
+		// 获取当前分支
+		const getCurrent = async () => {
+			return (
+				await $axios({
+					url: '/cmd/branch/current',
+					data: {}
+				})
+			).data
+		}
 		// 执行指令
 		const exec = cmd => {
 			if (!terminal.value) return
@@ -239,11 +247,11 @@ export default {
 				dir: project.value.path
 			}
 		})
-		// branchInterval.value = setInterval(async () => {
-		// 	branchs.value = await getBranchs()
-		// }, 500)
+
 		branchs.value = await getBranchs()
+		current.value = await getCurrent()
 		terminal.value = getTerminal(project.value.id, project.value.path)
+		ready.value = true
 
 		const handleItemClick = () => {
 			console.log('handleItemClick', 666)
@@ -272,25 +280,13 @@ export default {
 			exec(`git checkout ${branch}`)
 			project.value = await getProject()
 		}
-		// console.log(branchs, typeof branchs, branchList)
-		// const socketGitmars = getGitmars(project.value.id, project.value.path)
 
-		// methods
-		// socketGitmars.on(project.value.id + '-global', global => {
-		// 	console.log(global)
-		// })
-		// socketGitmars.on(project.value.id + '-config', config => {
-		// 	console.log(config)
-		// })
-		// socketGitmars.on(project.value.id + '-branch', branch => {
-		// 	console.log(branch)
-		// })
-		// provide('Branch', [getBranchs, current, branchList])
 		return {
 			xterm,
 			exec,
 			commandValue,
 			activeNames,
+			ready,
 			route,
 			project,
 			branchList,
