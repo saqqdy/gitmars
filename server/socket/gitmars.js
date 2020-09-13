@@ -13,7 +13,7 @@ const getData = (socket, option) => {
 	delete require.cache[require.resolve('../../bin/js/config')]
 	let g = require('../../bin/js/global'),
 		c = require('../../bin/js/config'),
-		bh = searchBranchs(option.cwd || home),
+		bh = searchBranchs({ path: option.cwd || home }),
 		cur = getCurrent()
 	if (!glob || JSON.stringify(glob) !== JSON.stringify(g)) {
 		glob = g

@@ -38,9 +38,9 @@ router.get('/status', function (req, res, next) {
 
 // 获取项目列表
 router.get('/branch/list', (req, res, next) => {
-	const { key, type, remote } = req.query
+	const { path, key, type, remote } = req.query
 	// process.chdir('/Users/saqqdy/www/wojiayun/wyweb/webapp/app')
-	let data = searchBranchs(key, type, remote)
+	let data = searchBranchs({ path, key, type, remote })
 	success(res, { data })
 })
 

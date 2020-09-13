@@ -2,7 +2,7 @@
 const program = require('commander')
 const sh = require('shelljs')
 const { options, args } = require('./conf/combine')
-const { error, queue, getStatus, getCurrent, searchBranch, createArgs } = require('./js/index')
+const { error, queue, getStatus, getCurrent, searchBranchs, createArgs } = require('./js/index')
 const { defaults, appName } = require('./js/global')
 const config = require('./js/config')
 /**
@@ -20,7 +20,7 @@ options.forEach(o => {
 // .option('-a, --add', '需要add', false)
 // .option('--no-bugfix', '不同步到bug分支')
 // .option('--as-feature', 'bug分支合并到release')
-program.action(async (type, name, opt) => {
+program.action((type, name, opt) => {
 	const allow = ['bugfix', 'feature', 'support'] // 允许执行的指令
 	const deny = [defaults.master, defaults.develop, defaults.release, defaults.bugfix, defaults.support]
 	let status = !opt.add && opt.commit === '' ? getStatus() : true
@@ -46,7 +46,7 @@ program.action(async (type, name, opt) => {
 			sh.echo('请输入分支名称')
 			sh.exit(1)
 		}
-		let branchs = await searchBranch(type)
+		let branchs = searchBranchs(type)
 		if (branchs.length === 1) {
 			;[type, name] = branchs[0].split('/')
 		} else {

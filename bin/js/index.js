@@ -234,7 +234,7 @@ const getCurrent = () => {
  * @description 获取当前分支
  * @returns {Array} 返回列表数组
  */
-const searchBranch = async (key, type, remote = false) => {
+const searchBranch = async ({ key, type, remote = false }) => {
 	const data = (await queue([`gitm branch${key ? ' -k ' + key : ''}${type ? ' -t ' + type : ''}${remote ? ' -r' : ''}`]))[0].out.replace(/\*\s+/g, '')
 	let arr = data ? data.split('\n') : []
 	arr = arr.map(el => el.trim())
@@ -246,11 +246,40 @@ const searchBranch = async (key, type, remote = false) => {
  * @description 获取当前分支
  * @returns {Array} 返回列表数组
  */
-const searchBranchs = (path = pwd, key, type, remote = false) => {
-	const data = sh.exec(`git ls-remote --heads --quiet --sort="version:refname" ${path}`, { silent: true }).stdout.replace(/\n*$/g, '')
-	let arr = data ? data.split('\n') : []
-	arr = arr.map(el => el.replace(/^\w+[\s]+refs\/heads\/([\w-\/]+)$/, '$1'))
-	return arr
+const searchBranchs = ({ path = pwd, key, type, remote = false }) => {
+	const data = sh.exec(`git ls-remote${remote ? ' --refs' : ' --heads'} --quiet --sort="version:refname" ${path}`, { silent: true }).stdout.replace(/\n*$/g, '')
+	let arr = data ? data.split('\n') : [],
+		map = {
+			heads: [],
+			tags: [],
+			others: []
+		}
+	for (let el of arr) {
+		let match = el.match(/^\w+[\s]+refs\/(heads|remotes|tags)\/([\w-\/]+)$/)
+		if (!match) continue
+		switch (match[1]) {
+			case 'heads':
+				map.heads.push(match[2])
+				break
+			case 'remotes':
+				map.heads.push(match[2])
+				break
+			case 'tags':
+				map.tags.push(match[2])
+				break
+			default:
+				map.others.push(match[2])
+				break
+		}
+	}
+	if (type && ['bugfix', 'feature', 'support'].includes(type)) {
+		map.heads = map.heads.filter(el => el.indexOf('/' + type + '/') > -1)
+	}
+	if (key) {
+		map.heads = map.heads.filter(el => el.indexOf(key) > -1)
+	}
+
+	return map.heads
 }
 
 /**
