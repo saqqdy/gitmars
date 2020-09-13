@@ -1,13 +1,20 @@
 <template>
 	<div class="control">
-		<ul class="menu mini">
-			<li>
-				<router-link :to="{ name: 'control_gitmars', query: route.query }" title="gitmars工作流"><span class="iconfont icon-codelibrary"></span><span>gitmars工作流</span></router-link>
-			</li>
-			<li>
-				<router-link :to="{ name: 'control_tasks', query: route.query }" title="任务"><span class="iconfont icon-detail"></span><span>任务</span></router-link>
-			</li>
-		</ul>
+		<div class="menu mini">
+			<ul>
+				<li>
+					<router-link :to="{ name: 'control_gitmars', query: $route.query }" title="gitmars工作流"><span class="iconfont icon-codelibrary"></span><span>gitmars工作流</span></router-link>
+				</li>
+				<li>
+					<router-link :to="{ name: 'control_tasks', query: $route.query }" title="任务"><span class="iconfont icon-control"></span><span>任务</span></router-link>
+				</li>
+			</ul>
+			<ul>
+				<li>
+					<router-link :to="{ name: 'project_list' }" title="返回项目列表"><span class="iconfont icon-left-circle"></span><span>返回项目列表</span></router-link>
+				</li>
+			</ul>
+		</div>
 		<div class="loading" v-if="error">{{ error }}</div>
 		<Suspense v-else>
 			<template #default>
@@ -21,23 +28,24 @@
 </template>
 
 <script>
-import { ref, getCurrentInstance, onErrorCaptured } from 'vue'
+import { ref, onErrorCaptured } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
 
 export default {
 	name: 'project-add',
 	setup() {
-		const { ctx: ctx } = getCurrentInstance()
-		const { currentRoute: route } = ctx.$router
+		const $router = useRouter()
+		const $route = useRoute()
 		const error = ref(null)
-		if (route.value.name === 'control') ctx.$router.replace({ name: 'control_gitmars', query: route.value.query })
+		if ($route.name === 'control') $router.replace({ name: 'control_gitmars', query: $route.query })
 		onErrorCaptured(err => {
 			error.value = err
 			console.log('error', err)
 			return true
 		})
 		return {
-			router: ctx.$router,
-			route,
+			$router,
+			$route,
 			error
 		}
 	}
@@ -60,6 +68,9 @@ export default {
 	.menu {
 		width: 220px;
 		background: #1d2935;
+		display: flex;
+		justify-content: space-between;
+		flex-direction: column;
 		.iconfont ~ span {
 			margin-left: 8px;
 		}

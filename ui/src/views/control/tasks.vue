@@ -29,7 +29,7 @@
 
 <script>
 import { ref, getCurrentInstance, reactive, computed, onMounted, inject, watch, nextTick, provide, onBeforeUnmount, onErrorCaptured } from 'vue'
-import { onBeforeRouteLeave } from 'vue-router'
+import { onBeforeRouteLeave, useRoute, useRouter } from 'vue-router'
 import Xterm from '@/components/xterm'
 import nav from '@/components/nav'
 
@@ -40,11 +40,15 @@ export default {
 		// data
 		const { getTerminal } = inject('Terminal')
 		const { socket, socketGitmars } = inject('Socket')
-		const { ctx } = getCurrentInstance()
 		const {
-			ctx: { $axios, $box, $nextIndex, $router }
+			appContext: {
+				config: {
+					globalProperties: { $axios, $box, $nextIndex }
+				}
+			}
 		} = getCurrentInstance()
-		const { currentRoute: route } = $router
+		const $router = useRouter()
+		const $route = useRoute()
 		const xterm = ref(null)
 		const project = ref(null)
 		const scripts = ref(null)
@@ -54,7 +58,7 @@ export default {
 		// 计算属性
 		// 事件
 		onMounted(() => {
-			// console.log(1, $nextIndex(), ctx, ctx.$el, xterm.value)
+			// console.log(1, $nextIndex(), xterm.value)
 		})
 		onBeforeRouteLeave(() => {})
 
@@ -64,7 +68,7 @@ export default {
 				await $axios({
 					url: '/common/project/list',
 					data: {
-						id: route.value.query.id
+						id: $route.query.id
 					}
 				})
 			).data
@@ -108,7 +112,7 @@ export default {
 			exec,
 			run,
 			ready,
-			route,
+			$route,
 			project,
 			scripts
 		}

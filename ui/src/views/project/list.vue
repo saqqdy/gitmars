@@ -18,17 +18,26 @@
 </template>
 
 <script>
-import { getCurrentInstance, onMounted, reactive } from 'vue'
+import { getCurrentInstance, reactive, onBeforeMount } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
 
 export default {
 	name: 'project-list',
 	setup() {
 		const {
-			ctx: { $axios, $router }
+			appContext: {
+				config: {
+					globalProperties: { $axios, $box }
+				}
+			}
 		} = getCurrentInstance()
-		const { currentRoute: route } = $router
+		const $router = useRouter()
+		const $route = useRoute()
 		const data = reactive({
 			list: []
+		})
+		onBeforeMount(() => {
+			getProjects()
 		})
 		// getProjects
 		const getProjects = () => {
@@ -58,12 +67,8 @@ export default {
 				getProjects()
 			})
 		}
-		onMounted(() => {
-			getProjects()
-		})
 		return {
 			data,
-			// function
 			open,
 			goProject,
 			del

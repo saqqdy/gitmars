@@ -14,12 +14,20 @@
 
 <script>
 import { reactive, getCurrentInstance } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
 
 export default {
 	name: 'project-add',
 	setup() {
-		const { ctx } = getCurrentInstance()
-		const { $axios, $router, $box } = ctx
+		const {
+			appContext: {
+				config: {
+					globalProperties: { $axios, $box }
+				}
+			}
+		} = getCurrentInstance()
+		const $router = useRouter()
+		const $route = useRoute()
 		const form = reactive({
 			path: '/Users/saqqdy/www/saqqdy/lost-ui'
 		})

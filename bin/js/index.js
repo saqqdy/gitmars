@@ -214,9 +214,8 @@ const getStatus = () => {
  * @description 获取是否有某个分支
  * @returns {Boolean} true 返回true/false
  */
-const checkBranch = async name => {
-	const data = await queue([`gitm branch -k ${name}`])
-	return data[0].out.replace(/^\s+/, '')
+const checkBranch = name => {
+	return searchBranchs().findIndex(bh => bh === name) > -1 ? true : false
 }
 
 /**
@@ -234,7 +233,8 @@ const getCurrent = () => {
  * @description 获取当前分支
  * @returns {Array} 返回列表数组
  */
-const searchBranch = async ({ key, type, remote = false }) => {
+const searchBranch = async (opt = {}) => {
+	const { key = null, type = null, remote = false } = opt
 	const data = (await queue([`gitm branch${key ? ' -k ' + key : ''}${type ? ' -t ' + type : ''}${remote ? ' -r' : ''}`]))[0].out.replace(/\*\s+/g, '')
 	let arr = data ? data.split('\n') : []
 	arr = arr.map(el => el.trim())
@@ -246,7 +246,8 @@ const searchBranch = async ({ key, type, remote = false }) => {
  * @description 获取当前分支
  * @returns {Array} 返回列表数组
  */
-const searchBranchs = ({ path = pwd, key, type, remote = false }) => {
+const searchBranchs = (opt = {}) => {
+	const { path = pwd, key = null, type = null, remote = false } = opt
 	const data = sh.exec(`git ls-remote${remote ? ' --refs' : ' --heads'} --quiet --sort="version:refname" ${path}`, { silent: true }).stdout.replace(/\n*$/g, '')
 	let arr = data ? data.split('\n') : [],
 		map = {

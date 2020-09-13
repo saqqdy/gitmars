@@ -27,7 +27,7 @@ import { nextIndex, delay } from '@/lib/tool'
 
 export default function (app) {
 	app.config.globalProperties.$nextIndex = nextIndex.bind(app)
-	app.config.globalProperties.$axios = axios.bind(app)
+	app.config.globalProperties.$axios = axios
 	app.config.globalProperties.$delay = new delay()
 	app.config.globalProperties.$box = (...args) => new Box(app, ...args)
 }

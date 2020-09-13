@@ -1,3 +1,7 @@
+# 2020.09.12 v1.3.5更新日志
+1. 新增gitm ui指令，启动UI界面
+2. 升级checkBranch、searchBranchs、getCurrent方法，执行更加高效
+
 # 2020.08.14 v1.3.4更新日志
 1. bugfix分支使用--as-feature合并时不主动和bug线
 2. 指令配置抽离，为gitmars ui做准备

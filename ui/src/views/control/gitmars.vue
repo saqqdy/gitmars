@@ -128,12 +128,12 @@
 
 <script>
 import { ref, getCurrentInstance, reactive, computed, onMounted, inject, watch, nextTick, provide, onBeforeUnmount, onErrorCaptured } from 'vue'
-import { onBeforeRouteLeave } from 'vue-router'
+import { onBeforeRouteLeave, useRoute, useRouter } from 'vue-router'
 import Command from './comp/command'
 import MapCommand from './comp/map-command'
 import Xterm from '@/components/xterm'
 import commandSets from './gitmSets'
-import nav from '@/components/nav'
+import boxAddBranchVue from './comp/box-add-branch.vue'
 
 console.log(commandSets)
 
@@ -144,11 +144,15 @@ export default {
 		// data
 		const { getTerminal } = inject('Terminal')
 		const { socket, socketGitmars } = inject('Socket')
-		const { ctx } = getCurrentInstance()
 		const {
-			ctx: { $axios, $box, $nextIndex, $router }
+			appContext: {
+				config: {
+					globalProperties: { $axios, $box }
+				}
+			}
 		} = getCurrentInstance()
-		const { currentRoute: route } = $router
+		const $router = useRouter()
+		const $route = useRoute()
 		const xterm = ref(null)
 		const project = ref(null)
 		const terminal = ref(null)
@@ -185,7 +189,7 @@ export default {
 		})
 		// 事件
 		onMounted(() => {
-			// console.log(1, $nextIndex(), ctx, ctx.$el, xterm.value)
+			// console.log(1, $nextIndex(), xterm.value)
 			socketGitmars.emit('create', { name: project.value.id, cwd: project.value.path })
 			socketGitmars.on(project.value.id + '-branch', data => {
 				// console.log(data)
@@ -211,7 +215,7 @@ export default {
 				await $axios({
 					url: '/common/project/list',
 					data: {
-						id: route.value.query.id
+						id: $route.query.id
 					}
 				})
 			).data
@@ -261,16 +265,15 @@ export default {
 		}
 		// 创建分支
 		const createBranch = () => {
-			$box(nav, {
+			$box(boxAddBranchVue, {
 				width: '640px',
-				height: '320px',
+				height: '240px',
+				title: '创建分支',
 				options: {},
-				onOk: instance => {
-					let { type, name } = instance.submit()
-					return new Promise(resolve => {
-						exec(`gitm start ${type} ${name}`)
-						resolve()
-					})
+				onOk: async instance => {
+					let { type, name } = await instance.component.ctx.submit()
+					exec(`gitm start ${type} ${name}`)
+					return true
 				}
 			})
 		}
@@ -287,7 +290,7 @@ export default {
 			commandValue,
 			activeNames,
 			ready,
-			route,
+			$route,
 			project,
 			branchList,
 			current,

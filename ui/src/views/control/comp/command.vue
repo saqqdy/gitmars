@@ -91,8 +91,5 @@ export default {
 		justify-content: space-between;
 		align-items: center;
 	}
-	// ::v-deep(.text) {}
-	// ::v-slotted(.text) {}
-	// ::v-global(.text) {}
 }
 </style>
