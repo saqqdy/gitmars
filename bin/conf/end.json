@@ -1,7 +1,0 @@
-{
-	"args": [
-		{ "required": false, "name": "type", "variadic": false },
-		{ "required": false, "name": "name", "variadic": false }
-	],
-	"options": []
-}
