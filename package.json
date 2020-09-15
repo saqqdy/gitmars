@@ -10,9 +10,9 @@
 		"push": "sh ./bin/publish.sh",
 		"pub": "sh ./bin/publish.sh --deploy"
 	},
-	"main": "bin/gitm.js",
+	"main": "lib/gitm.js",
 	"bin": {
-		"gitm": "./bin/gitm.js"
+		"gitm": "./lib/gitm.js"
 	},
 	"dependencies": {
 		"colors": "^1.4.0",
