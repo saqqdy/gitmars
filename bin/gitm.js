@@ -10,13 +10,13 @@ if (!sh.which('git')) {
 }
 program.version(
 	`
- e88~~\  ,e,   d8                                         
-d888      "  _d88__ 888-~88e-~88e   /~~~8e  888-~\  d88~\ 
-8888 __  888  888   888  888  888       88b 888    C888   
-8888   | 888  888   888  888  888  e88~-888 888     Y88b  
-Y888   | 888  888   888  888  888 C888  888 888      888D 
- "88__/  888  "88_/ 888  888  888  "88_-888 888    \_88P  
-                                                          
+ e88~~\  ,e,   d8
+d888      "  _d88__ 888-~88e-~88e   /~~~8e  888-~\  d88~\
+8888 __  888  888   888  888  888       88b 888    C888
+8888   | 888  888   888  888  888  e88~-888 888     Y88b
+Y888   | 888  888   888  888  888 C888  888 888      888D
+ "88__/  888  "88_/ 888  888  888  "88_-888 888    \_88P
+
 v${set.version}, powered by saqqdy\n`,
 	'-v, --version',
 	'查看gitmars版本'
@@ -55,6 +55,7 @@ program
 	.command('unlink', '解除软链接')
 	.command('link', '软链接')
 	.command('clean', '提交权限')
+	.command('postmsg', '推送云之家消息')
 	.command('permission', '提交权限')
 	.command('admin <command>', '管理员功能，包含对发版分支bugfix、release的操作')
 
@@ -68,7 +69,7 @@ program.on('--help', function () {
 
 // 映射不存在的指令
 program.on('command:*', function (types, opts) {
-	let cmd = ['init', 'config', 'combine', 'cb', 'start', 'st', 'end', 'ed', 'update', 'up', 'branch', 'bh', 'save', 'sv', 'get', 'gt', 'copy', 'cp', 'merge', 'mg', 'continue', 'ct', 'revert', 'rt', 'upgrade', 'ug', 'build', 'bd', 'unlink', 'link', 'clean', 'permission', 'admin']
+	let cmd = ['init', 'config', 'combine', 'cb', 'start', 'st', 'end', 'ed', 'update', 'up', 'branch', 'bh', 'save', 'sv', 'get', 'gt', 'copy', 'cp', 'merge', 'mg', 'continue', 'ct', 'revert', 'rt', 'upgrade', 'ug', 'build', 'bd', 'unlink', 'link', 'clean', 'postmsg', 'permission', 'admin']
 	if (!cmd.includes(types[0])) {
 		let arr = [].concat(types).concat(opts)
 		sh.exec('git ' + arr.join(' '), { silent: false })
