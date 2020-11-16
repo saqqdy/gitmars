@@ -344,19 +344,31 @@ const getMessage = type => {
 
 /**
  * postMessage
- * @description 发送消息
+ * @description 生成消息
  */
 const postMessage = msg => {
 	if (!config.msgTemplate) {
-		sh.echo(error('请配置消息发送api地址'))
+		sh.echo(error('请配置消息发送api模板地址'))
 		return
 	}
 	let message = mapTemplate(config.msgTemplate, key => {
 		if (key === 'message') return msg
 		return getMessage(key)
 	})
+	config.msgUrl && sendMessage(message)
+}
+
+/**
+ * sendMessage
+ * @description 发送消息
+ */
+const sendMessage = (message, { silent = true }) => {
+	if (!config.msgUrl) {
+		sh.echo(error('请配置消息推送地址'))
+		return
+	}
 	message = message.replace(/\s/g, '')
-	config.msgUrl && sh.exec(`curl -i -H "Content-Type: application/json" -X POST -d '{"envParams":{"error_msg":"'${message}'"}}' "${config.msgUrl}"`, { silent: true })
+	config.msgUrl && sh.exec(`curl -i -H "Content-Type: application/json" -X POST -d '{"envParams":{"error_msg":"'${message}'"}}' "${config.msgUrl}"`, { silent })
 }
 
 /**
@@ -460,6 +472,7 @@ module.exports = {
 	searchBranchs,
 	getStashList,
 	postMessage,
+	sendMessage,
 	getCommandMessage,
 	handleConfigOutput,
 	createArgs

@@ -1,6 +1,9 @@
-# 2020.09.12 v1.3.5更新日志
+# 2020.09.12 v2.0.1更新日志
 1. 新增gitm ui指令，启动UI界面
 2. 升级checkBranch、searchBranchs、getCurrent方法，执行更加高效
+
+# 2020.10.16 v1.3.5更新日志
+1. 新增postmsg指令用于推送消息
 
 # 2020.08.14 v1.3.4更新日志
 1. bugfix分支使用--as-feature合并时不主动和bug线
