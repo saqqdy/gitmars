@@ -362,7 +362,8 @@ const postMessage = msg => {
  * sendMessage
  * @description 发送消息
  */
-const sendMessage = (message, { silent = true }) => {
+const sendMessage = (message, cfg = {}) => {
+	const { silent = true } = cfg
 	if (!config.msgUrl) {
 		sh.echo(error('请配置消息推送地址'))
 		return
