@@ -5,14 +5,11 @@
  */
 
 var app = require('../app'),
-	debug = require('debug')('server:server')
-var http = require('http'),
-	/**
-	 * Get port from environment and store in Express.
-	 */
-
-	port = normalizePort(process.env.PORT || '3000')
+	debug = require('debug')('server:server'),
+	http = require('http'),
+	port = normalizePort(process.env.PORT || '3001') // Get port from environment and store in Express.
 const createSocketServer = require('../socket/index')
+
 app.set('port', port)
 
 /**
