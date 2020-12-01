@@ -58,6 +58,7 @@ program
 	.command('clean', '提交权限')
 	.command('postmsg', '推送云之家消息')
 	.command('permission', '提交权限')
+	.command('hook', 'git钩子指令')
 	.command('test', '测试')
 	.command('admin <command>', '管理员功能，包含对发版分支bugfix、release的操作')
 
@@ -71,7 +72,7 @@ program.on('--help', function () {
 
 // 映射不存在的指令
 program.on('command:*', function (types, opts) {
-	let cmd = ['init', 'config', 'combine', 'cb', 'start', 'st', 'end', 'ed', 'update', 'up', 'branch', 'bh', 'save', 'sv', 'get', 'gt', 'copy', 'cp', 'merge', 'mg', 'continue', 'ct', 'revert', 'rt', 'upgrade', 'ug', 'build', 'bd', 'unlink', 'link', 'clean', 'postmsg', 'permission', 'test', 'admin']
+	let cmd = ['init', 'config', 'combine', 'cb', 'start', 'st', 'end', 'ed', 'update', 'up', 'branch', 'bh', 'save', 'sv', 'get', 'gt', 'copy', 'cp', 'merge', 'mg', 'continue', 'ct', 'revert', 'rt', 'upgrade', 'ug', 'build', 'bd', 'unlink', 'link', 'clean', 'postmsg', 'permission', 'hook', 'test', 'admin']
 	if (!cmd.includes(types[0])) {
 		let arr = [].concat(types).concat(opts)
 		sh.exec('git ' + arr.join(' '), { silent: false })
