@@ -18,7 +18,7 @@
 		"colors": "^1.4.0",
 		"commander": "6.1.0",
 		"core-js": "^3.6.5",
-		"execa": "4.0.3",
+		"execa": "4.1.0",
 		"node-apollo": "^1.2.1",
 		"ora": "5.1.0",
 		"regenerator-runtime": "0.13.7",
