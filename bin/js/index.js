@@ -184,21 +184,7 @@ const setLog = log => {
  * @returns {Boolean} true 返回true/false
  */
 const getStatus = () => {
-	const out = sh.exec('git status -s --no-column', { silent: false }).stdout.replace(/(^\s+|\n*$)/g, '') // 去除首尾
-	let list = out ? out.replace(/\n(\s+)/g, '\n').split('\n') : [],
-		sum = {
-			A: [],
-			D: [],
-			M: [],
-			'??': []
-		}
-	if (list.length === 0) return true
-	list.forEach(str => {
-		let arr = str.trim().replace(/\s+/g, ' ').split(' '),
-			type = arr.splice(0, 1)
-		if (!sum[type]) sum[type] = []
-		sum[type].push(arr.join(' '))
-	})
+	let sum = getStatusInfo({ silent: false })
 	if (sum.A.length > 0 || sum.D.length > 0 || sum.M.length > 0) {
 		sh.echo(error('您还有未提交的文件，请处理后再继续') + '\n如果需要暂存文件请执行: gitm save\n恢复时执行：gitm get')
 		sh.exit(1)
@@ -207,6 +193,31 @@ const getStatus = () => {
 		sh.echo(warning('您有未加入版本的文件,') + '\n如果需要暂存文件请执行: gitm save --force\n恢复时执行：gitm get')
 	}
 	return true
+}
+
+/**
+ * getStatusInfo
+ * @description 获取分支状态
+ * @returns {Boolean} true 返回true/false
+ */
+const getStatusInfo = (config = {}) => {
+	const { silent = true } = config
+	const out = sh.exec('git status -s --no-column', { silent }).stdout.replace(/(^\s+|\n*$)/g, '') // 去除首尾
+	let list = out ? out.replace(/\n(\s+)/g, '\n').split('\n') : [],
+		sum = {
+			A: [],
+			D: [],
+			M: [],
+			'??': []
+		}
+	if (list.length === 0) return sum
+	list.forEach(str => {
+		let arr = str.trim().replace(/\s+/g, ' ').split(' '),
+			type = arr.splice(0, 1)
+		if (!sum[type]) sum[type] = []
+		sum[type].push(arr.join(' '))
+	})
+	return sum
 }
 
 /**
@@ -424,6 +435,7 @@ module.exports = {
 	setCache,
 	setLog,
 	getStatus,
+	getStatusInfo,
 	checkBranch,
 	getCurrent,
 	searchBranch,
