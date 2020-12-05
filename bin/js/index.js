@@ -4,13 +4,13 @@ const colors = require('colors')
 const { pwd, gitDir, appName, defaults } = require('./global')
 const config = require('./config')
 
-const warning = txt => {
+function warning(txt) {
 	return colors.yellow(txt)
 }
-const error = txt => {
+function error(txt) {
 	return colors.red(txt)
 }
-const success = txt => {
+function success(txt) {
 	return colors.green(txt)
 }
 
@@ -18,7 +18,7 @@ const success = txt => {
  * writeFile
  * @description 写文件
  */
-const writeFile = (url, data) => {
+function writeFile(url, data) {
 	return new Promise((resolve, reject) => {
 		fs.writeFile(url, data, err => {
 			if (err) {
@@ -34,7 +34,7 @@ const writeFile = (url, data) => {
  * mapTemplate
  * @description 获取模板数据
  */
-const mapTemplate = (tmp, data) => {
+function mapTemplate(tmp, data) {
 	if (!tmp || !data) return null
 	let str =
 		'' +
@@ -52,10 +52,44 @@ const mapTemplate = (tmp, data) => {
 }
 
 /**
+ * getSeconds
+ * @description 传入字符串转换成时间（秒）
+ */
+function getSeconds(str) {
+	let match = String(str).match(/^(\d+)([a-zA-Z]+)$/),
+		time
+	if (!match) return null
+	time = +match[1]
+	switch (match[2]) {
+		case 'm':
+			time *= 60
+			break
+		case 'h':
+			time *= 3600
+			break
+		case 'd':
+			time *= 86400
+			break
+		case 'w':
+			time *= 604800
+			break
+		case 'M':
+			time *= 2592000
+			break
+		case 'y':
+			time *= 31536000
+			break
+		default:
+			break
+	}
+	return parseInt(Date.now() / 1000 - time)
+}
+
+/**
  * wait
  * @description 递归执行程序
  */
-const wait = (list, fun) => {
+function wait(list, fun) {
 	// 最后一条指令，执行完成之后退出递归
 	if (list.length === 0) {
 		fun()
@@ -75,7 +109,7 @@ const wait = (list, fun) => {
  * @description 脚本执行主程序
  * @param {Array} list 脚本序列
  */
-const queue = list => {
+function queue(list) {
 	return new Promise((resolve, reject) => {
 		let returns = []
 		if (list.length === 0) reject('指令名称不能为空')
@@ -146,7 +180,7 @@ const queue = list => {
  * @description 获取未执行脚本列表
  * @returns {Array} arr 返回数组
  */
-const getCache = () => {
+function getCache() {
 	let arr = []
 	if (sh.test('-f', gitDir + '/.gitmarscommands')) {
 		arr = sh
@@ -164,7 +198,7 @@ const getCache = () => {
  * setCache
  * @description 存储未执行脚本列表
  */
-const setCache = rest => {
+function setCache(rest) {
 	sh.touch(gitDir + '/.gitmarscommands')
 	sh.sed('-i', /[\s\S\n\r\x0a\x0d]*/, encodeURIComponent(JSON.stringify(rest)), gitDir + '/.gitmarscommands')
 }
@@ -173,26 +207,9 @@ const setCache = rest => {
  * setLog
  * @description 存储错误日志
  */
-const setLog = log => {
+function setLog(log) {
 	sh.touch(gitDir + '/.gitmarslog')
 	sh.sed('-i', /[\s\S\n\r\x0a\x0d]*/, encodeURIComponent(JSON.stringify(log)), gitDir + '/.gitmarslog')
-}
-
-/**
- * getStatus
- * @description 获取是否有未提交的文件
- * @returns {Boolean} true 返回true/false
- */
-const getStatus = () => {
-	let sum = getStatusInfo({ silent: false })
-	if (sum.A.length > 0 || sum.D.length > 0 || sum.M.length > 0) {
-		sh.echo(error('您还有未提交的文件，请处理后再继续') + '\n如果需要暂存文件请执行: gitm save\n恢复时执行：gitm get')
-		sh.exit(1)
-		return false
-	} else if (sum['??'].length > 0) {
-		sh.echo(warning('您有未加入版本的文件,') + '\n如果需要暂存文件请执行: gitm save --force\n恢复时执行：gitm get')
-	}
-	return true
 }
 
 /**
@@ -221,6 +238,105 @@ const getStatusInfo = (config = {}) => {
 }
 
 /**
+ * getStatus
+ * @description 获取是否有未提交的文件
+ * @returns {Boolean} true 返回true/false
+ */
+function getStatus() {
+	let sum = getStatusInfo({ silent: false })
+	if (sum.A.length > 0 || sum.D.length > 0 || sum.M.length > 0) {
+		sh.echo(error('您还有未提交的文件，请处理后再继续') + '\n如果需要暂存文件请执行: gitm save\n恢复时执行：gitm get')
+		sh.exit(1)
+		return false
+	} else if (sum['??'].length > 0) {
+		sh.echo(warning('您有未加入版本的文件,') + '\n如果需要暂存文件请执行: gitm save --force\n恢复时执行：gitm get')
+	}
+	return true
+}
+
+/**
+ * getLogs
+ * @description 获取日志
+ * @returns {Array} true 返回列表
+ */
+function getLogs(config = {}) {
+	const { since, limit, branches } = config
+	const keys = [
+		'%H',
+		// '%h',
+		'%T',
+		// '%t',
+		'%P',
+		// '%p',
+		'%an',
+		// '%aN',
+		'%ae',
+		// '%aE',
+		'%al',
+		'%aL',
+		'%ad',
+		// '%aD',
+		'%ar',
+		'%at',
+		// '%ai',
+		'%aI',
+		'%as',
+		'%cn',
+		// '%cN',
+		'%ce',
+		// '%cE',
+		'%cl',
+		'%cL',
+		'%cd',
+		// '%cD',
+		'%cr',
+		'%ct',
+		// '%ci',
+		'%cI',
+		'%cs',
+		'%d',
+		'%D',
+		'%S',
+		'%e',
+		'%s'
+		// '%f',
+		// '%b',
+		// '%B',
+		// '%N',
+		// '%GG',
+		// '%G?',
+		// '%GS',
+		// '%GK',
+		// '%GF',
+		// '%GP',
+		// '%GT',
+		// '%gD',
+		// '%gd',
+		// '%gn',
+		// '%gN',
+		// '%ge',
+		// '%gE',
+		// '%gs'
+		// '%(trailers:key=Reviewed-by)'
+	]
+	const results = sh
+		.exec(`git log${limit ? ' -"' + limit + '"' : ''}${since ? ' --since="' + getSeconds(since) + '"' : ''}${branches ? ' --branches="*' + branches + '"' : ''} --date-order --pretty=format:"${keys.join(',=')}-end-"`, { silent: true })
+		.stdout.replace(/[\r\n]+/g, '')
+		.replace(/-end-$/, '')
+	let logList = []
+	results &&
+		results.split('-end-').forEach(log => {
+			let args = log.split(',='),
+				map = {}
+			keys.forEach((key, i) => {
+				map[key] = args[i]
+			})
+			logList.push(map)
+		})
+	return logList
+}
+
+/**
  * checkBranch
  * @description 获取是否有某个分支
  * @returns {Boolean} true 返回true/false
@@ -229,13 +345,18 @@ const checkBranch = async name => {
 	const data = await queue([`gitm branch -k ${name}`])
 	return data[0].out.replace(/^\s+/, '')
 }
+// function checkBranch(name) {
+// 	return queue([`gitm branch -k ${name}`]).then(data => {
+// 		return resolve(data[0].out.replace(/^\s+/, ''))
+// 	})
+// }
 
 /**
  * getCurrent
  * @description 获取当前分支
  * @returns {String} 返回名称
  */
-const getCurrent = () => {
+function getCurrent() {
 	return sh.exec('git symbolic-ref --short -q HEAD', { silent: true }).stdout.replace(/[\n\s]*$/g, '')
 }
 
@@ -284,7 +405,7 @@ const getStashList = async key => {
  * getMessage
  * @description 解析模板数据
  */
-const getMessage = type => {
+function getMessage(type) {
 	let str = '',
 		d = new Date()
 	switch (type) {
@@ -314,7 +435,7 @@ const getMessage = type => {
  * postMessage
  * @description 生成消息
  */
-const postMessage = msg => {
+function postMessage(msg) {
 	if (!config.msgTemplate) {
 		sh.echo(error('请配置消息发送api模板地址'))
 		return
@@ -344,7 +465,7 @@ const sendMessage = (message, cfg = {}) => {
  * getCommandMessage
  * @description 获取通用的指令提示信息
  */
-const getCommandMessage = cmd => {
+function getCommandMessage(cmd) {
 	let msg = {},
 		arr = cmd.replace(/[\s]+/g, ' ').split(' ')
 	if (arr.length < 2 || arr[0] !== 'git') return msg
@@ -396,7 +517,7 @@ const getCommandMessage = cmd => {
 	return msg
 }
 
-const handleConfigOutput = name => {
+function handleConfigOutput(name) {
 	if (name === 'user') {
 		return '请输入Git用户名(必填)'
 	} else if (name === 'email') {
@@ -411,7 +532,7 @@ const handleConfigOutput = name => {
 	return '请输入' + name + '分支名称，默认为：' + defaults[name]
 }
 
-const createArgs = args => {
+function createArgs(args) {
 	let argArr = []
 	args.forEach(arg => {
 		let str = arg.name
@@ -429,13 +550,15 @@ module.exports = {
 	success,
 	writeFile,
 	mapTemplate,
+	getSeconds,
 	wait,
 	queue,
 	getCache,
 	setCache,
 	setLog,
-	getStatus,
 	getStatusInfo,
+	getStatus,
+	getLogs,
 	checkBranch,
 	getCurrent,
 	searchBranch,

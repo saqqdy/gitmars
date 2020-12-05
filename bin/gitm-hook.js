@@ -2,7 +2,7 @@
 const program = require('commander')
 const sh = require('shelljs')
 const execa = require('execa')
-const { queue, success, getCurrent, getStatusInfo, getStashList } = require('./js/index')
+const { queue, success, getCurrent, getLogs, getStatusInfo, getStashList } = require('./js/index')
 const config = require('./js/config')
 const global = require('./js/global')
 const { gitDir } = require('./js/global')
@@ -15,18 +15,32 @@ program
 	.usage('[version]')
 	.description('升级gitmars')
 	.arguments('[version]')
-	// .option('-m, --mirror', '是否使用淘宝镜像', false)
+	.option('--no-verify', '是否需要跳过校验权限', false)
+	.option('-s, --since [since]', '查询在某个时间之后的日志，填写格式：10s/2m/2h/3d/4M/5y', '7d')
+	.option('-l, --limit [limit]', '做多查询的日志条数', 20)
+	.option('-b, --branches [branches]', '要查询的分支')
 	.action(async (version, opt) => {
 		const current = getCurrent()
-		console.log('gitm hook working!', config, global, gitDir)
-		let out = sh.exec('git log -1 --pretty=oneline', { silent: true }).stdout.split(' ').splice(0, 1)[0],
-			author = sh.exec(`git log --pretty=format:%an ${out} -1`, { silent: true }).stdout
-		// let out = commandSync('git', ['log', '--pretty=oneline', url]).stdout.split(' ').splice(0, 1)[0],
-		// committer = commandSync('git', ['log', '--pretty=format:"%cn"', out, '-1']).stdout.replace(/\"/g, ''),
-		// author = commandSync('git', ['log', '--pretty=format:"%an"', out, '-1']).stdout.replace(/\"/g, '')
-		console.log('--' + out + '--')
-		console.log('--' + author + '--')
-		console.log(getStatusInfo(), 99)
+		const mainLogs = getLogs({
+			since: opt.since,
+			limit: opt.limit,
+			branches: opt.branches
+		})
+		const currentLogs = getLogs({
+			since: opt.since,
+			limit: opt.limit,
+			branches: 'wu'
+		})
+		let mainVers = []
+		let lastCommit = {
+			isMerge: false,
+			msg: '',
+			author: 'saqqdy',
+			date: ''
+		}
+		console.log(current, mainLogs, currentLogs)
+		// console.log('gitm hook working!', config, global, gitDir)
+		// console.log(getStatusInfo(), 99)
 		// let allow = [config.master],
 		// 	msg = sh.exec('git show', { silent: true }).stdout,
 		// 	index
