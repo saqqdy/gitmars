@@ -31,14 +31,32 @@ program
 			limit: opt.limit,
 			branches: 'wu'
 		})
-		let mainVers = []
-		let lastCommit = {
-			isMerge: false,
-			msg: '',
-			author: 'saqqdy',
-			date: ''
+		const meagedDev = msg = sh.exec('git branch --contains feature/wu', { silent: true }).stdout
+		let isUpdated = false,
+			mainVers = [],
+			currentVers = [],
+			lastCommit = {
+				isMerge: false,
+				msg: '',
+				author: 'saqqdy',
+				date: ''
+			}
+		mainLogs.forEach(log => {
+			mainVers.push(log['%H'])
+		})
+		currentLogs.forEach(log => {
+			let arr = log['%P'] ? log['%P'].split(' ') : []
+			arr.forEach(item => {
+				currentVers.push(item)
+			})
+		})
+		mainVer: for (let ver of mainVers) {
+			if (currentVers.includes(ver)) {
+				isUpdated = true
+				break mainVer
+			}
 		}
-		console.log(current, mainLogs, currentLogs)
+		console.log(current, mainLogs, currentLogs, mainVers, currentVers)
 		// console.log('gitm hook working!', config, global, gitDir)
 		// console.log(getStatusInfo(), 99)
 		// let allow = [config.master],
