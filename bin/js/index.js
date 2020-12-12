@@ -1,7 +1,8 @@
 const fs = require('fs')
+const path = require('path')
 const sh = require('shelljs')
 const colors = require('colors')
-const { pwd, gitDir, appName, defaults } = require('./global')
+const { pwd, gitDir, gitHookDir, appName, hookList, defaults } = require('./global')
 const config = require('./config')
 
 function warning(txt) {
@@ -532,6 +533,10 @@ function handleConfigOutput(name) {
 	return '请输入' + name + '分支名称，默认为：' + defaults[name]
 }
 
+/**
+ * createArgs
+ * @description 生成参数
+ */
 function createArgs(args) {
 	let argArr = []
 	args.forEach(arg => {
@@ -542,6 +547,34 @@ function createArgs(args) {
 		argArr.push(str)
 	})
 	return argArr.join(' ')
+}
+
+/**
+ * @description compareVersion版本号大小对比
+ * @param appName {String} app名称
+ * @param compareVer {String} 必传 需要对比的版本号
+ * @param userAgent {String} ua，可不传，默认取navigator.appVersion
+ * @return {Boolean|null} null/true/false
+ */
+function compareVersion(basicVer, compareVer) {
+	if (basicVer === null) return null
+	basicVer = basicVer + '.'
+	compareVer = compareVer + '.'
+	var bStr = parseFloat(basicVer)
+	var cStr = parseFloat(compareVer)
+	var bStrNext = parseFloat(basicVer.replace(bStr + '.', '')) || 0
+	var cStrNext = parseFloat(compareVer.replace(cStr + '.', '')) || 0
+	if (cStr > bStr) {
+		return false
+	} else if (cStr < bStr) {
+		return true
+	} else {
+		if (bStrNext >= cStrNext) {
+			return true
+		} else {
+			return false
+		}
+	}
 }
 
 module.exports = {
@@ -567,5 +600,6 @@ module.exports = {
 	sendMessage,
 	getCommandMessage,
 	handleConfigOutput,
-	createArgs
+	createArgs,
+	compareVersion
 }

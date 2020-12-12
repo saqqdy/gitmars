@@ -1,10 +1,11 @@
 #!/usr/bin/env node
+const path = require('path')
 const program = require('commander')
 const sh = require('shelljs')
 const { error, success } = require('./js/index')
 const { defaults, pwd } = require('./js/global')
-const config = require('./js/config')
 const configFrom = require('./js/configFrom')
+const getConfig = require('./js/getConfig')
 /**
  * gitm config set
  */
@@ -75,11 +76,12 @@ program
 	.command('list [option]')
 	.description('查询单个或全部gitmars的配置项')
 	.action(option => {
+		const config = getConfig(path.join(pwd, 'gitmarsconfig.json'))
 		if (option) {
-			sh.echo(success(config[option]))
+			sh.echo(config[option])
 		} else {
-			sh.echo(success(config))
+			sh.echo(config)
 		}
-		sh.exit(1)
+		sh.exit(0)
 	})
 program.parse(process.argv)

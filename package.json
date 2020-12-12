@@ -15,26 +15,28 @@
 		"gitm": "./bin/gitm.js"
 	},
 	"dependencies": {
+		"ci-info": "^2.0.0",
 		"colors": "^1.4.0",
 		"commander": "6.2.0",
 		"core-js": "^3.7.0",
-		"execa": "4.1.0",
+		"cosmiconfig": "^7.0.0",
 		"inquirer": "^7.3.3",
 		"node-apollo": "^1.2.1",
 		"ora": "5.1.0",
 		"regenerator-runtime": "0.13.7",
 		"shelljs": "0.8.4",
+		"slash": "^3.0.0",
 		"text-table": "^0.2.0",
 		"tracer": "1.1.4"
 	},
 	"devDependencies": {
-		"@babel/cli": "7.12.7",
-		"@babel/core": "7.12.7",
-		"@babel/preset-env": "7.12.7",
-		"eslint": "7.14.0",
+		"@babel/cli": "7.12.10",
+		"@babel/core": "7.12.10",
+		"@babel/preset-env": "7.12.10",
+		"eslint": "7.15.0",
 		"jsdoc-to-markdown": "^6.0.1",
-		"prettier": "2.2.0",
-		"uglify-js": "3.11.6"
+		"prettier": "2.2.1",
+		"uglify-js": "3.12.1"
 	},
 	"repository": {
 		"type": "git",
@@ -45,7 +47,7 @@
 		"git",
 		"tool"
 	],
-	"author": "saqqdy.com",
+	"author": "saqqdy <www.saqqdy.com>",
 	"license": "ISC",
 	"bugs": {
 		"url": "https://github.com/saqqdy/gitmars/issues"

@@ -1,7 +1,6 @@
 #!/usr/bin/env node
 const program = require('commander')
 const sh = require('shelljs')
-const execa = require('execa')
 const { queue, success } = require('./js/index')
 const config = require('./js/config')
 const global = require('./js/global')

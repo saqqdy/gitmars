@@ -2,7 +2,6 @@
 const program = require('commander')
 const { exec, spawn, execSync, spawnSync } = require('child_process')
 const sh = require('shelljs')
-// const execa = require('execa')
 const { queue, success } = require('./js/index')
 const ora = require('ora')
 /**
