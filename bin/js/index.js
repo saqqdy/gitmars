@@ -518,21 +518,6 @@ function getCommandMessage(cmd) {
 	return msg
 }
 
-function handleConfigOutput(name) {
-	if (name === 'user') {
-		return '请输入Git用户名(必填)'
-	} else if (name === 'email') {
-		return '请输入Git邮箱'
-	} else if (name === 'msgUrl') {
-		return '请输入云之家消息推送地址'
-	} else if (name === 'msgTemplate') {
-		return '请输入消息模板, 默认为：' + defaults[name]
-	} else if (name === 'apolloConfig') {
-		return '请配置apollo'
-	}
-	return '请输入' + name + '分支名称，默认为：' + defaults[name]
-}
-
 /**
  * createArgs
  * @description 生成参数
@@ -599,7 +584,6 @@ module.exports = {
 	postMessage,
 	sendMessage,
 	getCommandMessage,
-	handleConfigOutput,
 	createArgs,
 	compareVersion
 }

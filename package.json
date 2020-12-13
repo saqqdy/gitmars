@@ -15,7 +15,6 @@
 		"gitm": "./bin/gitm.js"
 	},
 	"dependencies": {
-		"chalk-pipe": "^4.0.0",
 		"ci-info": "^2.0.0",
 		"colors": "^1.4.0",
 		"commander": "6.2.0",

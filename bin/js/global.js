@@ -17,7 +17,8 @@ const defaults = {
 	email: '',
 	msgTemplate: '${message}；项目：${project}；路径：${pwd}',
 	msgUrl: '',
-	apolloConfig: ''
+	apolloConfig: '',
+	hooks: ''
 }
 
 module.exports = { pwd, gitDir, gitHookDir, gitUrl, appName, system, hookList, defaults }
