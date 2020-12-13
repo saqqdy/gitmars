@@ -261,7 +261,7 @@ function getStatus() {
  * @returns {Array} true 返回列表
  */
 function getLogs(config = {}) {
-	const { since, limit, branches } = config
+	const { lastet, limit, branches } = config
 	const keys = [
 		'%H',
 		// '%h',
@@ -321,7 +321,7 @@ function getLogs(config = {}) {
 		// '%(trailers:key=Reviewed-by)'
 	]
 	const results = sh
-		.exec(`git log${limit ? ' -"' + limit + '"' : ''}${since ? ' --since="' + getSeconds(since) + '"' : ''}${branches ? ' --branches="*' + branches + '"' : ''} --date-order --pretty=format:"${keys.join(',=')}-end-"`, { silent: true })
+		.exec(`git log${limit ? ' -"' + limit + '"' : ''}${lastet ? ' --since="' + getSeconds(lastet) + '"' : ''}${branches ? ' --branches="*' + branches + '"' : ''} --date-order --pretty=format:"${keys.join(',=')}-end-"`, { silent: true })
 		.stdout.replace(/[\r\n]+/g, '')
 		.replace(/-end-$/, '')
 	let logList = []
