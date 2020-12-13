@@ -11,7 +11,7 @@
 		],
 		options: [
 			{
-				flags: '--latest',
+				flags: '--latest [latest]',
 				required: false,
 				optional: false,
 				variadic: false,
@@ -23,7 +23,7 @@
 				defaultValue: '7d'
 			},
 			{
-				flags: '--limit',
+				flags: '--limit [limit]',
 				required: false,
 				optional: false,
 				variadic: false,
