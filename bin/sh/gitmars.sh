@@ -9,13 +9,10 @@ debug () {
 }
 
 command_exists () {
-  echo "222$1"
   command -v "$1" >/dev/null 2>&1
 }
 
 run_command () {
-echo "111$1"
-echo "112$@---$hookName---$gitParams"
   if command_exists "$1"; then
     # "$@" gitm $hookName "$gitParams"
     gitm hook $hookName "$gitParams"
@@ -89,7 +86,6 @@ if command_exists winpty && test -t 1; then
 fi
 
 # Run gitm hook with the package manager used to install Gitmars
-echo "packageManager--$packageManager"
 case $packageManager in
   "npm") run_command npx --no-install;;
   "npminstall") run_command npx --no-install;;

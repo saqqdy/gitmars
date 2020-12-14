@@ -25,8 +25,16 @@ program
 		const mainBranchs = [config.master, config.develop, config.release, config.support, config.bugfix]
 		const current = getCurrent()
 		const branchPrefix = current.split('/')[0]
+		sh.echo(success(`当前分支${current}，系统猜测你可能想做以下操作：`))
+		console.log(branchPrefix)
 		if (mainBranchs.includes(current)) {
 			// 主干分支
+			/**
+			 * 1. gitm start/combine/end 开发分支
+			 * 2. gitm admin publish 发布
+			 * 3. gitm branch 分支操作
+			 * 4. gitm build 构建
+			 */
 		} else if (branchPrefix === 'feature') {
 			// feature
 		} else if (branchPrefix === 'bugfix') {
@@ -34,7 +42,5 @@ program
 		} else if (branchPrefix === 'support') {
 			// support
 		}
-		sh.echo(success(`当前分支${current}`))
-		console.log(branchPrefix)
 	})
 program.parse(process.argv)

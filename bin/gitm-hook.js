@@ -3,7 +3,7 @@ const program = require('commander')
 const fs = require('fs')
 const sh = require('shelljs')
 const { options, args } = require('./conf/hook')
-const { queue, success, warning, createArgs, getCurrent, getLogs, compareVersion } = require('./js/index')
+const { queue, success, warning, error, createArgs, getCurrent, getLogs, compareVersion } = require('./js/index')
 const { createHooks, removeHooks, createHookShell, removeHookShell, createLocalShell, removeLocalShell } = require('./js/hook')
 const gitRevParse = require('./js/gitRevParse')
 const getConfig = require('./js/getConfig')
@@ -15,7 +15,6 @@ const ciInfo = require('ci-info')
 /**
  * gitm hook
  * gitm hook init
- * gitm hook test
  * gitm hook remove
  * gitm hook config
  */
@@ -24,18 +23,14 @@ if (args.length > 0) program.arguments(createArgs(args))
 options.forEach(o => {
 	program.option(o.flags, o.description, o.defaultValue)
 })
-// .arguments('[command]')
+// .arguments('[command] [args...]')
 // .option('--no-verify', '是否需要跳过校验权限', false)
 // .option('--latest [latest]', '查询在某个时间之后的日志，填写格式：10s/2m/2h/3d/4M/5y', '7d')
 // .option('--limit [limit]', '最多查询的日志条数')
+// .option('-t, --type <type>', '检测类型')
 // .option('--branch [branch]', '要查询的分支')
-program.action(async (command, opt) => {
-	/**
-	 * 1. 是否合并过dev post-merge
-	 * 2. 1周内是否同步过上游分支代码
-	 * 3. 主干分支推送的内容是否是merge内容，暂时只检测最后一条记录
-	 * 4.
-	 */
+program.action(async (command, args, opt) => {
+	console.log(80808080, command, args, opt.latest, opt.type)
 	const current = getCurrent()
 	const config = getConfig()
 	// 1. 获取是否合并过dev
@@ -87,11 +82,17 @@ program.action(async (command, opt) => {
 		// console.log(currentLogs)
 		return p.length > 1
 	}
-	// 4. 获取当前本地分支与远程分支的差别
-	const getIsNeedPull = () => {
+	// 获取当前本地分支落后远程的日志
+	const getBehandLogs = () => {
 		sh.exec(`git fetch`, { silent: true })
-		const result = sh.exec(`git log ${current}..origin/${current}`, { silent: true }).stdout.replace(/[\n\s]*$/g, '')
-		return !!result
+		const result = sh.exec(`git log ${current}..origin/${current} --pretty=format:"%p"`, { silent: true }).stdout.replace(/[\s]*$/g, '')
+		return result ? result.split('\n') : []
+	}
+	// 获取当前本地分支领先远程的日志
+	const getAheadLogs = () => {
+		sh.exec(`git fetch`, { silent: true })
+		const result = sh.exec(`git log origin/${current}..${current} --pretty=format:"%p"`, { silent: true }).stdout.replace(/[\s]*$/g, '')
+		return result ? result.split('\n') : []
 	}
 	// 获取git版本
 	const getGitVersion = () => {
@@ -113,6 +114,7 @@ program.action(async (command, opt) => {
 		sh.exit(0)
 		return
 	}
+
 	if (command === 'init') {
 		// 初始化钩子
 		const gitVersion = getGitVersion()
@@ -145,13 +147,38 @@ program.action(async (command, opt) => {
 		removeHookShell()
 		removeLocalShell()
 	} else {
-		// 检测权限
+		// 检测权限 command = hookName
+		// 检测类型对应上面的检测方法
+		if (opt.type === 1) {
+			// 分支合并主干分支之后，检测该分支是否合并过dev，没有合并过的，不允许继续执行commit
+		} else if (opt.type === 2) {
+			// 分支合并主干分支之后，检测该分支是否同步过上游分支的代码，没有同步过的，不允许继续执行commit
+		} else if (opt.type === 3) {
+			// 在主干分支执行push推送时，检测最后一次提交是否为merge记录，如果不是，提示不允许直接在主干分支做修改
+			const behandLogs = getBehandLogs()
+			const aheadLogs = getAheadLogs()
+			let isMerge = true
+			aheadLog: for (let logStr of aheadLogs) {
+				let logs = logStr.split(' ')
+				if (logs.length < 2) {
+					isMerge = false
+					break aheadLog
+				}
+			}
+			if (isMerge) {
+				sh.exit(0)
+			} else {
+				sh.echo(error('不允许在主干分支直接更改代码提交，请联系管理员'))
+				sh.exit(1)
+			}
+		} else if (opt.type === 4) {
+			// 在主干分支执行push推送时，检测是否需要先执行pull
+		}
 	}
-	console.log('1. 当前分支是否合并过dev', getIsMergedBranch())
-	console.log('2. 一周内是否同步过上游分支代码', getIsUpdatedInTime())
-	console.log('3. 最后一条记录是否merge记录', getIsMergeAction())
-	console.log('4. 是否需要pull代码', getIsNeedPull())
-	console.log('gitm hook working!', gitHookDir)
+	// console.log('1. 当前分支是否合并过dev', getIsMergedBranch())
+	// console.log('2. 一周内是否同步过上游分支代码', getIsUpdatedInTime())
+	// console.log('3. 最后一条记录是否merge记录', getIsMergeAction())
+	// console.log('gitm hook working!', gitHookDir)
 	sh.exit(1)
 })
 program.parse(process.argv)
