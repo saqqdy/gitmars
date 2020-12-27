@@ -17,8 +17,8 @@
 	"dependencies": {
 		"ci-info": "^2.0.0",
 		"colors": "^1.4.0",
-		"commander": "6.2.0",
-		"core-js": "^3.7.0",
+		"commander": "6.2.1",
+		"core-js": "^3.8.1",
 		"cosmiconfig": "^7.0.0",
 		"inquirer": "^7.3.3",
 		"node-apollo": "^1.2.1",
@@ -32,11 +32,11 @@
 	"devDependencies": {
 		"@babel/cli": "7.12.10",
 		"@babel/core": "7.12.10",
-		"@babel/preset-env": "7.12.10",
-		"eslint": "7.15.0",
+		"@babel/preset-env": "7.12.11",
+		"eslint": "7.16.0",
 		"jsdoc-to-markdown": "^6.0.1",
 		"prettier": "2.2.1",
-		"uglify-js": "3.12.1"
+		"uglify-js": "3.12.3"
 	},
 	"repository": {
 		"type": "git",
