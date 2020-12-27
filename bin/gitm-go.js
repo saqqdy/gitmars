@@ -2,7 +2,8 @@
 const program = require('commander')
 const fs = require('fs')
 const sh = require('shelljs')
-const { options, args } = require('./conf/build')
+const inquirer = require('inquirer')
+const { combine, end, update } = require('./js/go')
 const { queue, success, warning, getCurrent, getLogs, compareVersion } = require('./js/index')
 const getConfig = require('./js/getConfig')
 const global = require('./js/global')
@@ -25,9 +26,37 @@ program
 		const mainBranchs = [config.master, config.develop, config.release, config.support, config.bugfix]
 		const current = getCurrent()
 		const branchPrefix = current.split('/')[0]
-		let prompts = []
 		sh.echo(success(`当前分支${current}，系统猜测你可能想做以下操作：`))
 		console.log(branchPrefix)
+
+		// 选择指令
+		const chooseCommand = () => {
+			inquirer
+				.prompt({
+					type: 'list',
+					name: 'command',
+					message: '请选择你想要的操作?',
+					default: 'combine',
+					choices: ['combine', 'end', 'update', 'exit']
+				})
+				.then(answers => {
+					if (answers.command === 'combine') {
+						console.log('你选择了combine指令')
+						combine()
+					} else if (answers.command === 'end') {
+						console.log('你选择了end指令，注意end指令会在执行合并代码到dev和预发之后删除分支')
+						end()
+					} else if (answers.command === 'update') {
+						console.log('你选择了update指令')
+						update()
+					} else {
+						console.log('已退出')
+						sh.exit(0)
+					}
+				})
+		}
+		chooseCommand()
+
 		if (mainBranchs.includes(current)) {
 			// 主干分支
 			/**
@@ -44,124 +73,6 @@ program
 			 * 3. gitm branch 分支操作
 			 * 4. gitm build 构建
 			 */
-			// var directionsPrompt = {
-			// 	type: 'list',
-			// 	name: 'direction',
-			// 	message: 'Which direction would you like to go?',
-			// 	choices: ['Forward', 'Right', 'Left', 'Back']
-			// }
-			// function main() {
-			// 	console.log('You find youself in a small room, there is a door in front of you.')
-			// 	exitHouse()
-			// }
-			// function exitHouse() {
-			// 	inquirer.prompt(directionsPrompt).then(answers => {
-			// 		if (answers.direction === 'Forward') {
-			// 			console.log('You find yourself in a forest')
-			// 			console.log('There is a wolf in front of you; a friendly looking dwarf to the right and an impasse to the left.')
-			// 			encounter1()
-			// 		} else {
-			// 			console.log('You cannot go that way. Try again')
-			// 			exitHouse()
-			// 		}
-			// 	})
-			// }
-			// function encounter1() {
-			// 	inquirer.prompt(directionsPrompt).then(answers => {
-			// 		var direction = answers.direction
-			// 		if (direction === 'Forward') {
-			// 			console.log('You attempt to fight the wolf')
-			// 			console.log('Theres a stick and some stones lying around you could use as a weapon')
-			// 			encounter2b()
-			// 		} else if (direction === 'Right') {
-			// 			console.log('You befriend the dwarf')
-			// 			console.log('He helps you kill the wolf. You can now move forward')
-			// 			encounter2a()
-			// 		} else {
-			// 			console.log('You cannot go that way')
-			// 			encounter1()
-			// 		}
-			// 	})
-			// }
-			// function encounter2a() {
-			// 	inquirer.prompt(directionsPrompt).then(answers => {
-			// 		var direction = answers.direction
-			// 		if (direction === 'Forward') {
-			// 			var output = 'You find a painted wooden sign that says:'
-			// 			output += ' \n'
-			// 			output += ' ____  _____  ____  _____ \n'
-			// 			output += '(_  _)(  _  )(  _ \\(  _  ) \n'
-			// 			output += '  )(   )(_)(  )(_) ))(_)(  \n'
-			// 			output += ' (__) (_____)(____/(_____) \n'
-			// 			console.log(output)
-			// 		} else {
-			// 			console.log('You cannot go that way')
-			// 			encounter2a()
-			// 		}
-			// 	})
-			// }
-			// function encounter2b() {
-			// 	inquirer
-			// 		.prompt({
-			// 			type: 'list',
-			// 			name: 'weapon',
-			// 			message: 'Pick one',
-			// 			choices: ['Use the stick', 'Grab a large rock', 'Try and make a run for it', 'Attack the wolf unarmed']
-			// 		})
-			// 		.then(() => {
-			// 			console.log('The wolf mauls you. You die. The end.')
-			// 		})
-			// }
-			// main()
-
-			// inquirer
-			// 	.prompt([
-			// 		{
-			// 			type: 'checkbox',
-			// 			message: '请选择你需要的类型',
-			// 			name: 'toppings',
-			// 			choices: [
-			// 				new inquirer.Separator(' = 肉类 = '),
-			// 				{
-			// 					name: 'Pepperoni',
-			// 					disabled: '不可选'
-			// 				},
-			// 				{
-			// 					name: 'Ham',
-			// 					checked: true
-			// 				},
-			// 				{
-			// 					name: 'Ground Meat'
-			// 				},
-			// 				new inquirer.Separator(' = 蔬菜 = '),
-			// 				{
-			// 					name: 'Mozzarella'
-			// 				},
-			// 				{
-			// 					name: 'Cheddar'
-			// 				},
-			// 				{
-			// 					name: 'Parmesan'
-			// 				},
-			// 				new inquirer.Separator(' = 酒水饮料 ='),
-			// 				{
-			// 					name: 'Mushroom'
-			// 				},
-			// 				{
-			// 					name: 'Tomato'
-			// 				}
-			// 			],
-			// 			validate(answer) {
-			// 				if (answer.length < 1) {
-			// 					return 'You must choose at least one topping.'
-			// 				}
-			// 				return true
-			// 			}
-			// 		}
-			// 	])
-			// 	.then(answers => {
-			// 		console.log(JSON.stringify(answers, null, '  '))
-			// 	})
 			// inquirer
 			// 	.prompt([
 			// 		{
