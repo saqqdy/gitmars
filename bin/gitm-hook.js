@@ -7,7 +7,6 @@ const { queue, success, warning, error, createArgs, getCurrent, getLogs, compare
 const { createHooks, removeHooks, createHookShell, removeHookShell, createLocalShell, removeLocalShell } = require('./js/hook')
 const gitRevParse = require('./js/gitRevParse')
 const getConfig = require('./js/getConfig')
-const global = require('./js/global')
 const { pwd, gitDir, gitHookDir } = require('./js/global')
 const ora = require('ora')
 const ciInfo = require('ci-info')

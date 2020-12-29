@@ -3,29 +3,23 @@
 		command: 'combine',
 		short: 'cb',
 		args: [
-			{ required: false, name: 'type', variadic: false },
-			{ required: false, name: 'name', variadic: false }
+			{ required: false, name: 'type', variadic: false, validator: null, transformer: null, description: '分支类型' },
+			{ required: false, name: 'name', variadic: false, validator: null, transformer: null, description: '分支名称(不带feature/bugfix前缀)' }
 		],
 		options: [
 			{
 				flags: '-d, --dev',
-				required: false,
-				optional: false,
-				variadic: false,
+				required: false, // 必填<>
+				optional: false, // 不必填[]
+				variadic: false, // 有...
 				mandatory: false,
 				short: '-d',
 				long: '--dev',
 				negate: false,
-				description: '是否同步到alpha测试环境',
+				description: '同步到dev环境',
 				defaultValue: false,
 				value: true,
-				validator: (value, options, cb) => {
-					if (!value['--dev'] && !value['--prod']) {
-						cb(new Error('请选择同步的环境'))
-					} else {
-						cb()
-					}
-				}
+				recommend: true // 自定义值：是否默认选中
 			},
 			{
 				flags: '-p, --prod',
@@ -36,9 +30,10 @@
 				short: '-p',
 				long: '--prod',
 				negate: false,
-				description: '是否同步到预发布环境',
+				description: '同步到prod环境',
 				defaultValue: false,
-				value: false
+				value: false,
+				recommend: false
 			},
 			{
 				flags: '-b, --build [build]',
@@ -49,20 +44,22 @@
 				short: '-b',
 				long: '--build',
 				negate: false,
-				description: '需要构建的应用',
-				value: 'all'
+				description: '构建应用',
+				value: 'all',
+				recommend: true
 			},
 			{
-				flags: '-m, --commit [commit]',
-				required: false,
-				optional: true,
+				flags: '-m, --commit <commit>',
+				required: true,
+				optional: false,
 				variadic: false,
 				mandatory: false,
 				short: '-m',
 				long: '--commit',
 				negate: false,
-				description: 'commit信息',
-				defaultValue: ''
+				description: '执行commit，需填写信息',
+				defaultValue: '',
+				recommend: false
 			},
 			{
 				flags: '-a, --add',
@@ -73,8 +70,9 @@
 				short: '-a',
 				long: '--add',
 				negate: false,
-				description: '需要add',
-				defaultValue: false
+				description: '执行add',
+				defaultValue: false,
+				recommend: false
 			},
 			{
 				flags: '--no-bugfix',
@@ -84,8 +82,9 @@
 				mandatory: false,
 				long: '--no-bugfix',
 				negate: true,
-				description: '不同步到bug分支',
-				defaultValue: true
+				description: 'bug分支合并到release时不合并到bug分支',
+				defaultValue: true,
+				recommend: false
 			},
 			{
 				flags: '--as-feature',
@@ -95,9 +94,34 @@
 				mandatory: false,
 				long: '--as-feature',
 				negate: false,
-				description: 'bug分支合并到release'
+				description: 'bug分支合并到release',
+				recommend: false
 			}
-		]
+		],
+		// 校验传值
+		validatorOpts: (val, opts, cb) => {
+			if (!val.includes('--dev') && !val.includes('--prod')) {
+				cb(new Error('合并dev或者prod必须至少选一个'))
+				return
+			}
+			if ((val.includes('--add') && !val.includes('--commit')) || (!val.includes('--add') && val.includes('--commit'))) {
+				cb(new Error('add和commit需要同时选择'))
+				return
+			}
+			cb()
+		},
+		// 校验参数
+		validatorArgs: (val, opts, cb) => {
+			cb()
+		},
+		// 清洗传值
+		transformOpts: (val, opts, cb) => {
+			cb()
+		},
+		// 清洗参数
+		transformArgs: (val, opts, cb) => {
+			cb()
+		}
 	}
 
 	// console.info(typeof exports, typeof module, typeof define, typeof exports)

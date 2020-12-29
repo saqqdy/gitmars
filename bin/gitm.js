@@ -61,7 +61,6 @@ program
 	.command('hook', 'git钩子指令')
 	.command('log', '查询日志')
 	.command('go', '智能猜测你要执行的动作')
-	.command('test', '测试')
 	.command('admin <command>', '管理员功能，包含对发版分支bugfix、release的操作')
 
 // 自定义帮助
@@ -74,7 +73,7 @@ program.on('--help', function () {
 
 // 映射不存在的指令
 program.on('command:*', function (types, opts) {
-	let cmd = ['init', 'config', 'combine', 'cb', 'start', 'st', 'end', 'ed', 'update', 'up', 'branch', 'bh', 'save', 'sv', 'get', 'gt', 'copy', 'cp', 'merge', 'mg', 'continue', 'ct', 'revert', 'rt', 'upgrade', 'ug', 'build', 'bd', 'unlink', 'link', 'clean', 'postmsg', 'permission', 'hook', 'log', 'go', 'test', 'admin']
+	let cmd = ['init', 'config', 'combine', 'cb', 'start', 'st', 'end', 'ed', 'update', 'up', 'branch', 'bh', 'save', 'sv', 'get', 'gt', 'copy', 'cp', 'merge', 'mg', 'continue', 'ct', 'revert', 'rt', 'upgrade', 'ug', 'build', 'bd', 'unlink', 'link', 'clean', 'postmsg', 'permission', 'hook', 'log', 'go', 'admin']
 	if (!cmd.includes(types[0])) {
 		let arr = [].concat(types).concat(opts)
 		sh.exec('git ' + arr.join(' '), { silent: false })
