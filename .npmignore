@@ -4,3 +4,5 @@ bin
 server
 ui
 sh
+*.bak
+*_bak

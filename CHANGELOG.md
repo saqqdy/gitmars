@@ -1,3 +1,6 @@
+# 2020.12.29 v1.4.0更新日志
+1. 新增go指令，免去记指令的烦恼，目前支持admin.publish/build/combine/end/start/update这些指令
+
 # 2020.10.16 v1.3.6更新日志
 1. 新增postmsg指令用于推送消息
 

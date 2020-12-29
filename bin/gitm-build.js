@@ -17,7 +17,7 @@ options.forEach(o => {
 program.action((project, opt) => {
 	runJenkins({
 		env: opt.env,
-		project: project,
+		project,
 		app: opt.app
 	})
 })
