@@ -7,9 +7,13 @@ const { success, warning, error } = require('../index')
  * @public
  * @param {object} config 配置
  * @param {string} config.command 指令名称
- * @param {object} config.options 指令传参
  * @param {object} config.args 指令参数
- * @returns {string} result 返回指令结果
+ * @param {object} config.options 指令传参
+ * @param {object} config.validatorOpts 校验参数
+ * @param {object} config.validatorArg 校验传参
+ * @param {object} config.transformOpts 参数值转换
+ * @param {object} config.transformArgs 传参值转换
+ * @returns {string} result 返回指令结果Promise
  */
 const getCommand = async ({ command, args, options, validatorOpts, validatorArg, transformOpts, transformArgs }) => {
 	let params = [],
