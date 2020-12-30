@@ -41,7 +41,7 @@ if (create.args.length > 0) {
 			let cmd = [`git fetch`, `git checkout ${base}`, `git pull`, `git checkout -b ${config[type]} ${base}`]
 			queue(cmd).then(data => {
 				if (data[3].code === 0) {
-					sh.echo(`${config[type]}分支创建成功，该分支基于${base}创建，您当前已经切换到${name}\n需要发版时，记得执行: ${success('gitm admin publish ' + type)}`)
+					sh.echo(`${config[type]}分支创建成功，该分支基于${base}创建，您当前已经切换到${config[type]}\n需要发版时，记得执行: ${success('gitm admin publish ' + config[type])}`)
 				}
 			})
 		} else {
