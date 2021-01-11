@@ -21,8 +21,8 @@ const path = require('path')
  */
 function readPkg(dir) {
 	if (!dir) {
-		let { absUrl } = gitRevParse()
-		dir = absUrl
+		let { root } = gitRevParse()
+		dir = root
 	}
 	const pkgFile = path.resolve(dir, 'package.json')
 	const pkgStr = fs.readFileSync(pkgFile, 'utf-8')

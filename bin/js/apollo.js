@@ -3,7 +3,7 @@ let apollo = require('node-apollo'),
 	fs = require('fs'),
 	sh = require('shelljs')
 const { error, writeFile } = require('./index')
-const { gitDir } = require('./global')
+const { gitDir } = require('./gitRevParse')()
 const getConfig = require('./getConfig')
 
 /**

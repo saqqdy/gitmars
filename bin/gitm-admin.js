@@ -3,7 +3,7 @@ const program = require('commander')
 const sh = require('shelljs')
 const { create, publish, update, clean } = require('./conf/admin')
 const { error, success, queue, getStatus, checkBranch, getCurrent, createArgs } = require('./js/index')
-const { appName } = require('./js/global')
+const { appName } = require('./js/getGitConfig')()
 const config = require('./js/getConfig')()
 /**
  * gitm admin create

@@ -1,6 +1,7 @@
 const fs = require('fs')
 const path = require('path')
-const { gitHookDir, hookList } = require('./global')
+const { hookList } = require('./global')
+const { gitHookDir } = require('./gitRevParse')()
 const getHookComment = require('./hook/getHookComment')
 const getHookType = require('./hook/getHookType')
 const getHookShell = require('./hook/getHookShell')

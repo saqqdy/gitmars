@@ -7,7 +7,6 @@ const { options, args } = require('./conf/go')
 const { combine, end, update, build, start, admin, branch, copy, get, save, revert } = require('./js/go')
 const { success, getCurrent } = require('./js/index')
 const config = require('./js/getConfig')()
-const { pwd, gitDir, gitHookDir } = require('./js/global')
 
 /**
  * gitm go

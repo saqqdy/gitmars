@@ -12,12 +12,12 @@ const { defaults } = require('./global')
 const getConfig = (pathName, moduleName = 'gitmars') => {
 	let info
 	if (!pathName) {
-		let { absUrl } = gitRevParse()
+		let { root } = gitRevParse()
 		try {
-			pathName = absUrl + '/gitmarsconfig.json'
+			pathName = root + '/gitmarsconfig.json'
 			info = fs.statSync(pathName)
 		} catch (err) {
-			pathName = absUrl
+			pathName = root
 		}
 	}
 	const defaultSet = {

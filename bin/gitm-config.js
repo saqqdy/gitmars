@@ -16,8 +16,8 @@ program
 	.action(async (option, value) => {
 		let { filepath } = config
 		if (!filepath) {
-			const { absUrl } = gitRevParse()
-			filepath = absUrl + '/.gitmarsrc'
+			const { root } = gitRevParse()
+			filepath = root + '/.gitmarsrc'
 		}
 		if (value) {
 			if (Object.keys(defaults).includes(option)) {

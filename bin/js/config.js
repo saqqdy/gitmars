@@ -1,5 +1,6 @@
 const sh = require('shelljs')
-const { defaults, pwd } = require('./global')
+const { defaults } = require('./global')
+const { root } = require('./gitRevParse')()
 const configFrom = require('./configFrom')
 
 /**
@@ -11,7 +12,7 @@ const getConfig = () => {
 	let config = {}
 	if (configFrom === 1) {
 		let str = sh
-				.cat(pwd + '/.gitmarsrc')
+				.cat(root + '/.gitmarsrc')
 				.stdout.replace(/(^\n*)|(\n*$)/g, '')
 				.replace(/\n{2,}/g, '\n')
 				.replace(/\r/g, '')
@@ -24,7 +25,7 @@ const getConfig = () => {
 			})
 		})
 	} else if (configFrom === 2) {
-		config = require(pwd + '/gitmarsconfig.json')
+		config = require(root + '/gitmarsconfig.json')
 	}
 	return { ...defaults, ...config }
 }

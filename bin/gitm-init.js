@@ -6,7 +6,8 @@ const program = require('commander')
 const sh = require('shelljs')
 const inquirer = require('inquirer')
 const { success } = require('./js/index')
-const { defaults, pwd } = require('./js/global')
+const { defaults } = require('./js/global')
+const { root } = require('./gitRevParse')()
 /**
  * gitm init
  * @description 初始化gitmars配置
@@ -122,7 +123,7 @@ program
 				answers.hooks = ''
 			}
 			sh.echo(success('gitmars配置成功'))
-			fs.writeFileSync(pwd + '/.gitmarsrc', JSON.stringify(answers, null, 4), 'utf-8')
+			fs.writeFileSync(root + '/.gitmarsrc', JSON.stringify(answers, null, 4), 'utf-8')
 		})
 	})
 program.parse(process.argv)
