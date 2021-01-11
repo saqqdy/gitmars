@@ -5,9 +5,8 @@ const sh = require('shelljs')
 const { options, args } = require('./conf/hook')
 const { queue, success, warning, error, createArgs, getCurrent, getLogs, compareVersion } = require('./js/index')
 const { createHooks, removeHooks, createHookShell, removeHookShell, createLocalShell, removeLocalShell } = require('./js/hook')
-const gitRevParse = require('./js/gitRevParse')
 const config = require('./js/getConfig')()
-const { gitHookDir } = require('./gitRevParse')()
+const { gitHookDir, prefix } = require('./js/gitRevParse')()
 const ora = require('ora')
 const ciInfo = require('ci-info')
 
@@ -29,7 +28,7 @@ options.forEach(o => {
 // .option('-t, --type <type>', '检测类型')
 // .option('--branch [branch]', '要查询的分支')
 program.action(async (command, args, opt) => {
-	console.log(80808080, command, args, opt.latest, opt.type)
+	console.log(80808080, command, args, opt.latest, opt.type, process.argv)
 	const current = getCurrent()
 	// 1. 获取是否合并过dev
 	const getIsMergedBranch = (branch = 'dev') => {
@@ -117,7 +116,6 @@ program.action(async (command, args, opt) => {
 		// 初始化钩子
 		const gitVersion = getGitVersion()
 		const gitVersionIsNew = compareVersion(gitVersion, '2.13.0')
-		const { prefix } = gitRevParse()
 		// 集成环境不安装
 		if (ciInfo.isCI && config.skipCI) {
 			console.log('持续集成环境，跳过钩子安装')
