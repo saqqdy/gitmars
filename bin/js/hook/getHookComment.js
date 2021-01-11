@@ -1,6 +1,6 @@
-const path = require('path')
-const { pwd, gitUrl } = require('./global')
-const readPkg = require('./readPkg')
+const { gitUrl } = require('../getGitConfig')()
+const { root } = require('../gitRevParse')()
+const readPkg = require('../readPkg')
 
 /**
  * getHookComment
@@ -9,12 +9,12 @@ const readPkg = require('./readPkg')
  */
 function getHookComment() {
 	// const pkgHomepage = process.env.npm_package_homepage
-	const { author, homepage: gitmarsHomepage, version: gitmarsVersion } = readPkg(path.join(__dirname, '../..'))
+	const { author, homepage: gitmarsHomepage, version: gitmarsVersion } = readPkg()
 	const createdAt = new Date().toLocaleString()
 	return `# Created by gitmars v${gitmarsVersion} (${gitmarsHomepage})
 # author: ${author}
 # At: ${createdAt}
-# From: ${pwd} (${gitUrl})`
+# From: ${root} (${gitUrl})`
 }
 
 module.exports = getHookComment

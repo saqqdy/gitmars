@@ -2,7 +2,7 @@
 const program = require('commander')
 const sh = require('shelljs')
 const { success, warning } = require('./js/index')
-const { pwd, gitDir } = require('./js/global')
+const { root, gitDir } = require('./gitRevParse')()
 /**
  * gitm clean
  */
@@ -14,7 +14,7 @@ program
 		sh.rm(gitDir + '/.gitmarscommands', gitDir + '/.gitmarslog', gitDir + '/buildConfig.json', gitDir + '/buildConfig.txt')
 		if (opt.force) {
 			sh.echo(warning('您输入了--force，将同时清理本地gitmars配置文件'))
-			sh.rm(pwd + '/gitmarsconfig.json', pwd + '/.gitmarsrc')
+			sh.rm(root + '/gitmarsconfig.json', root + '/.gitmarsrc')
 		}
 		sh.echo(success('清理完毕'))
 	})

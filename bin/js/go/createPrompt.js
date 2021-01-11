@@ -2,7 +2,12 @@ const { success, warning, error } = require('../index')
 
 /**
  * @description 创建promot参数
- * @param {object} option 配置
+ * @param {string} command 指令名称
+ * @param {object} config 配置
+ * @param {object} config.options 配置参数
+ * @param {object} config.validator 校验器
+ * @param {object} config.transform 参数转换
+ * @param {object} type 类型checkbox/input/list
  * @returns {opject} 返回prompt
  */
 const createPrompt = (command, { options, validator, transform }, type) => {

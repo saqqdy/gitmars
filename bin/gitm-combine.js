@@ -3,8 +3,9 @@ const program = require('commander')
 const sh = require('shelljs')
 const { options, args } = require('./conf/combine')
 const { error, queue, getStatus, getCurrent, searchBranch, createArgs } = require('./js/index')
-const { defaults, appName } = require('./js/global')
-const config = require('./js/config')
+const { defaults } = require('./js/global')
+const { appName } = require('./js/getGitConfig')()
+const config = require('./js/getConfig')()
 /**
  * gitm combine
  */

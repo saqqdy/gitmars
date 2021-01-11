@@ -1,10 +1,11 @@
 const fs = require('fs')
 const path = require('path')
-const { gitHookDir, hookList } = require('./global')
-const getHookComment = require('./getHookComment')
-const getHookType = require('./getHookType')
-const getHookShell = require('./getHookShell')
-const getLocalShell = require('./getLocalShell')
+const { hookList } = require('./global')
+const { gitHookDir } = require('./gitRevParse')()
+const getHookComment = require('./hook/getHookComment')
+const getHookType = require('./hook/getHookType')
+const getHookShell = require('./hook/getHookShell')
+const getLocalShell = require('./hook/getLocalShell')
 
 /**
  * createHooks

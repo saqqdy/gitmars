@@ -6,8 +6,8 @@ const { options, args } = require('./conf/hook')
 const { queue, success, warning, error, createArgs, getCurrent, getLogs, compareVersion } = require('./js/index')
 const { createHooks, removeHooks, createHookShell, removeHookShell, createLocalShell, removeLocalShell } = require('./js/hook')
 const gitRevParse = require('./js/gitRevParse')
-const getConfig = require('./js/getConfig')
-const { pwd, gitDir, gitHookDir } = require('./js/global')
+const config = require('./js/getConfig')()
+const { gitHookDir } = require('./gitRevParse')()
 const ora = require('ora')
 const ciInfo = require('ci-info')
 
@@ -31,7 +31,6 @@ options.forEach(o => {
 program.action(async (command, args, opt) => {
 	console.log(80808080, command, args, opt.latest, opt.type)
 	const current = getCurrent()
-	const config = getConfig()
 	// 1. 获取是否合并过dev
 	const getIsMergedBranch = (branch = 'dev') => {
 		const result = sh.exec(`git branch --contains ${current}`, { silent: true }).stdout.replace(/[\n\s]*$/g, '')

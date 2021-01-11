@@ -3,7 +3,7 @@ const program = require('commander')
 const sh = require('shelljs')
 const { options, args } = require('./conf/update')
 const { error, queue, getStatus, getCurrent, searchBranch, createArgs } = require('./js/index')
-const config = require('./js/config')
+const config = require('./js/getConfig')()
 const { defaults } = require('./js/global')
 /**
  * gitm update

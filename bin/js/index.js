@@ -2,8 +2,9 @@ const fs = require('fs')
 const path = require('path')
 const sh = require('shelljs')
 const colors = require('colors')
-const { pwd, gitDir, gitHookDir, appName, hookList, defaults } = require('./global')
-const config = require('./config')
+const { appName } = require('./getGitConfig')()
+const { root, gitDir } = require('./gitRevParse')()
+const config = require('./getConfig')()
 
 function warning(txt) {
 	return colors.yellow(txt)
@@ -417,7 +418,7 @@ function getMessage(type) {
 			str = d.getTime()
 			break
 		case 'pwd':
-			str = pwd
+			str = root
 			break
 		case 'project':
 			str = appName

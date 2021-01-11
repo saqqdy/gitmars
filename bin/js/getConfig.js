@@ -1,6 +1,7 @@
 const fs = require('fs')
 const gitRevParse = require('./gitRevParse')
 const { cosmiconfigSync } = require('cosmiconfig')
+const { defaults } = require('./global')
 
 /**
  * getConfig
@@ -9,23 +10,29 @@ const { cosmiconfigSync } = require('cosmiconfig')
  * @returns {Object} arr 返回配置对象
  */
 const getConfig = (pathName, moduleName = 'gitmars') => {
+	let info
 	if (!pathName) {
-		let { absUrl } = gitRevParse()
-		pathName = absUrl
+		let { root } = gitRevParse()
+		try {
+			pathName = root + '/gitmarsconfig.json'
+			info = fs.statSync(pathName)
+		} catch (err) {
+			pathName = root
+		}
 	}
-	const defaults = {
+	const defaultSet = {
 		skipCI: true
 	}
 	const explorer = cosmiconfigSync(moduleName)
-	const info = fs.statSync(pathName)
+	if (!info) info = fs.statSync(pathName)
 	if (info.isDirectory()) {
 		// 传入目录
-		const { config = {} } = explorer.search(pathName) || {}
-		return Object.assign({}, defaults, config)
+		const { config = {}, filepath = '' } = explorer.search(pathName) || {}
+		return Object.assign({}, defaults, defaultSet, config, { filepath })
 	} else {
 		// 传入文件
-		const { config = {} } = explorer.load(pathName) || {}
-		return Object.assign({}, defaults, config)
+		const { config = {}, filepath = '' } = explorer.load(pathName) || {}
+		return Object.assign({}, defaults, defaultSet, config, { filepath })
 	}
 }
 module.exports = getConfig
