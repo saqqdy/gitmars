@@ -4,7 +4,7 @@ const sh = require('shelljs')
 const { create, publish, update, clean } = require('./conf/admin')
 const { error, success, queue, getStatus, checkBranch, getCurrent, createArgs } = require('./js/index')
 const { appName } = require('./js/global')
-const config = require('./js/config')
+const config = require('./js/getConfig')()
 /**
  * gitm admin create
  * gitm admin publish

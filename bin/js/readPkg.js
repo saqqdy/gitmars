@@ -10,7 +10,7 @@
 // }
 // exports.readPkg = readPkg
 
-const { pwd } = require('./global')
+const gitRevParse = require('./gitRevParse')
 const fs = require('fs')
 const path = require('path')
 
@@ -19,7 +19,11 @@ const path = require('path')
  * @description 读取配置
  * @returns {Object} arr 返回配置对象
  */
-function readPkg(dir = pwd) {
+function readPkg(dir) {
+	if (!dir) {
+		let { absUrl } = gitRevParse()
+		dir = absUrl
+	}
 	const pkgFile = path.resolve(dir, 'package.json')
 	const pkgStr = fs.readFileSync(pkgFile, 'utf-8')
 	return JSON.parse(pkgStr)

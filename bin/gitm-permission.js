@@ -2,7 +2,7 @@
 const program = require('commander')
 const sh = require('shelljs')
 const { error, getCurrent } = require('./js/index')
-const config = require('./js/config')
+const config = require('./js/getConfig')()
 /**
  * gitm permission
  */

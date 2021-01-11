@@ -3,7 +3,7 @@ const program = require('commander')
 const sh = require('shelljs')
 const { options, args } = require('./conf/start')
 const { error, success, queue, getStatus, createArgs } = require('./js/index')
-const config = require('./js/config')
+const config = require('./js/getConfig')()
 /**
  * gitm start
  */

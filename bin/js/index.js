@@ -3,7 +3,7 @@ const path = require('path')
 const sh = require('shelljs')
 const colors = require('colors')
 const { pwd, gitDir, gitHookDir, appName, hookList, defaults } = require('./global')
-const config = require('./config')
+const config = require('./getConfig')()
 
 function warning(txt) {
 	return colors.yellow(txt)

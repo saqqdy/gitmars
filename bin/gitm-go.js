@@ -6,7 +6,7 @@ const inquirer = require('inquirer')
 const { options, args } = require('./conf/go')
 const { combine, end, update, build, start, admin, branch, copy, get, save, revert } = require('./js/go')
 const { success, getCurrent } = require('./js/index')
-const getConfig = require('./js/getConfig')
+const config = require('./js/getConfig')()
 const { pwd, gitDir, gitHookDir } = require('./js/global')
 
 /**
@@ -23,7 +23,6 @@ options.forEach(o => {
 // .option('-l, --limit [limit]', '最多查询的日志条数')
 // .option('-b, --branches [branches]', '要查询的分支')
 program.action(async (command, opt) => {
-	// const config = getConfig()
 	// const mainBranchs = [config.master, config.develop, config.release, config.support, config.bugfix]
 	const current = getCurrent()
 	// const branchPrefix = current.split('/')[0]
