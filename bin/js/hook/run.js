@@ -1,15 +1,17 @@
-const fs = require('fs')
-const path = require('path')
 const { spawnSync } = require('child_process')
-const readPkg = require('../readPkg')
-const getHookComment = require('./getHookComment')
-const config = require('./getConfig')()
+const checkGitDirEnv = require('../checkGitDirEnv')
+const config = require('../getConfig')()
 
 function getCommand(cwd, hookName) {
 	return config && config.hooks && config.hooks[hookName]
 }
+/**
+ * runCommand
+ * @description 执行脚本
+ * @returns {Number} 0|1 返回状态
+ */
 function runCommand(cwd, hookName, cmd, env) {
-	console.log(`gitmars > ${hookName} (node ${process.version})`)
+	console.info(`gitmars > ${hookName} (node ${process.version})`)
 	const { status } = spawnSync('sh', ['-c', cmd], {
 		cwd,
 		env: Object.assign(Object.assign({}, process.env), env),
@@ -17,7 +19,7 @@ function runCommand(cwd, hookName, cmd, env) {
 	})
 	if (status !== 0) {
 		const noVerifyMessage = ['commit-msg', 'pre-commit', 'pre-rebase', 'pre-push'].includes(hookName) ? '(add --no-verify to bypass)' : '(cannot be bypassed with --no-verify due to Git specs)'
-		console.log(`gitmars > ${hookName} hook failed ${noVerifyMessage}`)
+		console.info(`gitmars > ${hookName} hook failed ${noVerifyMessage}`)
 	}
 	// If shell exits with 127 it means that some command was not found.
 	// However, if gitmars has been deleted from node_modules, it'll be a 127 too.
@@ -28,16 +30,11 @@ function runCommand(cwd, hookName, cmd, env) {
 	return status || 0
 }
 /**
- * @param {array} argv process.argv
- * @param {string} options.cwd cwd
- * @param {promise} options.getStdinFn - used for mocking only
+ * start
+ * @description 运行主程序
+ * @returns {Number} 0|1 返回状态
  */
-/**
- * run
- * @description 运行程序
- * @returns {Object} arr 返回对象
- */
-function run1([, , hookName = '', ...GITMARS_GIT_PARAMS], { cwd = process.cwd() } = {}) {
+function start([, , hookName = '', ...GITMARS_GIT_PARAMS], { cwd = process.cwd() } = {}) {
 	const command = getCommand(cwd, hookName)
 	// Add GITMARS_GIT_PARAMS to env
 	const env = {}
@@ -51,12 +48,12 @@ function run1([, , hookName = '', ...GITMARS_GIT_PARAMS], { cwd = process.cwd() 
 }
 
 module.exports = async function run() {
-	checkGitDirEnv_1.checkGitDirEnv()
+	checkGitDirEnv()
 	try {
-		const status = await _1.default(process.argv)
+		const status = await start(process.argv)
 		process.exit(status)
 	} catch (err) {
-		console.log('Husky > unexpected error', err)
+		console.info('Gitmars > 未知错误！请联系吴峰', err)
 		process.exit(1)
 	}
 }

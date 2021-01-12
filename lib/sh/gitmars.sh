@@ -15,7 +15,7 @@ command_exists () {
 run_command () {
   if command_exists "$1"; then
     # "$@" gitm $hookName "$gitParams"
-    gitm hook $hookName "$gitParams"
+    gitm run $hookName "$gitParams"
 
     exitCode="$?"
     debug "$* gitm exited with $exitCode exit code"

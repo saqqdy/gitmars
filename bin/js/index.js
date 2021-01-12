@@ -545,10 +545,10 @@ function compareVersion(basicVer, compareVer) {
 	if (basicVer === null) return null
 	basicVer = basicVer + '.'
 	compareVer = compareVer + '.'
-	var bStr = parseFloat(basicVer)
-	var cStr = parseFloat(compareVer)
-	var bStrNext = parseFloat(basicVer.replace(bStr + '.', '')) || 0
-	var cStrNext = parseFloat(compareVer.replace(cStr + '.', '')) || 0
+	let bStr = parseFloat(basicVer),
+		cStr = parseFloat(compareVer),
+		bStrNext = parseFloat(basicVer.replace(bStr + '.', '')) || 0,
+		cStrNext = parseFloat(compareVer.replace(cStr + '.', '')) || 0
 	if (cStr > bStr) {
 		return false
 	} else if (cStr < bStr) {
