@@ -1,13 +1,15 @@
 const fs = require('fs')
 const path = require('path')
 const sh = require('shelljs')
-const { getCurrent, getLogs } = require('../index')
+const { warning, getCurrent, getLogs, compareVersion } = require('../index')
 const { hookList } = require('../global')
-const { gitHookDir } = require('../gitRevParse')()
+const { gitHookDir, prefix } = require('../gitRevParse')()
+const gitVersion = require('../getGitVersion')()
 const getHookComment = require('./getHookComment')
 const getHookType = require('./getHookType')
 const getHookShell = require('./getHookShell')
 const getLocalShell = require('./getLocalShell')
+const ciInfo = require('ci-info')
 const current = getCurrent()
 
 /**
@@ -180,13 +182,54 @@ function getAheadLogs() {
 	return result ? result.split('\n') : []
 }
 
+/**
+ * init
+ * @description 初始化钩子
+ */
+function init() {
+	const gitVersionIsNew = compareVersion(gitVersion, '2.13.0')
+	// 集成环境不安装
+	if (ciInfo.isCI && config.skipCI) {
+		console.info('持续集成环境，跳过钩子安装')
+		return
+	}
+	// 如果没有hooks文件夹，创建
+	if (!fs.existsSync(gitHookDir)) {
+		fs.mkdirSync(gitHookDir)
+	}
+	if (['1', 'true'].includes(process.env.GITMARS_SKIP_HOOKS || '')) {
+		sh.echo(warning('已存在环境变量GITMARS_SKIP_HOOKS，跳过安装'))
+		process.exit(0)
+	}
+	// git版本过旧
+	if (!gitVersionIsNew) {
+		sh.echo(warning('Gitmars需要使用2.13.0以上版本的Git，当前版本：' + gitVersion))
+		process.exit(0)
+	}
+	createHooks(gitHookDir)
+	createHookShell(gitHookDir)
+	createLocalShell(gitHookDir, 'yarn', prefix)
+}
+
+/**
+ * remove
+ * @description 移除钩子
+ */
+function remove() {
+	removeHooks()
+	removeHookShell()
+	removeLocalShell()
+}
+
 module.exports = {
-	createHooks,
-	removeHooks,
-	createHookShell,
-	removeHookShell,
-	createLocalShell,
-	removeLocalShell,
+	// createHooks,
+	// removeHooks,
+	// createHookShell,
+	// removeHookShell,
+	// createLocalShell,
+	// removeLocalShell,
+	init,
+	remove,
 
 	getIsMergedBranch,
 	getIsUpdatedInTime,
