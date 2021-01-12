@@ -37,7 +37,7 @@ function runCommand(cwd, hookName, cmd, env) {
  * @description 运行程序
  * @returns {Object} arr 返回对象
  */
-function run([, , hookName = '', ...GITMARS_GIT_PARAMS], { cwd = process.cwd() } = {}) {
+function run1([, , hookName = '', ...GITMARS_GIT_PARAMS], { cwd = process.cwd() } = {}) {
 	const command = getCommand(cwd, hookName)
 	// Add GITMARS_GIT_PARAMS to env
 	const env = {}
@@ -49,4 +49,14 @@ function run([, , hookName = '', ...GITMARS_GIT_PARAMS], { cwd = process.cwd() }
 	}
 	return 0
 }
-module.exports = run
+
+module.exports = async function run() {
+	checkGitDirEnv_1.checkGitDirEnv()
+	try {
+		const status = await _1.default(process.argv)
+		process.exit(status)
+	} catch (err) {
+		console.log('Husky > unexpected error', err)
+		process.exit(1)
+	}
+}

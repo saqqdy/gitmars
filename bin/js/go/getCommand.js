@@ -1,6 +1,5 @@
 const inquirer = require('inquirer')
 const createPrompt = require('./createPrompt')
-const { success, warning, error } = require('../index')
 
 /**
  * @description 执行问答程序

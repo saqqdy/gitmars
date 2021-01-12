@@ -22,7 +22,7 @@
 		"cosmiconfig": "^7.0.0",
 		"inquirer": "^7.3.3",
 		"node-apollo": "^1.2.1",
-		"ora": "5.1.0",
+		"ora": "5.2.0",
 		"regenerator-runtime": "0.13.7",
 		"shelljs": "0.8.4",
 		"slash": "^3.0.0",
@@ -33,10 +33,12 @@
 		"@babel/cli": "7.12.10",
 		"@babel/core": "7.12.10",
 		"@babel/preset-env": "7.12.11",
-		"eslint": "7.16.0",
+		"babel-eslint": "^10.1.0",
+		"eslint": "7.17.0",
+		"eslint-plugin-jsdoc": "^31.0.3",
 		"jsdoc-to-markdown": "^6.0.1",
 		"prettier": "2.2.1",
-		"uglify-js": "3.12.3"
+		"uglify-js": "3.12.4"
 	},
 	"repository": {
 		"type": "git",

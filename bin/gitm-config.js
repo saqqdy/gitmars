@@ -22,6 +22,8 @@ program
 		if (value) {
 			if (Object.keys(defaults).includes(option)) {
 				config[option] = value
+				delete config.filepath
+				delete config.skipCI
 				await writeFile(filepath, JSON.stringify(config, null, 4))
 				sh.echo(success('保存成功'))
 				sh.exit(0)

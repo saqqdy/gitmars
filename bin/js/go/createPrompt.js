@@ -1,4 +1,4 @@
-const { success, warning, error } = require('../index')
+const { warning } = require('../index')
 
 /**
  * @description 创建promot参数
@@ -56,7 +56,7 @@ const createPrompt = (command, { options, validator, transform }, type) => {
 					if (!val && opts.required) msg = '请填写' + opts.description
 					validator &&
 						msg === true &&
-						validator(val, opts, () => {
+						validator(val, opts, err => {
 							if (err) msg = err.message
 						})
 					return msg

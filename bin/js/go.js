@@ -1,5 +1,5 @@
 const sh = require('shelljs')
-const { success, warning, error, getCurrent } = require('./index')
+const { getCurrent } = require('./index')
 const getCommand = require('./go/getCommand')
 const cleanConfig = require('./go/cleanConfig')
 
