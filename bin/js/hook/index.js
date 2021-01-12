@@ -1,11 +1,14 @@
 const fs = require('fs')
 const path = require('path')
-const { hookList } = require('./global')
-const { gitHookDir } = require('./gitRevParse')()
-const getHookComment = require('./hook/getHookComment')
-const getHookType = require('./hook/getHookType')
-const getHookShell = require('./hook/getHookShell')
-const getLocalShell = require('./hook/getLocalShell')
+const sh = require('shelljs')
+const { getCurrent, getLogs } = require('../index')
+const { hookList } = require('../global')
+const { gitHookDir } = require('../gitRevParse')()
+const getHookComment = require('./getHookComment')
+const getHookType = require('./getHookType')
+const getHookShell = require('./getHookShell')
+const getLocalShell = require('./getLocalShell')
+const current = getCurrent()
 
 /**
  * createHooks
@@ -107,11 +110,87 @@ function removeLocalShell(dir = gitHookDir) {
 	if (fs.existsSync(filename)) fs.unlinkSync(filename)
 }
 
+/**
+ * getIsMergedBranch
+ * @description 1. 获取是否合并过dev
+ */
+function getIsMergedBranch(branch = 'dev') {
+	const result = sh.exec(`git branch --contains ${current}`, { silent: true }).stdout.replace(/[\s]*$/g, '')
+	return result.split('\n').includes(branch)
+}
+
+/**
+ * getIsUpdatedInTime
+ * @description 2. 获取一周内是否同步过上游分支代码
+ */
+function getIsUpdatedInTime({ latest, limit, branch: branches }) {
+	let isUpdated = false,
+		mainVers = [],
+		currentVers = []
+	const mainLogs = getLogs({ latest, limit, branches })
+	const currentLogs = getLogs({ latest, limit, branches: current })
+	mainLogs.forEach(log => {
+		mainVers.push(log['%H'])
+	})
+	currentLogs.forEach(log => {
+		let arr = log['%P'] ? log['%P'].split(' ') : []
+		arr.forEach(item => {
+			currentVers.push(item)
+		})
+	})
+	mainVer: for (let ver of mainVers) {
+		if (currentVers.includes(ver)) {
+			isUpdated = true
+			break mainVer
+		}
+	}
+	return isUpdated
+}
+
+/**
+ * getIsMergeAction
+ * @description 3. 获取主干分支推送的内容是否是merge内容，暂时只检测最后一条记录
+ */
+function getIsMergeAction() {
+	const currentLogs = getLogs({
+		limit: 1,
+		branches: current
+	})
+	let p = currentLogs[0]['%P'] ? currentLogs[0]['%P'].split(' ') : []
+	return p.length > 1
+}
+
+/**
+ * getBehandLogs
+ * @description 获取当前本地分支落后远程的日志
+ */
+function getBehandLogs() {
+	sh.exec(`git fetch`, { silent: true })
+	const result = sh.exec(`git log ${current}..origin/${current} --pretty=format:"%p"`, { silent: true }).stdout.replace(/[\s]*$/g, '')
+	return result ? result.split('\n') : []
+}
+
+/**
+ * getAheadLogs
+ * @description 获取当前本地分支领先远程的日志
+ */
+function getAheadLogs() {
+	sh.exec(`git fetch`, { silent: true })
+	const result = sh.exec(`git log origin/${current}..${current} --pretty=format:"%p"`, { silent: true }).stdout.replace(/[\s]*$/g, '')
+	return result ? result.split('\n') : []
+}
+
 module.exports = {
 	createHooks,
 	removeHooks,
 	createHookShell,
 	removeHookShell,
 	createLocalShell,
-	removeLocalShell
+	removeLocalShell,
+
+	getIsMergedBranch,
+	getIsUpdatedInTime,
+	getIsMergeAction,
+	getBehandLogs,
+	getAheadLogs
 }

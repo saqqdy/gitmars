@@ -1,6 +1,5 @@
 #!/usr/bin/env node
 const program = require('commander')
-const sh = require('shelljs')
 const { options, args } = require('./conf/build')
 const { createArgs } = require('./js/index')
 const runJenkins = require('./js/runJenkins')

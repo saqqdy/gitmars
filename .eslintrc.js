@@ -2,7 +2,11 @@ module.exports = {
 	root: true,
 
 	env: {
-		node: true
+		node: true,
+		es6: true,
+		browser: true,
+		shelljs: true,
+		commonjs: true
 	},
 	rules: {
 		'no-console': ['warn', { allow: ['warn', 'error', 'info'] }],
@@ -32,13 +36,14 @@ module.exports = {
 		'no-shadow': 0,
 		'no-prototype-builtins': 0,
 		'no-undef': 2,
-		'no-irregular-whitespace': 1,
+		'no-irregular-whitespace': 1
 	},
 	globals: {
 		h: true
 	},
+	parser: 'babel-eslint',
 	parserOptions: {
 		ecmaVersion: 6,
-		parser: 'babel-eslint'
+		sourceType: 'module'
 	}
 }

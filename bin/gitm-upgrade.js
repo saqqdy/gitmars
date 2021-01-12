@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 const program = require('commander')
-const { exec, spawn, execSync, spawnSync } = require('child_process')
+const { spawnSync } = require('child_process')
 const sh = require('shelljs')
-const { queue, success } = require('./js/index')
+const { success } = require('./js/index')
 const ora = require('ora')
 /**
  * gitm upgrade

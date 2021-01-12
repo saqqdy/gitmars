@@ -35,7 +35,7 @@ module.exports = async function runJenkins({ env, project, app = 'all' }) {
 		line: cfg.line,
 		project: p.project,
 		token: cfg.token,
-		app: app
+		app
 	})
 	sh.exec(`curl -u ${buildConfig.username}:${buildConfig.password} "${url}"`, { silent: true })
 	sh.echo(success('成功调起Jenkins构建'))

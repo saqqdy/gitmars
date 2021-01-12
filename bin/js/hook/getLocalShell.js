@@ -1,4 +1,4 @@
-const getHookComment = require('./getHookComment')
+const hookComment = require('./getHookComment')()
 
 /**
  * getLocalShell
@@ -7,7 +7,7 @@ const getHookComment = require('./getHookComment')
  */
 
 function getLocalShell(pmName, relativeUserPkgDir) {
-	return `${getHookComment()}
+	return `${hookComment}
 
 packageManager=${pmName}
 cd "${relativeUserPkgDir}"
