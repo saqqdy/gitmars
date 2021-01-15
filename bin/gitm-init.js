@@ -7,7 +7,7 @@ const sh = require('shelljs')
 const inquirer = require('inquirer')
 const { success } = require('./js/index')
 const { defaults } = require('./js/global')
-const { root } = require('./gitRevParse')()
+const { root } = require('./js/gitRevParse')()
 /**
  * gitm init
  * @description 初始化gitmars配置
@@ -124,6 +124,7 @@ program
 			}
 			sh.echo(success('gitmars配置成功'))
 			fs.writeFileSync(root + '/.gitmarsrc', JSON.stringify(answers, null, 4), 'utf-8')
+			fs.chmodSync(root + '/.gitmarsrc', 0o0755)
 		})
 	})
 program.parse(process.argv)

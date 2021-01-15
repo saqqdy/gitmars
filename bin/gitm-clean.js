@@ -2,7 +2,7 @@
 const program = require('commander')
 const sh = require('shelljs')
 const { success, warning } = require('./js/index')
-const { root, gitDir } = require('./gitRevParse')()
+const { root, gitDir } = require('./js/gitRevParse')()
 /**
  * gitm clean
  */
