@@ -1,6 +1,5 @@
 #!/usr/bin/env node
 const program = require('commander')
-const sh = require('shelljs')
 const { options, args } = require('./conf/build')
 const { createArgs } = require('./js/index')
 const runJenkins = require('./js/runJenkins')
@@ -17,7 +16,7 @@ options.forEach(o => {
 program.action((project, opt) => {
 	runJenkins({
 		env: opt.env,
-		project: project,
+		project,
 		app: opt.app
 	})
 })

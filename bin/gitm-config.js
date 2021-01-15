@@ -1,10 +1,10 @@
 #!/usr/bin/env node
 const program = require('commander')
 const sh = require('shelljs')
-const { error, success } = require('./js/index')
-const { defaults, pwd } = require('./js/global')
-const config = require('./js/config')
-const configFrom = require('./js/configFrom')
+const gitRevParse = require('./js/gitRevParse')
+const { error, success, writeFile } = require('./js/index')
+const { defaults } = require('./js/global')
+const config = require('./js/getConfig')()
 /**
  * gitm config set
  */
@@ -13,57 +13,27 @@ program
 	.usage('<option> [value]')
 	.command('set <option> [value]')
 	.description('设置gitmars的配置项')
-	.action((option, value) => {
+	.action(async (option, value) => {
+		let { filepath } = config
+		if (!filepath) {
+			const { root } = gitRevParse()
+			filepath = root + '/.gitmarsrc'
+		}
 		if (value) {
-			let o = { ...config }
 			if (Object.keys(defaults).includes(option)) {
-				o[option] = value
-				if (configFrom === 2) {
-					sh.touch(pwd + '/gitmarsconfig.json')
-					sh.echo(JSON.stringify(o, null, 4)).to(pwd + '/gitmarsconfig.json')
-					// sh.sed('-i', /[\s\S\n\r\x0a\x0d]*/, JSON.stringify(o, null, 4), pwd + '/gitmarsconfig.json')
-					// sh.exec(`echo '${JSON.stringify(o, null, 4)}' >${pwd}/gitmarsconfig.json`)
-				} else {
-					let arr = []
-					for (let k in o) {
-						arr.push(k + ' = ' + o[k])
-					}
-					sh.touch(pwd + '/.gitmarsrc')
-					sh.echo(arr.join('\n')).to(pwd + '/.gitmarsrc')
-					// sh.exec(`echo ${arr.join('\n')}>${pwd}/.gitmarsrc`, { encoding: true })
-				}
+				config[option] = value
+				delete config.filepath
+				delete config.skipCI
+				await writeFile(filepath, JSON.stringify(config, null, 4))
+				sh.echo(success('保存成功'))
+				sh.exit(0)
 			} else {
 				sh.echo(error('不支持' + option + '这个配置项'))
-				process.exit(1)
+				sh.exit(1)
 			}
 		} else {
-			sh.echo('请输入：')
-			process.stdin.resume()
-			process.stdin.setEncoding('utf8')
-			process.stdin.on('data', data => {
-				process.stdout.write(data)
-				let o = { ...config }
-				if (Object.keys(defaults).includes(option)) {
-					o[option] = data.replace(/[\s]*/g, '') || defaults[option]
-					if (configFrom === 2) {
-						sh.touch(pwd + '/gitmarsconfig.json')
-						sh.echo(JSON.stringify(o, null, 4)).to(pwd + '/gitmarsconfig.json')
-						// sh.exec(`echo '${JSON.stringify(o, null, 4)}' >${pwd}/gitmarsconfig.json`)
-					} else {
-						let arr = []
-						for (let k in o) {
-							arr.push(k + ' = ' + o[k])
-						}
-						sh.touch(pwd + '/.gitmarsrc')
-						sh.echo(arr.join('\n')).to(pwd + '/.gitmarsrc')
-						// sh.exec(`echo '${arr.join('\n')}' >${pwd}/.gitmarsrc`)
-					}
-					process.exit(0)
-				} else {
-					sh.echo(error('不支持' + option + '这个配置项'))
-					process.exit(1)
-				}
-			})
+			sh.echo('请输入要配置的项')
+			sh.exit(1)
 		}
 	})
 /**
@@ -80,6 +50,6 @@ program
 		} else {
 			sh.echo(success(config))
 		}
-		sh.exit(1)
+		sh.exit(0)
 	})
 program.parse(process.argv)

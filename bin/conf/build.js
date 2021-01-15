@@ -6,7 +6,8 @@
 			{
 				required: true,
 				name: 'project',
-				variadic: false
+				variadic: false,
+				description: '项目名称'
 			}
 		],
 		options: [
@@ -19,8 +20,9 @@
 				short: '-e',
 				long: '--env',
 				negate: false,
-				description: '需要构建的环境，可选dev、prod、bug、all',
-				defaultValue: 'dev'
+				description: '构建环境，可选dev、prod、bug、all',
+				defaultValue: 'dev',
+				recommend: true
 			},
 			{
 				flags: '-a, --app [app]',
@@ -31,8 +33,9 @@
 				short: '-a',
 				long: '--app',
 				negate: false,
-				description: '需要构建的应用',
-				defaultValue: 'all'
+				description: '构建应用',
+				defaultValue: 'all',
+				recommend: true
 			}
 		]
 	}

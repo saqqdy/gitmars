@@ -1,6 +1,16 @@
 # 2020.09.12 v2.0.1更新日志
 1. 新增gitm ui指令，启动UI界面
 2. 升级checkBranch、searchBranchs、getCurrent方法，执行更加高效
+
+# 2021.1.11 v1.4.1更新日志
+1. 升级获取config的方法,升级更新config的方法
+2. 优化读取gitmars配置和git配置的方式
+3. 更改配置方式，逐步弃用gitmarsconfig.json，改用.gitmarsrc
+4. 修复Apollo配置问题
+
+# 2020.12.29 v1.4.0更新日志
+1. 新增go指令，免去记指令的烦恼，目前支持admin.publish/build/combine/end/start/update这些指令
+
 # 2020.10.16 v1.3.6更新日志
 1. 新增postmsg指令用于推送消息
 

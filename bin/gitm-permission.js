@@ -2,7 +2,7 @@
 const program = require('commander')
 const sh = require('shelljs')
 const { error, getCurrent } = require('./js/index')
-const config = require('./js/config')
+const config = require('./js/getConfig')()
 /**
  * gitm permission
  */
@@ -15,6 +15,7 @@ program
 	.option('--dev', '是否限制dev提交', false)
 	.option('--release', '是否限制release提交', false)
 	.action((message, opt) => {
+		console.log('gitmars is running!!!!!!!!!!!!')
 		const current = getCurrent()
 		let allow = [config.master],
 			msg = sh.exec('git show', { silent: true }).stdout,

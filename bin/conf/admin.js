@@ -9,7 +9,8 @@
 				{
 					required: true,
 					name: 'type',
-					variadic: false
+					variadic: false,
+					description: '分支类型'
 				}
 			],
 			options: []
@@ -21,7 +22,8 @@
 				{
 					required: true,
 					name: 'type',
-					variadic: false
+					variadic: false,
+					description: '分支类型'
 				}
 			],
 			options: [
@@ -35,7 +37,8 @@
 					long: '--combine',
 					negate: false,
 					description: '是否把release代码同步到bug',
-					defaultValue: false
+					defaultValue: false,
+					recommend: false
 				},
 				{
 					flags: '--use-rebase',
@@ -46,7 +49,8 @@
 					long: '--use-rebase',
 					negate: false,
 					description: '是否使用rebase方式更新，默认merge',
-					defaultValue: false
+					defaultValue: false,
+					recommend: false
 				},
 				{
 					flags: '-p, --prod',
@@ -58,7 +62,8 @@
 					long: '--prod',
 					negate: false,
 					description: '发布bug分支时，是否合并bug到master',
-					defaultValue: false
+					defaultValue: false,
+					recommend: false
 				},
 				{
 					flags: '-b, --build [build]',
@@ -69,7 +74,8 @@
 					short: '-b',
 					long: '--build',
 					negate: false,
-					description: '需要构建的应用'
+					description: '构建应用',
+					recommend: true
 				},
 				{
 					flags: '--postmsg',
@@ -80,14 +86,15 @@
 					long: '--postmsg',
 					negate: false,
 					description: '发送消息',
-					defaultValue: false
+					defaultValue: false,
+					recommend: false
 				}
 			]
 		},
 		update: {
 			command: 'update',
 			short: null,
-			args: [{ required: true, name: 'type', variadic: false }],
+			args: [{ required: true, name: 'type', variadic: false, description: '分支类型' }],
 			options: [
 				{
 					flags: '--use-rebase',
@@ -98,7 +105,8 @@
 					long: '--use-rebase',
 					negate: false,
 					description: '是否使用rebase方式更新，默认merge',
-					defaultValue: false
+					defaultValue: false,
+					recommend: false
 				},
 				{
 					flags: '-m, --mode [mode]',
@@ -110,7 +118,8 @@
 					long: '--mode',
 					negate: false,
 					description: '出现冲突时，保留传入代码还是保留当前代码；1=采用当前 2=采用传入；默认为 0=手动处理。本参数不可与--use-rebase同时使用',
-					defaultValue: 0
+					defaultValue: 0,
+					recommend: false
 				},
 				{
 					flags: '--postmsg',
@@ -121,7 +130,8 @@
 					long: '--postmsg',
 					negate: false,
 					description: '发送消息',
-					defaultValue: false
+					defaultValue: false,
+					recommend: false
 				}
 			]
 		},
@@ -132,7 +142,8 @@
 				{
 					required: true,
 					name: 'type',
-					variadic: false
+					variadic: false,
+					description: '分支类型'
 				}
 			],
 			options: []

@@ -1,4 +1,24 @@
+# Gitmars
 
+[![NPM version][npm-image]][npm-url]
+[![build status][travis-image]][travis-url]
+[![Test coverage][codecov-image]][codecov-url]
+[![David deps][david-image]][david-url]
+[![Known Vulnerabilities][snyk-image]][snyk-url]
+[![npm download][download-image]][download-url]
+
+[npm-image]: https://img.shields.io/npm/v/gitmars.svg?style=flat-square
+[npm-url]: https://npmjs.org/package/gitmars
+[travis-image]: https://travis-ci.org/saqqdy/gitmars.svg?branch=master
+[travis-url]: https://travis-ci.org/saqqdy/gitmars
+[codecov-image]: https://img.shields.io/codecov/c/github/saqqdy/gitmars.svg?style=flat-square
+[codecov-url]: https://codecov.io/github/saqqdy/gitmars?branch=master
+[david-image]: https://img.shields.io/david/saqqdy/gitmars.svg?style=flat-square
+[david-url]: https://david-dm.org/saqqdy/gitmars
+[snyk-image]: https://snyk.io/test/npm/gitmars/badge.svg?style=flat-square
+[snyk-url]: https://snyk.io/test/npm/gitmars
+[download-image]: https://img.shields.io/npm/dm/gitmars.svg?style=flat-square
+[download-url]: https://npmjs.org/package/gitmars
 
 ![logo.png](https://raw.githubusercontent.com/saqqdy/gitmars/master/lib/img/logo.png)
 
@@ -49,6 +69,18 @@ gitm -v
 gitm --help
 gitm copy -h
 ```
+
+
+
+# 智能导航指令 - 只记一条指令就能完成所有功能使用
+
+## gitm go
+智能导航指令，按照提示操作即可
+
+```
+使用：gitm go
+```
+
 
 
 

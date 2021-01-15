@@ -1,4 +1,9 @@
 buildConfig.json
 gitmarsconfig.json
 node_modules
+bin
+server
+ui
 sh
+*.bak
+*_bak
