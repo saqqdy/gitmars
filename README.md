@@ -74,6 +74,8 @@ gitm copy -h
 
 # 智能导航指令 - 只记一条指令就能完成所有功能使用
 
+![gitmars-go.webm](https://raw.githubusercontent.com/saqqdy/gitmars/master/lib/img/gitmars-go.webm)
+
 ## gitm go
 智能导航指令，按照提示操作即可
 
@@ -510,6 +512,58 @@ gitm get -k
 
 ```
 gitm get "test login"
+```
+
+
+## gitm hook
+发布操作
+
+```
+形式：gitm admin publish <type> [-c --combine] [--use-rebase] [-p --prod] [-b --build [build]] [-p --postmsg]
+```
+
+### 参数
+
+| 参数 | 说明     | 类型   | 可选值                 | 必填 | 默认 |
+| ---- | -------- | ------ | ---------------------- | ---- | ---- |
+| type | 分支类型 | String | bugfix/release/support | 是   | -    |
+
+### 传值
+
+| 名称      | 简写 | 说明                                                                  | 类型    | 可选值 | 传值必填 | 默认  |
+| --------- | ---- | --------------------------------------------------------------------- | ------- | ------ | -------- | ----- |
+| --combine | -c   | 是否在合并release之后会把release同步到bugfix（仅在合并release时可用） | Boolean | -      | 否       | false |
+
+1. 合并release代码到预发环境
+
+```
+gitm admin publish release
+```
+
+
+## gitm run (内部方法)
+run指令是gitmars hook里面执行的内部指令，用来执行钩子方法
+
+```
+形式：gitm run <hookName> [args...]
+```
+
+### 参数
+
+| 参数     | 说明     | 类型   | 可选值 | 必填 | 默认 |
+| -------- | -------- | ------ | ------ | ---- | ---- |
+| hookName | 钩子名称 | String |        | 是   | -    |
+
+### 传值
+
+| 名称      | 简写 | 说明                                                                  | 类型    | 可选值 | 传值必填 | 默认  |
+| --------- | ---- | --------------------------------------------------------------------- | ------- | ------ | -------- | ----- |
+| --combine | -c   | 是否在合并release之后会把release同步到bugfix（仅在合并release时可用） | Boolean | -      | 否       | false |
+
+1. 合并release代码到预发环境
+
+```
+gitm admin publish release
 ```
 
 
