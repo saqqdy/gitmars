@@ -83,7 +83,9 @@ function removeHooks(dir = gitHookDir) {
  * @description 创建主程序
  */
 function createHookShell(dir = gitHookDir) {
-	fs.writeFileSync(path.join(dir, 'gitmars.sh'), getHookShell(), 'utf-8')
+	let filename = path.join(dir, 'gitmars.sh')
+	fs.writeFileSync(filename, getHookShell(), 'utf-8')
+	fs.chmodSync(filename, 0o0755)
 }
 
 /**
@@ -100,7 +102,9 @@ function removeHookShell(dir = gitHookDir) {
  * @description 创建本地脚本
  */
 function createLocalShell(dir = gitHookDir, pmName, relativeUserPkgDir) {
-	fs.writeFileSync(path.join(dir, 'gitmars.local.sh'), getLocalShell(pmName, relativeUserPkgDir), 'utf-8')
+	let filename = path.join(dir, 'gitmars.local.sh')
+	fs.writeFileSync(filename, getLocalShell(pmName, relativeUserPkgDir), 'utf-8')
+	fs.chmodSync(filename, 0o0755)
 }
 
 /**
