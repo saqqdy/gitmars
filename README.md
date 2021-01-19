@@ -74,7 +74,7 @@ gitm copy -h
 
 # 智能导航指令 - 只记一条指令就能完成所有功能使用
 
-![gitmars-go.webm](https://raw.githubusercontent.com/saqqdy/gitmars/master/lib/img/gitmars-go.webm)
+![gitmars-go.gif](https://raw.githubusercontent.com/saqqdy/gitmars/master/lib/img/gitmars-go.gif)
 
 ## gitm go
 智能导航指令，按照提示操作即可
