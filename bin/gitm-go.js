@@ -1,6 +1,5 @@
 #!/usr/bin/env node
 const program = require('commander')
-const fs = require('fs')
 const sh = require('shelljs')
 const inquirer = require('inquirer')
 const { options, args } = require('./conf/go')
@@ -35,14 +34,14 @@ program.action(async (command, opt) => {
 			default: 'combine',
 			choices: [
 				//
-				new inquirer.Separator(' === Gitmars工作流 === '),
+				new inquirer.Separator(' === 1. Gitmars工作流 === '),
 				'combine',
 				'end',
 				'update',
 				'build',
 				'start',
 				'admin.publish',
-				new inquirer.Separator(' === 高级工具 === '),
+				new inquirer.Separator(' === 2. 高级工具 === '),
 				'branch',
 				'copy',
 				'get',

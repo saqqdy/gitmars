@@ -120,9 +120,9 @@ function removeLocalShell(dir = gitHookDir) {
  * getIsMergedBranch
  * @description 1. 获取是否合并过dev
  */
-function getIsMergedBranch(branch = 'dev') {
-	const result = sh.exec(`git branch --contains ${current}`, { silent: true }).stdout.replace(/[\s]*$/g, '')
-	return result.split('\n').includes(branch)
+function getIsMergedBranch(branch = current, targetBranch = 'dev') {
+	const result = sh.exec(`git branch --contains ${branch}`, { silent: true }).stdout.replace(/[\s]*$/g, '')
+	return result.split('\n').includes(targetBranch)
 }
 
 /**
@@ -213,6 +213,7 @@ function init() {
 	createHooks(gitHookDir)
 	createHookShell(gitHookDir)
 	createLocalShell(gitHookDir, 'yarn', prefix)
+	console.info('gitmars hooks init down')
 }
 
 /**
@@ -223,6 +224,7 @@ function remove() {
 	removeHooks()
 	removeHookShell()
 	removeLocalShell()
+	console.info('gitmars hooks removed')
 }
 
 module.exports = {
