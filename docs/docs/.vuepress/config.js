@@ -1,5 +1,3 @@
-const settings = require('./settings.json')
-
 module.exports = {
     title: 'gitmars',
     description: '移动端UI组件库',
@@ -102,8 +100,8 @@ module.exports = {
                 owner: 'saqqdy',
                 repo: 'gitmars',
                 // 填写自己的OAuth App 信息。详见https://vssue.js.org/zh/options/#repo
-                clientId: settings.clientId,
-                clientSecret: settings.clientSecret,
+                clientId: '',
+                clientSecret: '',
                 locale: 'zh', //使用的语言  这里是简体中文
                 baseURL: 'https://github.com' //平台的 base URL
             }
