@@ -7,7 +7,7 @@
 		"prettier": "prettier --write \"**/*.{js,ts,sh,vue,json,md}\"",
 		"lib": "sh build/lib.sh",
 		"docs:build": "sh script/docs.sh",
-		"docs:deploy": "GH=1 sh scripts/deploy-docs.sh"
+		"docs:deploy": "GH=1 sh script/deploy-docs.sh"
 	},
 	"main": "bin/gitm.js",
 	"bin": {
