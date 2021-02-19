@@ -562,6 +562,16 @@ function compareVersion(basicVer, compareVer) {
 	}
 }
 
+/**
+ * getBranchsFromID
+ * @description 获取包含commitID的分支
+ * @returns {Array} 返回数组
+ */
+function getBranchsFromID(commitID, remote = false) {
+	const out = sh.exec(`git branch ${remote ? '-r' : ''} --contains ${commitID} --format="%(refname:short)`, { silent: true }).stdout.replace(/(^\s+|\n*$)/g, '') // 去除首尾
+	return out ? out.split('\n') : []
+}
+
 module.exports = {
 	warning,
 	error,
@@ -585,5 +595,6 @@ module.exports = {
 	sendMessage,
 	getCommandMessage,
 	createArgs,
-	compareVersion
+	compareVersion,
+	getBranchsFromID
 }

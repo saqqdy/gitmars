@@ -1,0 +1,21 @@
+.DS_Store
+.idea/
+node_modules/
+dist/
+npm-debug.log
+yarn-error.log
+# index.js
+test.html
+/test/unit/coverage/
+/test/e2e/reports/
+selenium-debug.log
+*.bak
+*_bak
+
+# Editor directories and files
+.idea
+.vscode
+*.suo
+*.ntvs*
+*.njsproj
+*.sln

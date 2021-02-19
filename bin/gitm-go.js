@@ -1,11 +1,10 @@
 #!/usr/bin/env node
 const program = require('commander')
-const fs = require('fs')
 const sh = require('shelljs')
 const inquirer = require('inquirer')
 const { options, args } = require('./conf/go')
 const { combine, end, update, build, start, admin, branch, copy, get, save, revert } = require('./js/go')
-const { success, getCurrent } = require('./js/index')
+const { success, getCurrent, createArgs } = require('./js/index')
 const config = require('./js/getConfig')()
 
 /**
@@ -26,7 +25,6 @@ program.action(async (command, opt) => {
 	const current = getCurrent()
 	// const branchPrefix = current.split('/')[0]
 	sh.echo(success(`当前分支${current}，系统猜测你可能想做以下操作：`))
-
 	// 选择指令
 	inquirer
 		.prompt({
@@ -36,14 +34,14 @@ program.action(async (command, opt) => {
 			default: 'combine',
 			choices: [
 				//
-				new inquirer.Separator(' === Gitmars工作流 === '),
+				new inquirer.Separator(' === 1. Gitmars工作流 === '),
 				'combine',
 				'end',
 				'update',
 				'build',
 				'start',
 				'admin.publish',
-				new inquirer.Separator(' === 高级工具 === '),
+				new inquirer.Separator(' === 2. 高级工具 === '),
 				'branch',
 				'copy',
 				'get',
@@ -88,27 +86,5 @@ program.action(async (command, opt) => {
 				revert()
 			}
 		})
-
-	// if (mainBranchs.includes(current)) {
-	// 	// 主干分支
-	// 	/**
-	// 	 * 1. gitm start/combine/end 开发分支
-	// 	 * 2. gitm admin publish 发布
-	// 	 * 3. gitm branch 分支操作
-	// 	 * 4. gitm build 构建
-	// 	 */
-	// } else if (branchPrefix === 'feature') {
-	// 	// feature
-	// 	/**
-	// 	 * 1. gitm start/combine/end 开发分支
-	// 	 * 2. gitm admin publish 发布
-	// 	 * 3. gitm branch 分支操作
-	// 	 * 4. gitm build 构建
-	// 	 */
-	// } else if (branchPrefix === 'bugfix') {
-	// 	// bugfix
-	// } else if (branchPrefix === 'support') {
-	// 	// support
-	// }
 })
 program.parse(process.argv)
