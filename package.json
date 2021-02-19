@@ -6,19 +6,17 @@
 		"eslint": "eslint --fix --ext .vue,.js",
 		"prettier": "prettier --write \"**/*.{js,ts,sh,vue,json,md}\"",
 		"lib": "sh build/lib.sh",
-		"docs": "sh ./bin/docs.sh --docs",
-		"deploy-docs": "GH=1 sh docs/scripts/deploy-gh.sh",
-		"push": "sh ./bin/publish.sh",
-		"pub": "sh ./bin/publish.sh --deploy"
+		"docs:build": "sh script/docs.sh",
+		"docs:deploy": "GH=1 sh script/deploy-docs.sh"
 	},
 	"main": "lib/gitm.js",
 	"bin": {
 		"gitm": "./lib/gitm.js"
 	},
 	"dependencies": {
-		"ci-info": "^2.0.0",
+		"ci-info": "^3.1.1",
 		"colors": "^1.4.0",
-		"commander": "7.0.0",
+		"commander": "7.1.0",
 		"core-js": "^3.8.3",
 		"cosmiconfig": "^7.0.0",
 		"inquirer": "^7.3.3",
@@ -31,16 +29,16 @@
 		"tracer": "1.1.4"
 	},
 	"devDependencies": {
-		"@babel/cli": "7.12.10",
-		"@babel/core": "7.12.10",
+		"@babel/cli": "7.12.17",
+		"@babel/core": "7.12.17",
 		"@babel/eslint-parser": "^7.12.17",
-		"@babel/preset-env": "7.12.11",
-		"eslint": "7.18.0",
+		"@babel/preset-env": "7.12.17",
+		"eslint": "7.20.0",
 		"eslint-config-sets": "^1.0.10",
-		"eslint-plugin-jsdoc": "^31.4.0",
+		"eslint-plugin-jsdoc": "^32.0.2",
 		"jsdoc-to-markdown": "^6.0.1",
 		"prettier": "2.2.1",
-		"uglify-js": "3.12.5"
+		"uglify-js": "3.12.8"
 	},
 	"repository": {
 		"type": "git",

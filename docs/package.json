@@ -5,7 +5,6 @@
     "scripts": {
         "docs:dev": "vuepress dev docs",
         "docs:build": "vuepress build docs",
-        "deploy-gh": "GH=1 sh scripts/deploy-gh.sh",
         "prettier": "prettier --write \"**/*.{js,ts,sh,vue,json,md}\""
     },
     "main": "index.js",
