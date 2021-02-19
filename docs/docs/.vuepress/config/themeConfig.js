@@ -39,7 +39,7 @@ module.exports = {
         }
     ],
     sidebar,
-    lastUpdated: 'Last Updated',
+    lastUpdated: '最近更新',
     // 假定是 GitHub. 同时也可以是一个完整的 GitLab URL
     repo: 'https://github.com/saqqdy/gitmars.git',
     // 自定义仓库链接文字。默认从 `themeConfig.repo` 中自动推断为

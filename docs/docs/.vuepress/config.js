@@ -2,7 +2,7 @@ const plugins = require('./config/plugins')
 const themeConfig = require('./config/themeConfig')
 
 module.exports = {
-    title: 'gitmars',
+    title: 'Gitmars',
     description: '移动端UI组件库',
     base: '/gitmars/',
     dest: './docs/.vuepress/dist',
@@ -11,7 +11,40 @@ module.exports = {
         nav: [
             { text: '首页', link: '/' },
             { text: '指南', link: '/guide/' },
-            { text: '工作流', link: '/workflow/' },
+            {
+                text: '工作流',
+                items: [
+                    {
+                        text: 'Gitmars Flow',
+                        items: [
+                            {
+                                text: 'feature',
+                                link: '/workflow/feature/'
+                            },
+                            {
+                                text: 'bugfix',
+                                link: '/workflow/bugfix/'
+                            },
+                            {
+                                text: 'support',
+                                link: '/workflow/support/'
+                            },
+                            {
+                                text: 'publish',
+                                link: '/workflow/publish/'
+                            },
+                            {
+                                text: '构建项目',
+                                link: '/workflow/build/'
+                            }
+                        ]
+                    },
+                    {
+                        text: '作者',
+                        items: [{ text: 'saqqdy', link: 'http://www.saqqdy.com' }]
+                    }
+                ]
+            },
             { text: '效率', link: '/tools/' },
             { text: '界面', link: '/ui/' },
             { text: 'Go', link: '/go/' },
@@ -106,7 +139,7 @@ module.exports = {
                 }
             ]
         },
-        lastUpdated: 'Last Updated',
+        lastUpdated: '最近更新',
         // 假定是 GitHub. 同时也可以是一个完整的 GitLab URL
         repo: 'https://github.com/saqqdy/gitmars.git',
         // 自定义仓库链接文字。默认从 `themeConfig.repo` 中自动推断为

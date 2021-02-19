@@ -1,7 +1,7 @@
 ---
 home: true
 heroImage: null # /images/gitmars.png
-heroText: gitmars
+heroText: Gitmars
 tagline: 一个高度定制的git工作流
 actionText: 开始 →
 actionLink: /guide/
