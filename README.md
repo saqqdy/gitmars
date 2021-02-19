@@ -24,7 +24,7 @@
 
 一个定制化的 git 工作流操作工具
 
-## **完整文档请查阅： [Gitmars API文档](http://github.saqqdy.com/gitmars/api/)**
+# **完整文档请查阅： [Gitmars API文档](http://github.saqqdy.com/gitmars/api/)**
 
 # gitmars 工作流：
 
