@@ -6,7 +6,7 @@ title: 组件cell
 
 ## h2
 
-<<< @/./docs/components/cell/cell.vue
+<<< @/./docs/workflow/cell/cell.vue
 
 ### h3
 
