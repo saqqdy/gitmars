@@ -1,66 +1,107 @@
+const plugins = require('./config/plugins')
+const themeConfig = require('./config/themeConfig')
+
 module.exports = {
     title: 'gitmars',
     description: '移动端UI组件库',
     base: '/gitmars/',
     dest: './docs/.vuepress/dist',
-    // theme: '@vuepress/default',
+    theme: '@vuepress/default',
     themeConfig: {
         nav: [
             { text: '首页', link: '/' },
             { text: '指南', link: '/guide/' },
-            { text: '组件', link: '/components/' },
-            { text: '配置', link: '/setting/' },
-            { text: '更多', link: '/more/' },
-            { text: 'External', link: 'https://google.com', target: '_self', rel: '' },
+            { text: '工作流', link: '/workflow/' },
+            { text: '效率', link: '/tools/' },
+            { text: '界面', link: '/ui/' },
+            { text: 'Go', link: '/go/' },
             {
-                text: 'Languages',
+                text: '更多',
                 items: [
                     {
-                        text: 'Group1',
-                        items: [{ text: 'Chinese', link: '/language/chinese1/' }]
+                        text: '链接',
+                        items: [
+                            {
+                                text: 'Github',
+                                link: 'https://github.com/saqqdy',
+                                target: '_blank'
+                            },
+                            {
+                                text: 'HomePage',
+                                link: 'https://github.com/saqqdy/gitmars#readme',
+                                target: '_blank'
+                            },
+                            {
+                                text: 'Bugs',
+                                link: 'https://github.com/saqqdy/gitmars/issues',
+                                target: '_blank'
+                            }
+                        ]
                     },
                     {
-                        text: 'Group2',
-                        items: [{ text: 'Chinese', link: '/language/chinese2/' }]
+                        text: '作者',
+                        items: [{ text: 'saqqdy', link: 'http://www.saqqdy.com' }]
                     }
                 ]
             }
         ],
         sidebar: {
-            '/components/': [
-                // '',
-                // 'cell',
-                // '/cell',
+            '/workflow/': [
                 {
-                    title: '组件',
-                    path: '/components/',
+                    title: 'API',
+                    path: '/workflow/',
                     collapsable: false,
-                    sidebarDepth: 3
-                    // children: [
-                    // 	'/components/',
-                    // 	{
-                    // 		title: '组件 1',
-                    // 		path: '/components/cell/',
-                    // 		collapsable: false,
-                    // 		sidebarDepth: 3,
-                    // 	},
-                    // ],
-                },
-                {
-                    title: 'cell',
-                    // path: '/components/cell/',
-                    collapsable: false,
-                    sidebarDepth: 3,
-                    children: ['/components/cell/', '/components/box/']
+                    sidebarDepth: 2,
+                    sidebar: 'auto'
                 }
             ],
-            '/guide/': [''],
+            '/guide/': [
+                {
+                    title: '指南',
+                    collapsable: false,
+                    sidebarDepth: 1,
+                    children: [
+                        {
+                            title: '介绍',
+                            path: '/guide/',
+                            collapsable: false
+                        },
+                        {
+                            title: '快速上手',
+                            path: 'getting-start',
+                            collapsable: false
+                        },
+                        {
+                            title: '基本配置',
+                            path: 'basic-config',
+                            collapsable: false
+                        },
+                        {
+                            title: '兼容性',
+                            path: 'compatibility',
+                            collapsable: false
+                        }
+                    ]
+                },
+                {
+                    title: '深入',
+                    collapsable: false,
+                    sidebarDepth: 1,
+                    children: [
+                        {
+                            title: '钩子',
+                            path: 'hooks',
+                            collapsable: false
+                        }
+                    ]
+                }
+            ],
             '/setting/': [
                 {
                     title: 'Group 1',
-                    path: '/components/',
+                    path: '/workflow/',
                     collapsable: false,
-                    sidebarDepth: 3,
+                    sidebarDepth: 1,
                     children: ['/']
                 }
             ]
@@ -84,34 +125,12 @@ module.exports = {
         editLinkText: '帮助我们改善此页面！'
     },
 
-    plugins: [
-        // 官方回到顶部插件
-        '@vuepress/back-to-top',
-        //官方图片放大组件 目前是所有img都可以点击放大。具体配置见https://v1.vuepress.vuejs.org/zh/plugin/official/plugin-medium-zoom.html
-        ['@vuepress/medium-zoom', { selector: 'img' }],
-        // vssue 一个借助issue的评论插件 具体配置见https://vssue.js.org/zh/
-        [
-            '@vssue/vuepress-plugin-vssue',
-            {
-                // 设置 `platform` 而不是 `api` 我这里是在github平台
-                platform: 'github',
-                // owner与repo配置 https://github.com/${owner}/${repo}
-                // 例如我的仓库地址为https://github.com/saqqdy/gitmars 则owner为saqqdy，repo为gitmars
-                owner: 'saqqdy',
-                repo: 'gitmars',
-                // 填写自己的OAuth App 信息。详见https://vssue.js.org/zh/options/#repo
-                clientId: '',
-                clientSecret: '',
-                locale: 'zh', //使用的语言  这里是简体中文
-                baseURL: 'https://github.com' //平台的 base URL
-            }
-        ]
-    ],
+    plugins,
     markdown: {
         lineNumbers: true,
         toc: { includeLevel: [2, 3] }
     },
-    sidebarDepth: 3,
+    sidebarDepth: 1,
     configureWebpack: {
         resolve: {
             alias: {
