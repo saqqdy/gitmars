@@ -7,6 +7,7 @@
 		"prettier": "npx prettier --write bin",
 		"lib": "sh build/lib.sh",
 		"docs": "sh ./bin/docs.sh --docs",
+        "deploy-docs": "GH=1 sh docs/scripts/deploy-gh.sh",
 		"push": "sh ./bin/publish.sh",
 		"pub": "sh ./bin/publish.sh --deploy"
 	},
