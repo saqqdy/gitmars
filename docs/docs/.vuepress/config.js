@@ -7,6 +7,7 @@ module.exports = {
     base: '/gitmars/',
     dest: './docs/.vuepress/dist',
     theme: '@vuepress/default',
+    // theme: 'antdocs',
     themeConfig: {
         nav: [
             { text: '首页', link: '/' },
@@ -45,7 +46,7 @@ module.exports = {
                     }
                 ]
             },
-            { text: '效率', link: '/tools/' },
+            { text: 'API参考', link: '/api/' },
             { text: '界面', link: '/ui/' },
             { text: 'Go', link: '/go/' },
             {

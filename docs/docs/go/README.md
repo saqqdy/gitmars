@@ -1,33 +1,11 @@
 ---
-title: guide
+sidebar: null
 ---
 
-# h1
+## gitm go <Badge text="beta" type="warning"/>
 
-<<< @/./docs/workflow/cell/cell.vue
+智能导航指令，只记一条指令就能完成所有功能使用
 
-## h2
-
-### h3
-
-### Badge <Badge text="beta" type="warning"/> <Badge text="默认主题"/>
-
-<span v-for="i in 3">{{ i }} </span>
-
-{{$page.frontmatter.title}}
-
-::: tip
-这是一个提示
-:::
-
-::: warning
-这是一个警告
-:::
-
-::: danger
-这是一个危险警告
-:::
-
-::: details
-这是一个详情块，在 IE / Edge 中不生效
-:::
+-   使用：`gitm go`
+-   演示：
+    > ![gitmars-go.gif](https://raw.githubusercontent.com/saqqdy/gitmars/master/lib/img/gitmars-go.gif)
