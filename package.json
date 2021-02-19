@@ -4,10 +4,10 @@
 	"version": "1.4.2",
 	"scripts": {
 		"eslint": "eslint --fix --ext .vue,.js",
-		"prettier": "npx prettier --write bin",
+		"prettier": "prettier --write \"**/*.{js,ts,sh,vue,json,md}\"",
 		"lib": "sh build/lib.sh",
 		"docs": "sh ./bin/docs.sh --docs",
-        "deploy-docs": "GH=1 sh docs/scripts/deploy-gh.sh",
+		"deploy-docs": "GH=1 sh docs/scripts/deploy-gh.sh",
 		"push": "sh ./bin/publish.sh",
 		"pub": "sh ./bin/publish.sh --deploy"
 	},
@@ -33,9 +33,10 @@
 	"devDependencies": {
 		"@babel/cli": "7.12.10",
 		"@babel/core": "7.12.10",
+		"@babel/eslint-parser": "^7.12.17",
 		"@babel/preset-env": "7.12.11",
-		"babel-eslint": "^10.1.0",
 		"eslint": "7.18.0",
+		"eslint-config-sets": "^1.0.10",
 		"eslint-plugin-jsdoc": "^31.4.0",
 		"jsdoc-to-markdown": "^6.0.1",
 		"prettier": "2.2.1",
