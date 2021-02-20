@@ -15,6 +15,66 @@ sidebarDepth: 2
 -   演示：
     > ![gitmars-go.gif](https://raw.githubusercontent.com/saqqdy/gitmars/master/lib/img/gitmars-go.gif)
 
+## 配置
+
+### gitm init
+
+初始化配置，按照提示输入即可
+
+-   使用：`gitm init`
+-   参考：[配置参数](/guide/basic-config)
+
+### gitm config
+
+配置查询与设置
+
+#### 设置单个配置
+
+-   使用：`gitm config <option> [value]`
+-   参数：
+
+| 参数   | 说明     | 类型   | 可选值 | 必填 | 默认 |
+| ------ | -------- | ------ | ------ | ---- | ---- |
+| option | 配置名称 | String | -      | 是   | -    |
+| value  | 配置值   | String | -      | 否   | -    |
+
+-   示例：
+
+1. 设置 master 分支名称为 main
+
+```shell
+gitm config master main
+```
+
+2. 设置 apollo 配置(json)
+
+```shell
+gitm config apolloConfig "{ ... }"
+```
+
+#### 查询配置
+
+-   使用：`gitm config list [option]`
+-   参数：
+
+| 参数   | 说明     | 类型   | 可选值 | 必填 | 默认 |
+| ------ | -------- | ------ | ------ | ---- | ---- |
+| option | 配置名称 | String | -      | 否   | -    |
+
+-   示例：
+
+1. 查询全部配置
+
+```shell
+gitm config list
+```
+
+2. 查询 apollo 配置
+
+```shell
+gitm config list apolloConfig
+```
+
 ## 工作流
 
 :::tip
@@ -185,6 +245,13 @@ gitm update --use-merge
 # or
 gitm up --use-merge
 ```
+
+### gitm continue
+
+继续未完成的操作
+
+-   使用：`gitm continue`
+-   示例：
 
 ## 效率
 
@@ -460,6 +527,29 @@ gitm get -k
 gitm get "test login"
 ```
 
+### gitm log
+
+> 1.4.0 新增
+
+查询日志
+
+-   使用：`gitm log [--lastet [lastet]] [--limit [limit]]`
+-   参数：无
+-   传值：
+
+| 名称     | 简写 | 说明                                                   | 类型   | 可选值 | 传值必填 | 默认 |
+| -------- | ---- | ------------------------------------------------------ | ------ | ------ | -------- | ---- |
+| --lastet | -    | 查询在某个时间之后的日志，填写格式：10s/2m/2h/3d/4M/5y | String | -      | 否       | '7d' |
+| --limit  | -    | 最多查询的日志条数                                     | Nmuber | -      | 否       | 20   |
+
+-   示例：
+
+1. 查询最近 7 天内的日志，最多 50 条
+
+```shell
+gitm log --latest 7d --limit 50
+```
+
 ### gitm hook
 
 > 1.4.0 新增
@@ -565,6 +655,24 @@ gitm ug -m
 
 ```shell
 gitm clean
+```
+
+### gitm ui <Badge text="beta" type="warning"/>
+
+创建本地包软链接
+
+-   使用：`gitm ui [-p --port [port]]`
+-   参数：无
+-   传值：
+
+| 名称   | 简写 | 说明       | 类型   | 可选值 | 传值必填 | 默认 |
+| ------ | ---- | ---------- | ------ | ------ | -------- | ---- |
+| --port | -p   | 运行端口号 | Number | -      | 否       | 8080 |
+
+-   示例：
+
+```shell
+gitm ui -p 8080
 ```
 
 ### gitm link
@@ -728,4 +836,26 @@ Jenkins 构建清理 git 分支专用，可传入 release、bugfix、develop 分
 
 ```shell
 gitm admin clean bugfix
+```
+
+## 其他
+
+### gitm permission
+
+检测是否骚操作
+
+-   使用：`gitm permission`
+-   示例：
+
+### gitm version
+
+智能导航指令，只记一条指令就能完成所有功能使用
+
+-   使用：`gitm --version`
+-   示例：
+
+```shell
+gitm --version
+# or
+gitm -v
 ```
