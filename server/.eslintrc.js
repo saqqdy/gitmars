@@ -5,7 +5,7 @@ module.exports = {
 	},
 	extends: ['eslint:recommended', 'prettier'],
 	parserOptions: {
-		parser: 'babel-eslint'
+		parser: '@babel/eslint-parser'
 	},
 	rules: {
 		'no-console': ['warn', { allow: ['warn', 'error', 'info'] }],
