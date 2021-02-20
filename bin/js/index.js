@@ -632,6 +632,7 @@ module.exports = {
     checkBranch,
     getCurrent,
     searchBranch,
+    searchBranchs,
     getStashList,
     postMessage,
     sendMessage,
