@@ -55,7 +55,7 @@ program
 	.alias('bd')
 	.command('unlink', '解除软链接')
 	.command('link', '软链接')
-	.command('clean', '提交权限')
+	.command('clean', '清除缓存')
 	.command('postmsg', '推送云之家消息')
 	.command('permission', '提交权限')
 	.command('hook', 'git钩子指令')

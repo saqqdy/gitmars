@@ -2,8 +2,6 @@
 title: guide
 ---
 
-![logo.png](https://raw.githubusercontent.com/saqqdy/gitmars/master/lib/img/logo.png)
-
 # h1
 
 ## h2
