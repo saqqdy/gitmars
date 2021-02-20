@@ -1,3 +1,0 @@
-## Mac
-
-## Windows

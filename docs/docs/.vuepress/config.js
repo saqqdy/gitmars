@@ -52,15 +52,6 @@ module.exports = {
             }
         ],
         sidebar: {
-            '/workflow/': [
-                {
-                    title: 'API',
-                    path: '/workflow/',
-                    collapsable: false,
-                    sidebarDepth: 2,
-                    sidebar: 'auto'
-                }
-            ],
             '/guide/': [
                 {
                     title: '指南',
@@ -141,15 +132,6 @@ module.exports = {
                             collapsable: false
                         }
                     ]
-                }
-            ],
-            '/setting/': [
-                {
-                    title: 'Group 1',
-                    path: '/workflow/',
-                    collapsable: false,
-                    sidebarDepth: 1,
-                    children: ['/']
                 }
             ]
         },
