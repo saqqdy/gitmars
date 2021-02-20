@@ -2,16 +2,16 @@
 home: true
 heroImage: null # /images/gitmars.png
 heroText: Gitmars
-tagline: 一个高度定制的git工作流
+tagline: 一个高度定制化的git工作流
 actionText: 开始 →
 actionLink: /guide/
 features:
     - title: 高效
-      details: 以 Markdown 为中心的项目结构，以最少的配置帮助你专注于写作。
+      details: 执行动作之后自动切分支、自动拉代码等等
     - title: 智能
-      details: 享受 Vue + webpack 的开发体验，在 Markdown 中使用 Vue 组件。
-    - title: 容错
-      details: VuePress 为每个页面预渲染生成静态的 HTML
+      details: 智能检测当前可执行的指令，智能导航
+    - title: 安全
+      details: 内建了骚操作检测方法，可主动预防大量不合格的动作
 footer: MIT Licensed | Copyright © 2021-present saqqdy
 ---
 
