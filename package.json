@@ -3,11 +3,13 @@
 	"description": "一个高度定制化的git工作流工具",
 	"version": "1.4.2",
 	"scripts": {
-		"eslint": "eslint --fix --ext .vue,.js",
-		"prettier": "prettier --write \"**/*.{js,ts,sh,vue,json,md}\"",
+        "docs:dev": "vuepress dev docs",
+        "docs:build": "vuepress build docs",
+		"docs:deploy": "GH=1 sh script/deploy-docs.sh",
 		"lib": "sh build/lib.sh",
-		"docs:build": "sh script/docs.sh",
-		"docs:deploy": "GH=1 sh script/deploy-docs.sh"
+		"build:docs": "sh script/docs.sh",
+		"eslint": "eslint --fix --ext .vue,.js",
+		"prettier": "prettier --write \"**/*.{js,ts,sh,vue,json,md}\""
 	},
 	"main": "lib/gitm.js",
 	"bin": {
@@ -33,12 +35,24 @@
 		"@babel/core": "7.12.17",
 		"@babel/eslint-parser": "^7.12.17",
 		"@babel/preset-env": "7.12.17",
+		"@saqqdy/prettier-config": "^1.0.3",
+		"@vssue/api-github-v3": "^1.4.7",
+		"@vssue/vuepress-plugin-vssue": "^1.4.7",
+		"@vuepress/plugin-back-to-top": "^1.8.2",
+		"@vuepress/plugin-medium-zoom": "^1.8.2",
 		"eslint": "7.20.0",
 		"eslint-config-sets": "^1.0.10",
 		"eslint-plugin-jsdoc": "^32.0.2",
+        "highlight.js": "^10.6.0",
 		"jsdoc-to-markdown": "^6.0.1",
+		"less": "^4.1.1",
+		"less-loader": "7.3.0",
 		"prettier": "2.2.1",
-		"uglify-js": "3.12.8"
+		"uglify-js": "3.12.8",
+		"vuepress": "^1.8.2",
+        "vuepress-plugin-container": "^2.1.4",
+        "vuepress-plugin-smooth-scroll": "^0.0.10",
+        "vue-highlight.js": "^3.1.0"
 	},
 	"repository": {
 		"type": "git",
