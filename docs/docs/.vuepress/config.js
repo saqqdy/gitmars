@@ -64,12 +64,12 @@ module.exports = {
                             title: '快速上手',
                             path: 'getting-start',
                             collapsable: false
+                        },
+                        {
+                            title: '基本配置',
+                            path: 'basic-config',
+                            collapsable: false
                         }
-                        // {
-                        //     title: '基本配置',
-                        //     path: 'basic-config',
-                        //     collapsable: false
-                        // },
                         // {
                         //     title: '兼容性',
                         //     path: 'compatibility',
