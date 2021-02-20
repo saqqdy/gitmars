@@ -22,7 +22,7 @@ sidebarDepth: 2
 初始化配置，按照提示输入即可
 
 -   使用：`gitm init`
--   参考：[配置参数](/guide/basic-config)
+-   参考：[配置参数](../guide/basic-config)
 
 ### gitm config
 

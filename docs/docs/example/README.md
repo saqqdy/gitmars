@@ -22,7 +22,7 @@ feature 分支用来开发新需求，一般用于相对较大的功能
 > 这里假设我们设置的 release 分支名称为 release，bugfix 主干分支为 bug，develop 测试分支为 dev
 
 -   使用：`gitm start feature 10088`
--   参考：[gitm start](/api/#gitm-start)
+-   参考：[gitm start](../api/#gitm-start)
 
 ::: tip 其他写法
 
@@ -53,7 +53,7 @@ feature 分支用来开发新需求，一般用于相对较大的功能
 #### 合并分支到测试环境
 
 -   使用：`gitm combine feature 10088 --dev`
--   参考：[gitm combine](/api/#gitm-combine)
+-   参考：[gitm combine](../api/#gitm-combine)
 
 ::: tip 其他写法
 
@@ -84,7 +84,7 @@ feature 分支用来开发新需求，一般用于相对较大的功能
 #### 合并分支到 release(prod 环境)
 
 -   使用：`gitm combine feature 10088 --prod`
--   参考：[gitm combine](/api/#gitm-combine)
+-   参考：[gitm combine](../api/#gitm-combine)
 
 ::: tip 其他写法
 
@@ -111,7 +111,7 @@ feature 分支用来开发新需求，一般用于相对较大的功能
 #### 发版之后结束 feature 分支
 
 -   使用：`gitm end feature 10088`
--   参考：[gitm end](/api/#gitm-end)
+-   参考：[gitm end](../api/#gitm-end)
 
 ::: tip 其他写法
 
@@ -152,7 +152,7 @@ bugfix 分支用来日常修复 bug，必要时可作为 feature 分支合并到
 例如今天需要修复一个弹窗报错问题，需求编号为 10088
 
 -   使用：`gitm start bugfix 10088`
--   参考：[gitm start](/api/#gitm-start)
+-   参考：[gitm start](../api/#gitm-start)
 
 ::: tip 其他写法
 
@@ -183,7 +183,7 @@ bugfix 分支用来日常修复 bug，必要时可作为 feature 分支合并到
 #### 合并分支到测试环境
 
 -   使用：`gitm combine bugfix 10088 --dev`
--   参考：[gitm combine](/api/#gitm-combine)
+-   参考：[gitm combine](../api/#gitm-combine)
 
 ::: tip 其他写法
 
@@ -214,7 +214,7 @@ bugfix 分支用来日常修复 bug，必要时可作为 feature 分支合并到
 #### 合并分支到 bug(prod 环境)
 
 -   使用：`gitm combine bugfix 10088 --prod`
--   参考：[gitm combine](/api/#gitm-combine)
+-   参考：[gitm combine](../api/#gitm-combine)
 
 ::: tip 其他写法
 
@@ -241,7 +241,7 @@ bugfix 分支用来日常修复 bug，必要时可作为 feature 分支合并到
 #### 发版之后结束 bugfix 分支
 
 -   使用：`gitm end bugfix 10088`
--   参考：[gitm end](/api/#gitm-end)
+-   参考：[gitm end](../api/#gitm-end)
 
 ::: tip 其他写法
 
@@ -282,7 +282,7 @@ support 分支用来做框架或者公共代码调整，从 master 拉取，合�
 例如今天要在原框架基础上新增对 graphql 的支持
 
 -   使用：`gitm start support graphql`
--   参考：[gitm start](/api/#gitm-start)
+-   参考：[gitm start](../api/#gitm-start)
 
 ::: tip 其他写法
 
@@ -313,7 +313,7 @@ support 分支用来做框架或者公共代码调整，从 master 拉取，合�
 #### 合并分支到测试环境
 
 -   使用：`gitm combine support graphql --dev`
--   参考：[gitm combine](/api/#gitm-combine)
+-   参考：[gitm combine](../api/#gitm-combine)
 
 ::: tip 其他写法
 
@@ -344,7 +344,7 @@ support 分支用来做框架或者公共代码调整，从 master 拉取，合�
 #### 合并分支到 bug 和 release(prod 环境)
 
 -   使用：`gitm combine support graphql --prod`
--   参考：[gitm combine](/api/#gitm-combine)
+-   参考：[gitm combine](../api/#gitm-combine)
 
 ::: tip 其他写法
 
@@ -375,7 +375,7 @@ support 分支用来做框架或者公共代码调整，从 master 拉取，合�
 #### 发版之后结束 support 分支
 
 -   使用：`gitm end support graphql`
--   参考：[gitm end](/api/#gitm-end)
+-   参考：[gitm end](../api/#gitm-end)
 
 ::: tip 其他写法
 
@@ -414,7 +414,7 @@ support 分支用来做框架或者公共代码调整，从 master 拉取，合�
 feature 分支基于 release 创建，所以发布的时候会吧 release 合并到 master
 
 -   使用：`gitm admin publish release`
--   参考：[gitm admin publish](/api/#gitm-admin-publish)
+-   参考：[gitm admin publish](../api/#gitm-admin-publish)
 
 ::: tip 其他写法
 
@@ -440,7 +440,7 @@ feature 分支基于 release 创建，所以发布的时候会吧 release 合并
 bugfix 分支基于 bug 创建，所以发布的时候会吧 bug 合并到 master
 
 -   使用：`gitm admin publish bugfix`
--   参考：[gitm admin publish](/api/#gitm-admin-publish)
+-   参考：[gitm admin publish](../api/#gitm-admin-publish)
 
 ::: tip 其他写法
 
@@ -464,7 +464,7 @@ bugfix 分支基于 bug 创建，所以发布的时候会吧 bug 合并到 maste
 #### 发布 support
 
 -   使用：`gitm admin publich support`
--   参考：[gitm admin publish](/api/#gitm-admin-publish)
+-   参考：[gitm admin publish](../api/#gitm-admin-publish)
 
 ::: tip 其他写法
 
@@ -492,7 +492,7 @@ bugfix 分支基于 bug 创建，所以发布的时候会吧 bug 合并到 maste
 #### 合并分支（--no-ff）
 
 -   使用：`gitm merge feature/10088`
--   参考：[gitm merge](/api/#gitm-merge)
+-   参考：[gitm merge](../api/#gitm-merge)
 
 ::: tip 其他写法
 
@@ -512,21 +512,21 @@ bugfix 分支基于 bug 创建，所以发布的时候会吧 bug 合并到 maste
 
 #### 复制 commit 记录
 
--   参考：[gitm copy](/api/#gitm-copy)
+-   参考：[gitm copy](../api/#gitm-copy)
 -   结果：
 
 ### build
 
 #### 构建项目
 
--   参考：[gitm build](/api/#gitm-build)
+-   参考：[gitm build](../api/#gitm-build)
 -   结果：
 
 ### branch
 
 #### 分支操作
 
--   参考：[gitm branch](/api/#gitm-branch)
+-   参考：[gitm branch](../api/#gitm-branch)
 -   结果：
 
 ### ...
