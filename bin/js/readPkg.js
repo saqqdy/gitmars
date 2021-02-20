@@ -20,12 +20,12 @@ const path = require('path')
  * @returns {Object} arr 返回配置对象
  */
 function readPkg(dir) {
-	if (!dir) {
-		let { root } = gitRevParse()
-		dir = root
-	}
-	const pkgFile = path.resolve(dir, 'package.json')
-	const pkgStr = fs.readFileSync(pkgFile, 'utf-8')
-	return JSON.parse(pkgStr)
+    if (!dir) {
+        let { root } = gitRevParse()
+        dir = root
+    }
+    const pkgFile = path.resolve(dir, 'package.json')
+    const pkgStr = fs.readFileSync(pkgFile, 'utf-8')
+    return JSON.parse(pkgStr)
 }
 module.exports = readPkg
