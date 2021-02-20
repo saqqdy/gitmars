@@ -1,18 +1,18 @@
-# Created by Gitmars v4.2.5 (https://github.com/saqqdy/gitmars#readme)
+# Created by Gitmars v1.4.1 (https://github.com/saqqdy/gitmars#readme)
 #   At: 10/11/2020, 4:04:28 PM
 #   From: /Users/saqqdy/www/wojiayun/wyweb/webapp/app/node_modules/gitmars (https://github.com/saqqdy/gitmars#readme)
 
-debug () {
+debug() {
   if [ "$GITMARS_DEBUG" = "true" ] || [ "$GITMARS_DEBUG" = "1" ]; then
     echo "gitmars:debug $1"
   fi
 }
 
-command_exists () {
+command_exists() {
   command -v "$1" >/dev/null 2>&1
 }
 
-run_command () {
+run_command() {
   if command_exists "$1"; then
     # "$@" gitm $hookName "$gitParams"
     gitm run $hookName "$gitParams"
@@ -34,13 +34,19 @@ run_command () {
   fi
 }
 
-hookIsDefined () {
+hookIsDefined() {
+  dir=$(git rev-parse --show-cdup)
   grep -qs $hookName \
     package.json \
     .gitmarsrc \
     .gitmarsrc.json \
     .gitmarsrc.yaml \
-    .gitmarsrc.yml
+    .gitmarsrc.yml \
+    $dir"package.json" \
+    $dir".gitmarsrc" \
+    $dir".gitmarsrc.json" \
+    $dir".gitmarsrc.yaml " \
+    $dir".gitmarsrc.yml"
 }
 
 gitmarsVersion="0.0.0"
@@ -76,20 +82,24 @@ fi
 
 # Set GITMARS_GIT_STDIN from stdin
 case $hookName in
-  "pre-push"|"post-rewrite")
-    export GITMARS_GIT_STDIN="$(cat)";;
+"pre-push" | "post-rewrite")
+  export GITMARS_GIT_STDIN="$(cat)"
+  ;;
 esac
 
 # Windows 10, Git Bash and Yarn 1 installer
 if command_exists winpty && test -t 1; then
-  exec < /dev/tty
+  exec </dev/tty
 fi
 
 # Run gitm hook with the package manager used to install Gitmars
 case $packageManager in
-  "npm") run_command npx --no-install;;
-  "npminstall") run_command npx --no-install;;
-  "pnpm") run_command pnpx --no-install;;
-  "yarn") run_command yarn run --silent;;
-  *) echo "Unknown package manager: $packageManager"; exit 0;;
+"npm") run_command npx --no-install ;;
+"npminstall") run_command npx --no-install ;;
+"pnpm") run_command pnpx --no-install ;;
+"yarn") run_command yarn run --silent ;;
+*)
+  echo "Unknown package manager: $packageManager"
+  exit 0
+  ;;
 esac

@@ -10,10 +10,10 @@ const run = require('./js/hook/run')
 program.name('gitm run').usage('[command]').description('git钩子运行指令')
 if (args.length > 0) program.arguments(createArgs(args))
 options.forEach(o => {
-	program.option(o.flags, o.description, o.defaultValue)
+    program.option(o.flags, o.description, o.defaultValue)
 })
 // .arguments('[command] [args...]')
 program.action((command, args, opt) => {
-	run(command, args, opt)
+    run(command, args, opt)
 })
 program.parse(process.argv)
