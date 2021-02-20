@@ -11,8 +11,8 @@ module.exports = {
             { text: '指南', link: '/guide/' },
             { text: 'API参考', link: '/api/' },
             { text: '示例', link: '/example/' },
-            { text: 'Git Hooks', link: '/hook/' },
-            { text: '界面', link: '/ui/' },
+            // { text: 'Git Hooks', link: '/hook/' },
+            // { text: '界面', link: '/ui/' },
             { text: 'Go', link: '/go/' },
             {
                 text: '更多',
@@ -64,31 +64,31 @@ module.exports = {
                             title: '快速上手',
                             path: 'getting-start',
                             collapsable: false
-                        },
-                        {
-                            title: '基本配置',
-                            path: 'basic-config',
-                            collapsable: false
-                        },
-                        {
-                            title: '兼容性',
-                            path: 'compatibility',
-                            collapsable: false
                         }
-                    ]
-                },
-                {
-                    title: '深入',
-                    collapsable: false,
-                    sidebarDepth: 1,
-                    children: [
-                        {
-                            title: '钩子',
-                            path: 'hooks',
-                            collapsable: false
-                        }
+                        // {
+                        //     title: '基本配置',
+                        //     path: 'basic-config',
+                        //     collapsable: false
+                        // },
+                        // {
+                        //     title: '兼容性',
+                        //     path: 'compatibility',
+                        //     collapsable: false
+                        // }
                     ]
                 }
+                // {
+                //     title: '深入',
+                //     collapsable: false,
+                //     sidebarDepth: 1,
+                //     children: [
+                //         {
+                //             title: '钩子',
+                //             path: 'hooks',
+                //             collapsable: false
+                //         }
+                //     ]
+                // }
             ],
             '/hook/': [
                 {

@@ -10,33 +10,13 @@ yarn global add gitmars
 ## 使用
 
 ```shell
-# 初始化
-gitm init
-
-# 查看配置
-gitm config list [option]
-
-# 版本升级[-m --mirror]使用淘宝镜像升级
-Mac用户：gitm upgrade -m
-windows用户：npm i -g gitmars@latest
-
-# 查看版本
-gitm -v
-
-# 查看帮助信息
-gitm --help
-gitm copy -h
-```
-
-## 功能分支
-
-```shell
 # 安装
 yarn global add gitmars # 或者：npm install -g gitmars
 
 # 创建gitmars配置文件
 cd my-project
 # 按照提示输入想要的配置
+# 初始化
 gitm init
 
 # 创建功能分支，自动切到新分支
@@ -49,6 +29,22 @@ gitm combine -d
 gitm end
 ```
 
-## BUG 修复分支
+## 进阶
 
-## 框架调整分支
+```shell
+# 查看配置
+gitm config list [option]
+
+# 版本升级[-m --mirror]使用淘宝镜像升级
+Mac用户：gitm upgrade -m
+windows用户：npm i -g gitmars@latest
+
+# 查看版本
+gitm -v
+
+# 查看帮助信息
+gitm --help
+
+# 查看子命令帮助信息
+gitm copy -h
+```
