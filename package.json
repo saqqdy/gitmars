@@ -1,72 +1,72 @@
 {
-	"name": "gitmars",
-	"description": "一个高度定制化的git工作流工具",
-	"version": "1.4.2",
-	"scripts": {
+    "name": "gitmars",
+    "description": "一个高度定制化的git工作流工具",
+    "version": "1.4.2",
+    "scripts": {
         "docs:dev": "vuepress dev docs",
         "docs:build": "vuepress build docs",
-		"docs:deploy": "GH=1 sh script/deploy-docs.sh",
-		"lib": "sh build/lib.sh",
-		"build:docs": "sh script/docs.sh",
-		"eslint": "eslint --fix --ext .vue,.js",
-		"prettier": "prettier --write \"**/*.{js,ts,sh,vue,json,md}\""
-	},
-	"main": "bin/gitm.js",
-	"bin": {
-		"gitm": "./bin/gitm.js"
-	},
-	"dependencies": {
-		"ci-info": "^3.1.1",
-		"colors": "^1.4.0",
-		"commander": "7.1.0",
-		"core-js": "^3.8.3",
-		"cosmiconfig": "^7.0.0",
-		"inquirer": "^7.3.3",
-		"node-apollo": "^1.2.1",
-		"ora": "5.3.0",
-		"regenerator-runtime": "0.13.7",
-		"shelljs": "0.8.4",
-		"slash": "^3.0.0",
-		"text-table": "^0.2.0",
-		"tracer": "1.1.4"
-	},
-	"devDependencies": {
-		"@babel/cli": "7.12.17",
-		"@babel/core": "7.12.17",
-		"@babel/eslint-parser": "^7.12.17",
-		"@babel/preset-env": "7.12.17",
-		"@saqqdy/prettier-config": "^1.0.3",
-		"@vssue/api-github-v3": "^1.4.7",
-		"@vssue/vuepress-plugin-vssue": "^1.4.7",
-		"@vuepress/plugin-back-to-top": "^1.8.2",
-		"@vuepress/plugin-medium-zoom": "^1.8.2",
-		"eslint": "7.20.0",
-		"eslint-config-sets": "^1.0.10",
-		"eslint-plugin-jsdoc": "^32.0.2",
+        "docs:deploy": "GH=1 sh script/deploy-docs.sh",
+        "lib": "sh build/lib.sh",
+        "build:docs": "sh script/docs.sh",
+        "eslint": "eslint --fix --ext .vue,.js",
+        "prettier": "prettier --write \"**/*.{js,ts,sh,vue,json,md}\""
+    },
+    "main": "bin/gitm.js",
+    "bin": {
+        "gitm": "./bin/gitm.js"
+    },
+    "dependencies": {
+        "ci-info": "^3.1.1",
+        "colors": "^1.4.0",
+        "commander": "7.1.0",
+        "core-js": "^3.8.3",
+        "cosmiconfig": "^7.0.0",
+        "inquirer": "^7.3.3",
+        "node-apollo": "^1.2.1",
+        "ora": "5.3.0",
+        "regenerator-runtime": "0.13.7",
+        "shelljs": "0.8.4",
+        "slash": "^3.0.0",
+        "text-table": "^0.2.0",
+        "tracer": "1.1.4"
+    },
+    "devDependencies": {
+        "@babel/cli": "7.12.17",
+        "@babel/core": "7.12.17",
+        "@babel/eslint-parser": "^7.12.17",
+        "@babel/preset-env": "7.12.17",
+        "@saqqdy/prettier-config": "^1.0.3",
+        "@vssue/api-github-v3": "^1.4.7",
+        "@vssue/vuepress-plugin-vssue": "^1.4.7",
+        "@vuepress/plugin-back-to-top": "^1.8.2",
+        "@vuepress/plugin-medium-zoom": "^1.8.2",
+        "eslint": "7.20.0",
+        "eslint-config-sets": "^1.0.10",
+        "eslint-plugin-jsdoc": "^32.0.2",
         "highlight.js": "^10.6.0",
-		"jsdoc-to-markdown": "^6.0.1",
-		"less": "^4.1.1",
-		"less-loader": "7.3.0",
-		"prettier": "2.2.1",
-		"uglify-js": "3.12.8",
-		"vuepress": "^1.8.2",
+        "jsdoc-to-markdown": "^6.0.1",
+        "less": "^4.1.1",
+        "less-loader": "7.3.0",
+        "prettier": "2.2.1",
+        "uglify-js": "3.12.8",
+        "vuepress": "^1.8.2",
         "vuepress-plugin-container": "^2.1.4",
         "vuepress-plugin-smooth-scroll": "^0.0.10",
         "vue-highlight.js": "^3.1.0"
-	},
-	"repository": {
-		"type": "git",
-		"url": "git+https://github.com/saqqdy/gitmars.git"
-	},
-	"keywords": [
-		"gitmars",
-		"git",
-		"tool"
-	],
-	"author": "saqqdy <www.saqqdy.com>",
-	"license": "ISC",
-	"bugs": {
-		"url": "https://github.com/saqqdy/gitmars/issues"
-	},
-	"homepage": "https://github.com/saqqdy/gitmars#readme"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/saqqdy/gitmars.git"
+    },
+    "keywords": [
+        "gitmars",
+        "git",
+        "tool"
+    ],
+    "author": "saqqdy <www.saqqdy.com>",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/saqqdy/gitmars/issues"
+    },
+    "homepage": "https://github.com/saqqdy/gitmars#readme"
 }
