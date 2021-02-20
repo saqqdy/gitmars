@@ -53,6 +53,7 @@ program
     .alias('ug')
     .command('build', '构建Jenkins')
     .alias('bd')
+    .command('ui', '启动网页版gitmars')
     .command('unlink', '解除软链接')
     .command('link', '软链接')
     .command('clean', '清除缓存')
@@ -103,6 +104,7 @@ program.on('command:*', function (types, opts) {
         'ug',
         'build',
         'bd',
+        'ui',
         'unlink',
         'link',
         'clean',

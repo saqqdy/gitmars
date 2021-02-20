@@ -1,7 +1,7 @@
 {
     "name": "gitmars",
     "description": "一个高度定制化的git工作流工具",
-    "version": "1.4.2",
+    "version": "2.0.1-alpha.0",
     "scripts": {
         "docs:dev": "vuepress dev docs",
         "docs:build": "vuepress build docs",

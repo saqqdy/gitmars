@@ -374,6 +374,48 @@ const searchBranch = async (key, type, remote = false) => {
 }
 
 /**
+ * searchBranchs
+ * @description 获取当前分支
+ * @returns {Array} 返回列表数组
+ */
+const searchBranchs = (opt = {}) => {
+    const { path = pwd, key = null, type = null, remote = false } = opt
+    const data = sh.exec(`git ls-remote${remote ? ' --refs' : ' --heads'} --quiet --sort="version:refname" ${path}`, { silent: true }).stdout.replace(/\n*$/g, '')
+    let arr = data ? data.split('\n') : [],
+        map = {
+            heads: [],
+            tags: [],
+            others: []
+        }
+    for (let el of arr) {
+        let match = el.match(/^\w+[\s]+refs\/(heads|remotes|tags)\/([\w-\/]+)$/)
+        if (!match) continue
+        switch (match[1]) {
+            case 'heads':
+                map.heads.push(match[2])
+                break
+            case 'remotes':
+                map.heads.push(match[2])
+                break
+            case 'tags':
+                map.tags.push(match[2])
+                break
+            default:
+                map.others.push(match[2])
+                break
+        }
+    }
+    if (type && ['bugfix', 'feature', 'support'].includes(type)) {
+        map.heads = map.heads.filter(el => el.indexOf('/' + type + '/') > -1)
+    }
+    if (key) {
+        map.heads = map.heads.filter(el => el.indexOf(key) > -1)
+    }
+
+    return map.heads
+}
+
+/**
  * getStashList
  * @description 获取暂存区列表
  * @returns {String} 返回名称
@@ -590,6 +632,7 @@ module.exports = {
     checkBranch,
     getCurrent,
     searchBranch,
+    searchBranchs,
     getStashList,
     postMessage,
     sendMessage,

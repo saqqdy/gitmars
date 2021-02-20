@@ -1,3 +1,7 @@
+# 2020.09.12 v2.0.1更新日志
+1. 新增gitm ui指令，启动UI界面
+2. 升级checkBranch、searchBranchs、getCurrent方法，执行更加高效
+
 # 2021.1.29 v1.4.2 更新日志
 
 1. 依赖包升级

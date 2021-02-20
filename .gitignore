@@ -35,3 +35,6 @@ yarn-error.log*
 *.sln
 *.sw*
 *.bak
+
+#Electron-builder output
+/dist_electron
