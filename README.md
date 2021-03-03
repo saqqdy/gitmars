@@ -1,4 +1,6 @@
-# Gitmars
+![logo.png](https://raw.githubusercontent.com/saqqdy/gitmars/master/lib/img/logo.png)
+
+## 一个定制化的 git 工作流操作工具
 
 [![NPM version][npm-image]][npm-url]
 [![build status][travis-image]][travis-url]
@@ -20,20 +22,10 @@
 [download-image]: https://img.shields.io/npm/dm/gitmars.svg?style=flat-square
 [download-url]: https://npmjs.org/package/gitmars
 
-![logo.png](https://raw.githubusercontent.com/saqqdy/gitmars/master/lib/img/logo.png)
-
-一个定制化的 git 工作流操作工具
-
 # **完整文档请查阅： [Gitmars API 文档](http://docs.saqqdy.com/gitmars/api/)**
 
-# gitmars 工作流：
-
-周一-周三发布小版本，只修复 bug 不涉及功能迭代，从 bug 线拉取 bugfix/xxxx 分支，开发完成后提测合并到 bug 分支。并且在每天凌晨 5 点会同步代码到 release；周四-周五发布大版本，包含新功能和 bug 修复，从 release 线拉取 feature/xxxx 分支，开发完成后合并到 release 分支。并且在每天凌晨 5 点会同步代码到 bug 线。
-
-```
-1. gitmars每一个子命令都带了help功能，可输入 gitm [command] --help 获取对应指令的帮助
-2. <type>意思是type必传；[type]意思是type选填；[-a --app [app]]其中-a是--app的简写，后面[app]指的是-a后面的传值
-```
+> 1. gitmars 每一个子命令都带了 help 功能，可输入 gitm [command] --help 获取对应指令的帮助
+> 2. <type>意思是 type 必传；[type]意思是 type 选填；[-a --app [app]]其中-a 是--app 的简写，后面[app]指的是-a 后面的传值
 
 # 安装
 
