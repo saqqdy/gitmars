@@ -175,7 +175,7 @@ module.exports = {
         ]
     ],
     markdown: {
-        lineNumbers: true,
+        lineNumbers: false,
         toc: { includeLevel: [2, 3] }
     },
     sidebarDepth: 1,
