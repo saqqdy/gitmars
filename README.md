@@ -1,6 +1,6 @@
 ![logo.png](https://raw.githubusercontent.com/saqqdy/gitmars/master/lib/img/logo.png)
 
-## 一个定制化的 git 工作流操作工具
+# 一个定制化的 git 工作流操作工具
 
 [![NPM version][npm-image]][npm-url]
 [![build status][travis-image]][travis-url]
