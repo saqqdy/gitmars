@@ -22,10 +22,10 @@
 [download-image]: https://img.shields.io/npm/dm/gitmars.svg?style=flat-square
 [download-url]: https://npmjs.org/package/gitmars
 
-# **完整文档请查阅： [Gitmars API 文档](http://docs.saqqdy.com/gitmars/api/)**
-
 > 1. gitmars 每一个子命令都带了 help 功能，可输入 gitm [command] --help 获取对应指令的帮助
 > 2. <type>意思是 type 必传；[type]意思是 type 选填；[-a --app [app]]其中-a 是--app 的简写，后面[app]指的是-a 后面的传值
+
+# **完整文档请查阅： [Gitmars API 文档](http://docs.saqqdy.com/gitmars/api/)**
 
 # 安装
 
