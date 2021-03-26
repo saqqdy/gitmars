@@ -1,5 +1,6 @@
 buildConfig.json
 gitmarsconfig.json
+.gitmarsrc
 node_modules
 bin
 server
