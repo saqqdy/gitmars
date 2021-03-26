@@ -8,7 +8,7 @@
 		"super": "supervisor ./bin/www"
 	},
 	"dependencies": {
-		"cookie-parser": "~1.4.4",
+		"cookie-parser": "~1.4.5",
 		"debug": "4.3.1",
 		"express": "^5.0.0-alpha.8",
 		"hbs": "4.1.1",
@@ -18,11 +18,11 @@
 		"node-pty": "^0.10.0",
 		"os": "^0.1.1",
 		"shelljs": "^0.8.4",
-		"socket.io": "^2.3.0",
+		"socket.io": "^2.4.1",
 		"uuid": "8.3.2"
 	},
 	"devDependencies": {
-		"@babel/eslint-parser": "^7.12.17",
+		"@babel/eslint-parser": "^7.13.10",
 		"supervisor": "^0.12.0"
 	}
 }
