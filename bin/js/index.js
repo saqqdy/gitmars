@@ -614,6 +614,24 @@ function getBranchsFromID(commitID, remote = false) {
     return out ? out.split('\n') : []
 }
 
+/**
+ * getGitUser
+ * @description 获取git用户名称
+ * @returns {String} 返回字符串
+ */
+function getGitUser() {
+    return sh.exec(`git config user.name`, { silent: true }).stdout.replace(/(^\s+|\n*$)/g, '') // 去除首尾
+}
+
+/**
+ * getGitEmail
+ * @description 获取git用户邮箱
+ * @returns {String} 返回字符串
+ */
+function getGitEmail() {
+    return sh.exec(`git config user.email`, { silent: true }).stdout.replace(/(^\s+|\n*$)/g, '') // 去除首尾
+}
+
 module.exports = {
     warning,
     error,
@@ -639,5 +657,7 @@ module.exports = {
     getCommandMessage,
     createArgs,
     compareVersion,
-    getBranchsFromID
+    getBranchsFromID,
+    getGitUser,
+    getGitEmail
 }

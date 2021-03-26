@@ -110,3 +110,35 @@ apollo 配置参数
     "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
 }
 ```
+
+### api
+
+请求权限的api接口地址
+
+> 2.0.1 新增
+
+-   类型：`String`
+-   默认：``
+-   必填：否
+
+
+### gitHost
+
+git服务器位置，例如：https://gitlab.com
+
+> 2.0.1 新增
+
+-   类型：`String`
+-   默认：``
+-   必填：是
+
+
+### gitID
+
+git项目ID，在gitlab上可以查到，通常是一串数字
+
+> 2.0.1 新增
+
+-   类型：`Number`
+-   默认：``
+-   必填：是
