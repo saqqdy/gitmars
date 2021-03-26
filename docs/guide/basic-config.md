@@ -120,3 +120,25 @@ apollo 配置参数
 -   类型：`String`
 -   默认：``
 -   必填：否
+
+
+### gitHost
+
+git服务器位置，例如：https://gitlab.com
+
+> 2.0.1 新增
+
+-   类型：`String`
+-   默认：``
+-   必填：是
+
+
+### gitID
+
+git项目ID，在gitlab上可以查到，通常是一串数字
+
+> 2.0.1 新增
+
+-   类型：`Number`
+-   默认：``
+-   必填：是
