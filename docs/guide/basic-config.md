@@ -110,3 +110,13 @@ apollo 配置参数
     "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
 }
 ```
+
+### api
+
+请求权限的api接口地址
+
+> 2.0.1 新增
+
+-   类型：`String`
+-   默认：``
+-   必填：否

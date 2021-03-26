@@ -4,8 +4,12 @@ const sh = require('shelljs')
 const { options, args } = require('./conf/combine')
 const { error, queue, getStatus, getCurrent, searchBranch, createArgs } = require('./js/index')
 const { defaults } = require('./js/global')
+const { getUserToken } = require('./js/api')
 const { appName } = require('./js/getGitConfig')()
 const config = require('./js/getConfig')()
+
+// console.log(getUserToken())
+
 /**
  * gitm combine
  */
