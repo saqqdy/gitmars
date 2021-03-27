@@ -113,13 +113,23 @@ apollo 配置参数
 
 ### api
 
-请求权限的api接口地址
+请求权限的api接口地址，需要支持的接收参数形式：url?name=git_user_name
 
 > 2.0.1 新增
 
 -   类型：`String`
 -   默认：``
 -   必填：否
+-   说明：
+
+返回的参数必须包含token和level
+
+```json
+{
+    token: 'gitlab access_token', // gitlab上生成的access_token
+    level: 3 // 1=超级管理员 2=管理员 3=开发者
+}
+```
 
 
 ### gitHost

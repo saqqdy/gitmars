@@ -1,7 +1,7 @@
 {
     "name": "gitmars",
     "description": "一个高度定制化的git工作流工具",
-    "version": "2.0.1",
+    "version": "2.0.2",
     "scripts": {
         "docs:dev": "vuepress dev docs",
         "docs:build": "vuepress build docs",
@@ -9,7 +9,7 @@
         "lib": "sh build/lib.sh",
         "build:docs": "sh script/docs.sh",
         "eslint": "eslint --fix --ext .vue,.js",
-        "prettier": "prettier --write \"**/*.{js,ts,sh,vue,json,md}\""
+        "prettier": "prettier --write \"**/*.{js,ts,vue,json,md}\""
     },
     "main": "lib/gitm.js",
     "bin": {

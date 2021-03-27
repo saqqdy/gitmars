@@ -19,7 +19,7 @@ exports.getUserToken = () => {
         userInfo
     try {
         fetchData = JSON.parse(fetchData)
-        userInfo = fetchData.data && fetchData.data.list.length > 0 ? fetchData.data.list[0] : null
+        userInfo = fetchData.data || null
     } catch (err) {
         userInfo = null
     }
