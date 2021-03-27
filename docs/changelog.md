@@ -1,6 +1,9 @@
-# 2020.09.12 v2.0.1更新日志
+# 2021.03.27 v2.0.2更新日志
 1. 新增gitm ui指令，启动UI界面
-2. 升级checkBranch、searchBranchs、getCurrent方法，执行更加高效
+2. 新增无git权限自动调起合并请求的功能，需要配置api、gitHost、gitID，具体配置查阅：[Gitmars基本配置](https://docs.saqqdy.com/gitmars/guide/basic-config.html)
+3. 升级checkBranch、searchBranchs、getCurrent方法，执行更加高效
+4. 取消强制配置api
+5. git config和git init加入对api/gitHost/gitID参数设置的支持
 
 # 2021.1.29 v1.4.2 更新日志
 

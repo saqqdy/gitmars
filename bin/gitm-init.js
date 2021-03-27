@@ -100,6 +100,30 @@ program
                         }
                     }
                 })
+            } else if (key === 'api') {
+                prompts.push({
+                    type: 'input',
+                    name: key,
+                    message: `请输入查询用户权限接口`,
+                    transformer: (val, answers, flags) => val.trim(),
+                    validate: val => (val === '' || /^https?:\/\/[\S]*$/.test(val) ? true : '请输入网址')
+                })
+            } else if (key === 'gitHost') {
+                prompts.push({
+                    type: 'input',
+                    name: key,
+                    message: `请输入git网址`,
+                    transformer: (val, answers, flags) => val.trim(),
+                    validate: val => (val === '' || /^https?:\/\/[\S]*$/.test(val) ? true : '请输入网址')
+                })
+            } else if (key === 'gitID') {
+                prompts.push({
+                    type: 'input',
+                    name: key,
+                    message: `请输入git项目ID，目前仅支持gitlab`,
+                    transformer: (val, answers, flags) => val.trim(),
+                    validate: val => (val === '' || /^\d+$/.test(val) ? true : '请输入网址')
+                })
             }
         })
         inquirer.prompt(prompts).then(answers => {

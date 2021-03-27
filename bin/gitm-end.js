@@ -17,7 +17,7 @@ options.forEach(o => {
 program.action(async (type, name, opt) => {
     const allow = ['bugfix', 'feature', 'support'] // 允许执行的指令
     const deny = [defaults.master, defaults.develop, defaults.release, defaults.bugfix, defaults.support]
-    const { token, level = 3 } = getUserToken() || {}
+    const { token, level = 3 } = config.api ? getUserToken() : {}
     let status = getStatus()
     if (!status) sh.exit(1)
     if (!type) {
@@ -77,6 +77,10 @@ program.action(async (type, name, opt) => {
                       ]
                     : [
                           {
+                              cmd: `git push --set-upstream origin ${type}/${name}`,
+                              config: { slient: false, again: true, success: '推送远程并关联远程分支成功', fail: '推送远程失败，请根据提示处理' }
+                          },
+                          {
                               cmd: `curl -i -H "Content-Type: application/json" -X POST -d '{"source_branch":"'${type}/${name}'","target_branch":"'${config.bugfix}'","private_token":"'${token}'","title":"Merge branch '${type}/${name}' into '${config.bugfix}'"}' "${config.gitHost}/api/v4/projects/${config.gitID}/merge_requests"`,
                               config: { slient: false, again: true, success: '成功创建合并请求', fail: '创建合并请求出错了，请根据提示处理' }
                           }
@@ -101,6 +105,10 @@ program.action(async (type, name, opt) => {
                       `git checkout ${config.develop}`
                   ]
                 : [
+                      {
+                          cmd: `git push --set-upstream origin ${type}/${name}`,
+                          config: { slient: false, again: true, success: '推送远程并关联远程分支成功', fail: '推送远程失败，请根据提示处理' }
+                      },
                       {
                           cmd: `curl -i -H "Content-Type: application/json" -X POST -d '{"source_branch":"'${type}/${name}'","target_branch":"'${base}'","private_token":"'${token}'","title":"Merge branch '${type}/${name}' into '${base}'"}' "${config.gitHost}/api/v4/projects/${config.gitID}/merge_requests"`,
                           config: { slient: false, again: true, success: '成功创建合并请求', fail: '创建合并请求出错了，请根据提示处理' }

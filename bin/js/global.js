@@ -29,7 +29,10 @@ const defaults = {
     msgTemplate: '${message}；项目：${project}；路径：${pwd}',
     msgUrl: '',
     apolloConfig: '',
-    hooks: ''
+    hooks: '',
+    api: '',
+    gitHost: '',
+    gitID: ''
 }
 
 module.exports = { hookList, defaults }
