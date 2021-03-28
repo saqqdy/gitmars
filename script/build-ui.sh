@@ -13,4 +13,4 @@ cd -
 
 mkdir -p server/webapp
 rm -rf server/webapp/*
-mv -rf ui/dist/* server/webapp/
+mv ui/dist/* server/webapp/

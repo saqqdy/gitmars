@@ -48,10 +48,10 @@ export default {
 	},
 	setup(props, { slots, emit, attrs }) {
 		const { ctx: ctx } = getCurrentInstance()
-		const {
-			// $router: { getRoutes },
-			$root: { $http, saqqdy }
-		} = ctx
+		// const {
+		// 	// $router: { getRoutes },
+		// 	$root: { $http, saqqdy }
+		// } = ctx
 		const { dispatch } = emitter(ctx)
 		const collapse = inject('collapse')
 		const contentWrapStyle = reactive({
