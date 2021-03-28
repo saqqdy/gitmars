@@ -26,8 +26,8 @@ export default {
 				}
 			}
 		} = getCurrentInstance()
-		const $router = useRouter()
-		const $route = useRoute()
+		const router = useRouter()
+		const route = useRoute()
 		const form = reactive({
 			path: '/Users/saqqdy/www/saqqdy/lost-ui'
 		})
@@ -80,7 +80,7 @@ export default {
 						showMax: false,
 						showBtn: false
 					})
-					$router.push('/project/list')
+					router.push('/project/list')
 				})
 		}
 		return {
