@@ -379,7 +379,8 @@ const searchBranch = async (key, type, remote = false) => {
  * @returns {Array} 返回列表数组
  */
 const searchBranchs = (opt = {}) => {
-    const { path = pwd, key = null, type = null, remote = false } = opt
+    let { path, key, type, remote = false } = opt
+    if (!path) path = sh.pwd().stdout
     const data = sh.exec(`git ls-remote${remote ? ' --refs' : ' --heads'} --quiet --sort="version:refname" ${path}`, { silent: true }).stdout.replace(/\n*$/g, '')
     let arr = data ? data.split('\n') : [],
         map = {

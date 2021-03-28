@@ -31,8 +31,8 @@ export default {
 				}
 			}
 		} = getCurrentInstance()
-		const $router = useRouter()
-		const $route = useRoute()
+		const router = useRouter()
+		const route = useRoute()
 		const data = reactive({
 			list: []
 		})
@@ -53,7 +53,7 @@ export default {
 			//
 		}
 		const goProject = ({ id }) => {
-			$router.push(`/control?id=${id}`)
+			router.push(`/control?id=${id}`)
 		}
 		// del
 		const del = ({ id }) => {

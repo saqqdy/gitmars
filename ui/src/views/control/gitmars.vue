@@ -151,8 +151,8 @@ export default {
 				}
 			}
 		} = getCurrentInstance()
-		const $router = useRouter()
-		const $route = useRoute()
+		const router = useRouter()
+		const route = useRoute()
 		const xterm = ref(null)
 		const project = ref(null)
 		const terminal = ref(null)
@@ -215,7 +215,7 @@ export default {
 				await $axios({
 					url: '/common/project/list',
 					data: {
-						id: $route.query.id
+						id: route.query.id
 					}
 				})
 			).data
@@ -290,7 +290,7 @@ export default {
 			commandValue,
 			activeNames,
 			ready,
-			$route,
+			route,
 			project,
 			branchList,
 			current,
