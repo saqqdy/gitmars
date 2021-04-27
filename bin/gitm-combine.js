@@ -26,7 +26,7 @@ options.forEach(o => {
 program.action(async (type, name, opt) => {
     const allow = ['bugfix', 'feature', 'support'] // 允许执行的指令
     const deny = [defaults.master, defaults.develop, defaults.release, defaults.bugfix, defaults.support]
-    const { token, level = 3 } = config.api ? getUserToken() : {}
+    const { token, level } = config.api ? getUserToken() : {}
     let status = !opt.add && opt.commit === '' ? getStatus() : true
     if (!opt.dev && !opt.prod) {
         sh.echo('请输入需要同步到的环境')
@@ -92,11 +92,12 @@ program.action(async (type, name, opt) => {
             }
         }
         if (opt.prod) {
+            console.log(level, type, name, base, token, config.gitHost)
             // 同步到prod环境
             if (!opt.noBugfix && !opt.asFeature) {
                 // 传入noBugfix不合bug,
                 cmd = cmd.concat(
-                    level < 3
+                    !level || level < 3
                         ? [
                               `git fetch`,
                               `git checkout ${base}`,
@@ -127,7 +128,7 @@ program.action(async (type, name, opt) => {
             // bugfix分支走release发布
             if (type === 'bugfix' && opt.asFeature) {
                 cmd = cmd.concat(
-                    level < 3
+                    !level || level < 3
                         ? [
                               `git fetch`,
                               `git checkout ${config.release}`,
@@ -157,7 +158,7 @@ program.action(async (type, name, opt) => {
             // support分支需要合到bugfix
             if (type === 'support' && opt.bugfix) {
                 cmd = cmd.concat(
-                    level < 3
+                    !level || level < 3
                         ? [
                               `git fetch`,
                               `git checkout ${config.bugfix}`,

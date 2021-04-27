@@ -17,7 +17,7 @@ options.forEach(o => {
 program.action(async (type, name, opt) => {
     const allow = ['bugfix', 'feature', 'support'] // 允许执行的指令
     const deny = [defaults.master, defaults.develop, defaults.release, defaults.bugfix, defaults.support]
-    const { token, level = 3 } = config.api ? getUserToken() : {}
+    const { token, level } = config.api ? getUserToken() : {}
     let status = getStatus()
     if (!status) sh.exit(1)
     if (!type) {
@@ -60,7 +60,7 @@ program.action(async (type, name, opt) => {
         // support分支需要合到bugfix
         if (type === 'support') {
             cmd = cmd.concat(
-                level < 3
+                !level || level < 3
                     ? [
                           `git fetch`,
                           `git checkout ${config.bugfix}`,
@@ -88,7 +88,7 @@ program.action(async (type, name, opt) => {
             )
         }
         cmd = cmd.concat(
-            level < 3
+            !level || level < 3
                 ? [
                       `git fetch`,
                       `git checkout ${base}`,
