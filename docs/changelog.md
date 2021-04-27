@@ -1,3 +1,6 @@
+# 2021.04.27 v2.0.3更新日志
+1. 新增admin指令自动创建merge请求,优化判断逻辑
+
 # 2021.03.27 v2.0.2更新日志
 1. 新增gitm ui指令，启动UI界面
 2. 新增无git权限自动调起合并请求的功能，需要配置api、gitHost、gitID，具体配置查阅：[Gitmars基本配置](https://docs.saqqdy.com/gitmars/guide/basic-config.html)

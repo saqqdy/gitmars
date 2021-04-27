@@ -12,7 +12,7 @@ console.log(App, vvv, process.env.NODE_ENV)
 console.log(components)
 
 const app = createApp(App)
-app.config.isCustomElement = tag => tag.startsWith('ion-') || tag.startsWith('v3-')
+// app.config.isCustomElement = tag => tag.startsWith('ion-') || tag.startsWith('v3-')
 // 开启debug模式
 app.config.debug = isDev
 app.config.devtools = isDev

@@ -2,9 +2,11 @@
 const program = require('commander')
 const sh = require('shelljs')
 const { create, publish, update, clean } = require('./conf/admin')
+const { getUserToken } = require('./js/api')
 const { error, success, queue, getStatus, checkBranch, getCurrent, createArgs } = require('./js/index')
 const { appName } = require('./js/getGitConfig')()
 const config = require('./js/getConfig')()
+const { token, level } = config.api ? getUserToken() : {}
 /**
  * gitm admin create
  * gitm admin publish
@@ -78,77 +80,112 @@ if (publish.args.length > 0) {
              * develop -> null
              * support -> bugfix/release
              */
-            let cmd = {
-                bugfix: [
-                    `git fetch`,
-                    `git checkout ${config.bugfix}`,
-                    `git pull`,
-                    `git checkout ${config.release}`,
-                    `git pull`,
-                    {
-                        cmd: `git merge --no-ff ${config.bugfix}`,
-                        config: { slient: false, again: false, postmsg: opt.postmsg, success: `${config.bugfix}合并到${config.release}成功`, fail: `${config.bugfix}合并到${config.release}出错了，请根据提示处理` }
-                    },
-                    {
-                        cmd: `git push`,
-                        config: { slient: false, again: true, success: '推送成功', fail: '推送失败，请根据提示处理' }
-                    }
-                ],
-                support: [
-                    `git fetch`,
-                    `git checkout ${config.support}`,
-                    `git pull`,
-                    `git checkout ${config.release}`,
-                    `git pull`,
-                    {
-                        cmd: `git merge --no-ff ${config.support}`,
-                        config: { slient: false, again: false, success: `${config.support}合并到${config.release}成功`, fail: `${config.support}合并到${config.release}出错了，请根据提示处理` }
-                    },
-                    {
-                        cmd: `git push`,
-                        config: { slient: false, again: true, success: '推送成功', fail: '推送失败，请根据提示处理' }
-                    },
-                    `git checkout ${config.bugfix}`,
-                    `git pull`,
-                    {
-                        cmd: `git merge --no-ff ${config.support}`,
-                        config: { slient: false, again: false, success: `${config.support}合并到${config.bugfix}成功`, fail: `${config.support}合并到${config.bugfix}出错了，请根据提示处理` }
-                    },
-                    {
-                        cmd: `git push`,
-                        config: { slient: false, again: true, success: '推送成功', fail: '推送失败，请根据提示处理' }
-                    }
-                ],
-                release: [
-                    `git fetch`,
-                    `git checkout ${config.release}`,
-                    `git pull`,
-                    `git checkout ${config.master}`,
-                    `git pull`,
-                    {
-                        cmd: `git merge --no-ff ${config.release}`,
-                        config: { slient: false, again: false, success: `${config.release}合并到${config.master}成功`, fail: `${config.release}合并到${config.master}出错了，请根据提示处理` }
-                    },
-                    {
-                        cmd: `git push`,
-                        config: { slient: false, again: true, success: '推送成功', fail: '推送失败，请根据提示处理' }
-                    }
-                ]
-            }
+            let cmd =
+                !level || level < 3
+                    ? {
+                          bugfix: [
+                              `git fetch`,
+                              `git checkout ${config.bugfix}`,
+                              `git pull`,
+                              `git checkout ${config.release}`,
+                              `git pull`,
+                              {
+                                  cmd: `git merge --no-ff ${config.bugfix}`,
+                                  config: { slient: false, again: false, postmsg: opt.postmsg, success: `${config.bugfix}合并到${config.release}成功`, fail: `${config.bugfix}合并到${config.release}出错了，请根据提示处理` }
+                              },
+                              {
+                                  cmd: `git push`,
+                                  config: { slient: false, again: true, success: '推送成功', fail: '推送失败，请根据提示处理' }
+                              }
+                          ],
+                          support: [
+                              `git fetch`,
+                              `git checkout ${config.support}`,
+                              `git pull`,
+                              `git checkout ${config.release}`,
+                              `git pull`,
+                              {
+                                  cmd: `git merge --no-ff ${config.support}`,
+                                  config: { slient: false, again: false, success: `${config.support}合并到${config.release}成功`, fail: `${config.support}合并到${config.release}出错了，请根据提示处理` }
+                              },
+                              {
+                                  cmd: `git push`,
+                                  config: { slient: false, again: true, success: '推送成功', fail: '推送失败，请根据提示处理' }
+                              },
+                              `git checkout ${config.bugfix}`,
+                              `git pull`,
+                              {
+                                  cmd: `git merge --no-ff ${config.support}`,
+                                  config: { slient: false, again: false, success: `${config.support}合并到${config.bugfix}成功`, fail: `${config.support}合并到${config.bugfix}出错了，请根据提示处理` }
+                              },
+                              {
+                                  cmd: `git push`,
+                                  config: { slient: false, again: true, success: '推送成功', fail: '推送失败，请根据提示处理' }
+                              }
+                          ],
+                          release: [
+                              `git fetch`,
+                              `git checkout ${config.release}`,
+                              `git pull`,
+                              `git checkout ${config.master}`,
+                              `git pull`,
+                              {
+                                  cmd: `git merge --no-ff ${config.release}`,
+                                  config: { slient: false, again: false, success: `${config.release}合并到${config.master}成功`, fail: `${config.release}合并到${config.master}出错了，请根据提示处理` }
+                              },
+                              {
+                                  cmd: `git push`,
+                                  config: { slient: false, again: true, success: '推送成功', fail: '推送失败，请根据提示处理' }
+                              }
+                          ]
+                      }
+                    : {
+                          bugfix: [
+                              {
+                                  cmd: `curl -i -H "Content-Type: application/json" -X POST -d '{"source_branch":"'${config.bugfix}'","target_branch":"'${config.release}'","private_token":"'${token}'","title":"Merge branch '${config.bugfix}' into '${config.release}'"}' "${config.gitHost}/api/v4/projects/${config.gitID}/merge_requests"`,
+                                  config: { slient: false, again: true, success: '成功创建合并请求', fail: '创建合并请求出错了，请根据提示处理' }
+                              }
+                          ],
+                          support: [
+                              {
+                                  cmd: `curl -i -H "Content-Type: application/json" -X POST -d '{"source_branch":"'${config.support}'","target_branch":"'${config.release}'","private_token":"'${token}'","title":"Merge branch '${config.support}' into '${config.release}'"}' "${config.gitHost}/api/v4/projects/${config.gitID}/merge_requests"`,
+                                  config: { slient: false, again: true, success: '成功创建合并请求', fail: '创建合并请求出错了，请根据提示处理' }
+                              },
+                              {
+                                  cmd: `curl -i -H "Content-Type: application/json" -X POST -d '{"source_branch":"'${config.support}'","target_branch":"'${config.bugfix}'","private_token":"'${token}'","title":"Merge branch '${config.support}' into '${config.bugfix}'"}' "${config.gitHost}/api/v4/projects/${config.gitID}/merge_requests"`,
+                                  config: { slient: false, again: true, success: '成功创建合并请求', fail: '创建合并请求出错了，请根据提示处理' }
+                              }
+                          ],
+                          release: [
+                              {
+                                  cmd: `curl -i -H "Content-Type: application/json" -X POST -d '{"source_branch":"'${config.release}'","target_branch":"'${config.master}'","private_token":"'${token}'","title":"Merge branch '${config.release}' into '${config.master}'"}' "${config.gitHost}/api/v4/projects/${config.gitID}/merge_requests"`,
+                                  config: { slient: false, again: true, success: '成功创建合并请求', fail: '创建合并请求出错了，请根据提示处理' }
+                              }
+                          ]
+                      }
             // 发布bug分支且同步到master
             if (type === 'bugfix' && opt.prod) {
-                cmd[type] = cmd[type].concat([
-                    `git checkout ${config.master}`,
-                    `git pull`,
-                    {
-                        cmd: `git merge --no-ff ${config.bugfix}`,
-                        config: { slient: false, again: false, success: `${config.bugfix}合并到${config.master}成功`, fail: `${config.bugfix}合并到${config.master}出错了，请根据提示处理` }
-                    },
-                    {
-                        cmd: `git push`,
-                        config: { slient: false, again: true, success: '推送成功', fail: '推送失败，请根据提示处理' }
-                    }
-                ])
+                cmd[type] = cmd[type].concat(
+                    !level || level < 3
+                        ? [
+                              `git checkout ${config.master}`,
+                              `git pull`,
+                              {
+                                  cmd: `git merge --no-ff ${config.bugfix}`,
+                                  config: { slient: false, again: false, success: `${config.bugfix}合并到${config.master}成功`, fail: `${config.bugfix}合并到${config.master}出错了，请根据提示处理` }
+                              },
+                              {
+                                  cmd: `git push`,
+                                  config: { slient: false, again: true, success: '推送成功', fail: '推送失败，请根据提示处理' }
+                              }
+                          ]
+                        : [
+                              {
+                                  cmd: `curl -i -H "Content-Type: application/json" -X POST -d '{"source_branch":"'${config.bugfix}'","target_branch":"'${config.master}'","private_token":"'${token}'","title":"Merge branch '${config.bugfix}' into '${config.master}'"}' "${config.gitHost}/api/v4/projects/${config.gitID}/merge_requests"`,
+                                  config: { slient: false, again: true, success: '成功创建合并请求', fail: '创建合并请求出错了，请根据提示处理' }
+                              }
+                          ]
+                )
                 if (opt.build) {
                     cmd[type] = cmd[type].concat([
                         {
@@ -189,20 +226,29 @@ if (publish.args.length > 0) {
                         }
                     ])
                 } else {
-                    cmd[type] = cmd[type].concat([
-                        `git checkout ${config.release}`,
-                        `git pull`,
-                        `git checkout ${config.bugfix}`,
-                        `git pull`,
-                        {
-                            cmd: `git merge --no-ff ${config.release}`,
-                            config: { slient: false, again: false, postmsg: opt.postmsg, success: `${config.release}合并到${config.bugfix}成功`, fail: `${config.release}合并到${config.bugfix}出错了，请根据提示处理` }
-                        },
-                        {
-                            cmd: `git push`,
-                            config: { slient: false, again: true, success: '推送成功', fail: '推送失败，请根据提示处理' }
-                        }
-                    ])
+                    cmd[type] = cmd[type].concat(
+                        !level || level < 3
+                            ? [
+                                  `git checkout ${config.release}`,
+                                  `git pull`,
+                                  `git checkout ${config.bugfix}`,
+                                  `git pull`,
+                                  {
+                                      cmd: `git merge --no-ff ${config.release}`,
+                                      config: { slient: false, again: false, postmsg: opt.postmsg, success: `${config.release}合并到${config.bugfix}成功`, fail: `${config.release}合并到${config.bugfix}出错了，请根据提示处理` }
+                                  },
+                                  {
+                                      cmd: `git push`,
+                                      config: { slient: false, again: true, success: '推送成功', fail: '推送失败，请根据提示处理' }
+                                  }
+                              ]
+                            : [
+                                  {
+                                      cmd: `curl -i -H "Content-Type: application/json" -X POST -d '{"source_branch":"'${config.release}'","target_branch":"'${config.bugfix}'","private_token":"'${token}'","title":"Merge branch '${config.release}' into '${config.bugfix}'"}' "${config.gitHost}/api/v4/projects/${config.gitID}/merge_requests"`,
+                                      config: { slient: false, again: true, success: '成功创建合并请求', fail: '创建合并请求出错了，请根据提示处理' }
+                                  }
+                              ]
+                    )
                 }
             }
             // 回到当前分支
@@ -242,24 +288,32 @@ if (update.args.length > 0) {
             mode = ' --strategy-option theirs'
         }
         if (opts.includes(type)) {
-            let cmd = [
-                `git fetch`,
-                `git checkout ${base}`,
-                `git pull`,
-                `git checkout ${config[type]}`,
-                {
-                    cmd: `git pull`,
-                    config: { slient: false, again: true }
-                },
-                {
-                    cmd: `git merge --no-ff ${base}${mode}`,
-                    config: { slient: false, again: false, postmsg: opt.postmsg, success: `${base}同步到${config[type]}成功`, fail: `${base}同步到${config[type]}出错了，请根据提示处理` }
-                },
-                {
-                    cmd: `git push`,
-                    config: { slient: false, again: true, success: '推送成功', fail: '推送失败，请根据提示处理' }
-                }
-            ]
+            let cmd =
+                !level || level < 3
+                    ? [
+                          `git fetch`,
+                          `git checkout ${base}`,
+                          `git pull`,
+                          `git checkout ${config[type]}`,
+                          {
+                              cmd: `git pull`,
+                              config: { slient: false, again: true }
+                          },
+                          {
+                              cmd: `git merge --no-ff ${base}${mode}`,
+                              config: { slient: false, again: false, postmsg: opt.postmsg, success: `${base}同步到${config[type]}成功`, fail: `${base}同步到${config[type]}出错了，请根据提示处理` }
+                          },
+                          {
+                              cmd: `git push`,
+                              config: { slient: false, again: true, success: '推送成功', fail: '推送失败，请根据提示处理' }
+                          }
+                      ]
+                    : [
+                          {
+                              cmd: `curl -i -H "Content-Type: application/json" -X POST -d '{"source_branch":"'${base}'","target_branch":"'${config[type]}'","private_token":"'${token}'","title":"Merge branch '${base}' into '${config[type]}'"}' "${config.gitHost}/api/v4/projects/${config.gitID}/merge_requests"`,
+                              config: { slient: false, again: true, success: '成功创建合并请求', fail: '创建合并请求出错了，请根据提示处理' }
+                          }
+                      ]
             if (opt.useRebase) {
                 cmd = [
                     `git fetch`,

@@ -20,9 +20,9 @@ import { useRoute, useRouter } from 'vue-router'
 export default {
 	name: 'project',
 	setup() {
-		const $router = useRouter()
-		const $route = useRoute()
-		if ($route.name === 'project') $router.replace('/project/list')
+		const router = useRouter()
+		const route = useRoute()
+		if (route.name === 'project') router.replace('/project/list')
 		return {}
 	}
 }

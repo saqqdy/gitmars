@@ -17,7 +17,7 @@
 		"axios": "^0.21.1",
 		"core-js": "^3.9.1",
 		"qs": "^6.10.1",
-		"socket.io-client": "^4.0.0",
+		"socket.io-client": "^2.4.0",
 		"uuid": "^8.3.2",
 		"vue": "^3.0.7",
 		"vue-router": "^4.0.5",

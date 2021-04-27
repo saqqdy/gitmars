@@ -1,13 +1,14 @@
 {
     "name": "gitmars",
     "description": "一个高度定制化的git工作流工具",
-    "version": "2.0.2",
+    "version": "2.0.3",
     "scripts": {
         "docs:dev": "vuepress dev docs",
         "docs:build": "vuepress build docs",
         "docs:deploy": "GH=1 sh script/deploy-docs.sh",
         "lib": "sh build/lib.sh",
         "build:docs": "sh script/docs.sh",
+        "build:ui": "sh script/build-ui.sh",
         "eslint": "eslint --fix --ext .vue,.js",
         "prettier": "prettier --write \"**/*.{js,ts,vue,json,md}\""
     },
@@ -21,7 +22,7 @@
         "commander": "7.2.0",
         "core-js": "^3.9.1",
         "cosmiconfig": "^7.0.0",
-        "inquirer": "^7.3.3",
+        "inquirer": "^8.0.0",
         "js-cool": "^1.0.9",
         "node-apollo": "^1.2.1",
         "ora": "5.4.0",
@@ -33,7 +34,7 @@
     },
     "devDependencies": {
         "@babel/cli": "7.13.10",
-        "@babel/core": "7.13.10",
+        "@babel/core": "7.13.13",
         "@babel/eslint-parser": "^7.13.10",
         "@babel/preset-env": "7.13.12",
         "@saqqdy/prettier-config": "^1.0.3",
@@ -41,7 +42,7 @@
         "@vssue/vuepress-plugin-vssue": "^1.4.7",
         "@vuepress/plugin-back-to-top": "^1.8.2",
         "@vuepress/plugin-medium-zoom": "^1.8.2",
-        "eslint": "7.22.0",
+        "eslint": "7.23.0",
         "eslint-config-sets": "^1.2.0",
         "eslint-plugin-jsdoc": "^32.3.0",
         "highlight.js": "^10.7.1",
