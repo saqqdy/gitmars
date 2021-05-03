@@ -10,10 +10,34 @@
                     required: true,
                     name: 'type',
                     variadic: false,
+                    validator: (val, opts, cb) => {
+                        if (/\s+/.test(val)) {
+                            cb(new Error('请不要输入空格'))
+                            return
+                        }
+                        cb()
+                    },
+                    transformer: null,
                     description: '分支类型'
                 }
             ],
-            options: []
+            options: [],
+            // 校验传值
+            validatorOpts: (val, opts, cb) => {
+                cb()
+            },
+            // 校验参数
+            validatorArgs: (val, opts, cb) => {
+                cb()
+            },
+            // 清洗传值
+            transformOpts: (val, opts, cb) => {
+                cb()
+            },
+            // 清洗参数
+            transformArgs: (val, opts, cb) => {
+                cb()
+            }
         },
         publish: {
             command: 'publish',
@@ -23,6 +47,14 @@
                     required: true,
                     name: 'type',
                     variadic: false,
+                    validator: (val, opts, cb) => {
+                        if (/\s+/.test(val)) {
+                            cb(new Error('请不要输入空格'))
+                            return
+                        }
+                        cb()
+                    },
+                    transformer: null,
                     description: '分支类型'
                 }
             ],
@@ -89,12 +121,47 @@
                     defaultValue: false,
                     recommend: false
                 }
-            ]
+            ],
+            // 校验传值
+            validatorOpts: (val, opts, cb) => {
+                if (val.includes('--combine') && val.includes('--prod')) {
+                    cb(new Error('不能同时选择“把release合并到bug”和“合并bug到master”'))
+                    return
+                }
+                cb()
+            },
+            // 校验参数
+            validatorArgs: (val, opts, cb) => {
+                cb()
+            },
+            // 清洗传值
+            transformOpts: (val, opts, cb) => {
+                cb()
+            },
+            // 清洗参数
+            transformArgs: (val, opts, cb) => {
+                cb()
+            }
         },
         update: {
             command: 'update',
             short: null,
-            args: [{ required: true, name: 'type', variadic: false, description: '分支类型' }],
+            args: [
+                {
+                    required: true,
+                    name: 'type',
+                    variadic: false,
+                    validator: (val, opts, cb) => {
+                        if (/\s+/.test(val)) {
+                            cb(new Error('请不要输入空格'))
+                            return
+                        }
+                        cb()
+                    },
+                    transformer: null,
+                    description: '分支类型'
+                }
+            ],
             options: [
                 {
                     flags: '--use-rebase',
@@ -133,7 +200,23 @@
                     defaultValue: false,
                     recommend: false
                 }
-            ]
+            ],
+            // 校验传值
+            validatorOpts: (val, opts, cb) => {
+                cb()
+            },
+            // 校验参数
+            validatorArgs: (val, opts, cb) => {
+                cb()
+            },
+            // 清洗传值
+            transformOpts: (val, opts, cb) => {
+                cb()
+            },
+            // 清洗参数
+            transformArgs: (val, opts, cb) => {
+                cb()
+            }
         },
         clean: {
             command: 'clean',
@@ -143,10 +226,34 @@
                     required: true,
                     name: 'type',
                     variadic: false,
+                    validator: (val, opts, cb) => {
+                        if (/\s+/.test(val)) {
+                            cb(new Error('请不要输入空格'))
+                            return
+                        }
+                        cb()
+                    },
+                    transformer: null,
                     description: '分支类型'
                 }
             ],
-            options: []
+            options: [],
+            // 校验传值
+            validatorOpts: (val, opts, cb) => {
+                cb()
+            },
+            // 校验参数
+            validatorArgs: (val, opts, cb) => {
+                cb()
+            },
+            // 清洗传值
+            transformOpts: (val, opts, cb) => {
+                cb()
+            },
+            // 清洗参数
+            transformArgs: (val, opts, cb) => {
+                cb()
+            }
         }
     }
 

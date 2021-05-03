@@ -39,7 +39,9 @@ const createPrompt = (command, { options, validator, transform }, type) => {
         return prompt
     } else if (type === 'input') {
         let list = []
-        options.forEach(({ validator, transformer, ...opts }) => {
+        options.forEach(({ validator: childValidator, transformer, ...opts }) => {
+            // 优先使用每个参数设置的校验
+            if (childValidator) validator = childValidator
             let cfg = {
                 type: 'input',
                 name: opts.name,
