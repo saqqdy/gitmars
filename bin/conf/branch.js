@@ -75,7 +75,31 @@
                 negate: false,
                 description: '设置与远程分支关联'
             }
-        ]
+        ],
+        // 校验传值
+        validatorOpts: (val, opts, cb) => {
+            if (val.includes('--upstream') && (val.includes('--key') || val.includes('--remote') || val.includes('--type') || val.includes('--delete') || val.includes('--forcedelete'))) {
+                cb(new Error('使用绑定/取消绑定远程分支功能时，不能与其他功能混用'))
+                return
+            }
+            if ((val.includes('--delete') || val.includes('--forcedelete')) && (val.includes('--key') || val.includes('--remote') || val.includes('--type'))) {
+                cb(new Error('使用删除分支功能时，不能与查询分支功能混用'))
+                return
+            }
+            cb()
+        },
+        // 校验参数
+        validatorArgs: (val, opts, cb) => {
+            cb()
+        },
+        // 清洗传值
+        transformOpts: (val, opts, cb) => {
+            cb()
+        },
+        // 清洗参数
+        transformArgs: (val, opts, cb) => {
+            cb()
+        }
     }
 
     /* istanbul ignore next */

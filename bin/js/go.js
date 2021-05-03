@@ -6,8 +6,13 @@ const cleanConfig = require('./go/cleanConfig')
 const combineConfig = require('../conf/combine')
 const endConfig = require('../conf/end')
 const updateConfig = require('../conf/update')
+const branchConfig = require('../conf/branch')
 const buildConfig = require('../conf/build')
 const startConfig = require('../conf/start')
+const copyConfig = require('../conf/copy')
+const getConfig = require('../conf/get')
+const saveConfig = require('../conf/save')
+const revertConfig = require('../conf/revert')
 const { create: adminCreateConfig, publish: adminPublishConfig, update: adminUpdateConfig, clean: adminCleanConfig } = require('../conf/admin')
 
 const current = getCurrent()
@@ -82,8 +87,9 @@ exports.update = async () => {
 
 // branch分支操作指令
 exports.branch = async () => {
-    console.log('即将支持，敬请期待！')
-    sh.exec('gitm -v')
+    const config = cleanConfig(branchConfig)
+    const command = 'gitm branch ' + (await getCommand(config))
+    sh.exec(command)
 }
 
 // 构建指令
@@ -95,36 +101,52 @@ exports.build = async () => {
 
 // 复制、cherry-pick
 exports.copy = async () => {
-    console.log('即将支持，敬请期待！')
-    sh.exec('gitm -v')
+    const config = cleanConfig(copyConfig)
+    const command = 'gitm copy ' + (await getCommand(config))
+    sh.exec(command)
 }
 
 // 从暂存区取出
 exports.get = async () => {
-    console.log('即将支持，敬请期待！')
-    sh.exec('gitm -v')
+    const config = cleanConfig(getConfig)
+    const command = 'gitm get ' + (await getCommand(config))
+    sh.exec(command)
 }
 
 // 存入暂存区
 exports.save = async () => {
-    console.log('即将支持，敬请期待！')
-    sh.exec('gitm -v')
+    const config = cleanConfig(saveConfig)
+    const command = 'gitm save ' + (await getCommand(config))
+    sh.exec(command)
 }
 
 // revert撤回
 exports.revert = async () => {
-    console.log('即将支持，敬请期待！')
-    sh.exec('gitm -v')
+    const config = cleanConfig(revertConfig)
+    const command = 'gitm revert ' + (await getCommand(config))
+    sh.exec(command)
 }
 
 // 管理员操作
 exports.admin = {
-    create: async () => {},
+    create: async () => {
+        const config = cleanConfig(adminCreateConfig)
+        const command = 'gitm admin create ' + (await getCommand(config))
+        sh.exec(command)
+    },
     publish: async () => {
         const config = cleanConfig(adminPublishConfig)
         const command = 'gitm admin publish ' + (await getCommand(config))
         sh.exec(command)
     },
-    update: async () => {},
-    clean: async () => {}
+    update: async () => {
+        const config = cleanConfig(adminUpdateConfig)
+        const command = 'gitm admin update ' + (await getCommand(config))
+        sh.exec(command)
+    },
+    clean: async () => {
+        const config = cleanConfig(adminCleanConfig)
+        const command = 'gitm admin clean ' + (await getCommand(config))
+        sh.exec(command)
+    }
 }

@@ -1,3 +1,8 @@
+# 2021.05.03 v2.1.0 更新日志
+
+1. go指令新增支持 admin.create/admin.update/admin.clean/branch/get/save/copy/revert 这些指令
+2. 参数验证优先使用子选项的配置
+
 # 2021.04.27 v2.0.3更新日志
 1. 新增admin指令自动创建merge请求,优化判断逻辑
 

@@ -41,6 +41,9 @@ program.action(async (command, opt) => {
                 'build',
                 'start',
                 'admin.publish',
+                'admin.update',
+                'admin.create',
+                'admin.clean',
                 new inquirer.Separator(' === 2. 高级工具 === '),
                 'branch',
                 'copy',
@@ -74,6 +77,12 @@ program.action(async (command, opt) => {
                 start()
             } else if (answers.command === 'admin.publish') {
                 admin.publish()
+            } else if (answers.command === 'admin.update') {
+                admin.update()
+            } else if (answers.command === 'admin.create') {
+                admin.create()
+            } else if (answers.command === 'admin.clean') {
+                admin.clean()
             } else if (answers.command === 'branch') {
                 branch()
             } else if (answers.command === 'copy') {
