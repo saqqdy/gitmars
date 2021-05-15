@@ -82,7 +82,6 @@ export default {
 					path: `${project.value.path}/package.json`
 				}
 			})
-			console.log(scripts)
 			return scripts
 		}
 		// 执行指令

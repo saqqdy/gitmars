@@ -1,31 +1,13 @@
 ---
-title: guide
+sidebar: null
 ---
 
-# h1
+## gitm ui <Badge text="beta" type="warning"/>
 
-## h2
+如果你厌倦了敲指令，gitmars提供了懒人UI界面
 
-### h3
+-   使用：`gitm ui`
+-   演示：
 
-### Badge <Badge text="beta" type="warning"/> <Badge text="默认主题"/>
-
-<span v-for="i in 3">{{ i }} </span>
-
-{{$page.frontmatter.title}}
-
-::: tip
-这是一个提示
-:::
-
-::: warning
-这是一个警告
-:::
-
-::: danger
-这是一个危险警告
-:::
-
-::: details
-这是一个详情块，在 IE / Edge 中不生效
-:::
+![gitmars-go.gif](https://gitee.com/saqqdy/gitmars/raw/master/lib/img/gitmars-ui.gif)
+s

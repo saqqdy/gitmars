@@ -3,7 +3,7 @@ var express = require('express'),
 const path = require('path')
 const sh = require('shelljs')
 const db = require('../db/index')
-const { v4: uuidv4 } = require('../node_modules/uuid')
+const { v4: uuidv4 } = require('uuid')
 
 // 开启跨域访问
 router.all('*', (req, res, next) => {

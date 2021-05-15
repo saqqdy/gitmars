@@ -85,11 +85,10 @@ export default {
 	name: 'v3CollapseTransition',
 	functional: true,
 	setup() {
-		const { ctx: ctx } = getCurrentInstance()
+		const { proxy } = getCurrentInstance()
 		const data = reactive({
 			on: new Transition()
 		})
-		console.log(ctx.$children)
-		return () => h('transition', data, ctx.$children)
+		return () => h('transition', data, proxy.$children)
 	}
 }

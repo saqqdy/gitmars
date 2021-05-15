@@ -92,7 +92,6 @@ program.action(async (type, name, opt) => {
             }
         }
         if (opt.prod) {
-            console.log(level, type, name, base, token, config.gitHost)
             // 同步到prod环境
             if (!opt.noBugfix && !opt.asFeature) {
                 // 传入noBugfix不合bug,

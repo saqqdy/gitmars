@@ -62,7 +62,7 @@ export default {
 					terms[id].term.write(arrayBuffer)
 				})
 				socket.on(terms[id].name + '-pid', pid => {
-					console.log(pid)
+					console.info('pid: ', pid)
 					terms[id].pid = pid
 				})
 				socket.emit('create', { name: terms[id].name, cwd })

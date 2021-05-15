@@ -47,13 +47,13 @@ export default {
 		disabled: Boolean
 	},
 	setup(props, { slots, emit, attrs }) {
-		const { ctx: ctx } = getCurrentInstance()
+		const { proxy,  appContext } = getCurrentInstance()
 		// const {
 		// 	// $router: { getRoutes },
 		// 	$root: { $http, saqqdy }
-		// } = ctx
-		const { dispatch } = emitter(ctx)
-		const collapse = inject('collapse')
+		// } = proxy
+		const { dispatch } = emitter(proxy)
+		const { activeNames, handleItemClick } = inject('collapse')
 		const contentWrapStyle = reactive({
 			height: 'auto',
 			display: 'block'
@@ -62,7 +62,7 @@ export default {
 		const focusing = ref(false)
 		const isClick = ref(false)
 		const id = ref(Math.floor(Math.random() * 10000))
-		const isActive = computed(() => collapse.activeNames.indexOf(props.name) > -1)
+		const isActive = computed(() => activeNames.value.indexOf(props.name) > -1)
 
 		const handleFocus = () => {
 			setTimeout(() => {
@@ -75,17 +75,17 @@ export default {
 		}
 		const handleHeaderClick = () => {
 			if (props.disabled) return
-			dispatch('v3Collapse', 'item-click', ctx)
-			collapse.handleItemClick && collapse.handleItemClick(ctx)
-			// emit('item-click', ctx)
+			dispatch('v3Collapse', 'item-click', proxy)
+			handleItemClick && handleItemClick(proxy)
+			// emit('item-click', proxy)
 			focusing.value = false
 			isClick.value = true
 		}
 		const handleEnterClick = () => {
-			dispatch('v3Collapse', 'item-click', ctx)
+			dispatch('v3Collapse', 'item-click', proxy)
 		}
 
-		// console.log(attrs, slots, ctx, saqqdy, $http())
+		// console.log(attrs, slots, proxy, saqqdy, $http())
 		return {
 			contentWrapStyle,
 			contentHeight,

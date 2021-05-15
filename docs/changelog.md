@@ -1,3 +1,9 @@
+# 2021.05.15 v2.2.0 更新日志
+
+1. gitmars UI界面启动方式优化
+2. 依赖包升级
+3. 修复一些BUG
+
 # 2021.05.03 v2.1.0 更新日志
 
 1. go指令新增支持 admin.create/admin.update/admin.clean/branch/get/save/copy/revert 这些指令

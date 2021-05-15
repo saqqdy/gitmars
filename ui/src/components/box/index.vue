@@ -112,7 +112,7 @@ export default {
 	},
 	setup(props, { slots, emit, attrs }) {
 		const $delay = new delay()
-		const { ctx } = getCurrentInstance()
+		// const { ctx } = getCurrentInstance()
 		const data = reactive({
 			zIndex: 0,
 			instance: null,
