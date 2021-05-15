@@ -30,7 +30,6 @@ program.action(opt => {
     // sh.exec(`pm2 start yarn --name server -- run start`)
     // process.chdir(gitmDir + '/ui')
     // sh.exec(`pm2 start yarn --name ui -- run serve`, { silent: true })
-    sh.exec(`pwd`)
     process.chdir(path.join(__dirname, '../server'))
     // sh.exec(`cd server && yarn install`)
     // sh.exec(`pm2 start yarn --name server -- run start`)
