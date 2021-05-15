@@ -15,7 +15,6 @@ options.forEach(o => {
     program.option(o.flags, o.description, o.defaultValue)
 })
 program.action(opt => {
-    console.log(2323232)
     // console.log(process.cwd(), path.join(__dirname, '../ui'), path.join(process.execPath, '../../lib/node_modules/gitmars'))
     // let data = sh.exec(`ls -l ${sh.which('gitm').stdout}`, { silent: true }).stdout,
     // 	gitmDir,

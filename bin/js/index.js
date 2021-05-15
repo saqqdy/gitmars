@@ -1,9 +1,9 @@
 const fs = require('fs')
 const sh = require('shelljs')
 const colors = require('colors')
-const { appName } = require('./getGitConfig')()
-const { root, gitDir } = require('./gitRevParse')()
-const config = require('./getConfig')()
+const getGitConfig = require('./getGitConfig')
+const gitRevParse = require('./gitRevParse')
+const getConfig = require('./getConfig')
 
 function warning(txt) {
     return colors.yellow(txt)
@@ -165,7 +165,7 @@ function queue(list) {
                                 cfg.postmsg && postMessage(m)
                             }
                         } else {
-                            let m = config.fail || msg.fail || '指令 ' + cmd + ' 执行失败'
+                            let m = cfg.fail || msg.fail || '指令 ' + cmd + ' 执行失败'
                             m && sh.echo(warning(m))
                         }
                         cb() // 回调，继续执行下一条
@@ -182,6 +182,7 @@ function queue(list) {
  * @returns {Array} arr 返回数组
  */
 function getCache() {
+    const { gitDir } = gitRevParse()
     let arr = []
     if (sh.test('-f', gitDir + '/.gitmarscommands')) {
         arr = sh
@@ -200,6 +201,7 @@ function getCache() {
  * @description 存储未执行脚本列表
  */
 function setCache(rest) {
+    const { gitDir } = gitRevParse()
     sh.touch(gitDir + '/.gitmarscommands')
     sh.sed('-i', /[\s\S\n\r\x0a\x0d]*/, encodeURIComponent(JSON.stringify(rest)), gitDir + '/.gitmarscommands')
 }
@@ -209,6 +211,7 @@ function setCache(rest) {
  * @description 存储错误日志
  */
 function setLog(log) {
+    const { gitDir } = gitRevParse()
     sh.touch(gitDir + '/.gitmarslog')
     sh.sed('-i', /[\s\S\n\r\x0a\x0d]*/, encodeURIComponent(JSON.stringify(log)), gitDir + '/.gitmarslog')
 }
@@ -450,6 +453,9 @@ const getStashList = async key => {
  * @description 解析模板数据
  */
 function getMessage(type) {
+    const { root } = gitRevParse()
+    const { appName } = getGitConfig()
+    const config = getConfig()
     let str = '',
         d = new Date()
     switch (type) {
@@ -480,6 +486,7 @@ function getMessage(type) {
  * @description 生成消息
  */
 function postMessage(msg) {
+    const config = getConfig()
     if (!config.msgTemplate) {
         sh.echo(error('请配置消息发送api模板地址'))
         return
@@ -496,6 +503,7 @@ function postMessage(msg) {
  * @description 发送消息
  */
 const sendMessage = (message, cfg = {}) => {
+    const config = getConfig()
     const { silent = true } = cfg
     if (!config.msgUrl) {
         sh.echo(error('请配置消息推送地址'))

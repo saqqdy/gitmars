@@ -14,7 +14,7 @@ const getData = (socket, option) => {
 	let g = require('../../bin/js/global'),
 		c = require('../../bin/js/config'),
 		bh = searchBranchs({ path: option.cwd || home }),
-		cur = getCurrent()
+		cur = getCurrent({ path: option.cwd || home })
 	if (!glob || JSON.stringify(glob) !== JSON.stringify(g)) {
 		glob = g
 		socket.emit(option.name + '-global', g)
