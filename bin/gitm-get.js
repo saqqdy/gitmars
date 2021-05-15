@@ -2,7 +2,8 @@
 const program = require('commander')
 const sh = require('shelljs')
 const { options, args } = require('./conf/get')
-const { queue, getCurrent, getStashList, warning, createArgs } = require('./js/index')
+const { queue, getCurrent, getStashList, warning } = require('./js/index')
+const { createArgs } = require('./js/tools')
 /**
  * gitm get
  */

@@ -562,22 +562,6 @@ function getCommandMessage(cmd) {
 }
 
 /**
- * createArgs
- * @description 生成参数
- */
-function createArgs(args) {
-    let argArr = []
-    args.forEach(arg => {
-        let str = arg.name
-        if (arg.variadic) str += '...'
-        if (arg.required) str = '<' + str + '>'
-        else str = '[' + str + ']'
-        argArr.push(str)
-    })
-    return argArr.join(' ')
-}
-
-/**
  * @description compareVersion版本号大小对比
  * @param appName {String} app名称
  * @param compareVer {String} 必传 需要对比的版本号
@@ -656,7 +640,6 @@ module.exports = {
     postMessage,
     sendMessage,
     getCommandMessage,
-    createArgs,
     compareVersion,
     getBranchsFromID,
     getGitUser,

@@ -1,7 +1,8 @@
 #!/usr/bin/env node
 const program = require('commander')
 const { options, args } = require('./conf/postmsg')
-const { sendMessage, createArgs } = require('./js/index')
+const { sendMessage } = require('./js/index')
+const { createArgs } = require('./js/tools')
 /**
  * gitm postmsg
  */

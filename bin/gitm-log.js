@@ -2,7 +2,8 @@
 const program = require('commander')
 const sh = require('shelljs')
 const { options, args } = require('./conf/log')
-const { queue, success, getLogs, createArgs } = require('./js/index')
+const { queue, success, getLogs } = require('./js/index')
+const { createArgs } = require('./js/tools')
 /**
  * gitm log
  */

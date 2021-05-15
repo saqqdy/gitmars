@@ -2,7 +2,8 @@
 const program = require('commander')
 const sh = require('shelljs')
 const { options, args } = require('./conf/save')
-const { queue, getCurrent, createArgs } = require('./js/index')
+const { queue, getCurrent } = require('./js/index')
+const { createArgs } = require('./js/tools')
 /**
  * gitm save
  */

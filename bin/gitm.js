@@ -2,10 +2,9 @@
 const set = require('../package.json')
 const program = require('commander')
 const sh = require('shelljs')
-const { error } = require('./js/index')
 
 if (!sh.which('git')) {
-    sh.echo(error('gitmars只能在git环境下执行，请先安装git'))
+    sh.echo('gitmars只能在git环境下执行，请先安装git')
     sh.exit(1)
 }
 program.version(

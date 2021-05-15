@@ -2,7 +2,8 @@
 const program = require('commander')
 const sh = require('shelljs')
 const { options, args } = require('./conf/copy')
-const { warning, queue, getStatus, getCurrent, createArgs } = require('./js/index')
+const { warning, queue, getStatus, getCurrent } = require('./js/index')
+const { createArgs } = require('./js/tools')
 /**
  * gitm copy
  */

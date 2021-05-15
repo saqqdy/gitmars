@@ -4,7 +4,8 @@ const sh = require('shelljs')
 const inquirer = require('inquirer')
 const { options, args } = require('./conf/go')
 const { combine, end, update, build, start, admin, branch, copy, get, save, revert } = require('./js/go')
-const { success, getCurrent, createArgs } = require('./js/index')
+const { success, getCurrent } = require('./js/index')
+const { createArgs } = require('./js/tools')
 const config = require('./js/getConfig')()
 
 /**

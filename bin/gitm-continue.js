@@ -2,7 +2,8 @@
 const program = require('commander')
 const sh = require('shelljs')
 const { options, args } = require('./conf/continue')
-const { error, queue, getCache, createArgs } = require('./js/index')
+const { error, queue, getCache } = require('./js/index')
+const { createArgs } = require('./js/tools')
 /**
  * gitm continue
  */

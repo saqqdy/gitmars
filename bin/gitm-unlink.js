@@ -2,7 +2,7 @@
 const program = require('commander')
 const sh = require('shelljs')
 const { options, args } = require('./conf/unlink')
-const { createArgs } = require('./js/index')
+const { createArgs } = require('./js/tools')
 /**
  * gitm unlink
  */
