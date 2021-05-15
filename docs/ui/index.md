@@ -9,5 +9,5 @@ sidebar: null
 -   使用：`gitm ui`
 -   演示：
 
-![gitmars-go.gif](https://gitee.com/saqqdy/gitmars/raw/master/lib/img/gitmars-ui.gif)
+![gitmars-ui.gif](https://gitee.com/saqqdy/gitmars/raw/master/lib/img/gitmars-ui.gif)
 s
