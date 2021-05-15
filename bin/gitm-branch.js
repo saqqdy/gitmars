@@ -2,7 +2,8 @@
 const program = require('commander')
 const sh = require('shelljs')
 const { options, args } = require('./conf/branch')
-const { queue, createArgs } = require('./js/index')
+const { queue } = require('./js/index')
+const { createArgs } = require('./js/tools')
 /**
  * gitm branch
  */

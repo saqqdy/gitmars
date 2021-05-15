@@ -4,8 +4,8 @@ const fs = require('fs')
 const path = require('path')
 const sh = require('shelljs')
 const { options, args } = require('./conf/ui')
-const { pwd } = require('./js/global')
-const { createArgs } = require('./js/index')
+// const { pwd } = require('./js/global')
+const { createArgs } = require('./js/tools')
 /**
  * gitm ui
  */
@@ -15,6 +15,7 @@ options.forEach(o => {
     program.option(o.flags, o.description, o.defaultValue)
 })
 program.action(opt => {
+    console.log(2323232)
     // console.log(process.cwd(), path.join(__dirname, '../ui'), path.join(process.execPath, '../../lib/node_modules/gitmars'))
     // let data = sh.exec(`ls -l ${sh.which('gitm').stdout}`, { silent: true }).stdout,
     // 	gitmDir,
@@ -30,6 +31,7 @@ program.action(opt => {
     // sh.exec(`pm2 start yarn --name server -- run start`)
     // process.chdir(gitmDir + '/ui')
     // sh.exec(`pm2 start yarn --name ui -- run serve`, { silent: true })
+    sh.exec(`pwd`)
     process.chdir(path.join(__dirname, '../server'))
     // sh.exec(`cd server && yarn install`)
     // sh.exec(`pm2 start yarn --name server -- run start`)

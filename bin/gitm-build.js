@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 const program = require('commander')
 const { options, args } = require('./conf/build')
-const { createArgs } = require('./js/index')
+const { createArgs } = require('./js/tools')
 const runJenkins = require('./js/runJenkins')
 /**
  * gitm build

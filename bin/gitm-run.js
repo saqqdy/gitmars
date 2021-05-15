@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 const program = require('commander')
 const { options, args } = require('./conf/run')
-const { createArgs } = require('./js/index')
+const { createArgs } = require('./js/tools')
 const run = require('./js/hook/run')
 
 /**

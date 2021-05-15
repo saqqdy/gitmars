@@ -2,7 +2,8 @@
 const program = require('commander')
 const sh = require('shelljs')
 const { options, args } = require('./conf/update')
-const { error, queue, getStatus, getCurrent, searchBranch, createArgs } = require('./js/index')
+const { error, queue, getStatus, getCurrent, searchBranch } = require('./js/index')
+const { createArgs } = require('./js/tools')
 const config = require('./js/getConfig')()
 const { defaults } = require('./js/global')
 /**
