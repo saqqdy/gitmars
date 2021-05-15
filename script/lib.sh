@@ -25,6 +25,7 @@ mkdir -p lib/js
 mkdir -p lib/sh
 rsync -av --exclude=*.bak bin/conf/* lib/conf
 rsync -av --exclude=*.bak bin/img/* lib/img
-npx babel bin -d lib --presets=@babel/preset-env --ignore "bin/**/*.spec.js","bin/**/*.test.js" --config-file ./babel.config.js
+# npx babel bin -d lib --presets=@babel/preset-env --ignore "bin/**/*.spec.js","bin/**/*.test.js" --config-file ./babel.config.json
+npx babel bin -d lib --config-file ./babel.config.json --presets=@babel/preset-env
 cp -rf bin/sh lib
 getdir "lib"
