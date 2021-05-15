@@ -2,7 +2,7 @@
 title: guide
 ---
 
-![logo.png](https://gitee.com/saqqdy/gitmars/raw/master/lib/img/logo.png)
+![logo.png](https://gitee.com/saqqdy/gitmars/raw/master/bin/img/logo.png)
 
 [![NPM version][npm-image]][npm-url]
 [![build status][travis-image]][travis-url]
@@ -35,7 +35,7 @@ title: guide
 
 ## 工作流展示
 
-![gitmars.png](https://gitee.com/saqqdy/gitmars/raw/master/lib/img/gitmars.png)
+![gitmars.png](https://gitee.com/saqqdy/gitmars/raw/master/bin/img/gitmars.png)
 
 ## 有哪些功能
 
