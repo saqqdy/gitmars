@@ -4,7 +4,7 @@ const getConfig = require('./getConfig')
 
 // 获取用户信息
 exports.getUserToken = () => {
-	const config = getConfig()
+    const config = getConfig()
     if (!config.api) {
         sh.echo(error('请配置用于请求权限的api接口地址，接收参数形式：url?name=git_user_name，返回data=token'))
         process.exit(1)
