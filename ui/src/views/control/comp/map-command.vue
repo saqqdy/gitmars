@@ -15,7 +15,7 @@ export default {
 		data: {
 			type: Object,
 			default: () => ({ options: [], args: [] }),
-			required: true
+			required: false
 		},
 		value: {
 			type: Object,

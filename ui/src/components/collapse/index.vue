@@ -25,10 +25,7 @@ export default {
 	// },
 	setup(props, { slots, emit }) {
 		const activeNames = ref([])
-		const { ctx: ctx } = getCurrentInstance()
-		// const { currentRoute: route } = ctx.$router
 		activeNames.value = [].concat(props.value)
-		provide('collapse', ctx)
 		watch(props.value, val => {
 			console.log('collapse value change', val)
 			// activeNames.value = val
@@ -54,6 +51,7 @@ export default {
 				setActiveNames(actNames)
 			}
 		}
+		provide('collapse', { activeNames, handleItemClick })
 
 		return {
 			activeNames,

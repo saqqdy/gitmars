@@ -1,10 +1,15 @@
 {
-	"projects": [
-		{
-			"id": "357a4f34-a528-46d5-b089-08716c53e61c",
-			"name": "gitmars",
-			"path": "/Users/saqqdy/www/saqqdy/gitmars"
-		}
-	],
-	"user": {}
+  "projects": [
+    {
+      "id": "357a4f34-a528-46d5-b089-08716c53e61c",
+      "name": "gitmars",
+      "path": "/Users/saqqdy/www/saqqdy/gitmars"
+    },
+    {
+      "id": "e4008979-d482-4fe1-b083-8926477a7b6d",
+      "name": "property",
+      "path": "/Users/saqqdy/www/wojiayun/property"
+    }
+  ],
+  "user": {}
 }

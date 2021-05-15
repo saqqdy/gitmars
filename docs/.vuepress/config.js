@@ -12,7 +12,7 @@ module.exports = {
             { text: 'API参考', link: '/api/' },
             { text: '示例', link: '/example/' },
             // { text: 'Git Hooks', link: '/hook/' },
-            // { text: '界面', link: '/ui/' },
+            { text: 'UI界面', link: '/ui/' },
             { text: 'Go', link: '/go/' },
             {
                 text: '更多',

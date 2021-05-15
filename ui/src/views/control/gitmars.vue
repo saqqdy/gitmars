@@ -135,8 +135,6 @@ import Xterm from '@/components/xterm'
 import commandSets from './gitmSets'
 import boxAddBranchVue from './comp/box-add-branch.vue'
 
-console.log(commandSets)
-
 export default {
 	name: 'control-tasks',
 	components: { Xterm, Command, MapCommand },
@@ -271,7 +269,7 @@ export default {
 				title: '创建分支',
 				options: {},
 				onOk: async instance => {
-					let { type, name } = await instance.component.ctx.submit()
+					let { type, name } = await instance.component.proxy.submit()
 					exec(`gitm start ${type} ${name}`)
 					return true
 				}
