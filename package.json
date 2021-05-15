@@ -1,7 +1,7 @@
 {
     "name": "gitmars",
     "description": "一个高度定制化的git工作流工具",
-    "version": "2.1.0",
+    "version": "2.2.0",
     "scripts": {
         "docs:dev": "vuepress dev docs",
         "docs:build": "vuepress build docs",
@@ -9,7 +9,7 @@
         "server:start": "node server/bin/www",
         "server:watch": "nodemon server/bin/www",
         "server:super": "supervisor server/bin/www",
-        "lib": "sh build/lib.sh",
+        "lib": "sh script/lib.sh",
         "build:docs": "sh script/docs.sh",
         "build:ui": "sh script/build-ui.sh",
         "eslint": "eslint --fix --ext .vue,.js",
@@ -24,7 +24,7 @@
         "colors": "^1.4.0",
         "commander": "7.2.0",
         "cookie-parser": "^1.4.5",
-        "core-js": "^3.9.1",
+        "core-js": "3.12.1",
         "cosmiconfig": "^7.0.0",
         "debug": "^4.3.1",
         "express": "^4.17.1",
