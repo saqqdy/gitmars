@@ -17,6 +17,7 @@ footer: MIT Licensed | Copyright © 2021-present saqqdy
 
 ```shell
 # 安装
+# 注意：Windows 用户需要先安装Python
 yarn global add gitmars # 或者：npm install -g gitmars
 
 # 创建gitmars配置文件

@@ -40,7 +40,7 @@ export default {
 		if (route.name === 'control') router.replace({ name: 'control_gitmars', query: route.query })
 		onErrorCaptured(err => {
 			error.value = err
-			console.warrn('error', err)
+			console.warn('error', err)
 			return true
 		})
 		return {

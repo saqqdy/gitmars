@@ -29,6 +29,8 @@
 
 # 安装
 
+> Windows 用户需要先安装Python
+
 ```shell
 # 通过npm安装
 npm install -g gitmars

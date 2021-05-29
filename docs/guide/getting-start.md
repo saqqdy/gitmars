@@ -1,5 +1,7 @@
 ## 安装
 
+> Windows 用户需要安装Python环境
+
 ```shell
 # 通过npm安装
 npm install -g gitmars
