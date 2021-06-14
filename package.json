@@ -1,7 +1,7 @@
 {
     "name": "gitmars",
     "description": "一个高度定制化的git工作流工具",
-    "version": "2.2.3",
+    "version": "1.5.0",
     "scripts": {
         "docs:dev": "vuepress dev docs",
         "docs:build": "vuepress build docs",
@@ -23,27 +23,16 @@
         "ci-info": "^3.2.0",
         "colors": "^1.4.0",
         "commander": "7.2.0",
-        "cookie-parser": "^1.4.5",
         "core-js": "3.14.0",
         "cosmiconfig": "^7.0.0",
-        "debug": "^4.3.1",
-        "express": "^4.17.1",
-        "hbs": "^4.1.2",
-        "http-errors": "^1.8.0",
         "inquirer": "^8.1.0",
         "js-cool": "^1.0.9",
-        "lowdb": "^1.0.0",
-        "morgan": "^1.10.0",
         "node-apollo": "^1.2.1",
-        "node-pty": "^0.10.1",
         "ora": "5.4.1",
-        "os": "^0.1.1",
         "shelljs": "^0.8.4",
         "slash": "^3.0.0",
-        "socket.io": "2.4.1",
         "text-table": "^0.2.0",
-        "tracer": "1.1.5",
-        "uuid": "^8.3.2"
+        "tracer": "1.1.5"
     },
     "devDependencies": {
         "@babel/cli": "7.14.5",
