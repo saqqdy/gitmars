@@ -38,6 +38,8 @@
 npm install -g gitmars
 # 或者通过yarn安装
 yarn global add gitmars
+# 不想安装Python环境且不想用gitm ui,可安装lite版本，lite版本有最新版除UI之外的所有功能
+npm install -g gitmars@lite
 ```
 
 # 使用
