@@ -52,6 +52,8 @@ title: guide
 -   合并代码 [gitm merge](../api/#gitm-merge)
 -   继续未完成的操作 [gitm continue](../api/#gitm-continue)
 -   撤销提交 [gitm revert](../api/#gitm-revert)
+-   撤回某次提交记录或者撤回谋条分支的合并记录 [gitm undo](../api/#gitm-undo)
+-   重做某次提交记录或者重做谋条分支的合并记录 [gitm redo](../api/#gitm-redo)
 -   升级 gitmars [gitm upgrade](../api/#gitm-upgrade)
 -   构建 Jenkins [gitm build](../api/#gitm-build)
 -   解除软链接 [gitm unlink](../api/#gitm-unlink)
