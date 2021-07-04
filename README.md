@@ -25,13 +25,13 @@
 > 1. gitmars 每一个子命令都带了 help 功能，可输入 gitm [command] --help 获取对应指令的帮助
 > 2. <type>意思是 type 必传；[type]意思是 type 选填；[-a --app [app]]其中-a 是--app 的简写，后面[app]指的是-a 后面的传值
 
-# **完整文档请查阅： [Gitmars使用文档](http://docs.saqqdy.com/gitmars/api/)**
+# **完整文档请查阅： [Gitmars 使用文档](http://docs.saqqdy.com/gitmars/api/)**
 
-> 更新日志请查阅：[Gitmars更新日志](https://docs.saqqdy.com/gitmars/changelog.html)
+> 更新日志请查阅：[Gitmars 更新日志](https://docs.saqqdy.com/gitmars/changelog.html)
 
 # 安装
 
-> Windows 用户需要先安装Python
+> Windows 用户需要先安装 Python
 
 ```shell
 # 通过npm安装

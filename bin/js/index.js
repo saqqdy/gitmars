@@ -432,9 +432,9 @@ const filterBranch = (key, types = [], remote = false) => {
     let list = out ? out.replace(/\n(\s+)/g, '\n').split('\n') : []
     list = list.filter(el => {
         let result = true
-		// 匹配关键词
+        // 匹配关键词
         if (key && !el.includes(key)) result = false
-		// 匹配类型
+        // 匹配类型
         if (result && types.length > 0) {
             result = false
             type: for (const type of types) {
