@@ -212,9 +212,9 @@ gitm ed
 
 #### 短指令：gitm up
 
-把 bug 分支的最新代码同步到 20001 分支上（--use-merge 使用 merge 方法合并，默认 false）
+把 bug 分支的最新代码同步到 20001 分支上（--use-rebase 使用 rebase 方法合并，默认 false）
 
--   使用：`gitm update [type] [name] [--use-merge]`
+-   使用：`gitm update [type] [name] [--use-merge] [--use-rebase] [-a --all]`
 -   参数：
 
 | 参数 | 说明     | 类型   | 可选值                 | 必填 | 默认         |
@@ -224,9 +224,11 @@ gitm ed
 
 -   传值：
 
-| 名称        | 简写 | 说明                        | 类型    | 可选值 | 传值必填 | 默认  |
-| ----------- | ---- | --------------------------- | ------- | ------ | -------- | ----- |
-| --use-merge |      | 是否使用 merge 方式更新代码 | Boolean | -      | -        | false |
+| 名称         | 简写 | 说明                                  | 类型    | 可选值 | 传值必填 | 默认  |
+| ------------ | ---- | ------------------------------------- | ------- | ------ | -------- | ----- |
+| --use-merge  |      | 是否使用 merge 方式更新代码(准备弃用) | Boolean | -      | -        | true  |
+| --use-rebase |      | 是否使用 rebase 方式更新代码          | Boolean | -      | -        | false |
+| --all        | -a   | 是否更新本地所有开发分支                  | Boolean | -      | -        | false |
 
 -   示例：
 
@@ -238,12 +240,28 @@ gitm update bugfix 20001
 gitm up bugfix 20001
 ```
 
-2. 使用 merge 方法升级当前分支
+2. 使用 rebase 方法升级当前分支
 
 ```shell
-gitm update --use-merge
+gitm update --use-rebase
 # or
-gitm up --use-merge
+gitm up --use-rebase
+```
+
+3. 升级本地所有开发分支
+
+```shell
+gitm update --all
+# or
+gitm up -a
+```
+
+4. 升级本地所有feature分支
+
+```shell
+gitm update feature --all
+# or
+gitm up feature -a
 ```
 
 ### gitm continue
