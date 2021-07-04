@@ -23,7 +23,7 @@ program.action(async (commitid, opt) => {
     if (opt.branch) {
         const keys = ['%H', '%aI', '%an']
         const results = sh
-            .exec(`git log --grep="'${opt.branch}'" --date-order --pretty=format:"${keys.join(',=')}-end-"`, { silent: true })
+            .exec(`git log --merges --grep="'${opt.branch}'" --date-order --pretty=format:"${keys.join(',=')}-end-"`, { silent: true })
             .stdout.replace(/[\r\n]+/g, '')
             .replace(/-end-$/, '')
         let logList = [],
