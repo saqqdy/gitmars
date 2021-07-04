@@ -415,8 +415,38 @@ const searchBranchs = (opt = {}) => {
     if (key) {
         map.heads = map.heads.filter(el => el.indexOf(key) > -1)
     }
-
     return map.heads
+}
+
+/**
+ * filterBranch
+ * @description 搜索分支
+ * @returns {Array} 返回列表数组
+ */
+const filterBranch = (key, types = [], remote = false) => {
+    if (typeof types === 'string') types = types.split(',')
+    const out = sh
+        .exec(`git branch${remote ? ' -a' : ''}`, { silent: true })
+        .stdout.replace(/(^\s+|[\n\r]*$)/g, '') // 去除首尾
+        .replace(/\*\s+/, '') // 去除*
+    let list = out ? out.replace(/\n(\s+)/g, '\n').split('\n') : []
+    list = list.filter(el => {
+        let result = true
+		// 匹配关键词
+        if (key && !el.includes(key)) result = false
+		// 匹配类型
+        if (result && types.length > 0) {
+            result = false
+            type: for (const type of types) {
+                if (el.includes(type)) {
+                    result = true
+                    break type
+                }
+            }
+        }
+        return result
+    })
+    return list
 }
 
 /**
@@ -644,6 +674,7 @@ module.exports = {
     getCurrent,
     searchBranch,
     searchBranchs,
+    filterBranch,
     getStashList,
     postMessage,
     sendMessage,
