@@ -212,9 +212,9 @@ gitm ed
 
 #### 短指令：gitm up
 
-把 bug 分支的最新代码同步到 20001 分支上（--use-merge 使用 merge 方法合并，默认 false）
+把 bug 分支的最新代码同步到 20001 分支上（--use-rebase 使用 rebase 方法合并，默认 false）
 
--   使用：`gitm update [type] [name] [--use-merge]`
+-   使用：`gitm update [type] [name] [--use-merge] [--use-rebase] [-a --all]`
 -   参数：
 
 | 参数 | 说明     | 类型   | 可选值                 | 必填 | 默认         |
@@ -224,9 +224,11 @@ gitm ed
 
 -   传值：
 
-| 名称        | 简写 | 说明                        | 类型    | 可选值 | 传值必填 | 默认  |
-| ----------- | ---- | --------------------------- | ------- | ------ | -------- | ----- |
-| --use-merge |      | 是否使用 merge 方式更新代码 | Boolean | -      | -        | false |
+| 名称         | 简写 | 说明                                  | 类型    | 可选值 | 传值必填 | 默认  |
+| ------------ | ---- | ------------------------------------- | ------- | ------ | -------- | ----- |
+| --use-merge  |      | 是否使用 merge 方式更新代码(准备弃用) | Boolean | -      | -        | true  |
+| --use-rebase |      | 是否使用 rebase 方式更新代码          | Boolean | -      | -        | false |
+| --all        | -a   | 是否更新本地所有开发分支                  | Boolean | -      | -        | false |
 
 -   示例：
 
@@ -238,12 +240,28 @@ gitm update bugfix 20001
 gitm up bugfix 20001
 ```
 
-2. 使用 merge 方法升级当前分支
+2. 使用 rebase 方法升级当前分支
 
 ```shell
-gitm update --use-merge
+gitm update --use-rebase
 # or
-gitm up --use-merge
+gitm up --use-rebase
+```
+
+3. 升级本地所有开发分支
+
+```shell
+gitm update --all
+# or
+gitm up -a
+```
+
+4. 升级本地所有feature分支
+
+```shell
+gitm update feature --all
+# or
+gitm up feature -a
 ```
 
 ### gitm continue
@@ -430,6 +448,90 @@ gitm rt -n 3
 gitm revert xxxxxx --mode 1
 # or
 gitm rt xxxxxx -m 1
+```
+
+### gitm undo
+
+> 2.3.0新增
+
+#### 短指令：gitm ud
+
+撤销当前分支的某条提交记录，或者撤销某条分支的多条合并记录，如果需要撤销一条 merge 记录，需要传入撤销方式，1 = 保留当前分支代码；2 = 保留传入代码
+
+-   使用：`gitm undo [commitid...] [-m --mode [mode]]` 或者 `gitm undo [-b --branch] [-m --mode [mode]]`
+-   参数：
+
+| 参数     | 说明                        | 类型   | 可选值 | 必填 | 默认 |
+| -------- | --------------------------- | ------ | ------ | ---- | ---- |
+| commitid | 要撤回的 id，多条id空格隔开 | String | -      | 否   | -    |
+
+-   传值：
+
+| 名称     | 简写 | 说明                                                                  | 类型   | 可选值 | 传值必填 | 默认 |
+| -------- | ---- | --------------------------------------------------------------------- | ------ | ------ | -------- | ---- |
+| --branch | -b   | 需要撤销的分支名                                                      | String | -      | 否       | -    |
+| --mode   | -m   | 撤回 merge 记录时需要保留哪一方的代码，1=保留当前分支，2=保留传入分支 | Number | -      | 否       | -    |
+
+-   示例：
+
+1. 传入分支名称
+
+```shell
+# 形式：gitm undo [-b --branch] [-m --mode [mode]]
+gitm undo --branch feature/test
+# or
+gitm ud -b feature/test
+```
+
+2. 传入单个或者多个commitID
+
+```shell
+# 形式：gitm undo [commitid...] [-m --mode [mode]]
+gitm undo xxxxxx xxxxxx --mode 1
+# or
+gitm ud xxxxxx -m 1
+```
+
+### gitm redo
+
+> 2.3.0新增
+
+#### 短指令：gitm rd
+
+重做当前分支的某条提交记录，或者重做某条分支的多条合并记录，如果需要重做一条 merge 记录，需要传入重做方式，1 = 保留当前分支代码；2 = 保留传入代码
+
+-   使用：`gitm revert [commitid...] [-m --mode [mode]]` 或者 `gitm revert [-b --branch] [-m --mode [mode]]`
+-   参数：
+
+| 参数     | 说明                        | 类型   | 可选值 | 必填 | 默认 |
+| -------- | --------------------------- | ------ | ------ | ---- | ---- |
+| commitid | 要撤回的 id，多条id空格隔开 | String | -      | 否   | -    |
+
+-   传值：
+
+| 名称     | 简写 | 说明                                                                  | 类型   | 可选值 | 传值必填 | 默认 |
+| -------- | ---- | --------------------------------------------------------------------- | ------ | ------ | -------- | ---- |
+| --branch | -b   | 需要重做的分支名                                                      | String | -      | 否       | -    |
+| --mode   | -m   | 撤回 merge 记录时需要保留哪一方的代码，1=保留当前分支，2=保留传入分支 | Number | -      | 否       | -    |
+
+-   示例：
+
+1. 传入分支名称
+
+```shell
+# 形式：gitm redo [-b --branch] [-m --mode [mode]]
+gitm redo --branch feature/test
+# or
+gitm rd -b feature/test
+```
+
+2. 传入单个或者多个commitID
+
+```shell
+# 形式：gitm redo [commitid...] [-m --mode [mode]]
+gitm redo xxxxxx xxxxxx --mode 1
+# or
+gitm rd xxxxxx -m 1
 ```
 
 ### gitm save

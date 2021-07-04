@@ -59,6 +59,10 @@ program
     .command('postmsg', '推送云之家消息')
     .command('permission', '提交权限')
     .command('hook', 'git钩子指令')
+    .command('undo', '撤回主干分支上的提交')
+    .alias('ud')
+    .command('redo', '恢复撤回的代码重新上线')
+    .alias('rd')
     .command('run', 'git钩子运行指令')
     .command('log', '查询日志')
     .command('go', '智能猜测你要执行的动作')
@@ -110,6 +114,10 @@ program.on('command:*', function (types, opts) {
         'postmsg',
         'permission',
         'hook',
+        'undo',
+        'ud',
+        'redo',
+        'rd',
         'run',
         'log',
         'go',

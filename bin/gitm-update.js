@@ -2,7 +2,7 @@
 const program = require('commander')
 const sh = require('shelljs')
 const { options, args } = require('./conf/update')
-const { error, queue, getStatus, getCurrent, searchBranch } = require('./js/index')
+const { error, queue, getStatus, getCurrent, filterBranch } = require('./js/index')
 const { createArgs } = require('./js/tools')
 const config = require('./js/getConfig')()
 const { defaults } = require('./js/global')
@@ -14,52 +14,60 @@ if (args.length > 0) program.arguments(createArgs(args))
 options.forEach(o => {
     program.option(o.flags, o.description, o.defaultValue)
 })
-// .option('--use-merge', '是否使用merge方式更新，默认rebase', false)
-program.action(async (type, name, opt) => {
+// .option('--use-merge', '是否使用merge方式更新，默认merge方式', true)
+// .option('--use-rebase', '是否使用rebase方式更新，默认merge方式', false)
+// .option('-a --all', '更新本地所有bugfix、feature、support分支', false)
+program.action((type, name, opt) => {
     const allow = ['bugfix', 'feature', 'support'] // 允许执行的指令
     const deny = [defaults.master, defaults.develop, defaults.release, defaults.bugfix, defaults.support]
-    let status = getStatus()
+    let status = getStatus(),
+        cmds = [],
+        branchList = []
     if (!status) sh.exit(1)
-    if (!type) {
-        // type和name都没传且当前分支是开发分支
-        ;[type, name] = getCurrent().split('/')
+    if (opt.all) {
+        // 更新全部分支
+        if (!type) type = allow
+        branchList = filterBranch('', type)
+    } else if (!type || !name) {
+        // type或name没传
+        const current = getCurrent()
+        ;[type, name] = current.split('/')
         if (!name) {
             deny.includes(type) && sh.echo(error(`骚年，你在${type}分支执行这个指令是什么骚操作？`))
             sh.exit(1)
         }
-    } else if (!name) {
-        // 传了type没传name
-        if (allow.includes(type)) {
-            sh.echo('请输入分支名称')
+        if (!allow.includes(type)) {
+            // type不合法
+            sh.echo(error('type只允许输入：' + JSON.stringify(allow)))
             sh.exit(1)
         }
-        let branchs = await searchBranch(type)
-        if (branchs.length === 1) {
-            ;[type, name] = branchs[0].split('/')
-        } else {
-            sh.echo(branchs.length > 1 ? `查询到多条名称包含${type}的分支，请输入分支类型` : error('分支不存在，请正确输入'))
-            sh.exit(1)
-        }
+        branchList = [].concat(current)
+    } else if (!allow.includes(type)) {
+        // 传了type和name，但是不合法
+        sh.echo(error('type只允许输入：' + JSON.stringify(allow)))
+        sh.exit(1)
+    } else {
+        // 传了正常的type和name
+        branchList = [type + '/' + name]
     }
-    if (allow.includes(type) && name) {
+    branchList.forEach(branch => {
         // feature从release拉取，bugfix从bug拉取，support从master分支拉取
+        ;[type, name] = branch.split('/')
         let base = type === 'bugfix' ? config.bugfix : type === 'support' ? config.master : config.release,
             cmd = [`git fetch`, `git checkout ${base}`, `git pull`, `git checkout ${type}/${name}`]
-        if (opt.useMerge) {
-            cmd.push({
-                cmd: `git merge --no-ff ${base}`,
-                config: { slient: false, again: false, success: `${base}同步到${type}/${name}成功`, fail: `${base}同步到${type}/${name}出错了，请根据提示处理` }
-            })
-        } else {
+        if (opt.useRebase) {
             cmd.push({
                 cmd: `git rebase ${base}`,
                 config: { slient: false, again: false, success: `${base}更新到${type}/${name}成功`, fail: `${base}更新到${type}/${name}出错了，请根据提示处理` }
             })
+        } else {
+            cmd.push({
+                cmd: `git merge --no-ff ${base}`,
+                config: { slient: false, again: false, success: `${base}同步到${type}/${name}成功`, fail: `${base}同步到${type}/${name}出错了，请根据提示处理` }
+            })
         }
-        queue(cmd)
-    } else {
-        sh.echo(error('type只允许输入：' + JSON.stringify(allow)))
-        sh.exit(1)
-    }
+        cmds = cmds.concat(cmd)
+    })
+    queue(cmds)
 })
 program.parse(process.argv)
