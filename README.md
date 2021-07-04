@@ -44,6 +44,9 @@ npm install -g gitmars@lite
 
 # 使用
 
+> 开始： [快速上手](https://docs.saqqdy.com/gitmars/guide/getting-start.html)
+> gitmars配置参数：[参数说明](https://docs.saqqdy.com/gitmars/guide/basic-config.html)
+
 ```shell
 # 初始化
 gitm init
@@ -52,7 +55,7 @@ gitm init
 gitm config list [option]
 
 # 版本升级[-m --mirror]使用淘宝镜像升级
-Mac用户：gitm upgrade -m
+Mac用户：sudo gitm upgrade -m
 windows用户：npm i -g gitmars@latest
 
 # 查看版本
@@ -60,7 +63,7 @@ gitm -v
 
 # 查看帮助信息
 gitm --help
-gitm copy -h
+gitm copy --help
 ```
 
 # 智能导航
