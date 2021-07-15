@@ -1,7 +1,7 @@
 {
     "name": "gitmars",
     "description": "一个高度定制化的git工作流工具",
-    "version": "1.5.1",
+    "version": "1.5.2",
     "scripts": {
         "docs:dev": "vuepress dev docs",
         "docs:build": "vuepress build docs",
@@ -74,5 +74,5 @@
     "bugs": {
         "url": "https://github.com/saqqdy/gitmars/issues"
     },
-    "homepage": "https://docs.saqqdy.com/gitmars"
+    "homepage": "https://www.saqqdy.com/gitmars"
 }

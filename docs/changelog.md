@@ -1,3 +1,7 @@
+# 2021.07.15 v2.2.4 更新日志
+
+1. 修复无合并权限调起了构建的问题
+
 # 2021.07.04 v2.2.3 更新日志
 
 1. gitm update支持--all一键升级本地所有分支
@@ -28,7 +32,7 @@
 
 # 2021.03.27 v2.0.2更新日志
 1. 新增gitm ui指令，启动UI界面
-2. 新增无git权限自动调起合并请求的功能，需要配置api、gitHost、gitID，具体配置查阅：[Gitmars基本配置](https://docs.saqqdy.com/gitmars/guide/basic-config.html)
+2. 新增无git权限自动调起合并请求的功能，需要配置api、gitHost、gitID，具体配置查阅：[Gitmars基本配置](http://www.saqqdy.com/gitmars/guide/basic-config.html)
 3. 升级checkBranch、searchBranchs、getCurrent方法，执行更加高效
 4. 取消强制配置api
 5. git config和git init加入对api/gitHost/gitID参数设置的支持

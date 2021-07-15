@@ -25,9 +25,9 @@
 > 1. gitmars 每一个子命令都带了 help 功能，可输入 gitm [command] --help 获取对应指令的帮助
 > 2. <type>意思是 type 必传；[type]意思是 type 选填；[-a --app [app]]其中-a 是--app 的简写，后面[app]指的是-a 后面的传值
 
-# **完整文档请查阅： [Gitmars 使用文档](http://docs.saqqdy.com/gitmars/api/)**
+# **完整文档请查阅： [Gitmars 使用文档](http://www.saqqdy.com/gitmars/api/)**
 
-> 更新日志请查阅：[Gitmars 更新日志](https://docs.saqqdy.com/gitmars/changelog.html)
+> 更新日志请查阅：[Gitmars 更新日志](http://www.saqqdy.com/gitmars/changelog.html)
 
 # 安装
 
@@ -44,6 +44,9 @@ npm install -g gitmars@lite
 
 # 使用
 
+> 开始： [快速上手](http://www.saqqdy.com/gitmars/guide/getting-start.html)
+> gitmars配置参数：[参数说明](http://www.saqqdy.com/gitmars/guide/basic-config.html)
+
 ```shell
 # 初始化
 gitm init
@@ -52,7 +55,7 @@ gitm init
 gitm config list [option]
 
 # 版本升级[-m --mirror]使用淘宝镜像升级
-Mac用户：gitm upgrade -m
+Mac用户：sudo gitm upgrade -m
 windows用户：npm i -g gitmars@latest
 
 # 查看版本
@@ -60,7 +63,7 @@ gitm -v
 
 # 查看帮助信息
 gitm --help
-gitm copy -h
+gitm copy --help
 ```
 
 # 智能导航

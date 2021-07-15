@@ -187,7 +187,7 @@ if (publish.args.length > 0) {
                               }
                           ]
                 )
-                if (opt.build) {
+                if (opt.build && (!level || level < 3)) {
                     cmd[type] = cmd[type].concat([
                         {
                             cmd: `gitm build ${appName} --env bug --app ${opt.build === true ? 'all' : opt.build}`,
@@ -197,7 +197,7 @@ if (publish.args.length > 0) {
                 }
             }
             // 发布release
-            if (type === 'release' && opt.build) {
+            if (type === 'release' && opt.build && (!level || level < 3)) {
                 cmd[type] = cmd[type].concat([
                     {
                         cmd: `gitm build ${appName} --env prod --app ${opt.build === true ? 'all' : opt.build}`,

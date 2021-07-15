@@ -83,7 +83,7 @@ program.action(async (type, name, opt) => {
                 },
                 `git checkout ${type}/${name}`
             ])
-            if (opt.build) {
+            if (opt.build && (!level || level < 3)) {
                 cmd = cmd.concat([
                     {
                         cmd: `gitm build ${appName} --env dev --app ${opt.build === true ? 'all' : opt.build}`,
@@ -186,7 +186,7 @@ program.action(async (type, name, opt) => {
                 )
             }
             // 仅支持构建bug
-            if (opt.build) {
+            if (opt.build && (!level || level < 3)) {
                 if (type === 'bugfix') {
                     cmd = cmd.concat([
                         {
