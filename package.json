@@ -15,9 +15,9 @@
         "eslint": "eslint --fix --ext .vue,.js",
         "prettier": "prettier --write \"**/*.{js,ts,vue,json,md}\""
     },
-    "main": "bin/gitm.js",
+    "main": "lib/gitm.js",
     "bin": {
-        "gitm": "./bin/gitm.js"
+        "gitm": "lib/gitm.js"
     },
     "dependencies": {
         "ci-info": "^3.2.0",
