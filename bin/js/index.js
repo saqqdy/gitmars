@@ -474,7 +474,9 @@ const getStashList = async key => {
                 })
             }
         })
-    } catch (e) {}
+    } catch (e) {
+        //
+    }
     return arr
 }
 

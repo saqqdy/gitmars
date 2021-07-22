@@ -36,6 +36,8 @@ yarn-error.log*
 *.sln
 *.sw*
 *.bak
+*_bak
+*.bak.js
 
 #Electron-builder output
 /dist_electron

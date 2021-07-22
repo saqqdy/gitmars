@@ -83,7 +83,7 @@ program.action(async (type, name, opt) => {
                 },
                 `git checkout ${type}/${name}`
             ])
-            if (opt.build && (!level || level < 3)) {
+            if (opt.build) {
                 cmd = cmd.concat([
                     {
                         cmd: `gitm build ${appName} --env dev --app ${opt.build === true ? 'all' : opt.build}`,

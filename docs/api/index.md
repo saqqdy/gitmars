@@ -13,7 +13,7 @@ sidebarDepth: 2
 
 -   使用：`gitm go`
 -   演示：
-    > ![gitmars-go.gif](https://raw.githubusercontent.com/saqqdy/gitmars/master/lib/img/gitmars-go.gif)
+    > ![gitmars-go.gif](https://raw.githubusercontent.com/saqqdy/gitmars/master/static/img/gitmars-go.gif)
 
 ## 配置
 
@@ -228,7 +228,7 @@ gitm ed
 | ------------ | ---- | ------------------------------------- | ------- | ------ | -------- | ----- |
 | --use-merge  |      | 是否使用 merge 方式更新代码(准备弃用) | Boolean | -      | -        | true  |
 | --use-rebase |      | 是否使用 rebase 方式更新代码          | Boolean | -      | -        | false |
-| --all        | -a   | 是否更新本地所有开发分支                  | Boolean | -      | -        | false |
+| --all        | -a   | 是否更新本地所有开发分支              | Boolean | -      | -        | false |
 
 -   示例：
 
