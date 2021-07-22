@@ -20,11 +20,11 @@ npx prettier --write bin
 rimraf lib
 mkdir -p lib
 mkdir -p lib/conf
-mkdir -p lib/img
+# mkdir -p lib/img
 mkdir -p lib/js
 mkdir -p lib/sh
 rsync -av --exclude=*.bak bin/conf/* lib/conf
-rsync -av --exclude=*.bak bin/img/* lib/img
+# rsync -av --exclude=*.bak bin/img/* lib/img
 # npx babel bin -d lib --presets=@babel/preset-env --ignore "bin/**/*.spec.js","bin/**/*.test.js" --config-file ./babel.config.json
 # npx babel bin -d lib --config-file ./babel.config.json --presets=@babel/preset-env
 # npx esbuild "bin/**/*.js" --bundle --platform=node --target=node10.4 --outdir=lib

@@ -1,4 +1,4 @@
-![logo.png](https://raw.githubusercontent.com/saqqdy/gitmars/master/lib/img/logo.png)
+![logo.png](https://raw.githubusercontent.com/saqqdy/gitmars/master/static/img/logo.png)
 
 # 一个定制化的 git 工作流操作工具
 
@@ -75,7 +75,7 @@ gitm copy --help
 -   使用：`gitm go`
 -   演示：
 
-![gitmars-go.gif](https://raw.githubusercontent.com/saqqdy/gitmars/master/lib/img/gitmars-go.gif)
+![gitmars-go.gif](https://raw.githubusercontent.com/saqqdy/gitmars/master/static/img/gitmars-go.gif)
 
 # UI 界面
 
@@ -86,4 +86,4 @@ gitm copy --help
 -   使用：`gitm ui`
 -   演示：
 
-![gitmars-ui.gif](https://raw.githubusercontent.com/saqqdy/gitmars/master/lib/img/gitmars-ui.gif)
+![gitmars-ui.gif](https://raw.githubusercontent.com/saqqdy/gitmars/master/static/img/gitmars-ui.gif)

@@ -3,6 +3,8 @@ gitmarsconfig.json
 .gitmarsrc
 node_modules
 /ui
-sh
+/docs
+script
 *.bak
+*.bak.js
 *_bak
