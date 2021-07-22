@@ -1,6 +1,8 @@
-/build/
-/config/
-/dist/
-/*.js
-/test/unit/coverage/
+lib
+dist
+docs
+server
+ui
 
+*.bak
+*_bak

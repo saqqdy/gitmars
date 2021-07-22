@@ -45,7 +45,7 @@ npm install -g gitmars@lite
 # 使用
 
 > 开始： [快速上手](http://www.saqqdy.com/gitmars/guide/getting-start.html)
-> gitmars配置参数：[参数说明](http://www.saqqdy.com/gitmars/guide/basic-config.html)
+> gitmars 配置参数：[参数说明](http://www.saqqdy.com/gitmars/guide/basic-config.html)
 
 ```shell
 # 初始化

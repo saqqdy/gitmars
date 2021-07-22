@@ -288,7 +288,7 @@ program.action(async (command, args, opt) => {
         // 检测类型对应上面的检测方法
         if (current !== config.develop && mainBranchs.includes(current) && opt.type.includes('1')) {
             // 分支合并主干分支之后，检测该分支是否合并过dev，没有合并过的，不允许继续执行commit
-            // const [command, branch] = process.env.GIT_REFLOG_ACTION ? process.env.GIT_REFLOG_ACTION.split(' ') : []
+            const [command, branch] = process.env.GIT_REFLOG_ACTION ? process.env.GIT_REFLOG_ACTION.split(' ') : []
             if (command === 'merge') {
                 const isMergedBranch = getIsMergedBranch(branch, config.develop)
                 if (!isMergedBranch) {

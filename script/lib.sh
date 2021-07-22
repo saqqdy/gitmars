@@ -16,7 +16,7 @@ function getdir() {
     done
 }
 
-npx prettier --write bin
+# npx prettier --write bin
 rimraf lib
 mkdir -p lib
 mkdir -p lib/conf
@@ -26,6 +26,18 @@ mkdir -p lib/sh
 rsync -av --exclude=*.bak bin/conf/* lib/conf
 rsync -av --exclude=*.bak bin/img/* lib/img
 # npx babel bin -d lib --presets=@babel/preset-env --ignore "bin/**/*.spec.js","bin/**/*.test.js" --config-file ./babel.config.json
-npx babel bin -d lib --config-file ./babel.config.json --presets=@babel/preset-env
+# npx babel bin -d lib --config-file ./babel.config.json --presets=@babel/preset-env
+# npx esbuild "bin/**/*.js" --bundle --platform=node --target=node10.4 --outdir=lib
+
+
+pkg=$(node script/lib.js $*)
+let "errors |= $?"
+if [ $errors == 1 ]; then
+    exit 0
+elif [ $errors == 0 ]; then
+	echo 'success'
+fi
+
 cp -rf bin/sh lib
-getdir "lib"
+
+# getdir "lib"

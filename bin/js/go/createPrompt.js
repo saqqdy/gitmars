@@ -13,7 +13,7 @@ const { warning } = require('../index')
 const createPrompt = (command, { options, validator, transform }, type) => {
     if (type === 'checkbox') {
         if (!options.length) return null
-        prompt = {
+        let promptOpt = {
             type,
             message: '请选择',
             name: command,
@@ -30,13 +30,13 @@ const createPrompt = (command, { options, validator, transform }, type) => {
             }
         }
         options.forEach(option => {
-            prompt.choices.push({
+            promptOpt.choices.push({
                 name: option.description,
                 value: option.long,
                 checked: option.recommend
             })
         })
-        return prompt
+        return promptOpt
     } else if (type === 'input') {
         let list = []
         options.forEach(({ validator: childValidator, transformer, ...opts }) => {
