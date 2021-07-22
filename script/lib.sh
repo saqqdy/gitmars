@@ -16,7 +16,7 @@ function getdir() {
     done
 }
 
-# npx prettier --write bin
+npx prettier --write bin
 rimraf lib
 mkdir -p lib
 mkdir -p lib/conf
@@ -40,4 +40,4 @@ fi
 
 cp -rf bin/sh lib
 
-# getdir "lib"
+getdir "lib"
