@@ -24,7 +24,7 @@ function createHooks(dir = gitHookDir) {
         fs.chmodSync(filename, 0o0755)
     }
     const hooks = hookList.map(hookName => path.join(dir, hookName))
-    hooks.forEach((filename, i) => {
+    hooks.forEach(filename => {
         const hookShell = `#!/bin/sh
 # gitmars
 

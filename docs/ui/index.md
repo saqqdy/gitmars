@@ -10,4 +10,3 @@ sidebar: null
 -   演示：
 
 ![gitmars-ui.gif](https://raw.githubusercontent.com/saqqdy/gitmars/master/lib/img/gitmars-ui.gif)
-s
