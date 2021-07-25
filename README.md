@@ -66,6 +66,41 @@ gitm --help
 gitm copy --help
 ```
 
+# 有哪些功能
+
+-   初始化 gitmars 配置 [gitm init](http://www.saqqdy.com/gitmars/api/#gitm-init)
+-   查看/设置 gitmars 的配置项 [gitm config](http://www.saqqdy.com/gitmars/api/#gitm-config)
+-   分支阶段提测 [gitm combine](http://www.saqqdy.com/gitmars/api/#gitm-combine)
+-   创建 bugfix 分支、创建/合并 release 分支 [gitm start](http://www.saqqdy.com/gitmars/api/#gitm-start)
+-   完成开发某项功能 [gitm end](http://www.saqqdy.com/gitmars/api/#gitm-end)
+-   更新 bug 任务分支、更新 feature 功能开发分支 [gitm update](http://www.saqqdy.com/gitmars/api/#gitm-update)
+-   分支操作 [gitm branch](http://www.saqqdy.com/gitmars/api/#gitm-branch)
+-   暂存当前分支文件 [gitm save](http://www.saqqdy.com/gitmars/api/#gitm-save)
+-   恢复暂存区最近一次暂存的文件 [gitm get](http://www.saqqdy.com/gitmars/api/#gitm-get)
+-   简化 git 的 cherry-pick 操作 [gitm copy](http://www.saqqdy.com/gitmars/api/#gitm-copy)
+-   合并代码 [gitm merge](http://www.saqqdy.com/gitmars/api/#gitm-merge)
+-   继续未完成的操作 [gitm continue](http://www.saqqdy.com/gitmars/api/#gitm-continue)
+-   撤销提交 [gitm revert](http://www.saqqdy.com/gitmars/api/#gitm-revert)
+-   撤回某次提交记录或者撤回谋条分支的合并记录 [gitm undo](http://www.saqqdy.com/gitmars/api/#gitm-undo)
+-   重做某次提交记录或者重做谋条分支的合并记录 [gitm redo](http://www.saqqdy.com/gitmars/api/#gitm-redo)
+-   升级 gitmars [gitm upgrade](http://www.saqqdy.com/gitmars/api/#gitm-upgrade)
+-   构建 Jenkins [gitm build](http://www.saqqdy.com/gitmars/api/#gitm-build)
+-   解除软链接 [gitm unlink](http://www.saqqdy.com/gitmars/api/#gitm-unlink)
+-   软链接 [gitm link](http://www.saqqdy.com/gitmars/api/#gitm-link)
+-   清除缓存 [gitm clean](http://www.saqqdy.com/gitmars/api/#gitm-clean)
+-   推送云之家消息 [gitm postmsg](http://www.saqqdy.com/gitmars/api/#gitm-postmsg)
+-   提交权限 [gitm permission](http://www.saqqdy.com/gitmars/api/#gitm-permission)
+-   git 钩子指令 [gitm hook](http://www.saqqdy.com/gitmars/api/#gitm-hook)
+-   git 钩子运行指令 [gitm run](http://www.saqqdy.com/gitmars/api/#gitm-run)
+-   查询日志 [gitm log](http://www.saqqdy.com/gitmars/api/#gitm-log)
+-   智能猜测你要执行的动作 [gitm go](http://www.saqqdy.com/gitmars/api/#gitm-go)
+-   UI 可视化操作 [gitm ui](http://www.saqqdy.com/gitmars/api/#gitm-ui)
+-   管理员创建主干分支 [gitm admin create](http://www.saqqdy.com/gitmars/api/#gitm-admin-create)
+-   发布分支 [gitm admin publish](http://www.saqqdy.com/gitmars/api/#gitm-admin-publish)
+-   更新主干分支代码 [gitm admin update](http://www.saqqdy.com/gitmars/api/#gitm-admin-update)
+-   清理分支 [gitm admin clean](http://www.saqqdy.com/gitmars/api/#gitm-admin-clean)
+-   查看版本号 [gitm version](http://www.saqqdy.com/gitmars/api/#gitm-version)
+
 # 智能导航
 
 ## gitm go <Badge text="beta" type="warning"/>
