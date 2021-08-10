@@ -792,7 +792,7 @@ gitm ui -p 8080
 -   示例：
 
 ```shell
-gitm link tool /Users/saqqdy/www/wojiayun/tool
+gitm link tool /Users/saqqdy/www/saqqdy/gitmars
 ```
 
 ### gitm unlink
@@ -823,10 +823,24 @@ gitm unlink tool
 | ------- | -------- | ------ | ------ | ---- | ---- |
 | message | 消息内容 | String | -      | 是   | -    |
 
+-   传值：
+
+| 名称  | 简写 | 说明               | 类型   | 可选值 | 传值必填 | 默认 |
+| ----- | ---- | ------------------ | ------ | ------ | -------- | ---- |
+| --url | -u   | 自定义推送消息地址 | String | -      | 否       | -    |
+
 -   示例：
+
+1. 简单使用
 
 ```shell
 gitm postmsg "测试消息"
+```
+
+2. 自定义推送地址
+
+```shell
+gitm postmsg "测试消息" --url "https://github.com/"
 ```
 
 ## 管理员

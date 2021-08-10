@@ -1,6 +1,4 @@
 let apollo = require('node-apollo'),
-    path = require('path'),
-    fs = require('fs'),
     sh = require('shelljs')
 const { error, writeFile } = require('./index')
 const { gitDir } = require('./gitRevParse')()
