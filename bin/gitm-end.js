@@ -5,6 +5,7 @@ const { options, args } = require('./conf/end')
 const { error, queue, getStatus, getCurrent, searchBranch } = require('./js/index')
 const { createArgs } = require('./js/tools')
 const config = require('./js/getConfig')()
+const { appName } = require('./js/getGitConfig')()
 const { getUserToken } = require('./js/api')
 const { defaults } = require('./js/global')
 /**
@@ -18,7 +19,7 @@ options.forEach(o => {
 program.action(async (type, name, opt) => {
     const allow = ['bugfix', 'feature', 'support'] // 允许执行的指令
     const deny = [defaults.master, defaults.develop, defaults.release, defaults.bugfix, defaults.support]
-    const { token, level } = config.api ? getUserToken() : {}
+    const { token, level, nickname = '' } = config.api ? getUserToken() : {}
     let status = getStatus()
     if (!status) sh.exit(1)
     if (!type) {
@@ -84,7 +85,8 @@ program.action(async (type, name, opt) => {
                           {
                               cmd: `curl -i -H "Content-Type: application/json" -X POST -d "{\\"source_branch\\":\\"${type}/${name}\\",\\"target_branch\\":\\"${config.bugfix}\\",\\"private_token\\":\\"${token}\\",\\"title\\":\\"Merge branch '${type}/${name}' into '${config.bugfix}'\\"}" "${config.gitHost}/api/v4/projects/${config.gitID}/merge_requests"`,
                               config: { slient: false, again: true, success: '成功创建合并请求', fail: '创建合并请求出错了，请根据提示处理' }
-                          }
+                          },
+                          `gitm postmsg "${nickname}在${appName}项目提交了${type}/${name}分支合并到${config.bugfix}分支的merge请求"`
                       ]
             )
         }
@@ -113,7 +115,8 @@ program.action(async (type, name, opt) => {
                       {
                           cmd: `curl -i -H "Content-Type: application/json" -X POST -d "{\\"source_branch\\":\\"${type}/${name}\\",\\"target_branch\\":\\"${base}\\",\\"private_token\\":\\"${token}\\",\\"title\\":\\"Merge branch '${type}/${name}' into '${base}'\\"}" "${config.gitHost}/api/v4/projects/${config.gitID}/merge_requests"`,
                           config: { slient: false, again: true, success: '成功创建合并请求', fail: '创建合并请求出错了，请根据提示处理' }
-                      }
+                      },
+                      `gitm postmsg "${nickname}在${appName}项目提交了${type}/${name}分支合并到${base}分支的merge请求"`
                   ]
         )
         queue(cmd)
