@@ -92,6 +92,65 @@ apollo 配置参数
 }
 ```
 
+apollo 构建项目配置参考
+
+```json
+
+{
+	"username": "jerkins_username",
+	"password": "jerkins_password",
+	"template": "http://www.jerkins.com/view/${line}/job/${project}/build?token=${token}", // 不带参数
+	"templateWithParam": "http://www.jerkins.com/view/${line}/job/${project}/buildWithParameters?token=${token}&build_app=${app}", // 带参数
+	"gitNotificationGroupUrl": "https://www.dingding.com/robot/webhook/send?type=0&token=xxxxxxxx", // 推送群消息的api
+	"dev": {
+		"line": "git_dev",
+		"token": "dev_token",
+		"list": [
+			{
+				"name": "project1",
+				"project": "git_project1"
+			},
+			{
+				"name": "project2",
+				"project": "git_project2",
+				"apps": ["all", "admin", "client"]
+			},
+		]
+	},
+	"bug": {
+		"line": "git_bug",
+		"token": "bug_token",
+		"list": [
+			{
+				"name": "project1",
+				"project": "git_project1_bug"
+			},
+			{
+				"name": "project2",
+				"project": "egg_project2_bug",
+				"apps": ["all", "admin", "client"]
+			},
+		]
+	},
+	"prod": {
+		"line": "git_prod",
+		"token": "prod_token",
+		"list": [
+			{
+				"name": "project1",
+				"project": "git_project1_prod"
+			},
+			{
+				"name": "project2",
+				"project": "git_project2_prod",
+				"apps": ["all", "admin", "client"]
+			},
+		]
+	}
+}
+
+```
+
 ### hooks
 
 钩子配置
