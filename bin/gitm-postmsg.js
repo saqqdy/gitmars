@@ -6,12 +6,13 @@ const { createArgs } = require('./js/tools')
 /**
  * gitm postmsg
  */
-program.name('gitm postmsg').usage('[message]').description('发送群消息消息')
+program.name('gitm postmsg').usage('<message> [-u --url [url]]').description('发送群消息消息')
 if (args.length > 0) program.arguments(createArgs(args))
 options.forEach(o => {
     program.option(o.flags, o.description, o.defaultValue)
 })
-program.action(message => {
-	sendGroupMessage(message)
+// .option('-u, --url [url]', '推送消息的api地址', '')
+program.action((message, opt) => {
+    sendGroupMessage(message, { url: opt.url || '' })
 })
 program.parse(process.argv)
