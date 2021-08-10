@@ -816,7 +816,7 @@ gitm unlink tool
 
 推送消息
 
--   使用：`gitm postmsg <message>`
+-   使用：`gitm postmsg <message> [-u --url [url]]`
 -   参数：
 
 | 参数    | 说明     | 类型   | 可选值 | 必填 | 默认 |
