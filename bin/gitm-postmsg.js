@@ -3,6 +3,7 @@ const program = require('commander')
 const { options, args } = require('./conf/postmsg')
 const sendGroupMessage = require('./js/sendGroupMessage')
 const { createArgs } = require('./js/tools')
+const { encodeUnicode } = require('./js/unicode')
 /**
  * gitm postmsg
  */
@@ -13,6 +14,6 @@ options.forEach(o => {
 })
 // .option('-u, --url [url]', '推送消息的api地址', '')
 program.action((message, opt) => {
-    sendGroupMessage(message, { url: opt.url || '' })
+    sendGroupMessage(encodeUnicode(message), { url: opt.url || '' })
 })
 program.parse(process.argv)

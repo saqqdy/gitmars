@@ -17,7 +17,7 @@
     },
     "main": "bin/gitm.js",
     "bin": {
-        "gitm": "./bin/gitm.js"
+        "gitm": "bin/gitm.js"
     },
     "dependencies": {
         "ci-info": "^3.2.0",
