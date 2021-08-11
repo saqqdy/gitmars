@@ -761,7 +761,7 @@ gitm clean
 
 ### gitm ui <Badge text="beta" type="warning"/>
 
-创建本地包软链接
+启动UI界面
 
 -   使用：`gitm ui [-p --port [port]]`
 -   参数：无
