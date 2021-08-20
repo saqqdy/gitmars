@@ -13,7 +13,7 @@ options.forEach(o => {
     program.option(o.flags, o.description, o.defaultValue)
 })
 // .option('-k, --key [keyword]', '查询分支的关键词', null)
-// .option('-r, --remote', '是否查询远程分支（这个参数不用于删除分支）默认只查询本地', false)
+// .option('-r, --remote', '是否查询远程分支（deletes模式下改用于删除远程分支）默认只查询本地', false)
 // .option('-t, --type [type]', '查询分支的类型，共有3种：feature、bugfix、support，不传则查询全部', null)
 // .option('-d, --delete [branch]', '删除分支', null)
 // .option('-D, --forcedelete [branch]', '强行删除分支', null)
@@ -22,10 +22,14 @@ program.action(opt => {
     let cmd = []
     if (opt.delete) {
         // 删除分支
-        cmd.push(`git branch -d ${opt.delete}`)
+        const id = sh.exec(`git rev-parse --verify ${opt.delete}`, { silent: true }).stdout.replace(/[\s]*$/g, '')
+        if (/^[a-z0-9]+$/.test(id)) cmd.push(`git branch -d ${opt.delete}`)
+        if (opt.remote) cmd.push(`git push origin --delete ${opt.delete}`)
     } else if (opt.forcedelete) {
         // 强行删除分支
-        cmd.push(`git branch -D ${opt.forcedelete}`)
+        const id = sh.exec(`git rev-parse --verify ${opt.delete}`, { silent: true }).stdout.replace(/[\s]*$/g, '')
+        if (/^[a-z0-9]+$/.test(id)) cmd.push(`git branch -D ${opt.forcedelete}`)
+        if (opt.remote) cmd.push(`git push origin --delete ${opt.delete}`)
     } else if (opt.upstream) {
         if (typeof opt.upstream === 'string') {
             // 与远程分支关联

@@ -3,10 +3,10 @@ const program = require('commander')
 const sh = require('shelljs')
 const inquirer = require('inquirer')
 const { options, args } = require('./conf/go')
-const { combine, end, update, build, start, admin, branch, copy, get, save, revert } = require('./js/go')
+const { combine, end, update, build, start, admin, branch, copy, get, save, revert, link, unlink, postmsg } = require('./js/go')
 const { success, getCurrent } = require('./js/index')
 const { createArgs } = require('./js/tools')
-const config = require('./js/getConfig')()
+// const config = require('./js/getConfig')()
 
 /**
  * gitm go
@@ -51,6 +51,9 @@ program.action(async (command, opt) => {
                 'get',
                 'save',
                 'revert',
+                'link',
+                'unlink',
+                'postmsg',
                 new inquirer.Separator(' === 退出 === '),
                 'exit',
                 new inquirer.Separator()
@@ -94,6 +97,12 @@ program.action(async (command, opt) => {
                 save()
             } else if (answers.command === 'revert') {
                 revert()
+            } else if (answers.command === 'link') {
+                link()
+            } else if (answers.command === 'unlink') {
+                unlink()
+            } else if (answers.command === 'postmsg') {
+                postmsg()
             }
         })
 })

@@ -82,7 +82,7 @@
                 cb(new Error('使用绑定/取消绑定远程分支功能时，不能与其他功能混用'))
                 return
             }
-            if ((val.includes('--delete') || val.includes('--forcedelete')) && (val.includes('--key') || val.includes('--remote') || val.includes('--type'))) {
+            if ((val.includes('--delete') || val.includes('--forcedelete')) && (val.includes('--key') || val.includes('--type'))) {
                 cb(new Error('使用删除分支功能时，不能与查询分支功能混用'))
                 return
             }
