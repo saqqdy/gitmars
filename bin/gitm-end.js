@@ -105,6 +105,10 @@ program.action(async (type, name, opt) => {
                           config: { slient: false, again: true, success: '推送成功', fail: '推送失败，请根据提示处理' }
                       },
                       `git branch -D ${type}/${name}`,
+                      {
+                          cmd: `git push origin --delete ${type}/${name}`,
+                          config: { slient: false, again: true, success: '成功删除远程分支', fail: '删除失败，请联系管理员' }
+                      },
                       `git checkout ${config.develop}`
                   ]
                 : [
