@@ -13,6 +13,9 @@ const copyConfig = require('../conf/copy')
 const getConfig = require('../conf/get')
 const saveConfig = require('../conf/save')
 const revertConfig = require('../conf/revert')
+const linkConfig = require('../conf/link')
+const unlinkConfig = require('../conf/unlink')
+const postmsgConfig = require('../conf/postmsg')
 const { create: adminCreateConfig, publish: adminPublishConfig, update: adminUpdateConfig, clean: adminCleanConfig } = require('../conf/admin')
 
 const current = getCurrent()
@@ -124,6 +127,27 @@ exports.save = async () => {
 exports.revert = async () => {
     const config = cleanConfig(revertConfig)
     const command = 'gitm revert ' + (await getCommand(config))
+    sh.exec(command)
+}
+
+// link创建软链
+exports.link = async () => {
+    const config = cleanConfig(linkConfig)
+    const command = 'gitm link ' + (await getCommand(config))
+    sh.exec(command)
+}
+
+// unlink取消软链
+exports.unlink = async () => {
+    const config = cleanConfig(unlinkConfig)
+    const command = 'gitm unlink ' + (await getCommand(config))
+    sh.exec(command)
+}
+
+// postmsg发送消息
+exports.postmsg = async () => {
+    const config = cleanConfig(postmsgConfig)
+    const command = 'gitm postmsg ' + (await getCommand(config))
     sh.exec(command)
 }
 

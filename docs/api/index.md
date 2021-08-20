@@ -180,7 +180,7 @@ gitm cb -pd --no-bugfix
 
 #### 短指令：gitm ed
 
-任务完成，合并并删除分支，这个操作会把 20001 这个分支代码合并到 bug 分支并删除 20001 分支
+任务完成，合并并删除分支，这个操作会把 20001 这个分支代码合并到 bug 分支并删除 20001 分支(远程的20001分支也会同步删除)
 
 -   使用：`gitm end [type] [name]`
 -   参数：
@@ -363,7 +363,7 @@ gitm build wyweb --env dev --app cloud-ui
 
 #### 短指令：gitm bh
 
-提供分支搜索和删除功能（不开放删除远程分支功能）
+提供分支搜索和删除功能
 
 -   使用：`gitm branch [-k --key] [-t --type] [-r --remote]` 或者 `gitm branch [-d --delete [name]] [-D --forcedelete [name]]` 或者 `gitm branch [-u --upstream [upstream]]`
 -   传值：
@@ -392,19 +392,28 @@ gitm bh -k bug001 -r -t feature
 
 ```shell
 # 形式：gitm branch [-d --delete] [-D --forcedelete]
-gitm branch -d bugfix/bug001
+gitm branch -D bugfix/bug001
 # or
-gitm bh -d bugfix/bug001
+gitm bh -D bugfix/bug001
 ```
 
-3. 设置当前分支与远程 feature/1000 分支关联
+3. 删除本地和远程分支
+
+```shell
+# 形式：gitm branch [-d --delete] [-D --forcedelete] [-r --remote]
+gitm branch -D bugfix/bug001 --remote
+# or
+gitm bh -D bugfix/bug001 -r
+```
+
+4. 设置当前分支与远程 feature/1000 分支关联
 
 ```shell
 # 形式：gitm branch [-u --upstream [upstream]]
 gitm branch -u feature/1000
 ```
 
-4. 取消当前分支与远程分支的关联
+5. 取消当前分支与远程分支的关联
 
 ```shell
 gitm branch -u

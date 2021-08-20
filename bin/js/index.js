@@ -203,6 +203,7 @@ function getCache() {
 function setCache(rest) {
     const { gitDir } = gitRevParse()
     sh.touch(gitDir + '/.gitmarscommands')
+    // eslint-disable-next-line no-control-regex
     sh.sed('-i', /[\s\S\n\r\x0a\x0d]*/, encodeURIComponent(JSON.stringify(rest)), gitDir + '/.gitmarscommands')
 }
 
@@ -213,6 +214,7 @@ function setCache(rest) {
 function setLog(log) {
     const { gitDir } = gitRevParse()
     sh.touch(gitDir + '/.gitmarslog')
+    // eslint-disable-next-line no-control-regex
     sh.sed('-i', /[\s\S\n\r\x0a\x0d]*/, encodeURIComponent(JSON.stringify(log)), gitDir + '/.gitmarslog')
 }
 
