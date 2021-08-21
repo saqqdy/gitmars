@@ -6,7 +6,16 @@
             {
                 required: true,
                 name: 'name',
-                variadic: false
+                variadic: false,
+                validator: (val, opts, cb) => {
+                    if (/\s+/.test(val)) {
+                        cb(new Error('请不要输入空格'))
+                        return
+                    }
+                    cb()
+                },
+                transformer: null,
+                description: '包的名称'
             }
         ],
         options: []
