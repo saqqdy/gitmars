@@ -4,6 +4,8 @@ gitmarsconfig.json
 node_modules
 /ui
 /docs
+/cache/*
+!/cache/.gitkeep
 script
 *.bak
 *.bak.js
