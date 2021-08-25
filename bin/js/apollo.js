@@ -1,8 +1,9 @@
+const path = require('path')
 let apollo = require('node-apollo'),
     sh = require('shelljs')
 const { error, writeFile } = require('./index')
-const { gitDir } = require('./gitRevParse')()
 const getConfig = require('./getConfig')
+const cacheDir = path.join(__dirname, '../../cache')
 
 /**
  * apolloConfig
@@ -14,9 +15,9 @@ module.exports = async function apolloConfig() {
         config,
         apolloConfig,
         result
-    if (sh.test('-f', gitDir + '/buildConfig.json')) {
-        let fileDate = parseInt(sh.cat(gitDir + '/buildConfig.txt').stdout)
-        if (now - fileDate < 24 * 60 * 60 * 1000) return require(gitDir + '/buildConfig.json')
+    if (sh.test('-f', cacheDir + '/buildConfig.json')) {
+        let fileDate = parseInt(sh.cat(cacheDir + '/buildConfig.txt').stdout)
+        if (now - fileDate < 24 * 60 * 60 * 1000) return require(cacheDir + '/buildConfig.json')
     }
     config = getConfig()
     if (!config.apolloConfig) {
@@ -31,7 +32,7 @@ module.exports = async function apolloConfig() {
         apolloConfig = config.apolloConfig
     }
     result = await apollo.remoteConfigService(apolloConfig)
-    await writeFile(gitDir + '/buildConfig.txt', String(now))
-    await writeFile(gitDir + '/buildConfig.json', JSON.stringify(result.content))
+    await writeFile(cacheDir + '/buildConfig.txt', String(now))
+    await writeFile(cacheDir + '/buildConfig.json', JSON.stringify(result.content))
     return result.content
 }
