@@ -2,8 +2,12 @@
 const program = require('commander')
 const sh = require('shelljs')
 const { options, args } = require('./conf/log')
-const { queue, success, getLogs } = require('./js/index')
+const { error, queue, success, getLogs, isGitProject } = require('./js/index')
 const { createArgs } = require('./js/tools')
+if (!isGitProject()) {
+    sh.echo(error('当前目录不是git项目目录'))
+    sh.exit(1)
+}
 /**
  * gitm log
  */

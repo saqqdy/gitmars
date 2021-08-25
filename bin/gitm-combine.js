@@ -2,9 +2,13 @@
 const program = require('commander')
 const sh = require('shelljs')
 const { options, args } = require('./conf/combine')
-const { error, queue, getStatus, getCurrent, searchBranch } = require('./js/index')
+const { error, queue, getStatus, getCurrent, searchBranch, isGitProject } = require('./js/index')
 const { createArgs } = require('./js/tools')
 const { defaults } = require('./js/global')
+if (!isGitProject()) {
+    sh.echo(error('当前目录不是git项目目录'))
+    sh.exit(1)
+}
 const { getUserToken } = require('./js/api')
 const { appName } = require('./js/getGitConfig')()
 const config = require('./js/getConfig')()
