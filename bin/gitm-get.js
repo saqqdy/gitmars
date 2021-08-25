@@ -2,8 +2,12 @@
 const program = require('commander')
 const sh = require('shelljs')
 const { options, args } = require('./conf/get')
-const { queue, getCurrent, getStashList, warning } = require('./js/index')
+const { error, queue, getCurrent, getStashList, warning, isGitProject } = require('./js/index')
 const { createArgs } = require('./js/tools')
+if (!isGitProject()) {
+    sh.echo(error('当前目录不是git项目目录'))
+    sh.exit(1)
+}
 /**
  * gitm get
  */

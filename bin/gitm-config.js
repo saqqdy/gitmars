@@ -2,8 +2,12 @@
 const program = require('commander')
 const sh = require('shelljs')
 const gitRevParse = require('./js/gitRevParse')
-const { error, success, writeFile } = require('./js/index')
+const { error, success, writeFile, isGitProject } = require('./js/index')
 const { defaults } = require('./js/global')
+if (!isGitProject()) {
+    sh.echo(error('当前目录不是git项目目录'))
+    sh.exit(1)
+}
 const config = require('./js/getConfig')()
 /**
  * gitm config set
