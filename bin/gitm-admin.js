@@ -3,8 +3,12 @@ const program = require('commander')
 const sh = require('shelljs')
 const { create, publish, update, clean } = require('./conf/admin')
 const { getUserToken } = require('./js/api')
-const { error, success, queue, getStatus, checkBranch, getCurrent } = require('./js/index')
+const { error, success, queue, getStatus, checkBranch, getCurrent, isGitProject } = require('./js/index')
 const { createArgs } = require('./js/tools')
+if (!isGitProject()) {
+    sh.echo(error('当前目录不是git项目目录'))
+    sh.exit(1)
+}
 const { appName } = require('./js/getGitConfig')()
 const config = require('./js/getConfig')()
 const { token, level, nickname = '' } = config.api ? getUserToken() : {}

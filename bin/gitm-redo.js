@@ -3,8 +3,12 @@ const program = require('commander')
 const inquirer = require('inquirer')
 const sh = require('shelljs')
 const { options, args } = require('./conf/redo')
-const { warning, queue } = require('./js/index')
+const { error, warning, queue, isGitProject } = require('./js/index')
 const { createArgs } = require('./js/tools')
+if (!isGitProject()) {
+    sh.echo(error('当前目录不是git项目目录'))
+    sh.exit(1)
+}
 /**
  * gitm redo
  */

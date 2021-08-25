@@ -5,8 +5,12 @@ const path = require('path')
 const program = require('commander')
 const sh = require('shelljs')
 const inquirer = require('inquirer')
-const { success } = require('./js/index')
+const { error, success, isGitProject } = require('./js/index')
 const { defaults } = require('./js/global')
+if (!isGitProject()) {
+    sh.echo(error('当前目录不是git项目目录'))
+    sh.exit(1)
+}
 const { root } = require('./js/gitRevParse')()
 /**
  * gitm init

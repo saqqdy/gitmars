@@ -659,6 +659,15 @@ function getGitEmail() {
     return sh.exec(`git config user.email`, { silent: true }).stdout.replace(/(^\s+|\n*$)/g, '') // 去除首尾
 }
 
+/**
+ * 获取当前是否git项目目录
+ *
+ * @returns {String} 返回字符串
+ */
+function isGitProject() {
+    return sh.exec(`git rev-parse --is-inside-work-tree`, { silent: true }).stdout.includes('true')
+}
+
 module.exports = {
     warning,
     error,
@@ -686,5 +695,6 @@ module.exports = {
     compareVersion,
     getBranchsFromID,
     getGitUser,
-    getGitEmail
+    getGitEmail,
+    isGitProject
 }
