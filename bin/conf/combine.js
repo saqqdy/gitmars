@@ -3,8 +3,22 @@
         command: 'combine',
         short: 'cb',
         args: [
-            { required: false, name: 'type', variadic: false, validator: null, transformer: null, description: '分支类型' },
-            { required: false, name: 'name', variadic: false, validator: null, transformer: null, description: '分支名称(不带feature/bugfix前缀)' }
+            {
+                required: false,
+                name: 'type',
+                variadic: false,
+                validator: null,
+                transformer: null,
+                description: '分支类型'
+            },
+            {
+                required: false,
+                name: 'name',
+                variadic: false,
+                validator: null,
+                transformer: null,
+                description: '分支名称(不带feature/bugfix前缀)'
+            }
         ],
         options: [
             {

@@ -4,7 +4,7 @@
         short: null,
         args: [
             {
-                required: true,
+                required: false,
                 name: 'name',
                 variadic: false,
                 validator: (val, opts, cb) => {
