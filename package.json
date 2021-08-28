@@ -12,14 +12,22 @@
         "lib": "sh script/lib.sh",
         "build:docs": "sh script/docs.sh",
         "build:ui": "sh script/build-ui.sh",
-        "dist": "run-s eslint prettier lib build:docs build:ui",
+        "dist": "run-s eslint prettier lib build:docs build:ui prettier:docs",
         "eslint": "eslint --fix --ext .vue,.js",
-        "prettier": "prettier --write \"**/*.{js,ts,vue,json,md}\""
+        "prettier": "prettier --write \"**/*.{js,jsx,ts,tsx,vue,json,md}\"",
+        "prettier:docs": "prettier --write \"API.md\""
     },
     "main": "bin/gitm.js",
     "bin": {
         "gitm": "bin/gitm.js"
     },
+    "files": [
+        "bin",
+        "cache",
+        "lib",
+        "server",
+        "static"
+    ],
     "dependencies": {
         "ci-info": "^3.2.0",
         "colors": "^1.4.0",
