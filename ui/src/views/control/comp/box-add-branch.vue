@@ -1,18 +1,18 @@
 <template>
 	<div class="box">
-		<a-input v-model:value="data.type" placeholder="分支类型"></a-input>
+		<el-input v-model:value="data.type" placeholder="分支类型"></el-input>
 		/
-		<a-input v-model:value="data.name" placeholder="分支名称"></a-input>
+		<el-input v-model:value="data.name" placeholder="分支名称"></el-input>
 	</div>
 </template>
 
 <script>
 import { reactive, unref } from 'vue'
-import AInput from 'ant-design-vue/lib/input'
+import { ElInput } from 'element-plus'
 
 export default {
 	components: {
-		AInput
+		ElInput
 	},
 	inheritAttrs: false,
 	props: {},

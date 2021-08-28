@@ -11,7 +11,6 @@
 	},
 	"main": "background.js",
 	"dependencies": {
-		"ant-design-vue": "^2.2.6",
 		"axios": "^0.21.1",
 		"core-js": "^3.12.1",
 		"dayjs": "^1.10.4",

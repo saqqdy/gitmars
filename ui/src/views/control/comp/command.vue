@@ -3,13 +3,13 @@
 		<ul>
 			<li v-for="arg in status.args" :key="arg.name">
 				{{ arg.name }}
-				<a-input v-model:value="arg.value" :key="arg.name + '-arg'" :placeholder="arg.required ? '必填' : '选填'"></a-input>
+				<el-input v-model:value="arg.value" :key="arg.name + '-arg'" :placeholder="arg.required ? '必填' : '选填'"></el-input>
 			</li>
 		</ul>
 		<ul>
 			<li v-for="option in status.options" :key="option.long">
 				{{ option.description }}
-				<a-input v-if="option.optional" v-model:value="option.value" :key="option.long + '-option'" :placeholder="option.required ? '必填' : '选填'"></a-input>
+				<el-input v-if="option.optional" v-model:value="option.value" :key="option.long + '-option'" :placeholder="option.required ? '必填' : '选填'"></el-input>
 				<v3-checkbox v-else v-model:value="option.value" :key="option.long + '-option'"></v3-checkbox>
 			</li>
 		</ul>
@@ -18,12 +18,12 @@
 
 <script>
 import { reactive, unref, watch, inject, ref, computed } from 'vue'
-import AInput from 'ant-design-vue/lib/input'
+import { ElInput } from 'element-plus'
 
 export default {
 	name: 'Command',
 	components: {
-		AInput
+		ElInput
 	},
 	inheritAttrs: false,
 	props: {
