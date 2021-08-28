@@ -1,0 +1,5 @@
+lib
+dist
+
+*.bak
+*_bak

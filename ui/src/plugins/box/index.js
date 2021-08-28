@@ -1,6 +1,6 @@
 import { render, createVNode } from 'vue'
 import { v4 as uuidv4 } from 'uuid'
-import { nextIndex, extend } from '@/lib/tool'
+import { nextIndex, extend } from '@/libs/tool'
 import box from '@/components/box/index.vue'
 import { createCommand } from 'commander'
 

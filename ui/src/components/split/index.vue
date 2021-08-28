@@ -1,7 +1,7 @@
 <script>
 import { h, onMounted, ref, watch, computed, reactive } from 'vue'
 import style from './style.module.less'
-import { on, off, fixNumber, delay } from '@/lib/tool'
+import { on, off, fixNumber, delay } from '@/libs/tool'
 
 export default {
 	name: 'v3Split',

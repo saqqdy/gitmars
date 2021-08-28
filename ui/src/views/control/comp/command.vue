@@ -18,17 +18,11 @@
 
 <script>
 import { reactive, unref, watch, inject, ref, computed } from 'vue'
-// import ASelect from 'ant-design-vue/lib/select'
-// import AButton from 'ant-design-vue/lib/button'
 import AInput from 'ant-design-vue/lib/input'
-// import 'ant-design-vue/lib/select/style'
-// import 'ant-design-vue/lib/button/style'
 
 export default {
 	name: 'Command',
 	components: {
-		// ASelect,
-		// AButton,
 		AInput
 	},
 	inheritAttrs: false,

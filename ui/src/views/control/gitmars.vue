@@ -129,8 +129,8 @@
 <script>
 import { ref, getCurrentInstance, reactive, computed, onMounted, inject, watch, nextTick, provide, onBeforeUnmount, onErrorCaptured } from 'vue'
 import { onBeforeRouteLeave, useRoute, useRouter } from 'vue-router'
-import Command from './comp/command'
-import MapCommand from './comp/map-command'
+import Command from './comp/command.vue'
+import MapCommand from './comp/map-command.vue'
 import Xterm from '@/components/xterm'
 import commandSets from './gitmSets'
 import boxAddBranchVue from './comp/box-add-branch.vue'

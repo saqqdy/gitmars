@@ -23,7 +23,7 @@
 
 import axios from './axios'
 import Box from './box'
-import { nextIndex, delay } from '@/lib/tool'
+import { nextIndex, delay } from '@/libs/tool'
 
 export default function (app) {
 	app.config.globalProperties.$nextIndex = nextIndex.bind(app)
