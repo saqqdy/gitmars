@@ -788,37 +788,48 @@ gitm ui -p 8080
 
 ### gitm link
 
-创建本地包软链接
+创建本地包软链接，传入name时把依赖包软链到本地包，不传name时给当前包创建公共软链
 
--   使用：`gitm link <name> <path>`
+-   使用：`gitm link [name]`
 -   参数：
 
-| 参数 | 说明           | 类型   | 可选值 | 必填 | 默认 |
-| ---- | -------------- | ------ | ------ | ---- | ---- |
-| name | 包名称         | String | -      | 是   | -    |
-| path | 包本地绝对路径 | String | -      | 是   | -    |
+| 参数 | 说明   | 类型   | 可选值 | 必填 | 默认 |
+| ---- | ------ | ------ | ------ | ---- | ---- |
+| name | 包名称 | String | -      | 否   | -    |
 
--   示例：
+-   示例1：链接本地的tool包
 
 ```shell
-gitm link tool /Users/saqqdy/www/saqqdy/gitmars
+gitm link tool
+```
+
+-   示例2：给当前包创建公共软链
+
+```shell
+gitm link
 ```
 
 ### gitm unlink
 
-解除本地包软链接
+传入name时解除依赖包软链，不传name时删除当前包的公共软链
 
--   使用：`gitm unlink <name>`
+-   使用：`gitm unlink [name]`
 -   参数：
 
 | 参数 | 说明   | 类型   | 可选值 | 必填 | 默认 |
 | ---- | ------ | ------ | ------ | ---- | ---- |
 | name | 包名称 | String | -      | 是   | -    |
 
--   示例：
+-   示例1：解除依赖包软链
 
 ```shell
 gitm unlink tool
+```
+
+-   示例2：删除当前包的公共软链
+
+```shell
+gitm unlink
 ```
 
 ### gitm postmsg
