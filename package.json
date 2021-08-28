@@ -25,8 +25,7 @@
         "bin",
         "cache",
         "lib",
-        "server",
-        "static"
+        "server"
     ],
     "dependencies": {
         "ci-info": "^3.2.0",
