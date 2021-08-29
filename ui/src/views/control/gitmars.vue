@@ -126,22 +126,24 @@
 	</div>
 </template>
 
-<script>
-import { ref, getCurrentInstance, reactive, computed, onMounted, inject, watch, nextTick, provide, onBeforeUnmount, onErrorCaptured } from 'vue'
+<script lang="ts">
+import { defineComponent, ref, getCurrentInstance, reactive, computed, onMounted, inject, watch, nextTick, provide, onBeforeUnmount, onErrorCaptured, useSlots, useAttrs, defineProps } from 'vue'
 import { onBeforeRouteLeave, useRoute, useRouter } from 'vue-router'
+// import { injectContext } from '@/hooks/useContext'
+import { TerminalInjectionKey, SocketInjectionKey } from '@/symbols/injection'
 import Command from './comp/command.vue'
 import MapCommand from './comp/map-command.vue'
 import Xterm from '@/components/xterm'
 import commandSets from './gitmSets'
 import boxAddBranchVue from './comp/box-add-branch.vue'
 
-export default {
+export default defineComponent({
 	name: 'control-tasks',
 	components: { Xterm, Command, MapCommand },
 	async setup() {
 		// data
-		const { getTerminal } = inject('Terminal')
-		const { socket, socketGitmars } = inject('Socket')
+		const { getTerminal } = inject(TerminalInjectionKey)
+		const { socket, socketGitmars } = inject(SocketInjectionKey)
 		const {
 			appContext: {
 				config: {
@@ -299,7 +301,17 @@ export default {
 			checkout
 		}
 	}
-}
+})
+// defineExpose({
+// 	//
+// })
+// const props = defineProps({
+// 	data: {
+// 		type: String,
+// 		default: ""
+// 	}
+// })
+// const emit = defineEmits(['my-click'])
 </script>
 
 <style lang="less" scoped>

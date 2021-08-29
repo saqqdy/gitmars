@@ -18,10 +18,10 @@ export default defineConfig({
 	base: '/',
 	resolve: {
 		alias: {
-			'@': path.resolve(__dirname, '/src'),
+			'@': path.resolve(__dirname, 'src'),
 			gitmLib: path.resolve(__dirname, '../lib'),
-			server: path.resolve(__dirname, '../server'),
-			'socket.io-client': 'socket.io-client/dist/socket.io.js'
+			server: path.resolve(__dirname, '../server')
+			// 'socket.io-client': 'socket.io-client/dist/socket.io.js'
 		}
 	},
 	server: {
@@ -32,6 +32,7 @@ export default defineConfig({
 				rewrite: path => path.replace(/^\/jar\//, '/')
 			}
 		},
+		cors: true,
 		port: 8080
 	},
 	// optimizeDeps: {
@@ -54,16 +55,16 @@ export default defineConfig({
 					red: ' #ef4f4f',
 					black: 'rgb(48, 49, 51)',
 					gray: '#909399',
-					'primary': '#409eff', // 全局主色
-					'link': '#fff', // 链接色
-					'success': '#67c23a', // 成功色
-					'warning': '#e6a23c', // 警告色
-					'error': ' #ef4f4f', // 错误色
+					primary: '#409eff', // 全局主色
+					link: '#fff', // 链接色
+					success: '#67c23a', // 成功色
+					warning: '#e6a23c', // 警告色
+					error: ' #ef4f4f', // 错误色
 					'font-size': '14px', // 主字号
-					'heading': 'rgba(255, 255, 255, 0.85)', // 标题色
+					heading: 'rgba(255, 255, 255, 0.85)', // 标题色
 					'font-color': '#5a5a5a', // 主文本色
 					'font-color-secondary': 'rgba(255, 255, 255, 0.45)', // 次文本色
-					'disabled': 'rgba(255, 255, 255, 0.25)', // 失效色
+					disabled: 'rgba(255, 255, 255, 0.25)', // 失效色
 					'border-radius': '4px', // 组件/浮层圆角
 					'border-color': '#ebeef5', // 边框色
 					'box-shadow': '0 2px 8px rgba(255, 255, 255, 0.15)' // 浮层阴影
