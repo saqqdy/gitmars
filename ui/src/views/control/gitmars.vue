@@ -130,12 +130,12 @@
 import { defineComponent, ref, getCurrentInstance, reactive, computed, onMounted, inject, watch, nextTick, provide, onBeforeUnmount, onErrorCaptured, useSlots, useAttrs, defineProps } from 'vue'
 import { onBeforeRouteLeave, useRoute, useRouter } from 'vue-router'
 // import { injectContext } from '@/hooks/useContext'
-import { TerminalInjectionKey, SocketInjectionKey } from '@/symbols/injection'
 import Command from './comp/command.vue'
 import MapCommand from './comp/map-command.vue'
 import Xterm from '@/components/xterm'
 import commandSets from './gitmSets'
 import boxAddBranchVue from './comp/box-add-branch.vue'
+import { TerminalInjectionKey, SocketInjectionKey } from '@/symbols/injection'
 
 export default defineComponent({
 	name: 'control-tasks',

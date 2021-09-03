@@ -1,15 +1,18 @@
 {
-	"compilerOptions": {
-		"allowJs": true,
-		"target": "esnext",
-		"module": "esnext",
-		"moduleResolution": "node",
-		"strict": true,
-		"jsx": "preserve",
-		"sourceMap": true,
-		"resolveJsonModule": true,
-		"esModuleInterop": true,
-		"lib": ["esnext", "dom"]
-	},
-	"include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue", "typings/*.d.ts"]
+    "extends": "../tsconfig.json",
+    "include": ["./", "../typings", "./*.d.ts"],
+    "exclude": ["node_modules", "**/__tests__"],
+    "compilerOptions": {
+        // compile away optional-chaining-operator
+        "target": "es6",
+		"baseUrl": ".",
+        "paths": {
+			"@/*": ["src/*"],
+			"@/package": ["./package.json"]
+        },
+        // "outDir": "../lib",
+        // "module": "commonjs",
+        // "lib": ["ESNext", "dom"],
+        "sourceMap": true
+    }
 }
