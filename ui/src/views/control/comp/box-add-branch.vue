@@ -1,41 +1,42 @@
 <template>
 	<div class="box">
-		<el-input v-model:value="data.type" placeholder="分支类型"></el-input>
-		/
-		<el-input v-model:value="data.name" placeholder="分支名称"></el-input>
+		<el-input v-model="data.type" placeholder="分支类型"></el-input>/
+		<el-input v-model="data.name" placeholder="分支名称"></el-input>
 	</div>
 </template>
 
-<script>
-import { reactive, unref } from 'vue'
+<script lang="ts">
+export default {
+	inheritAttrs: false,
+}
+</script>
+
+<script lang="ts" setup>
+import { reactive, toRaw } from 'vue'
 import { ElInput } from 'element-plus'
 
-export default {
-	components: {
-		ElInput
-	},
-	inheritAttrs: false,
-	props: {},
-	setup(props, { emit }) {
-		const data = reactive({
-			type: '',
-			name: ''
-		})
-		const submit = () => {
-			return new Promise((resolve, reject) => {
-				if (!data.type || !data.name) {
-					reject()
-					return
-				}
-				resolve(unref(data))
-			})
-		}
-		return {
-			data,
-			submit
-		}
-	}
+interface DataType {
+	type: string
+	name: string
 }
+
+const data: DataType = reactive({
+	type: '',
+	name: ''
+})
+const submit = (): Promise<DataType> => {
+	return new Promise((resolve, reject) => {
+		if (!data.type || !data.name) {
+			reject()
+			return
+		}
+		resolve(toRaw(data))
+	})
+}
+defineExpose({
+	data,
+	submit
+})
 </script>
 
 <style lang="less">

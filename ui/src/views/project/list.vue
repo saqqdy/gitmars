@@ -53,8 +53,8 @@ const getProjects = () => {
 	$axios({
 		url: '/common/project/list',
 		data: {}
-	}).then(({ data } = {} as any) => {
-		data.list = [].concat(data)
+	}).then(({ data: list }) => {
+		data.list = [].concat(list)
 	})
 }
 // open
