@@ -95,60 +95,58 @@ apollo 配置参数
 apollo 构建项目配置参考
 
 ```json
-
 {
-	"username": "jerkins_username",
-	"password": "jerkins_password",
-	"template": "http://www.jerkins.com/view/${line}/job/${project}/build?token=${token}", // 不带参数
-	"templateWithParam": "http://www.jerkins.com/view/${line}/job/${project}/buildWithParameters?token=${token}&build_app=${app}", // 带参数
-	"gitNotificationGroupUrl": "https://www.dingding.com/robot/webhook/send?type=0&token=xxxxxxxx", // 推送群消息的api
-	"dev": {
-		"line": "git_dev",
-		"token": "dev_token",
-		"list": [
-			{
-				"name": "project1",
-				"project": "git_project1"
-			},
-			{
-				"name": "project2",
-				"project": "git_project2",
-				"apps": ["all", "admin", "client"]
-			},
-		]
-	},
-	"bug": {
-		"line": "git_bug",
-		"token": "bug_token",
-		"list": [
-			{
-				"name": "project1",
-				"project": "git_project1_bug"
-			},
-			{
-				"name": "project2",
-				"project": "egg_project2_bug",
-				"apps": ["all", "admin", "client"]
-			},
-		]
-	},
-	"prod": {
-		"line": "git_prod",
-		"token": "prod_token",
-		"list": [
-			{
-				"name": "project1",
-				"project": "git_project1_prod"
-			},
-			{
-				"name": "project2",
-				"project": "git_project2_prod",
-				"apps": ["all", "admin", "client"]
-			},
-		]
-	}
+    "username": "jerkins_username",
+    "password": "jerkins_password",
+    "template": "http://www.jerkins.com/view/${line}/job/${project}/build?token=${token}", // 不带参数
+    "templateWithParam": "http://www.jerkins.com/view/${line}/job/${project}/buildWithParameters?token=${token}&build_app=${app}", // 带参数
+    "gitNotificationGroupUrl": "https://www.dingding.com/robot/webhook/send?type=0&token=xxxxxxxx", // 推送群消息的api
+    "dev": {
+        "line": "git_dev",
+        "token": "dev_token",
+        "list": [
+            {
+                "name": "project1",
+                "project": "git_project1"
+            },
+            {
+                "name": "project2",
+                "project": "git_project2",
+                "apps": ["all", "admin", "client"]
+            }
+        ]
+    },
+    "bug": {
+        "line": "git_bug",
+        "token": "bug_token",
+        "list": [
+            {
+                "name": "project1",
+                "project": "git_project1_bug"
+            },
+            {
+                "name": "project2",
+                "project": "egg_project2_bug",
+                "apps": ["all", "admin", "client"]
+            }
+        ]
+    },
+    "prod": {
+        "line": "git_prod",
+        "token": "prod_token",
+        "list": [
+            {
+                "name": "project1",
+                "project": "git_project1_prod"
+            },
+            {
+                "name": "project2",
+                "project": "git_project2_prod",
+                "apps": ["all", "admin", "client"]
+            }
+        ]
+    }
 }
-
 ```
 
 ### hooks
@@ -172,7 +170,7 @@ apollo 构建项目配置参考
 
 ### api
 
-请求权限的api接口地址，需要支持的接收参数形式：url?name=git_user_name
+请求权限的 api 接口地址，需要支持的接收参数形式：url?name=git_user_name
 
 > 2.0.1 新增
 
@@ -181,19 +179,18 @@ apollo 构建项目配置参考
 -   必填：否
 -   说明：
 
-返回的参数必须包含token和level
+返回的参数必须包含 token 和 level
 
 ```json
 {
-    token: 'gitlab access_token', // gitlab上生成的access_token
-    level: 3 // 1=超级管理员 2=管理员 3=开发者
+    "token": "gitlab access_token", // gitlab上生成的access_token
+    "level": 3 // 1=超级管理员 2=管理员 3=开发者
 }
 ```
 
-
 ### gitHost
 
-git服务器位置，例如：https://gitlab.com
+git 服务器位置，例如：https://gitlab.com
 
 > 2.0.1 新增
 
@@ -201,10 +198,9 @@ git服务器位置，例如：https://gitlab.com
 -   默认：``
 -   必填：是
 
-
 ### gitID
 
-git项目ID，在gitlab上可以查到，通常是一串数字
+git 项目 ID，在 gitlab 上可以查到，通常是一串数字
 
 > 2.0.1 新增
 
