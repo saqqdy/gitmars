@@ -10,8 +10,8 @@
 </template>
 
 <script lang="ts" setup>
-import { reactive, provide, onMounted } from 'vue'
-import { io, Socket } from 'socket.io-client'
+import { reactive, provide, inject, onMounted } from 'vue'
+import io, { Socket } from 'socket.io-client'
 import { Terminal } from 'xterm'
 import { common as xtermTheme } from 'xterm-style'
 import 'xterm/css/xterm.css'
@@ -32,7 +32,7 @@ const socket: Socket = io('http://127.0.0.1:3000/terminal', { reconnection: true
 const socketGitmars: Socket = io('http://127.0.0.1:3000/gitmars', { reconnection: true })
 // const attachAddon = new AttachAddon(socket)
 const fitAddon = new FitAddon()
-console.log(fitAddon)
+console.log(socket)
 const searchAddon = new SearchAddon()
 const terms: {
 	[prop: string]: TermObject

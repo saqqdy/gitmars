@@ -1,5 +1,5 @@
 <template>
-	<div class="page" v-if="ready">
+	<div class="page" v-if="data.ready">
 		<h1>
 			Gitmars工作流
 			<p>
@@ -11,68 +11,101 @@
 			<div class="nav">
 				<dl class="bugfix" v-if="branchList.bugfix.length">
 					<dt>bug分支</dt>
-					<dd v-for="branch in branchList.bugfix" :class="{ active: branch === current }" :key="branch">
+					<dd
+						v-for="branch in branchList.bugfix"
+						:class="{ active: branch === data.current }"
+						:key="branch"
+					>
 						{{ branch }}
-						<v3-button type="primary" size="mini" @click="checkout(branch)" v-if="branch !== current" plain>进入</v3-button>
+						<v3-button
+							type="primary"
+							size="mini"
+							@click="checkout(branch)"
+							v-if="branch !== data.current"
+							plain
+						>进入</v3-button>
 					</dd>
 				</dl>
 				<dl class="feature" v-if="branchList.feature.length">
 					<dt>feature分支</dt>
-					<dd v-for="branch in branchList.feature" :class="{ active: branch === current }" :key="branch">
+					<dd
+						v-for="branch in branchList.feature"
+						:class="{ active: branch === data.current }"
+						:key="branch"
+					>
 						{{ branch }}
-						<v3-button type="primary" size="mini" @click="checkout(branch)" v-if="branch !== current" plain>进入</v3-button>
+						<v3-button
+							type="primary"
+							size="mini"
+							@click="checkout(branch)"
+							v-if="branch !== data.current"
+							plain
+						>进入</v3-button>
 					</dd>
 				</dl>
 				<dl class="others" v-if="branchList.others.length">
 					<dt>其他分支</dt>
-					<dd v-for="branch in branchList.others" :class="{ active: branch === current }" :key="branch">
+					<dd
+						v-for="branch in branchList.others"
+						:class="{ active: branch === data.current }"
+						:key="branch"
+					>
 						{{ branch }}
-						<v3-button type="primary" size="mini" @click="checkout(branch)" v-if="branch !== current" plain>进入</v3-button>
+						<v3-button
+							type="primary"
+							size="mini"
+							@click="checkout(branch)"
+							v-if="branch !== data.current"
+							plain
+						>进入</v3-button>
 					</dd>
 				</dl>
 			</div>
 			<div class="main">
 				<h3>
-					<span><i class="iconfont icon-layout"></i> 当前分支：{{ current }} </span>
-					<p>{{ project.path }}</p>
+					<span>
+						<i class="iconfont icon-layout"></i>
+						当前分支：{{ data.current }}
+					</span>
+					<p>{{ data.project.path }}</p>
 				</h3>
 				<div class="cmd">
 					<div class="section">
 						<h4>工作流</h4>
-						<v3-collapse v-model="activeNames" :accordion="true" @change="handleChange">
+						<v3-collapse v-model="data.activeNames" :accordion="true" @change="handleChange">
 							<v3-collapse-item name="1">
 								<template #title>
-									<MapCommand :value="commandValue['combine']" :current="current" @exec="exec"></MapCommand>
+									<MapCommand :value="commandValue['combine']" :current="data.current" @exec="exec"></MapCommand>
 								</template>
 								<Command v-model:value="commandValue['combine']"></Command>
 							</v3-collapse-item>
 							<v3-collapse-item name="2">
 								<template #title>
-									<MapCommand :value="commandValue['update']" :current="current" @exec="exec"></MapCommand>
+									<MapCommand :value="commandValue['update']" :current="data.current" @exec="exec"></MapCommand>
 								</template>
 								<Command v-model:value="commandValue['update']"></Command>
 							</v3-collapse-item>
 							<v3-collapse-item name="3">
 								<template #title>
-									<MapCommand :value="commandValue['build']" :current="current" @exec="exec"></MapCommand>
+									<MapCommand :value="commandValue['build']" :current="data.current" @exec="exec"></MapCommand>
 								</template>
 								<Command v-model:value="commandValue['build']"></Command>
 							</v3-collapse-item>
 							<v3-collapse-item name="4">
 								<template #title>
-									<MapCommand :value="commandValue['continue']" :current="current" @exec="exec"></MapCommand>
+									<MapCommand :value="commandValue['continue']" :current="data.current" @exec="exec"></MapCommand>
 								</template>
 								<Command v-model:value="commandValue['continue']"></Command>
 							</v3-collapse-item>
 							<v3-collapse-item name="5">
 								<template #title>
-									<MapCommand :value="commandValue['end']" :current="current" @exec="exec"></MapCommand>
+									<MapCommand :value="commandValue['end']" :current="data.current" @exec="exec"></MapCommand>
 								</template>
 								<Command v-model:value="commandValue['end']"></Command>
 							</v3-collapse-item>
 							<v3-collapse-item name="6">
 								<template #title>
-									<MapCommand :value="commandValue['branch']" :current="current" @exec="exec"></MapCommand>
+									<MapCommand :value="commandValue['branch']" :current="data.current" @exec="exec"></MapCommand>
 								</template>
 								<Command v-model:value="commandValue['branch']"></Command>
 							</v3-collapse-item>
@@ -80,103 +113,117 @@
 					</div>
 					<div class="section">
 						<h4>实用工具</h4>
-						<v3-collapse v-model:value="activeNames" :accordion="true" @change="handleChange">
+						<v3-collapse v-model:value="data.activeNames" :accordion="true" @change="handleChange">
 							<v3-collapse-item name="1">
 								<template #title>
-									<MapCommand :value="commandValue['save']" :current="current" @exec="exec"></MapCommand>
+									<MapCommand :value="commandValue['save']" :current="data.current" @exec="exec"></MapCommand>
 								</template>
 								<Command v-model:value="commandValue['save']"></Command>
 							</v3-collapse-item>
 							<v3-collapse-item name="2">
 								<template #title>
-									<MapCommand :value="commandValue['get']" :current="current" @exec="exec"></MapCommand>
+									<MapCommand :value="commandValue['get']" :current="data.current" @exec="exec"></MapCommand>
 								</template>
 								<Command v-model:value="commandValue['get']"></Command>
 							</v3-collapse-item>
 							<v3-collapse-item name="3">
 								<template #title>
-									<MapCommand :value="commandValue['copy']" :current="current" @exec="exec"></MapCommand>
+									<MapCommand :value="commandValue['copy']" :current="data.current" @exec="exec"></MapCommand>
 								</template>
 								<Command v-model:value="commandValue['copy']"></Command>
 							</v3-collapse-item>
 							<v3-collapse-item name="4">
 								<template #title>
-									<MapCommand :value="commandValue['revert']" :current="current" @exec="exec"></MapCommand>
+									<MapCommand :value="commandValue['revert']" :current="data.current" @exec="exec"></MapCommand>
 								</template>
 								<Command v-model:value="commandValue['revert']"></Command>
 							</v3-collapse-item>
 							<v3-collapse-item name="5">
 								<template #title>
-									<MapCommand :value="commandValue['link']" :current="current" @exec="exec"></MapCommand>
+									<MapCommand :value="commandValue['link']" :current="data.current" @exec="exec"></MapCommand>
 								</template>
 								<Command v-model:value="commandValue['link']"></Command>
 							</v3-collapse-item>
 							<v3-collapse-item name="6">
 								<template #title>
-									<MapCommand :value="commandValue['unlink']" :current="current" @exec="exec"></MapCommand>
+									<MapCommand :value="commandValue['unlink']" :current="data.current" @exec="exec"></MapCommand>
 								</template>
 								<Command v-model:value="commandValue['unlink']"></Command>
 							</v3-collapse-item>
 						</v3-collapse>
 					</div>
 				</div>
-				<Xterm ref="xterm" class="xterm" v-if="project" :id="project.id" :path="project.path"></Xterm>
+				<Xterm
+					ref="xterm"
+					class="xterm"
+					v-if="data.project"
+					:id="data.project.id"
+					:path="data.project.path"
+				></Xterm>
 			</div>
 		</div>
 	</div>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, getCurrentInstance, reactive, computed, onMounted, inject, watch, nextTick, provide, onBeforeUnmount, onErrorCaptured, useSlots, useAttrs, defineProps } from 'vue'
+import { Ref, defineComponent, reactive, computed, onMounted, inject, onErrorCaptured, useSlots, useAttrs } from 'vue'
 import { onBeforeRouteLeave, useRoute, useRouter } from 'vue-router'
-// import { injectContext } from '@/hooks/useContext'
 import Command from './comp/command.vue'
 import MapCommand from './comp/map-command.vue'
 import Xterm from '@/components/xterm'
 import commandSets from './gitmSets'
 import boxAddBranchVue from './comp/box-add-branch.vue'
 import { TerminalInjectionKey, SocketInjectionKey } from '@/symbols/injection'
+import useCurrentInstance from '@/hooks/use-current-instance'
+
+import type { CommandSetsType } from '@/types/command'
+import type { BranchListType } from "@/types/branch";
+import type { ProjectType } from "@/types/project";
+import type { TerminalType } from "@/types/terminal";
+
+export interface DataType {
+	project: ProjectType
+	terminal: TerminalType
+	activeNames: string
+	branchs: string[]
+	current: string
+	ready: boolean
+	error: Error | Object
+}
 
 export default defineComponent({
 	name: 'control-tasks',
 	components: { Xterm, Command, MapCommand },
 	async setup() {
 		// data
-		const { getTerminal } = inject(TerminalInjectionKey)
-		const { socket, socketGitmars } = inject(SocketInjectionKey)
+		const { getTerminal, fitAddon } = inject(TerminalInjectionKey, {})
+		const { socket, socketGitmars } = inject(SocketInjectionKey, {})
 		const {
-			appContext: {
-				config: {
-					globalProperties: { $axios, $box }
-				}
-			}
-		} = getCurrentInstance()
+			globalProperties: { $axios, $box }
+		} = useCurrentInstance()
 		const router = useRouter()
 		const route = useRoute()
-		const xterm = ref(null)
-		const project = ref(null)
-		const terminal = ref(null)
-		const gitmars = ref(null)
-		const commandValue = reactive(commandSets)
-		const activeNames = ref()
-		const branchs = ref([])
-		const current = ref(null)
-		const ready = ref(false)
-		const error = ref(null)
+		const data: DataType = reactive({
+			project: { id: '', name: '', path: '' },
+			terminal: {name: ''},
+			activeNames: '',
+			branchs: [], // 分支列表
+			current: '',
+			ready: false,
+			error: {}
+		})
+		const commandValue: {
+			[prop: string]: CommandSetsType
+		} = reactive(commandSets)
 
 		// 计算属性
-		// const current = computed(() => {
-		// 	let o = branchs.value.find(el => el.indexOf('*') > -1)
-		// 	o =  o && o.replace(/[\s\\*]+/, '') || null
-		// 	return o
-		// })
-		const branchList = computed(() => {
+		const branchList = computed((): BranchListType => {
 			let o = {
 				bugfix: [],
 				feature: [],
 				others: []
-			}
-			branchs.value.forEach(branch => {
+			} as BranchListType
+			data.branchs.forEach((branch: string): void => {
 				if (branch.indexOf('bugfix/') > -1) {
 					o.bugfix.push(branch)
 				} else if (branch.indexOf('feature/') > -1) {
@@ -189,24 +236,21 @@ export default defineComponent({
 		})
 		// 事件
 		onMounted(() => {
-			// console.log(1, $nextIndex(), xterm.value)
-			socketGitmars.emit('create', { name: project.value.id, cwd: project.value.path })
-			socketGitmars.on(project.value.id + '-branch', data => {
-				// console.log(data)
-				if (data) branchs.value = data
+			socketGitmars.emit('create', { name: data.project.id, cwd: data.project.path })
+			socketGitmars.on(data.project.id + '-branch', (res: any) => {
+				if (data) data.branchs = res
 			})
-			socketGitmars.on(project.value.id + '-current', data => {
-				// console.log(data)
-				if (data) current.value = data
+			socketGitmars.on(data.project.id + '-current', (res: string) => {
+				if (data) data.current = res
 			})
 		})
 		onBeforeRouteLeave(() => {
-			// socketGitmars.off(project.value.id + '-branch')
-			// socketGitmars.off(project.value.id + '-current')
-			socketGitmars.emit('remove', project.value.id)
+			// socketGitmars.off(data.project.id + '-branch')
+			// socketGitmars.off(data.project.id + '-current')
+			socketGitmars.emit('remove', data.project.id)
 		})
 		onErrorCaptured(err => {
-			error.value = err
+			data.error = err
 			return true
 		})
 		// 获取分支列表
@@ -239,24 +283,24 @@ export default defineComponent({
 			).data
 		}
 		// 执行指令
-		const exec = cmd => {
-			if (!terminal.value) return
-			socket.emit(terminal.value.name + '-input', ` ${cmd}\r`)
+		const exec = (cmd: string): void => {
+			if (!data.terminal) return
+			socket.emit(data.terminal.name + '-input', ` ${cmd}\r`)
 		}
-		project.value = await getProject()
+		data.project = await getProject()
+
 		// 进入执行目录
 		await $axios({
 			url: '/cmd/cd',
 			data: {
-				dir: project.value.path
+				dir: data.project.path
 			}
 		})
 
-		branchs.value = await getBranchs()
-		current.value = await getCurrent()
-		terminal.value = getTerminal(project.value.id, project.value.path)
-		ready.value = true
-
+		data.branchs = await getBranchs()
+		data.current = await getCurrent()
+		data.terminal = getTerminal && getTerminal(data.project.id, data.project.path)
+		data.ready = true
 		const handleItemClick = () => {
 			console.log('handleItemClick', 666)
 		}
@@ -270,30 +314,26 @@ export default defineComponent({
 				height: '240px',
 				title: '创建分支',
 				options: {},
-				onOk: async instance => {
+				onOk: async (instance: any) => {
 					let { type, name } = await instance.component.proxy.submit()
 					exec(`gitm start ${type} ${name}`)
 					return true
 				}
 			})
 		}
-		const saveStash = () => {}
+		const saveStash = () => { }
 		// checkout分支
-		const checkout = async branch => {
+		const checkout = async (branch: string) => {
 			exec(`git checkout ${branch}`)
-			project.value = await getProject()
+			data.project = await getProject()
 		}
 
 		return {
-			xterm,
+			data,
 			exec,
 			commandValue,
-			activeNames,
-			ready,
 			route,
-			project,
 			branchList,
-			current,
 			handleItemClick,
 			handleChange,
 			createBranch,
@@ -410,7 +450,7 @@ export default defineComponent({
 				display: grid;
 				grid-template-columns: repeat(2, 1fr);
 				grid-template-rows: minmax(0px, auto) auto minmax(0px, auto);
-				grid-template-areas: 'a' 'b';
+				grid-template-areas: "a" "b";
 				grid-auto-flow: row dense;
 				justify-items: stretch;
 				align-items: stretch;

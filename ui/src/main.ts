@@ -1,5 +1,5 @@
 import { createApp } from 'vue'
-import { ElProgress, ElSkeleton, ElRow, ElCol, ElButton, ElCarousel, ElCarouselItem, ElForm, ElFormItem, ElInput, ElSelect, ElOption, ElTooltip, ElMessage, ElMessageBox } from 'element-plus'
+import { ElProgress, ElSkeleton, ElRow, ElCol, ElButton, ElCarousel, ElForm, ElInput, ElSelect, ElTooltip, ElMessage, ElMessageBox } from 'element-plus'
 import 'element-plus/theme-chalk/index.css'
 // @ts-ignore
 import plugins from '@/plugins'
@@ -20,12 +20,9 @@ app.use(ElRow)
 app.use(ElCol)
 app.use(ElButton)
 app.use(ElCarousel)
-// app.use(ElCarouselItem);
 app.use(ElForm)
-// app.use(ElFormItem);
 app.use(ElInput)
 app.use(ElSelect)
-// app.use(ElOption);
 app.use(ElTooltip)
 app.use(ElMessage)
 app.use(ElMessageBox)
