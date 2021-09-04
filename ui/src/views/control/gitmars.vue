@@ -192,7 +192,7 @@ interface DataType {
 }
 
 export default defineComponent({
-	name: 'control-tasks',
+	name: 'ControlGitmars',
 	components: { Xterm, Command, MapCommand },
 	async setup() {
 		// data

@@ -53,7 +53,7 @@ interface DataType {
 }
 
 export default {
-	name: 'control-tasks',
+	name: 'ControlTasks',
 	components: { Xterm },
 	async setup() {
 		// data

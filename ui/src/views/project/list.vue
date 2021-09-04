@@ -6,7 +6,10 @@
 				<li v-for="item in data.list" :key="item.id" class="flex" @click="goProject(item)">
 					<span class="iconfont icon-star-fill" title="收藏"></span>
 					<div class="ttl">
-						<span>{{ item.name }}<i></i></span>
+						<span>
+							{{ item.name }}
+							<i></i>
+						</span>
 						<p>{{ item.path }}</p>
 					</div>
 					<span class="iconfont icon-link" @click.stop="open(item)" title="进入项目首页"></span>
@@ -17,64 +20,68 @@
 	</div>
 </template>
 
-<script>
+<script lang="ts">
+export default {
+	name: 'ProjectList',
+}
+</script>
+
+<script lang="ts" setup>
 import { getCurrentInstance, reactive, onBeforeMount } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
+import useCurrentInstance from '@/hooks/use-current-instance'
 
-export default {
-	name: 'project-list',
-	setup() {
-		const {
-			appContext: {
-				config: {
-					globalProperties: { $axios, $box }
-				}
-			}
-		} = getCurrentInstance()
-		const router = useRouter()
-		const route = useRoute()
-		const data = reactive({
-			list: []
-		})
-		onBeforeMount(() => {
-			getProjects()
-		})
-		// getProjects
-		const getProjects = () => {
-			$axios({
-				url: '/common/project/list',
-				data: {}
-			}).then(res => {
-				data.list = [].concat(res.data)
-			})
-		}
-		// open
-		const open = item => {
-			//
-		}
-		const goProject = ({ id }) => {
-			router.push(`/control?id=${id}`)
-		}
-		// del
-		const del = ({ id }) => {
-			$axios({
-				url: '/common/project/del',
-				type: 'post',
-				data: {
-					id: id
-				}
-			}).then(res => {
-				getProjects()
-			})
-		}
-		return {
-			data,
-			open,
-			goProject,
-			del
-		}
-	}
+import type { ProjectType } from "@/types/project";
+
+interface DataType {
+	list: ProjectType[]
 }
+
+const {
+	globalProperties: { $axios }
+} = useCurrentInstance()
+const router = useRouter()
+const route = useRoute()
+const data: DataType = reactive({
+	list: []
+})
+onBeforeMount(() => {
+	getProjects()
+})
+// getProjects
+const getProjects = () => {
+	$axios({
+		url: '/common/project/list',
+		data: {}
+	}).then(({ data } = {} as any) => {
+		data.list = [].concat(data)
+	})
+}
+// open
+const open = ({ name }: ProjectType) => {
+	console.log(name)
+}
+const goProject = ({ id }: ProjectType) => {
+	router.push(`/control?id=${id}`)
+}
+// del
+const del = ({ id }: ProjectType) => {
+	$axios({
+		url: '/common/project/del',
+		type: 'post',
+		data: {
+			id
+		}
+	}).then(() => {
+		getProjects()
+	})
+}
+defineExpose({
+	data,
+	open,
+	goProject,
+	del
+})
 </script>
 
 <style lang="less" scoped>
