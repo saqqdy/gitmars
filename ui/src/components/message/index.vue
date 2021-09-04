@@ -1,6 +1,13 @@
 <template>
 	<!-- <transition name="v3-message-fade" @after-leave="handleAfterLeave"> -->
-	<div :class="['v3-message', type && !iconClass ? `v3-message--${type}` : '', center ? 'is-center' : '', showClose ? 'is-closable' : '', customClass]" :style="positionStyle" v-show="visible" @mouseenter="clearTimer" @mouseleave="startTimer" role="alert">
+	<div
+		:class="['v3-message', type && !iconClass ? `v3-message--${type}` : '', center ? 'is-center' : '', showClose ? 'is-closable' : '', customClass]"
+		:style="positionStyle"
+		v-show="visible"
+		@mouseenter="clearTimer"
+		@mouseleave="startTimer"
+		role="alert"
+	>
 		<i :class="iconClass" v-if="iconClass"></i>
 		<i :class="typeClass" v-else></i>
 		<slot>

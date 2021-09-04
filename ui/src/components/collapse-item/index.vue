@@ -30,7 +30,7 @@
 </template>
 <script>
 import v3CollapseTransition from './collapse-transition'
-import emitter from '@/lib/emitter'
+import emitter from '@/libs/emitter'
 import { ref, reactive, inject, computed, getCurrentInstance } from 'vue'
 export default {
 	name: 'v3CollapseItem',
@@ -47,7 +47,7 @@ export default {
 		disabled: Boolean
 	},
 	setup(props, { slots, emit, attrs }) {
-		const { proxy,  appContext } = getCurrentInstance()
+		const { proxy, appContext } = getCurrentInstance()
 		// const {
 		// 	// $router: { getRoutes },
 		// 	$root: { $http, saqqdy }
