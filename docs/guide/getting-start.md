@@ -1,6 +1,6 @@
 ## 安装
 
-> Windows 用户需要安装Python环境
+> Windows 用户需要安装 Python 环境
 
 ```shell
 # 通过npm安装
@@ -51,6 +51,6 @@ gitm --help
 gitm copy -h
 ```
 
-## UI界面
+## UI 界面
 
 [gitm ui](../ui)

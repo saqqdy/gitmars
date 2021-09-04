@@ -180,7 +180,7 @@ gitm cb -pd --no-bugfix
 
 #### 短指令：gitm ed
 
-任务完成，合并并删除分支，这个操作会把 20001 这个分支代码合并到 bug 分支并删除 20001 分支(远程的20001分支也会同步删除)
+任务完成，合并并删除分支，这个操作会把 20001 这个分支代码合并到 bug 分支并删除 20001 分支(远程的 20001 分支也会同步删除)
 
 -   使用：`gitm end [type] [name]`
 -   参数：
@@ -256,7 +256,7 @@ gitm update --all
 gitm up -a
 ```
 
-4. 升级本地所有feature分支
+4. 升级本地所有 feature 分支
 
 ```shell
 gitm update feature --all
@@ -461,7 +461,7 @@ gitm rt xxxxxx -m 1
 
 ### gitm undo
 
-> 2.3.0新增
+> 2.3.0 新增
 
 #### 短指令：gitm ud
 
@@ -470,9 +470,9 @@ gitm rt xxxxxx -m 1
 -   使用：`gitm undo [commitid...] [-m --mode [mode]]` 或者 `gitm undo [-b --branch] [-m --mode [mode]]`
 -   参数：
 
-| 参数     | 说明                        | 类型   | 可选值 | 必填 | 默认 |
-| -------- | --------------------------- | ------ | ------ | ---- | ---- |
-| commitid | 要撤回的 id，多条id空格隔开 | String | -      | 否   | -    |
+| 参数     | 说明                          | 类型   | 可选值 | 必填 | 默认 |
+| -------- | ----------------------------- | ------ | ------ | ---- | ---- |
+| commitid | 要撤回的 id，多条 id 空格隔开 | String | -      | 否   | -    |
 
 -   传值：
 
@@ -492,7 +492,7 @@ gitm undo --branch feature/test
 gitm ud -b feature/test
 ```
 
-2. 传入单个或者多个commitID
+2. 传入单个或者多个 commitID
 
 ```shell
 # 形式：gitm undo [commitid...] [-m --mode [mode]]
@@ -503,7 +503,7 @@ gitm ud xxxxxx -m 1
 
 ### gitm redo
 
-> 2.3.0新增
+> 2.3.0 新增
 
 #### 短指令：gitm rd
 
@@ -512,9 +512,9 @@ gitm ud xxxxxx -m 1
 -   使用：`gitm revert [commitid...] [-m --mode [mode]]` 或者 `gitm revert [-b --branch] [-m --mode [mode]]`
 -   参数：
 
-| 参数     | 说明                        | 类型   | 可选值 | 必填 | 默认 |
-| -------- | --------------------------- | ------ | ------ | ---- | ---- |
-| commitid | 要撤回的 id，多条id空格隔开 | String | -      | 否   | -    |
+| 参数     | 说明                          | 类型   | 可选值 | 必填 | 默认 |
+| -------- | ----------------------------- | ------ | ------ | ---- | ---- |
+| commitid | 要撤回的 id，多条 id 空格隔开 | String | -      | 否   | -    |
 
 -   传值：
 
@@ -534,7 +534,7 @@ gitm redo --branch feature/test
 gitm rd -b feature/test
 ```
 
-2. 传入单个或者多个commitID
+2. 传入单个或者多个 commitID
 
 ```shell
 # 形式：gitm redo [commitid...] [-m --mode [mode]]
@@ -770,7 +770,7 @@ gitm clean
 
 ### gitm ui <Badge text="beta" type="warning"/>
 
-启动UI界面
+启动 UI 界面
 
 -   使用：`gitm ui [-p --port [port]]`
 -   参数：无
@@ -788,7 +788,7 @@ gitm ui -p 8080
 
 ### gitm link
 
-创建本地包软链接，传入name时把依赖包软链到本地包，不传name时给当前包创建公共软链
+创建本地包软链接，传入 name 时把依赖包软链到本地包，不传 name 时给当前包创建公共软链
 
 -   使用：`gitm link [name]`
 -   参数：
@@ -797,13 +797,13 @@ gitm ui -p 8080
 | ---- | ------ | ------ | ------ | ---- | ---- |
 | name | 包名称 | String | -      | 否   | -    |
 
--   示例1：链接本地的tool包
+-   示例 1：链接本地的 tool 包
 
 ```shell
 gitm link tool
 ```
 
--   示例2：给当前包创建公共软链
+-   示例 2：给当前包创建公共软链
 
 ```shell
 gitm link
@@ -811,7 +811,7 @@ gitm link
 
 ### gitm unlink
 
-传入name时解除依赖包软链，不传name时删除当前包的公共软链
+传入 name 时解除依赖包软链，不传 name 时删除当前包的公共软链
 
 -   使用：`gitm unlink [name]`
 -   参数：
@@ -820,13 +820,13 @@ gitm link
 | ---- | ------ | ------ | ------ | ---- | ---- |
 | name | 包名称 | String | -      | 是   | -    |
 
--   示例1：解除依赖包软链
+-   示例 1：解除依赖包软链
 
 ```shell
 gitm unlink tool
 ```
 
--   示例2：删除当前包的公共软链
+-   示例 2：删除当前包的公共软链
 
 ```shell
 gitm unlink
