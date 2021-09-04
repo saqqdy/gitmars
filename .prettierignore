@@ -1,6 +1,5 @@
 lib
 dist
-docs
 server
 ui
 cache/*
