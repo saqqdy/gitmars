@@ -2,7 +2,7 @@ const SocketIoServer = require('socket.io')
 
 class SocketServer {
 	constructor(server, options) {
-		this.io = new SocketIoServer(server, options)
+		this.io = SocketIoServer(server, options)
 	}
 
 	use(name, fn) {

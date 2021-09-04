@@ -6,6 +6,7 @@
 
 <script>
 import { onMounted, onBeforeUnmount, inject, ref, nextTick } from 'vue'
+import { TerminalInjectionKey, SocketInjectionKey } from '@/symbols/injection'
 
 export default {
 	name: 'Xterm',
@@ -17,8 +18,8 @@ export default {
 	setup(props) {
 		// data
 		const termWrap = ref(null)
-		const { getTerminal, fitAddon } = inject('Terminal')
-		const { socket } = inject('Socket')
+		const { getTerminal, fitAddon } = inject(TerminalInjectionKey)
+		const { socket } = inject(SocketInjectionKey)
 		const terminal = getTerminal(props.id, props.path)
 		// methods
 

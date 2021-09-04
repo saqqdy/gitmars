@@ -34,6 +34,7 @@ export default function (options) {
 		const instance = axios.create()
 		// const token = getCookie('token')
 		instance.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded'
+		instance.defaults.headers.common['Access-Control-Allow-Origin'] = '*'
 		// if (token) {
 		// 	instance.defaults.headers.common['authorization'] = token
 		// }

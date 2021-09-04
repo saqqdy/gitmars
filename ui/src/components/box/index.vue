@@ -12,8 +12,8 @@
 
 			<div class="v3-box-footer" v-if="showBtn">
 				<template v-if="!$slots.footer">
-					<v3-button ref="mainBtn" type="primary" class="btn-main" autofocus v-if="showOkBtn" @click="handleOk">{{ okBtnName }}</v3-button>
-					<v3-button v-if="showCancelBtn" @click="handleCancel">{{ cancelBtnName }}</v3-button>
+					<el-button ref="mainBtn" type="primary" class="btn-main" autofocus v-if="showOkBtn" @click="handleOk">{{ okBtnName }}</el-button>
+					<el-button v-if="showCancelBtn" @click="handleCancel">{{ cancelBtnName }}</el-button>
 				</template>
 				<slot name="footer" v-if="$slots.footer"></slot>
 			</div>
@@ -31,12 +31,12 @@
 
 <script>
 import { reactive, computed, getCurrentInstance, createVNode, render, nextTick, unref, ref } from 'vue'
-import { on, off, fixNumber, delay } from '@/lib/tool'
-import v3Button from '@/components/button'
+import { on, off, fixNumber, delay } from '@/libs/tool'
+import { ElButton } from 'element-plus'
 
 export default {
 	name: 'v3Box',
-	components: { v3Button },
+	components: { ElButton },
 	props: {
 		opacity: {
 			type: Number,
@@ -282,7 +282,7 @@ export default {
 <style lang="less" scoped="">
 .v3-box {
 	position: relative;
-	border: 1px solid @borderColor;
+	border: 1px solid @border-color;
 	background: #fff;
 	&:hover {
 		box-shadow: 0 0 12px 0 rgba(0, 0, 0, 0.1);
@@ -335,7 +335,7 @@ export default {
 		grid-area: a;
 		padding: 10px 20px;
 		overflow: hidden;
-		border-bottom: 1px solid @borderColor;
+		border-bottom: 1px solid @border-color;
 		font-size: 16px;
 		height: 50px;
 		min-height: 50px;
@@ -360,7 +360,7 @@ export default {
 		padding: 10px;
 		height: 60px;
 		text-align: center;
-		border-top: 1px solid @borderColor;
+		border-top: 1px solid @border-color;
 		box-sizing: border-box;
 		.btn {
 			display: inline-block;
@@ -373,9 +373,9 @@ export default {
 			cursor: pointer;
 			border-radius: 4px;
 			box-sizing: border-box;
-			color: @fontColor;
+			color: @font-color;
 			background: #fff;
-			border-color: @borderColor;
+			border-color: @border-color;
 		}
 	}
 	&.one-btn {
@@ -411,35 +411,35 @@ export default {
 }
 </style>
 <style lang="less" scoped>
-.theme(@color) {
-	// 当前组件里需要使用皮肤色的样式
-	.v3-box-wrap {
-		.v3-box-footer {
-			::v-deep(.v3-button) {
-				&:hover {
-					border-color: rgba(@color, 0.6);
-					background-color: rgba(@color, 0.1);
-					color: @color;
-				}
-				&.btn-main {
-					background-color: @color;
-					border-color: @color;
-					color: #fff;
-					&:hover {
-						border-color: rgba(@color, 0.8);
-						background-color: rgba(@color, 0.8);
-					}
-				}
-			}
-		}
-	}
-}
-// 通过less的loop循环，根据变量themeList的颜色列表生成
-.loop(@i) when (@i < length(@themeList)+1) {
-	.theme-@{i} {
-		.theme(extract(@themeList, @i));
-	}
-	.loop(@i+1);
-}
-.loop(1);
+// .theme(@color) {
+// 	// 当前组件里需要使用皮肤色的样式
+// 	.v3-box-wrap {
+// 		.v3-box-footer {
+// 			::v-deep(.v3-button) {
+// 				&:hover {
+// 					border-color: rgba(@color, 0.6);
+// 					background-color: rgba(@color, 0.1);
+// 					color: @color;
+// 				}
+// 				&.btn-main {
+// 					background-color: @color;
+// 					border-color: @color;
+// 					color: #fff;
+// 					&:hover {
+// 						border-color: rgba(@color, 0.8);
+// 						background-color: rgba(@color, 0.8);
+// 					}
+// 				}
+// 			}
+// 		}
+// 	}
+// }
+// // 通过less的loop循环，根据变量themeList的颜色列表生成
+// .loop(@i) when (@i < length(@themeList)+1) {
+// 	.theme-@{i} {
+// 		.theme(extract(@themeList, @i));
+// 	}
+// 	.loop(@i+1);
+// }
+// .loop(1);
 </style>
