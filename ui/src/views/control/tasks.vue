@@ -1,5 +1,5 @@
 <template>
-	<div class="page" v-if="ready">
+	<div class="page" v-if="data.ready">
 		<h1>
 			tasks
 			<p>
@@ -8,9 +8,9 @@
 		</h1>
 		<div class="cont">
 			<div class="nav">
-				<dl class="bugfix" v-if="Object.keys(scripts).length > 0">
+				<dl class="bugfix" v-if="Object.keys(data.scripts).length > 0">
 					<dt>脚本指令</dt>
-					<dd v-for="(script, key) in scripts" :class="{ active: false }" :key="key">
+					<dd v-for="(script, key) in data.scripts" :class="{ active: false }" :key="key">
 						{{ key }}
 						<v3-button type="primary" size="mini" @click="run(key)" plain>执行</v3-button>
 					</dd>
@@ -18,49 +18,64 @@
 			</div>
 			<div class="main">
 				<h3>
-					<span><i class="iconfont icon-layout"></i> 当前分支： </span>
-					<p>{{ project.path }}</p>
+					<span>
+						<i class="iconfont icon-layout"></i> 当前分支：
+					</span>
+					<p>{{ data.project.path }}</p>
 				</h3>
-				<Xterm ref="xterm" class="xterm" v-if="project" :id="project.id" :path="project.path"></Xterm>
+				<Xterm
+					ref="xterm"
+					class="xterm"
+					v-if="data.project"
+					:id="data.project.id"
+					:path="data.project.path"
+				></Xterm>
 			</div>
 		</div>
 	</div>
 </template>
 
-<script>
-import { ref, getCurrentInstance, reactive, computed, onMounted, inject, watch, nextTick, provide, onBeforeUnmount, onErrorCaptured } from 'vue'
+<script lang="ts">
+import { reactive, onMounted, inject } from 'vue'
 import { onBeforeRouteLeave, useRoute, useRouter } from 'vue-router'
 import Xterm from '@/components/xterm'
-import nav from '@/components/nav'
+import { TerminalInjectionKey, SocketInjectionKey } from '@/symbols/injection'
+import useCurrentInstance from '@/hooks/use-current-instance'
+
+import type { ProjectType } from "@/types/project";
+import type { TerminalType } from "@/types/terminal";
+
+interface DataType {
+	project: ProjectType
+	scripts: any[]
+	terminal: TerminalType
+	ready: boolean
+}
 
 export default {
 	name: 'control-tasks',
 	components: { Xterm },
 	async setup() {
 		// data
-		const { getTerminal } = inject('Terminal')
-		const { socket, socketGitmars } = inject('Socket')
+		const { getTerminal } = inject(TerminalInjectionKey, {})
+		const { socket } = inject(SocketInjectionKey, {})
 		const {
-			appContext: {
-				config: {
-					globalProperties: { $axios, $box, $nextIndex }
-				}
-			}
-		} = getCurrentInstance()
+			globalProperties: { $axios }
+		} = useCurrentInstance()
 		const router = useRouter()
 		const route = useRoute()
-		const xterm = ref(null)
-		const project = ref(null)
-		const scripts = ref(null)
-		const terminal = ref(null)
-		const ready = ref(false)
+		const data: DataType = reactive({
+			project: { id: '', name: '', path: '' },
+			scripts: [],
+			terminal: { name: '' },
+			ready: false,
+		})
 
 		// 计算属性
 		// 事件
 		onMounted(() => {
-			// console.log(1, $nextIndex(), xterm.value)
 		})
-		onBeforeRouteLeave(() => {})
+		onBeforeRouteLeave(() => { })
 
 		// 获取分支列表
 		const getProject = async () => {
@@ -79,41 +94,37 @@ export default {
 			} = await $axios({
 				url: '/cmd/fs/read',
 				data: {
-					path: `${project.value.path}/package.json`
+					path: `${data.project.path}/package.json`
 				}
 			})
 			return scripts
 		}
 		// 执行指令
-		const exec = cmd => {
-			if (!terminal.value) return
-			socket.emit(terminal.value.name + '-input', ` ${cmd}\r`)
+		const exec = (cmd: string) => {
+			if (!data.terminal) return
+			socket.emit(data.terminal.name + '-input', ` ${cmd}\r`)
 		}
-		const run = script => {
-			exec(`pwd`)
+		const run = (script: string | number) => {
 			exec(`yarn run ${script}`)
 		}
-		project.value = await getProject()
-		scripts.value = await getPackage()
+		data.project = await getProject()
+		data.scripts = await getPackage()
 		// 进入执行目录
 		await $axios({
 			url: '/cmd/cd',
 			data: {
-				dir: project.value.path
+				dir: data.project.path
 			}
 		})
 
-		terminal.value = getTerminal(project.value.id, project.value.path)
-		ready.value = true
+		data.terminal = getTerminal && getTerminal(data.project.id, data.project.path)
+		data.ready = true
 
 		return {
-			xterm,
+			data,
 			exec,
 			run,
-			ready,
-			route,
-			project,
-			scripts
+			route
 		}
 	}
 }

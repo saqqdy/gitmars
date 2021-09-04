@@ -181,7 +181,7 @@ import type { BranchListType } from "@/types/branch";
 import type { ProjectType } from "@/types/project";
 import type { TerminalType } from "@/types/terminal";
 
-export interface DataType {
+interface DataType {
 	project: ProjectType
 	terminal: TerminalType
 	activeNames: string
