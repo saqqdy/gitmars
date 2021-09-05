@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-const program = require('commander')
+const { program } = require('commander')
 const sh = require('shelljs')
 const inquirer = require('inquirer')
 const { options, args } = require('./conf/go')

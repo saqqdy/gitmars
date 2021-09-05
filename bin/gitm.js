@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 const set = require('../package.json')
-const program = require('commander')
+const { program } = require('commander')
 const sh = require('shelljs')
 
 if (!sh.which('git')) {

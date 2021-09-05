@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-const program = require('commander')
+const { program } = require('commander')
 const { spawnSync } = require('child_process')
 const sh = require('shelljs')
 const { success } = require('./js/index')

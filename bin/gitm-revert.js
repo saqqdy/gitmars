@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-const program = require('commander')
+const { program } = require('commander')
 const sh = require('shelljs')
 const { options, args } = require('./conf/revert')
 const { error, warning, queue, isGitProject } = require('./js/index')

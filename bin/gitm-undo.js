@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-const program = require('commander')
+const { program } = require('commander')
 const inquirer = require('inquirer')
 const sh = require('shelljs')
 const { options, args } = require('./conf/undo')

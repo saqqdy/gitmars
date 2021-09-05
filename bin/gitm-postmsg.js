@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-const program = require('commander')
+const { program } = require('commander')
 const { options, args } = require('./conf/postmsg')
 const sendGroupMessage = require('./js/sendGroupMessage')
 const { createArgs } = require('./js/tools')

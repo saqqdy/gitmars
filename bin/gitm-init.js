@@ -2,7 +2,7 @@
 /* eslint-disable no-unused-vars */
 const fs = require('fs')
 const path = require('path')
-const program = require('commander')
+const { program } = require('commander')
 const sh = require('shelljs')
 const inquirer = require('inquirer')
 const { error, success, isGitProject } = require('./js/index')

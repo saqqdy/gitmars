@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 const path = require('path')
-const program = require('commander')
+const { program } = require('commander')
 const sh = require('shelljs')
 const { success, warning, isGitProject } = require('./js/index')
 const { root, gitDir } = require('./js/gitRevParse')()
