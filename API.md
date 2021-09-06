@@ -126,12 +126,14 @@
 <a name="checkGitDirEnv"></a>
 
 ## checkGitDirEnv()
-检查git环境变量
+
+检查 git 环境变量
 
 **Kind**: global function  
 <a name="getConfig"></a>
 
 ## getConfig() ⇒ <code>Object</code>
+
 读取配置
 
 **Kind**: global function  
@@ -139,87 +141,99 @@
 <a name="getConfigFrom"></a>
 
 ## getConfigFrom() ⇒ <code>Number</code>
+
 读取配置来源
 
 **Kind**: global function  
-**Returns**: <code>Number</code> - 返回来源0，1，2  
+**Returns**: <code>Number</code> - 返回来源 0，1，2  
 <a name="debug"></a>
 
 ## debug()
+
 debug
 
 **Kind**: global function  
 <a name="getConfig"></a>
 
 ## getConfig(pathName) ⇒ <code>Object</code>
+
 读取配置
 
 **Kind**: global function  
-**Returns**: <code>Object</code> - arr 返回配置对象  
+**Returns**: <code>Object</code> - arr 返回配置对象
 
-| Param | Type | Description |
-| --- | --- | --- |
+| Param    | Type                | Description                                  |
+| -------- | ------------------- | -------------------------------------------- |
 | pathName | <code>String</code> | 可传入目录或者文件，传入文件时，直接读取文件 |
 
 <a name="getGitConfig"></a>
 
 ## getGitConfig() ⇒ <code>Object</code>
-获取git配置
+
+获取 git 配置
 
 **Kind**: global function  
 **Returns**: <code>Object</code> - arr 返回对象  
 <a name="getGitVersion"></a>
 
 ## getGitVersion() ⇒ <code>String</code>
-获取git版本
+
+获取 git 版本
 
 **Kind**: global function  
 **Returns**: <code>String</code> - str 返回版本号  
 <a name="gitRevParse"></a>
 
 ## gitRevParse() ⇒ <code>Object</code>
-获取git路径
+
+获取 git 路径
 
 **Kind**: global function  
 **Returns**: <code>Object</code> - arr 返回对象  
 <a name="writeFile"></a>
 
 ## writeFile()
+
 写文件
 
 **Kind**: global function  
 <a name="mapTemplate"></a>
 
 ## mapTemplate()
+
 获取模板数据
 
 **Kind**: global function  
 <a name="getSeconds"></a>
 
 ## getSeconds()
+
 传入字符串转换成时间（秒）
 
 **Kind**: global function  
 <a name="wait"></a>
 
 ## wait()
+
 递归执行程序
 
 **Kind**: global function  
 <a name="queue"></a>
 
 ## queue(list)
+
 脚本执行主程序
 
-**Kind**: global function  
+**Kind**: global function
 
-| Param | Type | Description |
-| --- | --- | --- |
-| list | <code>Array</code> | 脚本序列 |
+| Param | Type               | Description |
+| ----- | ------------------ | ----------- |
+| list  | <code>Array</code> | 脚本序列    |
 
 <a name="getCache"></a>
 
 ## getCache() ⇒ <code>Array</code>
+
 获取未执行脚本列表
 
 **Kind**: global function  
@@ -227,32 +241,37 @@ debug
 <a name="setCache"></a>
 
 ## setCache()
+
 存储未执行脚本列表
 
 **Kind**: global function  
 <a name="setLog"></a>
 
 ## setLog()
+
 存储错误日志
 
 **Kind**: global function  
 <a name="getStatusInfo"></a>
 
 ## getStatusInfo() ⇒ <code>Boolean</code>
+
 获取分支状态
 
 **Kind**: global function  
-**Returns**: <code>Boolean</code> - true 返回true/false  
+**Returns**: <code>Boolean</code> - true 返回 true/false  
 <a name="getStatus"></a>
 
 ## getStatus() ⇒ <code>Boolean</code>
+
 获取是否有未提交的文件
 
 **Kind**: global function  
-**Returns**: <code>Boolean</code> - true 返回true/false  
+**Returns**: <code>Boolean</code> - true 返回 true/false  
 <a name="getLogs"></a>
 
 ## getLogs() ⇒ <code>Array</code>
+
 获取日志
 
 **Kind**: global function  
@@ -260,13 +279,15 @@ debug
 <a name="checkBranch"></a>
 
 ## checkBranch() ⇒ <code>Boolean</code>
+
 获取是否有某个分支
 
 **Kind**: global function  
-**Returns**: <code>Boolean</code> - true 返回true/false  
+**Returns**: <code>Boolean</code> - true 返回 true/false  
 <a name="getCurrent"></a>
 
 ## getCurrent() ⇒ <code>String</code>
+
 获取当前分支
 
 **Kind**: global function  
@@ -274,6 +295,7 @@ debug
 <a name="searchBranch"></a>
 
 ## searchBranch() ⇒ <code>Array</code>
+
 获取当前分支
 
 **Kind**: global function  
@@ -281,6 +303,7 @@ debug
 <a name="searchBranchs"></a>
 
 ## searchBranchs() ⇒ <code>Array</code>
+
 获取当前分支
 
 **Kind**: global function  
@@ -288,6 +311,7 @@ debug
 <a name="filterBranch"></a>
 
 ## filterBranch() ⇒ <code>Array</code>
+
 搜索分支
 
 **Kind**: global function  
@@ -295,6 +319,7 @@ debug
 <a name="getStashList"></a>
 
 ## getStashList() ⇒ <code>String</code>
+
 获取暂存区列表
 
 **Kind**: global function  
@@ -302,72 +327,82 @@ debug
 <a name="getMessage"></a>
 
 ## getMessage()
+
 解析模板数据
 
 **Kind**: global function  
 <a name="postMessage"></a>
 
 ## postMessage()
+
 生成消息
 
 **Kind**: global function  
 <a name="sendMessage"></a>
 
 ## sendMessage()
+
 发送消息
 
 **Kind**: global function  
 <a name="getCommandMessage"></a>
 
 ## getCommandMessage()
+
 获取通用的指令提示信息
 
 **Kind**: global function  
 <a name="compareVersion"></a>
 
 ## compareVersion(appName, compareVer, userAgent) ⇒ <code>Boolean</code> \| <code>null</code>
-compareVersion版本号大小对比
+
+compareVersion 版本号大小对比
 
 **Kind**: global function  
-**Returns**: <code>Boolean</code> \| <code>null</code> - null/true/false  
+**Returns**: <code>Boolean</code> \| <code>null</code> - null/true/false
 
-| Param | Type | Description |
-| --- | --- | --- |
-| appName | <code>String</code> | app名称 |
-| compareVer | <code>String</code> | 必传 需要对比的版本号 |
-| userAgent | <code>String</code> | ua，可不传，默认取navigator.appVersion |
+| Param      | Type                | Description                             |
+| ---------- | ------------------- | --------------------------------------- |
+| appName    | <code>String</code> | app 名称                                |
+| compareVer | <code>String</code> | 必传 需要对比的版本号                   |
+| userAgent  | <code>String</code> | ua，可不传，默认取 navigator.appVersion |
 
 <a name="getBranchsFromID"></a>
 
 ## getBranchsFromID() ⇒ <code>Array</code>
-获取包含commitID的分支
+
+获取包含 commitID 的分支
 
 **Kind**: global function  
 **Returns**: <code>Array</code> - 返回数组  
 <a name="getGitUser"></a>
 
 ## getGitUser() ⇒ <code>String</code>
-获取git用户名称
+
+获取 git 用户名称
 
 **Kind**: global function  
 **Returns**: <code>String</code> - 返回字符串  
 <a name="getGitEmail"></a>
 
 ## getGitEmail() ⇒ <code>String</code>
-获取git用户邮箱
+
+获取 git 用户邮箱
 
 **Kind**: global function  
 **Returns**: <code>String</code> - 返回字符串  
 <a name="isGitProject"></a>
 
 ## isGitProject() ⇒ <code>String</code>
-获取当前是否git项目目录
+
+获取当前是否 git 项目目录
 
 **Kind**: global function  
 **Returns**: <code>String</code> - 返回字符串  
 <a name="readPkg"></a>
 
 ## readPkg() ⇒ <code>Object</code>
+
 读取配置
 
 **Kind**: global function  
@@ -375,42 +410,46 @@ compareVersion版本号大小对比
 <a name="sendGroupMessage"></a>
 
 ## sendGroupMessage()
+
 发送群消息
 
 **Kind**: global function  
 <a name="writeFile"></a>
 
 ## writeFile()
+
 写文件
 
 **Kind**: global function  
 <a name="createArgs"></a>
 
 ## createArgs()
+
 生成参数
 
 **Kind**: global function  
 <a name="encodeUnicode"></a>
 
 ## encodeUnicode(str) ⇒ <code>String</code>
-中文转unioncode
+
+中文转 unioncode
 
 **Kind**: global function  
-**Returns**: <code>String</code> - 返回字符串  
+**Returns**: <code>String</code> - 返回字符串
 
-| Param | Type | Description |
-| --- | --- | --- |
-| str | <code>string</code> | 字符串 |
+| Param | Type                | Description |
+| ----- | ------------------- | ----------- |
+| str   | <code>string</code> | 字符串      |
 
 <a name="decodeUnicode"></a>
 
 ## decodeUnicode(str) ⇒ <code>String</code>
-中文转unioncode
+
+中文转 unioncode
 
 **Kind**: global function  
-**Returns**: <code>String</code> - 返回字符串  
+**Returns**: <code>String</code> - 返回字符串
 
-| Param | Type | Description |
-| --- | --- | --- |
-| str | <code>string</code> | 字符串 |
-
+| Param | Type                | Description |
+| ----- | ------------------- | ----------- |
+| str   | <code>string</code> | 字符串      |

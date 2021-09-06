@@ -17,6 +17,6 @@
         },
         "lib": ["esnext", "dom"]
     },
-    "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue", "typings/*.d.ts"],
+    "include": ["bin/**/*.ts", "src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue", "typings/*.d.ts"],
     "exclude": ["**/node_modules/**", "**/__tests__"]
 }
