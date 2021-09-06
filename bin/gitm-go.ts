@@ -6,7 +6,8 @@ import { options, args } from './conf/go'
 import { combine, end, update, build, start, admin, branch, copy, get, save, revert, link, unlink, postmsg } from './js/go'
 import { success, getCurrent } from './js/index'
 import { createArgs } from './js/tools'
-// const config = require('./js/getConfig')()
+// import getConfig from './js/getConfig'
+// const config = getConfig()
 
 /**
  * gitm go

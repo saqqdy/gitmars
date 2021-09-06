@@ -7,5 +7,4 @@ const cmdConfig: GitmarsConfigType = {
     options: []
 }
 
-export { cmdConfig }
-export default cmdConfig
+export { cmdConfig, cmdConfig as default }
