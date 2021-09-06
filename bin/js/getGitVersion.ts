@@ -20,4 +20,4 @@ function getGitVersion() {
     return version
 }
 
-module.exports = getGitVersion
+export default getGitVersion

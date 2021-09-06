@@ -24,4 +24,4 @@ function pmFromUserAgent(userAgent) {
     }
 }
 
-module.exports = getPackageManager
+export default getPackageManager

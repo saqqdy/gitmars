@@ -11,5 +11,4 @@ function checkGitDirEnv() {
     }
 }
 
-module.exports = checkGitDirEnv
-exports.checkGitDirEnv = checkGitDirEnv
+export { checkGitDirEnv, checkGitDirEnv as default }

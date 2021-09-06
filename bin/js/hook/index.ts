@@ -229,7 +229,7 @@ function remove() {
     console.info('gitmars hooks removed')
 }
 
-module.exports = {
+export default {
     // createHooks,
     // removeHooks,
     // createHookShell,

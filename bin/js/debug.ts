@@ -8,5 +8,4 @@ function debug(...args) {
     }
 }
 
-module.exports = debug
-exports.debug = debug
+export { debug, debug as default }

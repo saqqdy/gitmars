@@ -68,4 +68,4 @@ const getCommand = async ({ command, args, options, validatorOpts, validatorArgs
     return Promise.resolve(`${params.join(' ').replace(/\s+/g, ' ').trim()}`)
 }
 
-module.exports = getCommand
+export default getCommand

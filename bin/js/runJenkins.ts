@@ -5,7 +5,7 @@ import { success, mapTemplate } from './index'
  * runJenkins
  * @description 调起Jenkins构建
  */
-module.exports = async function runJenkins({ env, project, app = 'all' }) {
+export default async function runJenkins({ env, project, app = 'all' }) {
     let buildConfig = await apolloConfig(),
         cfg = buildConfig[env],
         p,

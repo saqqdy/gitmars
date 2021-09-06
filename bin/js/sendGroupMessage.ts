@@ -20,4 +20,4 @@ async function sendGroupMessage(message, cfg = {}) {
     })
 }
 
-module.exports = sendGroupMessage
+export default sendGroupMessage

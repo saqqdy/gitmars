@@ -15,4 +15,4 @@ function getGitConfig(cwd = process.cwd()) {
     return { gitUrl, appName: gitUrl.replace(/^[\s\S]+\/([a-z0-9A-Z-_]+)\.git$/, '$1') }
 }
 
-module.exports = getGitConfig
+export default getGitConfig

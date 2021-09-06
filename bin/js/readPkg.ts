@@ -8,7 +8,7 @@
 // 	const pkgStr = fs.default.readFileSync(pkgFile, 'utf-8')
 // 	return JSON.parse(pkgStr)
 // }
-// exports.readPkg = readPkg
+// export const readPkg = readPkg
 
 import gitRevParse from './gitRevParse'
 import fs from 'fs'
@@ -28,4 +28,4 @@ function readPkg(dir) {
     const pkgStr = fs.readFileSync(pkgFile, 'utf-8')
     return JSON.parse(pkgStr)
 }
-module.exports = readPkg
+export default readPkg

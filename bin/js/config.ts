@@ -30,4 +30,4 @@ const getConfig = () => {
     }
     return { ...defaults, ...config }
 }
-module.exports = getConfig()
+export default getConfig()

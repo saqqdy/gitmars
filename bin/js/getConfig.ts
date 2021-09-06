@@ -35,4 +35,4 @@ const getConfig = (pathName, moduleName = 'gitmars') => {
         return Object.assign({}, defaults, defaultSet, config, { filepath })
     }
 }
-module.exports = getConfig
+export default getConfig

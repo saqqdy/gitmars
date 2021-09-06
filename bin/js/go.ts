@@ -23,14 +23,14 @@ const branchPrefix = current.split('/')[0]
 const functionBuanchs = ['feature', 'bugfix', 'support']
 
 // 新建功能分支
-exports.start = async () => {
+export const start = async () => {
     const config = cleanConfig(startConfig)
     const command = 'gitm start ' + (await getCommand(config))
     sh.exec(command)
 }
 
 // 合并代码
-exports.combine = async () => {
+export const combine = async () => {
     let delOptions = [],
         delArgs = [],
         requiredOptions = [],
@@ -59,7 +59,7 @@ exports.combine = async () => {
 }
 
 // 合并代码并删除
-exports.end = async () => {
+export const end = async () => {
     let delArgs = [],
         requiredArgs = []
     if (!functionBuanchs.includes(branchPrefix)) {
@@ -74,7 +74,7 @@ exports.end = async () => {
 }
 
 // 同步上游分支代码
-exports.update = async () => {
+export const update = async () => {
     let delArgs = [],
         requiredArgs = []
     if (!functionBuanchs.includes(branchPrefix)) {
@@ -89,70 +89,70 @@ exports.update = async () => {
 }
 
 // branch分支操作指令
-exports.branch = async () => {
+export const branch = async () => {
     const config = cleanConfig(branchConfig)
     const command = 'gitm branch ' + (await getCommand(config))
     sh.exec(command)
 }
 
 // 构建指令
-exports.build = async () => {
+export const build = async () => {
     const config = cleanConfig(buildConfig)
     const command = 'gitm build ' + (await getCommand(config))
     sh.exec(command)
 }
 
 // 复制、cherry-pick
-exports.copy = async () => {
+export const copy = async () => {
     const config = cleanConfig(copyConfig)
     const command = 'gitm copy ' + (await getCommand(config))
     sh.exec(command)
 }
 
 // 从暂存区取出
-exports.get = async () => {
+export const get = async () => {
     const config = cleanConfig(getConfig)
     const command = 'gitm get ' + (await getCommand(config))
     sh.exec(command)
 }
 
 // 存入暂存区
-exports.save = async () => {
+export const save = async () => {
     const config = cleanConfig(saveConfig)
     const command = 'gitm save ' + (await getCommand(config))
     sh.exec(command)
 }
 
 // revert撤回
-exports.revert = async () => {
+export const revert = async () => {
     const config = cleanConfig(revertConfig)
     const command = 'gitm revert ' + (await getCommand(config))
     sh.exec(command)
 }
 
 // link创建软链
-exports.link = async () => {
+export const link = async () => {
     const config = cleanConfig(linkConfig)
     const command = 'gitm link ' + (await getCommand(config))
     sh.exec(command)
 }
 
 // unlink取消软链
-exports.unlink = async () => {
+export const unlink = async () => {
     const config = cleanConfig(unlinkConfig)
     const command = 'gitm unlink ' + (await getCommand(config))
     sh.exec(command)
 }
 
 // postmsg发送消息
-exports.postmsg = async () => {
+export const postmsg = async () => {
     const config = cleanConfig(postmsgConfig)
     const command = 'gitm postmsg ' + (await getCommand(config))
     sh.exec(command)
 }
 
 // 管理员操作
-exports.admin = {
+export const admin = {
     create: async () => {
         const config = cleanConfig(adminCreateConfig)
         const command = 'gitm admin create ' + (await getCommand(config))

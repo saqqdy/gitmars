@@ -43,7 +43,7 @@ function createArgs(args) {
     return argArr.join(' ')
 }
 
-module.exports = {
+export default {
     warning,
     error,
     success,

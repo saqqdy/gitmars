@@ -15,4 +15,4 @@ function gitRevParse(cwd = process.cwd()) {
     return { prefix: prefix || '.', gitCommonDir, root, gitDir, gitHookDir: gitDir + '/hooks', cdup }
 }
 
-module.exports = gitRevParse
+export default gitRevParse

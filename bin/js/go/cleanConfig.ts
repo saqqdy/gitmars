@@ -46,4 +46,4 @@ const cleanConfig = (config, sets = {}) => {
     return config
 }
 
-module.exports = cleanConfig
+export default cleanConfig

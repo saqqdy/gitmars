@@ -10,7 +10,7 @@ const cacheDir = path.join(__dirname, '../../cache')
  * @description 读取构建配置
  * @returns {Object} arr 返回配置对象
  */
-module.exports = async function apolloConfig() {
+export default async function apolloConfig() {
     let now = new Date().getTime(),
         config,
         apolloConfig,

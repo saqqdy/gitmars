@@ -14,4 +14,4 @@ const getConfigFrom = () => {
     }
     return 0
 }
-module.exports = getConfigFrom()
+export default getConfigFrom()

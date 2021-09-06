@@ -668,7 +668,7 @@ function isGitProject() {
     return sh.exec(`git rev-parse --is-inside-work-tree`, { silent: true }).stdout.includes('true')
 }
 
-module.exports = {
+export default {
     warning,
     error,
     success,
