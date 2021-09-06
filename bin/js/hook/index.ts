@@ -10,18 +10,26 @@ import getHookType from './getHookType'
 import getHookShell from './getHookShell'
 import getLocalShell from './getLocalShell'
 import ciInfo from 'ci-info'
+import getConfig from '../getConfig'
 const current = getCurrent()
 const { gitHookDir, prefix } = gitRevParse()
 const gitVersion = getGitVersion()
+const config = getConfig()
+
+export interface IsUpdatedInTimeConfigType {
+    latest: string
+    limit: string | number
+    branch: string
+}
 
 /**
  * createHooks
  * @description 创建git钩子
  * @param {String} dir default=gitHookDir
  */
-function createHooks(dir = gitHookDir) {
+export function createHooks(dir: string = gitHookDir): void {
     // 创建hook文件方法
-    const writeHook = (filename, shell) => {
+    const writeHook = (filename: string, shell: string): void => {
         fs.writeFileSync(filename, shell, 'utf-8')
         fs.chmodSync(filename, 0o0755)
     }
@@ -65,7 +73,7 @@ ${getHookComment()}
  * @description 创建git钩子
  * @param {String} dir default=gitHookDir
  */
-function removeHooks(dir = gitHookDir) {
+export function removeHooks(dir: string = gitHookDir): boolean | void {
     const hooks = hookList.map(hookName => path.join(dir, hookName))
     hooks
         .filter(filename => {
@@ -84,7 +92,7 @@ function removeHooks(dir = gitHookDir) {
  * createHookShell
  * @description 创建主程序
  */
-function createHookShell(dir = gitHookDir) {
+export function createHookShell(dir: string = gitHookDir): void {
     let filename = path.join(dir, 'gitmars.sh')
     fs.writeFileSync(filename, getHookShell(), 'utf-8')
     fs.chmodSync(filename, 0o0755)
@@ -94,7 +102,7 @@ function createHookShell(dir = gitHookDir) {
  * removeHookShell
  * @description 移除主程序
  */
-function removeHookShell(dir = gitHookDir) {
+export function removeHookShell(dir: string = gitHookDir): void {
     const filename = path.join(dir, 'gitmars.sh')
     if (fs.existsSync(filename)) fs.unlinkSync(filename)
 }
@@ -103,7 +111,7 @@ function removeHookShell(dir = gitHookDir) {
  * createLocalShell
  * @description 创建本地脚本
  */
-function createLocalShell(dir = gitHookDir, pmName, relativeUserPkgDir) {
+export function createLocalShell(dir: string = gitHookDir, pmName: string, relativeUserPkgDir: string): void {
     let filename = path.join(dir, 'gitmars.local.sh')
     fs.writeFileSync(filename, getLocalShell(pmName, relativeUserPkgDir), 'utf-8')
     fs.chmodSync(filename, 0o0755)
@@ -113,7 +121,7 @@ function createLocalShell(dir = gitHookDir, pmName, relativeUserPkgDir) {
  * removeLocalShell
  * @description 移除本地脚本
  */
-function removeLocalShell(dir = gitHookDir) {
+export function removeLocalShell(dir: string = gitHookDir): void {
     const filename = path.join(dir, 'gitmars.local.sh')
     if (fs.existsSync(filename)) fs.unlinkSync(filename)
 }
@@ -122,7 +130,7 @@ function removeLocalShell(dir = gitHookDir) {
  * getIsMergedBranch
  * @description 1. 获取是否合并过dev
  */
-function getIsMergedBranch(branch = current, targetBranch = 'dev') {
+export function getIsMergedBranch(branch: string = current, targetBranch: string = 'dev'): boolean {
     const result = sh.exec(`git branch --contains ${branch}`, { silent: true }).stdout.replace(/[\s]*$/g, '')
     return result.split('\n').includes(targetBranch)
 }
@@ -131,10 +139,10 @@ function getIsMergedBranch(branch = current, targetBranch = 'dev') {
  * getIsUpdatedInTime
  * @description 2. 获取一周内是否同步过上游分支代码
  */
-function getIsUpdatedInTime({ latest, limit, branch: branches }) {
+export function getIsUpdatedInTime({ latest, limit, branch: branches }: IsUpdatedInTimeConfigType): boolean {
     let isUpdated = false,
-        mainVers = [],
-        currentVers = []
+        mainVers: string[] = [],
+        currentVers: string[] = []
     const mainLogs = getLogs({ latest, limit, branches })
     const currentLogs = getLogs({ latest, limit, branches: current })
     mainLogs.forEach(log => {
@@ -142,7 +150,7 @@ function getIsUpdatedInTime({ latest, limit, branch: branches }) {
     })
     currentLogs.forEach(log => {
         let arr = log['%P'] ? log['%P'].split(' ') : []
-        arr.forEach(item => {
+        arr.forEach((item: string) => {
             currentVers.push(item)
         })
     })
@@ -159,7 +167,7 @@ function getIsUpdatedInTime({ latest, limit, branch: branches }) {
  * getIsMergeAction
  * @description 3. 获取主干分支推送的内容是否是merge内容，暂时只检测最后一条记录
  */
-function getIsMergeAction() {
+export function getIsMergeAction(): boolean {
     const currentLogs = getLogs({
         limit: 1,
         branches: current
@@ -172,7 +180,7 @@ function getIsMergeAction() {
  * getBehandLogs
  * @description 获取当前本地分支落后远程的日志
  */
-function getBehandLogs() {
+export function getBehandLogs(): string[] {
     sh.exec(`git fetch`, { silent: true })
     const result = sh.exec(`git log ${current}..origin/${current} --pretty=format:"%p"`, { silent: true }).stdout.replace(/[\s]*$/g, '')
     return result ? result.split('\n') : []
@@ -182,7 +190,7 @@ function getBehandLogs() {
  * getAheadLogs
  * @description 获取当前本地分支领先远程的日志
  */
-function getAheadLogs() {
+export function getAheadLogs(): string[] {
     sh.exec(`git fetch`, { silent: true })
     const result = sh.exec(`git log origin/${current}..${current} --pretty=format:"%p"`, { silent: true }).stdout.replace(/[\s]*$/g, '')
     return result ? result.split('\n') : []
@@ -192,8 +200,8 @@ function getAheadLogs() {
  * init
  * @description 初始化钩子
  */
-function init() {
-    const gitVersionIsNew = compareVersion(gitVersion, '2.13.0')
+export function init(): void {
+    const gitVersionIsNew = gitVersion && compareVersion(gitVersion, '2.13.0')
     // 集成环境不安装
     if (ciInfo.isCI && config.skipCI) {
         console.info('持续集成环境，跳过钩子安装')
@@ -222,7 +230,7 @@ function init() {
  * remove
  * @description 移除钩子
  */
-function remove() {
+export function remove(): void {
     removeHooks()
     removeHookShell()
     removeLocalShell()

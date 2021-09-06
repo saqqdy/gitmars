@@ -1,6 +1,6 @@
-import type { GitmarsConfigType } from '../../typings'
+import type { GitmarsOptionType } from '../../typings'
 
-const cmdConfig: GitmarsConfigType = {
+const cmdConfig: GitmarsOptionType = {
     command: 'save',
     short: 'sv',
     args: [
@@ -51,4 +51,4 @@ const cmdConfig: GitmarsConfigType = {
     }
 }
 
-export { cmdConfig, cmdConfig as default }
+export default cmdConfig

@@ -7,7 +7,7 @@ const hookComment = getHookComment()
  * @returns {Object} arr 返回对象
  */
 
-function getLocalShell(pmName, relativeUserPkgDir) {
+function getLocalShell(pmName: string, relativeUserPkgDir: string): string {
     return `${hookComment}
 
 packageManager=${pmName}

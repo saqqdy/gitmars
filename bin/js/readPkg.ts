@@ -14,12 +14,14 @@ import gitRevParse from './gitRevParse'
 import fs from 'fs'
 import path from 'path'
 
+import { AnyObject } from '../../typings'
+
 /**
  * getConfig
  * @description 读取配置
  * @returns {Object} arr 返回配置对象
  */
-function readPkg(dir) {
+function readPkg(dir?: string): AnyObject {
     if (!dir) {
         let { root } = gitRevParse()
         dir = root

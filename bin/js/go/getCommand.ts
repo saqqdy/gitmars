@@ -1,6 +1,8 @@
 import inquirer from 'inquirer'
 import createPrompt from './createPrompt'
 
+import { GitmarsOptionType } from '../../../typings'
+
 /**
  * @description 执行问答程序
  * @public
@@ -14,7 +16,7 @@ import createPrompt from './createPrompt'
  * @param {object} config.transformArgs 传参值转换
  * @returns {string} result 返回指令结果Promise
  */
-const getCommand = async ({ command, args, options, validatorOpts, validatorArgs, transformOpts, transformArgs }) => {
+const getCommand = async ({ command, args, options, validatorOpts, validatorArgs, transformOpts, transformArgs }: GitmarsOptionType) => {
     let params = [],
         needInput = [] // 需要输入参数值的列表
     // 第一步：args参数

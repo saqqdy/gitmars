@@ -1,5 +1,11 @@
 import { warning } from '../index'
 
+export interface PromptOptionType {
+    options: any
+    validator: any
+    transform: any
+}
+
 /**
  * @description 创建promot参数
  * @param {string} command 指令名称

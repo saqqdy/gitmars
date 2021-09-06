@@ -31,10 +31,10 @@ export const start = async () => {
 
 // 合并代码
 export const combine = async () => {
-    let delOptions = [],
-        delArgs = [],
-        requiredOptions = [],
-        requiredArgs = []
+    let delOptions: string[] = [],
+        delArgs: string[] = [],
+        requiredOptions: string[] = [],
+        requiredArgs: string[] = []
     if (!functionBuanchs.includes(branchPrefix)) {
         // 非功能分支不需要执行这些动作
         delOptions = ['--as-feature', '--no-bugfix']
@@ -60,8 +60,8 @@ export const combine = async () => {
 
 // 合并代码并删除
 export const end = async () => {
-    let delArgs = [],
-        requiredArgs = []
+    let delArgs: string[] = [],
+        requiredArgs: string[] = []
     if (!functionBuanchs.includes(branchPrefix)) {
         // 非功能分支不需要执行这些动作
         requiredArgs = ['type', 'name']
@@ -75,8 +75,8 @@ export const end = async () => {
 
 // 同步上游分支代码
 export const update = async () => {
-    let delArgs = [],
-        requiredArgs = []
+    let delArgs: string[] = [],
+        requiredArgs: string[] = []
     if (!functionBuanchs.includes(branchPrefix)) {
         // 非功能分支不需要执行这些动作
         requiredArgs = ['type', 'name']

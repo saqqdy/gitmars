@@ -1,6 +1,6 @@
-import type { GitmarsMultiConfigType } from '../../typings'
+import type { GitmarsMultiOptionType } from '../../typings'
 
-const cmdConfig: GitmarsMultiConfigType = {
+const cmdConfig: GitmarsMultiOptionType = {
     command: 'admin',
     short: null,
     create: {
@@ -258,4 +258,4 @@ const cmdConfig: GitmarsMultiConfigType = {
     }
 }
 
-export { cmdConfig, cmdConfig as default }
+export default cmdConfig

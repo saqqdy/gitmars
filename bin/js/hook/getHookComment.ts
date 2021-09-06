@@ -9,7 +9,7 @@ import readPkg from '../readPkg'
  * @description 生成hook注释，广告
  * @returns {Object} arr 返回对象
  */
-function getHookComment() {
+function getHookComment(): string {
     // const pkgHomepage = process.env.npm_package_homepage
     const { author, homepage: gitmarsHomepage, version: gitmarsVersion } = readPkg()
     const createdAt = new Date().toLocaleString()

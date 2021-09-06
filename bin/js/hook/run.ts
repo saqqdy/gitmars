@@ -3,7 +3,7 @@ import checkGitDirEnv from '../checkGitDirEnv'
 import getConfig from '../getConfig'
 const config = getConfig()
 
-function getCommand(cwd, hookName) {
+export function getCommand(cwd: string, hookName: string) {
     return config && config.hooks && config.hooks[hookName]
 }
 /**
@@ -11,7 +11,7 @@ function getCommand(cwd, hookName) {
  * @description 执行脚本
  * @returns {Number} 0|1 返回状态
  */
-function runCommand(cwd, hookName, cmd, env) {
+export function runCommand(cwd: string, hookName: string, cmd: string, env) {
     console.info(`gitmars > ${hookName} (node ${process.version})`)
     const { status } = spawnSync('sh', ['-c', cmd], {
         cwd,
@@ -35,7 +35,7 @@ function runCommand(cwd, hookName, cmd, env) {
  * @description 运行主程序
  * @returns {Number} 0|1 返回状态
  */
-function start([, , hookName = '', ...GITMARS_GIT_PARAMS], { cwd = process.cwd() } = {}) {
+export function start([, , hookName = '', ...GITMARS_GIT_PARAMS], { cwd = process.cwd() } = {}) {
     const command = getCommand(cwd, hookName)
     // Add GITMARS_GIT_PARAMS to env
     const env = {}

@@ -1,13 +1,22 @@
 import sh from 'shelljs'
 import apolloConfig from './apollo'
-import { success, mapTemplate } from './index'
+import { error, success, mapTemplate } from './index'
+
+import type { ApolloConfigType, ApolloConfigBranchType, ApolloBranchList } from '../../typings'
+
+export interface RunJenkinsOptionType {
+    env: ApolloBranchList
+    project: string
+    app: string
+}
+
 /**
  * runJenkins
  * @description 调起Jenkins构建
  */
-export default async function runJenkins({ env, project, app = 'all' }) {
-    let buildConfig = await apolloConfig(),
-        cfg = buildConfig[env],
+export default async function runJenkins({ env, project, app = 'all' }: RunJenkinsOptionType): Promise<void | unknown> {
+    let buildConfig = (await apolloConfig()) as ApolloConfigType,
+        cfg: ApolloConfigBranchType = buildConfig[env],
         p,
         url
     if (!cfg) {

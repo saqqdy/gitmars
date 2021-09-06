@@ -3,13 +3,15 @@ import gitRevParse from './gitRevParse'
 import { cosmiconfigSync } from 'cosmiconfig'
 import { defaults } from './global'
 
+import type { GitmarsConfigType } from 'typings'
+
 /**
  * getConfig
  * @description 读取配置
  * @param {String} pathName 可传入目录或者文件，传入文件时，直接读取文件
  * @returns {Object} arr 返回配置对象
  */
-const getConfig = (pathName, moduleName = 'gitmars') => {
+export default function getConfig(pathName?: string, moduleName: string = 'gitmars'): GitmarsConfigType {
     let info
     if (!pathName) {
         let { root } = gitRevParse()
@@ -35,4 +37,3 @@ const getConfig = (pathName, moduleName = 'gitmars') => {
         return Object.assign({}, defaults, defaultSet, config, { filepath })
     }
 }
-export default getConfig

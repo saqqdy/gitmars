@@ -1,6 +1,6 @@
-import type { GitmarsConfigType } from '../../typings'
+import type { GitmarsOptionType } from '../../typings'
 
-const cmdConfig: GitmarsConfigType = {
+const cmdConfig: GitmarsOptionType = {
     command: 'undo',
     short: 'ud',
     args: [
@@ -59,4 +59,4 @@ const cmdConfig: GitmarsConfigType = {
     }
 }
 
-export { cmdConfig, cmdConfig as default }
+export default cmdConfig
