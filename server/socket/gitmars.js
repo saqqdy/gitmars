@@ -2,17 +2,17 @@
 const sh = require('shelljs')
 const os = require('os')
 const home = require('../lib/home')()
-const { getCurrent, searchBranchs } = require('../../bin/js/index')
+const { getCurrent, searchBranchs } = require('../../lib/js/index')
 let glob = {},
 	config = {},
 	branch = [],
 	current = null,
 	interval = null
 const getData = (socket, option) => {
-	delete require.cache[require.resolve('../../bin/js/global')]
-	delete require.cache[require.resolve('../../bin/js/config')]
-	let g = require('../../bin/js/global'),
-		c = require('../../bin/js/config'),
+	delete require.cache[require.resolve('../../lib/js/global')]
+	delete require.cache[require.resolve('../../lib/js/config')]
+	let g = require('../../lib/js/global'),
+		c = require('../../lib/js/config'),
 		bh = searchBranchs({ path: option.cwd || home }),
 		cur = getCurrent({ path: option.cwd || home })
 	if (!glob || JSON.stringify(glob) !== JSON.stringify(g)) {
