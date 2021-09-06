@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 import { program } from 'commander'
 import { options, args } from './conf/postmsg'
 import sendGroupMessage from './js/sendGroupMessage'

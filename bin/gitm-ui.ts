@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 import { program } from 'commander'
 import fs from 'fs'
 import path from 'path'

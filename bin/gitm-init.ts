@@ -1,7 +1,7 @@
-/* eslint-disable no-unused-vars */
+#!/usr/bin/env node
+import { program } from 'commander'
 import fs from 'fs'
 import path from 'path'
-import { program } from 'commander'
 import sh from 'shelljs'
 import inquirer from 'inquirer'
 import { error, success, isGitProject } from './js/index'

@@ -1,5 +1,6 @@
-import { version } from '../package.json'
+#!/usr/bin/env node
 import { program } from 'commander'
+import { version } from '../package.json'
 import sh from 'shelljs'
 
 if (!sh.which('git')) {

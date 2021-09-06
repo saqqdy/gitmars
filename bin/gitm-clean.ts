@@ -1,5 +1,6 @@
-import path from 'path'
+#!/usr/bin/env node
 import { program } from 'commander'
+import path from 'path'
 import sh from 'shelljs'
 import { success, warning, isGitProject } from './js/index'
 import gitRevParse from './js/gitRevParse'

@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 import { program } from 'commander'
 import sh from 'shelljs'
 import { error, queue, isGitProject } from './js/index'

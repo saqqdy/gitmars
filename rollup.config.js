@@ -6,6 +6,7 @@ import json from '@rollup/plugin-json'
 import commonjs from '@rollup/plugin-commonjs'
 import { terser } from 'rollup-plugin-terser'
 import typescript from 'rollup-plugin-typescript2'
+import shebang from 'rollup-plugin-preserve-shebang'
 import { visualizer } from 'rollup-plugin-visualizer'
 import pkg from './package.json'
 
@@ -54,6 +55,7 @@ export default fileList.map(filePath => ({
     ],
     plugins: [
         resolve({ extensions: config.extensions }),
+        shebang(),
         commonjs({
             sourceMap: false
         }),
