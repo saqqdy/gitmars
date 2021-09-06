@@ -6,9 +6,11 @@ import json from '@rollup/plugin-json'
 import commonjs from '@rollup/plugin-commonjs'
 import { terser } from 'rollup-plugin-terser'
 import typescript from 'rollup-plugin-typescript2'
+import { visualizer } from 'rollup-plugin-visualizer'
 import pkg from './package.json'
 
 const config = require('./config')
+const deps = Object.keys(pkg.dependencies)
 
 let fileList = []
 const readDir = entry => {
@@ -51,17 +53,7 @@ export default fileList.map(filePath => ({
         }
     ],
     plugins: [
-        resolve({
-            // Use the `package.json` "browser" field
-            browser: true,
-            // Resolve .mjs and .js files
-            extensions: ['.mjs', '.js'],
-            // Prefer node.js built-ins instead of npm packages
-            preferBuiltins: true,
-            customResolveOptions: {
-                moduleDirectories: ['node_modules']
-            }
-        }),
+        resolve({ extensions: config.extensions }),
         commonjs({
             sourceMap: false
         }),
@@ -83,9 +75,10 @@ export default fileList.map(filePath => ({
             exclude: [/\/core-js\//, 'node_modules/**'],
             // runtimeHelpers: true,
             sourceMap: true
-        })
+        }),
+        visualizer()
     ],
     external(id) {
-        return ['core-js', 'axios', 'js-cool', 'regenerator-runtime'].some(k => new RegExp('^' + k).test(id))
+        return ['regenerator-runtime'].some(k => new RegExp('^' + k).test(id)) || deps.some(k => new RegExp('^' + k).test(id))
     }
 }))

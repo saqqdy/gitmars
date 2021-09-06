@@ -1,4 +1,4 @@
-import set from '../package.json'
+import { version } from '../package.json'
 import { program } from 'commander'
 import sh from 'shelljs'
 
@@ -15,7 +15,7 @@ program.version(
         'Y888   | 888  888   888  888  888 C888  888 888      888D \n' +
         ' "88__/  888  "88_/ 888  888  888  "88_-888 888    _88P  \n' +
         '                                                          \n' +
-        `v${set.version}, powered by saqqdy\n`,
+        `v${version}, powered by saqqdy\n`,
     '-v, --version',
     '查看gitmars版本'
 )

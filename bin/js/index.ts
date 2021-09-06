@@ -234,7 +234,7 @@ export function setLog(log) {
  * @description 获取分支状态
  * @returns {Boolean} true 返回true/false
  */
-const getStatusInfo = (config = {}) => {
+export function getStatusInfo(config = {}) {
     const { silent = true } = config
     const out = sh.exec('git status -s --no-column', { silent }).stdout.replace(/(^\s+|\n*$)/g, '') // 去除首尾
     let list = out ? out.replace(/\n(\s+)/g, '\n').split('\n') : [],
@@ -382,7 +382,7 @@ export function getCurrent() {
  * @description 获取当前分支
  * @returns {Array} 返回列表数组
  */
-const searchBranch = async (key, type, remote = false) => {
+export async function searchBranch(key, type, remote = false) {
     const data = (await queue([`gitm branch${key ? ' -k ' + key : ''}${type ? ' -t ' + type : ''}${remote ? ' -r' : ''}`]))[0].out.replace(/^\*\s+/, '')
     let arr = data ? data.split('\n') : []
     arr = arr.map(el => el.trim())
@@ -394,7 +394,7 @@ const searchBranch = async (key, type, remote = false) => {
  * @description 获取当前分支
  * @returns {Array} 返回列表数组
  */
-const searchBranchs = (opt = {}) => {
+export function searchBranchs(opt = {}) {
     let { path, key, type, remote = false } = opt
     if (!path) path = sh.pwd().stdout
     const data = sh.exec(`git ls-remote${remote ? ' --refs' : ' --heads'} --quiet --sort="version:refname" ${path}`, { silent: true }).stdout.replace(/\n*$/g, '')
@@ -436,7 +436,7 @@ const searchBranchs = (opt = {}) => {
  * @description 搜索分支
  * @returns {Array} 返回列表数组
  */
-const filterBranch = (key, types = [], remote = false) => {
+export function filterBranch(key, types = [], remote = false) {
     if (typeof types === 'string') types = types.split(',')
     const out = sh
         .exec(`git branch${remote ? ' -a' : ''}`, { silent: true })
@@ -467,7 +467,7 @@ const filterBranch = (key, types = [], remote = false) => {
  * @description 获取暂存区列表
  * @returns {String} 返回名称
  */
-const getStashList = async key => {
+export async function getStashList(key) {
     const data = (await queue(['git stash list']))[0].out.replace(/^\*\s+/, '')
     let list = (data && data.split('\n')) || [],
         arr = []
@@ -547,7 +547,7 @@ export function postMessage(msg: string = '') {
  * sendMessage
  * @description 发送消息
  */
-const sendMessage = (message: string = '', cfg = {} as SendMessageType): void => {
+export function sendMessage(message: string = '', cfg = {} as SendMessageType): void {
     const config = getConfig()
     const { silent = true } = cfg
     if (!config.msgUrl) {
