@@ -1,4 +1,3 @@
-#!/usr/bin/env node
 import { program } from 'commander'
 import { spawnSync } from 'child_process'
 import sh from 'shelljs'

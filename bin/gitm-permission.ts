@@ -1,4 +1,3 @@
-#!/usr/bin/env node
 import { program } from 'commander'
 import sh from 'shelljs'
 import { error, getCurrent } from './js/index'

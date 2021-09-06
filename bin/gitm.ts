@@ -1,4 +1,3 @@
-#!/usr/bin/env node
 import set from '../package.json'
 import { program } from 'commander'
 import sh from 'shelljs'

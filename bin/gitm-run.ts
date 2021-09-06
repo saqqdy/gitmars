@@ -1,4 +1,3 @@
-#!/usr/bin/env node
 import { program } from 'commander'
 import { options, args } from './conf/run'
 import { createArgs } from './js/tools'

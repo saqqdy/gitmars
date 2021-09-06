@@ -358,7 +358,7 @@ export function getLogs(config = {}) {
  * @description 获取是否有某个分支
  * @returns {Boolean} true 返回true/false
  */
-const checkBranch = async name => {
+export const checkBranch = async name => {
     const data = await queue([`gitm branch -k ${name}`])
     return data[0].out.replace(/^\s+/, '')
 }

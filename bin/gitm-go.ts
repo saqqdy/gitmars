@@ -1,9 +1,8 @@
-#!/usr/bin/env node
 import { program } from 'commander'
 import sh from 'shelljs'
 import inquirer from 'inquirer'
 import { options, args } from './conf/go'
-import { combine, end, update, build, start, admin, branch, copy, get, save, revert, link, unlink, postmsg } from './js/go'
+import { combine, end, update, build, start, admin, branch, copy, get, save, revert, link, unlink, postmsg } from './js/go/index'
 import { success, getCurrent } from './js/index'
 import { createArgs } from './js/tools'
 // import getConfig from './js/getConfig'

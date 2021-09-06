@@ -1,5 +1,8 @@
+import fs from 'fs'
+import { join } from 'path'
 import resolve from '@rollup/plugin-node-resolve'
 import babel from '@rollup/plugin-babel'
+import json from '@rollup/plugin-json'
 import commonjs from '@rollup/plugin-commonjs'
 import { terser } from 'rollup-plugin-terser'
 import typescript from 'rollup-plugin-typescript2'
@@ -8,23 +11,52 @@ import pkg from './package.json'
 
 const config = require('./config')
 
+let fileList = []
+const readDir = entry => {
+    const dirInfo = fs.readdirSync(entry)
+    dirInfo.forEach(item => {
+        const name = join(entry, item)
+        const info = fs.statSync(name)
+        if (info.isDirectory()) {
+            readDir(name)
+        } else {
+            ;/^[\S]*\.ts$/.test(item) && getInfo(name)
+        }
+    })
+}
+const getInfo = url => {
+    fileList.push(url)
+}
+readDir('./bin/conf')
+
 const production = !process.env.ROLLUP_WATCH
 
 export default [
     {
-        input: 'src/index.ts',
+        input: fileList,
         output: [
             {
-                file: pkg.main,
+                // file: 'lib/[name].js',
+                // dir: 'lib',
+			paths(id) {
+				console.log(id)
+			},
+                preserveModules: true,
+                preserveModulesRoot: 'src',
                 exports: 'auto',
-                format: 'cjs'
+                format: 'cjs',
+                sourcemap: false
             },
-            {
-                file: 'lib/index.esm.js',
-                exports: 'auto',
-                format: 'es'
-            }
-        ],
+        //     {
+        //         // file: 'lib/index.esm.js',
+        //         dir: 'lib',
+        //         preserveModules: true,
+        //         preserveModulesRoot: 'src',
+        //         exports: 'auto',
+        //         format: 'es',
+        //         sourcemap: false
+        //     }
+        // ],
         plugins: [
             resolve({
                 // Use the `package.json` "browser" field
@@ -40,6 +72,7 @@ export default [
             commonjs({
                 sourceMap: false
             }),
+            json(),
             typescript({
                 tsconfigOverride: {
                     compilerOptions: {

@@ -1,4 +1,3 @@
-#!/usr/bin/env node
 /* eslint-disable no-unused-vars */
 import fs from 'fs'
 import path from 'path'

@@ -1,10 +1,9 @@
-#!/usr/bin/env node
 import { program } from 'commander'
 import sh from 'shelljs'
 import { options, args } from './conf/hook'
 import { error, warning, success, getCurrent, getBranchsFromID, isGitProject } from './js/index'
 import { createArgs } from './js/tools'
-import { init, remove, getIsMergedBranch, getIsUpdatedInTime, getIsMergeAction, getBehandLogs, getAheadLogs } from './js/hook'
+import { init, remove, getIsMergedBranch, getIsUpdatedInTime, getIsMergeAction, getBehandLogs, getAheadLogs } from './js/hook/index'
 if (!isGitProject()) {
     sh.echo(error('当前目录不是git项目目录'))
     sh.exit(1)
