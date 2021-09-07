@@ -10,6 +10,6 @@ before_install:
 install:
   - npminstall
 script:
-  - npm run ci
+  - npm run build
 after_script:
   - npminstall codecov && codecov
