@@ -78,7 +78,8 @@ export default fileList.map(filePath => ({
             // runtimeHelpers: true,
             sourceMap: true
         }),
-        visualizer()
+        visualizer(),
+        terser()
     ],
     external(id) {
         return ['regenerator-runtime'].some(k => new RegExp('^' + k).test(id)) || deps.some(k => new RegExp('^' + k).test(id))
