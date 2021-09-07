@@ -7,7 +7,7 @@ import getConfig from './getConfig'
 
 import type { AnyFunction, AnyObject } from '../../typings'
 
-export type CommandMessageType = {
+export interface CommandMessageType {
     success: string
     fail: string
 }
@@ -48,7 +48,7 @@ export function writeFile(url: string, data: string): Promise<Error | boolean> {
  */
 export function mapTemplate(tmp: string, data: AnyFunction | AnyObject): string | null {
     if (!tmp || !data) return null
-    let str =
+    const str: string =
         '' +
         tmp.replace(/\$\{([a-zA-Z0-9-_]+)\}/g, (a, b) => {
             if (typeof data === 'function') {
@@ -68,8 +68,8 @@ export function mapTemplate(tmp: string, data: AnyFunction | AnyObject): string 
  * @description 传入字符串转换成时间（秒）
  */
 export function getSeconds(str: string): number | null {
-    let match = String(str).match(/^(\d+)([a-zA-Z]+)$/),
-        time
+    const match = String(str).match(/^(\d+)([a-zA-Z]+)$/)
+    let time
     if (!match) return null
     time = +match[1]
     switch (match[2]) {

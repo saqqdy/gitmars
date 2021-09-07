@@ -7,3 +7,5 @@ cache/*
 
 *.bak
 *_bak
+
+*.js
