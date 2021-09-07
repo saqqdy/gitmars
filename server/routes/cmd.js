@@ -2,8 +2,8 @@ var express = require('express'),
 	router = express.Router()
 const fs = require('fs')
 // const sh = require('shelljs')
-const glob = require('../../bin/js/global')
-const { getCurrent, searchBranchs } = require('../../bin/js/index')
+const glob = require('../../lib/js/global')
+const { getCurrent, searchBranchs } = require('../../lib/js/index')
 
 const error503 = res => {
 	res.status(503).send({ data: null, success: false, code: 0, msg: 'fail' })

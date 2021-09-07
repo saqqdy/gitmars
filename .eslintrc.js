@@ -1,6 +1,15 @@
-const { simple: config } = require('eslint-config-sets')
-module.exports = Object.assign(config, {
+const { simpleTs: config } = require('eslint-config-sets')
+const { extend } = require('js-cool')
+
+module.exports = extend(true, config, {
     rules: {
-        semi: [2, 'never']
+        'no-unused-vars': [1, { ignoreRestSiblings: true, argsIgnorePattern: '^h$' }],
+        '@typescript-eslint/no-unused-vars': [
+            1,
+            {
+                argsIgnorePattern: '^h$',
+                varsIgnorePattern: '^h$'
+            }
+        ]
     }
 })

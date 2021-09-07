@@ -11,8 +11,8 @@
 
 [npm-image]: https://img.shields.io/npm/v/gitmars.svg?style=flat-square
 [npm-url]: https://npmjs.org/package/gitmars
-[travis-image]: https://travis-ci.org/saqqdy/gitmars.svg?branch=master
-[travis-url]: https://travis-ci.org/saqqdy/gitmars
+[travis-image]: https://travis-ci.com/saqqdy/gitmars.svg?branch=master
+[travis-url]: https://travis-ci.com/saqqdy/gitmars
 [codecov-image]: https://img.shields.io/codecov/c/github/saqqdy/gitmars.svg?style=flat-square
 [codecov-url]: https://codecov.io/github/saqqdy/gitmars?branch=master
 [david-image]: https://img.shields.io/david/saqqdy/gitmars.svg?style=flat-square
