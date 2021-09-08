@@ -7,7 +7,7 @@ export type PmFromUserAgentType = {
  * @description 获取本地使用的包管理工具
  * @returns {Object} arr 返回对象
  */
-export function getPackageManager(): PmFromUserAgentType | undefined {
+function getPackageManager(): PmFromUserAgentType | undefined {
     if (!process.env.npm_config_user_agent) {
         return undefined
     }

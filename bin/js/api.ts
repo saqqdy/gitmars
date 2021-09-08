@@ -9,7 +9,7 @@ export interface FetchDataType {
 }
 
 // 获取用户信息
-export function getUserToken(): FetchDataType {
+function getUserToken(): FetchDataType {
     const config = getConfig()
     if (!config.api) {
         sh.echo(error('请配置用于请求权限的api接口地址，接收参数形式：url?name=git_user_name，返回data=token'))
@@ -41,3 +41,5 @@ export function getUserToken(): FetchDataType {
     }
     return userInfo
 }
+
+module.exports = getUserToken
