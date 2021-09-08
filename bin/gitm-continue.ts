@@ -1,9 +1,9 @@
 #!/usr/bin/env node
-import { program } from 'commander'
-import sh from 'shelljs'
-import { options, args } from './conf/continue'
-import { error, queue, getCache, isGitProject } from './js/index'
-import { createArgs } from './js/tools'
+const { program } = require('commander')
+const sh = require('shelljs')
+const { options, args } = require('./conf/continue')
+const { error, queue, getCache, isGitProject } = require('./js/index')
+const { createArgs } = require('./js/tools')
 if (!isGitProject()) {
     sh.echo(error('当前目录不是git项目目录'))
     sh.exit(1)

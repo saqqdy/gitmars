@@ -1,22 +1,22 @@
-import sh from 'shelljs'
-import { getCurrent } from '../index'
-import getCommand from './getCommand'
-import cleanConfig from './cleanConfig'
+const sh = require('shelljs')
+const { getCurrent } = require('../index')
+const getCommand = require('./getCommand')
+const cleanConfig = require('./cleanConfig')
 
-import combineConfig from '../../conf/combine'
-import endConfig from '../../conf/end'
-import updateConfig from '../../conf/update'
-import branchConfig from '../../conf/branch'
-import buildConfig from '../../conf/build'
-import startConfig from '../../conf/start'
-import copyConfig from '../../conf/copy'
-import getConfig from '../../conf/get'
-import saveConfig from '../../conf/save'
-import revertConfig from '../../conf/revert'
-import linkConfig from '../../conf/link'
-import unlinkConfig from '../../conf/unlink'
-import postmsgConfig from '../../conf/postmsg'
-import { create as adminCreateConfig, publish as adminPublishConfig, update as adminUpdateConfig, clean as adminCleanConfig } from '../../conf/admin'
+const combineConfig = require('../../conf/combine')
+const endConfig = require('../../conf/end')
+const updateConfig = require('../../conf/update')
+const branchConfig = require('../../conf/branch')
+const buildConfig = require('../../conf/build')
+const startConfig = require('../../conf/start')
+const copyConfig = require('../../conf/copy')
+const getConfig = require('../../conf/get')
+const saveConfig = require('../../conf/save')
+const revertConfig = require('../../conf/revert')
+const linkConfig = require('../../conf/link')
+const unlinkConfig = require('../../conf/unlink')
+const postmsgConfig = require('../../conf/postmsg')
+const { create: adminCreateConfig, publish: adminPublishConfig, update: adminUpdateConfig, clean: adminCleanConfig } = require('../../conf/admin')
 
 const current = getCurrent()
 const branchPrefix = current.split('/')[0]

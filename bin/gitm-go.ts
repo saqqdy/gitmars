@@ -1,12 +1,12 @@
 #!/usr/bin/env node
-import { program } from 'commander'
-import sh from 'shelljs'
-import inquirer from 'inquirer'
-import { options, args } from './conf/go'
-import { combine, end, update, build, start, admin, branch, copy, get, save, revert, link, unlink, postmsg } from './js/go/index'
-import { success, getCurrent } from './js/index'
-import { createArgs } from './js/tools'
-// import getConfig from './js/getConfig'
+const { program } = require('commander')
+const sh = require('shelljs')
+const inquirer = require('inquirer')
+const { options, args } = require('./conf/go')
+const { combine, end, update, build, start, admin, branch, copy, get, save, revert, link, unlink, postmsg } = require('./js/go/index')
+const { success, getCurrent } = require('./js/index')
+const { createArgs } = require('./js/tools')
+// const getConfig = require('./js/getConfig')
 // const config = getConfig()
 
 /**

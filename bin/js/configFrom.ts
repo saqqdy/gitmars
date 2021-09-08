@@ -1,5 +1,5 @@
-import sh from 'shelljs'
-import gitRevParse from './gitRevParse'
+const sh = require('shelljs')
+const gitRevParse = require('./gitRevParse')
 const { root } = gitRevParse()
 /**
  * getConfigFrom

@@ -1,8 +1,8 @@
 #!/usr/bin/env node
-import { program } from 'commander'
-import sh from 'shelljs'
-import { error, getCurrent } from './js/index'
-import getConfig from './js/getConfig'
+const { program } = require('commander')
+const sh = require('shelljs')
+const { error, getCurrent } = require('./js/index')
+const getConfig = require('./js/getConfig')
 const config = getConfig()
 /**
  * gitm permission

@@ -1,7 +1,7 @@
 #!/usr/bin/env node
-import { program } from 'commander'
-import sh from 'shelljs'
-import { error, queue, isGitProject } from './js/index'
+const { program } = require('commander')
+const sh = require('shelljs')
+const { error, queue, isGitProject } = require('./js/index')
 if (!isGitProject()) {
     sh.echo(error('当前目录不是git项目目录'))
     sh.exit(1)

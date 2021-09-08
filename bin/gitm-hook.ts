@@ -1,15 +1,15 @@
 #!/usr/bin/env node
-import { program } from 'commander'
-import sh from 'shelljs'
-import { options, args } from './conf/hook'
-import { error, warning, success, getCurrent, getBranchsFromID, isGitProject } from './js/index'
-import { createArgs } from './js/tools'
-import { init, remove, getIsMergedBranch, getIsUpdatedInTime, getIsMergeAction, getBehandLogs, getAheadLogs } from './js/hook/index'
+const { program } = require('commander')
+const sh = require('shelljs')
+const { options, args } = require('./conf/hook')
+const { error, warning, success, getCurrent, getBranchsFromID, isGitProject } = require('./js/index')
+const { createArgs } = require('./js/tools')
+const { init, remove, getIsMergedBranch, getIsUpdatedInTime, getIsMergeAction, getBehandLogs, getAheadLogs } = require('./js/hook/index')
 if (!isGitProject()) {
     sh.echo(error('当前目录不是git项目目录'))
     sh.exit(1)
 }
-import getConfig from './js/getConfig'
+const getConfig = require('./js/getConfig')
 const config = getConfig()
 
 /**

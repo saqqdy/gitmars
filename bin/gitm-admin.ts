@@ -1,16 +1,16 @@
 #!/usr/bin/env node
-import { Command } from 'commander'
-import sh from 'shelljs'
-import { create, publish, update, clean } from './conf/admin'
-import { getUserToken } from './js/api'
-import { error, success, queue, getStatus, checkBranch, getCurrent, isGitProject } from './js/index'
-import { createArgs } from './js/tools'
+const { Command } = require('commander')
+const sh = require('shelljs')
+const { create, publish, update, clean } = require('./conf/admin')
+const { getUserToken } = require('./js/api')
+const { error, success, queue, getStatus, checkBranch, getCurrent, isGitProject } = require('./js/index')
+const { createArgs } = require('./js/tools')
 if (!isGitProject()) {
     sh.echo(error('当前目录不是git项目目录'))
     sh.exit(1)
 }
-import getGitConfig from './js/getGitConfig'
-import getConfig from './js/getConfig'
+const getGitConfig = require('./js/getGitConfig')
+const getConfig = require('./js/getConfig')
 const { appName } = getGitConfig()
 const config = getConfig()
 const { token, level, nickname = '' } = config.api ? getUserToken() : {}

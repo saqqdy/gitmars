@@ -49,12 +49,13 @@ export default fileList.map(filePath => ({
         {
             format: 'cjs',
             file: getOutFile(filePath, 'lib'),
-            exports: 'named',
+            exports: 'auto',
+            // exports: 'named',
             sourcemap: false
         }
     ],
     plugins: [
-        resolve({ extensions: config.extensions }),
+        resolve({ extensions: config.extensions, preferBuiltins: false }),
         shebang(),
         commonjs({
             sourceMap: false

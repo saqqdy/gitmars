@@ -1,8 +1,8 @@
 #!/usr/bin/env node
-import { program } from 'commander'
-import sh from 'shelljs'
-import { options, args } from './conf/link'
-import { createArgs } from './js/tools'
+const { program } = require('commander')
+const sh = require('shelljs')
+const { options, args } = require('./conf/link')
+const { createArgs } = require('./js/tools')
 /**
  * gitm link
  */

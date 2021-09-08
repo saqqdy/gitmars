@@ -1,16 +1,16 @@
-import fs from 'fs'
-import path from 'path'
-import sh from 'shelljs'
-import { warning, getCurrent, getLogs, compareVersion } from '../index'
-import { hookList } from '../global'
-import gitRevParse from '../gitRevParse'
-import getGitVersion from '../getGitVersion'
-import getHookComment from './getHookComment'
-import getHookType from './getHookType'
-import getHookShell from './getHookShell'
-import getLocalShell from './getLocalShell'
-import ciInfo from 'ci-info'
-import getConfig from '../getConfig'
+const fs = require('fs')
+const path = require('path')
+const sh = require('shelljs')
+const { warning, getCurrent, getLogs, compareVersion } = require('../index')
+const { hookList } = require('../global')
+const gitRevParse = require('../gitRevParse')
+const getGitVersion = require('../getGitVersion')
+const getHookComment = require('./getHookComment')
+const getHookType = require('./getHookType')
+const getHookShell = require('./getHookShell')
+const getLocalShell = require('./getLocalShell')
+const ciInfo = require('ci-info')
+const getConfig = require('../getConfig')
 const current = getCurrent()
 const { gitHookDir, prefix } = gitRevParse()
 const gitVersion = getGitVersion()
