@@ -2,11 +2,7 @@ const sh = require('shelljs')
 const { error, getGitUser } = require('./index')
 const getConfig = require('./getConfig')
 
-export interface FetchDataType {
-    token: string // gitlab上生成的access_token
-    level: 1 | 2 | 3 // 1=超级管理员 2=管理员 3=开发者
-    [prop: string]: any
-}
+import { FetchDataType } from '../../typings'
 
 // 获取用户信息
 function getUserToken(): FetchDataType {

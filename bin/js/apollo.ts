@@ -1,6 +1,6 @@
 const path = require('path')
-let apollo = require('node-apollo'),
-    sh = require('shelljs')
+const apollo = require('node-apollo')
+const sh = require('shelljs')
 const { error, writeFile } = require('./index')
 const getConfig = require('./getConfig')
 
@@ -13,15 +13,13 @@ import type { ApolloConfigType, GitmarsConfigType } from '../../typings'
  */
 async function apolloConfig(): Promise<ApolloConfigType | void> {
     const cacheDir = path.join(__dirname, '../../cache')
-    let now = new Date().getTime(),
-        config,
-        apolloConfig,
-        result
+    const now = new Date().getTime()
+    let apolloConfig
     if (sh.test('-f', cacheDir + '/buildConfig.json')) {
-        let fileDate = parseInt(sh.cat(cacheDir + '/buildConfig.txt').stdout)
+        const fileDate: number = parseInt(sh.cat(cacheDir + '/buildConfig.txt').stdout)
         if (now - fileDate < 24 * 60 * 60 * 1000) return require(cacheDir + '/buildConfig.json')
     }
-    config = getConfig() as GitmarsConfigType
+    const config = getConfig() as GitmarsConfigType
     if (!config.apolloConfig) {
         sh.echo(error('请配置apollo'))
         sh.exit(0)
@@ -37,7 +35,7 @@ async function apolloConfig(): Promise<ApolloConfigType | void> {
     } else {
         apolloConfig = config.apolloConfig
     }
-    result = await apollo.remoteConfigService(apolloConfig)
+    const result = await apollo.remoteConfigService(apolloConfig)
     await writeFile(cacheDir + '/buildConfig.txt', String(now))
     await writeFile(cacheDir + '/buildConfig.json', JSON.stringify(result.content))
     return result.content

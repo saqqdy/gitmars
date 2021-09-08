@@ -6,13 +6,16 @@ export interface AnyFunction extends AnyObject {
     (...args: any[]): any
 }
 
+// export function GitmarsOptionFunctionType(val: string, opts: object, cb: any): void
+
 export interface GitmarsOptionArgsType {
     required: boolean
     name: string
     variadic: boolean
-    validator?(val: string, opts: object, cb: any): void
-    transformer?(val: string, opts: object, cb: any): void
+    validator?(val: string, opts: object, cb: Function): void
+    transformer?(val: string, answers: object, flags: object, options: GitmarsOptionArgsType): void
     description?: string
+    defaultValue?: any
 }
 
 export interface GitmarsOptionOptionsType {
@@ -28,6 +31,8 @@ export interface GitmarsOptionOptionsType {
     defaultValue?: any
     value?: any
     recommend?: boolean
+    validator?(val: string, opts: object, cb: Function): void
+    transformer?(val: string, answers: object, flags: object, options: GitmarsOptionOptionsType): void
 }
 
 export interface GitmarsOptionType {
@@ -100,4 +105,21 @@ export type ApolloConfigType = {
     template: string // 不带参数
     templateWithParam: string // 带参数
     gitNotificationGroupUrl?: string | string[] // 推送群消息的api
+}
+
+export interface CommandType {
+    cmd: string
+    config: {
+        slient?: boolean
+        again?: boolean
+        success?: string
+        fail?: string
+        postmsg?: boolean
+    }
+}
+
+export interface FetchDataType {
+    token: string // gitlab上生成的access_token
+    level: 1 | 2 | 3 // 1=超级管理员 2=管理员 3=开发者
+    [prop: string]: any
 }

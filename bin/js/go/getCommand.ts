@@ -3,6 +3,14 @@ const createPrompt = require('./createPrompt')
 
 import type { GitmarsOptionType } from '../../../typings'
 
+export interface CommandNeedInput {
+    required: boolean
+    name: string
+    variadic: boolean
+    defaultValue: any
+    description: string
+}
+
 /**
  * @description 执行问答程序
  * @public
@@ -18,7 +26,7 @@ import type { GitmarsOptionType } from '../../../typings'
  */
 const getCommand = async ({ command, args, options, validatorOpts, validatorArgs, transformOpts, transformArgs }: GitmarsOptionType) => {
     let params = [],
-        needInput = [] // 需要输入参数值的列表
+        needInput: CommandNeedInput[] = [] // 需要输入参数值的列表
     // 第一步：args参数
     if (options.length > 0) {
         // 是否需要执行第一步checkbox选择：1. options全部参数都需要输入值；2. 全部参数都是recommend为true，满足这两个条件则不走checkbox。
@@ -26,9 +34,9 @@ const getCommand = async ({ command, args, options, validatorOpts, validatorArgs
         if (needStep1) {
             const answer1 = await inquirer.prompt(createPrompt(command, { options, validator: validatorOpts, transform: transformOpts }, 'checkbox'))
             const { [command]: selection } = answer1
-            selection.forEach(prop => {
-                let option = options.find(opt => opt.long === prop)
-                if (option.optional || option.required) {
+            selection.forEach((prop: string) => {
+                const option = options.find(opt => opt.long === prop)
+                if (option && (option.optional || option.required)) {
                     // 必填<>或者不必填[]
                     needInput.push({
                         required: option.required,
@@ -61,7 +69,7 @@ const getCommand = async ({ command, args, options, validatorOpts, validatorArgs
     // 第三步：args参数需要传参的部分
     if (needInput.length > 0) {
         const answer3 = await inquirer.prompt(createPrompt(command, { options: needInput }, 'input'))
-        let arr = Object.entries(answer3).map(item => {
+        const arr = Object.entries(answer3).map((item: any[]) => {
             if (item[1] !== '') item[1] = '"' + item[1] + '"'
             return item
         })

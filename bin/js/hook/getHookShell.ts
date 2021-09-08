@@ -14,3 +14,4 @@ function getHookShell(): string {
     return [getHookComment(), '', hookShell].join('\n')
 }
 module.exports = getHookShell
+export {}

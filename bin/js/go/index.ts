@@ -31,9 +31,9 @@ export const start = async () => {
 
 // 合并代码
 export const combine = async () => {
+    const requiredOptions: string[] = []
     let delOptions: string[] = [],
         delArgs: string[] = [],
-        requiredOptions: string[] = [],
         requiredArgs: string[] = []
     if (!functionBuanchs.includes(branchPrefix)) {
         // 非功能分支不需要执行这些动作

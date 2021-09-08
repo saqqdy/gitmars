@@ -22,8 +22,8 @@ options.forEach(o => {
 // .option('-d, --delete [branch]', '删除分支', null)
 // .option('-D, --forcedelete [branch]', '强行删除分支', null)
 // .option('-u, --upstream [upstream]', '设置与远程分支关联')
-program.action(opt => {
-    let cmd = []
+program.action((opt: any) => {
+    const cmd = []
     if (opt.delete) {
         // 删除分支
         const id = sh.exec(`git rev-parse --verify ${opt.delete}`, { silent: true }).stdout.replace(/[\s]*$/g, '')

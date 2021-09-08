@@ -5,6 +5,9 @@ const { create, publish, update, clean } = require('./conf/admin')
 const { getUserToken } = require('./js/api')
 const { error, success, queue, getStatus, checkBranch, getCurrent, isGitProject } = require('./js/index')
 const { createArgs } = require('./js/tools')
+
+import { FetchDataType, GitmarsOptionOptionsType, CommandType } from '../typings'
+
 if (!isGitProject()) {
     sh.echo(error('当前目录不是git项目目录'))
     sh.exit(1)
@@ -13,7 +16,7 @@ const getGitConfig = require('./js/getGitConfig')
 const getConfig = require('./js/getConfig')
 const { appName } = getGitConfig()
 const config = getConfig()
-const { token, level, nickname = '' } = config.api ? getUserToken() : {}
+const { token, level, nickname = '' } = config.api ? getUserToken() : ({} as FetchDataType)
 /**
  * gitm admin create
  * gitm admin publish
@@ -28,16 +31,16 @@ if (create.args.length > 0) {
         .usage('<command> <type>')
         .description('创建bugfix、release、develop和support分支')
         .command('create ' + createArgs(create.args))
-    create.options.forEach(o => {
+    create.options.forEach((o: GitmarsOptionOptionsType) => {
         _program.option(o.flags, o.description, o.defaultValue)
     })
     // .command('create <type>')
-    _program.action(async type => {
+    _program.action(async (type: string) => {
         const opts = ['bugfix', 'release', 'develop', 'support'] // 允许执行的指令
-        let base = type === 'release' ? config.master : config.release,
-            status = getStatus(),
-            hasBase = await checkBranch(base),
-            exits = await checkBranch(config[type])
+        const base: string = type === 'release' ? config.master : config.release
+        const status = getStatus()
+        const hasBase = await checkBranch(base)
+        const exits = await checkBranch(config[type])
         if (!status) sh.exit(1)
         if (!hasBase) {
             sh.echo(error(base + '分支不存在，请先创建' + base + '分支'))
@@ -49,8 +52,8 @@ if (create.args.length > 0) {
         }
         if (opts.includes(type)) {
             // release从master拉取，其他从release拉取
-            let cmd = [`git fetch`, `git checkout ${base}`, `git pull`, `git checkout -b ${config[type]} ${base}`]
-            queue(cmd).then(data => {
+            const cmd = ['git fetch', `git checkout ${base}`, 'git pull', `git checkout -b ${config[type]} ${base}`]
+            queue(cmd).then((data: any[]) => {
                 if (data[3].code === 0) {
                     sh.echo(`${config[type]}分支创建成功，该分支基于${base}创建，您当前已经切换到${config[type]}\n需要发版时，记得执行: ${success('gitm admin publish ' + config[type])}`)
                 }
@@ -68,7 +71,7 @@ if (publish.args.length > 0) {
         .usage('<command> <type>')
         .description('发布bugfix、release、support分支')
         .command('publish ' + createArgs(publish.args))
-    publish.options.forEach(o => {
+    publish.options.forEach((o: GitmarsOptionOptionsType) => {
         _program.option(o.flags, o.description, o.defaultValue)
     })
     // .command('publish <type>')
@@ -77,10 +80,10 @@ if (publish.args.length > 0) {
     // .option('-p, --prod', '发布bug分支时，是否合并bug到master', false)
     // .option('-b, --build [build]', '需要构建的应用')
     // .option('--postmsg', '发送消息', false)
-    _program.action(async (type, opt) => {
+    _program.action(async (type: string, opt: any) => {
         const opts = ['bugfix', 'release', 'support'] // 允许执行的指令
-        let status = getStatus(),
-            curBranch = await getCurrent()
+        const status = getStatus()
+        const curBranch = await getCurrent()
         if (!status) sh.exit(1)
         if (opts.includes(type)) {
             /**
@@ -89,61 +92,63 @@ if (publish.args.length > 0) {
              * develop -> null
              * support -> bugfix/release
              */
-            let cmd =
+            const cmd: {
+                [prop in 'bugfix' | 'support' | 'release']: Array<CommandType | string>
+            } =
                 !level || level < 3
                     ? {
                           bugfix: [
-                              `git fetch`,
+                              'git fetch',
                               `git checkout ${config.bugfix}`,
-                              `git pull`,
+                              'git pull',
                               `git checkout ${config.release}`,
-                              `git pull`,
+                              'git pull',
                               {
                                   cmd: `git merge --no-ff ${config.bugfix}`,
                                   config: { slient: false, again: false, postmsg: opt.postmsg, success: `${config.bugfix}合并到${config.release}成功`, fail: `${config.bugfix}合并到${config.release}出错了，请根据提示处理` }
                               },
                               {
-                                  cmd: `git push`,
+                                  cmd: 'git push',
                                   config: { slient: false, again: true, success: '推送成功', fail: '推送失败，请根据提示处理' }
                               }
                           ],
                           support: [
-                              `git fetch`,
+                              'git fetch',
                               `git checkout ${config.support}`,
-                              `git pull`,
+                              'git pull',
                               `git checkout ${config.release}`,
-                              `git pull`,
+                              'git pull',
                               {
                                   cmd: `git merge --no-ff ${config.support}`,
                                   config: { slient: false, again: false, success: `${config.support}合并到${config.release}成功`, fail: `${config.support}合并到${config.release}出错了，请根据提示处理` }
                               },
                               {
-                                  cmd: `git push`,
+                                  cmd: 'git push',
                                   config: { slient: false, again: true, success: '推送成功', fail: '推送失败，请根据提示处理' }
                               },
                               `git checkout ${config.bugfix}`,
-                              `git pull`,
+                              'git pull',
                               {
                                   cmd: `git merge --no-ff ${config.support}`,
                                   config: { slient: false, again: false, success: `${config.support}合并到${config.bugfix}成功`, fail: `${config.support}合并到${config.bugfix}出错了，请根据提示处理` }
                               },
                               {
-                                  cmd: `git push`,
+                                  cmd: 'git push',
                                   config: { slient: false, again: true, success: '推送成功', fail: '推送失败，请根据提示处理' }
                               }
                           ],
                           release: [
-                              `git fetch`,
+                              'git fetch',
                               `git checkout ${config.release}`,
-                              `git pull`,
+                              'git pull',
                               `git checkout ${config.master}`,
-                              `git pull`,
+                              'git pull',
                               {
                                   cmd: `git merge --no-ff ${config.release}`,
                                   config: { slient: false, again: false, success: `${config.release}合并到${config.master}成功`, fail: `${config.release}合并到${config.master}出错了，请根据提示处理` }
                               },
                               {
-                                  cmd: `git push`,
+                                  cmd: 'git push',
                                   config: { slient: false, again: true, success: '推送成功', fail: '推送失败，请根据提示处理' }
                               }
                           ]
@@ -182,13 +187,13 @@ if (publish.args.length > 0) {
                     !level || level < 3
                         ? [
                               `git checkout ${config.master}`,
-                              `git pull`,
+                              'git pull',
                               {
                                   cmd: `git merge --no-ff ${config.bugfix}`,
                                   config: { slient: false, again: false, success: `${config.bugfix}合并到${config.master}成功`, fail: `${config.bugfix}合并到${config.master}出错了，请根据提示处理` }
                               },
                               {
-                                  cmd: `git push`,
+                                  cmd: 'git push',
                                   config: { slient: false, again: true, success: '推送成功', fail: '推送失败，请根据提示处理' }
                               }
                           ]
@@ -224,7 +229,7 @@ if (publish.args.length > 0) {
                 if (opt.useRebase) {
                     cmd[type] = cmd[type].concat([
                         `git checkout ${config.release}`,
-                        `git pull`,
+                        'git pull',
                         `git checkout ${config.bugfix}`,
                         {
                             cmd: `git pull origin ${config.bugfix} --rebase`,
@@ -235,7 +240,7 @@ if (publish.args.length > 0) {
                             config: { slient: false, again: false, postmsg: opt.postmsg, success: `${config.release}同步到${config.bugfix}成功`, fail: `${config.release}同步到${config.bugfix}出错了，请根据提示处理` }
                         },
                         {
-                            cmd: `git push`,
+                            cmd: 'git push',
                             config: { slient: false, again: true, success: '推送成功', fail: '推送失败，请根据提示处理' }
                         }
                     ])
@@ -244,15 +249,15 @@ if (publish.args.length > 0) {
                         !level || level < 3
                             ? [
                                   `git checkout ${config.release}`,
-                                  `git pull`,
+                                  'git pull',
                                   `git checkout ${config.bugfix}`,
-                                  `git pull`,
+                                  'git pull',
                                   {
                                       cmd: `git merge --no-ff ${config.release}`,
                                       config: { slient: false, again: false, postmsg: opt.postmsg, success: `${config.release}合并到${config.bugfix}成功`, fail: `${config.release}合并到${config.bugfix}出错了，请根据提示处理` }
                                   },
                                   {
-                                      cmd: `git push`,
+                                      cmd: 'git push',
                                       config: { slient: false, again: true, success: '推送成功', fail: '推送失败，请根据提示处理' }
                                   }
                               ]
@@ -267,7 +272,7 @@ if (publish.args.length > 0) {
                 }
             }
             // 回到当前分支
-            for (let key in cmd) {
+            for (const key in cmd) {
                 cmd[key].push(`git checkout ${curBranch}`)
             }
             queue(cmd[type])
@@ -284,18 +289,18 @@ if (update.args.length > 0) {
         .usage('<command> <type> [-m --mode [mode]]')
         .description('更新bugfix、release、support分支代码')
         .command('update ' + createArgs(update.args))
-    update.options.forEach(o => {
+    update.options.forEach((o: GitmarsOptionOptionsType) => {
         _program.option(o.flags, o.description, o.defaultValue)
     })
     // .command('update <type>')
     // .option('--use-rebase', '是否使用rebase方式更新，默认merge', false)
     // .option('-m, --mode [mode]', '出现冲突时，保留传入代码还是保留当前代码；1=采用当前 2=采用传入；默认为 0=手动处理。本参数不可与--use-rebase同时使用', 0)
     // .option('--postmsg', '发送消息', false)
-    _program.action((type, opt) => {
+    _program.action((type: string, opt: any) => {
         const opts = ['bugfix', 'release', 'support'] // 允许执行的指令
-        let base = type === 'release' ? config.master : config.release,
-            mode = '', // 冲突时，保留哪方代码
-            status = getStatus()
+        const base = type === 'release' ? config.master : config.release
+        const status = getStatus()
+        let mode = '' // 冲突时，保留哪方代码
         if (!status) sh.exit(1)
         if (opt.mode === 1) {
             mode = ' --strategy-option ours'
@@ -306,12 +311,12 @@ if (update.args.length > 0) {
             let cmd =
                 !level || level < 3
                     ? [
-                          `git fetch`,
+                          'git fetch',
                           `git checkout ${base}`,
-                          `git pull`,
+                          'git pull',
                           `git checkout ${config[type]}`,
                           {
-                              cmd: `git pull`,
+                              cmd: 'git pull',
                               config: { slient: false, again: true }
                           },
                           {
@@ -319,7 +324,7 @@ if (update.args.length > 0) {
                               config: { slient: false, again: false, postmsg: opt.postmsg, success: `${base}同步到${config[type]}成功`, fail: `${base}同步到${config[type]}出错了，请根据提示处理` }
                           },
                           {
-                              cmd: `git push`,
+                              cmd: 'git push',
                               config: { slient: false, again: true, success: '推送成功', fail: '推送失败，请根据提示处理' }
                           }
                       ]
@@ -332,9 +337,9 @@ if (update.args.length > 0) {
                       ]
             if (opt.useRebase) {
                 cmd = [
-                    `git fetch`,
+                    'git fetch',
                     `git checkout ${base}`,
-                    `git pull`,
+                    'git pull',
                     `git checkout ${config[type]}`,
                     {
                         cmd: `git pull origin ${config[type]} --rebase`,
@@ -345,7 +350,7 @@ if (update.args.length > 0) {
                         config: { slient: false, again: false, postmsg: opt.postmsg, success: `${base}同步到${config[type]}成功`, fail: `${base}同步到${config[type]}出错了，请根据提示处理` }
                     },
                     {
-                        cmd: `git push`,
+                        cmd: 'git push',
                         config: { slient: false, again: true, success: '推送成功', fail: '推送失败，请根据提示处理' }
                     }
                 ]
@@ -364,17 +369,17 @@ if (clean.args.length > 0) {
         .usage('<command> <type>')
         .description('构建清理工作')
         .command('clean ' + createArgs(clean.args))
-    clean.options.forEach(o => {
+    clean.options.forEach((o: GitmarsOptionOptionsType) => {
         _program.option(o.flags, o.description, o.defaultValue)
     })
     // .command('clean <type>')
-    _program.action(type => {
+    _program.action((type: string) => {
         const opts = ['bugfix', 'release', 'develop', 'master'] // 允许执行的指令
-        let status = getStatus()
+        const status = getStatus()
         if (!status) sh.exit(1)
         if (opts.includes(type)) {
-            let cmd = [`git fetch`, `git checkout . -f`, `git clean -fd`, `git checkout ${config.master}`, `git branch -D ${config[type]}`, `git fetch`, `git checkout ${config[type]}`, `git pull`]
-            if (type === 'master') cmd = [`git checkout .`, `git clean -fd`, `git checkout ${config.master}`, `git clean -fd`, `git fetch`, `git pull`]
+            let cmd = ['git fetch', 'git checkout . -f', 'git clean -fd', `git checkout ${config.master}`, `git branch -D ${config[type]}`, 'git fetch', `git checkout ${config[type]}`, 'git pull']
+            if (type === 'master') cmd = ['git checkout .', 'git clean -fd', `git checkout ${config.master}`, 'git clean -fd', 'git fetch', 'git pull']
             queue(cmd)
         } else {
             sh.echo(error('type只允许输入：' + opts.join(',')))

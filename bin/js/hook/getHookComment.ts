@@ -20,3 +20,4 @@ function getHookComment(): string {
 }
 
 module.exports = getHookComment
+export {}
