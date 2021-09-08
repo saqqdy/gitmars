@@ -1,15 +1,15 @@
 #!/usr/bin/env node
-import { program } from 'commander'
-import sh from 'shelljs'
-import { options, args } from './conf/update'
-import { error, queue, getStatus, getCurrent, filterBranch, isGitProject } from './js/index'
-import { createArgs } from './js/tools'
+const { program } = require('commander')
+const sh = require('shelljs')
+const { options, args } = require('./conf/update')
+const { error, queue, getStatus, getCurrent, filterBranch, isGitProject } = require('./js/index')
+const { createArgs } = require('./js/tools')
 if (!isGitProject()) {
     sh.echo(error('当前目录不是git项目目录'))
     sh.exit(1)
 }
-import getConfig from './js/getConfig'
-import { defaults } from './js/global'
+const getConfig = require('./js/getConfig')
+const { defaults } = require('./js/global')
 const config = getConfig()
 /**
  * gitm update

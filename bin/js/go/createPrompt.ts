@@ -1,4 +1,4 @@
-import { warning } from '../index'
+const { warning } = require('../index')
 
 export interface PromptOptionType {
     options: any

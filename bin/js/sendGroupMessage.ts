@@ -1,8 +1,8 @@
-import sh from 'shelljs'
-import apolloConfig from './apollo'
-import { error } from './index'
+const sh = require('shelljs')
+const apolloConfig = require('./apollo')
+const { error } = require('./index')
 
-import { ApolloConfigType } from '../../typings'
+const { ApolloConfigType } = require('../../typings')
 
 export interface GroupMessageConfigType {
     silent?: boolean

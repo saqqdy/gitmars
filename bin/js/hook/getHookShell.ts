@@ -1,7 +1,7 @@
-import fs from 'fs'
-import path from 'path'
-import readPkg from '../readPkg'
-import getHookComment from './getHookComment'
+const fs = require('fs')
+const path = require('path')
+const readPkg = require('../readPkg')
+const getHookComment = require('./getHookComment')
 
 /**
  * getHookShell

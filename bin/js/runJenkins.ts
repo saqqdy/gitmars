@@ -1,6 +1,6 @@
-import sh from 'shelljs'
-import apolloConfig from './apollo'
-import { error, success, mapTemplate } from './index'
+const sh = require('shelljs')
+const apolloConfig = require('./apollo')
+const { error, success, mapTemplate } = require('./index')
 
 import type { ApolloConfigType, ApolloConfigBranchType, ApolloBranchList } from '../../typings'
 

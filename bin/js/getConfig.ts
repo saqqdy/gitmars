@@ -1,7 +1,7 @@
-import fs from 'fs'
-import gitRevParse from './gitRevParse'
-import { cosmiconfigSync } from 'cosmiconfig'
-import { defaults } from './global'
+const fs = require('fs')
+const gitRevParse = require('./gitRevParse')
+const { cosmiconfigSync } = require('cosmiconfig')
+const { defaults } = require('./global')
 
 import type { GitmarsConfigType } from 'typings'
 

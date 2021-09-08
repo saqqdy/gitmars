@@ -1,14 +1,14 @@
 #!/usr/bin/env node
-import { program } from 'commander'
-import sh from 'shelljs'
-import gitRevParse from './js/gitRevParse'
-import { error, success, writeFile, isGitProject } from './js/index'
-import { defaults } from './js/global'
+const { program } = require('commander')
+const sh = require('shelljs')
+const gitRevParse = require('./js/gitRevParse')
+const { error, success, writeFile, isGitProject } = require('./js/index')
+const { defaults } = require('./js/global')
 if (!isGitProject()) {
     sh.echo(error('当前目录不是git项目目录'))
     sh.exit(1)
 }
-import getConfig from './js/getConfig'
+const getConfig = require('./js/getConfig')
 const config = getConfig()
 /**
  * gitm config set

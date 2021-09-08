@@ -1,4 +1,4 @@
-import getHookComment from './getHookComment'
+const getHookComment = require('./getHookComment')
 const hookComment = getHookComment()
 
 /**

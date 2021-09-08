@@ -1,5 +1,5 @@
-import fs from 'fs'
-import colors from 'colors'
+const fs = require('fs')
+const colors = require('colors')
 
 import type { GitmarsOptionArgsType } from '../../typings'
 

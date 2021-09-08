@@ -1,17 +1,17 @@
 #!/usr/bin/env node
-import { program } from 'commander'
-import sh from 'shelljs'
-import { options, args } from './conf/combine'
-import { error, queue, getStatus, getCurrent, searchBranch, isGitProject } from './js/index'
-import { createArgs } from './js/tools'
-import { defaults } from './js/global'
+const { program } = require('commander')
+const sh = require('shelljs')
+const { options, args } = require('./conf/combine')
+const { error, queue, getStatus, getCurrent, searchBranch, isGitProject } = require('./js/index')
+const { createArgs } = require('./js/tools')
+const { defaults } = require('./js/global')
 if (!isGitProject()) {
     sh.echo(error('当前目录不是git项目目录'))
     sh.exit(1)
 }
-import { getUserToken } from './js/api'
-import getGitConfig from './js/getGitConfig'
-import getConfig from './js/getConfig'
+const { getUserToken } = require('./js/api')
+const getGitConfig = require('./js/getGitConfig')
+const getConfig = require('./js/getConfig')
 const { appName } = getGitConfig()
 const config = getConfig()
 

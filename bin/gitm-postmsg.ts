@@ -1,9 +1,9 @@
 #!/usr/bin/env node
-import { program } from 'commander'
-import { options, args } from './conf/postmsg'
-import sendGroupMessage from './js/sendGroupMessage'
-import { createArgs } from './js/tools'
-import { encodeUnicode } from './js/unicode'
+const { program } = require('commander')
+const { options, args } = require('./conf/postmsg')
+const sendGroupMessage = require('./js/sendGroupMessage')
+const { createArgs } = require('./js/tools')
+const { encodeUnicode } = require('./js/unicode')
 /**
  * gitm postmsg
  */

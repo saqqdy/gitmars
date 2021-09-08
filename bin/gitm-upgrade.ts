@@ -1,9 +1,9 @@
 #!/usr/bin/env node
-import { program } from 'commander'
-import { spawnSync } from 'child_process'
-import sh from 'shelljs'
-import { success } from './js/index'
-import ora from 'ora'
+const { program } = require('commander')
+const { spawnSync } = require('child_process')
+const sh = require('shelljs')
+const { success } = require('./js/index')
+const ora = require('ora')
 /**
  * gitm upgrade
  */

@@ -1,9 +1,8 @@
-import path from 'path'
+const path = require('path')
 let apollo = require('node-apollo'),
     sh = require('shelljs')
-import { error, writeFile } from './index'
-import getConfig from './getConfig'
-const cacheDir = path.join(__dirname, '../../cache')
+const { error, writeFile } = require('./index')
+const getConfig = require('./getConfig')
 
 import type { ApolloConfigType, GitmarsConfigType } from '../../typings'
 
@@ -13,6 +12,7 @@ import type { ApolloConfigType, GitmarsConfigType } from '../../typings'
  * @returns {Object} arr 返回配置对象
  */
 export default async function apolloConfig(): Promise<ApolloConfigType | void> {
+    const cacheDir = path.join(__dirname, '../../cache')
     let now = new Date().getTime(),
         config,
         apolloConfig,
