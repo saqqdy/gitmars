@@ -1,7 +1,7 @@
 const inquirer = require('inquirer')
 const createPrompt = require('./createPrompt')
 
-const { GitmarsOptionType } = require('../../../typings')
+import type { GitmarsOptionType } from '../../../typings'
 
 /**
  * @description 执行问答程序
@@ -70,4 +70,4 @@ const getCommand = async ({ command, args, options, validatorOpts, validatorArgs
     return Promise.resolve(`${params.join(' ').replace(/\s+/g, ' ').trim()}`)
 }
 
-export default getCommand
+module.exports = getCommand

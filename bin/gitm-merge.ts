@@ -28,3 +28,4 @@ program
         queue(cmd)
     })
 program.parse(process.argv)
+export {}

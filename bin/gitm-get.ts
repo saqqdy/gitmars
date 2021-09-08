@@ -35,3 +35,4 @@ program.action(async (message, index, opt) => {
     ])
 })
 program.parse(process.argv)
+export {}

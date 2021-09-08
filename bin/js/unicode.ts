@@ -23,7 +23,7 @@ export function decodeUnicode(str: string): string {
     return unescape(str)
 }
 
-export default {
+module.exports = {
     encodeUnicode,
     decodeUnicode
 }

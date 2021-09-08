@@ -28,3 +28,4 @@ program
         sh.echo(success('清理完毕'))
     })
 program.parse(process.argv)
+export {}

@@ -32,4 +32,4 @@ const getConfig = (): GitmarsConfigType => {
     }
     return { ...defaults, ...config }
 }
-export default getConfig()
+module.exports = getConfig()

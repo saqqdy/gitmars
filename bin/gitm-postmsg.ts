@@ -17,3 +17,4 @@ program.action((message, opt) => {
     sendGroupMessage(encodeUnicode(message), { url: opt.url || '' })
 })
 program.parse(process.argv)
+export {}

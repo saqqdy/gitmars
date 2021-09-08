@@ -258,8 +258,4 @@ const cmdConfig: GitmarsMultiOptionType = {
     }
 }
 
-export const create = cmdConfig.create
-export const publish = cmdConfig.publish
-export const update = cmdConfig.update
-export const clean = cmdConfig.clean
-export default cmdConfig
+module.exports = cmdConfig

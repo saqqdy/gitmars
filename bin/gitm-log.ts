@@ -28,3 +28,4 @@ program.action(async (branche, opt) => {
     sh.exit(1)
 })
 program.parse(process.argv)
+export {}

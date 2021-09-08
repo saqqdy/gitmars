@@ -77,4 +77,4 @@ const createPrompt = (command, { options, validator, transform }, type) => {
     }
 }
 
-export default createPrompt
+module.exports = createPrompt

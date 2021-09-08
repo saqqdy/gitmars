@@ -25,7 +25,7 @@ export function isPreCommit(data: string): boolean {
     return data.indexOf('./node_modules/pre-commit/hook') > -1
 }
 
-export default {
+module.exports = {
     isHusky,
     isGitmars,
     isYorkie,

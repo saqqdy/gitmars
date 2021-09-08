@@ -33,3 +33,4 @@ program.action(name => {
     else sh.echo(`处理失败，${name}软链不存在，请进入本地${name}根目录执行：gitm link`)
 })
 program.parse(process.argv)
+export {}

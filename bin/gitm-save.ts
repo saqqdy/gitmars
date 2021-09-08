@@ -26,3 +26,4 @@ program.action((message, opt) => {
     queue(cmd)
 })
 program.parse(process.argv)
+export {}

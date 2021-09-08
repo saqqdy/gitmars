@@ -38,3 +38,4 @@ program.action(opt => {
     // sh.exec(`pm2 start yarn --name ui -- run serve`)
 })
 program.parse(process.argv)
+export {}

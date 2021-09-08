@@ -130,3 +130,4 @@ program.on('command:*', function (types, opts) {
 })
 
 program.parse(process.argv)
+export {}

@@ -45,7 +45,7 @@ export function createArgs(args: GitmarsOptionArgsType[]): string {
     return argArr.join(' ')
 }
 
-export default {
+module.exports = {
     warning,
     error,
     success,

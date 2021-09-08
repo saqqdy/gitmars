@@ -32,3 +32,4 @@ program.action(name => {
     sh.echo('处理完成')
 })
 program.parse(process.argv)
+export {}

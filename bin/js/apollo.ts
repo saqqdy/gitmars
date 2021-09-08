@@ -11,7 +11,7 @@ import type { ApolloConfigType, GitmarsConfigType } from '../../typings'
  * @description 读取构建配置
  * @returns {Object} arr 返回配置对象
  */
-export default async function apolloConfig(): Promise<ApolloConfigType | void> {
+async function apolloConfig(): Promise<ApolloConfigType | void> {
     const cacheDir = path.join(__dirname, '../../cache')
     let now = new Date().getTime(),
         config,
@@ -42,3 +42,5 @@ export default async function apolloConfig(): Promise<ApolloConfigType | void> {
     await writeFile(cacheDir + '/buildConfig.json', JSON.stringify(result.content))
     return result.content
 }
+
+module.exports = apolloConfig

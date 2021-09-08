@@ -35,4 +35,4 @@ export const defaults = {
     gitID: ''
 }
 
-export default { hookList, defaults }
+module.exports = { hookList, defaults }

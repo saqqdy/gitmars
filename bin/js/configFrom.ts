@@ -14,4 +14,4 @@ const getConfigFrom = (): 0 | 1 | 2 => {
     }
     return 0
 }
-export default getConfigFrom()
+module.exports = getConfigFrom()

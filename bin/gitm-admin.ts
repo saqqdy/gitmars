@@ -384,3 +384,4 @@ if (clean.args.length > 0) {
 }
 
 program.parse(process.argv)
+export {}

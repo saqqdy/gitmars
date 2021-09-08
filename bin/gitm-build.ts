@@ -21,3 +21,4 @@ program.action((project, opt) => {
     })
 })
 program.parse(process.argv)
+export {}

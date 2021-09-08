@@ -14,7 +14,7 @@ const gitRevParse = require('./gitRevParse')
 const fs = require('fs')
 const path = require('path')
 
-const { AnyObject } = require('../../typings')
+import type { AnyObject } from '../../typings'
 
 /**
  * getConfig
@@ -30,4 +30,4 @@ function readPkg(dir?: string): AnyObject {
     const pkgStr = fs.readFileSync(pkgFile, 'utf-8')
     return JSON.parse(pkgStr)
 }
-export default readPkg
+module.exports = readPkg

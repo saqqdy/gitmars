@@ -73,3 +73,4 @@ program.action(async (commitid, opt) => {
     queue(cmd)
 })
 program.parse(process.argv)
+export {}

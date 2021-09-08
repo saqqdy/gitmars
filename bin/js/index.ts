@@ -32,7 +32,7 @@ export function success(txt: string): string {
  */
 export function writeFile(url: string, data: string): Promise<Error | boolean> {
     return new Promise((resolve, reject) => {
-        fs.writeFile(url, data, err => {
+        fs.writeFile(url, data, (err: any) => {
             if (err) {
                 reject(new Error('文件写入错误'))
             } else {
@@ -679,7 +679,7 @@ export function isGitProject(): boolean {
     return sh.exec(`git rev-parse --is-inside-work-tree`, { silent: true }).stdout.includes('true')
 }
 
-export default {
+module.exports = {
     warning,
     error,
     success,

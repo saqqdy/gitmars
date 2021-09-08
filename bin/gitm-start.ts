@@ -37,3 +37,4 @@ program.action((type, name) => {
     }
 })
 program.parse(process.argv)
+export {}

@@ -58,3 +58,4 @@ program
         sh.exit(0)
     })
 program.parse(process.argv)
+export {}

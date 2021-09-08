@@ -30,3 +30,4 @@ program.action(opt => {
     }
 })
 program.parse(process.argv)
+export {}

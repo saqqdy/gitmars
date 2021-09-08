@@ -15,4 +15,4 @@ cd "${relativeUserPkgDir}"
 `
 }
 
-export default getLocalShell
+module.exports = getLocalShell

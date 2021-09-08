@@ -48,7 +48,7 @@ export function start([, , hookName = '', ...GITMARS_GIT_PARAMS], { cwd = proces
     return 0
 }
 
-export default async function run() {
+async function run() {
     checkGitDirEnv()
     try {
         const status = await start(process.argv)
@@ -58,3 +58,5 @@ export default async function run() {
         process.exit(1)
     }
 }
+
+module.exports = run

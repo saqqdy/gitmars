@@ -362,3 +362,4 @@ program.action(async (command, args, opt) => {
     sh.exit(0)
 })
 program.parse(process.argv)
+export {}

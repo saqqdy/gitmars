@@ -28,4 +28,4 @@ function pmFromUserAgent(userAgent: string): PmFromUserAgentType {
     }
 }
 
-export default getPackageManager
+module.exports = getPackageManager

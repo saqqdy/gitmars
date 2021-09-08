@@ -108,3 +108,4 @@ program.action(async (command, opt) => {
         })
 })
 program.parse(process.argv)
+export {}

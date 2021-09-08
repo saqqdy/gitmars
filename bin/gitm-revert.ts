@@ -37,3 +37,4 @@ program.action((commitid, opt) => {
     queue(cmd)
 })
 program.parse(process.argv)
+export {}

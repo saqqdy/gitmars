@@ -72,3 +72,4 @@ program.action((from, commitid, opts) => {
     }
 })
 program.parse(process.argv)
+export {}

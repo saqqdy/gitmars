@@ -34,3 +34,4 @@ program
         // sh.echo(process.env.FORCE_COMMIT)
     })
 program.parse(process.argv)
+export {}

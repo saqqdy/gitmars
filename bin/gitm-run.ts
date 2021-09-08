@@ -17,3 +17,4 @@ program.action((command, args, opt) => {
     run(command, args, opt)
 })
 program.parse(process.argv)
+export {}

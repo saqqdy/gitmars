@@ -7,7 +7,7 @@
         "target": "es6",
         "outDir": "../lib",
         // "module": "commonjs",
-        // "lib": ["ESNext", "dom"],
+        "lib": ["ESNext"],
         "sourceMap": true
     }
 }
