@@ -1,7 +1,7 @@
-import sh from 'shelljs'
-import { defaults } from './global'
-import gitRevParse from './gitRevParse'
-import configFrom from './configFrom'
+const sh = require('shelljs')
+const { defaults } = require('./global')
+const gitRevParse = require('./gitRevParse')
+const configFrom = require('./configFrom')
 const { root } = gitRevParse()
 
 import type { GitmarsConfigType } from 'typings'

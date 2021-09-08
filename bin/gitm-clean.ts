@@ -1,9 +1,9 @@
 #!/usr/bin/env node
-import { program } from 'commander'
-import path from 'path'
-import sh from 'shelljs'
-import { success, warning, isGitProject } from './js/index'
-import gitRevParse from './js/gitRevParse'
+const { program } = require('commander')
+const path = require('path')
+const sh = require('shelljs')
+const { success, warning, isGitProject } = require('./js/index')
+const gitRevParse = require('./js/gitRevParse')
 const cacheDir = path.join(__dirname, '../cache')
 const { root, gitDir } = gitRevParse()
 

@@ -1,7 +1,7 @@
 #!/usr/bin/env node
-import { program } from 'commander'
-import { version } from '../package.json'
-import sh from 'shelljs'
+const { program } = require('commander')
+const { version } = require('../package.json')
+const sh = require('shelljs')
 
 if (!sh.which('git')) {
     sh.echo('gitmars只能在git环境下执行，请先安装git')

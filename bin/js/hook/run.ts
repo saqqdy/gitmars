@@ -1,6 +1,6 @@
-import { spawnSync } from 'child_process'
-import checkGitDirEnv from '../checkGitDirEnv'
-import getConfig from '../getConfig'
+const { spawnSync } = require('child_process')
+const checkGitDirEnv = require('../checkGitDirEnv')
+const getConfig = require('../getConfig')
 const config = getConfig()
 
 export function getCommand(cwd: string, hookName: string) {

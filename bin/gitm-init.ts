@@ -1,16 +1,16 @@
 #!/usr/bin/env node
-import { program } from 'commander'
-import fs from 'fs'
-import path from 'path'
-import sh from 'shelljs'
-import inquirer from 'inquirer'
-import { error, success, isGitProject } from './js/index'
-import { defaults } from './js/global'
+const { program } = require('commander')
+const fs = require('fs')
+const path = require('path')
+const sh = require('shelljs')
+const inquirer = require('inquirer')
+const { error, success, isGitProject } = require('./js/index')
+const { defaults } = require('./js/global')
 if (!isGitProject()) {
     sh.echo(error('当前目录不是git项目目录'))
     sh.exit(1)
 }
-import gitRevParse from './js/gitRevParse'
+const gitRevParse = require('./js/gitRevParse')
 const { root } = gitRevParse()
 /**
  * gitm init

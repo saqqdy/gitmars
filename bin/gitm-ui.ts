@@ -1,11 +1,11 @@
 #!/usr/bin/env node
-import { program } from 'commander'
-import fs from 'fs'
-import path from 'path'
-import sh from 'shelljs'
-import { options, args } from './conf/ui'
-// import { pwd } from './js/global'
-import { createArgs } from './js/tools'
+const { program } = require('commander')
+const fs = require('fs')
+const path = require('path')
+const sh = require('shelljs')
+const { options, args } = require('./conf/ui')
+// const { pwd } = require('./js/global')
+const { createArgs } = require('./js/tools')
 /**
  * gitm ui
  */

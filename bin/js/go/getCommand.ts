@@ -1,7 +1,7 @@
-import inquirer from 'inquirer'
-import createPrompt from './createPrompt'
+const inquirer = require('inquirer')
+const createPrompt = require('./createPrompt')
 
-import { GitmarsOptionType } from '../../../typings'
+const { GitmarsOptionType } = require('../../../typings')
 
 /**
  * @description 执行问答程序

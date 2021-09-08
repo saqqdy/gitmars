@@ -1,9 +1,9 @@
-import fs from 'fs'
-import sh from 'shelljs'
-import colors from 'colors'
-import getGitConfig from './getGitConfig'
-import gitRevParse from './gitRevParse'
-import getConfig from './getConfig'
+const fs = require('fs')
+const sh = require('shelljs')
+const colors = require('colors')
+const getGitConfig = require('./getGitConfig')
+const gitRevParse = require('./gitRevParse')
+const getConfig = require('./getConfig')
 
 import type { AnyFunction, AnyObject } from '../../typings'
 

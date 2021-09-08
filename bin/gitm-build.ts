@@ -1,8 +1,8 @@
 #!/usr/bin/env node
-import { program } from 'commander'
-import { options, args } from './conf/build'
-import { createArgs } from './js/tools'
-import runJenkins from './js/runJenkins'
+const { program } = require('commander')
+const { options, args } = require('./conf/build')
+const { createArgs } = require('./js/tools')
+const runJenkins = require('./js/runJenkins')
 /**
  * gitm build
  */

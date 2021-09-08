@@ -1,5 +1,5 @@
-import sh from 'shelljs'
-import { warning } from './index'
+const sh = require('shelljs')
+const { warning } = require('./index')
 
 /**
  * getGitVersion

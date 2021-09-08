@@ -1,8 +1,8 @@
-import getGitConfig from '../getGitConfig'
-import gitRevParse from '../gitRevParse'
+const getGitConfig = require('../getGitConfig')
+const gitRevParse = require('../gitRevParse')
 const { gitUrl } = getGitConfig()
 const { root } = gitRevParse()
-import readPkg from '../readPkg'
+const readPkg = require('../readPkg')
 
 /**
  * getHookComment

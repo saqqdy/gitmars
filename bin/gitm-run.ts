@@ -1,8 +1,8 @@
 #!/usr/bin/env node
-import { program } from 'commander'
-import { options, args } from './conf/run'
-import { createArgs } from './js/tools'
-import run from './js/hook/run'
+const { program } = require('commander')
+const { options, args } = require('./conf/run')
+const { createArgs } = require('./js/tools')
+const run = require('./js/hook/run')
 
 /**
  * gitm run

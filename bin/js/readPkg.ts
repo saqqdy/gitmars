@@ -10,11 +10,11 @@
 // }
 // export const readPkg = readPkg
 
-import gitRevParse from './gitRevParse'
-import fs from 'fs'
-import path from 'path'
+const gitRevParse = require('./gitRevParse')
+const fs = require('fs')
+const path = require('path')
 
-import { AnyObject } from '../../typings'
+const { AnyObject } = require('../../typings')
 
 /**
  * getConfig

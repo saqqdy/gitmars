@@ -1,5 +1,5 @@
-import sh from 'shelljs'
-import slash from 'slash'
+const sh = require('shelljs')
+const slash = require('slash')
 
 export interface GitProjectRevParseType {
     prefix: string

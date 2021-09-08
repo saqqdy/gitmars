@@ -1,6 +1,6 @@
-import sh from 'shelljs'
-import { error, getGitUser } from './index'
-import getConfig from './getConfig'
+const sh = require('shelljs')
+const { error, getGitUser } = require('./index')
+const getConfig = require('./getConfig')
 
 export interface FetchDataType {
     token: string // gitlab上生成的access_token
