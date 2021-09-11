@@ -9,12 +9,12 @@ if (!isGitProject()) {
     sh.exit(1)
 }
 
-import { QueueReturnsType, GitmarsOptionOptionsType, CommandType } from '../typings'
+import { GitmarsBranchType, QueueReturnsType, GitmarsOptionOptionsType, CommandType } from '../typings'
 
 interface GitmBuildOption {
     key: string
     remote: boolean
-    type: 'feature' | 'bugfix' | 'support'
+    type: GitmarsBranchType
     delete: string | null
     forcedelete: string | null
     upstream: string
