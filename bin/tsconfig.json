@@ -6,7 +6,7 @@
         // compile away optional-chaining-operator
         "target": "es6",
         "outDir": "../lib",
-        "module": "commonjs",
+        "module": "ESNext",
         "lib": ["es2015"],
         "sourceMap": true
     }

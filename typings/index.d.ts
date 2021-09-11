@@ -8,6 +8,8 @@ export interface AnyFunction extends AnyObject {
 
 // export function GitmarsOptionFunctionType(val: string, opts: object, cb: any): void
 
+export type GitmarsBranchType = 'feature' | 'bugfix' | 'support'
+
 export interface GitmarsOptionArgsType {
     required: boolean
     name: string
