@@ -123,3 +123,38 @@ export interface FetchDataType {
     level: 1 | 2 | 3 // 1=超级管理员 2=管理员 3=开发者
     [prop: string]: any
 }
+
+export type GitStatusListType = 'A' | 'D' | 'M' | '??'
+
+export type GitStatusInfoType = {
+    [props in GitStatusListType]: string[]
+}
+
+export interface QueueConfigType {
+    silent: boolean
+    postmsg: boolean
+    kill: boolean
+    again: boolean
+}
+
+export interface QueueReturnsType {
+    code: 0 | 1 | 127
+    out: string
+    err: string
+    cfg: QueueConfigType
+    cmd: string
+}
+
+export interface InitInquirerPromptType {
+    type: string
+    name: string
+    message: string
+    default?(): string
+    transformer?(val: any, answers: any, flags: any): any
+    validate?(val: any): string | boolean
+    choices?: any
+}
+
+export interface GitLogType {
+    [props: string]: string
+}

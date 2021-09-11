@@ -3,18 +3,21 @@ const { program } = require('commander')
 const sh = require('shelljs')
 const { options, args } = require('./conf/unlink')
 const { createArgs } = require('./js/tools')
+
+import { GitmarsOptionOptionsType } from '../typings'
+
 /**
  * gitm unlink
  */
 program.name('gitm unlink').usage('[name]').description('解除本地包链接')
 if (args.length > 0) program.arguments(createArgs(args))
-options.forEach(o => {
+options.forEach((o: GitmarsOptionOptionsType) => {
     program.option(o.flags, o.description, o.defaultValue)
 })
-program.action(name => {
-    let isLink = sh.test('-L', `./node_modules/${name}`),
-        isExist = sh.test('-e', `./node_modules/${name}_bak`),
-        npmClient = sh.which('yarn') ? 'yarn' : 'npm'
+program.action((name: string) => {
+    const isLink = sh.test('-L', `./node_modules/${name}`)
+    const isExist = sh.test('-e', `./node_modules/${name}_bak`)
+    const npmClient = sh.which('yarn') ? 'yarn' : 'npm'
     if (!name) {
         // 解除当前包的软链
         sh.exec(`${npmClient} unlink`, { silent: true })

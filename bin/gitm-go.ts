@@ -9,20 +9,17 @@ const { createArgs } = require('./js/tools')
 // const getConfig = require('./js/getConfig')
 // const config = getConfig()
 
+import { GitmarsOptionOptionsType } from '../typings'
+
 /**
  * gitm go
  */
 program.name('gitm go').usage('[command]').description('智能猜测你要执行的动作')
 if (args.length > 0) program.arguments(createArgs(args))
-options.forEach(o => {
+options.forEach((o: GitmarsOptionOptionsType) => {
     program.option(o.flags, o.description, o.defaultValue)
 })
-// .arguments('[command]')
-// .option('--no-verify', '是否需要跳过校验权限', false)
-// .option('-s, --since [since]', '查询在某个时间之后的日志，填写格式：10s/2m/2h/3d/4M/5y', '7d')
-// .option('-l, --limit [limit]', '最多查询的日志条数')
-// .option('-b, --branches [branches]', '要查询的分支')
-program.action(async (command, opt) => {
+program.action(async (): Promise<void> => {
     // const mainBranchs = [config.master, config.develop, config.release, config.support, config.bugfix]
     const current = getCurrent()
     // const branchPrefix = current.split('/')[0]
@@ -59,11 +56,11 @@ program.action(async (command, opt) => {
                 'exit',
                 new inquirer.Separator()
             ],
-            filter: val => {
+            filter: (val: string): string => {
                 return val
             }
         })
-        .then(answers => {
+        .then((answers: any) => {
             if (answers.command === 'exit') {
                 sh.echo(success('已退出'))
                 sh.exit(0)

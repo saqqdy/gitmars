@@ -8,12 +8,24 @@ if (!isGitProject()) {
     sh.echo(error('当前目录不是git项目目录'))
     sh.exit(1)
 }
+
+import { QueueReturnsType, GitmarsOptionOptionsType, CommandType } from '../typings'
+
+interface GitmBuildOption {
+    key: string
+    remote: boolean
+    type: 'feature' | 'bugfix' | 'support'
+    delete: string | null
+    forcedelete: string | null
+    upstream: string
+}
+
 /**
  * gitm branch
  */
 program.name('gitm branch').usage('[-k --key [keyword]] [-t --type [type]] [-d --delete [branch]] [-r --remote [remote]] [-D --forcedelete [branch]]').description('分支查询、删除（注意该指令不用于创建分支，如需创建分支请走start流程）')
 if (args.length > 0) program.arguments(createArgs(args))
-options.forEach(o => {
+options.forEach((o: GitmarsOptionOptionsType) => {
     program.option(o.flags, o.description, o.defaultValue)
 })
 // .option('-k, --key [keyword]', '查询分支的关键词', null)
@@ -22,8 +34,8 @@ options.forEach(o => {
 // .option('-d, --delete [branch]', '删除分支', null)
 // .option('-D, --forcedelete [branch]', '强行删除分支', null)
 // .option('-u, --upstream [upstream]', '设置与远程分支关联')
-program.action((opt: any) => {
-    const cmd = []
+program.action((opt: GitmBuildOption): void => {
+    const cmd: Array<CommandType | string> = []
     if (opt.delete) {
         // 删除分支
         const id = sh.exec(`git rev-parse --verify ${opt.delete}`, { silent: true }).stdout.replace(/[\s]*$/g, '')
@@ -40,15 +52,15 @@ program.action((opt: any) => {
             cmd.push(`git branch --set-upstream-to origin/${opt.upstream}`)
         } else {
             // 取消远程分支关联
-            cmd.push(`git branch --unset-upstream`)
+            cmd.push('git branch --unset-upstream')
         }
     } else {
         // 分支查询
-        cmd.push(`git branch -a`)
-        queue(cmd).then(data => {
-            data.forEach((el, index) => {
+        cmd.push('git branch -a')
+        queue(cmd).then((data: QueueReturnsType[]) => {
+            data.forEach((el: QueueReturnsType, index: number): void => {
                 if (index === 0 && el.code === 0) {
-                    let list = (el.out && el.out.split('\n')) || []
+                    let list = (el.out && typeof el.out === 'string' && el.out.split('\n')) || []
                     list = list.filter(el => {
                         let fit = true
                         if (opt.key) {

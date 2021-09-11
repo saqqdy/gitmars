@@ -14,19 +14,22 @@ const { getUserToken } = require('./js/api')
 const { defaults } = require('./js/global')
 const config = getConfig()
 const { appName } = getGitConfig()
+
+import { FetchDataType, GitmarsOptionOptionsType, CommandType } from '../typings'
+
 /**
  * gitm end
  */
 program.name('gitm end').usage('[type] [name]').description('合并bugfix任务分支、合并feature功能开发分支，合并完成后将删除对应分支')
 if (args.length > 0) program.arguments(createArgs(args))
-options.forEach(o => {
+options.forEach((o: GitmarsOptionOptionsType) => {
     program.option(o.flags, o.description, o.defaultValue)
 })
-program.action(async (type, name, opt) => {
+program.action(async (type: string, name: string): Promise<void> => {
     const allow = ['bugfix', 'feature', 'support'] // 允许执行的指令
     const deny = [defaults.master, defaults.develop, defaults.release, defaults.bugfix, defaults.support]
-    const { token, level, nickname = '' } = config.api ? getUserToken() : {}
-    let status = getStatus()
+    const { token, level, nickname = '' } = config.api ? getUserToken() : ({} as FetchDataType)
+    const status = getStatus()
     if (!status) sh.exit(1)
     if (!type) {
         // type和name都没传且当前分支是开发分支
@@ -41,7 +44,7 @@ program.action(async (type, name, opt) => {
             sh.echo('请输入分支名称')
             sh.exit(1)
         }
-        let branchs = await searchBranch(type)
+        const branchs = await searchBranch(type)
         if (branchs.length === 1) {
             ;[type, name] = branchs[0].split('/')
         } else {
@@ -50,35 +53,35 @@ program.action(async (type, name, opt) => {
         }
     }
     if (allow.includes(type) && name) {
-        let base = type === 'bugfix' ? config.bugfix : config.release,
-            cmd = [
-                `git fetch`,
-                `git checkout ${config.develop}`,
-                `git pull`,
-                {
-                    cmd: `git merge --no-ff ${type}/${name}`,
-                    config: { slient: false, again: false, success: `${type}/${name}合并到${config.develop}成功`, fail: `${type}/${name}合并到${config.develop}出错了，请根据提示处理` }
-                },
-                {
-                    cmd: `git push`,
-                    config: { slient: false, again: true, success: '推送成功', fail: '推送失败，请根据提示处理' }
-                },
-                `git checkout ${type}/${name}`
-            ]
+        const base: string = type === 'bugfix' ? config.bugfix : config.release
+        let cmd: Array<CommandType | string> = [
+            'git fetch',
+            `git checkout ${config.develop}`,
+            'git pull',
+            {
+                cmd: `git merge --no-ff ${type}/${name}`,
+                config: { slient: false, again: false, success: `${type}/${name}合并到${config.develop}成功`, fail: `${type}/${name}合并到${config.develop}出错了，请根据提示处理` }
+            },
+            {
+                cmd: 'git push',
+                config: { slient: false, again: true, success: '推送成功', fail: '推送失败，请根据提示处理' }
+            },
+            `git checkout ${type}/${name}`
+        ]
         // support分支需要合到bugfix
         if (type === 'support') {
             cmd = cmd.concat(
                 !level || level < 3
                     ? [
-                          `git fetch`,
+                          'git fetch',
                           `git checkout ${config.bugfix}`,
-                          `git pull`,
+                          'git pull',
                           {
                               cmd: `git merge --no-ff ${type}/${name}`,
                               config: { slient: false, again: false, success: `${type}/${name}合并到${config.bugfix}成功`, fail: `${type}/${name}合并到${config.bugfix}出错了，请根据提示处理` }
                           },
                           {
-                              cmd: `git push`,
+                              cmd: 'git push',
                               config: { slient: false, again: true, success: '推送成功', fail: '推送失败，请根据提示处理' }
                           },
                           `git checkout ${type}/${name}`
@@ -99,15 +102,15 @@ program.action(async (type, name, opt) => {
         cmd = cmd.concat(
             !level || level < 3
                 ? [
-                      `git fetch`,
+                      'git fetch',
                       `git checkout ${base}`,
-                      `git pull`,
+                      'git pull',
                       {
                           cmd: `git merge --no-ff ${type}/${name}`,
                           config: { slient: false, again: false, success: `${type}/${name}合并到${base}成功`, fail: `${type}/${name}合并到${base}出错了，请根据提示处理` }
                       },
                       {
-                          cmd: `git push`,
+                          cmd: 'git push',
                           config: { slient: false, again: true, success: '推送成功', fail: '推送失败，请根据提示处理' }
                       },
                       `git branch -D ${type}/${name}`,

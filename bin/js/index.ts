@@ -5,7 +5,7 @@ const getGitConfig = require('./getGitConfig')
 const gitRevParse = require('./gitRevParse')
 const getConfig = require('./getConfig')
 
-import type { AnyFunction, AnyObject } from '../../typings'
+import type { AnyFunction, AnyObject, GitStatusListType, GitStatusInfoType } from '../../typings'
 
 export interface CommandMessageType {
     success: string
@@ -234,20 +234,20 @@ function setLog(log) {
  * @description 获取分支状态
  * @returns {Boolean} true 返回true/false
  */
-function getStatusInfo(config = {}) {
+function getStatusInfo(config: any = {}): GitStatusInfoType {
     const { silent = true } = config
     const out = sh.exec('git status -s --no-column', { silent }).stdout.replace(/(^\s+|\n*$)/g, '') // 去除首尾
-    let list = out ? out.replace(/\n(\s+)/g, '\n').split('\n') : [],
-        sum = {
-            A: [],
-            D: [],
-            M: [],
-            '??': []
-        }
+    const list = out ? out.replace(/\n(\s+)/g, '\n').split('\n') : []
+    const sum: GitStatusInfoType = {
+        A: [],
+        D: [],
+        M: [],
+        '??': []
+    }
     if (list.length === 0) return sum
-    list.forEach(str => {
-        let arr = str.trim().replace(/\s+/g, ' ').split(' '),
-            type = arr.splice(0, 1)
+    list.forEach((str: string) => {
+        const arr: string[] = str.trim().replace(/\s+/g, ' ').split(' ')
+        const type = arr.splice(0, 1)[0] as keyof GitStatusInfoType
         if (!sum[type]) sum[type] = []
         sum[type].push(arr.join(' '))
     })
@@ -259,8 +259,8 @@ function getStatusInfo(config = {}) {
  * @description 获取是否有未提交的文件
  * @returns {Boolean} true 返回true/false
  */
-function getStatus() {
-    let sum = getStatusInfo({ silent: false })
+function getStatus(): boolean {
+    const sum = getStatusInfo({ silent: false })
     if (sum.A.length > 0 || sum.D.length > 0 || sum.M.length > 0) {
         sh.echo(error('您还有未提交的文件，请处理后再继续') + '\n如果需要暂存文件请执行: gitm save\n恢复时执行：gitm get')
         sh.exit(1)

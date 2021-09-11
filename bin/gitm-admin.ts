@@ -5,9 +5,6 @@ const { create, publish, update, clean } = require('./conf/admin')
 const { getUserToken } = require('./js/api')
 const { error, success, queue, getStatus, checkBranch, getCurrent, isGitProject } = require('./js/index')
 const { createArgs } = require('./js/tools')
-
-import { FetchDataType, GitmarsOptionOptionsType, CommandType } from '../typings'
-
 if (!isGitProject()) {
     sh.echo(error('当前目录不是git项目目录'))
     sh.exit(1)
@@ -17,6 +14,24 @@ const getConfig = require('./js/getConfig')
 const { appName } = getGitConfig()
 const config = getConfig()
 const { token, level, nickname = '' } = config.api ? getUserToken() : ({} as FetchDataType)
+
+import { FetchDataType, GitmarsOptionOptionsType, CommandType } from '../typings'
+
+interface GitmBuildOption {
+    publish: {
+        combine: boolean
+        useRebase: boolean
+        prod: boolean
+        build: boolean | string
+        postmsg: boolean
+    }
+    update: {
+        useRebase: boolean
+        mode: 0 | 1 | 2
+        postmsg: boolean
+    }
+}
+
 /**
  * gitm admin create
  * gitm admin publish
@@ -35,7 +50,7 @@ if (create.args.length > 0) {
         _program.option(o.flags, o.description, o.defaultValue)
     })
     // .command('create <type>')
-    _program.action(async (type: string) => {
+    _program.action(async (type: string): Promise<void> => {
         const opts = ['bugfix', 'release', 'develop', 'support'] // 允许执行的指令
         const base: string = type === 'release' ? config.master : config.release
         const status = getStatus()
@@ -80,7 +95,7 @@ if (publish.args.length > 0) {
     // .option('-p, --prod', '发布bug分支时，是否合并bug到master', false)
     // .option('-b, --build [build]', '需要构建的应用')
     // .option('--postmsg', '发送消息', false)
-    _program.action(async (type: string, opt: any) => {
+    _program.action(async (type: string, opt: GitmBuildOption['publish']): void => {
         const opts = ['bugfix', 'release', 'support'] // 允许执行的指令
         const status = getStatus()
         const curBranch = await getCurrent()
@@ -296,7 +311,7 @@ if (update.args.length > 0) {
     // .option('--use-rebase', '是否使用rebase方式更新，默认merge', false)
     // .option('-m, --mode [mode]', '出现冲突时，保留传入代码还是保留当前代码；1=采用当前 2=采用传入；默认为 0=手动处理。本参数不可与--use-rebase同时使用', 0)
     // .option('--postmsg', '发送消息', false)
-    _program.action((type: string, opt: any) => {
+    _program.action((type: string, opt: GitmBuildOption['update']): void => {
         const opts = ['bugfix', 'release', 'support'] // 允许执行的指令
         const base = type === 'release' ? config.master : config.release
         const status = getStatus()
@@ -373,7 +388,7 @@ if (clean.args.length > 0) {
         _program.option(o.flags, o.description, o.defaultValue)
     })
     // .command('clean <type>')
-    _program.action((type: string) => {
+    _program.action((type: string): void => {
         const opts = ['bugfix', 'release', 'develop', 'master'] // 允许执行的指令
         const status = getStatus()
         if (!status) sh.exit(1)

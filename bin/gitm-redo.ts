@@ -9,20 +9,28 @@ if (!isGitProject()) {
     sh.echo(error('当前目录不是git项目目录'))
     sh.exit(1)
 }
+
+import { GitLogType, GitmarsOptionOptionsType, CommandType, InitInquirerPromptType } from '../typings'
+
+interface GitmBuildOption {
+    branch: string
+    mode: 1 | 2
+}
+
 /**
  * gitm redo
  */
 program.name('gitm redo').usage('[commitid...] [-b --branch [branch]] [-m --mode [mode]]').description('撤销一次提交记录')
 if (args.length > 0) program.arguments(createArgs(args))
-options.forEach(o => {
+options.forEach((o: GitmarsOptionOptionsType) => {
     program.option(o.flags, o.description, o.defaultValue)
 })
 // .arguments('[commitid]')
 // .option('-b, --branch [branch]', '需要撤销的分支名', '')
 // .option('-m, --mode [mode]', '针对撤销一次merge记录，需要传入类型：1 = 保留当前分支代码，2 = 保留传入代码', 1)
-program.action(async (commitid, opt) => {
-    let cmd = [],
-        m = ''
+program.action(async (commitid: string[], opt: GitmBuildOption) => {
+    const cmd: Array<CommandType | string> = []
+    let m = ''
     if (opt.mode) m = ' -m ' + Math.abs(Number(opt.mode))
     if (opt.branch) {
         const keys = ['%H', '%aI', '%an']
@@ -30,13 +38,15 @@ program.action(async (commitid, opt) => {
             .exec(`git log --merges --grep="'${opt.branch}'" --date-order --pretty=format:"${keys.join(',=')}-end-"`, { silent: true })
             .stdout.replace(/[\r\n]+/g, '')
             .replace(/-end-$/, '')
-        let logList = [],
-            logs = logList.map(log => log['%H'])
+        const logList: GitLogType[] = []
+        let logs = logList.map(log => log['%H'])
         // 读取记录
         results &&
-            results.split('-end-').forEach(log => {
-                let args = log.split(',='),
-                    map = {}
+            results.split('-end-').forEach((log: string) => {
+                const args = log.split(',=')
+                const map: {
+                    [props: string]: string
+                } = {}
                 keys.forEach((key, i) => {
                     map[key] = args[i]
                 })
@@ -45,7 +55,7 @@ program.action(async (commitid, opt) => {
         logList.reverse()
         // 多条记录，提示选择要恢复的记录
         if (logList.length > 1) {
-            const prompt = {
+            const prompt: InitInquirerPromptType = {
                 type: 'checkbox',
                 message: '检测到存在多条记录，请选择要撤销的项',
                 name: 'commitIDs',

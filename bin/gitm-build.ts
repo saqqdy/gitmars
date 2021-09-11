@@ -6,7 +6,7 @@ const runJenkins = require('./js/runJenkins')
 
 import { GitmarsOptionOptionsType } from '../typings'
 
-type GitmBuildOption = {
+interface GitmBuildOption {
     env: string
     app: string
 }

@@ -12,6 +12,16 @@ if (!isGitProject()) {
 const getConfig = require('./js/getConfig')
 const config = getConfig()
 
+import { GitmarsOptionOptionsType } from '../typings'
+
+interface GitmBuildOption {
+    noVerify: boolean
+    latest: string
+    limit: number
+    type: string
+    branch: string
+}
+
 /**
  * gitm hook
  * gitm hook init
@@ -20,7 +30,7 @@ const config = getConfig()
  */
 program.name('gitm hook').usage('[command]').description('git hook钩子')
 if (args.length > 0) program.arguments(createArgs(args))
-options.forEach(o => {
+options.forEach((o: GitmarsOptionOptionsType) => {
     program.option(o.flags, o.description, o.defaultValue)
 })
 // .arguments('[command] [args...]')
@@ -29,7 +39,7 @@ options.forEach(o => {
 // .option('--limit [limit]', '最多查询的日志条数')
 // .option('-t, --type <type>', '检测类型')
 // .option('--branch [branch]', '要查询的分支')
-program.action(async (command, args, opt) => {
+program.action(async (command: string, args: string[], opt: GitmBuildOption): Promise<void> => {
     console.log('gitmars hooks is running')
     // 不检测直接返回
     if (opt.noVerify) {
@@ -42,7 +52,7 @@ program.action(async (command, args, opt) => {
     } else if (command === 'remove') {
         remove()
     } else {
-        opt.type = opt.type ? opt.type.split(',') : []
+        const types: string[] = opt.type ? opt.type.split(',') : []
         const mainBranchs = [config.master, config.develop, config.release, config.support, config.bugfix]
         const current = getCurrent()
         const currentPrefix = current.split('/')[0]
@@ -288,10 +298,10 @@ program.action(async (command, args, opt) => {
         // 	'--latest',
         // 	'7d'
         // ]
-        console.log(opt.type, process.env, process.argv, getBranchsFromID('2080d17e'))
+        console.log(types, process.env, process.argv, getBranchsFromID('2080d17e'))
         // 检测权限 command = hookName
         // 检测类型对应上面的检测方法
-        if (current !== config.develop && mainBranchs.includes(current) && opt.type.includes('1')) {
+        if (current !== config.develop && mainBranchs.includes(current) && types.includes('1')) {
             // 分支合并主干分支之后，检测该分支是否合并过dev，没有合并过的，不允许继续执行commit
             const [command, branch] = process.env.GIT_REFLOG_ACTION ? process.env.GIT_REFLOG_ACTION.split(' ') : []
             if (command === 'merge') {
@@ -304,7 +314,7 @@ program.action(async (command, args, opt) => {
                 }
             }
         }
-        if (mainBranchs.includes(current) && opt.type.includes('2')) {
+        if (mainBranchs.includes(current) && types.includes('2')) {
             // 分支合并主干分支之后，检测该分支是否同步过上游分支的代码，没有同步过的，不允许继续执行commit
             const [command, branch] = process.env.GIT_REFLOG_ACTION ? process.env.GIT_REFLOG_ACTION.split(' ') : []
             const branchPrefix = branch.split('/')[0]
@@ -319,7 +329,7 @@ program.action(async (command, args, opt) => {
                 }
             }
         }
-        if (mainBranchs.includes(current) && opt.type.includes('3')) {
+        if (mainBranchs.includes(current) && types.includes('3')) {
             // 在主干分支执行push推送时，检测最后一次提交是否为merge记录，如果不是，提示不允许直接在主干分支做修改
             const isMergeAction = getIsMergeAction()
             if (!isMergeAction) {
@@ -348,7 +358,7 @@ program.action(async (command, args, opt) => {
             // 	sh.exit(1)
             // }
         }
-        if (mainBranchs.includes(current) && opt.type.includes('4')) {
+        if (mainBranchs.includes(current) && types.includes('4')) {
             // 在主干分支执行push推送时，检测是否需要先执行pull
             const behandLogs = getBehandLogs()
             if (!behandLogs.length) {
