@@ -21,11 +21,11 @@ program
         const cmd: Array<CommandType | string> = [
             {
                 cmd: `git merge --no-ff ${name}`,
-                config: { slient: false, again: false, success: `合并${name}分支成功`, fail: `合并${name}分支出错了，请根据提示处理` }
+                config: { again: false, success: `合并${name}分支成功`, fail: `合并${name}分支出错了，请根据提示处理` }
             },
             {
                 cmd: 'git push',
-                config: { slient: false, again: true, success: '推送成功', fail: '推送失败，请根据提示处理' }
+                config: { again: true, success: '推送成功', fail: '推送失败，请根据提示处理' }
             }
         ]
         queue(cmd)

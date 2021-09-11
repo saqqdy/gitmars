@@ -72,12 +72,12 @@ program.action((type: string | string[], name: string, opt: GitmBuildOption) => 
         if (opt.useRebase) {
             cmd.push({
                 cmd: `git rebase ${base}`,
-                config: { slient: false, again: false, success: `${base}更新到${type}/${name}成功`, fail: `${base}更新到${type}/${name}出错了，请根据提示处理` }
+                config: { again: false, success: `${base}更新到${type}/${name}成功`, fail: `${base}更新到${type}/${name}出错了，请根据提示处理` }
             })
         } else {
             cmd.push({
                 cmd: `git merge --no-ff ${base}`,
-                config: { slient: false, again: false, success: `${base}同步到${type}/${name}成功`, fail: `${base}同步到${type}/${name}出错了，请根据提示处理` }
+                config: { again: false, success: `${base}同步到${type}/${name}成功`, fail: `${base}同步到${type}/${name}出错了，请根据提示处理` }
             })
         }
         cmds = cmds.concat(cmd)

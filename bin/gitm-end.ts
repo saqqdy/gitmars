@@ -60,11 +60,11 @@ program.action(async (type: string, name: string): Promise<void> => {
             'git pull',
             {
                 cmd: `git merge --no-ff ${type}/${name}`,
-                config: { slient: false, again: false, success: `${type}/${name}合并到${config.develop}成功`, fail: `${type}/${name}合并到${config.develop}出错了，请根据提示处理` }
+                config: { again: false, success: `${type}/${name}合并到${config.develop}成功`, fail: `${type}/${name}合并到${config.develop}出错了，请根据提示处理` }
             },
             {
                 cmd: 'git push',
-                config: { slient: false, again: true, success: '推送成功', fail: '推送失败，请根据提示处理' }
+                config: { again: true, success: '推送成功', fail: '推送失败，请根据提示处理' }
             },
             `git checkout ${type}/${name}`
         ]
@@ -78,22 +78,22 @@ program.action(async (type: string, name: string): Promise<void> => {
                           'git pull',
                           {
                               cmd: `git merge --no-ff ${type}/${name}`,
-                              config: { slient: false, again: false, success: `${type}/${name}合并到${config.bugfix}成功`, fail: `${type}/${name}合并到${config.bugfix}出错了，请根据提示处理` }
+                              config: { again: false, success: `${type}/${name}合并到${config.bugfix}成功`, fail: `${type}/${name}合并到${config.bugfix}出错了，请根据提示处理` }
                           },
                           {
                               cmd: 'git push',
-                              config: { slient: false, again: true, success: '推送成功', fail: '推送失败，请根据提示处理' }
+                              config: { again: true, success: '推送成功', fail: '推送失败，请根据提示处理' }
                           },
                           `git checkout ${type}/${name}`
                       ]
                     : [
                           {
                               cmd: `git push --set-upstream origin ${type}/${name}`,
-                              config: { slient: false, again: true, success: '推送远程并关联远程分支成功', fail: '推送远程失败，请根据提示处理' }
+                              config: { again: true, success: '推送远程并关联远程分支成功', fail: '推送远程失败，请根据提示处理' }
                           },
                           {
                               cmd: `curl -i -H "Content-Type: application/json" -X POST -d "{\\"source_branch\\":\\"${type}/${name}\\",\\"target_branch\\":\\"${config.bugfix}\\",\\"private_token\\":\\"${token}\\",\\"title\\":\\"Merge branch '${type}/${name}' into '${config.bugfix}'\\"}" "${config.gitHost}/api/v4/projects/${config.gitID}/merge_requests"`,
-                              config: { slient: false, again: true, success: '成功创建合并请求', fail: '创建合并请求出错了，请根据提示处理' }
+                              config: { again: true, success: '成功创建合并请求', fail: '创建合并请求出错了，请根据提示处理' }
                           },
                           `gitm postmsg "${nickname}在${appName}项目提交了${type}/${name}分支合并到${config.bugfix}分支的merge请求"`
                       ]
@@ -107,27 +107,27 @@ program.action(async (type: string, name: string): Promise<void> => {
                       'git pull',
                       {
                           cmd: `git merge --no-ff ${type}/${name}`,
-                          config: { slient: false, again: false, success: `${type}/${name}合并到${base}成功`, fail: `${type}/${name}合并到${base}出错了，请根据提示处理` }
+                          config: { again: false, success: `${type}/${name}合并到${base}成功`, fail: `${type}/${name}合并到${base}出错了，请根据提示处理` }
                       },
                       {
                           cmd: 'git push',
-                          config: { slient: false, again: true, success: '推送成功', fail: '推送失败，请根据提示处理' }
+                          config: { again: true, success: '推送成功', fail: '推送失败，请根据提示处理' }
                       },
                       `git branch -D ${type}/${name}`,
                       {
                           cmd: `git push origin --delete ${type}/${name}`,
-                          config: { slient: false, again: true, success: '成功删除远程分支', fail: '删除失败，请联系管理员' }
+                          config: { again: true, success: '成功删除远程分支', fail: '删除失败，请联系管理员' }
                       },
                       `git checkout ${config.develop}`
                   ]
                 : [
                       {
                           cmd: `git push --set-upstream origin ${type}/${name}`,
-                          config: { slient: false, again: true, success: '推送远程并关联远程分支成功', fail: '推送远程失败，请根据提示处理' }
+                          config: { again: true, success: '推送远程并关联远程分支成功', fail: '推送远程失败，请根据提示处理' }
                       },
                       {
                           cmd: `curl -i -H "Content-Type: application/json" -X POST -d "{\\"source_branch\\":\\"${type}/${name}\\",\\"target_branch\\":\\"${base}\\",\\"private_token\\":\\"${token}\\",\\"title\\":\\"Merge branch '${type}/${name}' into '${base}'\\"}" "${config.gitHost}/api/v4/projects/${config.gitID}/merge_requests"`,
-                          config: { slient: false, again: true, success: '成功创建合并请求', fail: '创建合并请求出错了，请根据提示处理' }
+                          config: { again: true, success: '成功创建合并请求', fail: '创建合并请求出错了，请根据提示处理' }
                       },
                       `gitm postmsg "${nickname}在${appName}项目提交了${type}/${name}分支合并到${base}分支的merge请求"`
                   ]

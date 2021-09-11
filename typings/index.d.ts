@@ -9,6 +9,7 @@ export interface AnyFunction extends AnyObject {
 // export function GitmarsOptionFunctionType(val: string, opts: object, cb: any): void
 
 export type GitmarsBranchType = 'feature' | 'bugfix' | 'support'
+export type ShellCode = 0 | 1 | 127
 
 export interface GitmarsOptionArgsType {
     required: boolean
@@ -111,13 +112,7 @@ export type ApolloConfigType = {
 
 export interface CommandType {
     cmd: string
-    config: {
-        slient?: boolean
-        again?: boolean
-        success?: string
-        fail?: string
-        postmsg?: boolean
-    }
+    config: QueueConfigType
 }
 
 export interface FetchDataType {
@@ -133,14 +128,16 @@ export type GitStatusInfoType = {
 }
 
 export interface QueueConfigType {
-    silent: boolean
-    postmsg: boolean
-    kill: boolean
-    again: boolean
+    silent?: boolean
+    again?: boolean
+    success?: string
+    fail?: string
+    postmsg?: boolean
+    kill?: boolean
 }
 
 export interface QueueReturnsType {
-    code: 0 | 1 | 127
+    code: ShellCode
     out: string
     err: string
     cfg: QueueConfigType

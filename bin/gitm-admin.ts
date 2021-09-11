@@ -120,11 +120,11 @@ if (publish.args.length > 0) {
                               'git pull',
                               {
                                   cmd: `git merge --no-ff ${config.bugfix}`,
-                                  config: { slient: false, again: false, postmsg: opt.postmsg, success: `${config.bugfix}合并到${config.release}成功`, fail: `${config.bugfix}合并到${config.release}出错了，请根据提示处理` }
+                                  config: { again: false, postmsg: opt.postmsg, success: `${config.bugfix}合并到${config.release}成功`, fail: `${config.bugfix}合并到${config.release}出错了，请根据提示处理` }
                               },
                               {
                                   cmd: 'git push',
-                                  config: { slient: false, again: true, success: '推送成功', fail: '推送失败，请根据提示处理' }
+                                  config: { again: true, success: '推送成功', fail: '推送失败，请根据提示处理' }
                               }
                           ],
                           support: [
@@ -135,21 +135,21 @@ if (publish.args.length > 0) {
                               'git pull',
                               {
                                   cmd: `git merge --no-ff ${config.support}`,
-                                  config: { slient: false, again: false, success: `${config.support}合并到${config.release}成功`, fail: `${config.support}合并到${config.release}出错了，请根据提示处理` }
+                                  config: { again: false, success: `${config.support}合并到${config.release}成功`, fail: `${config.support}合并到${config.release}出错了，请根据提示处理` }
                               },
                               {
                                   cmd: 'git push',
-                                  config: { slient: false, again: true, success: '推送成功', fail: '推送失败，请根据提示处理' }
+                                  config: { again: true, success: '推送成功', fail: '推送失败，请根据提示处理' }
                               },
                               `git checkout ${config.bugfix}`,
                               'git pull',
                               {
                                   cmd: `git merge --no-ff ${config.support}`,
-                                  config: { slient: false, again: false, success: `${config.support}合并到${config.bugfix}成功`, fail: `${config.support}合并到${config.bugfix}出错了，请根据提示处理` }
+                                  config: { again: false, success: `${config.support}合并到${config.bugfix}成功`, fail: `${config.support}合并到${config.bugfix}出错了，请根据提示处理` }
                               },
                               {
                                   cmd: 'git push',
-                                  config: { slient: false, again: true, success: '推送成功', fail: '推送失败，请根据提示处理' }
+                                  config: { again: true, success: '推送成功', fail: '推送失败，请根据提示处理' }
                               }
                           ],
                           release: [
@@ -160,11 +160,11 @@ if (publish.args.length > 0) {
                               'git pull',
                               {
                                   cmd: `git merge --no-ff ${config.release}`,
-                                  config: { slient: false, again: false, success: `${config.release}合并到${config.master}成功`, fail: `${config.release}合并到${config.master}出错了，请根据提示处理` }
+                                  config: { again: false, success: `${config.release}合并到${config.master}成功`, fail: `${config.release}合并到${config.master}出错了，请根据提示处理` }
                               },
                               {
                                   cmd: 'git push',
-                                  config: { slient: false, again: true, success: '推送成功', fail: '推送失败，请根据提示处理' }
+                                  config: { again: true, success: '推送成功', fail: '推送失败，请根据提示处理' }
                               }
                           ]
                       }
@@ -172,26 +172,26 @@ if (publish.args.length > 0) {
                           bugfix: [
                               {
                                   cmd: `curl -i -H "Content-Type: application/json" -X POST -d "{\\"source_branch\\":\\"${config.bugfix}\\",\\"target_branch\\":\\"${config.release}\\",\\"private_token\\":\\"${token}\\",\\"title\\":\\"Merge branch '${config.bugfix}' into '${config.release}'\\"}" "${config.gitHost}/api/v4/projects/${config.gitID}/merge_requests"`,
-                                  config: { slient: false, again: true, success: '成功创建合并请求', fail: '创建合并请求出错了，请根据提示处理' }
+                                  config: { again: true, success: '成功创建合并请求', fail: '创建合并请求出错了，请根据提示处理' }
                               },
                               `gitm postmsg "${nickname}在${appName}项目提交了${config.bugfix}分支合并到${config.release}分支的merge请求"`
                           ],
                           support: [
                               {
                                   cmd: `curl -i -H "Content-Type: application/json" -X POST -d "{\\"source_branch\\":\\"${config.support}\\",\\"target_branch\\":\\"${config.release}\\",\\"private_token\\":\\"${token}\\",\\"title\\":\\"Merge branch '${config.support}' into '${config.release}'\\"}" "${config.gitHost}/api/v4/projects/${config.gitID}/merge_requests"`,
-                                  config: { slient: false, again: true, success: '成功创建合并请求', fail: '创建合并请求出错了，请根据提示处理' }
+                                  config: { again: true, success: '成功创建合并请求', fail: '创建合并请求出错了，请根据提示处理' }
                               },
                               `gitm postmsg "${nickname}在${appName}项目提交了${config.support}分支合并到${config.release}分支的merge请求"`,
                               {
                                   cmd: `curl -i -H "Content-Type: application/json" -X POST -d "{\\"source_branch\\":\\"${config.support}\\",\\"target_branch\\":\\"${config.bugfix}\\",\\"private_token\\":\\"${token}\\",\\"title\\":\\"Merge branch '${config.support}' into '${config.bugfix}'\\"}" "${config.gitHost}/api/v4/projects/${config.gitID}/merge_requests"`,
-                                  config: { slient: false, again: true, success: '成功创建合并请求', fail: '创建合并请求出错了，请根据提示处理' }
+                                  config: { again: true, success: '成功创建合并请求', fail: '创建合并请求出错了，请根据提示处理' }
                               },
                               `gitm postmsg "${nickname}在${appName}项目提交了${config.support}分支合并到${config.bugfix}分支的merge请求"`
                           ],
                           release: [
                               {
                                   cmd: `curl -i -H "Content-Type: application/json" -X POST -d "{\\"source_branch\\":\\"${config.release}\\",\\"target_branch\\":\\"${config.master}\\",\\"private_token\\":\\"${token}\\",\\"title\\":\\"Merge branch '${config.release}' into '${config.master}'\\"}" "${config.gitHost}/api/v4/projects/${config.gitID}/merge_requests"`,
-                                  config: { slient: false, again: true, success: '成功创建合并请求', fail: '创建合并请求出错了，请根据提示处理' }
+                                  config: { again: true, success: '成功创建合并请求', fail: '创建合并请求出错了，请根据提示处理' }
                               },
                               `gitm postmsg "${nickname}在${appName}项目提交了${config.release}分支合并到${config.master}分支的merge请求"`
                           ]
@@ -205,17 +205,17 @@ if (publish.args.length > 0) {
                               'git pull',
                               {
                                   cmd: `git merge --no-ff ${config.bugfix}`,
-                                  config: { slient: false, again: false, success: `${config.bugfix}合并到${config.master}成功`, fail: `${config.bugfix}合并到${config.master}出错了，请根据提示处理` }
+                                  config: { again: false, success: `${config.bugfix}合并到${config.master}成功`, fail: `${config.bugfix}合并到${config.master}出错了，请根据提示处理` }
                               },
                               {
                                   cmd: 'git push',
-                                  config: { slient: false, again: true, success: '推送成功', fail: '推送失败，请根据提示处理' }
+                                  config: { again: true, success: '推送成功', fail: '推送失败，请根据提示处理' }
                               }
                           ]
                         : [
                               {
                                   cmd: `curl -i -H "Content-Type: application/json" -X POST -d "{\\"source_branch\\":\\"${config.bugfix}\\",\\"target_branch\\":\\"${config.master}\\",\\"private_token\\":\\"${token}\\",\\"title\\":\\"Merge branch '${config.bugfix}' into '${config.master}'\\"}" "${config.gitHost}/api/v4/projects/${config.gitID}/merge_requests"`,
-                                  config: { slient: false, again: true, success: '成功创建合并请求', fail: '创建合并请求出错了，请根据提示处理' }
+                                  config: { again: true, success: '成功创建合并请求', fail: '创建合并请求出错了，请根据提示处理' }
                               },
                               `gitm postmsg "${nickname}在${appName}项目提交了${config.bugfix}分支合并到${config.master}分支的merge请求"`
                           ]
@@ -224,7 +224,7 @@ if (publish.args.length > 0) {
                     cmd[type] = cmd[type].concat([
                         {
                             cmd: `gitm build ${appName} --env bug --app ${opt.build === true ? 'all' : opt.build}`,
-                            config: { slient: true, again: false, success: '调起构建成功', fail: '调起构建失败' }
+                            config: { again: false, success: '调起构建成功', fail: '调起构建失败' }
                         }
                     ])
                 }
@@ -234,7 +234,7 @@ if (publish.args.length > 0) {
                 cmd[type] = cmd[type].concat([
                     {
                         cmd: `gitm build ${appName} --env prod --app ${opt.build === true ? 'all' : opt.build}`,
-                        config: { slient: true, again: false, success: '调起构建成功', fail: '调起构建失败' }
+                        config: { again: false, success: '调起构建成功', fail: '调起构建失败' }
                     }
                 ])
             }
@@ -248,15 +248,15 @@ if (publish.args.length > 0) {
                         `git checkout ${config.bugfix}`,
                         {
                             cmd: `git pull origin ${config.bugfix} --rebase`,
-                            config: { slient: false, again: true }
+                            config: { again: true }
                         },
                         {
                             cmd: `git rebase ${config.release}`,
-                            config: { slient: false, again: false, postmsg: opt.postmsg, success: `${config.release}同步到${config.bugfix}成功`, fail: `${config.release}同步到${config.bugfix}出错了，请根据提示处理` }
+                            config: { again: false, postmsg: opt.postmsg, success: `${config.release}同步到${config.bugfix}成功`, fail: `${config.release}同步到${config.bugfix}出错了，请根据提示处理` }
                         },
                         {
                             cmd: 'git push',
-                            config: { slient: false, again: true, success: '推送成功', fail: '推送失败，请根据提示处理' }
+                            config: { again: true, success: '推送成功', fail: '推送失败，请根据提示处理' }
                         }
                     ])
                 } else {
@@ -269,17 +269,17 @@ if (publish.args.length > 0) {
                                   'git pull',
                                   {
                                       cmd: `git merge --no-ff ${config.release}`,
-                                      config: { slient: false, again: false, postmsg: opt.postmsg, success: `${config.release}合并到${config.bugfix}成功`, fail: `${config.release}合并到${config.bugfix}出错了，请根据提示处理` }
+                                      config: { again: false, postmsg: opt.postmsg, success: `${config.release}合并到${config.bugfix}成功`, fail: `${config.release}合并到${config.bugfix}出错了，请根据提示处理` }
                                   },
                                   {
                                       cmd: 'git push',
-                                      config: { slient: false, again: true, success: '推送成功', fail: '推送失败，请根据提示处理' }
+                                      config: { again: true, success: '推送成功', fail: '推送失败，请根据提示处理' }
                                   }
                               ]
                             : [
                                   {
                                       cmd: `curl -i -H "Content-Type: application/json" -X POST -d "{\\"source_branch\\":\\"${config.release}\\",\\"target_branch\\":\\"${config.bugfix}\\",\\"private_token\\":\\"${token}\\",\\"title\\":\\"Merge branch '${config.release}' into '${config.bugfix}'\\"}" "${config.gitHost}/api/v4/projects/${config.gitID}/merge_requests"`,
-                                      config: { slient: false, again: true, success: '成功创建合并请求', fail: '创建合并请求出错了，请根据提示处理' }
+                                      config: { again: true, success: '成功创建合并请求', fail: '创建合并请求出错了，请根据提示处理' }
                                   },
                                   `gitm postmsg "${nickname}在${appName}项目提交了${config.release}分支合并到${config.bugfix}分支的merge请求"`
                               ]
@@ -332,21 +332,21 @@ if (update.args.length > 0) {
                           `git checkout ${config[type]}`,
                           {
                               cmd: 'git pull',
-                              config: { slient: false, again: true }
+                              config: { again: true }
                           },
                           {
                               cmd: `git merge --no-ff ${base}${mode}`,
-                              config: { slient: false, again: false, postmsg: opt.postmsg, success: `${base}同步到${config[type]}成功`, fail: `${base}同步到${config[type]}出错了，请根据提示处理` }
+                              config: { again: false, postmsg: opt.postmsg, success: `${base}同步到${config[type]}成功`, fail: `${base}同步到${config[type]}出错了，请根据提示处理` }
                           },
                           {
                               cmd: 'git push',
-                              config: { slient: false, again: true, success: '推送成功', fail: '推送失败，请根据提示处理' }
+                              config: { again: true, success: '推送成功', fail: '推送失败，请根据提示处理' }
                           }
                       ]
                     : [
                           {
                               cmd: `curl -i -H "Content-Type: application/json" -X POST -d "{\\"source_branch\\":\\"${base}\\",\\"target_branch\\":\\"${config[type]}\\",\\"private_token\\":\\"${token}\\",\\"title\\":\\"Merge branch '${base}' into '${config[type]}'\\"}" "${config.gitHost}/api/v4/projects/${config.gitID}/merge_requests"`,
-                              config: { slient: false, again: true, success: '成功创建合并请求', fail: '创建合并请求出错了，请根据提示处理' }
+                              config: { again: true, success: '成功创建合并请求', fail: '创建合并请求出错了，请根据提示处理' }
                           },
                           `gitm postmsg "${nickname}在${appName}项目提交了${base}分支合并到${config[type]}分支的merge请求"`
                       ]
@@ -358,15 +358,15 @@ if (update.args.length > 0) {
                     `git checkout ${config[type]}`,
                     {
                         cmd: `git pull origin ${config[type]} --rebase`,
-                        config: { slient: false, again: true }
+                        config: { again: true }
                     },
                     {
                         cmd: `git rebase ${base}`,
-                        config: { slient: false, again: false, postmsg: opt.postmsg, success: `${base}同步到${config[type]}成功`, fail: `${base}同步到${config[type]}出错了，请根据提示处理` }
+                        config: { again: false, postmsg: opt.postmsg, success: `${base}同步到${config[type]}成功`, fail: `${base}同步到${config[type]}出错了，请根据提示处理` }
                     },
                     {
                         cmd: 'git push',
-                        config: { slient: false, again: true, success: '推送成功', fail: '推送失败，请根据提示处理' }
+                        config: { again: true, success: '推送成功', fail: '推送失败，请根据提示处理' }
                     }
                 ]
             }

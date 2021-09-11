@@ -50,11 +50,11 @@ program.action((from: string, commitid: string[], opts: GitmBuildOption) => {
                     cmds = cmds.concat([
                         {
                             cmd: `git cherry-pick ${commits.join(' ')}`,
-                            config: { slient: false, again: false, success: '记录合并成功', fail: '合并失败，请根据提示处理' }
+                            config: { again: false, success: '记录合并成功', fail: '合并失败，请根据提示处理' }
                         },
                         {
                             cmd: 'git push',
-                            config: { slient: false, again: true, success: '推送成功', fail: '推送失败，请根据提示处理' }
+                            config: { again: true, success: '推送成功', fail: '推送失败，请根据提示处理' }
                         }
                     ])
                 } else {
@@ -69,11 +69,11 @@ program.action((from: string, commitid: string[], opts: GitmBuildOption) => {
         const cmd: Array<CommandType | string> = [
             {
                 cmd: `git cherry-pick ${commitid.join(' ')}`,
-                config: { slient: false, again: false, success: '记录合并成功', fail: '合并失败，请根据提示处理' }
+                config: { again: false, success: '记录合并成功', fail: '合并失败，请根据提示处理' }
             },
             {
                 cmd: 'git push',
-                config: { slient: false, again: true, success: '推送成功', fail: '推送失败，请根据提示处理' }
+                config: { again: true, success: '推送成功', fail: '推送失败，请根据提示处理' }
             }
         ]
         queue(cmd)

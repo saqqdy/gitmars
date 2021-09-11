@@ -52,11 +52,11 @@ program
         // 	cmd = [
         // 		{
         // 			cmd: `npm install -g gitmars@${match ? match[0] : 'latest'} ${opt.mirror ? '--registry=https://registry.npm.taobao.org' : ''}`,
-        // 			config: { slient: false, again: true, kill: false, success: '升级成功', fail: '升级失败，请重试' }
+        // 			config: { again: true, kill: false, success: '升级成功', fail: '升级失败，请重试' }
         // 		},
         // 		{
         // 			cmd: `gitm -v`,
-        // 			config: { slient: true, again: false }
+        // 			config: { again: false }
         // 		}
         // 	]
         // queue(cmd).then(data => {

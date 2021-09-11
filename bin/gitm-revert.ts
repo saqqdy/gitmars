@@ -35,9 +35,9 @@ program.action((commitid: string, opt: GitmBuildOption) => {
     if (opt.number) {
         const num = Math.abs(Number(opt.number))
         if (num > 1) n += '~' + (num - 1)
-        cmd.push({ cmd: `git revert ${n}${m}`, config: { slient: false, again: true, success: '撤销成功', fail: '出错了，请根据提示处理' } })
+        cmd.push({ cmd: `git revert ${n}${m}`, config: { again: true, success: '撤销成功', fail: '出错了，请根据提示处理' } })
     } else if (commitid) {
-        cmd.push({ cmd: `git revert ${commitid}${m}`, config: { slient: false, again: true, success: '撤销成功', fail: '出错了，请根据提示处理' } })
+        cmd.push({ cmd: `git revert ${commitid}${m}`, config: { again: true, success: '撤销成功', fail: '出错了，请根据提示处理' } })
     } else {
         sh.echo(warning('指令不合法'))
         sh.exit(1)

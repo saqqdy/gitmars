@@ -72,10 +72,10 @@ program.action(async (commitid: string[], opt: GitmBuildOption) => {
             logs = commitIDs
         }
         logs.forEach(log => {
-            cmd.push({ cmd: `git revert ${log}${m}`, config: { slient: false, again: true, success: '撤销成功', fail: '出错了，请根据提示处理' } })
+            cmd.push({ cmd: `git revert ${log}${m}`, config: { again: true, success: '撤销成功', fail: '出错了，请根据提示处理' } })
         })
     } else if (commitid) {
-        cmd.push({ cmd: `git revert ${commitid}${m}`, config: { slient: false, again: true, success: '撤销成功', fail: '出错了，请根据提示处理' } })
+        cmd.push({ cmd: `git revert ${commitid}${m}`, config: { again: true, success: '撤销成功', fail: '出错了，请根据提示处理' } })
     } else {
         sh.echo(warning('指令不合法'))
         sh.exit(1)
