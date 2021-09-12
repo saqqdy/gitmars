@@ -4,6 +4,13 @@ const sh = require('shelljs')
 const { error, getCurrent } = require('./js/index')
 const getConfig = require('./js/getConfig')
 const config = getConfig()
+
+interface GitmBuildOption {
+    noVerify: boolean
+    dev: boolean
+    release: boolean
+}
+
 /**
  * gitm permission
  */
@@ -15,15 +22,14 @@ program
     .option('--no-verify', '是否需要跳过校验权限', false)
     .option('--dev', '是否限制dev提交', false)
     .option('--release', '是否限制release提交', false)
-    .action((message, opt) => {
+    .action((message: string, opt: GitmBuildOption) => {
         console.log('gitm permission is running')
         const current = getCurrent()
-        let allow = [config.master],
-            msg = sh.exec('git show', { silent: true }).stdout,
-            index
+        const allow = [config.master]
+        const msg = sh.exec('git show', { silent: true }).stdout
         if (opt.dev) allow.push(config.develop)
         if (opt.release) allow.push(config.release)
-        index = allow.indexOf(current)
+        const index = allow.indexOf(current)
         if (index > -1 && !opt.noVerify && msg && msg.indexOf('Merge:') === -1 && msg.indexOf('Merge branch') === -1) {
             sh.echo(error(`${allow[index]}分支不允许直接提交`))
             sh.exit(1)
@@ -34,3 +40,4 @@ program
         // sh.echo(process.env.FORCE_COMMIT)
     })
 program.parse(process.argv)
+export {}

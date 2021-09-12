@@ -20,4 +20,5 @@ function getGitVersion(): string | void {
     return version
 }
 
-export default getGitVersion
+module.exports = getGitVersion
+export {}

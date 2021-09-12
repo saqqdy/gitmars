@@ -77,8 +77,8 @@ program.on('--help', function () {
 })
 
 // 映射不存在的指令
-program.on('command:*', function (types, opts) {
-    let cmd = [
+program.on('command:*', function (types: string[], opts: string[]) {
+    const cmd = [
         'init',
         'config',
         'combine',
@@ -124,9 +124,10 @@ program.on('command:*', function (types, opts) {
         'admin'
     ]
     if (!cmd.includes(types[0])) {
-        let arr = [].concat(types).concat(opts)
+        const arr = types.concat(opts)
         sh.exec('git ' + arr.join(' '), { silent: false })
     }
 })
 
 program.parse(process.argv)
+export {}

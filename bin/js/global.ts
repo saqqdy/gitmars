@@ -1,5 +1,5 @@
 // let system = sh.exec('uname -s', { silent: true }).stdout || 'MINGW64_NT',
-export const hookList = [
+const hookList = [
     'applypatch-msg',
     'pre-applypatch',
     'post-applypatch',
@@ -18,7 +18,7 @@ export const hookList = [
     'post-rewrite',
     'sendemail-validate'
 ]
-export const defaults = {
+const defaults = {
     master: 'master',
     develop: 'dev',
     release: 'release',
@@ -35,4 +35,4 @@ export const defaults = {
     gitID: ''
 }
 
-export default { hookList, defaults }
+module.exports = { hookList, defaults }

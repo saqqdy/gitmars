@@ -19,4 +19,5 @@ function getHookComment(): string {
 # From: ${root} (${gitUrl})`
 }
 
-export default getHookComment
+module.exports = getHookComment
+export {}

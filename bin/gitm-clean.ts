@@ -7,6 +7,10 @@ const gitRevParse = require('./js/gitRevParse')
 const cacheDir = path.join(__dirname, '../cache')
 const { root, gitDir } = gitRevParse()
 
+interface GitmBuildOption {
+    force: string
+}
+
 /**
  * gitm clean
  */
@@ -14,7 +18,7 @@ program
     .name('gitm clean')
     .description('清理gitmars缓存')
     .option('-f, --force', '强制清理', false)
-    .action(opt => {
+    .action((opt: GitmBuildOption): void => {
         if (isGitProject()) {
             sh.rm(gitDir + '/.gitmarscommands', gitDir + '/.gitmarslog')
             if (opt.force) {
@@ -28,3 +32,4 @@ program
         sh.echo(success('清理完毕'))
     })
 program.parse(process.argv)
+export {}

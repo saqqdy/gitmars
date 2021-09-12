@@ -1,4 +1,4 @@
-const { GitmarsOptionType } = require('../../../typings')
+import type { GitmarsOptionType } from '../../../typings'
 
 export interface GoCleanConfigType {
     delOptions?: string[]
@@ -55,4 +55,4 @@ const cleanConfig = (config: GitmarsOptionType, sets: GoCleanConfigType = {}): G
     return config
 }
 
-export default cleanConfig
+module.exports = cleanConfig

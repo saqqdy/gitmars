@@ -3,7 +3,7 @@ const { extend } = require('js-cool')
 
 module.exports = extend(true, config, {
     rules: {
-        'no-unused-vars': [1, { ignoreRestSiblings: true, argsIgnorePattern: '^h$' }],
+        'no-unused-vars': 0,
         '@typescript-eslint/no-unused-vars': [
             1,
             {

@@ -2,14 +2,10 @@ const sh = require('shelljs')
 const { error, getGitUser } = require('./index')
 const getConfig = require('./getConfig')
 
-export interface FetchDataType {
-    token: string // gitlab上生成的access_token
-    level: 1 | 2 | 3 // 1=超级管理员 2=管理员 3=开发者
-    [prop: string]: any
-}
+import { FetchDataType } from '../../typings'
 
 // 获取用户信息
-export function getUserToken(): FetchDataType {
+function getUserToken(): FetchDataType {
     const config = getConfig()
     if (!config.api) {
         sh.echo(error('请配置用于请求权限的api接口地址，接收参数形式：url?name=git_user_name，返回data=token'))
@@ -41,3 +37,5 @@ export function getUserToken(): FetchDataType {
     }
     return userInfo
 }
+
+module.exports = getUserToken

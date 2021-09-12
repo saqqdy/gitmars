@@ -4,7 +4,7 @@
         "target": "es5",
         "moduleResolution": "node",
         "noLib": false,
-        "lib": ["ESNext", "dom"],
+        "lib": ["ESNext"],
         // "lib": ["es5", "es6", "dom", "dom.iterable", "esnext"],
         // "lib": ["es2015", "es2016", "es2017", "dom"],
         "sourceMap": true,

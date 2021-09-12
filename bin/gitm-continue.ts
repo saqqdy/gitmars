@@ -8,17 +8,24 @@ if (!isGitProject()) {
     sh.echo(error('当前目录不是git项目目录'))
     sh.exit(1)
 }
+
+import { GitmarsOptionOptionsType, CommandType } from '../typings'
+
+interface GitmBuildOption {
+    list: boolean
+}
+
 /**
  * gitm continue
  */
 program.name('gitm continue').usage('[-l --list]').description('继续未完成的操作')
 if (args.length > 0) program.arguments(createArgs(args))
-options.forEach(o => {
+options.forEach((o: GitmarsOptionOptionsType) => {
     program.option(o.flags, o.description, o.defaultValue)
 })
 // .option('-l, --list', '显示指令队列', false)
-program.action(opt => {
-    let cmd = getCache()
+program.action((opt: GitmBuildOption) => {
+    const cmd: Array<CommandType | string> = getCache()
     if (opt.list) {
         sh.echo(cmd)
         sh.exit(0)
@@ -30,3 +37,4 @@ program.action(opt => {
     }
 })
 program.parse(process.argv)
+export {}

@@ -6,8 +6,8 @@
         // compile away optional-chaining-operator
         "target": "es6",
         "outDir": "../lib",
-        // "module": "commonjs",
-        // "lib": ["ESNext", "dom"],
+        "module": "ESNext",
+        "lib": ["ESNext"],
         "sourceMap": true
     }
 }

@@ -4,6 +4,11 @@ const { spawnSync } = require('child_process')
 const sh = require('shelljs')
 const { success } = require('./js/index')
 const ora = require('ora')
+
+interface GitmBuildOption {
+    mirror: boolean
+}
+
 /**
  * gitm upgrade
  */
@@ -13,7 +18,7 @@ program
     .description('升级gitmars')
     .arguments('[version]')
     .option('-m, --mirror', '是否使用淘宝镜像', false)
-    .action(async (version, opt) => {
+    .action(async (version: string, opt: GitmBuildOption) => {
         const spinner = ora(success('正在安装请稍后')).start()
         // let match = (version && version.match(/[0-9.]+$/)) || null,
         // 	cmd = `install -g gitmars@${match ? match[0] : 'latest'} ${opt.mirror ? '--registry=https://registry.npm.taobao.org' : ''}`,
@@ -23,9 +28,9 @@ program
         // sh.echo(install.stdout + `\n${success('安装完成')}`)
         // sh.echo(ver.stdout)
 
-        let match = (version && version.match(/[0-9.]+$/)) || null,
-            cmdAdd = ['npm', ['install', '-g', `gitmars@${match ? match[0] : 'latest'}`]],
-            cmdDel = ['npm', ['uninstall', '-g', 'gitmars']]
+        const match = (version && version.match(/[0-9.]+$/)) || null
+        const cmdAdd: any[] = ['npm', ['install', '-g', `gitmars@${match ? match[0] : 'latest'}`]]
+        const cmdDel = ['npm', ['uninstall', '-g', 'gitmars']]
         if (opt.mirror) cmdAdd[1] = cmdAdd[1].concat(['-registry', 'https://registry.npm.taobao.org'])
         const uninstall = spawnSync(cmdDel[0], cmdDel[1], { stdio: 'inherit', shell: process.platform === 'win32' /*, env: { detached: true }*/ })
         if (uninstall.status === 0) {
@@ -47,11 +52,11 @@ program
         // 	cmd = [
         // 		{
         // 			cmd: `npm install -g gitmars@${match ? match[0] : 'latest'} ${opt.mirror ? '--registry=https://registry.npm.taobao.org' : ''}`,
-        // 			config: { slient: false, again: true, kill: false, success: '升级成功', fail: '升级失败，请重试' }
+        // 			config: { again: true, kill: false, success: '升级成功', fail: '升级失败，请重试' }
         // 		},
         // 		{
         // 			cmd: `gitm -v`,
-        // 			config: { slient: true, again: false }
+        // 			config: { again: false }
         // 		}
         // 	]
         // queue(cmd).then(data => {
@@ -61,3 +66,4 @@ program
         // })
     })
 program.parse(process.argv)
+export {}

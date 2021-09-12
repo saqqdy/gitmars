@@ -5,7 +5,7 @@ const getGitConfig = require('./getGitConfig')
 const gitRevParse = require('./gitRevParse')
 const getConfig = require('./getConfig')
 
-import type { AnyFunction, AnyObject } from '../../typings'
+import type { AnyFunction, AnyObject, ShellCode, CommandType, QueueReturnsType, GitStatusInfoType, GitmarsBranchType, GitLogType } from '../../typings'
 
 export interface CommandMessageType {
     success: string
@@ -16,13 +16,27 @@ export type SendMessageType = {
     silent: boolean
 }
 
-export function warning(txt: string): string {
+export type WaitCallback = {
+    (kill?: boolean): void
+}
+
+export type QueueStartFunction = {
+    (command?: CommandType | string, cb?: WaitCallback): void
+}
+
+export interface SearchBranchsMapType {
+    heads: string[]
+    tags: string[]
+    others: string[]
+}
+
+function warning(txt: string): string {
     return colors.yellow(txt)
 }
-export function error(txt: string): string {
+function error(txt: string): string {
     return colors.red(txt)
 }
-export function success(txt: string): string {
+function success(txt: string): string {
     return colors.green(txt)
 }
 
@@ -30,9 +44,9 @@ export function success(txt: string): string {
  * writeFile
  * @description 写文件
  */
-export function writeFile(url: string, data: string): Promise<Error | boolean> {
+function writeFile(url: string, data: string): Promise<Error | boolean> {
     return new Promise((resolve, reject) => {
-        fs.writeFile(url, data, err => {
+        fs.writeFile(url, data, (err: any) => {
             if (err) {
                 reject(new Error('文件写入错误'))
             } else {
@@ -46,7 +60,7 @@ export function writeFile(url: string, data: string): Promise<Error | boolean> {
  * mapTemplate
  * @description 获取模板数据
  */
-export function mapTemplate(tmp: string, data: AnyFunction | AnyObject): string | null {
+function mapTemplate(tmp: string, data: AnyFunction | AnyObject): string | null {
     if (!tmp || !data) return null
     const str: string =
         '' +
@@ -54,7 +68,7 @@ export function mapTemplate(tmp: string, data: AnyFunction | AnyObject): string 
             if (typeof data === 'function') {
                 return data(b)
             }
-            for (let k in data) {
+            for (const k in data) {
                 if (b === k) {
                     return data[k]
                 }
@@ -67,7 +81,7 @@ export function mapTemplate(tmp: string, data: AnyFunction | AnyObject): string 
  * getSeconds
  * @description 传入字符串转换成时间（秒）
  */
-export function getSeconds(str: string): number | null {
+function getSeconds(str: string): number | null {
     const match = String(str).match(/^(\d+)([a-zA-Z]+)$/)
     let time
     if (!match) return null
@@ -96,12 +110,11 @@ export function getSeconds(str: string): number | null {
     }
     return parseInt(String(Date.now() / 1000 - time))
 }
-
 /**
  * wait
  * @description 递归执行程序
  */
-export function wait(list, fun) {
+function wait(list: Array<CommandType | string>, fun: QueueStartFunction) {
     // 最后一条指令，执行完成之后退出递归
     if (list.length === 0) {
         fun()
@@ -115,52 +128,51 @@ export function wait(list, fun) {
         })
     }
 }
-
 /**
  * queue
  * @description 脚本执行主程序
  * @param {Array} list 脚本序列
  */
-export function queue(list) {
+function queue(list: Array<CommandType | string>): Promise<QueueReturnsType[]> {
     return new Promise((resolve, reject) => {
-        let returns = []
+        const returns: QueueReturnsType[] = []
         if (list.length === 0) reject('指令名称不能为空')
         list = JSON.parse(JSON.stringify(list))
-        wait(list, (command, cb) => {
+        wait(list, (command?: CommandType | string, cb?: WaitCallback) => {
             let cfg = {
                     silent: true,
                     postmsg: false,
                     kill: true,
                     again: false // 指令执行中断之后是否需要重新执行，类似冲突解决之后的指令，不再需要重复执行
-                },
-                cmd = command
+                } as CommandType['config'],
+                cmd = command as string
             // 传入对象形式：{ cmd: '', config: {} }
             if (command instanceof Object) {
                 cfg = Object.assign(cfg, command.config || {})
-                cmd = command.cmd
+                cmd = command.cmd as string
             }
             if (!cmd) {
                 // 只有一条指令，不需返回数组形式
                 resolve(returns)
             } else {
-                sh.exec(cmd, cfg, (code, out, err) => {
-                    let msg = getCommandMessage(cmd)
+                sh.exec(cmd, cfg, (code: ShellCode, out: string, err: any) => {
+                    const msg = getCommandMessage(cmd)
                     try {
                         out = JSON.parse(out)
-                    } catch (err) {
+                    } catch {
                         out = out.replace(/\n*$/g, '')
                     }
                     returns.push({ code, out, err, cfg, cmd })
                     if (code !== 0) setLog({ command, code, out, err })
                     if (code !== 0 && cfg.kill) {
                         // 当前指令执行错误且设置该条指令需要中断，则中断递归
-                        let rest = JSON.parse(JSON.stringify(list))
+                        const rest = JSON.parse(JSON.stringify(list))
                         if (!cfg.again) {
                             rest.shift()
                         } else if (cfg.again !== true) {
                             rest.splice(0, 1, cfg.again)
                         }
-                        cb(true) // 回调并中断执行
+                        cb && cb(true) // 回调并中断执行
                         setCache(rest)
                         // 只有silent模式才需要输出信息
                         cfg.silent && sh.echo(error(err))
@@ -170,16 +182,16 @@ export function queue(list) {
                         sh.exit(1)
                     } else {
                         if (code === 0) {
-                            let m = cfg.success || msg.success
+                            const m = cfg.success || msg.success
                             if (m) {
                                 sh.echo(success(m))
                                 cfg.postmsg && postMessage(m)
                             }
                         } else {
-                            let m = cfg.fail || msg.fail || '指令 ' + cmd + ' 执行失败'
+                            const m = cfg.fail || msg.fail || '指令 ' + cmd + ' 执行失败'
                             m && sh.echo(warning(m))
                         }
-                        cb() // 回调，继续执行下一条
+                        cb && cb() // 回调，继续执行下一条
                     }
                 })
             }
@@ -192,7 +204,7 @@ export function queue(list) {
  * @description 获取未执行脚本列表
  * @returns {Array} arr 返回数组
  */
-export function getCache() {
+function getCache() {
     const { gitDir } = gitRevParse()
     let arr = []
     if (sh.test('-f', gitDir + '/.gitmarscommands')) {
@@ -211,7 +223,7 @@ export function getCache() {
  * setCache
  * @description 存储未执行脚本列表
  */
-export function setCache(rest) {
+function setCache(rest: Array<CommandType | string>): void {
     const { gitDir } = gitRevParse()
     sh.touch(gitDir + '/.gitmarscommands')
     // eslint-disable-next-line no-control-regex
@@ -222,7 +234,7 @@ export function setCache(rest) {
  * setLog
  * @description 存储错误日志
  */
-export function setLog(log) {
+function setLog(log: object): void {
     const { gitDir } = gitRevParse()
     sh.touch(gitDir + '/.gitmarslog')
     // eslint-disable-next-line no-control-regex
@@ -234,20 +246,20 @@ export function setLog(log) {
  * @description 获取分支状态
  * @returns {Boolean} true 返回true/false
  */
-export function getStatusInfo(config = {}) {
+function getStatusInfo(config: any = {}): GitStatusInfoType {
     const { silent = true } = config
     const out = sh.exec('git status -s --no-column', { silent }).stdout.replace(/(^\s+|\n*$)/g, '') // 去除首尾
-    let list = out ? out.replace(/\n(\s+)/g, '\n').split('\n') : [],
-        sum = {
-            A: [],
-            D: [],
-            M: [],
-            '??': []
-        }
+    const list = out ? out.replace(/\n(\s+)/g, '\n').split('\n') : []
+    const sum: GitStatusInfoType = {
+        A: [],
+        D: [],
+        M: [],
+        '??': []
+    }
     if (list.length === 0) return sum
-    list.forEach(str => {
-        let arr = str.trim().replace(/\s+/g, ' ').split(' '),
-            type = arr.splice(0, 1)
+    list.forEach((str: string) => {
+        const arr: string[] = str.trim().replace(/\s+/g, ' ').split(' ')
+        const type = arr.splice(0, 1)[0] as keyof GitStatusInfoType
         if (!sum[type]) sum[type] = []
         sum[type].push(arr.join(' '))
     })
@@ -259,8 +271,8 @@ export function getStatusInfo(config = {}) {
  * @description 获取是否有未提交的文件
  * @returns {Boolean} true 返回true/false
  */
-export function getStatus() {
-    let sum = getStatusInfo({ silent: false })
+function getStatus(): boolean {
+    const sum = getStatusInfo({ silent: false })
     if (sum.A.length > 0 || sum.D.length > 0 || sum.M.length > 0) {
         sh.echo(error('您还有未提交的文件，请处理后再继续') + '\n如果需要暂存文件请执行: gitm save\n恢复时执行：gitm get')
         sh.exit(1)
@@ -276,7 +288,7 @@ export function getStatus() {
  * @description 获取日志
  * @returns {Array} true 返回列表
  */
-export function getLogs(config = {}) {
+function getLogs(config: any = {}): GitLogType[] {
     const { lastet, limit, branches } = config
     const keys = [
         '%H',
@@ -340,11 +352,13 @@ export function getLogs(config = {}) {
         .exec(`git log${limit ? ' -"' + limit + '"' : ''}${lastet ? ' --since="' + getSeconds(lastet) + '"' : ''}${branches ? ' --branches="*' + branches + '"' : ''} --date-order --pretty=format:"${keys.join(',=')}-end-"`, { silent: true })
         .stdout.replace(/[\r\n]+/g, '')
         .replace(/-end-$/, '')
-    let logList = []
+    const logList: GitLogType[] = []
     results &&
-        results.split('-end-').forEach(log => {
-            let args = log.split(',='),
-                map = {}
+        results.split('-end-').forEach((log: string) => {
+            const args = log.split(',=')
+            const map: {
+                [props: string]: string
+            } = {}
             keys.forEach((key, i) => {
                 map[key] = args[i]
             })
@@ -358,11 +372,11 @@ export function getLogs(config = {}) {
  * @description 获取是否有某个分支
  * @returns {Boolean} true 返回true/false
  */
-export const checkBranch = async name => {
+async function checkBranch(name: string): Promise<string> {
     const data = await queue([`gitm branch -k ${name}`])
     return data[0].out.replace(/^\s+/, '')
 }
-// export function checkBranch(name) {
+// function checkBranch(name) {
 // 	return queue([`gitm branch -k ${name}`]).then(data => {
 // 		return resolve(data[0].out.replace(/^\s+/, ''))
 // 	})
@@ -373,16 +387,16 @@ export const checkBranch = async name => {
  * @description 获取当前分支
  * @returns {String} 返回名称
  */
-export function getCurrent() {
+function getCurrent(): string {
     return sh.exec('git symbolic-ref --short -q HEAD', { silent: true }).stdout.replace(/[\n\s]*$/g, '')
 }
 
 /**
  * searchBranch
  * @description 获取当前分支
- * @returns {Array} 返回列表数组
+ * @returns array 返回列表数组
  */
-export async function searchBranch(key, type, remote = false) {
+async function searchBranch(key: string, type: GitmarsBranchType, remote = false): Promise<string[]> {
     const data = (await queue([`gitm branch${key ? ' -k ' + key : ''}${type ? ' -t ' + type : ''}${remote ? ' -r' : ''}`]))[0].out.replace(/^\*\s+/, '')
     let arr = data ? data.split('\n') : []
     arr = arr.map(el => el.trim())
@@ -394,18 +408,19 @@ export async function searchBranch(key, type, remote = false) {
  * @description 获取当前分支
  * @returns {Array} 返回列表数组
  */
-export function searchBranchs(opt = {}) {
-    let { path, key, type, remote = false } = opt
+function searchBranchs(opt: any = {}): string[] {
+    const { key, type, remote = false } = opt
+    let { path } = opt
     if (!path) path = sh.pwd().stdout
     const data = sh.exec(`git ls-remote${remote ? ' --refs' : ' --heads'} --quiet --sort="version:refname" ${path}`, { silent: true }).stdout.replace(/\n*$/g, '')
-    let arr = data ? data.split('\n') : [],
-        map = {
-            heads: [],
-            tags: [],
-            others: []
-        }
-    for (let el of arr) {
-        let match = el.match(/^\w+[\s]+refs\/(heads|remotes|tags)\/([\w-\/]+)$/)
+    const arr = data ? data.split('\n') : []
+    const map: SearchBranchsMapType = {
+        heads: [],
+        tags: [],
+        others: []
+    }
+    for (const el of arr) {
+        const match = el.match(/^\w+[\s]+refs\/(heads|remotes|tags)\/([\w-\/]+)$/)
         if (!match) continue
         switch (match[1]) {
             case 'heads':
@@ -436,21 +451,23 @@ export function searchBranchs(opt = {}) {
  * @description 搜索分支
  * @returns {Array} 返回列表数组
  */
-export function filterBranch(key, types = [], remote = false) {
-    if (typeof types === 'string') types = types.split(',')
+function filterBranch(key: string, types: string, remote = false): string[] {
+    let typesList: string[] = [types],
+        list: string[]
+    if (typeof types === 'string') typesList = types.split(',')
     const out = sh
         .exec(`git branch${remote ? ' -a' : ''}`, { silent: true })
         .stdout.replace(/(^\s+|[\n\r]*$)/g, '') // 去除首尾
         .replace(/\*\s+/, '') // 去除*
-    let list = out ? out.replace(/\n(\s+)/g, '\n').split('\n') : []
+    list = out ? out.replace(/\n(\s+)/g, '\n').split('\n') : []
     list = list.filter(el => {
         let result = true
         // 匹配关键词
         if (key && !el.includes(key)) result = false
         // 匹配类型
-        if (result && types.length > 0) {
+        if (result && typesList.length > 0) {
             result = false
-            type: for (const type of types) {
+            type: for (const type of typesList) {
                 if (el.includes(type)) {
                     result = true
                     break type
@@ -463,26 +480,30 @@ export function filterBranch(key, types = [], remote = false) {
 }
 
 /**
- * getStashList
+ * getStashList -------------------------------------------
  * @description 获取暂存区列表
  * @returns {String} 返回名称
  */
-export async function getStashList(key) {
+async function getStashList(key: string) {
     const data = (await queue(['git stash list']))[0].out.replace(/^\*\s+/, '')
-    let list = (data && data.split('\n')) || [],
-        arr = []
+    const list: string[] = (data && data.split('\n')) || []
+    const arr: {
+        key: string
+        index: number
+        msg: string
+    }[] = []
     if (list.length > 10) sh.echo(warning(`该项目下一共有${list.length}条暂存记录，建议定期清理！`))
     try {
         list.forEach(item => {
-            let msgArr = item.split(':'),
-                first = msgArr.shift()
+            const msgArr: string[] = item.split(':')
+            const first = msgArr.shift() as string
             if (!key || (key && key === msgArr[msgArr.length - 1].trim())) {
-                let m = first.match(/^stash@\{(\d+)\}$/)
+                const m = first.match(/^stash@\{(\d+)\}$/)
                 // 去除不必要的消息
                 if (msgArr.length > 1) msgArr.shift()
                 arr.push({
                     key: first,
-                    index: +m[1],
+                    index: m ? +m[1] : 0,
                     msg: msgArr.join(':').trim()
                 })
             }
@@ -497,18 +518,18 @@ export async function getStashList(key) {
  * getMessage
  * @description 解析模板数据
  */
-export function getMessage(type: string): string {
+function getMessage(type: string): string {
     const { root } = gitRevParse()
     const { appName } = getGitConfig()
     const config = getConfig()
-    let str = '',
-        d = new Date()
+    const d = new Date()
+    let str = ''
     switch (type) {
         case 'time':
-            str = d
+            str = d.toLocaleString()
             break
         case 'timeNum':
-            str = d.getTime()
+            str = String(d.getTime())
             break
         case 'pwd':
             str = root
@@ -530,24 +551,24 @@ export function getMessage(type: string): string {
  * postMessage
  * @description 生成消息
  */
-export function postMessage(msg: string = '') {
+function postMessage(msg = ''): void {
     const config = getConfig()
     if (!config.msgTemplate) {
         sh.echo(error('请配置消息发送api模板地址'))
         return
     }
-    let message = mapTemplate(config.msgTemplate, key => {
+    const message = mapTemplate(config.msgTemplate, key => {
         if (key === 'message') return msg
         return getMessage(key)
     })
-    config.msgUrl && sendMessage(message)
+    config.msgUrl && message && sendMessage(message)
 }
 
 /**
  * sendMessage
  * @description 发送消息
  */
-export function sendMessage(message: string = '', cfg = {} as SendMessageType): void {
+function sendMessage(message = '', cfg = {} as SendMessageType): void {
     const config = getConfig()
     const { silent = true } = cfg
     if (!config.msgUrl) {
@@ -562,9 +583,9 @@ export function sendMessage(message: string = '', cfg = {} as SendMessageType): 
  * getCommandMessage
  * @description 获取通用的指令提示信息
  */
-export function getCommandMessage(cmd: string): CommandMessageType {
-    let msg = {} as CommandMessageType,
-        arr = cmd.replace(/[\s]+/g, ' ').split(' ')
+function getCommandMessage(cmd: string): CommandMessageType {
+    const msg = {} as CommandMessageType
+    const arr = cmd.replace(/[\s]+/g, ' ').split(' ')
     if (arr.length < 2 || arr[0] !== 'git') return msg
     switch (arr[1]) {
         case 'checkout':
@@ -616,19 +637,19 @@ export function getCommandMessage(cmd: string): CommandMessageType {
 
 /**
  * @description compareVersion版本号大小对比
- * @param appName {String} app名称
- * @param compareVer {String} 必传 需要对比的版本号
- * @param userAgent {String} ua，可不传，默认取navigator.appVersion
- * @return {Boolean|null} null/true/false
+ * @param appName - app名称
+ * @param compareVer - 必传 需要对比的版本号
+ * @param userAgent - ua，可不传，默认取navigator.appVersion
+ * @return null/true/false
  */
-export function compareVersion(basicVer: string, compareVer: string): boolean | null {
+function compareVersion(basicVer: string, compareVer: string): boolean | null {
     if (basicVer === null) return null
     basicVer = basicVer + '.'
     compareVer = compareVer + '.'
-    let bStr = parseFloat(basicVer),
-        cStr = parseFloat(compareVer),
-        bStrNext = parseFloat(basicVer.replace(bStr + '.', '')) || 0,
-        cStrNext = parseFloat(compareVer.replace(cStr + '.', '')) || 0
+    const bStr = parseFloat(basicVer)
+    const cStr = parseFloat(compareVer)
+    const bStrNext = parseFloat(basicVer.replace(bStr + '.', '')) || 0
+    const cStrNext = parseFloat(compareVer.replace(cStr + '.', '')) || 0
     if (cStr > bStr) {
         return false
     } else if (cStr < bStr) {
@@ -647,7 +668,7 @@ export function compareVersion(basicVer: string, compareVer: string): boolean | 
  * @description 获取包含commitID的分支
  * @returns {Array} 返回数组
  */
-export function getBranchsFromID(commitID: string, remote: boolean = false): string[] {
+function getBranchsFromID(commitID: string, remote = false): string[] {
     const out = sh.exec(`git branch ${remote ? '-r' : ''} --contains ${commitID} --format="%(refname:short)`, { silent: true }).stdout.replace(/(^\s+|\n*$)/g, '') // 去除首尾
     return out ? out.split('\n') : []
 }
@@ -657,8 +678,8 @@ export function getBranchsFromID(commitID: string, remote: boolean = false): str
  * @description 获取git用户名称
  * @returns {String} 返回字符串
  */
-export function getGitUser(): string {
-    return sh.exec(`git config user.name`, { silent: true }).stdout.replace(/(^\s+|\n*$)/g, '') // 去除首尾
+function getGitUser(): string {
+    return sh.exec('git config user.name', { silent: true }).stdout.replace(/(^\s+|\n*$)/g, '') // 去除首尾
 }
 
 /**
@@ -666,8 +687,8 @@ export function getGitUser(): string {
  * @description 获取git用户邮箱
  * @returns {String} 返回字符串
  */
-export function getGitEmail(): string {
-    return sh.exec(`git config user.email`, { silent: true }).stdout.replace(/(^\s+|\n*$)/g, '') // 去除首尾
+function getGitEmail(): string {
+    return sh.exec('git config user.email', { silent: true }).stdout.replace(/(^\s+|\n*$)/g, '') // 去除首尾
 }
 
 /**
@@ -675,11 +696,11 @@ export function getGitEmail(): string {
  *
  * @returns {String} 返回字符串
  */
-export function isGitProject(): boolean {
-    return sh.exec(`git rev-parse --is-inside-work-tree`, { silent: true }).stdout.includes('true')
+function isGitProject(): boolean {
+    return sh.exec('git rev-parse --is-inside-work-tree', { silent: true }).stdout.includes('true')
 }
 
-export default {
+module.exports = {
     warning,
     error,
     success,
