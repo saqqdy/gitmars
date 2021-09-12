@@ -1,7 +1,7 @@
 {
     "name": "gitmars",
     "description": "一个高度定制化的git工作流工具",
-    "version": "2.5.0-beta.1",
+    "version": "2.5.0-beta.3",
     "scripts": {
         "docs:dev": "vuepress dev docs",
         "docs:build": "vuepress build docs",
@@ -87,7 +87,7 @@
         "@vuepress/plugin-back-to-top": "^1.8.2",
         "@vuepress/plugin-medium-zoom": "^1.8.2",
         "babel-eslint": "^10.1.0",
-        "esbuild": "^0.12.24",
+        "esbuild": "^0.12.26",
         "eslint": "^7.32.0",
         "eslint-config-prettier": "^8.3.0",
         "eslint-config-sets": "^1.5.1",
@@ -98,6 +98,7 @@
         "prettier": "^2.3.2",
         "rimraf": "^3.0.2",
         "rollup": "^2.56.3",
+        "rollup-plugin-esbuild": "^4.5.0",
         "rollup-plugin-preserve-shebang": "^1.0.1",
         "rollup-plugin-terser": "^7.0.2",
         "rollup-plugin-typescript2": "^0.30.0",
