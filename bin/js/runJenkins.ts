@@ -14,11 +14,10 @@ export interface RunJenkinsOptionType {
  * runJenkins
  * @description 调起Jenkins构建
  */
-export default async function runJenkins({ env, project, app = 'all' }: RunJenkinsOptionType): Promise<void | unknown> {
-    let buildConfig = (await apolloConfig()) as ApolloConfigType,
-        cfg: ApolloConfigBranchType = buildConfig[env],
-        p,
-        url
+async function runJenkins({ env, project, app = 'all' }: RunJenkinsOptionType): Promise<void | unknown> {
+    const buildConfig = (await apolloConfig()) as ApolloConfigType
+    const cfg: ApolloConfigBranchType = buildConfig[env]
+    let p
     if (!cfg) {
         sh.echo(error('请输入正确的环境名称'))
         sh.exit(1)
@@ -40,7 +39,7 @@ export default async function runJenkins({ env, project, app = 'all' }: RunJenki
         sh.exit(1)
         return
     }
-    url = mapTemplate(p.apps && p.apps.length > 0 ? buildConfig.templateWithParam : buildConfig.template, {
+    const url = mapTemplate(p.apps && p.apps.length > 0 ? buildConfig.templateWithParam : buildConfig.template, {
         line: cfg.line,
         project: p.project,
         token: cfg.token,
@@ -49,3 +48,5 @@ export default async function runJenkins({ env, project, app = 'all' }: RunJenki
     sh.exec(`curl -u ${buildConfig.username}:${buildConfig.password} "${url}"`, { silent: true })
     sh.echo(success('成功调起Jenkins构建'))
 }
+
+module.exports = runJenkins

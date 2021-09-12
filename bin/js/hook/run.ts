@@ -3,7 +3,9 @@ const checkGitDirEnv = require('../checkGitDirEnv')
 const getConfig = require('../getConfig')
 const config = getConfig()
 
-export function getCommand(cwd: string, hookName: string) {
+import type { ShellCode } from '../../../typings'
+
+function getCommand(cwd: string, hookName: string) {
     return config && config.hooks && config.hooks[hookName]
 }
 /**
@@ -11,7 +13,7 @@ export function getCommand(cwd: string, hookName: string) {
  * @description 执行脚本
  * @returns {Number} 0|1 返回状态
  */
-export function runCommand(cwd: string, hookName: string, cmd: string, env) {
+function runCommand(cwd: string, hookName: string, cmd: string, env: any) {
     console.info(`gitmars > ${hookName} (node ${process.version})`)
     const { status } = spawnSync('sh', ['-c', cmd], {
         cwd,
@@ -35,10 +37,11 @@ export function runCommand(cwd: string, hookName: string, cmd: string, env) {
  * @description 运行主程序
  * @returns {Number} 0|1 返回状态
  */
-export function start([, , hookName = '', ...GITMARS_GIT_PARAMS], { cwd = process.cwd() } = {}) {
+// @ts-ignore
+function start([, , hookName = '', ...GITMARS_GIT_PARAMS], { cwd = process.cwd() } = {}): ShellCode {
     const command = getCommand(cwd, hookName)
     // Add GITMARS_GIT_PARAMS to env
-    const env = {}
+    const env = {} as any
     if (GITMARS_GIT_PARAMS === null || GITMARS_GIT_PARAMS === void 0 ? void 0 : GITMARS_GIT_PARAMS.length) {
         env.GITMARS_GIT_PARAMS = GITMARS_GIT_PARAMS.join(' ')
     }
@@ -48,13 +51,15 @@ export function start([, , hookName = '', ...GITMARS_GIT_PARAMS], { cwd = proces
     return 0
 }
 
-export default async function run() {
+async function run() {
     checkGitDirEnv()
     try {
-        const status = await start(process.argv)
+        const status = await start(process.argv as string[])
         process.exit(status)
     } catch (err) {
         console.info('Gitmars > 未知错误！请联系吴峰', err)
         process.exit(1)
     }
 }
+
+module.exports = run

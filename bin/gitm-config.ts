@@ -10,6 +10,7 @@ if (!isGitProject()) {
 }
 const getConfig = require('./js/getConfig')
 const config = getConfig()
+
 /**
  * gitm config set
  */
@@ -18,7 +19,7 @@ program
     .usage('<option> [value]')
     .command('set <option> [value]')
     .description('设置gitmars的配置项')
-    .action(async (option, value) => {
+    .action(async (option: string, value: string): Promise<void> => {
         let { filepath } = config
         if (!filepath) {
             const { root } = gitRevParse()
@@ -49,7 +50,7 @@ program
     .usage('list [option]')
     .command('list [option]')
     .description('查询单个或全部gitmars的配置项')
-    .action(option => {
+    .action((option: string): void => {
         if (option) {
             sh.echo(success(config[option]))
         } else {
@@ -58,3 +59,4 @@ program
         sh.exit(0)
     })
 program.parse(process.argv)
+export {}

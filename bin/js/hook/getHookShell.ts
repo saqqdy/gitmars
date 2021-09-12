@@ -13,4 +13,5 @@ function getHookShell(): string {
     const hookShell = fs.readFileSync(path.join(__dirname, '../../sh/gitmars.sh'), 'utf-8').replace('gitmarsVersion="0.0.0"', `gitmarsVersion="${pkg.version}"`)
     return [getHookComment(), '', hookShell].join('\n')
 }
-export default getHookShell
+module.exports = getHookShell
+export {}

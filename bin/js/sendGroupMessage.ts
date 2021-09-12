@@ -2,7 +2,7 @@ const sh = require('shelljs')
 const apolloConfig = require('./apollo')
 const { error } = require('./index')
 
-const { ApolloConfigType } = require('../../typings')
+import type { ApolloConfigType } from '../../typings'
 
 export interface GroupMessageConfigType {
     silent?: boolean
@@ -32,4 +32,4 @@ async function sendGroupMessage(message: string, cfg: GroupMessageConfigType = {
     })
 }
 
-export default sendGroupMessage
+module.exports = sendGroupMessage

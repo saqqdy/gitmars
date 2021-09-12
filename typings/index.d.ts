@@ -6,13 +6,21 @@ export interface AnyFunction extends AnyObject {
     (...args: any[]): any
 }
 
+export type ValueOf<T> = T extends ReadonlyArray<any> ? T[number] : T[keyof T]
+
+// export function GitmarsOptionFunctionType(val: string, opts: object, cb: any): void
+
+export type GitmarsBranchType = 'feature' | 'bugfix' | 'support'
+export type ShellCode = 0 | 1 | 127
+
 export interface GitmarsOptionArgsType {
     required: boolean
     name: string
     variadic: boolean
-    validator?(val: string, opts: object, cb: any): void
-    transformer?(val: string, opts: object, cb: any): void
+    validator?(val: string, opts: object, cb: Function): void
+    transformer?(val: string, answers: object, flags: object, options: GitmarsOptionArgsType): void
     description?: string
+    defaultValue?: any
 }
 
 export interface GitmarsOptionOptionsType {
@@ -28,6 +36,8 @@ export interface GitmarsOptionOptionsType {
     defaultValue?: any
     value?: any
     recommend?: boolean
+    validator?(val: string, opts: object, cb: Function): void
+    transformer?(val: string, answers: object, flags: object, options: GitmarsOptionOptionsType): void
 }
 
 export interface GitmarsOptionType {
@@ -100,4 +110,52 @@ export type ApolloConfigType = {
     template: string // 不带参数
     templateWithParam: string // 带参数
     gitNotificationGroupUrl?: string | string[] // 推送群消息的api
+}
+
+export interface CommandType {
+    cmd: string
+    config: QueueConfigType
+}
+
+export interface FetchDataType {
+    token: string // gitlab上生成的access_token
+    level: 1 | 2 | 3 // 1=超级管理员 2=管理员 3=开发者
+    [prop: string]: any
+}
+
+export type GitStatusListType = 'A' | 'D' | 'M' | '??'
+
+export type GitStatusInfoType = {
+    [props in GitStatusListType]: string[]
+}
+
+export interface QueueConfigType {
+    silent?: boolean
+    again?: boolean
+    success?: string
+    fail?: string
+    postmsg?: boolean
+    kill?: boolean
+}
+
+export interface QueueReturnsType {
+    code: ShellCode
+    out: string
+    err: string
+    cfg: QueueConfigType
+    cmd: string
+}
+
+export interface InitInquirerPromptType {
+    type: string
+    name: string
+    message: string
+    default?(): string
+    transformer?(val: any, answers: any, flags: any): any
+    validate?(val: any): string | boolean
+    choices?: any
+}
+
+export interface GitLogType {
+    [props: string]: string
 }
