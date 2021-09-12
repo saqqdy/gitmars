@@ -1,3 +1,9 @@
+# 2021.09.12 v2.5.0 更新日志
+
+1. typescript 重构项目
+2. 清理`bin`目录减小 npm 包体积
+3. 修复`upgrade`执行报错
+
 # 2021.09.04 v2.4.0 更新日志
 
 1. `gitm ui`迁移到`vue3+vite+typescript`框架
