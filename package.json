@@ -28,7 +28,6 @@
         "gitm": "lib/gitm.js"
     },
     "files": [
-        "bin",
         "cache",
         "lib",
         "server",
