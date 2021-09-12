@@ -8,6 +8,9 @@
 [![David deps][david-image]][david-url]
 [![Known Vulnerabilities][snyk-image]][snyk-url]
 [![npm download][download-image]][download-url]
+[![cdnjs][cdnjs-image]][cdnjs-url]
+[![gzip][gzip-image]][gzip-url]
+[![License][license-image]][license-url]
 
 [npm-image]: https://img.shields.io/npm/v/gitmars.svg?style=flat-square
 [npm-url]: https://npmjs.org/package/gitmars
@@ -21,6 +24,12 @@
 [snyk-url]: https://snyk.io/test/npm/gitmars
 [download-image]: https://img.shields.io/npm/dm/gitmars.svg?style=flat-square
 [download-url]: https://npmjs.org/package/gitmars
+[cdnjs-image]: https://img.shields.io/cdnjs/v/gitmars.svg
+[cdnjs-url]: https://cdnjs.com/libraries/gitmars
+[gzip-image]: http://img.badgesize.io/https://unpkg.com/gitmars/lib/index.js?compression=gzip&label=gzip%20size:%20JS
+[gzip-url]: http://img.badgesize.io/https://unpkg.com/gitmars/lib/index.js?compression=gzip&label=gzip%20size:%20JS
+[license-image]: https://img.shields.io/badge/License-MIT-yellow.svg
+[license-url]: LICENSE
 
 > 1. gitmars 每一个子命令都带了 help 功能，可输入 gitm [command] --help 获取对应指令的帮助
 > 2. <type>意思是 type 必传；[type]意思是 type 选填；[-a --app [app]]其中-a 是--app 的简写，后面[app]指的是-a 后面的传值

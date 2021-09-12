@@ -121,7 +121,7 @@
         "tool"
     ],
     "author": "saqqdy <www.saqqdy.com>",
-    "license": "ISC",
+    "license": "MIT",
     "bugs": {
         "url": "https://github.com/saqqdy/gitmars/issues"
     },
