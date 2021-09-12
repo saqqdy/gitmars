@@ -32,6 +32,8 @@ interface GitmBuildOption {
     }
 }
 
+type PublishOptsType = 'bugfix' | 'support' | 'release'
+
 /**
  * gitm admin create
  * gitm admin publish
@@ -95,7 +97,7 @@ if (publish.args.length > 0) {
     // .option('-p, --prod', '发布bug分支时，是否合并bug到master', false)
     // .option('-b, --build [build]', '需要构建的应用')
     // .option('--postmsg', '发送消息', false)
-    _program.action(async (type: string, opt: GitmBuildOption['publish']): void => {
+    _program.action(async (type: PublishOptsType, opt: GitmBuildOption['publish']): Promise<void> => {
         const opts = ['bugfix', 'release', 'support'] // 允许执行的指令
         const status = getStatus()
         const curBranch = await getCurrent()
@@ -108,7 +110,7 @@ if (publish.args.length > 0) {
              * support -> bugfix/release
              */
             const cmd: {
-                [prop in 'bugfix' | 'support' | 'release']: Array<CommandType | string>
+                [prop in PublishOptsType]: Array<CommandType | string>
             } =
                 !level || level < 3
                     ? {
@@ -286,8 +288,9 @@ if (publish.args.length > 0) {
                     )
                 }
             }
+            let key: keyof typeof cmd
             // 回到当前分支
-            for (const key in cmd) {
+            for (key in cmd) {
                 cmd[key].push(`git checkout ${curBranch}`)
             }
             queue(cmd[type])

@@ -14,17 +14,19 @@ import type { GitmarsConfigType } from 'typings'
 const getConfig = (): GitmarsConfigType => {
     let config: any = {}
     if (configFrom === 1) {
-        let str = sh
-                .cat(root + '/.gitmarsrc')
-                .stdout.replace(/(^\n*)|(\n*$)/g, '')
-                .replace(/\n{2,}/g, '\n')
-                .replace(/\r/g, '')
-                .replace(/[^\S\x0a\x0d]/g, ''),
-            arr: string[] = []
+        const str = sh
+            .cat(root + '/.gitmarsrc')
+            .stdout.replace(/(^\n*)|(\n*$)/g, '')
+            .replace(/\n{2,}/g, '\n')
+            .replace(/\r/g, '')
+            // eslint-disable-next-line no-control-regex
+            .replace(/[^\S\x0a\x0d]/g, '')
+        let arr: string[] = []
         if (str) arr = str.split('\n')
         arr.forEach((el: string) => {
-            el.replace(/^([a-zA-Z0-9]+)\=([\s\S]+)$/, (a: string, b: string, c) => {
+            el.replace(/^([a-zA-Z0-9]+)\=([\s\S]+)$/, (a: string, b: string, c: string) => {
                 config[b] = c || null
+                return ''
             })
         })
     } else if (configFrom === 2) {

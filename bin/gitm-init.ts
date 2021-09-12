@@ -1,7 +1,6 @@
 #!/usr/bin/env node
 const { program } = require('commander')
 const fs = require('fs')
-const path = require('path')
 const sh = require('shelljs')
 const inquirer = require('inquirer')
 const { error, success, isGitProject } = require('./js/index')

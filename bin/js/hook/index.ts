@@ -16,6 +16,8 @@ const { gitHookDir, prefix } = gitRevParse()
 const gitVersion = getGitVersion()
 const config = getConfig()
 
+import { GitLogType } from '../../../typings'
+
 export interface IsUpdatedInTimeConfigType {
     latest: string
     limit: string | number
@@ -33,8 +35,8 @@ function createHooks(dir: string = gitHookDir): void {
         fs.writeFileSync(filename, shell, 'utf-8')
         fs.chmodSync(filename, 0o0755)
     }
-    const hooks = hookList.map(hookName => path.join(dir, hookName))
-    hooks.forEach(filename => {
+    const hooks = hookList.map((hookName: string) => path.join(dir, hookName))
+    hooks.forEach((filename: string) => {
         const hookShell = `#!/bin/sh
 # gitmars
 
@@ -74,16 +76,16 @@ ${getHookComment()}
  * @param {String} dir default=gitHookDir
  */
 function removeHooks(dir: string = gitHookDir): boolean | void {
-    const hooks = hookList.map(hookName => path.join(dir, hookName))
+    const hooks = hookList.map((hookName: string) => path.join(dir, hookName))
     hooks
-        .filter(filename => {
+        .filter((filename: string) => {
             if (fs.existsSync(filename)) {
                 const hook = fs.readFileSync(filename, 'utf-8')
                 return getHookType.isGitmars(hook)
             }
             return false
         })
-        .forEach(filename => {
+        .forEach((filename: string) => {
             fs.unlinkSync(filename)
         })
 }
@@ -93,7 +95,7 @@ function removeHooks(dir: string = gitHookDir): boolean | void {
  * @description 创建主程序
  */
 function createHookShell(dir: string = gitHookDir): void {
-    let filename = path.join(dir, 'gitmars.sh')
+    const filename = path.join(dir, 'gitmars.sh')
     fs.writeFileSync(filename, getHookShell(), 'utf-8')
     fs.chmodSync(filename, 0o0755)
 }
@@ -112,7 +114,7 @@ function removeHookShell(dir: string = gitHookDir): void {
  * @description 创建本地脚本
  */
 function createLocalShell(dir: string = gitHookDir, pmName: string, relativeUserPkgDir: string): void {
-    let filename = path.join(dir, 'gitmars.local.sh')
+    const filename = path.join(dir, 'gitmars.local.sh')
     fs.writeFileSync(filename, getLocalShell(pmName, relativeUserPkgDir), 'utf-8')
     fs.chmodSync(filename, 0o0755)
 }
@@ -130,7 +132,7 @@ function removeLocalShell(dir: string = gitHookDir): void {
  * getIsMergedBranch
  * @description 1. 获取是否合并过dev
  */
-function getIsMergedBranch(branch: string = current, targetBranch: string = 'dev'): boolean {
+function getIsMergedBranch(branch: string = current, targetBranch = 'dev'): boolean {
     const result = sh.exec(`git branch --contains ${branch}`, { silent: true }).stdout.replace(/[\s]*$/g, '')
     return result.split('\n').includes(targetBranch)
 }
@@ -140,21 +142,21 @@ function getIsMergedBranch(branch: string = current, targetBranch: string = 'dev
  * @description 2. 获取一周内是否同步过上游分支代码
  */
 function getIsUpdatedInTime({ latest, limit, branch: branches }: IsUpdatedInTimeConfigType): boolean {
-    let isUpdated = false,
-        mainVers: string[] = [],
-        currentVers: string[] = []
+    let isUpdated = false
+    const mainVers: string[] = []
+    const currentVers: string[] = []
     const mainLogs = getLogs({ latest, limit, branches })
     const currentLogs = getLogs({ latest, limit, branches: current })
-    mainLogs.forEach(log => {
+    mainLogs.forEach((log: GitLogType) => {
         mainVers.push(log['%H'])
     })
-    currentLogs.forEach(log => {
-        let arr = log['%P'] ? log['%P'].split(' ') : []
+    currentLogs.forEach((log: GitLogType) => {
+        const arr = log['%P'] ? log['%P'].split(' ') : []
         arr.forEach((item: string) => {
             currentVers.push(item)
         })
     })
-    mainVer: for (let ver of mainVers) {
+    mainVer: for (const ver of mainVers) {
         if (currentVers.includes(ver)) {
             isUpdated = true
             break mainVer
@@ -172,7 +174,7 @@ function getIsMergeAction(): boolean {
         limit: 1,
         branches: current
     })
-    let p = currentLogs[0]['%P'] ? currentLogs[0]['%P'].split(' ') : []
+    const p = currentLogs[0]['%P'] ? currentLogs[0]['%P'].split(' ') : []
     return p.length > 1
 }
 
@@ -181,7 +183,7 @@ function getIsMergeAction(): boolean {
  * @description 获取当前本地分支落后远程的日志
  */
 function getBehandLogs(): string[] {
-    sh.exec(`git fetch`, { silent: true })
+    sh.exec('git fetch', { silent: true })
     const result = sh.exec(`git log ${current}..origin/${current} --pretty=format:"%p"`, { silent: true }).stdout.replace(/[\s]*$/g, '')
     return result ? result.split('\n') : []
 }
@@ -191,7 +193,7 @@ function getBehandLogs(): string[] {
  * @description 获取当前本地分支领先远程的日志
  */
 function getAheadLogs(): string[] {
-    sh.exec(`git fetch`, { silent: true })
+    sh.exec('git fetch', { silent: true })
     const result = sh.exec(`git log origin/${current}..${current} --pretty=format:"%p"`, { silent: true }).stdout.replace(/[\s]*$/g, '')
     return result ? result.split('\n') : []
 }

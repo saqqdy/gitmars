@@ -25,7 +25,7 @@ export interface CommandNeedInput {
  * @returns {string} result 返回指令结果Promise
  */
 const getCommand = async ({ command, args, options, validatorOpts, validatorArgs, transformOpts, transformArgs }: GitmarsOptionType) => {
-    let params = [],
+    let params: string[] = [],
         needInput: CommandNeedInput[] = [] // 需要输入参数值的列表
     // 第一步：args参数
     if (options.length > 0) {
@@ -64,7 +64,7 @@ const getCommand = async ({ command, args, options, validatorOpts, validatorArgs
     // 第二步：command参数
     if (args.length > 0) {
         const answer2 = await inquirer.prompt(createPrompt(command, { options: args, validator: validatorArgs, transform: transformArgs }, 'input'))
-        params = [].concat(Object.values(answer2)).concat(params)
+        params = (Object.values(answer2) as string[]).concat(params)
     }
     // 第三步：args参数需要传参的部分
     if (needInput.length > 0) {

@@ -7,7 +7,7 @@
         "target": "es6",
         "outDir": "../lib",
         "module": "ESNext",
-        "lib": ["es2015"],
+        "lib": ["ESNext"],
         "sourceMap": true
     }
 }

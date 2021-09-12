@@ -15,3 +15,4 @@ const getConfigFrom = (): 0 | 1 | 2 => {
     return 0
 }
 module.exports = getConfigFrom()
+export {}

@@ -68,7 +68,7 @@ function mapTemplate(tmp: string, data: AnyFunction | AnyObject): string | null 
             if (typeof data === 'function') {
                 return data(b)
             }
-            for (let k in data) {
+            for (const k in data) {
                 if (b === k) {
                     return data[k]
                 }
@@ -133,7 +133,7 @@ function wait(list: Array<CommandType | string>, fun: QueueStartFunction) {
  * @description 脚本执行主程序
  * @param {Array} list 脚本序列
  */
-function queue(list: Array<CommandType | string>) {
+function queue(list: Array<CommandType | string>): Promise<QueueReturnsType[]> {
     return new Promise((resolve, reject) => {
         const returns: QueueReturnsType[] = []
         if (list.length === 0) reject('指令名称不能为空')
@@ -288,7 +288,7 @@ function getStatus(): boolean {
  * @description 获取日志
  * @returns {Array} true 返回列表
  */
-function getLogs(config: any = {}) {
+function getLogs(config: any = {}): GitLogType[] {
     const { lastet, limit, branches } = config
     const keys = [
         '%H',
@@ -373,7 +373,7 @@ function getLogs(config: any = {}) {
  * @returns {Boolean} true 返回true/false
  */
 async function checkBranch(name: string): Promise<string> {
-    const data = (await queue([`gitm branch -k ${name}`])) as QueueReturnsType[]
+    const data = await queue([`gitm branch -k ${name}`])
     return data[0].out.replace(/^\s+/, '')
 }
 // function checkBranch(name) {
@@ -397,7 +397,7 @@ function getCurrent(): string {
  * @returns array 返回列表数组
  */
 async function searchBranch(key: string, type: GitmarsBranchType, remote = false): Promise<string[]> {
-    const data = ((await queue([`gitm branch${key ? ' -k ' + key : ''}${type ? ' -t ' + type : ''}${remote ? ' -r' : ''}`])) as QueueReturnsType[])[0].out.replace(/^\*\s+/, '')
+    const data = (await queue([`gitm branch${key ? ' -k ' + key : ''}${type ? ' -t ' + type : ''}${remote ? ' -r' : ''}`]))[0].out.replace(/^\*\s+/, '')
     let arr = data ? data.split('\n') : []
     arr = arr.map(el => el.trim())
     return arr
@@ -485,7 +485,7 @@ function filterBranch(key: string, types: string, remote = false): string[] {
  * @returns {String} 返回名称
  */
 async function getStashList(key: string) {
-    const data = ((await queue(['git stash list'])) as QueueReturnsType[])[0].out.replace(/^\*\s+/, '')
+    const data = (await queue(['git stash list']))[0].out.replace(/^\*\s+/, '')
     const list: string[] = (data && data.split('\n')) || []
     const arr: {
         key: string
@@ -522,11 +522,11 @@ function getMessage(type: string): string {
     const { root } = gitRevParse()
     const { appName } = getGitConfig()
     const config = getConfig()
-    let str = '',
-        d = new Date()
+    const d = new Date()
+    let str = ''
     switch (type) {
         case 'time':
-            str = d
+            str = d.toLocaleString()
             break
         case 'timeNum':
             str = String(d.getTime())
@@ -551,24 +551,24 @@ function getMessage(type: string): string {
  * postMessage
  * @description 生成消息
  */
-function postMessage(msg: string = '') {
+function postMessage(msg = ''): void {
     const config = getConfig()
     if (!config.msgTemplate) {
         sh.echo(error('请配置消息发送api模板地址'))
         return
     }
-    let message = mapTemplate(config.msgTemplate, key => {
+    const message = mapTemplate(config.msgTemplate, key => {
         if (key === 'message') return msg
         return getMessage(key)
     })
-    config.msgUrl && sendMessage(message)
+    config.msgUrl && message && sendMessage(message)
 }
 
 /**
  * sendMessage
  * @description 发送消息
  */
-function sendMessage(message: string = '', cfg = {} as SendMessageType): void {
+function sendMessage(message = '', cfg = {} as SendMessageType): void {
     const config = getConfig()
     const { silent = true } = cfg
     if (!config.msgUrl) {
@@ -637,19 +637,19 @@ function getCommandMessage(cmd: string): CommandMessageType {
 
 /**
  * @description compareVersion版本号大小对比
- * @param appName {String} app名称
- * @param compareVer {String} 必传 需要对比的版本号
- * @param userAgent {String} ua，可不传，默认取navigator.appVersion
- * @return {Boolean|null} null/true/false
+ * @param appName - app名称
+ * @param compareVer - 必传 需要对比的版本号
+ * @param userAgent - ua，可不传，默认取navigator.appVersion
+ * @return null/true/false
  */
 function compareVersion(basicVer: string, compareVer: string): boolean | null {
     if (basicVer === null) return null
     basicVer = basicVer + '.'
     compareVer = compareVer + '.'
-    let bStr = parseFloat(basicVer),
-        cStr = parseFloat(compareVer),
-        bStrNext = parseFloat(basicVer.replace(bStr + '.', '')) || 0,
-        cStrNext = parseFloat(compareVer.replace(cStr + '.', '')) || 0
+    const bStr = parseFloat(basicVer)
+    const cStr = parseFloat(compareVer)
+    const bStrNext = parseFloat(basicVer.replace(bStr + '.', '')) || 0
+    const cStrNext = parseFloat(compareVer.replace(cStr + '.', '')) || 0
     if (cStr > bStr) {
         return false
     } else if (cStr < bStr) {
@@ -668,7 +668,7 @@ function compareVersion(basicVer: string, compareVer: string): boolean | null {
  * @description 获取包含commitID的分支
  * @returns {Array} 返回数组
  */
-function getBranchsFromID(commitID: string, remote: boolean = false): string[] {
+function getBranchsFromID(commitID: string, remote = false): string[] {
     const out = sh.exec(`git branch ${remote ? '-r' : ''} --contains ${commitID} --format="%(refname:short)`, { silent: true }).stdout.replace(/(^\s+|\n*$)/g, '') // 去除首尾
     return out ? out.split('\n') : []
 }
@@ -679,7 +679,7 @@ function getBranchsFromID(commitID: string, remote: boolean = false): string[] {
  * @returns {String} 返回字符串
  */
 function getGitUser(): string {
-    return sh.exec(`git config user.name`, { silent: true }).stdout.replace(/(^\s+|\n*$)/g, '') // 去除首尾
+    return sh.exec('git config user.name', { silent: true }).stdout.replace(/(^\s+|\n*$)/g, '') // 去除首尾
 }
 
 /**
@@ -688,7 +688,7 @@ function getGitUser(): string {
  * @returns {String} 返回字符串
  */
 function getGitEmail(): string {
-    return sh.exec(`git config user.email`, { silent: true }).stdout.replace(/(^\s+|\n*$)/g, '') // 去除首尾
+    return sh.exec('git config user.email', { silent: true }).stdout.replace(/(^\s+|\n*$)/g, '') // 去除首尾
 }
 
 /**
@@ -697,7 +697,7 @@ function getGitEmail(): string {
  * @returns {String} 返回字符串
  */
 function isGitProject(): boolean {
-    return sh.exec(`git rev-parse --is-inside-work-tree`, { silent: true }).stdout.includes('true')
+    return sh.exec('git rev-parse --is-inside-work-tree', { silent: true }).stdout.includes('true')
 }
 
 module.exports = {

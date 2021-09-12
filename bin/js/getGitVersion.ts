@@ -21,3 +21,4 @@ function getGitVersion(): string | void {
 }
 
 module.exports = getGitVersion
+export {}

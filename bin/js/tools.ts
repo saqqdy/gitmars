@@ -19,7 +19,7 @@ function success(txt: string): string {
  */
 function writeFile(url: string, data: string): Promise<Error | boolean> {
     return new Promise((resolve, reject) => {
-        fs.writeFile(url, data, err => {
+        fs.writeFile(url, data, (err: any) => {
             if (err) {
                 reject(new Error('文件写入错误'))
             } else {
@@ -34,7 +34,7 @@ function writeFile(url: string, data: string): Promise<Error | boolean> {
  * @description 生成参数
  */
 function createArgs(args: GitmarsOptionArgsType[]): string {
-    let argArr: string[] = []
+    const argArr: string[] = []
     args.forEach(arg => {
         let str = arg.name
         if (arg.variadic) str += '...'

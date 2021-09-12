@@ -6,6 +6,8 @@ export interface AnyFunction extends AnyObject {
     (...args: any[]): any
 }
 
+export type ValueOf<T> = T extends ReadonlyArray<any> ? T[number] : T[keyof T]
+
 // export function GitmarsOptionFunctionType(val: string, opts: object, cb: any): void
 
 export type GitmarsBranchType = 'feature' | 'bugfix' | 'support'

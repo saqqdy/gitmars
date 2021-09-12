@@ -2,9 +2,9 @@
 const { program } = require('commander')
 const sh = require('shelljs')
 const { options, args } = require('./conf/hook')
-const { error, warning, success, getCurrent, getBranchsFromID, isGitProject } = require('./js/index')
+const { error, success, getCurrent, getBranchsFromID, isGitProject } = require('./js/index')
 const { createArgs } = require('./js/tools')
-const { init, remove, getIsMergedBranch, getIsUpdatedInTime, getIsMergeAction, getBehandLogs, getAheadLogs } = require('./js/hook/index')
+const { init, remove, getIsMergedBranch, getIsUpdatedInTime, getIsMergeAction, getBehandLogs } = require('./js/hook/index')
 if (!isGitProject()) {
     sh.echo(error('当前目录不是git项目目录'))
     sh.exit(1)
@@ -55,7 +55,6 @@ program.action(async (command: string, args: string[], opt: GitmBuildOption): Pr
         const types: string[] = opt.type ? opt.type.split(',') : []
         const mainBranchs = [config.master, config.develop, config.release, config.support, config.bugfix]
         const current = getCurrent()
-        const currentPrefix = current.split('/')[0]
         // GIT_REFLOG_ACTION: 'merge feature/wu',   说明走的是pre-merge-commit钩子，没有冲突的时候才会走这里
 
         // [1,2]
