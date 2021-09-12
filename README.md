@@ -8,8 +8,6 @@
 [![David deps][david-image]][david-url]
 [![Known Vulnerabilities][snyk-image]][snyk-url]
 [![npm download][download-image]][download-url]
-[![cdnjs][cdnjs-image]][cdnjs-url]
-[![gzip][gzip-image]][gzip-url]
 [![License][license-image]][license-url]
 
 [npm-image]: https://img.shields.io/npm/v/gitmars.svg?style=flat-square
@@ -24,10 +22,6 @@
 [snyk-url]: https://snyk.io/test/npm/gitmars
 [download-image]: https://img.shields.io/npm/dm/gitmars.svg?style=flat-square
 [download-url]: https://npmjs.org/package/gitmars
-[cdnjs-image]: https://img.shields.io/cdnjs/v/gitmars.svg
-[cdnjs-url]: https://cdnjs.com/libraries/gitmars
-[gzip-image]: http://img.badgesize.io/https://unpkg.com/gitmars/lib/index.js?compression=gzip&label=gzip%20size:%20JS
-[gzip-url]: http://img.badgesize.io/https://unpkg.com/gitmars/lib/index.js?compression=gzip&label=gzip%20size:%20JS
 [license-image]: https://img.shields.io/badge/License-MIT-yellow.svg
 [license-url]: LICENSE
 
