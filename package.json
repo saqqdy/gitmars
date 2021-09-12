@@ -45,7 +45,7 @@
     "dependencies": {
         "ci-info": "^3.2.0",
         "colors": "^1.4.0",
-        "commander": "8.1.0",
+        "commander": "8.2.0",
         "cookie-parser": "^1.4.5",
         "cosmiconfig": "^7.0.0",
         "debug": "^4.3.2",
@@ -102,10 +102,10 @@
         "rollup-plugin-terser": "^7.0.2",
         "rollup-plugin-typescript2": "^0.30.0",
         "rollup-plugin-visualizer": "^5.5.2",
-        "typedoc": "^0.21.9",
+        "typedoc": "^0.22.3",
         "typedoc-plugin-markdown": "^3.10.4",
         "typescript": "^4.4.2",
-        "uglify-js": "3.14.1",
+        "uglify-js": "3.14.2",
         "vuepress": "^1.8.2",
         "vuepress-plugin-container": "^2.1.4",
         "vuepress-plugin-smooth-scroll": "^0.0.10"
