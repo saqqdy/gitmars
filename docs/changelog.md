@@ -1,3 +1,7 @@
+# 2021.09.12 v2.5.1 更新日志
+
+1. `upgrade`指令的`version`参数支持输入 tag 名称：`alpha`、`beta`、`release`、`lite`、`latest`、`next`、`x.x.x`，默认值为`latest`
+
 # 2021.09.12 v2.5.0 更新日志
 
 1. typescript 重构项目
