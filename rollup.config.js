@@ -1,11 +1,12 @@
 import fs from 'fs'
 import path from 'path'
 import resolve from '@rollup/plugin-node-resolve'
-import babel from '@rollup/plugin-babel'
+// import babel from '@rollup/plugin-babel'
 import json from '@rollup/plugin-json'
-import commonjs from '@rollup/plugin-commonjs'
+import esbuild from 'rollup-plugin-esbuild'
+// import commonjs from '@rollup/plugin-commonjs'
 import { terser } from 'rollup-plugin-terser'
-import typescript from 'rollup-plugin-typescript2'
+// import typescript from 'rollup-plugin-typescript2'
 import shebang from 'rollup-plugin-preserve-shebang'
 import { visualizer } from 'rollup-plugin-visualizer'
 import pkg from './package.json'
@@ -13,7 +14,7 @@ import pkg from './package.json'
 const config = require('./config')
 const deps = Object.keys(pkg.dependencies)
 
-let fileList = []
+let cjsList = []
 const readDir = entry => {
     const dirInfo = fs.readdirSync(entry)
     dirInfo.forEach(item => {
@@ -27,7 +28,7 @@ const readDir = entry => {
     })
 }
 const getInfo = url => {
-    fileList.push(url)
+    cjsList.push(url)
 }
 readDir('./bin')
 
@@ -37,7 +38,7 @@ const getOutFile = (name, dir = 'lib') => {
 
 const production = !process.env.ROLLUP_WATCH
 
-export default fileList.map(filePath => ({
+export default cjsList.map(filePath => ({
     input: path.resolve(__dirname, filePath),
     output: [
         // {
@@ -57,28 +58,29 @@ export default fileList.map(filePath => ({
     plugins: [
         resolve({ extensions: config.extensions, preferBuiltins: false }),
         shebang(),
-        commonjs({
-            sourceMap: false
-        }),
+        // commonjs({
+        //     sourceMap: false
+        // }),
         json(),
-        typescript({
-            tsconfigOverride: {
-                compilerOptions: {
-                    declaration: false,
-                    target: 'es6'
-                },
-                include: ['src/**/*.ts'],
-                exclude: ['node_modules', '__tests__', 'core-js', 'js-cool', 'axios']
-            },
-            abortOnError: false
-        }),
-        babel({
-            babelHelpers: 'bundled',
-            extensions: config.extensions,
-            exclude: [/\/core-js\//, 'node_modules/**'],
-            // runtimeHelpers: true,
-            sourceMap: true
-        }),
+        // typescript({
+        //     tsconfigOverride: {
+        //         compilerOptions: {
+        //             declaration: false,
+        //             target: 'es6'
+        //         },
+        //         include: ['bin/**/*.ts'],
+        //         exclude: ['node_modules', '__tests__', 'core-js', 'js-cool', 'axios']
+        //     },
+        //     abortOnError: false
+        // }),
+        // babel({
+        //     babelHelpers: 'bundled',
+        //     extensions: config.extensions,
+        //     exclude: [/\/core-js\//, 'node_modules/**'],
+        //     // runtimeHelpers: true,
+        //     sourceMap: true
+        // }),
+        esbuild(),
         visualizer(),
         terser()
     ],
