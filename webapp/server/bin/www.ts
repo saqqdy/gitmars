@@ -30,8 +30,8 @@ server.on('listening', onListening)
  * Normalize a port into a number, string, or false.
  */
 
-function normalizePort(val) {
-	var port = parseInt(val, 10)
+function normalizePort(val:string|number) {
+	var port = parseInt(String(val), 10)
 
 	if (isNaN(port)) {
 		// named pipe
@@ -50,7 +50,7 @@ function normalizePort(val) {
  * Event listener for HTTP server "error" event.
  */
 
-function onError(error) {
+function onError(error:any) {
 	if (error.syscall !== 'listen') {
 		throw error
 	}

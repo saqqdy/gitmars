@@ -1,6 +1,6 @@
 {
-	"extends": "../tsconfig.json",
-	"include": ["../typings", "./*.d.ts"],
+	"extends": "../../tsconfig.json",
+	"include": ["../../typings", "./**/*.d.ts", "./**/*.ts"],
 	"exclude": ["**/node_modules/**", "**/__tests__"],
 	"compilerOptions": {
 		// compile away optional-chaining-operator
