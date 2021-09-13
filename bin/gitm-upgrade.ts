@@ -24,8 +24,17 @@ options.forEach((o: GitmarsOptionOptionsType) => {
 // .option('-m, --mirror', '是否使用淘宝镜像', false)
 program.action(async (version: string, opt: GitmBuildOption) => {
     const spinner = ora(success('正在安装请稍后')).start()
-    const match = (version && version.match(/[0-9.]+$/)) || null
-    const cmdAdd: any[] = ['npm', ['install', '-g', `gitmars@${match ? match[0] : 'latest'}`]]
+    if (version) {
+        const match = version.match(/[0-9.]+$/)
+        if (match) version = match[0]
+        else if (!['alpha', 'lite', 'beta', 'release', 'latest', 'next'].includes(version)) {
+            console.error('输入的版本号不正确')
+            sh.exit(0)
+        }
+    } else {
+        version = 'latest'
+    }
+    const cmdAdd: any[] = ['npm', ['install', '-g', `gitmars@${version}`]]
     const cmdDel = ['npm', ['uninstall', '-g', 'gitmars']]
     if (opt.mirror) cmdAdd[1] = cmdAdd[1].concat(['-registry', 'https://registry.npm.taobao.org'])
     const uninstall = spawnSync(cmdDel[0], cmdDel[1], { stdio: 'inherit', shell: process.platform === 'win32' /*, env: { detached: true }*/ })
