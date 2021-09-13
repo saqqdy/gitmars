@@ -17,6 +17,12 @@ selenium-debug.log
 .env.test.local
 .env.production.local
 
+/lib
+/es
+*.bak
+*_bak
+*.bak.js
+
 # testing
 /coverage
 
@@ -35,9 +41,6 @@ yarn-error.log*
 *.njsproj
 *.sln
 *.sw*
-*.bak
-*_bak
-*.bak.js
 cache/*
 !cache/.gitkeep
 /stats.html
