@@ -10,7 +10,7 @@ if (!isGitProject()) {
 }
 const getConfig = require('./js/getConfig')
 const getGitConfig = require('./js/getGitConfig')
-const { getUserToken } = require('./js/api')
+const getUserToken = require('./js/api')
 const { defaults } = require('./js/global')
 const config = getConfig()
 const { appName } = getGitConfig()

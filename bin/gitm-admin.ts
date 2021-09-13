@@ -2,7 +2,7 @@
 const { Command } = require('commander')
 const sh = require('shelljs')
 const { create, publish, update, clean } = require('./conf/admin')
-const { getUserToken } = require('./js/api')
+const getUserToken = require('./js/api')
 const { error, success, queue, getStatus, checkBranch, getCurrent, isGitProject } = require('./js/index')
 const { createArgs } = require('./js/tools')
 if (!isGitProject()) {
