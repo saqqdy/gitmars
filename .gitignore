@@ -19,6 +19,7 @@ selenium-debug.log
 
 /lib
 /es
+/server/webapp
 *.bak
 *_bak
 *.bak.js
