@@ -12,7 +12,10 @@ function homedir() {
 		return home || (user ? '/Users/' + user : null)
 	}
 	if (process.platform === 'linux') {
-		return home || (process.getuid() === 0 ? '/root' : user ? '/home/' + user : null)
+		if (home) return home
+		else if (process.getuid() === 0) return '/root'
+		else if (user) return '/home/' + user
+		return null
 	}
 	return home || null
 }

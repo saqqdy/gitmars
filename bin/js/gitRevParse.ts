@@ -16,7 +16,7 @@ export interface GitProjectRevParseType {
  * @returns {Object} arr 返回对象
  */
 function gitRevParse(cwd: string = process.cwd()): GitProjectRevParseType {
-    const result = sh.exec('git rev-parse --show-toplevel --show-prefix --git-common-dir --absolute-git-dir --show-cdup', { silent: true }).stdout.replace(/[\s]*$/g, '')
+    const result = sh.exec('git rev-parse --show-toplevel --show-prefix --git-common-dir --absolute-git-dir --show-cdup', { silent: true }).stdout.replace(/\s+$/g, '')
     const [root, prefix, gitCommonDir, gitDir, cdup = ''] = result
         .split('\n')
         .map((s: string) => s.trim())

@@ -8,7 +8,7 @@
 					<div class="ttl">
 						<span>
 							{{ item.name }}
-							<i></i>
+							<span class="tg"><span>
 						</span>
 						<p>{{ item.path }}</p>
 					</div>
@@ -112,7 +112,7 @@ defineExpose({
 				span {
 					font-weight: bold;
 				}
-				span i {
+				span .tg {
 					display: inline-block;
 					padding: 4px;
 					border-radius: 50%;

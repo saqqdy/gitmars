@@ -38,12 +38,12 @@ program.action((opt: GitmBuildOption): void => {
     const cmd: Array<CommandType | string> = []
     if (opt.delete) {
         // 删除分支
-        const id = sh.exec(`git rev-parse --verify ${opt.delete}`, { silent: true }).stdout.replace(/[\s]*$/g, '')
+        const id = sh.exec(`git rev-parse --verify ${opt.delete}`, { silent: true }).stdout.replace(/\s+$/g, '')
         if (/^[a-z0-9]+$/.test(id)) cmd.push(`git branch -d ${opt.delete}`)
         if (opt.remote) cmd.push(`git push origin --delete ${opt.delete}`)
     } else if (opt.forcedelete) {
         // 强行删除分支
-        const id = sh.exec(`git rev-parse --verify ${opt.delete}`, { silent: true }).stdout.replace(/[\s]*$/g, '')
+        const id = sh.exec(`git rev-parse --verify ${opt.delete}`, { silent: true }).stdout.replace(/\s+$/g, '')
         if (/^[a-z0-9]+$/.test(id)) cmd.push(`git branch -D ${opt.forcedelete}`)
         if (opt.remote) cmd.push(`git push origin --delete ${opt.delete}`)
     } else if (opt.upstream) {
