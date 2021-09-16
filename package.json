@@ -11,14 +11,14 @@
         "server:super": "supervisor app/bin/www",
         "lib": "sh script/lib.sh",
         "build:ui": "sh script/build-ui.sh",
-        "build:server": "sh script/build-server.sh",
+        "build:server": "rimraf app && sh script/build-server.sh",
         "build": "rimraf lib es && node --max-old-space-size=8192 node_modules/.bin/rollup -c",
         "build:types": "run-s build-temp-types roll-types",
         "build-temp-types": "tsc --emitDeclarationOnly --outDir temp/ -p bin/",
         "patch-types": "node script/patchTypes",
         "roll-types": "api-extractor run && rimraf temp",
         "dev": "rollup -c -w",
-        "dist": "run-s eslint prettier build build:ui build:server",
+        "dist": "run-s eslint prettier build build:server build:ui",
         "docs": "rimraf docs && typedoc",
         "eslint": "eslint --fix --ext .ts,.js",
         "prettier": "prettier --write \"**/*.{js,ts,json,md}\"",
@@ -29,18 +29,20 @@
         "gitm": "lib/gitm.js"
     },
     "files": [
+        "app",
         "cache",
         "lib",
-        "server",
         "typings"
     ],
     "directories": {
+        "app": "app",
         "bin": "bin",
         "es": "es",
         "lib": "lib",
         "src": "src",
         "cache": "cache",
         "server": "server",
+        "ui": "ui",
         "typings": "typings"
     },
     "dependencies": {

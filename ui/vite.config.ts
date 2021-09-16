@@ -18,6 +18,9 @@ export default defineConfig({
 		})
 	],
 	base: '/',
+	build: {
+		outDir: '../app/www'
+	},
 	resolve: {
 		alias: {
 			'@': path.resolve(__dirname, 'src'),
