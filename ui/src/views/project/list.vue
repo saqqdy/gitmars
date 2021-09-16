@@ -8,7 +8,7 @@
 					<div class="ttl">
 						<span>
 							{{ item.name }}
-							<span class="tg"><span>
+							<span class="tg"></span>
 						</span>
 						<p>{{ item.path }}</p>
 					</div>

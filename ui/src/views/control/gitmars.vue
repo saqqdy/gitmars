@@ -64,7 +64,7 @@
 			<div class="main">
 				<h3>
 					<span>
-						<span class="iconfont icon-layout"><span>
+						<span class="iconfont icon-layout"></span>
 						当前分支：{{ data.current }}
 					</span>
 					<p>{{ data.project.path }}</p>

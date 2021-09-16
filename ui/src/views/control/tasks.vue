@@ -19,7 +19,7 @@
 			<div class="main">
 				<h3>
 					<span>
-						<span class="iconfont icon-layout"><span> 当前分支：
+						<span class="iconfont icon-layout"></span> 当前分支：
 					</span>
 					<p>{{ data.project.path }}</p>
 				</h3>

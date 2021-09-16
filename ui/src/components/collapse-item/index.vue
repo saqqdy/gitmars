@@ -16,7 +16,7 @@
 				@blur="focusing = false"
 			>
 				<slot name="title">{{ title }}</slot>
-				<span class="v3-collapse-item__arrow iconfont icon-right" :class="{ 'is-active': isActive }"> <span>
+				<span class="v3-collapse-item__arrow iconfont icon-right" :class="{ 'is-active': isActive }"> </span>
 			</div>
 		</div>
 		<!-- <v3-collapse-transition> -->
