@@ -21,8 +21,8 @@ export default defineConfig({
 	resolve: {
 		alias: {
 			'@': path.resolve(__dirname, 'src'),
-			gitmLib: path.resolve(__dirname, '../../lib'),
-			server: path.resolve(__dirname, '../server'),
+			gitmLib: path.resolve(__dirname, '../lib'),
+			server: path.resolve(__dirname, '../app'),
 			'socket.io-client': 'socket.io-client/dist/socket.io.js'
 		}
 	},

@@ -1,0 +1,20 @@
+{
+	"extends": "../../tsconfig.json",
+	"include": ["../../typings", "./**/*.d.ts", "./**/*.ts"],
+	"exclude": ["**/node_modules/**", "**/__tests__"],
+	"compilerOptions": {
+		// compile away optional-chaining-operator
+		"target": "es6",
+		"baseUrl": ".",
+		"paths": {
+			"@/*": ["src/*"],
+			"@/package": ["./package.json"]
+		},
+		"outDir": "../../app/",
+		"rootDirs": ["bin", "db", "lib", "public", "routes", "socket", "views"],
+		"module": "commonjs",
+		"declaration": false,
+		"lib": ["es5", "es6", "dom", "es2015.core", "es2015.collection", "es2015.generator", "es2015.iterable", "es2015.promise", "es2015.proxy", "es2015.reflect", "es2015.symbol", "es2015.symbol.wellknown", "esnext.asynciterable"],
+		"sourceMap": false
+	}
+}
