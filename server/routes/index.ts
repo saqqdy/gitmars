@@ -35,3 +35,4 @@ router.get('/update', function (req, res) {
 })
 
 module.exports = router
+export {}

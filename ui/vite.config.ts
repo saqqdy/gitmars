@@ -18,11 +18,14 @@ export default defineConfig({
 		})
 	],
 	base: '/',
+	build: {
+		outDir: '../app/www'
+	},
 	resolve: {
 		alias: {
 			'@': path.resolve(__dirname, 'src'),
 			gitmLib: path.resolve(__dirname, '../lib'),
-			server: path.resolve(__dirname, '../server'),
+			server: path.resolve(__dirname, '../app'),
 			'socket.io-client': 'socket.io-client/dist/socket.io.js'
 		}
 	},

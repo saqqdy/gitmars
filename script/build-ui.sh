@@ -11,6 +11,6 @@ yarn run build
 
 cd -
 
-mkdir -p server/webapp
-rm -rf server/webapp/*
-mv ui/dist/* server/webapp/
+# mkdir -p app/www
+# rm -rf app/www/*
+# mv ui/dist/* app/www/

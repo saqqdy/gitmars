@@ -2,7 +2,7 @@
 var os = require('os')
 
 function homedir() {
-	var env = process.env,
+	var env = process.env as any,
 		home = env.HOME,
 		user = env.LOGNAME || env.USER || env.LNAME || env.USERNAME
 	if (process.platform === 'win32') {
@@ -18,3 +18,4 @@ function homedir() {
 }
 
 module.exports = typeof os.homedir === 'function' ? os.homedir : homedir
+export {}

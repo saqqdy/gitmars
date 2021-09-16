@@ -1,6 +1,5 @@
 import type { Terminal } from 'xterm'
 
-
 export interface TermType {
 	[prop: string]: any
 }
