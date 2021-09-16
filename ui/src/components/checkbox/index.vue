@@ -1,6 +1,6 @@
 <template>
 	<span :class="'v3-checkbox ' + size" @click.stop="changeStatus">
-		<span class="iconfont" :class="{ 'icon-border': !status, 'icon-check-square': status, disabled: disabled }"><span>
+		<span class="iconfont" :class="{ 'icon-border': !status, 'icon-check-square': status, disabled: disabled }"></span>
 		<span><slot></slot></span>
 	</span>
 </template>
