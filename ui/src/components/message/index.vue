@@ -8,13 +8,13 @@
 		@mouseleave="startTimer"
 		role="alert"
 	>
-		<i :class="iconClass" v-if="iconClass"></i>
-		<i :class="typeClass" v-else></i>
+		<span :class="iconClass" v-if="iconClass"></span>
+		<span :class="typeClass" v-else></span>
 		<slot>
 			<p v-if="!dangerouslyUseHTMLString" class="v3-message__content">{{ message }}</p>
 			<p v-else v-html="message" class="v3-message__content"></p>
 		</slot>
-		<i v-if="showClose" class="v3-message__closeBtn v3-icon-close" @click="close"></i>
+		<span v-if="showClose" class="v3-message__closeBtn v3-icon-close" @click="close"></span>
 	</div>
 	<!-- </transition> -->
 </template>

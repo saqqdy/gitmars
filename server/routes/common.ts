@@ -44,7 +44,7 @@ router.post('/project/add', (req, res, next) => {
 	dir = dir.split(path.sep).join('/')
 	id = uuidv4()
 	process.chdir(dir)
-	url = sh.exec(`git config --local --get remote.origin.url`, { silent: true }).stdout.replace(/[\s]*$/g, '')
+	url = sh.exec(`git config --local --get remote.origin.url`, { silent: true }).stdout.replace(/\s+$/g, '')
 	name = url ? url.replace(/^[\s\S]+\/([\w-]+)\.git$/, '$1') : dir.replace(/^[\s\S]+\/([\w-]+)$/, '$1')
 	process.chdir(cwd)
 	db.get('projects').push({ id, name, path: dir }).write()

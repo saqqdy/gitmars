@@ -27,7 +27,7 @@ router.get('/cd', function (req, res, next) {
 })
 
 // router.get('/result', function (req, res, next) {
-// 	let out = sh.exec(decodeURIComponent(req.query.cmd) + '&& pwd', { silent: true }).stdout.replace(/[\s]*$/g, '')
+// 	let out = sh.exec(decodeURIComponent(req.query.cmd) + '&& pwd', { silent: true }).stdout.replace(/\s+$/g, '')
 // 	res.status(200).send({ data: out, success: true, code: 1, msg: 'success' })
 // })
 

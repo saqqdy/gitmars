@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+#!/usr/bin/env ts-node
 const { program } = require('commander')
 const { spawnSync } = require('child_process')
 const sh = require('shelljs')
