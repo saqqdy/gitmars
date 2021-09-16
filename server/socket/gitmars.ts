@@ -1,6 +1,6 @@
 // const pty = require('node-pty')
-const sh = require('shelljs')
-const os = require('os')
+// const sh = require('shelljs')
+// const os = require('os')
 const home = require('../lib/home')()
 const { getCurrent, searchBranchs } = require('../../lib/js/index')
 let glob = {},
@@ -54,3 +54,4 @@ module.exports = socket => {
 		socket.removeAllListeners(name + '-current')
 	})
 }
+export {}

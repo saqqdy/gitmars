@@ -1,9 +1,9 @@
-lib
-dist
-docs
-server
-ui
-cache/*
+/lib
+/dist
+/docs
+/app
+/ui
+/cache/*
 
 *.bak
 *_bak
