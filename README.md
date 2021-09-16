@@ -10,6 +10,8 @@
 [![npm download][download-image]][download-url]
 [![License][license-image]][license-url]
 
+[![Sonar][sonar-image]][sonar-url]
+
 [npm-image]: https://img.shields.io/npm/v/gitmars.svg?style=flat-square
 [npm-url]: https://npmjs.org/package/gitmars
 [travis-image]: https://travis-ci.com/saqqdy/gitmars.svg?branch=master
@@ -24,6 +26,8 @@
 [download-url]: https://npmjs.org/package/gitmars
 [license-image]: https://img.shields.io/badge/License-MIT-yellow.svg
 [license-url]: LICENSE
+[sonar-image]: https://sonarcloud.io/api/project_badges/quality_gate?project=saqqdy_gitmars
+[sonar-url]: https://sonarcloud.io/dashboard?id=saqqdy_gitmars
 
 > 1. gitmars 每一个子命令都带了 help 功能，可输入 gitm [command] --help 获取对应指令的帮助
 > 2. <type>意思是 type 必传；[type]意思是 type 选填；[-a --app [app]]其中-a 是--app 的简写，后面[app]指的是-a 后面的传值
