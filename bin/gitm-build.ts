@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+#!/usr/bin/env ts-node
 const { program } = require('commander')
 const { options, args } = require('./conf/build')
 const { createArgs } = require('./js/tools')

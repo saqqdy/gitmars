@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+#!/usr/bin/env ts-node
 const { program } = require('commander')
 const { version } = require('../package.json')
 const sh = require('shelljs')
