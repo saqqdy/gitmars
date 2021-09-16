@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+#!/usr/bin/env ts-node
 const { Command } = require('commander')
 const sh = require('shelljs')
 const { create, publish, update, clean } = require('./conf/admin')
