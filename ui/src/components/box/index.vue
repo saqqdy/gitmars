@@ -21,9 +21,9 @@
 			<div class="v3-box-ico">
 				<div class="v3-box-filter"></div>
 				<!-- <slot name="filter"></slot> -->
-				<i class="v3-box-max iconfont icon-tuichuquanping" title="恢复默认" @click="handleMax" v-if="showMax && data.max"></i>
-				<i class="v3-box-max iconfont icon-quanping" title="最大化" @click="handleMax" v-if="showMax && !data.max"></i>
-				<i class="v3-box-close iconfont icon-close" title="关闭" @click="handleClose" v-if="showClose"></i>
+				<span class="v3-box-max iconfont icon-tuichuquanping" title="恢复默认" @click="handleMax" v-if="showMax && data.max"><span>
+				<span class="v3-box-max iconfont icon-quanping" title="最大化" @click="handleMax" v-if="showMax && !data.max"><span>
+				<span class="v3-box-close iconfont icon-close" title="关闭" @click="handleClose" v-if="showClose"><span>
 			</div>
 		</div>
 	</transition>
@@ -305,7 +305,7 @@ export default {
 		justify-content: flex-end;
 		box-sizing: border-box;
 		flex-wrap: 10px;
-		i {
+		span {
 			width: 30px;
 			height: 30px;
 			line-height: 100%;
