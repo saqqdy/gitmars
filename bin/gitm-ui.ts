@@ -10,7 +10,7 @@ const { createArgs } = require('./js/tools')
 import { GitmarsOptionOptionsType } from '../typings'
 
 interface GitmBuildOption {
-    port: number
+    port?: number
 }
 
 /**

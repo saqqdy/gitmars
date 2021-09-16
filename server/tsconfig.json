@@ -1,6 +1,6 @@
 {
-	"extends": "../../tsconfig.json",
-	"include": ["../../typings", "./**/*.d.ts", "./**/*.ts"],
+	"extends": "../tsconfig.json",
+	"include": ["../typings", "./**/*.d.ts", "./**/*.ts"],
 	"exclude": ["**/node_modules/**", "**/__tests__"],
 	"compilerOptions": {
 		// compile away optional-chaining-operator
@@ -10,7 +10,7 @@
 			"@/*": ["src/*"],
 			"@/package": ["./package.json"]
 		},
-		"outDir": "../../app/",
+		"outDir": "../app/",
 		"rootDirs": ["bin", "db", "lib", "public", "routes", "socket", "views"],
 		"module": "commonjs",
 		"declaration": false,
