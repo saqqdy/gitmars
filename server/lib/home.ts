@@ -1,5 +1,4 @@
-'use strict'
-var os = require('os')
+const os = require('os')
 
 function homedir() {
 	var env = process.env as any,
