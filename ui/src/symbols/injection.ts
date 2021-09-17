@@ -1,4 +1,4 @@
-import { InjectionKey, Ref } from 'vue'
+import { InjectionKey } from 'vue'
 
 export interface TerminalInjection {
 	getTerminal?(id: string, cwd: string): any

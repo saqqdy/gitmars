@@ -14,5 +14,5 @@ cd -
 mkdir -p app/public
 mkdir -p app/views
 cp server/db/db.json app/db/
-cp server/public/* app/public/
-cp server/views/* app/views/
+cp -rf server/public/* app/public/
+cp -rf server/views/* app/views/
