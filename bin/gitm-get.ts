@@ -27,7 +27,10 @@ options.forEach((o: GitmarsOptionOptionsType) => {
 program.action(async (message: string, index: string, opt: GitmBuildOption) => {
     if (!message) message = getCurrent()
     const list = await getStashList(message)
-    if (list.length === 0) sh.echo(warning('该分支没有暂存任何文件！'))
+    if (list.length === 0) {
+        sh.echo(warning('该分支没有暂存任何文件！'))
+        sh.exit(0)
+    }
     if (index === undefined && list.length > 1) sh.echo(warning(`该分支下有${list.length}条暂存记录，默认恢复最近的一条记录`))
     if (list.length > 2) sh.echo(warning(`该分支下有${list.length}条暂存记录，建议定期清理不必要的暂存记录！`))
     queue([
@@ -38,7 +41,8 @@ program.action(async (message: string, index: string, opt: GitmBuildOption) => {
                 success: '文件恢复成功',
                 fail: '恢复失败，请检查冲突'
             }
-        }
+        },
+        'git reset -q HEAD -- .'
     ])
 })
 program.parse(process.argv)

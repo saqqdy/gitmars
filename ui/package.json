@@ -14,7 +14,7 @@
 		"axios": "^0.21.1",
 		"core-js": "^3.12.1",
 		"dayjs": "^1.10.4",
-		"element-plus": "^1.1.0-beta.6",
+		"element-plus": "^1.1.0-beta.12",
 		"js-cool": "^2.0.1",
 		"qs": "^6.10.1",
 		"socket.io-client": "^4.1.3",

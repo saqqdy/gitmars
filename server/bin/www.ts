@@ -1,27 +1,19 @@
 #!/usr/bin/env node
 
-/**
- * Module dependencies.
- */
-
-var app = require('../app'),
-	debug = require('debug')('server:server'),
-	http = require('http'),
-	port = normalizePort(process.env.PORT || '3000') // Get port from environment and store in Express.
+// Module dependencies.
+const app = require('../app')
+const debug = require('debug')('server:server')
+const http = require('http')
+const port = normalizePort(process.env.PORT || '3000') // Get port from environment and store in Express.
 const createSocketServer = require('../socket/index')
 
 app.set('port', port)
 
-/**
- * Create HTTP server.
- */
-var server = http.createServer(app)
+// Create HTTP server.
+const server = http.createServer(app)
 createSocketServer(server)
 
-/**
- * Listen on provided port, on all network interfaces.
- */
-
+// Listen on provided port, on all network interfaces.
 server.listen(port)
 server.on('error', onError)
 server.on('listening', onListening)
@@ -29,34 +21,23 @@ server.on('listening', onListening)
 /**
  * Normalize a port into a number, string, or false.
  */
-
-function normalizePort(val: string | number) {
-	var port = parseInt(String(val), 10)
-
-	if (isNaN(port)) {
-		// named pipe
-		return val
-	}
-
-	if (port >= 0) {
-		// port number
-		return port
-	}
-
+function normalizePort(val: string | number): boolean | number | string {
+	const port = parseInt(String(val), 10)
+	// named pipe
+	if (isNaN(port)) return val
+	// port number
+	if (port >= 0) return port
 	return false
 }
 
 /**
  * Event listener for HTTP server "error" event.
+ *
+ * @param error - 错误
  */
-
-function onError(error: any) {
-	if (error.syscall !== 'listen') {
-		throw error
-	}
-
-	var bind = typeof port === 'string' ? 'Pipe ' + port : 'Port ' + port
-
+function onError(error: any): void {
+	if (error.syscall !== 'listen') throw error
+	const bind = typeof port === 'string' ? 'Pipe ' + port : 'Port ' + port
 	// handle specific listen errors with friendly messages
 	switch (error.code) {
 		case 'EACCES':
@@ -75,10 +56,11 @@ function onError(error: any) {
 /**
  * Event listener for HTTP server "listening" event.
  */
-
 function onListening() {
-	var addr = server.address(),
+	let addr = server.address(),
 		bind = typeof addr === 'string' ? 'pipe ' + addr : 'port ' + addr.port
 	console.info('server started on http://127.0.0.1:3000')
 	debug('Listening on ' + bind)
 }
+
+export {}

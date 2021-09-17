@@ -1,18 +1,25 @@
 {
 	"extends": "../tsconfig.json",
-	"include": ["./typings", "./*.d.ts", "./**/*.ts"],
+	"include": ["./**/*.ts", "typings", "./*.d.ts"],
 	"exclude": ["node_modules", "**/__tests__"],
 	"compilerOptions": {
-		// compile away optional-chaining-operator
-		"target": "es6",
+		"target": "esnext",
+		"module": "esnext",
+		"strict": false,
+		"jsx": "preserve",
+		"importHelpers": true,
+		"moduleResolution": "node",
+		"skipLibCheck": true,
+		"esModuleInterop": true,
+		"allowSyntheticDefaultImports": true,
+		"sourceMap": true,
 		"baseUrl": ".",
+		"allowJs": true,
+		"types": [],
 		"paths": {
 			"@/*": ["src/*"],
 			"@/package": ["./package.json"]
 		},
-		// "outDir": "../lib",
-		// "module": "commonjs",
-		// "lib": ["ESNext", "dom"],
-		"sourceMap": true
+		"lib": ["esnext", "dom", "dom.iterable", "scripthost"]
 	}
 }
