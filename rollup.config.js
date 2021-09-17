@@ -57,7 +57,9 @@ export default cjsList.map(filePath => ({
     ],
     plugins: [
         resolve({ extensions: config.extensions, preferBuiltins: false }),
-        shebang(),
+        shebang({
+			shebang: '#!/usr/bin/env node'
+		}),
         // commonjs({
         //     sourceMap: false
         // }),
