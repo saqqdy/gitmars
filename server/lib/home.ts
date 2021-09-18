@@ -1,4 +1,4 @@
-const os = require('os')
+import os from 'os'
 
 function homedir() {
 	var env = process.env as any,
