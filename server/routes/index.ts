@@ -7,15 +7,14 @@
 // })
 
 // module.exports = router
-const express = require('express')
-var router = express.Router()
-
+import express, { Request, Response, NextFunction, ErrorRequestHandler } from 'express'
+const router = express.Router()
 const { exec } = require('child_process')
 const { promisify } = require('util')
 
 const promiseExec = promisify(exec)
 
-router.get('/cwd', function (req, res) {
+router.get('/cwd', function (req: Request, res: Response) {
 	const { pid } = req.query
 	promiseExec(`lsof -a -p ${pid} -d cwd -Fn | tail -1 | sed 's/.//'`).then(newCwd => {
 		// console.log(newCwd, newCwd.stdout)
@@ -25,7 +24,7 @@ router.get('/cwd', function (req, res) {
 })
 
 // 接收git钩子发来的状态变化
-router.get('/update', function (req, res) {
+router.get('/update', function (req: Request, res: Response) {
 	const { project } = req.query
 	promiseExec(`lsof -a -p ${pid} -d cwd -Fn | tail -1 | sed 's/.//'`).then(newCwd => {
 		// console.log(newCwd, newCwd.stdout)

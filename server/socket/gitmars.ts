@@ -1,14 +1,14 @@
-// const pty = require('node-pty')
-// const sh = require('shelljs')
-// const os = require('os')
 const home = require('../lib/home')()
 const { getCurrent, searchBranchs } = require('../../lib/js/index')
+
+import type { Socket } from 'socket.io'
+
 let glob = {},
 	config = {},
-	branch = [],
-	current = null,
-	interval = null
-const getData = (socket, option) => {
+	branch: string[] = [],
+	current: string = '',
+	interval: any = null
+const getData = (socket: Socket, option) => {
 	delete require.cache[require.resolve('../../lib/js/global')]
 	delete require.cache[require.resolve('../../lib/js/config')]
 	let g = require('../../lib/js/global'),
@@ -33,7 +33,7 @@ const getData = (socket, option) => {
 	}
 }
 
-module.exports = socket => {
+module.exports = (socket: Socket) => {
 	socket.on('create', option => {
 		process.chdir(option.cwd || home)
 		getData(socket, option)
@@ -44,7 +44,7 @@ module.exports = socket => {
 		glob = {}
 		config = {}
 		branch = []
-		current = null
+		current = ''
 		interval && interval.unref()
 		clearInterval(interval)
 		interval = null

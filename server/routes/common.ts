@@ -1,4 +1,4 @@
-import express, { Request, Response, NextFunction, ErrorRequestHandler } from 'express'
+import express, { Request, Response, NextFunction } from 'express'
 const router = express.Router()
 const path = require('path')
 const sh = require('shelljs')
@@ -17,7 +17,7 @@ router.all('*', (req: Request, res: Response, next: NextFunction) => {
 const error503 = (res: Response) => {
 	res.status(503).send({ data: null, success: false, code: 0, msg: 'fail' })
 }
-const success = (res: Response, { data, msg = 'success' }) => {
+const success = (res: Response, { data, msg = 'success' }: any) => {
 	res.status(200).send({ data, success: true, code: 1, msg })
 }
 

@@ -5,4 +5,3 @@ const adapter = new FileSync(path.join(__dirname, 'db.json'))
 const db = low(adapter)
 
 module.exports = db
-export {}

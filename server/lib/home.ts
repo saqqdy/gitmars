@@ -20,4 +20,3 @@ function homedir() {
 }
 
 module.exports = typeof os.homedir === 'function' ? os.homedir : homedir
-export {}
