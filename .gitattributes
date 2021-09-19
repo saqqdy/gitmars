@@ -1,4 +1,6 @@
 *.ts  linguist-language=TypeScript
 # *.js  linguist-language=TypeScript
-libs -linguist-detectable
+# libs -linguist-detectable
 # libs/* linguist-generated
+libs/* linguist-vendored
+es/* linguist-vendored
