@@ -10,11 +10,14 @@ title: guide
 [![David deps][david-image]][david-url]
 [![Known Vulnerabilities][snyk-image]][snyk-url]
 [![npm download][download-image]][download-url]
+[![License][license-image]][license-url]
+
+[![Sonar][sonar-image]][sonar-url]
 
 [npm-image]: https://img.shields.io/npm/v/gitmars.svg?style=flat-square
 [npm-url]: https://npmjs.org/package/gitmars
-[travis-image]: https://travis-ci.org/saqqdy/gitmars.svg?branch=master
-[travis-url]: https://travis-ci.org/saqqdy/gitmars
+[travis-image]: https://travis-ci.com/saqqdy/gitmars.svg?branch=master
+[travis-url]: https://travis-ci.com/saqqdy/gitmars
 [codecov-image]: https://img.shields.io/codecov/c/github/saqqdy/gitmars.svg?style=flat-square
 [codecov-url]: https://codecov.io/github/saqqdy/gitmars?branch=master
 [david-image]: https://img.shields.io/david/saqqdy/gitmars.svg?style=flat-square
@@ -23,6 +26,10 @@ title: guide
 [snyk-url]: https://snyk.io/test/npm/gitmars
 [download-image]: https://img.shields.io/npm/dm/gitmars.svg?style=flat-square
 [download-url]: https://npmjs.org/package/gitmars
+[license-image]: https://img.shields.io/badge/License-MIT-yellow.svg
+[license-url]: LICENSE
+[sonar-image]: https://sonarcloud.io/api/project_badges/quality_gate?project=saqqdy_gitmars
+[sonar-url]: https://sonarcloud.io/dashboard?id=saqqdy_gitmars
 
 ## 它是如何工作的
 
