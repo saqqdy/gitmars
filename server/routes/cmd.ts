@@ -1,43 +1,43 @@
-var express = require('express'),
-	router = express.Router()
+import express, { Request, Response, NextFunction } from 'express'
+const router = express.Router()
 const fs = require('fs')
 // const sh = require('shelljs')
 const glob = require('../../lib/js/global')
 const { getCurrent, searchBranchs } = require('../../lib/js/index')
 
-const error503 = res => {
+const error503 = (res: Response) => {
 	res.status(503).send({ data: null, success: false, code: 0, msg: 'fail' })
 }
-const success = (res, { data, msg = 'success' }) => {
+const success = (res: Response, { data, msg = 'success' }: any) => {
 	res.status(200).send({ data, success: true, code: 1, msg })
 }
 
 // 开启跨域访问
-router.all('*', (req, res, next) => {
+router.all('*', (req: Request, res: Response, next: NextFunction) => {
 	res.header('Access-Control-Allow-Origin', req.headers.origin)
 	res.header('Access-Control-Allow-Headers', 'Content-Type, Content-Length, Authorization, Accept, Cache-Control')
 	res.header('Access-Control-Allow-Methods', 'PUT, POST, GET, DELETE, OPTIONS')
-	res.header('Access-Control-Allow-Credentials', true)
+	res.header('Access-Control-Allow-Credentials', 'true')
 	next()
 })
 
-router.get('/cd', function (req, res, next) {
-	process.chdir(decodeURIComponent(req.query.dir))
+router.get('/cd', function (req: Request, res: Response, next: NextFunction) {
+	process.chdir(decodeURIComponent(req.query.dir as string))
 	success(res, { data: true })
 })
 
-// router.get('/result', function (req, res, next) {
+// router.get('/result', function (req: Request, res: Response, next: NextFunction) {
 // 	let out = sh.exec(decodeURIComponent(req.query.cmd) + '&& pwd', { silent: true }).stdout.replace(/\s+$/g, '')
 // 	res.status(200).send({ data: out, success: true, code: 1, msg: 'success' })
 // })
 
 // 获取当前状态
-router.get('/status', function (req, res, next) {
+router.get('/status', function (req: Request, res: Response, next: NextFunction) {
 	res.status(200).send({ data: glob, success: true, code: 1, msg: 'success' })
 })
 
 // 获取项目列表
-router.get('/branch/list', (req, res, next) => {
+router.get('/branch/list', (req: Request, res: Response, next: NextFunction) => {
 	const { path, key, type, remote } = req.query
 	// process.chdir('/Users/saqqdy/www/wojiayun/wyweb/webapp/app')
 	let data = searchBranchs({ path, key, type, remote })
@@ -45,17 +45,17 @@ router.get('/branch/list', (req, res, next) => {
 })
 
 // 获取项目列表
-router.get('/branch/current', (req, res, next) => {
+router.get('/branch/current', (req: Request, res: Response, next: NextFunction) => {
 	let data = getCurrent()
 	success(res, { data })
 })
 
 // 读取文件
-router.get('/fs/read', (req, res, next) => {
+router.get('/fs/read', (req: Request, res: Response, next: NextFunction) => {
 	const {
 		query: { path: dir }
 	} = req
-	const type = dir.replace(/[\s\S]*\.([a-z]+)$/, '$1')
+	const type = (dir as string).replace(/[\s\S]*\.([a-z]+)$/, '$1')
 	console.log(type)
 	let data = fs.readFileSync(dir).toString()
 	if (type === 'json') data = JSON.parse(data)

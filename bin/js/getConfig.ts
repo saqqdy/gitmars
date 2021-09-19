@@ -11,10 +11,10 @@ import type { GitmarsConfigType } from 'typings'
  * @param {String} pathName 可传入目录或者文件，传入文件时，直接读取文件
  * @returns {Object} arr 返回配置对象
  */
-module.exports = function getConfig(pathName?: string, moduleName: string = 'gitmars'): GitmarsConfigType {
+module.exports = function getConfig(pathName?: string, moduleName = 'gitmars'): GitmarsConfigType {
     let info
     if (!pathName) {
-        let { root } = gitRevParse()
+        const { root } = gitRevParse()
         try {
             pathName = root + '/gitmarsconfig.json'
             info = fs.statSync(pathName)

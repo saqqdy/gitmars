@@ -23,7 +23,7 @@ import type { AnyObject } from '../../typings'
  */
 function readPkg(dir?: string): AnyObject {
     if (!dir) {
-        let { root } = gitRevParse()
+        const { root } = gitRevParse()
         dir = root
     }
     const pkgFile = path.resolve(dir, 'package.json')

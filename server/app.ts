@@ -1,8 +1,8 @@
-var createError = require('http-errors')
-var express = require('express')
-var path = require('path')
-var cookieParser = require('cookie-parser')
-var logger = require('morgan')
+import createError from 'createError'
+import express, { Request, Response, NextFunction, ErrorRequestHandler } from 'express'
+import path from 'path'
+import cookieParser from 'cookieParser'
+import logger from 'logger'
 
 var indexRouter = require('./routes/index'),
 	cmdRouter = require('./routes/cmd'),
@@ -18,19 +18,18 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 app.use(cookieParser())
 app.use(express.static(path.join(__dirname, './www')))
-// app.use(express.static(path.join(__dirname, '../webshell/public')))
 
 app.use('/', indexRouter)
 app.use('/cmd', cmdRouter)
 app.use('/common', commonRouter)
 
 // catch 404 and forward to error handler
-app.use(function (req, res, next) {
+app.use(function (req: Request, res: Response, next: NextFunction) {
 	next(createError(404))
 })
 
 // error handler
-app.use(function (err, req, res, next) {
+app.use(function (err: any, req: Request, res: Response, next: NextFunction) {
 	// set locals, only providing error in development
 	res.locals.message = err.message
 	res.locals.error = req.app.get('env') === 'development' ? err : {}
