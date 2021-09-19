@@ -1,6 +1,6 @@
 *.ts  linguist-language=TypeScript
 # *.js  linguist-language=TypeScript
-libs/* linguist-vendored
+lib/* linguist-vendored
 es/* linguist-vendored
 app/* linguist-vendored
 cache/* linguist-vendored
