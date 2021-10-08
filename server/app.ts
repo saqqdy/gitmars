@@ -1,7 +1,7 @@
-import createError from 'createError'
+import createError from 'http-errors'
 import express, { Request, Response, NextFunction, ErrorRequestHandler } from 'express'
 import path from 'path'
-import cookieParser from 'cookieParser'
+import cookieParser from 'cookie-parser'
 import logger from 'logger'
 
 var indexRouter = require('./routes/index'),
