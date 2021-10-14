@@ -1,5 +1,9 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 const SocketIoServer = require('socket.io');
+// interface SocketFn {
+// 	fn?: (socket: Socket<ListenEvents, EmitEvents, ServerSideEvents>) => void
+// }
 class SocketServer {
     constructor(server, options) {
         this.io = SocketIoServer(server, options);

@@ -3,12 +3,24 @@ const { getCurrent, searchBranchs } = require('../../lib/js/index')
 
 import type { Socket } from 'socket.io'
 
+export interface SocketOption {
+	name: string
+	cwd: string
+}
+
 let glob = {},
 	config = {},
 	branch: string[] = [],
 	current: string = '',
 	interval: any = null
-const getData = (socket: Socket, option) => {
+
+/**
+ * getData
+ *
+ * @param {Socket} socket
+ * @param {*} option 参数
+ */
+const getData = (socket: Socket, option: SocketOption) => {
 	delete require.cache[require.resolve('../../lib/js/global')]
 	delete require.cache[require.resolve('../../lib/js/config')]
 	let g = require('../../lib/js/global'),

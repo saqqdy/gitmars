@@ -5,9 +5,9 @@ const fs = require('fs')
 const glob = require('../../lib/js/global')
 const { getCurrent, searchBranchs } = require('../../lib/js/index')
 
-const error503 = (res: Response) => {
-	res.status(503).send({ data: null, success: false, code: 0, msg: 'fail' })
-}
+// const error503 = (res: Response) => {
+// 	res.status(503).send({ data: null, success: false, code: 0, msg: 'fail' })
+// }
 const success = (res: Response, { data, msg = 'success' }: any) => {
 	res.status(200).send({ data, success: true, code: 1, msg })
 }

@@ -3,6 +3,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const home = require('../lib/home')();
 const { getCurrent, searchBranchs } = require('../../lib/js/index');
 let glob = {}, config = {}, branch = [], current = '', interval = null;
+/**
+ * getData
+ *
+ * @param {Socket} socket
+ * @param {*} option 参数
+ */
 const getData = (socket, option) => {
     delete require.cache[require.resolve('../../lib/js/global')];
     delete require.cache[require.resolve('../../lib/js/config')];

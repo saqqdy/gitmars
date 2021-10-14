@@ -9,9 +9,9 @@ const fs = require('fs');
 // const sh = require('shelljs')
 const glob = require('../../lib/js/global');
 const { getCurrent, searchBranchs } = require('../../lib/js/index');
-const error503 = (res) => {
-    res.status(503).send({ data: null, success: false, code: 0, msg: 'fail' });
-};
+// const error503 = (res: Response) => {
+// 	res.status(503).send({ data: null, success: false, code: 0, msg: 'fail' })
+// }
 const success = (res, { data, msg = 'success' }) => {
     res.status(200).send({ data, success: true, code: 1, msg });
 };
