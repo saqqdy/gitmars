@@ -14,11 +14,6 @@ const install = app => {
 	app.component(v3Box.name, v3Box)
 }
 
-/* istanbul ignore if */
-if (typeof window !== 'undefined' && window.Vue) {
-	install(window.Vue)
-}
-
 export default {
 	install,
 	v3Split,
