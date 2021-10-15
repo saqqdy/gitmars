@@ -8,7 +8,7 @@
 <script lang="ts">
 export default {
 	name: 'MapCommand',
-	inheritAttrs: false,
+	inheritAttrs: false
 }
 </script>
 <script lang="ts" setup>
@@ -32,8 +32,7 @@ const props = defineProps({
 		type: String,
 		default: '',
 		required: true
-	},
-
+	}
 })
 
 // emits
@@ -101,7 +100,6 @@ defineExpose({
 	cmd,
 	exec
 })
-
 </script>
 
 <style lang="less">

@@ -8,7 +8,7 @@ module.exports = (server: http.Server) => {
 		pingTimeout: 1000 * 60 * 60 * 24,
 		cors: {
 			origin: ['http://127.0.0.1:8888', 'http://localhost:8888'],
-			methods: ["GET", "POST"]
+			methods: ['GET', 'POST']
 		}
 	})
 

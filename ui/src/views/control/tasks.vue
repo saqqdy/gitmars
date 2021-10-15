@@ -18,18 +18,10 @@
 			</div>
 			<div class="main">
 				<h3>
-					<span>
-						<span class="iconfont icon-layout"></span> 当前分支：
-					</span>
+					<span> <span class="iconfont icon-layout"></span> 当前分支： </span>
 					<p>{{ data.project.path }}</p>
 				</h3>
-				<Xterm
-					ref="xterm"
-					class="xterm"
-					v-if="data.project"
-					:id="data.project.id"
-					:path="data.project.path"
-				></Xterm>
+				<Xterm ref="xterm" class="xterm" v-if="data.project" :id="data.project.id" :path="data.project.path"></Xterm>
 			</div>
 		</div>
 	</div>
@@ -42,8 +34,8 @@ import Xterm from '@/components/xterm'
 import { TerminalInjectionKey, SocketInjectionKey } from '@/symbols/injection'
 import useCurrentInstance from '@/hooks/use-current-instance'
 
-import type { ProjectType } from "@/types/project";
-import type { TerminalType } from "@/types/terminal";
+import type { ProjectType } from '@/types/project'
+import type { TerminalType } from '@/types/terminal'
 
 interface DataType {
 	project: ProjectType
@@ -68,14 +60,13 @@ export default {
 			project: { id: '', name: '', path: '' },
 			scripts: [],
 			terminal: { name: '' },
-			ready: false,
+			ready: false
 		})
 
 		// 计算属性
 		// 事件
-		onMounted(() => {
-		})
-		onBeforeRouteLeave(() => { })
+		onMounted(() => {})
+		onBeforeRouteLeave(() => {})
 
 		// 获取分支列表
 		const getProject = async () => {

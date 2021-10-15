@@ -6,9 +6,7 @@
 				<input type="text" v-model.trim="form.path" placeholder="请输入项目完整路径" />
 			</div>
 			<div class="btn">
-				<a class="link" href="javascript:;" @click="add" type="button">
-					<span class="iconfont icon-plus-square-fill"></span> 导入该项目
-				</a>
+				<a class="link" href="javascript:;" @click="add" type="button"> <span class="iconfont icon-plus-square-fill"></span> 导入该项目 </a>
 			</div>
 		</div>
 	</div>
@@ -16,7 +14,7 @@
 
 <script lang="ts">
 export default {
-	name: 'ProjectAdd',
+	name: 'ProjectAdd'
 }
 </script>
 <script lang="ts" setup>
@@ -69,24 +67,24 @@ const checkPath = (): Promise<boolean> => {
 // add
 const add = async () => {
 	if (!form.path) alert('请输入项目完整路径')
-		; (await checkPath()) &&
-			$axios({
-				url: '/common/project/add',
-				type: 'post',
-				data: {
-					path: form.path
-				}
-			}).then(() => {
-				$box(null, {
-					width: '320px',
-					height: '80px',
-					message: '操作成功！',
-					showHeader: false,
-					showMax: false,
-					showBtn: false
-				})
-				router.push('/project/list')
+	;(await checkPath()) &&
+		$axios({
+			url: '/common/project/add',
+			type: 'post',
+			data: {
+				path: form.path
+			}
+		}).then(() => {
+			$box(null, {
+				width: '320px',
+				height: '80px',
+				message: '操作成功！',
+				showHeader: false,
+				showMax: false,
+				showBtn: false
 			})
+			router.push('/project/list')
+		})
 }
 defineExpose({
 	form,
