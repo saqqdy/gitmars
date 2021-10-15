@@ -1,6 +1,6 @@
-import { render, createVNode } from 'vue'
+import { render, createVNode, VNode } from 'vue'
 import { v4 as uuidv4 } from 'uuid'
-import { nextIndex, extend } from '@/libs/tool'
+import { nextIndex, extend } from 'js-cool'
 import box from '@/components/box/index.vue'
 // import { createCommand } from 'commander'
 
@@ -23,11 +23,13 @@ const defaults = {
 }
 
 class Box {
+	$el: HTMLDivElement
+	instance: VNode
 	constructor(app, component, options) {
 		options = extend(true, {}, defaults, options)
 		this.$el = document.createElement('div')
 		this.$el.className = 'mask'
-		this.$el.style.zIndex = nextIndex()
+		this.$el.style.zIndex = String(nextIndex())
 		this.$el.style.background = 'rgba(0, 0, 0, ' + options.opacity + ')'
 		this.$el.id = uuidv4()
 		this.instance = createVNode(box)

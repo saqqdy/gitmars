@@ -1,1 +1,0 @@
-System.register(["./vendor-legacy.9417a21f.js"],(function(e){"use strict";var t,r;return{setters:[function(e){t=e.G,r=e.ab}],execute:function(){e("u",(function(e){"string"==typeof e&&(e=[e]);var n=t(),o=n.appContext,s=n.proxy,i=o.config.globalProperties,u={};return e&&e.includes("style")&&(u=r()),{globalProperties:i,proxy:s,style:u}}))}}}));

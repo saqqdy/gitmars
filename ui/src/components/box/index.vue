@@ -30,8 +30,8 @@
 </template>
 
 <script>
-import { reactive, computed, getCurrentInstance, createVNode, render, nextTick, unref, ref } from 'vue'
-import { on, off, fixNumber, delay } from '@/libs/tool'
+import { reactive, computed, createVNode, render, nextTick, unref, ref } from 'vue'
+import { addEvent, removeEvent, fixNumber, delay } from 'js-cool'
 import { ElButton } from 'element-plus'
 
 export default {
@@ -112,7 +112,6 @@ export default {
 	},
 	setup(props, { slots, emit, attrs }) {
 		const $delay = new delay()
-		// const { ctx } = getCurrentInstance()
 		const data = reactive({
 			zIndex: 0,
 			instance: null,
@@ -177,7 +176,7 @@ export default {
 				// 	title,
 				// 	filter,
 				// 	footer
-				on(window, 'resize', reSize)
+				addEvent(window, 'resize', reSize)
 				if (props.showBtn && props.showOkBtn) {
 					mainBtn.value.focus()
 				} else {
@@ -258,7 +257,7 @@ export default {
 			}
 		}
 		const hide = () => {
-			off(window, 'resize', data.reSize)
+			removeEvent(window, 'resize', data.reSize)
 			data.instance = null
 			render(null, boxContent.value)
 			props.hide()

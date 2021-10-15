@@ -7,7 +7,7 @@ for (let key in commandSets) {
 	if (Object.keys(commandSets[key]).length) {
 		sets[name] = commandSets[key]
 	} else {
-		sets = window.gitmarsCmdConfig
+		sets = (window as any).gitmarsCmdConfig
 		break
 	}
 }

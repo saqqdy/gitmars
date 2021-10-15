@@ -89,6 +89,7 @@ export default {
 		const data = reactive({
 			on: new Transition()
 		})
+		// @ts-ignore
 		return () => h('transition', data, proxy.$children)
 	}
 }
