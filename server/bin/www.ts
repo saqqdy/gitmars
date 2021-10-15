@@ -62,5 +62,3 @@ function onListening() {
 	console.info('server started on http://127.0.0.1:3000')
 	debug('Listening on ' + bind)
 }
-
-export {}
