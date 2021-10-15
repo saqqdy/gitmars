@@ -38,7 +38,7 @@ export default defineConfig({
 			}
 		},
 		cors: true,
-		port: 8080
+		port: 8888
 	},
 	// optimizeDeps: {
 	// 	include: [
