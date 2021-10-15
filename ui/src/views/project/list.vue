@@ -22,7 +22,7 @@
 
 <script lang="ts">
 export default {
-	name: 'ProjectList',
+	name: 'ProjectList'
 }
 </script>
 
@@ -31,7 +31,7 @@ import { getCurrentInstance, reactive, onBeforeMount } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import useCurrentInstance from '@/hooks/use-current-instance'
 
-import type { ProjectType } from "@/types/project";
+import type { ProjectType } from '@/types/project'
 
 interface DataType {
 	list: ProjectType[]

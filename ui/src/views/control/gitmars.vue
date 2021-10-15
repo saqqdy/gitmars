@@ -11,53 +11,23 @@
 			<div class="nav">
 				<dl class="bugfix" v-if="branchList.bugfix.length">
 					<dt>bug分支</dt>
-					<dd
-						v-for="branch in branchList.bugfix"
-						:class="{ active: branch === data.current }"
-						:key="branch"
-					>
+					<dd v-for="branch in branchList.bugfix" :class="{ active: branch === data.current }" :key="branch">
 						{{ branch }}
-						<v3-button
-							type="primary"
-							size="mini"
-							@click="checkout(branch)"
-							v-if="branch !== data.current"
-							plain
-						>进入</v3-button>
+						<v3-button type="primary" size="mini" @click="checkout(branch)" v-if="branch !== data.current" plain>进入</v3-button>
 					</dd>
 				</dl>
 				<dl class="feature" v-if="branchList.feature.length">
 					<dt>feature分支</dt>
-					<dd
-						v-for="branch in branchList.feature"
-						:class="{ active: branch === data.current }"
-						:key="branch"
-					>
+					<dd v-for="branch in branchList.feature" :class="{ active: branch === data.current }" :key="branch">
 						{{ branch }}
-						<v3-button
-							type="primary"
-							size="mini"
-							@click="checkout(branch)"
-							v-if="branch !== data.current"
-							plain
-						>进入</v3-button>
+						<v3-button type="primary" size="mini" @click="checkout(branch)" v-if="branch !== data.current" plain>进入</v3-button>
 					</dd>
 				</dl>
 				<dl class="others" v-if="branchList.others.length">
 					<dt>其他分支</dt>
-					<dd
-						v-for="branch in branchList.others"
-						:class="{ active: branch === data.current }"
-						:key="branch"
-					>
+					<dd v-for="branch in branchList.others" :class="{ active: branch === data.current }" :key="branch">
 						{{ branch }}
-						<v3-button
-							type="primary"
-							size="mini"
-							@click="checkout(branch)"
-							v-if="branch !== data.current"
-							plain
-						>进入</v3-button>
+						<v3-button type="primary" size="mini" @click="checkout(branch)" v-if="branch !== data.current" plain>进入</v3-button>
 					</dd>
 				</dl>
 			</div>
@@ -153,13 +123,7 @@
 						</v3-collapse>
 					</div>
 				</div>
-				<Xterm
-					ref="xterm"
-					class="xterm"
-					v-if="data.project"
-					:id="data.project.id"
-					:path="data.project.path"
-				></Xterm>
+				<Xterm ref="xterm" class="xterm" v-if="data.project" :id="data.project.id" :path="data.project.path"></Xterm>
 			</div>
 		</div>
 	</div>
@@ -177,9 +141,9 @@ import { TerminalInjectionKey, SocketInjectionKey } from '@/symbols/injection'
 import useCurrentInstance from '@/hooks/use-current-instance'
 
 import type { CommandSetsType } from '@/types/command'
-import type { BranchListType } from "@/types/branch";
-import type { ProjectType } from "@/types/project";
-import type { TerminalType } from "@/types/terminal";
+import type { BranchListType } from '@/types/branch'
+import type { ProjectType } from '@/types/project'
+import type { TerminalType } from '@/types/terminal'
 
 interface DataType {
 	project: ProjectType
@@ -205,7 +169,7 @@ export default defineComponent({
 		const route = useRoute()
 		const data: DataType = reactive({
 			project: { id: '', name: '', path: '' },
-			terminal: {name: ''},
+			terminal: { name: '' },
 			activeNames: '',
 			branchs: [], // 分支列表
 			current: '',
@@ -321,7 +285,7 @@ export default defineComponent({
 				}
 			})
 		}
-		const saveStash = () => { }
+		const saveStash = () => {}
 		// checkout分支
 		const checkout = async (branch: string) => {
 			exec(`git checkout ${branch}`)
@@ -450,7 +414,7 @@ export default defineComponent({
 				display: grid;
 				grid-template-columns: repeat(2, 1fr);
 				grid-template-rows: minmax(0px, auto) auto minmax(0px, auto);
-				grid-template-areas: "a" "b";
+				grid-template-areas: 'a' 'b';
 				grid-auto-flow: row dense;
 				justify-items: stretch;
 				align-items: stretch;

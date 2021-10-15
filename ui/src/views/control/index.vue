@@ -38,7 +38,7 @@
 
 <script lang="ts">
 export default {
-	name: 'Control',
+	name: 'Control'
 }
 </script>
 <script lang="ts" setup>

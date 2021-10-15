@@ -190,6 +190,13 @@ gitm cb -pd --no-bugfix
 | type | 分支类型 | String | feature/bugfix/support | 否   | 当前分支类型 |
 | name | 分支名称 | String | -                      | 否   | 当前分支名称 |
 
+-   传值：
+
+| 名称         | 简写 | 说明                                 | 类型    | 可选值 | 传值必填 | 默认  |
+| ------------ | ---- | ------------------------------------ | ------- | ------ | -------- | ----- |
+| --no-combine |      | 不合并主干分支（请确保分支已经上线） | Boolean | -      | -        | false |
+| --as-feature |      | bugfix类型的分支合并到release        | Boolean | -      | -        | false |
+
 -   示例：
 
 1. 结束 bugfix/20001 分支
@@ -206,6 +213,10 @@ gitm ed bugfix 20001
 gitm end
 # or
 gitm ed
+# 结束但不合并代码
+gitm end --no-combine
+# 以feature方式合并
+gitm end --as-feature
 ```
 
 ### gitm update

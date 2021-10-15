@@ -19,7 +19,7 @@
 <script lang="ts">
 export default {
 	name: 'Command',
-	inheritAttrs: false,
+	inheritAttrs: false
 }
 </script>
 <script lang="ts" setup>
@@ -28,16 +28,15 @@ import { PropType, reactive, unref, watch, inject, ref, toRaw, computed } from '
 import type { CommandSetsType } from '@/types/command'
 
 const props = defineProps({
-		value: {
-			type: Object as PropType<CommandSetsType>,
-			default: () => ({ options: [], args: [] }),
-			required: true
-			// 	validator(value) {
-			// 		return ['default', 'danger', 'primary'].indexOf(value) > -1
-			// 	}
-		},
-		current: String
-
+	value: {
+		type: Object as PropType<CommandSetsType>,
+		default: () => ({ options: [], args: [] }),
+		required: true
+		// 	validator(value) {
+		// 		return ['default', 'danger', 'primary'].indexOf(value) > -1
+		// 	}
+	},
+	current: String
 })
 // 数据
 const data = reactive(toRaw(props.value))
@@ -66,14 +65,14 @@ const updateValue = defineEmits(['update:value'])
 watch(
 	data,
 	val => {
-		updateValue('update:value',val)
+		updateValue('update:value', val)
 	},
 	{
 		deep: true
 	}
 )
-defineExpose( {
-	data,
+defineExpose({
+	data
 	// curBranch,
 })
 </script>

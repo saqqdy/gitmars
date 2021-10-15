@@ -7,7 +7,47 @@ import type { GitmarsOptionType } from '../../typings'
             { required: false, name: 'type', variadic: false, description: '分支类型' },
             { required: false, name: 'name', variadic: false, description: '分支名称(不带feature/bugfix前缀)' }
         ],
-        options: []
+        options: [
+            {
+                flags: '--no-combine',
+                required: false,
+                optional: false,
+                variadic: false,
+                mandatory: false,
+                long: '--no-combine',
+                negate: true,
+                description: '不合并主干分支（请确保分支已经上线）',
+                defaultValue: true,
+                recommend: false
+            },
+            {
+                flags: '--as-feature',
+                required: false,
+                optional: false,
+                variadic: false,
+                mandatory: false,
+                long: '--as-feature',
+                negate: false,
+                description: 'bug分支合并到release',
+                recommend: false
+            }
+        ],
+        // 校验传值
+        validatorOpts: (val, opts, cb) => {
+            cb()
+        },
+        // 校验参数
+        validatorArgs: (val, opts, cb) => {
+            cb()
+        },
+        // 清洗传值
+        transformOpts: (val, opts, cb) => {
+            cb()
+        },
+        // 清洗参数
+        transformArgs: (val, opts, cb) => {
+            cb()
+        }
     }
 
     /* istanbul ignore next */

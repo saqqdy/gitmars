@@ -1,7 +1,7 @@
 <script>
 import { h, onMounted, ref, watch, computed, reactive } from 'vue'
 import style from './style.module.less'
-import { on, off, fixNumber, delay } from '@/libs/tool'
+import { addEvent, removeEvent, fixNumber, delay } from 'js-cool'
 
 export default {
 	name: 'v3Split',
@@ -159,8 +159,8 @@ export default {
 			e.preventDefault()
 			e.stopPropagation()
 			emit('move-start')
-			on(document, 'mousemove', handleMouseMove)
-			on(document, 'mouseup', handleMouseUp)
+			addEvent(document, 'mousemove', handleMouseMove)
+			addEvent(document, 'mouseup', handleMouseUp)
 		}
 		/**
 		 * @private handleMouseMove
@@ -197,8 +197,8 @@ export default {
 		const handleMouseUp = () => {
 			data.moving = false
 			emit('move-end')
-			off(document, 'mousemove', handleMouseMove)
-			off(document, 'mouseup', handleMouseUp)
+			removeEvent(document, 'mousemove', handleMouseMove)
+			removeEvent(document, 'mouseup', handleMouseUp)
 		}
 		// init
 		String(props.value).replace(/^([0-9]+)(%|px)?$/, (a, b, c) => {
