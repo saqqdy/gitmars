@@ -40,7 +40,7 @@ const props = defineProps({
 })
 // 数据
 const data = reactive(toRaw(props.value))
-console.log(888, toRaw(props.value))
+
 data.options.forEach(option => {
 	if (!('value' in option)) option.value = null
 })

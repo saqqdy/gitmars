@@ -32,14 +32,13 @@ const socket: Socket = io('http://127.0.0.1:3000/terminal', { reconnection: true
 const socketGitmars: Socket = io('http://127.0.0.1:3000/gitmars', { reconnection: true })
 // const attachAddon = new AttachAddon(socket)
 const fitAddon = new FitAddon()
-console.log(socket)
 const searchAddon = new SearchAddon()
 const terms: {
 	[prop: string]: TermObject
 } = reactive({})
 
 // function
-const getTerminal = (id: string, cwd: string = ''): TermObject => {
+const getTerminal = (id: string, cwd: string = '', cols: number = 100, rows: number = 20): TermObject => {
 	if (!terms[id]) {
 		terms[id] = {
 			term: new Terminal({
@@ -47,7 +46,12 @@ const getTerminal = (id: string, cwd: string = ''): TermObject => {
 				fontSize: 12,
 				fontWeight: 300,
 				lineHeight: 1.1,
-				fontFamily: '"JetBrains Mono", Menlo, consolas, "Microsoft YaHei", "PingFangSC-Regular", Avenir, Helvetica, Arial, sans-serif'
+				fontFamily: '"JetBrains Mono", Menlo, consolas, "Microsoft YaHei", "PingFangSC-Regular", Avenir, Helvetica, Arial, sans-serif',
+				cols,
+				rows,
+				windowOptions: {
+					setWinSizePixels: true
+				}
 			}),
 			name: 'terminal-' + id,
 			pid: null

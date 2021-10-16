@@ -1,5 +1,4 @@
 {
-	"extends": "../tsconfig.json",
 	"include": ["./**/*.ts", "typings", "./*.d.ts"],
 	"exclude": ["node_modules", "**/__tests__"],
 	"compilerOptions": {

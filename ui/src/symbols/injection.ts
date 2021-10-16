@@ -1,7 +1,7 @@
 import { InjectionKey } from 'vue'
 
 export interface TerminalInjection {
-	getTerminal?(id: string, cwd: string): any
+	getTerminal?(id: string, cwd: string, cols: number, rows: number): any
 	fitAddon?: any
 }
 
