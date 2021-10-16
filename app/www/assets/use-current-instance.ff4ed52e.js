@@ -1,1 +1,0 @@
-import{H as o,ac as t}from"./vendor.dc4bbc83.js";function e(e){"string"==typeof e&&(e=[e]);const{appContext:r,proxy:s}=o(),n=r.config.globalProperties;let p={};return e&&e.includes("style")&&(p=t()),{globalProperties:n,proxy:s,style:p}}export{e as u};
