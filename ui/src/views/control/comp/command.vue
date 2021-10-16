@@ -10,7 +10,7 @@
 			<li v-for="option in data.options" :key="option.long">
 				{{ option.description }}
 				<el-input v-if="option.optional" v-model="option.value" :key="option.long + '-option'" :placeholder="option.required ? '必填' : '选填'"></el-input>
-				<v3-checkbox v-else v-model="option.value" :key="option.long + '-option-check'"></v3-checkbox>
+				<el-checkbox v-else v-model="option.value" :key="option.long + '-option-check'"></el-checkbox>
 			</li>
 		</ul>
 	</div>
@@ -40,6 +40,7 @@ const props = defineProps({
 })
 // 数据
 const data = reactive(toRaw(props.value))
+console.log(888, toRaw(props.value))
 data.options.forEach(option => {
 	if (!('value' in option)) option.value = null
 })

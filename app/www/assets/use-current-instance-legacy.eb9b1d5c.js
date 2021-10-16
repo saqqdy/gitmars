@@ -1,1 +1,0 @@
-System.register(["./vendor-legacy.f6612493.js"],(function(e){"use strict";var t,r;return{setters:[function(e){t=e.H,r=e.ac}],execute:function(){e("u",(function(e){"string"==typeof e&&(e=[e]);var n=t(),o=n.appContext,s=n.proxy,i=o.config.globalProperties,c={};return e&&e.includes("style")&&(c=r()),{globalProperties:i,proxy:s,style:c}}))}}}));
