@@ -6,7 +6,7 @@
 				<input type="text" v-model.trim="form.path" placeholder="请输入项目完整路径" />
 			</div>
 			<div class="btn">
-				<a class="link" href="javascript:;" @click="add" type="button"> <span class="iconfont icon-plus-square-fill"></span> 导入该项目 </a>
+				<a class="link" href="javascript:;" @click="add" type="button"> <span class="iconfont icon-plus-square-fill"></span>导入该项目</a>
 			</div>
 		</div>
 	</div>
