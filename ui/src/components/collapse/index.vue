@@ -26,10 +26,13 @@ export default {
 	setup(props, { slots, emit }) {
 		const activeNames = ref([])
 		activeNames.value = [].concat(props.value)
-		watch(props.value, val => {
-			console.log('collapse value change', val)
-			// activeNames.value = val
-		})
+		watch(
+			() => props.value,
+			val => {
+				console.log('collapse value change', val)
+				// activeNames.value = val
+			}
+		)
 		const setActiveNames = actNames => {
 			actNames = [].concat(actNames)
 			let value = props.accordion ? actNames[0] : actNames

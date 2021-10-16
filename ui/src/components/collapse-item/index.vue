@@ -85,7 +85,6 @@ export default {
 			dispatch('v3Collapse', 'item-click', proxy)
 		}
 
-		// console.log(attrs, slots, proxy, saqqdy, $http())
 		return {
 			contentWrapStyle,
 			contentHeight,

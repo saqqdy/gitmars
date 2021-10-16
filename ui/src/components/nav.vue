@@ -15,7 +15,6 @@ export default {
 	},
 	setup(props) {
 		const m = ref(null)
-		// console.log(props)
 		onMounted(() => {
 			setTimeout(() => {
 				m.value = 10000

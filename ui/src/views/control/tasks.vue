@@ -1,11 +1,6 @@
 <template>
 	<div class="page" v-if="data.ready">
-		<h1>
-			tasks
-			<p>
-				<v3-button type="primary">创建分支</v3-button>
-			</p>
-		</h1>
+		<h1>tasks</h1>
 		<div class="cont">
 			<div class="nav">
 				<dl class="bugfix" v-if="Object.keys(data.scripts).length > 0">
@@ -21,14 +16,14 @@
 					<span> <span class="iconfont icon-layout"></span> 当前分支： </span>
 					<p>{{ data.project.path }}</p>
 				</h3>
-				<Xterm ref="xterm" class="xterm" v-if="data.project" :id="data.project.id" :path="data.project.path"></Xterm>
+				<Xterm ref="xterm" class="xterm" v-if="data.project" key="tasks-xterm" :id="terminalID" :path="data.project.path"></Xterm>
 			</div>
 		</div>
 	</div>
 </template>
 
 <script lang="ts">
-import { reactive, onMounted, inject } from 'vue'
+import { reactive, computed, onMounted, inject } from 'vue'
 import { onBeforeRouteLeave, useRoute, useRouter } from 'vue-router'
 import Xterm from '@/components/xterm'
 import { TerminalInjectionKey, SocketInjectionKey } from '@/symbols/injection'
@@ -56,12 +51,15 @@ export default {
 		} = useCurrentInstance()
 		const router = useRouter()
 		const route = useRoute()
+		const width = window.innerWidth
+		const height = window.innerHeight
 		const data: DataType = reactive({
 			project: { id: '', name: '', path: '' },
 			scripts: [],
 			terminal: { name: '' },
 			ready: false
 		})
+		const terminalID = computed(() => 'tasks-' + data.project.id)
 
 		// 计算属性
 		// 事件
@@ -108,11 +106,12 @@ export default {
 			}
 		})
 
-		data.terminal = getTerminal && getTerminal(data.project.id, data.project.path)
+		data.terminal = getTerminal && getTerminal(terminalID.value, data.project.path, parseInt(String((width - 60 - 300 - 32) / 7.05)), parseInt(String((height - 64 - 32 - 34) / (16 * 1.1))))
 		data.ready = true
 
 		return {
 			data,
+			terminalID,
 			exec,
 			run,
 			route
@@ -153,6 +152,7 @@ export default {
 	.cont {
 		flex: 1;
 		display: flex;
+		overflow: hidden;
 		justify-content: stretch;
 		align-items: stretch;
 		.nav {
@@ -196,6 +196,7 @@ export default {
 			flex-direction: column;
 			justify-content: stretch;
 			align-items: stretch;
+			height: 100%;
 			h3 {
 				font-size: 18px;
 				line-height: 30px;
@@ -213,7 +214,7 @@ export default {
 				}
 			}
 			.xterm {
-				height: 50%;
+				height: calc(100% - 82px);
 				min-height: 408px;
 			}
 		}

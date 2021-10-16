@@ -123,7 +123,7 @@
 						</v3-collapse>
 					</div>
 				</div>
-				<Xterm ref="xterm" class="xterm" v-if="data.project" :id="data.project.id" :path="data.project.path"></Xterm>
+				<Xterm ref="xterm" class="xterm" v-if="data.project" key="gitmars-xterm" :id="terminalID" :path="data.project.path"></Xterm>
 			</div>
 		</div>
 	</div>
@@ -167,6 +167,8 @@ export default defineComponent({
 		} = useCurrentInstance()
 		const router = useRouter()
 		const route = useRoute()
+		const width = window.innerWidth
+		const height = window.innerHeight
 		const data: DataType = reactive({
 			project: { id: '', name: '', path: '' },
 			terminal: { name: '' },
@@ -176,6 +178,7 @@ export default defineComponent({
 			ready: false,
 			error: {}
 		})
+		const terminalID = computed(() => 'gitmars-' + data.project.id)
 		const commandValue: {
 			[prop: string]: CommandSetsType
 		} = reactive(commandSets)
@@ -263,7 +266,7 @@ export default defineComponent({
 
 		data.branchs = await getBranchs()
 		data.current = await getCurrent()
-		data.terminal = getTerminal && getTerminal(data.project.id, data.project.path)
+		data.terminal = getTerminal && getTerminal(terminalID.value, data.project.path, parseInt(String((width - 60 - 300 - 32) / 7.05)), parseInt(String((height - 64 - 32 - 34 - 400) / (16 * 1.1))))
 		data.ready = true
 		const handleItemClick = () => {
 			console.log('handleItemClick', 666)
@@ -294,6 +297,7 @@ export default defineComponent({
 
 		return {
 			data,
+			terminalID,
 			exec,
 			commandValue,
 			route,

@@ -19,21 +19,26 @@ export default {
 		// data
 		const termWrap = ref(null)
 		const { getTerminal, fitAddon } = inject(TerminalInjectionKey)
-		const { socket } = inject(SocketInjectionKey)
+		// const { socket } = inject(SocketInjectionKey)
 		const terminal = getTerminal(props.id, props.path)
 		// methods
 
 		// event
 		onMounted(() => {
 			terminal.term.open(termWrap.value)
-			fitAddon.fit()
+			// fitAddon.fit()
 			terminal.term.focus()
+			// terminal.term.clear()
+			// terminal.term.reset()
 			// nextTick(() => {
-			// 	socket.emit(terminal.name + '-input', 'll\r')
+			// 	socket.emit(terminal.name + '-input', '\r')
 			// })
 			// searchAddon.findNext('foo')
 		})
-		onBeforeUnmount(() => {})
+		onBeforeUnmount(() => {
+			// fitAddon.dispose()
+			// terminal.term.dispose()
+		})
 		return {
 			termWrap
 		}
@@ -43,5 +48,6 @@ export default {
 <style lang="less" scoped>
 .terminal {
 	overflow: hidden;
+	height: 100%;
 }
 </style>
