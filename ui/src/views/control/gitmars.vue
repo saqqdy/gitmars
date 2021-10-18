@@ -47,78 +47,78 @@
 								<template #title>
 									<MapCommand :value="commandValue['combine']" :current="data.current" @exec="exec"></MapCommand>
 								</template>
-								<Command v-model:value="commandValue['combine']"></Command>
+								<Command v-model="commandValue['combine']"></Command>
 							</v3-collapse-item>
 							<v3-collapse-item name="2">
 								<template #title>
 									<MapCommand :value="commandValue['update']" :current="data.current" @exec="exec"></MapCommand>
 								</template>
-								<Command v-model:value="commandValue['update']"></Command>
+								<Command v-model="commandValue['update']"></Command>
 							</v3-collapse-item>
 							<v3-collapse-item name="3">
 								<template #title>
 									<MapCommand :value="commandValue['build']" :current="data.current" @exec="exec"></MapCommand>
 								</template>
-								<Command v-model:value="commandValue['build']"></Command>
+								<Command v-model="commandValue['build']"></Command>
 							</v3-collapse-item>
 							<v3-collapse-item name="4">
 								<template #title>
 									<MapCommand :value="commandValue['continue']" :current="data.current" @exec="exec"></MapCommand>
 								</template>
-								<Command v-model:value="commandValue['continue']"></Command>
+								<Command v-model="commandValue['continue']"></Command>
 							</v3-collapse-item>
 							<v3-collapse-item name="5">
 								<template #title>
 									<MapCommand :value="commandValue['end']" :current="data.current" @exec="exec"></MapCommand>
 								</template>
-								<Command v-model:value="commandValue['end']"></Command>
+								<Command v-model="commandValue['end']"></Command>
 							</v3-collapse-item>
 							<v3-collapse-item name="6">
 								<template #title>
 									<MapCommand :value="commandValue['branch']" :current="data.current" @exec="exec"></MapCommand>
 								</template>
-								<Command v-model:value="commandValue['branch']"></Command>
+								<Command v-model="commandValue['branch']"></Command>
 							</v3-collapse-item>
 						</v3-collapse>
 					</div>
 					<div class="section">
 						<h4>实用工具</h4>
-						<v3-collapse v-model:value="data.activeNames" :accordion="true" @change="handleChange">
-							<v3-collapse-item name="1">
+						<v3-collapse v-model="data.activeNames" :accordion="true" @change="handleChange">
+							<v3-collapse-item name="11">
 								<template #title>
 									<MapCommand :value="commandValue['save']" :current="data.current" @exec="exec"></MapCommand>
 								</template>
-								<Command v-model:value="commandValue['save']"></Command>
+								<Command v-model="commandValue['save']"></Command>
 							</v3-collapse-item>
-							<v3-collapse-item name="2">
+							<v3-collapse-item name="12">
 								<template #title>
 									<MapCommand :value="commandValue['get']" :current="data.current" @exec="exec"></MapCommand>
 								</template>
-								<Command v-model:value="commandValue['get']"></Command>
+								<Command v-model="commandValue['get']"></Command>
 							</v3-collapse-item>
-							<v3-collapse-item name="3">
+							<v3-collapse-item name="13">
 								<template #title>
 									<MapCommand :value="commandValue['copy']" :current="data.current" @exec="exec"></MapCommand>
 								</template>
-								<Command v-model:value="commandValue['copy']"></Command>
+								<Command v-model="commandValue['copy']"></Command>
 							</v3-collapse-item>
-							<v3-collapse-item name="4">
+							<v3-collapse-item name="14">
 								<template #title>
 									<MapCommand :value="commandValue['revert']" :current="data.current" @exec="exec"></MapCommand>
 								</template>
-								<Command v-model:value="commandValue['revert']"></Command>
+								<Command v-model="commandValue['revert']"></Command>
 							</v3-collapse-item>
-							<v3-collapse-item name="5">
+							<v3-collapse-item name="15">
 								<template #title>
 									<MapCommand :value="commandValue['link']" :current="data.current" @exec="exec"></MapCommand>
 								</template>
-								<Command v-model:value="commandValue['link']"></Command>
+								<Command v-model="commandValue['link']"></Command>
 							</v3-collapse-item>
-							<v3-collapse-item name="6">
+							<v3-collapse-item name="16">
 								<template #title>
 									<MapCommand :value="commandValue['unlink']" :current="data.current" @exec="exec"></MapCommand>
 								</template>
-								<Command v-model:value="commandValue['unlink']"></Command>
+								<Command v-model="commandValue['unlink']"></Command>
 							</v3-collapse-item>
 						</v3-collapse>
 					</div>

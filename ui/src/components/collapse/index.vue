@@ -10,7 +10,7 @@ export default {
 	componentName: 'v3Collapse',
 	props: {
 		accordion: Boolean,
-		value: {
+		modelValue: {
 			type: [Array, String, Number],
 			default() {
 				return []
@@ -25,9 +25,9 @@ export default {
 	// },
 	setup(props, { slots, emit }) {
 		const activeNames = ref([])
-		activeNames.value = [].concat(props.value)
+		activeNames.value = [].concat(props.modelValue)
 		watch(
-			() => props.value,
+			() => props.modelValue,
 			val => {
 				console.log('collapse value change', val)
 				// activeNames.value = val
@@ -38,7 +38,7 @@ export default {
 			let value = props.accordion ? actNames[0] : actNames
 			activeNames.value = actNames
 			// emit('change', value)
-			emit('update:value', value)
+			emit('update:modelValue', value)
 		}
 		const handleItemClick = item => {
 			if (props.accordion) {

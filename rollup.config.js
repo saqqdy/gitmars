@@ -11,6 +11,7 @@ import shebang from 'rollup-plugin-preserve-shebang'
 import { visualizer } from 'rollup-plugin-visualizer'
 import pkg from './package.json'
 
+const isDev = process.env.BUILD_ENV === 'dev'
 const config = require('./config')
 const deps = Object.keys(pkg.dependencies)
 
@@ -84,7 +85,7 @@ export default cjsList.map(filePath => ({
         // }),
         esbuild(),
         visualizer(),
-        terser()
+        !isDev && terser()
     ],
     external(id) {
         return ['regenerator-runtime'].some(k => new RegExp('^' + k).test(id)) || deps.some(k => new RegExp('^' + k).test(id))

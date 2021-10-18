@@ -38,7 +38,9 @@ import type { GitmarsOptionType } from '../../typings'
                 long: '--mode',
                 negate: false,
                 description: '针对撤销一次merge记录，需要传入类型：1 = 保留当前分支代码，2 = 保留传入代码',
-                defaultValue: ''
+                defaultValue: '',
+                options: ['1', '2'],
+                value: '1'
             }
         ],
         // 校验传值
