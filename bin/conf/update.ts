@@ -18,6 +18,7 @@ import type { GitmarsOptionType } from '../../typings'
                 negate: false,
                 description: '使用merge方式更新(默认merge)',
                 defaultValue: true,
+                value: true,
                 recommend: true
             },
             {
