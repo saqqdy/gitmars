@@ -39,12 +39,14 @@ import type { GitmarsOptionType } from '../../typings'
                 long: '--type',
                 negate: false,
                 description: '查询分支的类型，共有3种：feature、bugfix、support，不传则查询全部',
-                defaultValue: null
+                defaultValue: null,
+                options: ['feature', 'bugfix', 'support'],
+                value: ''
             },
             {
                 flags: '-d, --delete [branch]',
                 required: false,
-                optional: true,
+                optional: false,
                 variadic: false,
                 mandatory: false,
                 short: '-d',
@@ -56,7 +58,7 @@ import type { GitmarsOptionType } from '../../typings'
             {
                 flags: '-D, --forcedelete [branch]',
                 required: false,
-                optional: true,
+                optional: false,
                 variadic: false,
                 mandatory: false,
                 short: '-D',

@@ -3,14 +3,34 @@
 		<ul>
 			<li v-for="arg in data.args" :key="arg.name">
 				{{ arg.name }}
-				<el-input v-model="arg.value" :key="arg.name + '-arg'" :placeholder="arg.required ? '必填' : '选填'"></el-input>
+				<div class="r">
+					<template v-if="arg.options">
+						<el-select v-model="arg.value" :key="arg.name + '-arg'" :placeholder="arg.required ? '必填' : '选填'" clearable>
+							<el-option v-for="item in arg.options" :key="item" :label="item" :value="item"></el-option>
+						</el-select>
+					</template>
+					<template v-else>
+						<el-input v-model="arg.value" :key="arg.name + '-arg'" :placeholder="arg.required ? '必填' : '选填'" clearable></el-input>
+					</template>
+				</div>
 			</li>
 		</ul>
 		<ul>
 			<li v-for="option in data.options" :key="option.long">
 				{{ option.description }}
-				<el-input v-if="option.optional" v-model="option.value" :key="option.long + '-option'" :placeholder="option.required ? '必填' : '选填'"></el-input>
-				<el-checkbox v-else v-model="option.value" :key="option.long + '-option-check'"></el-checkbox>
+				<div class="r">
+					<template v-if="option.optional">
+						<template v-if="option.options">
+							<el-select v-model="option.value" :key="option.long + '-arg'" :placeholder="option.required ? '必填' : '选填'" clearable>
+								<el-option v-for="item in option.options" :key="item" :label="item" :value="item"></el-option>
+							</el-select>
+						</template>
+						<template v-else>
+							<el-input v-model="option.value" :key="option.long + '-option'" :placeholder="option.required ? '必填' : '选填'" clearable></el-input>
+						</template>
+					</template>
+					<el-checkbox v-else v-model="option.value" :key="option.long + '-option-check'"></el-checkbox>
+				</div>
 			</li>
 		</ul>
 	</div>
@@ -28,7 +48,7 @@ import { PropType, reactive, unref, watch, inject, ref, toRaw, computed } from '
 import type { CommandSetsType } from '@/types/command'
 
 const props = defineProps({
-	value: {
+	modelValue: {
 		type: Object as PropType<CommandSetsType>,
 		default: () => ({ options: [], args: [] }),
 		required: true
@@ -39,7 +59,7 @@ const props = defineProps({
 	current: String
 })
 // 数据
-const data = reactive(toRaw(props.value))
+const data = reactive(toRaw(props.modelValue))
 
 data.options.forEach(option => {
 	if (!('value' in option)) option.value = null
@@ -61,12 +81,12 @@ data.args.forEach(arg => {
 // })
 
 // 更新value
-const updateValue = defineEmits(['update:value'])
+const updateValue = defineEmits(['update:modelValue'])
 
 watch(
 	data,
 	val => {
-		updateValue('update:value', val)
+		updateValue('update:modelValue', val)
 	},
 	{
 		deep: true
@@ -89,6 +109,12 @@ defineExpose({
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
+		.r {
+			.el-input,
+			.el-select {
+				width: 200px;
+			}
+		}
 	}
 }
 </style>

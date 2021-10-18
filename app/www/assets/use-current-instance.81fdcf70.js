@@ -1,1 +1,0 @@
-import{G as o,ad as e}from"./vendor.75a2e4ba.js";function t(t){"string"==typeof t&&(t=[t]);const{appContext:r,proxy:s}=o(),a=r.config.globalProperties;let n={};return t&&t.includes("style")&&(n=e()),{globalProperties:a,proxy:s,style:n}}export{t as u};

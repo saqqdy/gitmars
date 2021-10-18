@@ -12,7 +12,7 @@ export default {
 			validator: v => ['horizontal', 'vertical'].indexOf(v) > -1
 		},
 		// 像素或者百分比
-		value: {
+		modelValue: {
 			type: [Number, String],
 			default: '50%',
 			validator: v => /^([0-9]+)(%|px)?$/.test(v)
@@ -61,7 +61,7 @@ export default {
 		})
 		// watch
 		watch(
-			() => props.value,
+			() => props.modelValue,
 			val => {
 				if (val) {
 					if (data.suffix === '%') {
@@ -78,7 +78,7 @@ export default {
 			() => data.size,
 			val => {
 				let v = (data.suffix !== '%' ? px : val) + data.suffix
-				if (v != props.value && px !== 0) emit('input', v)
+				if (v != props.modelValue && px !== 0) emit('input', v)
 			}
 		)
 		// methods
@@ -201,7 +201,7 @@ export default {
 			removeEvent(document, 'mouseup', handleMouseUp)
 		}
 		// init
-		String(props.value).replace(/^([0-9]+)(%|px)?$/, (a, b, c) => {
+		String(props.modelValue).replace(/^([0-9]+)(%|px)?$/, (a, b, c) => {
 			if (c === '%') {
 				data.size = calculateSize(parseInt(b))
 			}
@@ -212,7 +212,7 @@ export default {
 			data.boxSize = parseInt(props.mode === 'horizontal' ? v3Split.value.clientWidth : v3Split.value.clientHeight)
 			if (data.suffix !== '%') {
 				// 输入px或空单位
-				data.size = calculateSize(fixNumber((parseInt(props.value) * 100) / data.boxSize, 2))
+				data.size = calculateSize(fixNumber((parseInt(props.modelValue) * 100) / data.boxSize, 2))
 			}
 		})
 

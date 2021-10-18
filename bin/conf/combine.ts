@@ -10,7 +10,9 @@ import type { GitmarsOptionType } from '../../typings'
                 variadic: false,
                 // validator: null,
                 // transformer: null,
-                description: '分支类型'
+                description: '分支类型',
+                options: ['feature', 'bugfix', 'support'],
+                value: ''
             },
             {
                 required: false,
@@ -66,7 +68,7 @@ import type { GitmarsOptionType } from '../../typings'
             {
                 flags: '-m, --commit <commit>',
                 required: true,
-                optional: false,
+                optional: true,
                 variadic: false,
                 mandatory: false,
                 short: '-m',

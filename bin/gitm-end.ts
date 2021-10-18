@@ -59,6 +59,8 @@ program.action(async (type: string, name: string, opt: GitmBuildOption): Promise
             sh.exit(1)
         }
     }
+    // const isBranchExist = sh.exec(`git rev-parse --verify ${type}/${name}`, { silent: true }).code === 0
+    const isRemoteBranchExist = sh.exec(`git rev-parse --verify origin/${type}/${name}`, { silent: true }).code === 0
     if (allow.includes(type) && name) {
         const base: string = opt.asFeature ? config.release : type === 'bugfix' ? config.bugfix : config.release
         let cmd: Array<CommandType | string> = []
@@ -112,49 +114,56 @@ program.action(async (type: string, name: string, opt: GitmBuildOption): Promise
         }
         if (!opt.combine) {
             // 不合并代码
-            cmd = cmd.concat([
-                `git checkout ${config.develop}`,
-                `git branch -D ${type}/${name}`,
-                {
-                    cmd: `git push origin --delete ${type}/${name}`,
-                    config: { again: true, success: '成功删除远程分支', fail: '删除失败，请联系管理员' }
-                }
-            ])
+            cmd = cmd.concat([`git checkout ${config.develop}`, `git branch -D ${type}/${name}`])
+            // 判断远程是否存在分支
+            if (isRemoteBranchExist) {
+                cmd = cmd.concat([
+                    {
+                        cmd: `git push origin --delete ${type}/${name}`,
+                        config: { again: true, success: '成功删除远程分支', fail: '删除失败，请联系管理员' }
+                    }
+                ])
+            }
         } else {
             // 需要合并代码
-            cmd = cmd.concat(
-                !level || level < 3
-                    ? [
-                          'git fetch',
-                          `git checkout ${base}`,
-                          'git pull',
-                          {
-                              cmd: `git merge --no-ff ${type}/${name}`,
-                              config: { again: false, success: `${type}/${name}合并到${base}成功`, fail: `${type}/${name}合并到${base}出错了，请根据提示处理` }
-                          },
-                          {
-                              cmd: 'git push',
-                              config: { again: true, success: '推送成功', fail: '推送失败，请根据提示处理' }
-                          },
-                          `git branch -D ${type}/${name}`,
-                          {
-                              cmd: `git push origin --delete ${type}/${name}`,
-                              config: { again: true, success: '成功删除远程分支', fail: '删除失败，请联系管理员' }
-                          },
-                          `git checkout ${config.develop}`
-                      ]
-                    : [
-                          {
-                              cmd: `git push --set-upstream origin ${type}/${name}`,
-                              config: { again: true, success: '推送远程并关联远程分支成功', fail: '推送远程失败，请根据提示处理' }
-                          },
-                          {
-                              cmd: `curl -i -H "Content-Type: application/json" -X POST -d "{\\"source_branch\\":\\"${type}/${name}\\",\\"target_branch\\":\\"${base}\\",\\"private_token\\":\\"${token}\\",\\"title\\":\\"Merge branch '${type}/${name}' into '${base}'\\"}" "${config.gitHost}/api/v4/projects/${config.gitID}/merge_requests"`,
-                              config: { again: true, success: '成功创建合并请求', fail: '创建合并请求出错了，请根据提示处理' }
-                          },
-                          `gitm postmsg "${nickname}在${appName}项目提交了${type}/${name}分支合并到${base}分支的merge请求"`
-                      ]
-            )
+            if (!level || level < 3) {
+                cmd = cmd.concat([
+                    'git fetch',
+                    `git checkout ${base}`,
+                    'git pull',
+                    {
+                        cmd: `git merge --no-ff ${type}/${name}`,
+                        config: { again: false, success: `${type}/${name}合并到${base}成功`, fail: `${type}/${name}合并到${base}出错了，请根据提示处理` }
+                    },
+                    {
+                        cmd: 'git push',
+                        config: { again: true, success: '推送成功', fail: '推送失败，请根据提示处理' }
+                    },
+                    `git checkout ${config.develop}`,
+                    `git branch -D ${type}/${name}`
+                ])
+                // 判断远程是否存在分支
+                if (isRemoteBranchExist) {
+                    cmd = cmd.concat([
+                        {
+                            cmd: `git push origin --delete ${type}/${name}`,
+                            config: { again: true, success: '成功删除远程分支', fail: '删除失败，请联系管理员' }
+                        }
+                    ])
+                }
+            } else {
+                cmd = cmd.concat([
+                    {
+                        cmd: `git push --set-upstream origin ${type}/${name}`,
+                        config: { again: true, success: '推送远程并关联远程分支成功', fail: '推送远程失败，请根据提示处理' }
+                    },
+                    {
+                        cmd: `curl -i -H "Content-Type: application/json" -X POST -d "{\\"source_branch\\":\\"${type}/${name}\\",\\"target_branch\\":\\"${base}\\",\\"private_token\\":\\"${token}\\",\\"title\\":\\"Merge branch '${type}/${name}' into '${base}'\\"}" "${config.gitHost}/api/v4/projects/${config.gitID}/merge_requests"`,
+                        config: { again: true, success: '成功创建合并请求', fail: '创建合并请求出错了，请根据提示处理' }
+                    },
+                    `gitm postmsg "${nickname}在${appName}项目提交了${type}/${name}分支合并到${base}分支的merge请求"`
+                ])
+            }
         }
         queue(cmd)
     } else {

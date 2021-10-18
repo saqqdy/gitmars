@@ -23,7 +23,9 @@ import type { GitmarsOptionType } from '../../typings'
                 negate: false,
                 description: '构建环境，可选dev、prod、bug、all',
                 defaultValue: 'dev',
-                recommend: true
+                recommend: true,
+                options: ['dev', 'prod', 'bug', 'all'],
+                value: 'dev'
             },
             {
                 flags: '-a, --app [app]',
@@ -36,7 +38,8 @@ import type { GitmarsOptionType } from '../../typings'
                 negate: false,
                 description: '构建应用',
                 defaultValue: 'all',
-                recommend: true
+                recommend: true,
+                value: 'all'
             }
         ]
     }
