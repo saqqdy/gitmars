@@ -18,7 +18,7 @@ const { appName } = getGitConfig()
 import { FetchDataType, GitmarsOptionOptionsType, CommandType } from '../typings'
 
 interface GitmBuildOption {
-    noCombine: boolean
+    combine: boolean
     asFeature: boolean
 }
 
@@ -62,7 +62,7 @@ program.action(async (type: string, name: string, opt: GitmBuildOption): Promise
     if (allow.includes(type) && name) {
         const base: string = opt.asFeature ? config.release : type === 'bugfix' ? config.bugfix : config.release
         let cmd: Array<CommandType | string> = []
-        if (!opt.noCombine) {
+        if (opt.combine) {
             // 需要合并代码到dev
             cmd = [
                 'git fetch',
@@ -110,7 +110,7 @@ program.action(async (type: string, name: string, opt: GitmBuildOption): Promise
                       ]
             )
         }
-        if (opt.noCombine) {
+        if (!opt.combine) {
             // 不合并代码
             cmd = cmd.concat([
                 `git checkout ${config.develop}`,
