@@ -1,5 +1,5 @@
 {
-    "cSpell.words": ["Gitmars", "gitmars", "Gitm", "gitm", "vuepress", "typedoc", "esbuild", "lastet"],
+    "cSpell.words": ["Gitmars", "gitmars", "Gitm", "gitm", "vuepress", "typedoc", "esbuild", "lastet", "forcedelete"],
     "typescript.tsdk": "node_modules/typescript/lib",
     "editor.codeActionsOnSave": {
         "source.fixAll.eslint": true
