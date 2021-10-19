@@ -4,7 +4,12 @@ const sh = require('shelljs')
 const { options, args } = require('./conf/hook')
 const { error, success, getCurrent, getBranchsFromID, isGitProject } = require('./js/index')
 const { createArgs } = require('./js/tools')
-const { init, remove, getIsMergedBranch, getIsUpdatedInTime, getIsMergeAction, getBehandLogs } = require('./js/hook/index')
+const getIsMergedDevBranch = require('./js/branch/getIsMergedDevBranch')
+const getIsUpdatedInTime = require('./js/branch/getIsUpdatedInTime')
+const getIsMergeAction = require('./js/branch/getIsMergeAction')
+const getBehindLogs = require('./js/branch/getBehindLogs')
+// const getAheadLogs = require('./js/branch/getAheadLogs')
+const { init, remove } = require('./js/hook/index')
 if (!isGitProject()) {
     sh.echo(error('当前目录不是git项目目录'))
     sh.exit(1)
@@ -16,7 +21,7 @@ import { GitmarsOptionOptionsType } from '../typings'
 
 interface GitmBuildOption {
     noVerify: boolean
-    latest: string
+    lastet: string
     limit: number
     type: string
     branch: string
@@ -35,7 +40,7 @@ options.forEach((o: GitmarsOptionOptionsType) => {
 })
 // .arguments('[command] [args...]')
 // .option('--no-verify', '是否需要跳过校验权限', false)
-// .option('--latest [latest]', '查询在某个时间之后的日志，填写格式：10s/2m/2h/3d/4M/5y', '7d')
+// .option('--lastet [lastet]', '查询在某个时间之后的日志，填写格式：10s/2m/2h/3d/4M/5y', '7d')
 // .option('--limit [limit]', '最多查询的日志条数')
 // .option('-t, --type <type>', '检测类型')
 // .option('--branch [branch]', '要查询的分支')
@@ -294,7 +299,7 @@ program.action(async (command: string, args: string[], opt: GitmBuildOption): Pr
         // 	'/Users/saqqdy/www/saqqdy/gitmars/bin/gitm-hook.js',
         // 	'--type',
         // 	'1,2',
-        // 	'--latest',
+        // 	'--lastet',
         // 	'7d'
         // ]
         console.log(types, process.env, process.argv, getBranchsFromID('2080d17e'))
@@ -304,7 +309,7 @@ program.action(async (command: string, args: string[], opt: GitmBuildOption): Pr
             // 分支合并主干分支之后，检测该分支是否合并过dev，没有合并过的，不允许继续执行commit
             const [command, branch] = process.env.GIT_REFLOG_ACTION ? process.env.GIT_REFLOG_ACTION.split(' ') : []
             if (command === 'merge') {
-                const isMergedBranch = getIsMergedBranch(branch, config.develop)
+                const isMergedBranch = getIsMergedDevBranch(branch, config.develop)
                 if (!isMergedBranch) {
                     console.info(error('检测到你的分支没有合并过' + config.develop))
                     sh.exit(0)
@@ -319,7 +324,7 @@ program.action(async (command: string, args: string[], opt: GitmBuildOption): Pr
             const branchPrefix = branch.split('/')[0]
             // ['bugfix', 'feature', 'support'].includes(branchPrefix)
             if (command === 'merge') {
-                const isUpdatedInTime = getIsUpdatedInTime({ latest: opt.latest, branch })
+                const isUpdatedInTime = getIsUpdatedInTime({ lastet: opt.lastet, branch })
                 if (!isUpdatedInTime) {
                     console.info(error('检测到你1周内没有同步过主干' + branchPrefix + '分支代码'))
                     sh.exit(0)
@@ -337,7 +342,7 @@ program.action(async (command: string, args: string[], opt: GitmBuildOption): Pr
             } else {
                 console.info(success('最后一条记录是merge记录'))
             }
-            // const behandLogs = getBehandLogs()
+            // const behindLogs = getBehindLogs()
             // const aheadLogs = getAheadLogs()
             // let isMerge = true
             // aheadLog: for (let logStr of aheadLogs) {
@@ -349,7 +354,7 @@ program.action(async (command: string, args: string[], opt: GitmBuildOption): Pr
             // 	}
             // }
             // console.info('本地领先的记录', aheadLogs)
-            // console.info('本地落后的记录', behandLogs)
+            // console.info('本地落后的记录', behindLogs)
             // if (isMerge) {
             // 	sh.exit(0)
             // } else {
@@ -359,8 +364,8 @@ program.action(async (command: string, args: string[], opt: GitmBuildOption): Pr
         }
         if (mainBranchs.includes(current) && types.includes('4')) {
             // 在主干分支执行push推送时，检测是否需要先执行pull
-            const behandLogs = getBehandLogs()
-            if (!behandLogs.length) {
+            const behindLogs = getBehindLogs()
+            if (!behindLogs.length) {
                 console.info('你本地分支版本落后于远程分支，请先执行pull')
                 sh.exit(0)
             } else {
