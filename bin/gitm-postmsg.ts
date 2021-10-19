@@ -14,7 +14,10 @@ interface GitmBuildOption {
 /**
  * gitm postmsg
  */
-program.name('gitm postmsg').usage('<message> [-u --url [url]]').description('发送群消息消息')
+program
+    .name('gitm postmsg')
+    .usage('<message> [-u --url [url]]')
+    .description('发送群消息消息')
 if (args.length > 0) program.arguments(createArgs(args))
 options.forEach((o: GitmarsOptionOptionsType) => {
     program.option(o.flags, o.description, o.defaultValue)

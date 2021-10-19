@@ -37,7 +37,8 @@ import type { GitmarsOptionType } from '../../typings'
                 short: '-m',
                 long: '--mode',
                 negate: false,
-                description: '针对撤销一次merge记录，需要传入类型：1 = 保留当前分支代码，2 = 保留传入代码',
+                description:
+                    '针对撤销一次merge记录，需要传入类型：1 = 保留当前分支代码，2 = 保留传入代码',
                 defaultValue: '',
                 options: ['1', '2'],
                 value: '1'
@@ -62,7 +63,8 @@ import type { GitmarsOptionType } from '../../typings'
     }
 
     /* istanbul ignore next */
-    if (typeof exports === 'object' && typeof module === 'object') module.exports = cmdConfig
+    if (typeof exports === 'object' && typeof module === 'object')
+        module.exports = cmdConfig
     // else if (typeof define === 'function' && define.amd) define(['cmdConfig'], () => cmdConfig)
     else if (typeof exports === 'object') exports['cmdConfig'] = cmdConfig
     else {

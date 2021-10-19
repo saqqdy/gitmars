@@ -8,7 +8,11 @@ import { FetchDataType } from '../../typings'
 function getUserToken(): FetchDataType {
     const config = getConfig()
     if (!config.api) {
-        sh.echo(error('请配置用于请求权限的api接口地址，接收参数形式：url?name=git_user_name，返回data=token'))
+        sh.echo(
+            error(
+                '请配置用于请求权限的api接口地址，接收参数形式：url?name=git_user_name，返回data=token'
+            )
+        )
         process.exit(1)
     }
 
@@ -18,7 +22,9 @@ function getUserToken(): FetchDataType {
         process.exit(1)
     }
 
-    let fetchData: any = sh.exec(`curl -s ${config.api}?name=${user}`, { silent: true }).stdout,
+    let fetchData: any = sh.exec(`curl -s ${config.api}?name=${user}`, {
+            silent: true
+        }).stdout,
         userInfo
     try {
         fetchData = JSON.parse(fetchData)

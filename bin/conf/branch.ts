@@ -26,7 +26,8 @@ import type { GitmarsOptionType } from '../../typings'
                 short: '-r',
                 long: '--remote',
                 negate: false,
-                description: '是否查询远程分支（deletes模式下改用于删除远程分支）默认只查询本地',
+                description:
+                    '是否查询远程分支（deletes模式下改用于删除远程分支）默认只查询本地',
                 defaultValue: false
             },
             {
@@ -38,7 +39,8 @@ import type { GitmarsOptionType } from '../../typings'
                 short: '-t',
                 long: '--type',
                 negate: false,
-                description: '查询分支的类型，共有3种：feature、bugfix、support，不传则查询全部',
+                description:
+                    '查询分支的类型，共有3种：feature、bugfix、support，不传则查询全部',
                 defaultValue: null,
                 options: ['feature', 'bugfix', 'support'],
                 value: ''
@@ -81,11 +83,25 @@ import type { GitmarsOptionType } from '../../typings'
         ],
         // 校验传值
         validatorOpts: (val, opts, cb) => {
-            if (val.includes('--upstream') && (val.includes('--key') || val.includes('--remote') || val.includes('--type') || val.includes('--delete') || val.includes('--forcedelete'))) {
-                cb(new Error('使用绑定/取消绑定远程分支功能时，不能与其他功能混用'))
+            if (
+                val.includes('--upstream') &&
+                (val.includes('--key') ||
+                    val.includes('--remote') ||
+                    val.includes('--type') ||
+                    val.includes('--delete') ||
+                    val.includes('--forcedelete'))
+            ) {
+                cb(
+                    new Error(
+                        '使用绑定/取消绑定远程分支功能时，不能与其他功能混用'
+                    )
+                )
                 return
             }
-            if ((val.includes('--delete') || val.includes('--forcedelete')) && (val.includes('--key') || val.includes('--type'))) {
+            if (
+                (val.includes('--delete') || val.includes('--forcedelete')) &&
+                (val.includes('--key') || val.includes('--type'))
+            ) {
                 cb(new Error('使用删除分支功能时，不能与查询分支功能混用'))
                 return
             }
@@ -106,7 +122,8 @@ import type { GitmarsOptionType } from '../../typings'
     }
 
     /* istanbul ignore next */
-    if (typeof exports === 'object' && typeof module === 'object') module.exports = cmdConfig
+    if (typeof exports === 'object' && typeof module === 'object')
+        module.exports = cmdConfig
     // else if (typeof define === 'function' && define.amd) define(['cmdConfig'], () => cmdConfig)
     else if (typeof exports === 'object') exports['cmdConfig'] = cmdConfig
     else {

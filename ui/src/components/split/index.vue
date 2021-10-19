@@ -69,7 +69,10 @@ export default {
 						data.size = fixNumber(parseFloat(val), 2)
 					} else if (data.boxSize > 0) {
 						// 输入px
-						data.size = fixNumber((parseFloat(val) * 100) / data.boxSize, 2)
+						data.size = fixNumber(
+							(parseFloat(val) * 100) / data.boxSize,
+							2
+						)
 					}
 				}
 			}
@@ -88,7 +91,13 @@ export default {
 		 * @param {Object} el 元素对象
 		 */
 		const getTransform = el => {
-			let transformMatrix = el.style['WebkitTransform'] || getComputedStyle(el, '').getPropertyValue('-webkit-transform') || el.style['transform'] || getComputedStyle(el, '').getPropertyValue('transform'),
+			let transformMatrix =
+					el.style['WebkitTransform'] ||
+					getComputedStyle(el, '').getPropertyValue(
+						'-webkit-transform'
+					) ||
+					el.style['transform'] ||
+					getComputedStyle(el, '').getPropertyValue('transform'),
 				matrix = transformMatrix.match(/\-?[0-9]+\.?[0-9]*/g),
 				x,
 				y
@@ -108,12 +117,18 @@ export default {
 			if (String(props.min).indexOf('%') > 1) {
 				size = Math.max(size, parseInt(props.min))
 			} else if (data.boxSize > 0) {
-				size = Math.max(size, fixNumber((parseInt(props.min) * 100) / data.boxSize, 2))
+				size = Math.max(
+					size,
+					fixNumber((parseInt(props.min) * 100) / data.boxSize, 2)
+				)
 			}
 			if (String(props.max).indexOf('%') > 1) {
 				size = Math.min(size, parseInt(props.max))
 			} else if (data.boxSize > 0) {
-				size = Math.min(size, fixNumber((parseInt(props.max) * 100) / data.boxSize, 2))
+				size = Math.min(
+					size,
+					fixNumber((parseInt(props.max) * 100) / data.boxSize, 2)
+				)
 			}
 			return size
 		}
@@ -148,7 +163,11 @@ export default {
 		 */
 		const mousedown = e => {
 			let el = e.target
-			data.boxSize = parseInt(props.mode === 'horizontal' ? v3Split.value.clientWidth : v3Split.value.clientHeight)
+			data.boxSize = parseInt(
+				props.mode === 'horizontal'
+					? v3Split.value.clientWidth
+					: v3Split.value.clientHeight
+			)
 			while (el.parentNode) {
 				if (el.parentNode.className.indexOf(style.v3SplitBox) > -1) {
 					data.pos = getPosition(el.parentNode)
@@ -182,7 +201,9 @@ export default {
 						size = e.pageY + data.pos.top - data.pos.y
 					}
 					// max = parseInt(props.max || data.boxSize)
-					data.size = calculateSize(fixNumber((size * 100) / data.boxSize, 2))
+					data.size = calculateSize(
+						fixNumber((size * 100) / data.boxSize, 2)
+					)
 				},
 				50,
 				true
@@ -209,10 +230,19 @@ export default {
 		})
 		// event
 		onMounted(() => {
-			data.boxSize = parseInt(props.mode === 'horizontal' ? v3Split.value.clientWidth : v3Split.value.clientHeight)
+			data.boxSize = parseInt(
+				props.mode === 'horizontal'
+					? v3Split.value.clientWidth
+					: v3Split.value.clientHeight
+			)
 			if (data.suffix !== '%') {
 				// 输入px或空单位
-				data.size = calculateSize(fixNumber((parseInt(props.modelValue) * 100) / data.boxSize, 2))
+				data.size = calculateSize(
+					fixNumber(
+						(parseInt(props.modelValue) * 100) / data.boxSize,
+						2
+					)
+				)
 			}
 		})
 
@@ -220,7 +250,11 @@ export default {
 			h(
 				'div',
 				{
-					class: [style.v3SplitBox, style[props.mode], data.moving ? ' moving' : ''],
+					class: [
+						style.v3SplitBox,
+						style[props.mode],
+						data.moving ? ' moving' : ''
+					],
 					ref: v3Split
 				},
 				slots.default
@@ -229,12 +263,22 @@ export default {
 							h(
 								'div',
 								{
-									class: [style.v3SplitPanel, style.v3SplitPanel1],
+									class: [
+										style.v3SplitPanel,
+										style.v3SplitPanel1
+									],
 									style: panelStype.value
 								},
-								props.mode === 'horizontal' ? slots.left() : slots.top()
+								props.mode === 'horizontal'
+									? slots.left()
+									: slots.top()
 							),
-							((props.mode === 'horizontal' && slots.left && slots.right) || (props.mode === 'vertical' && slots.top && slots.bottom)) &&
+							((props.mode === 'horizontal' &&
+								slots.left &&
+								slots.right) ||
+								(props.mode === 'vertical' &&
+									slots.top &&
+									slots.bottom)) &&
 								h(
 									'div',
 									{
@@ -246,9 +290,14 @@ export default {
 							h(
 								'div',
 								{
-									class: [style.v3SplitPanel, style.v3SplitPanel2]
+									class: [
+										style.v3SplitPanel,
+										style.v3SplitPanel2
+									]
 								},
-								props.mode === 'horizontal' ? slots.right() : slots.bottom()
+								props.mode === 'horizontal'
+									? slots.right()
+									: slots.bottom()
 							)
 					  ]
 			)

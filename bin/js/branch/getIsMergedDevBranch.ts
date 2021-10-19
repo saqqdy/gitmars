@@ -7,9 +7,14 @@ const { getCurrent } = require('../index')
  * @param targetBranch - 目标分支
  * @returns isMergedDevBranch - 是否合并过
  */
-export function getIsMergedDevBranch(branch: string, targetBranch = 'dev'): boolean {
+export function getIsMergedDevBranch(
+    branch: string,
+    targetBranch = 'dev'
+): boolean {
     if (!branch) branch = getCurrent()
-    const result = sh.exec(`git branch --contains ${branch}`, { silent: true }).stdout.replace(/\s+$/g, '')
+    const result = sh
+        .exec(`git branch --contains ${branch}`, { silent: true })
+        .stdout.replace(/\s+$/g, '')
     return result.split('\n').includes(targetBranch)
 }
 

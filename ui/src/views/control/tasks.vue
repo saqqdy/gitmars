@@ -5,18 +5,37 @@
 			<div class="nav">
 				<dl class="bugfix" v-if="Object.keys(data.scripts).length > 0">
 					<dt>脚本指令</dt>
-					<dd v-for="(script, key) in data.scripts" :class="{ active: false }" :key="key">
+					<dd
+						v-for="(script, key) in data.scripts"
+						:class="{ active: false }"
+						:key="key"
+					>
 						{{ key }}
-						<v3-button type="primary" size="mini" @click="run(key)" plain>执行</v3-button>
+						<v3-button
+							type="primary"
+							size="mini"
+							@click="run(key)"
+							plain
+							>执行</v3-button
+						>
 					</dd>
 				</dl>
 			</div>
 			<div class="main">
 				<h3>
-					<span> <span class="iconfont icon-layout"></span> 当前分支： </span>
+					<span>
+						<span class="iconfont icon-layout"></span> 当前分支：
+					</span>
 					<p>{{ data.project.path }}</p>
 				</h3>
-				<Xterm ref="xterm" class="xterm" v-if="data.project" key="tasks-xterm" :id="terminalID" :path="data.project.path"></Xterm>
+				<Xterm
+					ref="xterm"
+					class="xterm"
+					v-if="data.project"
+					key="tasks-xterm"
+					:id="terminalID"
+					:path="data.project.path"
+				></Xterm>
 			</div>
 		</div>
 	</div>
@@ -106,7 +125,14 @@ export default {
 			}
 		})
 
-		data.terminal = getTerminal && getTerminal(terminalID.value, data.project.path, parseInt(String((width - 60 - 300 - 32) / 7.05)), parseInt(String((height - 64 - 32 - 34) / (16 * 1.1))))
+		data.terminal =
+			getTerminal &&
+			getTerminal(
+				terminalID.value,
+				data.project.path,
+				parseInt(String((width - 60 - 300 - 32) / 7.05)),
+				parseInt(String((height - 64 - 32 - 34) / (16 * 1.1)))
+			)
 		data.ready = true
 
 		return {

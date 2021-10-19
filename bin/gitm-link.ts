@@ -33,7 +33,10 @@ program.action((name: string) => {
     // sh.ln('-s', path, `./node_modules/${name}`)
     const { code } = sh.exec(`${npmClient} link ${name}`, { silent: true })
     if (code === 0) sh.echo('处理完成')
-    else sh.echo(`处理失败，${name}软链不存在，请进入本地${name}根目录执行：gitm link`)
+    else
+        sh.echo(
+            `处理失败，${name}软链不存在，请进入本地${name}根目录执行：gitm link`
+        )
 })
 program.parse(process.argv)
 export {}

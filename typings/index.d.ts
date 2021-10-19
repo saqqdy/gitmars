@@ -18,7 +18,12 @@ export interface GitmarsOptionArgsType {
     name: string
     variadic: boolean
     validator?(val: string, opts: object, cb: Function): void
-    transformer?(val: string, answers: object, flags: object, options: GitmarsOptionArgsType): void
+    transformer?(
+        val: string,
+        answers: object,
+        flags: object,
+        options: GitmarsOptionArgsType
+    ): void
     description?: string
     defaultValue?: any
     options?: Array<string | number>
@@ -40,7 +45,12 @@ export interface GitmarsOptionOptionsType {
     recommend?: boolean
     options?: Array<string | number>
     validator?(val: string, opts: object, cb: Function): void
-    transformer?(val: string, answers: object, flags: object, options: GitmarsOptionOptionsType): void
+    transformer?(
+        val: string,
+        answers: object,
+        flags: object,
+        options: GitmarsOptionOptionsType
+    ): void
 }
 
 export interface GitmarsOptionType {

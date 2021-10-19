@@ -10,7 +10,12 @@ if (!isGitProject()) {
     sh.exit(1)
 }
 
-import { GitLogType, GitmarsOptionOptionsType, CommandType, InitInquirerPromptType } from '../typings'
+import {
+    GitLogType,
+    GitmarsOptionOptionsType,
+    CommandType,
+    InitInquirerPromptType
+} from '../typings'
 
 interface GitmBuildOption {
     branch: string
@@ -20,7 +25,10 @@ interface GitmBuildOption {
 /**
  * gitm undo
  */
-program.name('gitm undo').usage('[commitid...] [-b --branch [branch]] [-m --mode [mode]]').description('撤销一次提交记录')
+program
+    .name('gitm undo')
+    .usage('[commitid...] [-b --branch [branch]] [-m --mode [mode]]')
+    .description('撤销一次提交记录')
 if (args.length > 0) program.arguments(createArgs(args))
 options.forEach((o: GitmarsOptionOptionsType) => {
     program.option(o.flags, o.description, o.defaultValue)
@@ -35,7 +43,12 @@ program.action(async (commitid: string[], opt: GitmBuildOption) => {
     if (opt.branch) {
         const keys = ['%H', '%aI', '%an']
         const results = sh
-            .exec(`git log --merges --grep="'${opt.branch}'" --date-order --pretty=format:"${keys.join(',=')}-end-"`, { silent: true })
+            .exec(
+                `git log --merges --grep="'${
+                    opt.branch
+                }'" --date-order --pretty=format:"${keys.join(',=')}-end-"`,
+                { silent: true }
+            )
             .stdout.replace(/[\r\n]+/g, '')
             .replace(/-end-$/, '')
         const logList: GitLogType[] = []
@@ -72,10 +85,24 @@ program.action(async (commitid: string[], opt: GitmBuildOption) => {
             logs = commitIDs
         }
         logs.forEach(log => {
-            cmd.push({ cmd: `git revert ${log}${m}`, config: { again: true, success: '撤销成功', fail: '出错了，请根据提示处理' } })
+            cmd.push({
+                cmd: `git revert ${log}${m}`,
+                config: {
+                    again: true,
+                    success: '撤销成功',
+                    fail: '出错了，请根据提示处理'
+                }
+            })
         })
     } else if (commitid) {
-        cmd.push({ cmd: `git revert ${commitid}${m}`, config: { again: true, success: '撤销成功', fail: '出错了，请根据提示处理' } })
+        cmd.push({
+            cmd: `git revert ${commitid}${m}`,
+            config: {
+                again: true,
+                success: '撤销成功',
+                fail: '出错了，请根据提示处理'
+            }
+        })
     } else {
         sh.echo(warning('指令不合法'))
         sh.exit(1)

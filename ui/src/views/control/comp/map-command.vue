@@ -1,7 +1,9 @@
 <template>
 	<div class="map-command-wrap">
 		<span>{{ cmd }}</span>
-		<v3-button type="primary" size="small" @click.stop="exec" plain>执行</v3-button>
+		<v3-button type="primary" size="small" @click.stop="exec" plain
+			>执行</v3-button
+		>
 	</div>
 </template>
 
@@ -60,14 +62,18 @@ const mapComamnds = ({ options, args }: CommandSetsType): string => {
 		if (option.value !== null) {
 			// 有赋值
 			let k = option.short || option.long,
-				value = option.value instanceof Array ? option.value.join(' ') : option.value
+				value =
+					option.value instanceof Array
+						? option.value.join(' ')
+						: option.value
 			// 可选的，带参数或者没有短指令的
 			if (option.optional || !option.short) {
 				if (!value) continue
 				if (option.optional) {
 					// 可选值
 					value = ' "' + value + '"'
-					if (option.defaultValue) value = ' "' + option.defaultValue + '"'
+					if (option.defaultValue)
+						value = ' "' + option.defaultValue + '"'
 					optional.push(k + value)
 				} else optional.push(k)
 			} else if (option.short) {
@@ -79,7 +85,9 @@ const mapComamnds = ({ options, args }: CommandSetsType): string => {
 	for (let arg of args) {
 		arg.value && argument.push(arg.value)
 	}
-	return `gitm ${command} ${argument.join(' ')} ${notOptional.join('')} ${optional.join(' ')}`.replace(/[\s]{2,}/g, ' ')
+	return `gitm ${command} ${argument.join(' ')} ${notOptional.join(
+		''
+	)} ${optional.join(' ')}`.replace(/[\s]{2,}/g, ' ')
 }
 // 执行指令
 const exec = () => {

@@ -1,6 +1,14 @@
 <template>
-	<div class="v3-collapse-item" :class="{ 'is-active': isActive, 'is-disabled': disabled }">
-		<div role="tab" :aria-expanded="isActive" :aria-controls="`v3-collapse-content-${id}`" :aria-describedby="`v3-collapse-content-${id}`">
+	<div
+		class="v3-collapse-item"
+		:class="{ 'is-active': isActive, 'is-disabled': disabled }"
+	>
+		<div
+			role="tab"
+			:aria-expanded="isActive"
+			:aria-controls="`v3-collapse-content-${id}`"
+			:aria-describedby="`v3-collapse-content-${id}`"
+		>
 			<div
 				class="v3-collapse-item__header"
 				@click="handleHeaderClick"
@@ -16,11 +24,22 @@
 				@blur="focusing = false"
 			>
 				<slot name="title">{{ title }}</slot>
-				<span class="v3-collapse-item__arrow iconfont icon-right" :class="{ 'is-active': isActive }"> </span>
+				<span
+					class="v3-collapse-item__arrow iconfont icon-right"
+					:class="{ 'is-active': isActive }"
+				>
+				</span>
 			</div>
 		</div>
 		<!-- <v3-collapse-transition> -->
-		<div class="v3-collapse-item__wrap" v-show="isActive" role="tabpanel" :aria-hidden="!isActive" :aria-labelledby="`v3-collapse-head-${id}`" :id="`v3-collapse-content-${id}`">
+		<div
+			class="v3-collapse-item__wrap"
+			v-show="isActive"
+			role="tabpanel"
+			:aria-hidden="!isActive"
+			:aria-labelledby="`v3-collapse-head-${id}`"
+			:id="`v3-collapse-content-${id}`"
+		>
 			<div class="v3-collapse-item__content">
 				<slot></slot>
 			</div>
@@ -62,7 +81,9 @@ export default {
 		const focusing = ref(false)
 		const isClick = ref(false)
 		const id = ref(Math.floor(Math.random() * 10000))
-		const isActive = computed(() => activeNames.value.indexOf(props.name) > -1)
+		const isActive = computed(
+			() => activeNames.value.indexOf(props.name) > -1
+		)
 
 		const handleFocus = () => {
 			setTimeout(() => {
@@ -147,10 +168,15 @@ export default {
 	opacity: 1;
 	-webkit-transform: scaleY(1);
 	transform: scaleY(1);
-	-webkit-transition: opacity 0.3s cubic-bezier(0.23, 1, 0.32, 1), -webkit-transform 0.3s cubic-bezier(0.23, 1, 0.32, 1);
-	transition: opacity 0.3s cubic-bezier(0.23, 1, 0.32, 1), -webkit-transform 0.3s cubic-bezier(0.23, 1, 0.32, 1);
-	transition: transform 0.3s cubic-bezier(0.23, 1, 0.32, 1), opacity 0.3s cubic-bezier(0.23, 1, 0.32, 1);
-	transition: transform 0.3s cubic-bezier(0.23, 1, 0.32, 1), opacity 0.3s cubic-bezier(0.23, 1, 0.32, 1), -webkit-transform 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+	-webkit-transition: opacity 0.3s cubic-bezier(0.23, 1, 0.32, 1),
+		-webkit-transform 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+	transition: opacity 0.3s cubic-bezier(0.23, 1, 0.32, 1),
+		-webkit-transform 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+	transition: transform 0.3s cubic-bezier(0.23, 1, 0.32, 1),
+		opacity 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+	transition: transform 0.3s cubic-bezier(0.23, 1, 0.32, 1),
+		opacity 0.3s cubic-bezier(0.23, 1, 0.32, 1),
+		-webkit-transform 0.3s cubic-bezier(0.23, 1, 0.32, 1);
 	-webkit-transform-origin: center top;
 	transform-origin: center top;
 }
@@ -165,10 +191,15 @@ export default {
 	opacity: 1;
 	-webkit-transform: scaleY(1);
 	transform: scaleY(1);
-	-webkit-transition: opacity 0.3s cubic-bezier(0.23, 1, 0.32, 1), -webkit-transform 0.3s cubic-bezier(0.23, 1, 0.32, 1);
-	transition: opacity 0.3s cubic-bezier(0.23, 1, 0.32, 1), -webkit-transform 0.3s cubic-bezier(0.23, 1, 0.32, 1);
-	transition: transform 0.3s cubic-bezier(0.23, 1, 0.32, 1), opacity 0.3s cubic-bezier(0.23, 1, 0.32, 1);
-	transition: transform 0.3s cubic-bezier(0.23, 1, 0.32, 1), opacity 0.3s cubic-bezier(0.23, 1, 0.32, 1), -webkit-transform 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+	-webkit-transition: opacity 0.3s cubic-bezier(0.23, 1, 0.32, 1),
+		-webkit-transform 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+	transition: opacity 0.3s cubic-bezier(0.23, 1, 0.32, 1),
+		-webkit-transform 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+	transition: transform 0.3s cubic-bezier(0.23, 1, 0.32, 1),
+		opacity 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+	transition: transform 0.3s cubic-bezier(0.23, 1, 0.32, 1),
+		opacity 0.3s cubic-bezier(0.23, 1, 0.32, 1),
+		-webkit-transform 0.3s cubic-bezier(0.23, 1, 0.32, 1);
 	-webkit-transform-origin: center bottom;
 	transform-origin: center bottom;
 }
@@ -183,10 +214,15 @@ export default {
 	opacity: 1;
 	-webkit-transform: scale(1, 1);
 	transform: scale(1, 1);
-	-webkit-transition: opacity 0.3s cubic-bezier(0.23, 1, 0.32, 1), -webkit-transform 0.3s cubic-bezier(0.23, 1, 0.32, 1);
-	transition: opacity 0.3s cubic-bezier(0.23, 1, 0.32, 1), -webkit-transform 0.3s cubic-bezier(0.23, 1, 0.32, 1);
-	transition: transform 0.3s cubic-bezier(0.23, 1, 0.32, 1), opacity 0.3s cubic-bezier(0.23, 1, 0.32, 1);
-	transition: transform 0.3s cubic-bezier(0.23, 1, 0.32, 1), opacity 0.3s cubic-bezier(0.23, 1, 0.32, 1), -webkit-transform 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+	-webkit-transition: opacity 0.3s cubic-bezier(0.23, 1, 0.32, 1),
+		-webkit-transform 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+	transition: opacity 0.3s cubic-bezier(0.23, 1, 0.32, 1),
+		-webkit-transform 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+	transition: transform 0.3s cubic-bezier(0.23, 1, 0.32, 1),
+		opacity 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+	transition: transform 0.3s cubic-bezier(0.23, 1, 0.32, 1),
+		opacity 0.3s cubic-bezier(0.23, 1, 0.32, 1),
+		-webkit-transform 0.3s cubic-bezier(0.23, 1, 0.32, 1);
 	-webkit-transform-origin: top left;
 	transform-origin: top left;
 }
@@ -197,12 +233,16 @@ export default {
 	transform: scale(0.45, 0.45);
 }
 .collapse-transition {
-	-webkit-transition: 0.3s height ease-in-out, 0.3s padding-top ease-in-out, 0.3s padding-bottom ease-in-out;
-	transition: 0.3s height ease-in-out, 0.3s padding-top ease-in-out, 0.3s padding-bottom ease-in-out;
+	-webkit-transition: 0.3s height ease-in-out, 0.3s padding-top ease-in-out,
+		0.3s padding-bottom ease-in-out;
+	transition: 0.3s height ease-in-out, 0.3s padding-top ease-in-out,
+		0.3s padding-bottom ease-in-out;
 }
 .horizontal-collapse-transition {
-	-webkit-transition: 0.3s width ease-in-out, 0.3s padding-left ease-in-out, 0.3s padding-right ease-in-out;
-	transition: 0.3s width ease-in-out, 0.3s padding-left ease-in-out, 0.3s padding-right ease-in-out;
+	-webkit-transition: 0.3s width ease-in-out, 0.3s padding-left ease-in-out,
+		0.3s padding-right ease-in-out;
+	transition: 0.3s width ease-in-out, 0.3s padding-left ease-in-out,
+		0.3s padding-right ease-in-out;
 }
 .v3-list-enter-active,
 .v3-list-leave-active {

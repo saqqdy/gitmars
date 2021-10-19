@@ -16,7 +16,12 @@ const revertConfig = require('../../conf/revert')
 const linkConfig = require('../../conf/link')
 const unlinkConfig = require('../../conf/unlink')
 const postmsgConfig = require('../../conf/postmsg')
-const { create: adminCreateConfig, publish: adminPublishConfig, update: adminUpdateConfig, clean: adminCleanConfig } = require('../../conf/admin')
+const {
+    create: adminCreateConfig,
+    publish: adminPublishConfig,
+    update: adminUpdateConfig,
+    clean: adminCleanConfig
+} = require('../../conf/admin')
 
 const current = getCurrent()
 const branchPrefix = current.split('/')[0]
@@ -53,7 +58,12 @@ export const combine = async () => {
                 break
         }
     }
-    const config = cleanConfig(combineConfig, { delOptions, requiredOptions, delArgs, requiredArgs })
+    const config = cleanConfig(combineConfig, {
+        delOptions,
+        requiredOptions,
+        delArgs,
+        requiredArgs
+    })
     const command = 'gitm combine ' + (await getCommand(config))
     sh.exec(command)
 }

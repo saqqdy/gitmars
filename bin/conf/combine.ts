@@ -121,7 +121,10 @@ import type { GitmarsOptionType } from '../../typings'
                 cb(new Error('合并dev或者prod必须至少选一个'))
                 return
             }
-            if ((val.includes('--add') && !val.includes('--commit')) || (!val.includes('--add') && val.includes('--commit'))) {
+            if (
+                (val.includes('--add') && !val.includes('--commit')) ||
+                (!val.includes('--add') && val.includes('--commit'))
+            ) {
                 cb(new Error('add和commit需要同时选择'))
                 return
             }
@@ -142,7 +145,8 @@ import type { GitmarsOptionType } from '../../typings'
     }
 
     /* istanbul ignore next */
-    if (typeof exports === 'object' && typeof module === 'object') module.exports = cmdConfig
+    if (typeof exports === 'object' && typeof module === 'object')
+        module.exports = cmdConfig
     // else if (typeof define === 'function' && define.amd) define(['cmdConfig'], () => cmdConfig)
     else if (typeof exports === 'object') exports['cmdConfig'] = cmdConfig
     else {

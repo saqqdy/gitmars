@@ -24,10 +24,13 @@ const getConfig = (): GitmarsConfigType => {
         let arr: string[] = []
         if (str) arr = str.split('\n')
         arr.forEach((el: string) => {
-            el.replace(/^([a-zA-Z0-9]+)\=([\s\S]+)$/, (a: string, b: string, c: string) => {
-                config[b] = c || null
-                return ''
-            })
+            el.replace(
+                /^([a-zA-Z0-9]+)\=([\s\S]+)$/,
+                (a: string, b: string, c: string) => {
+                    config[b] = c || null
+                    return ''
+                }
+            )
         })
     } else if (configFrom === 2) {
         config = require(root + '/gitmarsconfig.json')

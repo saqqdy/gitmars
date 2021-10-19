@@ -25,14 +25,19 @@ program
     .action(() => {
         const prompts: InitInquirerPromptType[] = []
         Object.keys(defaults).forEach(key => {
-            if (['master', 'develop', 'release', 'bugfix', 'support'].includes(key)) {
+            if (
+                ['master', 'develop', 'release', 'bugfix', 'support'].includes(
+                    key
+                )
+            ) {
                 prompts.push({
                     type: 'input',
                     name: key,
                     message: `请输入${key}分支名称`,
                     default: () => key,
                     transformer: (val, answers, flags) => val.trim(),
-                    validate: val => (/^\w+$/.test(val) ? true : '请输入可用名称')
+                    validate: val =>
+                        /^\w+$/.test(val) ? true : '请输入可用名称'
                 })
             } else if (key === 'user') {
                 prompts.push({
@@ -40,7 +45,10 @@ program
                     name: key,
                     message: '请输入Git用户名',
                     transformer: (val, answers, flags) => val.trim(),
-                    validate: val => (val === '' || /^\w+$/.test(val) ? true : '请输入可用名称')
+                    validate: val =>
+                        val === '' || /^\w+$/.test(val)
+                            ? true
+                            : '请输入可用名称'
                 })
             } else if (key === 'email') {
                 prompts.push({
@@ -48,7 +56,13 @@ program
                     name: key,
                     message: '请输入Git邮箱',
                     transformer: (val, answers, flags) => val.trim(),
-                    validate: val => (val === '' || /^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/.test(val) ? true : '请输入正确的邮箱')
+                    validate: val =>
+                        val === '' ||
+                        /^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/.test(
+                            val
+                        )
+                            ? true
+                            : '请输入正确的邮箱'
                 })
             } else if (key === 'msgTemplate') {
                 prompts.push({
@@ -64,7 +78,10 @@ program
                     name: key,
                     message: '请输入云之家消息推送地址',
                     transformer: (val, answers, flags) => val.trim(),
-                    validate: val => (val === '' || /^https?:\/\/[\S]*$/.test(val) ? true : '请输入网址')
+                    validate: val =>
+                        val === '' || /^https?:\/\/[\S]*$/.test(val)
+                            ? true
+                            : '请输入网址'
                 })
             } else if (key === 'apolloConfig') {
                 prompts.push({
@@ -112,7 +129,10 @@ program
                     name: key,
                     message: '请输入查询用户权限接口',
                     transformer: (val, answers, flags) => val.trim(),
-                    validate: val => (val === '' || /^https?:\/\/[\S]*$/.test(val) ? true : '请输入网址')
+                    validate: val =>
+                        val === '' || /^https?:\/\/[\S]*$/.test(val)
+                            ? true
+                            : '请输入网址'
                 })
             } else if (key === 'gitHost') {
                 prompts.push({
@@ -120,7 +140,10 @@ program
                     name: key,
                     message: '请输入git网址',
                     transformer: (val, answers, flags) => val.trim(),
-                    validate: val => (val === '' || /^https?:\/\/[\S]*$/.test(val) ? true : '请输入网址')
+                    validate: val =>
+                        val === '' || /^https?:\/\/[\S]*$/.test(val)
+                            ? true
+                            : '请输入网址'
                 })
             } else if (key === 'gitID') {
                 prompts.push({
@@ -128,14 +151,19 @@ program
                     name: key,
                     message: '请输入git项目ID，目前仅支持gitlab',
                     transformer: (val, answers, flags) => val.trim(),
-                    validate: val => (val === '' || /^\d+$/.test(val) ? true : '请输入网址')
+                    validate: val =>
+                        val === '' || /^\d+$/.test(val) ? true : '请输入网址'
                 })
             }
         })
         inquirer.prompt(prompts).then((answers: any) => {
             try {
                 answers.apolloConfig = JSON.parse(answers.apolloConfig)
-                if (!answers.apolloConfig.configServerUrl || !answers.apolloConfig.token) answers.apolloConfig = ''
+                if (
+                    !answers.apolloConfig.configServerUrl ||
+                    !answers.apolloConfig.token
+                )
+                    answers.apolloConfig = ''
             } catch (e) {
                 answers.apolloConfig = ''
             }
@@ -153,7 +181,11 @@ program
                 answers.hooks = ''
             }
             sh.echo(success('gitmars配置成功'))
-            fs.writeFileSync(root + '/.gitmarsrc', JSON.stringify(answers, null, 4), 'utf-8')
+            fs.writeFileSync(
+                root + '/.gitmarsrc',
+                JSON.stringify(answers, null, 4),
+                'utf-8'
+            )
             fs.chmodSync(root + '/.gitmarsrc', 0o0755)
         })
     })

@@ -21,7 +21,8 @@ import type { GitmarsOptionType } from '../../typings'
     }
 
     /* istanbul ignore next */
-    if (typeof exports === 'object' && typeof module === 'object') module.exports = cmdConfig
+    if (typeof exports === 'object' && typeof module === 'object')
+        module.exports = cmdConfig
     // else if (typeof define === 'function' && define.amd) define(['cmdConfig'], () => cmdConfig)
     else if (typeof exports === 'object') exports['cmdConfig'] = cmdConfig
     else {

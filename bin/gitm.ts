@@ -66,7 +66,10 @@ program
     .command('run', 'git钩子运行指令')
     .command('log', '查询日志')
     .command('go', '智能猜测你要执行的动作')
-    .command('admin <command>', '管理员功能，包含对发版分支bugfix、release的操作')
+    .command(
+        'admin <command>',
+        '管理员功能，包含对发版分支bugfix、release的操作'
+    )
 
 // 自定义帮助
 program.on('--help', function () {

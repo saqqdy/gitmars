@@ -18,7 +18,10 @@ interface GitmBuildOption {
 /**
  * gitm continue
  */
-program.name('gitm continue').usage('[-l --list]').description('继续未完成的操作')
+program
+    .name('gitm continue')
+    .usage('[-l --list]')
+    .description('继续未完成的操作')
 if (args.length > 0) program.arguments(createArgs(args))
 options.forEach((o: GitmarsOptionOptionsType) => {
     program.option(o.flags, o.description, o.defaultValue)

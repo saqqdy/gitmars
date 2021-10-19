@@ -26,9 +26,23 @@ options.forEach((o: GitmarsOptionOptionsType) => {
 // .option('-f, --force', '没有版本的文件也暂存，这会执行git add .', false)
 program.action((message: string, opt: GitmBuildOption) => {
     if (!message) message = getCurrent()
-    let cmd: Array<CommandType | string> = [{ cmd: `git stash save "${message}"`, config: { success: '文件暂存成功', fail: '出错了，请联系管理员' } }]
+    let cmd: Array<CommandType | string> = [
+        {
+            cmd: `git stash save "${message}"`,
+            config: { success: '文件暂存成功', fail: '出错了，请联系管理员' }
+        }
+    ]
     if (opt.force) {
-        cmd = ['git add .', { cmd: `git stash save "${message}"`, config: { success: '文件暂存成功', fail: '出错了，请联系管理员' } }]
+        cmd = [
+            'git add .',
+            {
+                cmd: `git stash save "${message}"`,
+                config: {
+                    success: '文件暂存成功',
+                    fail: '出错了，请联系管理员'
+                }
+            }
+        ]
     }
     queue(cmd)
 })

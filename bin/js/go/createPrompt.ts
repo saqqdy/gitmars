@@ -1,6 +1,9 @@
 const { warning } = require('../index')
 
-import { GitmarsOptionArgsType, GitmarsOptionOptionsType } from '../../../typings'
+import {
+    GitmarsOptionArgsType,
+    GitmarsOptionOptionsType
+} from '../../../typings'
 
 export interface PromptConfigType {
     options: GitmarsOptionArgsType[] | GitmarsOptionOptionsType[]
@@ -41,7 +44,11 @@ export interface PromptOptionInputType {
  * @param {object} type 类型checkbox/input/list
  * @returns {opject} 返回prompt
  */
-const createPrompt = (command: string, { options, validator, transform }: PromptConfigType, type: string) => {
+const createPrompt = (
+    command: string,
+    { options, validator, transform }: PromptConfigType,
+    type: string
+) => {
     if (type === 'checkbox') {
         if (!options.length) return null
         const promptOpt: PromptOptionCheckboxType = {
@@ -70,34 +77,51 @@ const createPrompt = (command: string, { options, validator, transform }: Prompt
         return promptOpt
     } else if (type === 'input') {
         const list: PromptOptionInputType[] = []
-        ;(options as GitmarsOptionArgsType[]).forEach(({ validator: childValidator, transformer, ...opts }) => {
-            // 优先使用每个参数设置的校验
-            if (childValidator) validator = childValidator
-            const cfg: PromptOptionInputType = {
-                type: 'input',
-                name: opts.name,
-                message: `${opts.description || '请输入参数' + opts.name + '的值'}${!opts.required ? warning('(可不填' + ('defaultValue' in opts && opts.defaultValue !== '' ? '，默认"' + opts.defaultValue + '"' : '') + ')') : ''}`,
-                transformer: (val: string, answers: object, flags: any) => {
-                    if (!transformer) {
-                        return val
-                    } else if (transformer instanceof Function) {
-                        return transformer(val, answers, flags, opts)
+        ;(options as GitmarsOptionArgsType[]).forEach(
+            ({ validator: childValidator, transformer, ...opts }) => {
+                // 优先使用每个参数设置的校验
+                if (childValidator) validator = childValidator
+                const cfg: PromptOptionInputType = {
+                    type: 'input',
+                    name: opts.name,
+                    message: `${
+                        opts.description || '请输入参数' + opts.name + '的值'
+                    }${
+                        !opts.required
+                            ? warning(
+                                  '(可不填' +
+                                      ('defaultValue' in opts &&
+                                      opts.defaultValue !== ''
+                                          ? '，默认"' + opts.defaultValue + '"'
+                                          : '') +
+                                      ')'
+                              )
+                            : ''
+                    }`,
+                    transformer: (val: string, answers: object, flags: any) => {
+                        if (!transformer) {
+                            return val
+                        } else if (transformer instanceof Function) {
+                            return transformer(val, answers, flags, opts)
+                        }
+                    },
+                    validate: (val): string | boolean => {
+                        let msg: string | boolean = true
+                        if (!val && opts.required)
+                            msg = '请填写' + opts.description
+                        validator &&
+                            msg === true &&
+                            validator(val, opts, (err: Error) => {
+                                if (err) msg = err.message
+                            })
+                        return msg
                     }
-                },
-                validate: (val): string | boolean => {
-                    let msg: string | boolean = true
-                    if (!val && opts.required) msg = '请填写' + opts.description
-                    validator &&
-                        msg === true &&
-                        validator(val, opts, (err: Error) => {
-                            if (err) msg = err.message
-                        })
-                    return msg
                 }
+                if ('defaultValue' in opts && opts.defaultValue !== '')
+                    cfg.defaultValue = opts.defaultValue
+                list.push(cfg)
             }
-            if ('defaultValue' in opts && opts.defaultValue !== '') cfg.defaultValue = opts.defaultValue
-            list.push(cfg)
-        })
+        )
         return list
     }
 }

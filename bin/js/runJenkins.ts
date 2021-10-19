@@ -2,7 +2,11 @@ const sh = require('shelljs')
 const apolloConfig = require('./apollo')
 const { error, success, mapTemplate } = require('./index')
 
-import type { ApolloConfigType, ApolloConfigBranchType, ApolloBranchList } from '../../typings'
+import type {
+    ApolloConfigType,
+    ApolloConfigBranchType,
+    ApolloBranchList
+} from '../../typings'
 
 export interface RunJenkinsOptionType {
     env: ApolloBranchList
@@ -14,7 +18,11 @@ export interface RunJenkinsOptionType {
  * runJenkins
  * @description 调起Jenkins构建
  */
-async function runJenkins({ env, project, app = 'all' }: RunJenkinsOptionType): Promise<void | unknown> {
+async function runJenkins({
+    env,
+    project,
+    app = 'all'
+}: RunJenkinsOptionType): Promise<void | unknown> {
     const buildConfig = (await apolloConfig()) as ApolloConfigType
     const cfg: ApolloConfigBranchType = buildConfig[env]
     let p
@@ -39,13 +47,21 @@ async function runJenkins({ env, project, app = 'all' }: RunJenkinsOptionType): 
         sh.exit(1)
         return
     }
-    const url = mapTemplate(p.apps && p.apps.length > 0 ? buildConfig.templateWithParam : buildConfig.template, {
-        line: cfg.line,
-        project: p.project,
-        token: cfg.token,
-        app
-    })
-    sh.exec(`curl -u ${buildConfig.username}:${buildConfig.password} "${url}"`, { silent: true })
+    const url = mapTemplate(
+        p.apps && p.apps.length > 0
+            ? buildConfig.templateWithParam
+            : buildConfig.template,
+        {
+            line: cfg.line,
+            project: p.project,
+            token: cfg.token,
+            app
+        }
+    )
+    sh.exec(
+        `curl -u ${buildConfig.username}:${buildConfig.password} "${url}"`,
+        { silent: true }
+    )
     sh.echo(success('成功调起Jenkins构建'))
 }
 
