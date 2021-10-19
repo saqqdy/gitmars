@@ -126,7 +126,11 @@ import type { GitmarsMultiOptionType } from '../../typings'
             // 校验传值
             validatorOpts: (val, opts, cb) => {
                 if (val.includes('--combine') && val.includes('--prod')) {
-                    cb(new Error('不能同时选择“把release合并到bug”和“合并bug到master”'))
+                    cb(
+                        new Error(
+                            '不能同时选择“把release合并到bug”和“合并bug到master”'
+                        )
+                    )
                     return
                 }
                 cb()
@@ -185,7 +189,8 @@ import type { GitmarsMultiOptionType } from '../../typings'
                     short: '-m',
                     long: '--mode',
                     negate: false,
-                    description: '出现冲突时，保留传入代码还是保留当前代码；1=采用当前 2=采用传入；默认为 0=手动处理。本参数不可与--use-rebase同时使用',
+                    description:
+                        '出现冲突时，保留传入代码还是保留当前代码；1=采用当前 2=采用传入；默认为 0=手动处理。本参数不可与--use-rebase同时使用',
                     defaultValue: 0,
                     recommend: false
                 },
@@ -259,7 +264,8 @@ import type { GitmarsMultiOptionType } from '../../typings'
     }
 
     /* istanbul ignore next */
-    if (typeof exports === 'object' && typeof module === 'object') module.exports = cmdConfig
+    if (typeof exports === 'object' && typeof module === 'object')
+        module.exports = cmdConfig
     // else if (typeof define === 'function' && define.amd) define(['cmdConfig'], () => cmdConfig)
     else if (typeof exports === 'object') exports['cmdConfig'] = cmdConfig
     else {

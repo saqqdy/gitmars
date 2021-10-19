@@ -3,7 +3,12 @@
 		<div class="content">
 			<h2>项目列表</h2>
 			<ul>
-				<li v-for="item in data.list" :key="item.id" class="flex" @click="goProject(item)">
+				<li
+					v-for="item in data.list"
+					:key="item.id"
+					class="flex"
+					@click="goProject(item)"
+				>
 					<span class="iconfont icon-star-fill" title="收藏"></span>
 					<div class="ttl">
 						<span>
@@ -12,8 +17,16 @@
 						</span>
 						<p>{{ item.path }}</p>
 					</div>
-					<span class="iconfont icon-link" @click.stop="open(item)" title="进入项目首页"></span>
-					<span class="iconfont icon-close-circle" @click.stop="del(item)" title="删除"></span>
+					<span
+						class="iconfont icon-link"
+						@click.stop="open(item)"
+						title="进入项目首页"
+					></span>
+					<span
+						class="iconfont icon-close-circle"
+						@click.stop="del(item)"
+						title="删除"
+					></span>
 				</li>
 			</ul>
 		</div>

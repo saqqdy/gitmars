@@ -24,15 +24,36 @@ export interface CommandNeedInput {
  * @param {object} config.transformArgs 传参值转换
  * @returns {string} result 返回指令结果Promise
  */
-const getCommand = async ({ command, args, options, validatorOpts, validatorArgs, transformOpts, transformArgs }: GitmarsOptionType) => {
+const getCommand = async ({
+    command,
+    args,
+    options,
+    validatorOpts,
+    validatorArgs,
+    transformOpts,
+    transformArgs
+}: GitmarsOptionType) => {
     let params: string[] = [],
         needInput: CommandNeedInput[] = [] // 需要输入参数值的列表
     // 第一步：args参数
     if (options.length > 0) {
         // 是否需要执行第一步checkbox选择：1. options全部参数都需要输入值；2. 全部参数都是recommend为true，满足这两个条件则不走checkbox。
-        const needStep1 = options.some(option => (!option.optional && !option.required) || !option.recommend)
+        const needStep1 = options.some(
+            option =>
+                (!option.optional && !option.required) || !option.recommend
+        )
         if (needStep1) {
-            const answer1 = await inquirer.prompt(createPrompt(command, { options, validator: validatorOpts, transform: transformOpts }, 'checkbox'))
+            const answer1 = await inquirer.prompt(
+                createPrompt(
+                    command,
+                    {
+                        options,
+                        validator: validatorOpts,
+                        transform: transformOpts
+                    },
+                    'checkbox'
+                )
+            )
             const { [command]: selection } = answer1
             selection.forEach((prop: string) => {
                 const option = options.find(opt => opt.long === prop)
@@ -63,12 +84,24 @@ const getCommand = async ({ command, args, options, validatorOpts, validatorArgs
     }
     // 第二步：command参数
     if (args.length > 0) {
-        const answer2 = await inquirer.prompt(createPrompt(command, { options: args, validator: validatorArgs, transform: transformArgs }, 'input'))
+        const answer2 = await inquirer.prompt(
+            createPrompt(
+                command,
+                {
+                    options: args,
+                    validator: validatorArgs,
+                    transform: transformArgs
+                },
+                'input'
+            )
+        )
         params = (Object.values(answer2) as string[]).concat(params)
     }
     // 第三步：args参数需要传参的部分
     if (needInput.length > 0) {
-        const answer3 = await inquirer.prompt(createPrompt(command, { options: needInput }, 'input'))
+        const answer3 = await inquirer.prompt(
+            createPrompt(command, { options: needInput }, 'input')
+        )
         const arr = Object.entries(answer3).map((item: any[]) => {
             if (item[1] !== '') item[1] = '"' + item[1] + '"'
             return item

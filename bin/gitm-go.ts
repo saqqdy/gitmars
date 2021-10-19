@@ -3,7 +3,22 @@ const { program } = require('commander')
 const sh = require('shelljs')
 const inquirer = require('inquirer')
 const { options, args } = require('./conf/go')
-const { combine, end, update, build, start, admin, branch, copy, get, save, revert, link, unlink, postmsg } = require('./js/go/index')
+const {
+    combine,
+    end,
+    update,
+    build,
+    start,
+    admin,
+    branch,
+    copy,
+    get,
+    save,
+    revert,
+    link,
+    unlink,
+    postmsg
+} = require('./js/go/index')
 const { success, getCurrent } = require('./js/index')
 const { createArgs } = require('./js/tools')
 // const getConfig = require('./js/getConfig')

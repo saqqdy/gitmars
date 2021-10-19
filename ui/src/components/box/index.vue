@@ -1,19 +1,61 @@
 <template>
 	<transition name="fade">
-		<div ref="v3Box" class="v3-box" :class="{ 'one-btn': btns === 1, 'two-btn': btns === 2, 'no-btn': btns === 0 }" :style="{ width: data.mWidth || width, maxWidth: !data.max ? data.maxW : '' }">
+		<div
+			ref="v3Box"
+			class="v3-box"
+			:class="{
+				'one-btn': btns === 1,
+				'two-btn': btns === 2,
+				'no-btn': btns === 0
+			}"
+			:style="{
+				width: data.mWidth || width,
+				maxWidth: !data.max ? data.maxW : ''
+			}"
+		>
 			<div class="v3-box-header" v-html="title" v-if="showHeader"></div>
 			<!-- <template v-if="!$slots.title">{{ title }}</template>
 				<slot name="title" v-if="$slots.title"></slot> -->
 
-			<div ref="boxContent" class="v3-box-content message" v-if="message && !component" v-html="message" :style="{ height: data.mHeight || height, maxHeight: !data.max ? data.maxH : '', minHeight: data.mHeight }"></div>
-			<div ref="boxContent" class="v3-box-content" :class="{ 'no-header': !showHeader }" v-if="component && !message" :style="{ height: data.mHeight || height, maxHeight: !data.max ? data.maxH : '', minHeight: data.mHeight }">
+			<div
+				ref="boxContent"
+				class="v3-box-content message"
+				v-if="message && !component"
+				v-html="message"
+				:style="{
+					height: data.mHeight || height,
+					maxHeight: !data.max ? data.maxH : '',
+					minHeight: data.mHeight
+				}"
+			></div>
+			<div
+				ref="boxContent"
+				class="v3-box-content"
+				:class="{ 'no-header': !showHeader }"
+				v-if="component && !message"
+				:style="{
+					height: data.mHeight || height,
+					maxHeight: !data.max ? data.maxH : '',
+					minHeight: data.mHeight
+				}"
+			>
 				<!-- <slot></slot> -->
 			</div>
 
 			<div class="v3-box-footer" v-if="showBtn">
 				<template v-if="!$slots.footer">
-					<el-button ref="mainBtn" type="primary" class="btn-main" autofocus v-if="showOkBtn" @click="handleOk">{{ okBtnName }}</el-button>
-					<el-button v-if="showCancelBtn" @click="handleCancel">{{ cancelBtnName }}</el-button>
+					<el-button
+						ref="mainBtn"
+						type="primary"
+						class="btn-main"
+						autofocus
+						v-if="showOkBtn"
+						@click="handleOk"
+						>{{ okBtnName }}</el-button
+					>
+					<el-button v-if="showCancelBtn" @click="handleCancel">{{
+						cancelBtnName
+					}}</el-button>
 				</template>
 				<slot name="footer" v-if="$slots.footer"></slot>
 			</div>
@@ -21,16 +63,39 @@
 			<div class="v3-box-ico">
 				<div class="v3-box-filter"></div>
 				<!-- <slot name="filter"></slot> -->
-				<span class="v3-box-max iconfont icon-tuichuquanping" title="恢复默认" @click="handleMax" v-if="showMax && data.max"></span>
-				<span class="v3-box-max iconfont icon-quanping" title="最大化" @click="handleMax" v-if="showMax && !data.max"></span>
-				<span class="v3-box-close iconfont icon-close" title="关闭" @click="handleClose" v-if="showClose"></span>
+				<span
+					class="v3-box-max iconfont icon-tuichuquanping"
+					title="恢复默认"
+					@click="handleMax"
+					v-if="showMax && data.max"
+				></span>
+				<span
+					class="v3-box-max iconfont icon-quanping"
+					title="最大化"
+					@click="handleMax"
+					v-if="showMax && !data.max"
+				></span>
+				<span
+					class="v3-box-close iconfont icon-close"
+					title="关闭"
+					@click="handleClose"
+					v-if="showClose"
+				></span>
 			</div>
 		</div>
 	</transition>
 </template>
 
 <script>
-import { reactive, computed, createVNode, render, nextTick, unref, ref } from 'vue'
+import {
+	reactive,
+	computed,
+	createVNode,
+	render,
+	nextTick,
+	unref,
+	ref
+} from 'vue'
 import { addEvent, removeEvent, fixNumber, delay } from 'js-cool'
 import { ElButton } from 'element-plus'
 
@@ -202,12 +267,25 @@ export default {
 			$delay.register('windowReSize', calculate, 500)
 		}
 		const calculate = () => {
-			let c = 110 - (props.showBtn ? 0 : 60) - (props.showHeader ? 0 : 50), // herder=50和footer=60高度
+			let c =
+					110 -
+					(props.showBtn ? 0 : 60) -
+					(props.showHeader ? 0 : 50), // herder=50和footer=60高度
 				p = props.showHeader ? 0 : 40,
-				maxW = fixNumber(window.innerWidth > 320 ? window.innerWidth - 20 : 300),
-				maxH = fixNumber(window.innerHeight > 300 + c ? window.innerHeight - c - 60 + p : 240 + p),
-				maxHeight = parseInt(props.maxHeight || props.height || maxH || 480),
-				maxWidth = parseInt(props.maxWidth || props.width || maxW || 600)
+				maxW = fixNumber(
+					window.innerWidth > 320 ? window.innerWidth - 20 : 300
+				),
+				maxH = fixNumber(
+					window.innerHeight > 300 + c
+						? window.innerHeight - c - 60 + p
+						: 240 + p
+				),
+				maxHeight = parseInt(
+					props.maxHeight || props.height || maxH || 480
+				),
+				maxWidth = parseInt(
+					props.maxWidth || props.width || maxW || 600
+				)
 			data.maxW = Math.min(maxWidth, maxW) + 'px'
 			data.maxH = Math.min(maxHeight, maxH) + 'px'
 			if (data.max) {
@@ -242,10 +320,19 @@ export default {
 		 * @description 窗口对大化
 		 */
 		const handleMax = () => {
-			let c = 110 - (props.showBtn ? 0 : 60) - (props.showHeader ? 0 : 50), // herder=50和footer=60高度
+			let c =
+					110 -
+					(props.showBtn ? 0 : 60) -
+					(props.showHeader ? 0 : 50), // herder=50和footer=60高度
 				p = props.showHeader ? 0 : 40,
-				w = fixNumber(window.innerWidth > 320 ? window.innerWidth - 20 : 300),
-				h = fixNumber(window.innerHeight > 300 + c ? window.innerHeight - c - 60 + p : 240 + p)
+				w = fixNumber(
+					window.innerWidth > 320 ? window.innerWidth - 20 : 300
+				),
+				h = fixNumber(
+					window.innerHeight > 300 + c
+						? window.innerHeight - c - 60 + p
+						: 240 + p
+				)
 			if (!data.max) {
 				data.max = true
 				data.mWidth = w + 'px'

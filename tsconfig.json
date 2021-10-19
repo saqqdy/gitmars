@@ -27,6 +27,14 @@
             "@/package": ["./package.json"]
         }
     },
-    "include": ["bin/**/*.ts", "bin/**/*.d.ts", "src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue", "typings/*.d.ts"],
+    "include": [
+        "bin/**/*.ts",
+        "bin/**/*.d.ts",
+        "src/**/*.ts",
+        "src/**/*.d.ts",
+        "src/**/*.tsx",
+        "src/**/*.vue",
+        "typings/*.d.ts"
+    ],
     "exclude": ["**/node_modules", "**/__tests__"]
 }

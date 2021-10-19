@@ -13,7 +13,10 @@ export interface GroupMessageConfigType {
  * sendGroupMessage
  * @description 发送群消息
  */
-async function sendGroupMessage(message: string, cfg: GroupMessageConfigType = {}): Promise<void> {
+async function sendGroupMessage(
+    message: string,
+    cfg: GroupMessageConfigType = {}
+): Promise<void> {
     const config = (await apolloConfig()) as ApolloConfigType
     const { silent = true, url } = cfg
     let urls: string[] = []
@@ -23,12 +26,18 @@ async function sendGroupMessage(message: string, cfg: GroupMessageConfigType = {
     }
     if (url) urls = [url]
     else if (config.gitNotificationGroupUrl) {
-        if (typeof config.gitNotificationGroupUrl === 'string') urls = [config.gitNotificationGroupUrl]
+        if (typeof config.gitNotificationGroupUrl === 'string')
+            urls = [config.gitNotificationGroupUrl]
         else urls = config.gitNotificationGroupUrl
     }
     message = message.replace(/\s/g, '')
     urls.forEach(() => {
-        sh.exec(`curl -i -H "Content-Type: application/json" -X POST -d "{\\"content\\":\\"${message}\\"}" "${url || config.gitNotificationGroupUrl}"`, { silent })
+        sh.exec(
+            `curl -i -H "Content-Type: application/json" -X POST -d "{\\"content\\":\\"${message}\\"}" "${
+                url || config.gitNotificationGroupUrl
+            }"`,
+            { silent }
+        )
     })
 }
 

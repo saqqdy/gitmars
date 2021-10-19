@@ -17,7 +17,11 @@ export interface IsUpdatedInTimeConfigType {
  * @param option.branch - 目标分支
  * @returns isMergedDevBranch - 是否合并过
  */
-export function getIsUpdatedInTime({ lastet, limit, branch: branches }: IsUpdatedInTimeConfigType): boolean {
+export function getIsUpdatedInTime({
+    lastet,
+    limit,
+    branch: branches
+}: IsUpdatedInTimeConfigType): boolean {
     let isUpdated = false
     const current = getCurrent()
     const mainVers: string[] = []

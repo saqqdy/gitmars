@@ -33,7 +33,8 @@ export default function (options) {
 		// 默认配置
 		const instance = axios.create()
 		// const token = getCookie('token')
-		instance.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded'
+		instance.defaults.headers.post['Content-Type'] =
+			'application/x-www-form-urlencoded'
 		instance.defaults.headers.common['Access-Control-Allow-Origin'] = '*'
 		// if (token) {
 		// 	instance.defaults.headers.common['authorization'] = token
@@ -46,10 +47,17 @@ export default function (options) {
 				if (process.env.NODE_ENV === 'development') {
 					config.url = '/jar' + config.url
 				}
-				config.data = Object.assign({}, { _time: Date.now() }, config.data)
+				config.data = Object.assign(
+					{},
+					{ _time: Date.now() },
+					config.data
+				)
 				if (type == 'post') {
 					config.method = 'post'
-					config.data = qs.stringify(config.data, { arrayFormat: 'indices', allowDots: true })
+					config.data = qs.stringify(config.data, {
+						arrayFormat: 'indices',
+						allowDots: true
+					})
 				} else {
 					config.method = 'get'
 					config.params = config.data

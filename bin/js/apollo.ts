@@ -16,8 +16,11 @@ async function apolloConfig(): Promise<ApolloConfigType | void> {
     const now = new Date().getTime()
     let apolloConfig
     if (sh.test('-f', cacheDir + '/buildConfig.json')) {
-        const fileDate: number = parseInt(sh.cat(cacheDir + '/buildConfig.txt').stdout)
-        if (now - fileDate < 24 * 60 * 60 * 1000) return require(cacheDir + '/buildConfig.json')
+        const fileDate: number = parseInt(
+            sh.cat(cacheDir + '/buildConfig.txt').stdout
+        )
+        if (now - fileDate < 24 * 60 * 60 * 1000)
+            return require(cacheDir + '/buildConfig.json')
     }
     const config = getConfig() as GitmarsConfigType
     if (!config.apolloConfig) {
@@ -37,7 +40,10 @@ async function apolloConfig(): Promise<ApolloConfigType | void> {
     }
     const result = await apollo.remoteConfigService(apolloConfig)
     await writeFile(cacheDir + '/buildConfig.txt', String(now))
-    await writeFile(cacheDir + '/buildConfig.json', JSON.stringify(result.content))
+    await writeFile(
+        cacheDir + '/buildConfig.json',
+        JSON.stringify(result.content)
+    )
     return result.content
 }
 

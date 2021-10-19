@@ -63,7 +63,10 @@ export default {
 										class: ['v3-button-icon']
 									},
 									h('i', {
-										class: ['iconfont', 'icon-' + props.icon]
+										class: [
+											'iconfont',
+											'icon-' + props.icon
+										]
 									})
 								),
 								' '

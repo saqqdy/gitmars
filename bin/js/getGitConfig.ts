@@ -12,12 +12,17 @@ export interface GitProjectConfigType {
  * @returns {Object} arr 返回对象
  */
 function getGitConfig(cwd: string = process.cwd()): GitProjectConfigType {
-    const result = sh.exec('git config --local --get remote.origin.url', { silent: true }).stdout.replace(/\s+$/g, '')
+    const result = sh
+        .exec('git config --local --get remote.origin.url', { silent: true })
+        .stdout.replace(/\s+$/g, '')
     const [gitUrl] = result
         .split('\n')
         .map((s: string) => s.trim())
         .map(slash)
-    return { gitUrl, appName: gitUrl.replace(/^[\s\S]+\/([a-z0-9A-Z-_]+)\.git$/, '$1') }
+    return {
+        gitUrl,
+        appName: gitUrl.replace(/^[\s\S]+\/([a-z0-9A-Z-_]+)\.git$/, '$1')
+    }
 }
 
 module.exports = getGitConfig

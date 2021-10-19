@@ -3,13 +3,19 @@
 		<div class="menu mini">
 			<ul>
 				<li>
-					<router-link :to="{ name: 'control_gitmars', query: route.query }" title="gitmars工作流">
+					<router-link
+						:to="{ name: 'control_gitmars', query: route.query }"
+						title="gitmars工作流"
+					>
 						<span class="iconfont icon-codelibrary"></span>
 						<span>gitmars工作流</span>
 					</router-link>
 				</li>
 				<li>
-					<router-link :to="{ name: 'control_tasks', query: route.query }" title="任务">
+					<router-link
+						:to="{ name: 'control_tasks', query: route.query }"
+						title="任务"
+					>
 						<span class="iconfont icon-control"></span>
 						<span>任务</span>
 					</router-link>
@@ -17,7 +23,10 @@
 			</ul>
 			<ul>
 				<li>
-					<router-link :to="{ name: 'project_list' }" title="返回项目列表">
+					<router-link
+						:to="{ name: 'project_list' }"
+						title="返回项目列表"
+					>
 						<span class="iconfont icon-left-circle"></span>
 						<span>返回项目列表</span>
 					</router-link>
@@ -48,7 +57,8 @@ import { useRoute, useRouter } from 'vue-router'
 const router = useRouter()
 const route = useRoute()
 const error: Ref<Error | Object | null> = ref(null)
-if (route.name === 'control') router.replace({ name: 'control_gitmars', query: route.query })
+if (route.name === 'control')
+	router.replace({ name: 'control_gitmars', query: route.query })
 onErrorCaptured((err): boolean => {
 	error.value = err
 	// console.warn('error', err)

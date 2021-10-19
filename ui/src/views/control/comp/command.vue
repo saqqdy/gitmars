@@ -5,12 +5,27 @@
 				{{ arg.name }}
 				<div class="r">
 					<template v-if="arg.options">
-						<el-select v-model="arg.value" :key="arg.name + '-arg'" :placeholder="arg.required ? '必填' : '选填'" clearable>
-							<el-option v-for="item in arg.options" :key="item" :label="item" :value="item"></el-option>
+						<el-select
+							v-model="arg.value"
+							:key="arg.name + '-arg'"
+							:placeholder="arg.required ? '必填' : '选填'"
+							clearable
+						>
+							<el-option
+								v-for="item in arg.options"
+								:key="item"
+								:label="item"
+								:value="item"
+							></el-option>
 						</el-select>
 					</template>
 					<template v-else>
-						<el-input v-model="arg.value" :key="arg.name + '-arg'" :placeholder="arg.required ? '必填' : '选填'" clearable></el-input>
+						<el-input
+							v-model="arg.value"
+							:key="arg.name + '-arg'"
+							:placeholder="arg.required ? '必填' : '选填'"
+							clearable
+						></el-input>
 					</template>
 				</div>
 			</li>
@@ -21,15 +36,34 @@
 				<div class="r">
 					<template v-if="option.optional">
 						<template v-if="option.options">
-							<el-select v-model="option.value" :key="option.long + '-arg'" :placeholder="option.required ? '必填' : '选填'" clearable>
-								<el-option v-for="item in option.options" :key="item" :label="item" :value="item"></el-option>
+							<el-select
+								v-model="option.value"
+								:key="option.long + '-arg'"
+								:placeholder="option.required ? '必填' : '选填'"
+								clearable
+							>
+								<el-option
+									v-for="item in option.options"
+									:key="item"
+									:label="item"
+									:value="item"
+								></el-option>
 							</el-select>
 						</template>
 						<template v-else>
-							<el-input v-model="option.value" :key="option.long + '-option'" :placeholder="option.required ? '必填' : '选填'" clearable></el-input>
+							<el-input
+								v-model="option.value"
+								:key="option.long + '-option'"
+								:placeholder="option.required ? '必填' : '选填'"
+								clearable
+							></el-input>
 						</template>
 					</template>
-					<el-checkbox v-else v-model="option.value" :key="option.long + '-option-check'"></el-checkbox>
+					<el-checkbox
+						v-else
+						v-model="option.value"
+						:key="option.long + '-option-check'"
+					></el-checkbox>
 				</div>
 			</li>
 		</ul>
@@ -43,7 +77,16 @@ export default {
 }
 </script>
 <script lang="ts" setup>
-import { PropType, reactive, unref, watch, inject, ref, toRaw, computed } from 'vue'
+import {
+	PropType,
+	reactive,
+	unref,
+	watch,
+	inject,
+	ref,
+	toRaw,
+	computed
+} from 'vue'
 
 import type { CommandSetsType } from '@/types/command'
 

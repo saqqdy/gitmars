@@ -22,7 +22,9 @@ program
         if (isGitProject()) {
             sh.rm(gitDir + '/.gitmarscommands', gitDir + '/.gitmarslog')
             if (opt.force) {
-                sh.echo(warning('您输入了--force，将同时清理本地gitmars配置文件'))
+                sh.echo(
+                    warning('您输入了--force，将同时清理本地gitmars配置文件')
+                )
                 sh.rm(root + '/gitmarsconfig.json', root + '/.gitmarsrc')
             }
         } else {

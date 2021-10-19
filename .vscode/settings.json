@@ -1,10 +1,36 @@
 {
-    "cSpell.words": ["Gitmars", "gitmars", "Gitm", "gitm", "vuepress", "typedoc", "esbuild", "lastet", "forcedelete"],
+    "cSpell.words": [
+        "Gitmars",
+        "gitmars",
+        "Gitm",
+        "gitm",
+        "vuepress",
+        "typedoc",
+        "esbuild",
+        "lastet",
+        "forcedelete"
+    ],
     "typescript.tsdk": "node_modules/typescript/lib",
     "editor.codeActionsOnSave": {
         "source.fixAll.eslint": true
     },
     "npm.packageManager": "yarn",
-    "eslint.probe": ["javascript", "javascriptreact", "typescript", "typescriptreact", "html", "vue", "markdown"],
-    "eslint.validate": ["javascript", "javascriptreact", "typescript", "typescriptreact", "html", "vue", "markdown"]
+    "eslint.probe": [
+        "javascript",
+        "javascriptreact",
+        "typescript",
+        "typescriptreact",
+        "html",
+        "vue",
+        "markdown"
+    ],
+    "eslint.validate": [
+        "javascript",
+        "javascriptreact",
+        "typescript",
+        "typescriptreact",
+        "html",
+        "vue",
+        "markdown"
+    ]
 }

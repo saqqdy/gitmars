@@ -2,14 +2,25 @@
 const { program } = require('commander')
 const sh = require('shelljs')
 const { options, args } = require('./conf/copy')
-const { error, warning, queue, getStatus, getCurrent, isGitProject } = require('./js/index')
+const {
+    error,
+    warning,
+    queue,
+    getStatus,
+    getCurrent,
+    isGitProject
+} = require('./js/index')
 const { createArgs } = require('./js/tools')
 if (!isGitProject()) {
     sh.echo(error('当前目录不是git项目目录'))
     sh.exit(1)
 }
 
-import { QueueReturnsType, GitmarsOptionOptionsType, CommandType } from '../typings'
+import {
+    QueueReturnsType,
+    GitmarsOptionOptionsType,
+    CommandType
+} from '../typings'
 
 interface GitmBuildOption {
     key: string
@@ -19,7 +30,10 @@ interface GitmBuildOption {
 /**
  * gitm copy
  */
-program.name('gitm copy').usage('<from> [commitid...] [-k] [-a]').description('cherry-pick易用版本，从某个分支拷贝某条记录合并到当前分支')
+program
+    .name('gitm copy')
+    .usage('<from> [commitid...] [-k] [-a]')
+    .description('cherry-pick易用版本，从某个分支拷贝某条记录合并到当前分支')
 if (args.length > 0) program.arguments(createArgs(args))
 options.forEach((o: GitmarsOptionOptionsType) => {
     program.option(o.flags, o.description, o.defaultValue)
@@ -31,7 +45,10 @@ program.action((from: string, commitid: string[], opts: GitmBuildOption) => {
     const cur = getCurrent()
     if (!status) sh.exit(1)
     if (opts.key !== '' || opts.author !== '') {
-        const cmd: Array<CommandType | string> = [`git checkout ${from}`, `git log --grep=${opts.key} --author=${opts.author}`]
+        const cmd: Array<CommandType | string> = [
+            `git checkout ${from}`,
+            `git log --grep=${opts.key} --author=${opts.author}`
+        ]
         sh.echo(warning('为确保copy准确，请尽量完整填写关键词'))
         // if (!/^\d{4,}$/.test(opts.key)) {
         // 	sh.echo(error('为确保copy准确，关键词必须是4位以上的任务号或者bug修复编号'))
@@ -50,11 +67,19 @@ program.action((from: string, commitid: string[], opts: GitmBuildOption) => {
                     cmds = cmds.concat([
                         {
                             cmd: `git cherry-pick ${commits.join(' ')}`,
-                            config: { again: false, success: '记录合并成功', fail: '合并失败，请根据提示处理' }
+                            config: {
+                                again: false,
+                                success: '记录合并成功',
+                                fail: '合并失败，请根据提示处理'
+                            }
                         },
                         {
                             cmd: 'git push',
-                            config: { again: true, success: '推送成功', fail: '推送失败，请根据提示处理' }
+                            config: {
+                                again: true,
+                                success: '推送成功',
+                                fail: '推送失败，请根据提示处理'
+                            }
                         }
                     ])
                 } else {
@@ -69,11 +94,19 @@ program.action((from: string, commitid: string[], opts: GitmBuildOption) => {
         const cmd: Array<CommandType | string> = [
             {
                 cmd: `git cherry-pick ${commitid.join(' ')}`,
-                config: { again: false, success: '记录合并成功', fail: '合并失败，请根据提示处理' }
+                config: {
+                    again: false,
+                    success: '记录合并成功',
+                    fail: '合并失败，请根据提示处理'
+                }
             },
             {
                 cmd: 'git push',
-                config: { again: true, success: '推送成功', fail: '推送失败，请根据提示处理' }
+                config: {
+                    again: true,
+                    success: '推送成功',
+                    fail: '推送失败，请根据提示处理'
+                }
             }
         ]
         queue(cmd)

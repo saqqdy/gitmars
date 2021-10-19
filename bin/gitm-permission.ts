@@ -30,7 +30,13 @@ program
         if (opt.dev) allow.push(config.develop)
         if (opt.release) allow.push(config.release)
         const index = allow.indexOf(current)
-        if (index > -1 && !opt.noVerify && msg && msg.indexOf('Merge:') === -1 && msg.indexOf('Merge branch') === -1) {
+        if (
+            index > -1 &&
+            !opt.noVerify &&
+            msg &&
+            msg.indexOf('Merge:') === -1 &&
+            msg.indexOf('Merge branch') === -1
+        ) {
             sh.echo(error(`${allow[index]}分支不允许直接提交`))
             sh.exit(1)
         } else {

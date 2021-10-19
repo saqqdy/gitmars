@@ -21,7 +21,14 @@ function runCommand(cwd: string, hookName: string, cmd: string, env: any) {
         stdio: 'inherit'
     })
     if (status !== 0) {
-        const noVerifyMessage = ['commit-msg', 'pre-commit', 'pre-rebase', 'pre-push'].includes(hookName) ? '(add --no-verify to bypass)' : '(cannot be bypassed with --no-verify due to Git specs)'
+        const noVerifyMessage = [
+            'commit-msg',
+            'pre-commit',
+            'pre-rebase',
+            'pre-push'
+        ].includes(hookName)
+            ? '(add --no-verify to bypass)'
+            : '(cannot be bypassed with --no-verify due to Git specs)'
         console.info(`gitmars > ${hookName} hook failed ${noVerifyMessage}`)
     }
     // If shell exits with 127 it means that some command was not found.
@@ -38,11 +45,18 @@ function runCommand(cwd: string, hookName: string, cmd: string, env: any) {
  * @returns {Number} 0|1 返回状态
  */
 // @ts-ignore
-function start([, , hookName = '', ...GITMARS_GIT_PARAMS], { cwd = process.cwd() } = {}): ShellCode {
+function start(
+    [, , hookName = '', ...GITMARS_GIT_PARAMS],
+    { cwd = process.cwd() } = {}
+): ShellCode {
     const command = getCommand(cwd, hookName)
     // Add GITMARS_GIT_PARAMS to env
     const env = {} as any
-    if (GITMARS_GIT_PARAMS === null || GITMARS_GIT_PARAMS === void 0 ? void 0 : GITMARS_GIT_PARAMS.length) {
+    if (
+        GITMARS_GIT_PARAMS === null || GITMARS_GIT_PARAMS === void 0
+            ? void 0
+            : GITMARS_GIT_PARAMS.length
+    ) {
         env.GITMARS_GIT_PARAMS = GITMARS_GIT_PARAMS.join(' ')
     }
     if (command) {

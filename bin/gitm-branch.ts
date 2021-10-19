@@ -9,7 +9,12 @@ if (!isGitProject()) {
     sh.exit(1)
 }
 
-import { GitmarsBranchType, QueueReturnsType, GitmarsOptionOptionsType, CommandType } from '../typings'
+import {
+    GitmarsBranchType,
+    QueueReturnsType,
+    GitmarsOptionOptionsType,
+    CommandType
+} from '../typings'
 
 interface GitmBuildOption {
     key: string
@@ -23,7 +28,14 @@ interface GitmBuildOption {
 /**
  * gitm branch
  */
-program.name('gitm branch').usage('[-k --key [keyword]] [-t --type [type]] [-d --delete [branch]] [-r --remote [remote]] [-D --forcedelete [branch]]').description('分支查询、删除（注意该指令不用于创建分支，如需创建分支请走start流程）')
+program
+    .name('gitm branch')
+    .usage(
+        '[-k --key [keyword]] [-t --type [type]] [-d --delete [branch]] [-r --remote [remote]] [-D --forcedelete [branch]]'
+    )
+    .description(
+        '分支查询、删除（注意该指令不用于创建分支，如需创建分支请走start流程）'
+    )
 if (args.length > 0) program.arguments(createArgs(args))
 options.forEach((o: GitmarsOptionOptionsType) => {
     program.option(o.flags, o.description, o.defaultValue)
@@ -38,12 +50,16 @@ program.action((opt: GitmBuildOption): void => {
     const cmd: Array<CommandType | string> = []
     if (opt.delete) {
         // 删除分支
-        const id = sh.exec(`git rev-parse --verify ${opt.delete}`, { silent: true }).stdout.replace(/\s+$/g, '')
+        const id = sh
+            .exec(`git rev-parse --verify ${opt.delete}`, { silent: true })
+            .stdout.replace(/\s+$/g, '')
         if (/^[a-z0-9]+$/.test(id)) cmd.push(`git branch -d ${opt.delete}`)
         if (opt.remote) cmd.push(`git push origin --delete ${opt.delete}`)
     } else if (opt.forcedelete) {
         // 强行删除分支
-        const id = sh.exec(`git rev-parse --verify ${opt.delete}`, { silent: true }).stdout.replace(/\s+$/g, '')
+        const id = sh
+            .exec(`git rev-parse --verify ${opt.delete}`, { silent: true })
+            .stdout.replace(/\s+$/g, '')
         if (/^[a-z0-9]+$/.test(id)) cmd.push(`git branch -D ${opt.forcedelete}`)
         if (opt.remote) cmd.push(`git push origin --delete ${opt.delete}`)
     } else if (opt.upstream) {
@@ -60,7 +76,11 @@ program.action((opt: GitmBuildOption): void => {
         queue(cmd).then((data: QueueReturnsType[]) => {
             data.forEach((el: QueueReturnsType, index: number): void => {
                 if (index === 0 && el.code === 0) {
-                    let list = (el.out && typeof el.out === 'string' && el.out.split('\n')) || []
+                    let list =
+                        (el.out &&
+                            typeof el.out === 'string' &&
+                            el.out.split('\n')) ||
+                        []
                     list = list.filter(el => {
                         let fit = true
                         if (opt.key) {

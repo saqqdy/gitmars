@@ -49,7 +49,11 @@ ${getHookComment()}
                 return writeHook(filename, hookShell)
             }
             // 更新
-            if (getHookType.isGitmars(hook) || getHookType.isHusky(hook) || getHookType.isYorkie(hook)) {
+            if (
+                getHookType.isGitmars(hook) ||
+                getHookType.isHusky(hook) ||
+                getHookType.isYorkie(hook)
+            ) {
                 return writeHook(filename, hookShell)
             }
             // 跳过
@@ -110,9 +114,17 @@ function removeHookShell(dir: string = gitHookDir): void {
  * @param pmName - 包管理工具名称
  * @param relativeUserPkgDir - 用户包相对路径
  */
-function createLocalShell(dir: string = gitHookDir, pmName: string, relativeUserPkgDir: string): void {
+function createLocalShell(
+    dir: string = gitHookDir,
+    pmName: string,
+    relativeUserPkgDir: string
+): void {
     const filename = path.join(dir, 'gitmars.local.sh')
-    fs.writeFileSync(filename, getLocalShell(pmName, relativeUserPkgDir), 'utf-8')
+    fs.writeFileSync(
+        filename,
+        getLocalShell(pmName, relativeUserPkgDir),
+        'utf-8'
+    )
     fs.chmodSync(filename, 0o0755)
 }
 
@@ -146,7 +158,11 @@ function init(): void {
     }
     // git版本过旧
     if (!gitVersionIsNew) {
-        sh.echo(warning('Gitmars需要使用2.13.0以上版本的Git，当前版本：' + gitVersion))
+        sh.echo(
+            warning(
+                'Gitmars需要使用2.13.0以上版本的Git，当前版本：' + gitVersion
+            )
+        )
         process.exit(0)
     }
     createHooks(gitHookDir)
