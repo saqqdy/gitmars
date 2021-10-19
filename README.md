@@ -114,7 +114,7 @@ gitm copy --help
 
 # 智能导航
 
-## gitm go <Badge text="beta" type="warning"/>
+## gitm go
 
 智能导航指令，只记一条指令就能完成所有功能使用
 
@@ -125,7 +125,7 @@ gitm copy --help
 
 # UI 界面
 
-## gitm ui <Badge text="beta" type="warning"/>
+## gitm ui
 
 如果你厌倦了敲指令，gitmars 提供了懒人 UI 界面
 
