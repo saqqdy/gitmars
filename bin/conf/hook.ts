@@ -28,13 +28,13 @@ import type { GitmarsOptionType } from '../../typings'
                 defaultValue: false
             },
             {
-                flags: '--latest [latest]',
+                flags: '--lastet [lastet]',
                 required: false,
                 optional: false,
                 variadic: false,
                 mandatory: false,
                 short: '',
-                long: '--latest',
+                long: '--lastet',
                 negate: false,
                 description: '查询在某个时间之后的日志，填写格式：10s/2m/2h/3d/4M/5y',
                 defaultValue: '7d'

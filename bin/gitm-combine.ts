@@ -2,7 +2,9 @@
 const { program } = require('commander')
 const sh = require('shelljs')
 const { options, args } = require('./conf/combine')
-const { error, queue, getStatus, getCurrent, searchBranch, isGitProject } = require('./js/index')
+const { error, warning, queue, getStatus, getCurrent, searchBranch, isGitProject } = require('./js/index')
+const getIsMergedDevBranch = require('./js/branch/getIsMergedDevBranch')
+const getIsUpdatedInTime = require('./js/branch/getIsUpdatedInTime')
 const { createArgs } = require('./js/tools')
 const { defaults } = require('./js/global')
 
@@ -111,6 +113,17 @@ program.action(async (type: string, name: string, opt: GitmBuildOption): Promise
                 ])
             }
         }
+        // 在同步prod之前
+        // 1. 判断是否同步过dev分支
+        if (!getIsMergedDevBranch(`${type}/${name}`, config.develop)) {
+            sh.echo(warning(`检测到你的分支没有合并过${config.develop}，请先合并到${config.develop}分支`))
+            sh.exit(0)
+        }
+        // 2. 获取一周内是否同步过上游分支代码
+        if (!getIsUpdatedInTime({ lastet: '7d', limit: 100, branch: base })) {
+            sh.echo(warning('检测到该分支已经超过1周没有同步过主干代码了，请每周至少同步一次，执行：gitm update'))
+        }
+        // 开始合并到prod
         if (opt.prod) {
             // 同步到prod环境
             if (!opt.noBugfix && !opt.asFeature) {
