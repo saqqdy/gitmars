@@ -95,13 +95,28 @@ gitm config list apolloConfig
 | type | 分支类型 | String | feature/bugfix/support | 是   | -    |
 | name | 分支名称 | String | -                      | 是   | -    |
 
+-   传值：
+
+| 名称  | 简写 | 说明          | 类型   | 可选值 | 传值必填 | 默认 |
+| ----- | ---- | ------------- | ------ | ------ | -------- | ---- |
+| --tag | -t   | 从tag创建分支 | String | -      | true     | ''   |
+
 -   示例：
+
+1. 创建主流程分支
 
 ```shell
 # start bugfix branch
 gitm start bugfix 20001
 # start feature brancg
 gitm start feature 1001
+```
+
+2. 从tag创建bugfix分支
+
+```shell
+# tag 20211010
+gitm start bugfix 1001 --tag 20211010
 ```
 
 ### gitm combine
