@@ -6,7 +6,7 @@ const { getCurrent } = require('../index')
  *
  * @returns aheadLogs - 日志
  */
-export function getAheadLogs(): string[] {
+function getAheadLogs(): string[] {
     const current = getCurrent()
     sh.exec('git fetch', { silent: true })
     const result = sh
@@ -16,4 +16,6 @@ export function getAheadLogs(): string[] {
         .stdout.replace(/\s+$/g, '')
     return result ? result.split('\n') : []
 }
-export default getAheadLogs
+
+module.exports = getAheadLogs
+export {}

@@ -4,8 +4,8 @@ import resolve from '@rollup/plugin-node-resolve'
 // import babel from '@rollup/plugin-babel'
 import json from '@rollup/plugin-json'
 import esbuild from 'rollup-plugin-esbuild'
-import commonjs from '@rollup/plugin-commonjs'
-// import { terser } from 'rollup-plugin-terser'
+// import commonjs from '@rollup/plugin-commonjs'
+import { terser } from 'rollup-plugin-terser'
 // import typescript from 'rollup-plugin-typescript2'
 import shebang from 'rollup-plugin-preserve-shebang'
 import { visualizer } from 'rollup-plugin-visualizer'
@@ -55,14 +55,6 @@ export default cjsList.map(filePath => ({
             // exports: 'named',
             sourcemap: false
         }
-        // {
-        //     format: 'cjs',
-        //     file: getOutFile(filePath, 'lib', '.min'),
-        //     exports: 'auto',
-        //     // exports: 'named',
-        //     sourcemap: false,
-        //     plugins: [terser()]
-        // }
     ],
     plugins: [
         resolve({ extensions: config.extensions, preferBuiltins: false }),
@@ -94,8 +86,8 @@ export default cjsList.map(filePath => ({
         esbuild({
             target: 'es2017'
         }),
-        visualizer()
-        // !isDev && terser({})
+        visualizer(),
+        !isDev && terser()
     ],
     external(id) {
         return (
