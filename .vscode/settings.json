@@ -8,7 +8,8 @@
         "typedoc",
         "esbuild",
         "lastet",
-        "forcedelete"
+        "forcedelete",
+        "postmsg"
     ],
     "typescript.tsdk": "node_modules/typescript/lib",
     "editor.codeActionsOnSave": {
