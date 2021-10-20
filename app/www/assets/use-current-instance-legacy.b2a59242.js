@@ -1,0 +1,1 @@
+System.register(["./vendor-legacy.e19cf40f.js"],(function(e){"use strict";var t,r;return{setters:[function(e){t=e.G,r=e.ae}],execute:function(){e("u",(function(e){"string"==typeof e&&(e=[e]);var n=t(),o=n.appContext,s=n.proxy,i=o.config.globalProperties,c={};return e&&e.includes("style")&&(c=r()),{globalProperties:i,proxy:s,style:c}}))}}}));

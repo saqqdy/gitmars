@@ -4,8 +4,8 @@ import resolve from '@rollup/plugin-node-resolve'
 // import babel from '@rollup/plugin-babel'
 import json from '@rollup/plugin-json'
 import esbuild from 'rollup-plugin-esbuild'
-// import commonjs from '@rollup/plugin-commonjs'
-import { terser } from 'rollup-plugin-terser'
+import commonjs from '@rollup/plugin-commonjs'
+// import { terser } from 'rollup-plugin-terser'
 // import typescript from 'rollup-plugin-typescript2'
 import shebang from 'rollup-plugin-preserve-shebang'
 import { visualizer } from 'rollup-plugin-visualizer'
@@ -33,8 +33,8 @@ const getInfo = url => {
 }
 readDir('./bin')
 
-const getOutFile = (name, dir = 'lib') => {
-    return name.replace(/^bin/, dir).replace(/\.ts$/, '.js')
+const getOutFile = (name, dir = 'lib', suffix = '') => {
+    return name.replace(/^bin/, dir).replace(/\.ts$/, suffix + '.js')
 }
 
 const production = !process.env.ROLLUP_WATCH
@@ -55,12 +55,20 @@ export default cjsList.map(filePath => ({
             // exports: 'named',
             sourcemap: false
         }
+        // {
+        //     format: 'cjs',
+        //     file: getOutFile(filePath, 'lib', '.min'),
+        //     exports: 'auto',
+        //     // exports: 'named',
+        //     sourcemap: false,
+        //     plugins: [terser()]
+        // }
     ],
     plugins: [
         resolve({ extensions: config.extensions, preferBuiltins: false }),
         shebang({
-			shebang: '#!/usr/bin/env node'
-		}),
+            shebang: '#!/usr/bin/env node'
+        }),
         // commonjs({
         //     sourceMap: false
         // }),
@@ -83,11 +91,16 @@ export default cjsList.map(filePath => ({
         //     // runtimeHelpers: true,
         //     sourceMap: true
         // }),
-        esbuild(),
-        visualizer(),
-        !isDev && terser()
+        esbuild({
+            target: 'es2017'
+        }),
+        visualizer()
+        // !isDev && terser({})
     ],
     external(id) {
-        return ['regenerator-runtime'].some(k => new RegExp('^' + k).test(id)) || deps.some(k => new RegExp('^' + k).test(id))
+        return (
+            ['regenerator-runtime'].some(k => new RegExp('^' + k).test(id)) ||
+            deps.some(k => new RegExp('^' + k).test(id))
+        )
     }
 }))
