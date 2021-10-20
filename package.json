@@ -1,7 +1,7 @@
 {
     "name": "gitmars",
     "description": "一个高度定制化的git工作流工具",
-    "version": "1.11.1",
+    "version": "1.11.2",
     "scripts": {
         "docs:dev": "vuepress dev docs",
         "docs:build": "vuepress build docs",
@@ -61,6 +61,7 @@
         "tracer": "1.1.5"
     },
     "devDependencies": {
+        "@babel/plugin-transform-modules-commonjs": "^7.15.4",
         "@babel/plugin-transform-runtime": "^7.15.8",
         "@babel/preset-env": "^7.15.8",
         "@babel/preset-typescript": "^7.15.0",

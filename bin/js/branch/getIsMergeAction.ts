@@ -5,7 +5,7 @@ const { getCurrent, getLogs } = require('../index')
  *
  * @returns isMergedDevBranch - 是否merge
  */
-export function getIsMergeAction(): boolean {
+function getIsMergeAction(): boolean {
     const current = getCurrent()
     const currentLogs = getLogs({
         limit: 1,
@@ -15,4 +15,5 @@ export function getIsMergeAction(): boolean {
     return p.length > 1
 }
 
-export default getIsMergeAction
+module.exports = getIsMergeAction
+export {}

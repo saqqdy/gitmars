@@ -8,7 +8,7 @@ const { getCurrent } = require('../index')
  * @param targetBranch - 目标分支
  * @returns isMergedDevBranch - 是否
  */
-export function getBehindLogs(): string[] {
+function getBehindLogs(): string[] {
     const current = getCurrent()
     sh.exec('git fetch', { silent: true })
     const result = sh
@@ -19,4 +19,5 @@ export function getBehindLogs(): string[] {
     return result ? result.split('\n') : []
 }
 
-export default getBehindLogs
+module.exports = getBehindLogs
+export {}
