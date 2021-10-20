@@ -117,6 +117,16 @@ program.action(
             const base: string =
                 type === 'bugfix' ? config.bugfix : config.release
             let cmd: Array<CommandType | string> = []
+            // 获取一周内是否同步过上游分支代码
+            if (
+                !getIsUpdatedInTime({ lastet: '7d', limit: 100, branch: base })
+            ) {
+                sh.echo(
+                    warning(
+                        '检测到该分支已经超过1周没有同步过主干代码了，请每周至少同步一次，执行：gitm update'
+                    )
+                )
+            }
             if (opt.add) {
                 cmd = cmd.concat(['git add .'])
             }
@@ -161,201 +171,195 @@ program.action(
                     ])
                 }
             }
-            // 在同步prod之前
-            // 1. 判断是否同步过dev分支
-            if (!getIsMergedDevBranch(`${type}/${name}`, config.develop)) {
-                sh.echo(
-                    warning(
-                        `检测到你的分支没有合并过${config.develop}，请先合并到${config.develop}分支`
-                    )
-                )
-                sh.exit(0)
-            }
-            // 2. 获取一周内是否同步过上游分支代码
-            if (
-                !getIsUpdatedInTime({ lastet: '7d', limit: 100, branch: base })
-            ) {
-                sh.echo(
-                    warning(
-                        '检测到该分支已经超过1周没有同步过主干代码了，请每周至少同步一次，执行：gitm update'
-                    )
-                )
-            }
             // 开始合并到prod
             if (opt.prod) {
-                // 同步到prod环境
-                if (!opt.noBugfix && !opt.asFeature) {
-                    // 传入noBugfix不合bug,
-                    cmd = cmd.concat(
-                        !level || level < 3
-                            ? [
-                                  'git fetch',
-                                  `git checkout ${base}`,
-                                  'git pull',
-                                  {
-                                      cmd: `git merge --no-ff ${type}/${name}`,
-                                      config: {
-                                          again: false,
-                                          success: `${type}/${name}合并到${base}成功`,
-                                          fail: `${type}/${name}合并到${base}出错了，请根据提示处理`
-                                      }
-                                  },
-                                  {
-                                      cmd: 'git push',
-                                      config: {
-                                          again: true,
-                                          success: '推送成功',
-                                          fail: '推送失败，请根据提示处理'
-                                      }
-                                  },
-                                  `git checkout ${type}/${name}`
-                              ]
-                            : [
-                                  {
-                                      cmd: `git push --set-upstream origin ${type}/${name}`,
-                                      config: {
-                                          again: true,
-                                          success: '推送远程并关联远程分支成功',
-                                          fail: '推送远程失败，请根据提示处理'
-                                      }
-                                  },
-                                  {
-                                      cmd: `curl -i -H "Content-Type: application/json" -X POST -d "{\\"source_branch\\":\\"${type}/${name}\\",\\"target_branch\\":\\"${base}\\",\\"private_token\\":\\"${token}\\",\\"title\\":\\"Merge branch '${type}/${name}' into '${base}'\\"}" "${config.gitHost}/api/v4/projects/${config.gitID}/merge_requests"`,
-                                      config: {
-                                          again: true,
-                                          success: '成功创建合并请求',
-                                          fail: '创建合并请求出错了，请根据提示处理'
-                                      }
-                                  },
-                                  `gitm postmsg "${nickname}在${appName}项目提交了${type}/${name}分支合并到${base}分支的merge请求"`
-                              ]
+                // 判断是否同步过dev分支
+                if (
+                    !opt.dev &&
+                    !getIsMergedDevBranch(`${type}/${name}`, config.develop)
+                ) {
+                    sh.echo(
+                        warning(
+                            `检测到你的分支没有合并过${config.develop}，请先合并到${config.develop}分支`
+                        )
                     )
-                }
-
-                // bugfix分支走release发布
-                if (type === 'bugfix' && opt.asFeature) {
-                    cmd = cmd.concat(
-                        !level || level < 3
-                            ? [
-                                  'git fetch',
-                                  `git checkout ${config.release}`,
-                                  'git pull',
-                                  {
-                                      cmd: `git merge --no-ff ${type}/${name}`,
-                                      config: {
-                                          again: false,
-                                          success: `${type}/${name}合并到${config.release}成功`,
-                                          fail: `${type}/${name}合并到${config.release}出错了，请根据提示处理`
-                                      }
-                                  },
-                                  {
-                                      cmd: 'git push',
-                                      config: {
-                                          again: true,
-                                          success: '推送成功',
-                                          fail: '推送失败，请根据提示处理'
-                                      }
-                                  },
-                                  `git checkout ${type}/${name}`
-                              ]
-                            : [
-                                  {
-                                      cmd: `git push --set-upstream origin ${type}/${name}`,
-                                      config: {
-                                          again: true,
-                                          success: '推送远程并关联远程分支成功',
-                                          fail: '推送远程失败，请根据提示处理'
-                                      }
-                                  },
-                                  {
-                                      cmd: `curl -i -H "Content-Type: application/json" -X POST -d "{\\"source_branch\\":\\"${type}/${name}\\",\\"target_branch\\":\\"${config.release}\\",\\"private_token\\":\\"${token}\\",\\"title\\":\\"Merge branch '${type}/${name}' into '${config.release}'\\"}" "${config.gitHost}/api/v4/projects/${config.gitID}/merge_requests"`,
-                                      config: {
-                                          again: true,
-                                          success: '成功创建合并请求',
-                                          fail: '创建合并请求出错了，请根据提示处理'
-                                      }
-                                  },
-                                  `gitm postmsg "${nickname}在${appName}项目提交了${type}/${name}分支合并到${config.release}分支的merge请求"`
-                              ]
-                    )
-                }
-                // support分支需要合到bugfix
-                if (type === 'support' && opt.noBugfix) {
-                    cmd = cmd.concat(
-                        !level || level < 3
-                            ? [
-                                  'git fetch',
-                                  `git checkout ${config.bugfix}`,
-                                  'git pull',
-                                  {
-                                      cmd: `git merge --no-ff ${type}/${name}`,
-                                      config: {
-                                          again: false,
-                                          success: `${type}/${name}合并到${config.bugfix}成功`,
-                                          fail: `${type}/${name}合并到${config.bugfix}出错了，请根据提示处理`
-                                      }
-                                  },
-                                  {
-                                      cmd: 'git push',
-                                      config: {
-                                          again: true,
-                                          success: '推送成功',
-                                          fail: '推送失败，请根据提示处理'
-                                      }
-                                  },
-                                  `git checkout ${type}/${name}`
-                              ]
-                            : [
-                                  {
-                                      cmd: `git push --set-upstream origin ${type}/${name}`,
-                                      config: {
-                                          again: true,
-                                          success: '推送远程并关联远程分支成功',
-                                          fail: '推送远程失败，请根据提示处理'
-                                      }
-                                  },
-                                  {
-                                      cmd: `curl -i -H "Content-Type: application/json" -X POST -d "{\\"source_branch\\":\\"${type}/${name}\\",\\"target_branch\\":\\"${config.bugfix}\\",\\"private_token\\":\\"${token}\\",\\"title\\":\\"Merge branch '${type}/${name}' into '${config.bugfix}'\\"}" "${config.gitHost}/api/v4/projects/${config.gitID}/merge_requests"`,
-                                      config: {
-                                          again: true,
-                                          success: '成功创建合并请求',
-                                          fail: '创建合并请求出错了，请根据提示处理'
-                                      }
-                                  },
-                                  `gitm postmsg "${nickname}在${appName}项目提交了${type}/${name}分支合并到${config.bugfix}分支的merge请求"`
-                              ]
-                    )
-                }
-                // 仅支持构建bug
-                if (opt.build && (!level || level < 3)) {
-                    if (type === 'bugfix') {
-                        cmd = cmd.concat([
-                            {
-                                cmd: `gitm build ${appName} --env bug --app ${
-                                    opt.build === true ? 'all' : opt.build
-                                }`,
-                                config: {
-                                    again: false,
-                                    success: '调起构建成功',
-                                    fail: '调起构建失败'
-                                }
-                            }
-                        ])
+                } else {
+                    // 同步到prod环境
+                    if (!opt.noBugfix && !opt.asFeature) {
+                        // 传入noBugfix不合bug,
+                        cmd = cmd.concat(
+                            !level || level < 3
+                                ? [
+                                      'git fetch',
+                                      `git checkout ${base}`,
+                                      'git pull',
+                                      {
+                                          cmd: `git merge --no-ff ${type}/${name}`,
+                                          config: {
+                                              again: false,
+                                              success: `${type}/${name}合并到${base}成功`,
+                                              fail: `${type}/${name}合并到${base}出错了，请根据提示处理`
+                                          }
+                                      },
+                                      {
+                                          cmd: 'git push',
+                                          config: {
+                                              again: true,
+                                              success: '推送成功',
+                                              fail: '推送失败，请根据提示处理'
+                                          }
+                                      },
+                                      `git checkout ${type}/${name}`
+                                  ]
+                                : [
+                                      {
+                                          cmd: `git push --set-upstream origin ${type}/${name}`,
+                                          config: {
+                                              again: true,
+                                              success:
+                                                  '推送远程并关联远程分支成功',
+                                              fail: '推送远程失败，请根据提示处理'
+                                          }
+                                      },
+                                      {
+                                          cmd: `curl -i -H "Content-Type: application/json" -X POST -d "{\\"source_branch\\":\\"${type}/${name}\\",\\"target_branch\\":\\"${base}\\",\\"private_token\\":\\"${token}\\",\\"title\\":\\"Merge branch '${type}/${name}' into '${base}'\\"}" "${config.gitHost}/api/v4/projects/${config.gitID}/merge_requests"`,
+                                          config: {
+                                              again: true,
+                                              success: '成功创建合并请求',
+                                              fail: '创建合并请求出错了，请根据提示处理'
+                                          }
+                                      },
+                                      `gitm postmsg "${nickname}在${appName}项目提交了${type}/${name}分支合并到${base}分支的merge请求"`
+                                  ]
+                        )
                     }
-                    // support分支要构建bug和release
+                    // bugfix分支走release发布
+                    if (type === 'bugfix' && opt.asFeature) {
+                        cmd = cmd.concat(
+                            !level || level < 3
+                                ? [
+                                      'git fetch',
+                                      `git checkout ${config.release}`,
+                                      'git pull',
+                                      {
+                                          cmd: `git merge --no-ff ${type}/${name}`,
+                                          config: {
+                                              again: false,
+                                              success: `${type}/${name}合并到${config.release}成功`,
+                                              fail: `${type}/${name}合并到${config.release}出错了，请根据提示处理`
+                                          }
+                                      },
+                                      {
+                                          cmd: 'git push',
+                                          config: {
+                                              again: true,
+                                              success: '推送成功',
+                                              fail: '推送失败，请根据提示处理'
+                                          }
+                                      },
+                                      `git checkout ${type}/${name}`
+                                  ]
+                                : [
+                                      {
+                                          cmd: `git push --set-upstream origin ${type}/${name}`,
+                                          config: {
+                                              again: true,
+                                              success:
+                                                  '推送远程并关联远程分支成功',
+                                              fail: '推送远程失败，请根据提示处理'
+                                          }
+                                      },
+                                      {
+                                          cmd: `curl -i -H "Content-Type: application/json" -X POST -d "{\\"source_branch\\":\\"${type}/${name}\\",\\"target_branch\\":\\"${config.release}\\",\\"private_token\\":\\"${token}\\",\\"title\\":\\"Merge branch '${type}/${name}' into '${config.release}'\\"}" "${config.gitHost}/api/v4/projects/${config.gitID}/merge_requests"`,
+                                          config: {
+                                              again: true,
+                                              success: '成功创建合并请求',
+                                              fail: '创建合并请求出错了，请根据提示处理'
+                                          }
+                                      },
+                                      `gitm postmsg "${nickname}在${appName}项目提交了${type}/${name}分支合并到${config.release}分支的merge请求"`
+                                  ]
+                        )
+                    }
+                    // support分支需要合到bugfix
                     if (type === 'support' && opt.noBugfix) {
-                        cmd = cmd.concat([
-                            {
-                                cmd: `gitm build ${appName} --env bug --app ${
-                                    opt.build === true ? 'all' : opt.build
-                                }`,
-                                config: {
-                                    again: false,
-                                    success: '调起构建成功',
-                                    fail: '调起构建失败'
+                        cmd = cmd.concat(
+                            !level || level < 3
+                                ? [
+                                      'git fetch',
+                                      `git checkout ${config.bugfix}`,
+                                      'git pull',
+                                      {
+                                          cmd: `git merge --no-ff ${type}/${name}`,
+                                          config: {
+                                              again: false,
+                                              success: `${type}/${name}合并到${config.bugfix}成功`,
+                                              fail: `${type}/${name}合并到${config.bugfix}出错了，请根据提示处理`
+                                          }
+                                      },
+                                      {
+                                          cmd: 'git push',
+                                          config: {
+                                              again: true,
+                                              success: '推送成功',
+                                              fail: '推送失败，请根据提示处理'
+                                          }
+                                      },
+                                      `git checkout ${type}/${name}`
+                                  ]
+                                : [
+                                      {
+                                          cmd: `git push --set-upstream origin ${type}/${name}`,
+                                          config: {
+                                              again: true,
+                                              success:
+                                                  '推送远程并关联远程分支成功',
+                                              fail: '推送远程失败，请根据提示处理'
+                                          }
+                                      },
+                                      {
+                                          cmd: `curl -i -H "Content-Type: application/json" -X POST -d "{\\"source_branch\\":\\"${type}/${name}\\",\\"target_branch\\":\\"${config.bugfix}\\",\\"private_token\\":\\"${token}\\",\\"title\\":\\"Merge branch '${type}/${name}' into '${config.bugfix}'\\"}" "${config.gitHost}/api/v4/projects/${config.gitID}/merge_requests"`,
+                                          config: {
+                                              again: true,
+                                              success: '成功创建合并请求',
+                                              fail: '创建合并请求出错了，请根据提示处理'
+                                          }
+                                      },
+                                      `gitm postmsg "${nickname}在${appName}项目提交了${type}/${name}分支合并到${config.bugfix}分支的merge请求"`
+                                  ]
+                        )
+                    }
+                    // 仅支持构建bug
+                    if (opt.build && (!level || level < 3)) {
+                        if (type === 'bugfix') {
+                            cmd = cmd.concat([
+                                {
+                                    cmd: `gitm build ${appName} --env bug --app ${
+                                        opt.build === true ? 'all' : opt.build
+                                    }`,
+                                    config: {
+                                        again: false,
+                                        success: '调起构建成功',
+                                        fail: '调起构建失败'
+                                    }
                                 }
-                            }
-                        ])
+                            ])
+                        }
+                        // support分支要构建bug和release
+                        if (type === 'support' && opt.noBugfix) {
+                            cmd = cmd.concat([
+                                {
+                                    cmd: `gitm build ${appName} --env bug --app ${
+                                        opt.build === true ? 'all' : opt.build
+                                    }`,
+                                    config: {
+                                        again: false,
+                                        success: '调起构建成功',
+                                        fail: '调起构建失败'
+                                    }
+                                }
+                            ])
+                        }
                     }
                 }
             }
