@@ -87,7 +87,7 @@ gitm config list apolloConfig
 
 开始任务，创建分支
 
--   使用：`gitm start <type> <name>`
+-   使用：`gitm start <type> <name> [-t --tag <tag>]`
 -   参数：
 
 | 参数 | 说明     | 类型   | 可选值                 | 必填 | 默认 |
