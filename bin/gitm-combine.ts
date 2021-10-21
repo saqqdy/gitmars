@@ -363,7 +363,7 @@ program.action(
                     }
                 }
             }
-            queue(cmd)
+            // queue(cmd)
         } else {
             sh.echo(error('type只允许输入：' + JSON.stringify(allow)))
             sh.exit(1)
