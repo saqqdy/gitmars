@@ -11,7 +11,9 @@ const { getCurrent } = require('../index')
 function getIsMergedDevBranch(branch: string, targetBranch = 'dev'): boolean {
     if (!branch) branch = getCurrent()
     const result = sh
-        .exec(`git branch --contains ${branch}`, { silent: true })
+        .exec(`git branch --contains ${branch} --format="%(refname:short)"`, {
+            silent: true
+        })
         .stdout.replace(/\s+$/g, '')
     return result.split('\n').includes(targetBranch)
 }
