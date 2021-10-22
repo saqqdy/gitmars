@@ -6,7 +6,8 @@
 				<v3-button type="primary" @click="createBranch"
 					>创建分支</v3-button
 				>
-				<v3-button type="danger" @click="saveStash">删除分支</v3-button>
+				<!-- <v3-button type="danger" @click="saveStash">删除分支</v3-button> -->
+				<v3-button type="default" @click="back">返回</v3-button>
 			</p>
 		</h1>
 		<div class="cont">
@@ -18,7 +19,7 @@
 						:class="{ active: branch === data.current }"
 						:key="branch"
 					>
-						{{ branch }}
+						<span class="name">{{ branch }}</span>
 						<v3-button
 							type="primary"
 							size="mini"
@@ -36,7 +37,7 @@
 						:class="{ active: branch === data.current }"
 						:key="branch"
 					>
-						{{ branch }}
+						<span class="name">{{ branch }}</span>
 						<v3-button
 							type="primary"
 							size="mini"
@@ -54,7 +55,7 @@
 						:class="{ active: branch === data.current }"
 						:key="branch"
 					>
-						{{ branch }}
+						<span class="name">{{ branch }}</span>
 						<v3-button
 							type="primary"
 							size="mini"
@@ -430,7 +431,11 @@ export default defineComponent({
 				}
 			})
 		}
-		const saveStash = () => {}
+		// const saveStash = () => {}
+		// 返回项目列表
+		const back = () => {
+			router.push('/project/list')
+		}
 		// checkout分支
 		const checkout = async (branch: string) => {
 			exec(`git checkout ${branch}`)
@@ -447,21 +452,12 @@ export default defineComponent({
 			handleItemClick,
 			handleChange,
 			createBranch,
-			saveStash,
+			// saveStash,
+			back,
 			checkout
 		}
 	}
 })
-// defineExpose({
-// 	//
-// })
-// const props = defineProps({
-// 	data: {
-// 		type: String,
-// 		default: ""
-// 	}
-// })
-// const emit = defineEmits(['my-click'])
 </script>
 
 <style lang="less" scoped>
@@ -521,6 +517,13 @@ export default defineComponent({
 				display: flex;
 				justify-content: space-between;
 				align-items: center;
+				.name {
+					overflow: hidden;
+					text-overflow: ellipsis;
+				}
+				::v-deep(.v3-button) {
+					min-width: 64px;
+				}
 				&:hover {
 					color: #fff;
 					background: rgba(66, 185, 131, 0.05);

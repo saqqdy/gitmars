@@ -94,8 +94,10 @@ import {
 	render,
 	nextTick,
 	unref,
-	ref
+	ref,
+	watchEffect
 } from 'vue'
+import { useMagicKeys } from '@vueuse/core'
 import { addEvent, removeEvent, fixNumber, delay } from 'js-cool'
 import { ElButton } from 'element-plus'
 
@@ -198,6 +200,12 @@ export default {
 				if (props.showClose) return 1
 				return 0
 			}
+		})
+
+		// 监听回车键
+		const { enter } = useMagicKeys()
+		watchEffect(() => {
+			if (enter.value) handleOk() // 按下回车键确认
 		})
 
 		const init = () => {

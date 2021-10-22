@@ -1,6 +1,11 @@
 <template>
 	<div class="page" v-if="data.ready">
-		<h1>tasks</h1>
+		<h1>
+			tasks
+			<p>
+				<v3-button type="default" @click="back">返回</v3-button>
+			</p>
+		</h1>
 		<div class="cont">
 			<div class="nav">
 				<dl class="bugfix" v-if="Object.keys(data.scripts).length > 0">
@@ -107,6 +112,10 @@ export default {
 			})
 			return scripts
 		}
+		// 返回项目列表
+		const back = () => {
+			router.push('/project/list')
+		}
 		// 执行指令
 		const exec = (cmd: string) => {
 			if (!data.terminal) return
@@ -138,6 +147,7 @@ export default {
 		return {
 			data,
 			terminalID,
+			back,
 			exec,
 			run,
 			route
