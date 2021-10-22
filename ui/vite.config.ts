@@ -15,7 +15,7 @@ export default defineConfig({
 		// Components({
 		// 	resolvers: [ElementPlusResolver()]
 		// }),
-        ElementPlus(),
+		ElementPlus(),
 		vue(),
 		legacy({
 			targets: ['defaults', 'not IE 10']

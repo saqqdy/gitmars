@@ -19,7 +19,6 @@ router.get('/cwd', function (req, res) {
 router.get('/update', function (req, res) {
     const { pid } = req.query;
     promiseExec(`lsof -a -p ${pid} -d cwd -Fn | tail -1 | sed 's/.//'`).then((newCwd) => {
-        // console.log(newCwd, newCwd.stdout)
         const cwd = typeof newCwd === 'string' ? newCwd.trim() : newCwd.stdout.trim();
         res.status(200).json({ data: cwd });
     });
