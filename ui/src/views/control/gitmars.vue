@@ -492,6 +492,7 @@ export default defineComponent({
 	.cont {
 		flex: 1;
 		display: flex;
+		overflow: hidden;
 		justify-content: stretch;
 		align-items: stretch;
 		.nav {
@@ -542,6 +543,7 @@ export default defineComponent({
 			flex-direction: column;
 			justify-content: stretch;
 			align-items: stretch;
+			height: 100%;
 			h3 {
 				font-size: 18px;
 				line-height: 30px;
@@ -568,18 +570,9 @@ export default defineComponent({
 				justify-items: stretch;
 				align-items: stretch;
 				gap: 20px;
-				.section {
-					// .collapse-title {
-					// 	flex: 1;
-					// 	display: flex;
-					// 	margin-right: 10px;
-					// 	justify-content: space-between;
-					// 	align-items: center;
-					// }
-				}
 			}
 			.xterm {
-				height: 50%;
+				height: calc(100% - 438px);
 				min-height: 408px;
 			}
 		}
