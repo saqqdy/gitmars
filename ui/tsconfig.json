@@ -16,7 +16,7 @@
 		"allowJs": true,
         "types": ["element-plus/global"],
 		"paths": {
-			"@/*": ["src/*"],
+			"@/*": ["./src/*"],
 			"@/package": ["./package.json"]
 		},
 		"lib": ["esnext", "dom", "dom.iterable", "scripthost"]
