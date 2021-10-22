@@ -3,13 +3,15 @@
         "Gitmars",
         "gitmars",
         "Gitm",
+        "saqqdy",
         "gitm",
         "vuepress",
         "typedoc",
         "esbuild",
         "lastet",
         "forcedelete",
-        "postmsg"
+        "postmsg",
+        "vssue"
     ],
     "typescript.tsdk": "node_modules/typescript/lib",
     "editor.codeActionsOnSave": {

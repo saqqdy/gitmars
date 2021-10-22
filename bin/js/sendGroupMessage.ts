@@ -33,7 +33,7 @@ async function sendGroupMessage(
     message = message.replace(/\s/g, '')
     urls.forEach(() => {
         sh.exec(
-            `curl -i -H "Content-Type: application/json" -X POST -d "{\\"content\\":\\"${message}\\"}" "${
+            `curl -i -H "Content-Type: application/json" -X POST -d "{\u005c"content\u005c":\u005c"${message}\u005c"}" "${
                 url || config.gitNotificationGroupUrl
             }"`,
             { silent }

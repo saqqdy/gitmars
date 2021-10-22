@@ -239,7 +239,7 @@ if (publish.args.length > 0) {
                         : {
                               bugfix: [
                                   {
-                                      cmd: `curl -i -H "Content-Type: application/json" -X POST -d "{\\"source_branch\\":\\"${config.bugfix}\\",\\"target_branch\\":\\"${config.release}\\",\\"private_token\\":\\"${token}\\",\\"title\\":\\"Merge branch '${config.bugfix}' into '${config.release}'\\"}" "${config.gitHost}/api/v4/projects/${config.gitID}/merge_requests"`,
+                                      cmd: `curl -i -H "Content-Type: application/json" -X POST -d "{\u005c"source_branch\u005c":\u005c"${config.bugfix}\u005c",\u005c"target_branch\u005c":\u005c"${config.release}\u005c",\u005c"private_token\u005c":\u005c"${token}\u005c",\u005c"title\u005c":\u005c"Merge branch '${config.bugfix}' into '${config.release}'\u005c"}" "${config.gitHost}/api/v4/projects/${config.gitID}/merge_requests"`,
                                       config: {
                                           again: true,
                                           success: '成功创建合并请求',
@@ -250,7 +250,7 @@ if (publish.args.length > 0) {
                               ],
                               support: [
                                   {
-                                      cmd: `curl -i -H "Content-Type: application/json" -X POST -d "{\\"source_branch\\":\\"${config.support}\\",\\"target_branch\\":\\"${config.release}\\",\\"private_token\\":\\"${token}\\",\\"title\\":\\"Merge branch '${config.support}' into '${config.release}'\\"}" "${config.gitHost}/api/v4/projects/${config.gitID}/merge_requests"`,
+                                      cmd: `curl -i -H "Content-Type: application/json" -X POST -d "{\u005c"source_branch\u005c":\u005c"${config.support}\u005c",\u005c"target_branch\u005c":\u005c"${config.release}\u005c",\u005c"private_token\u005c":\u005c"${token}\u005c",\u005c"title\u005c":\u005c"Merge branch '${config.support}' into '${config.release}'\u005c"}" "${config.gitHost}/api/v4/projects/${config.gitID}/merge_requests"`,
                                       config: {
                                           again: true,
                                           success: '成功创建合并请求',
@@ -259,7 +259,7 @@ if (publish.args.length > 0) {
                                   },
                                   `gitm postmsg "${nickname}在${appName}项目提交了${config.support}分支合并到${config.release}分支的merge请求"`,
                                   {
-                                      cmd: `curl -i -H "Content-Type: application/json" -X POST -d "{\\"source_branch\\":\\"${config.support}\\",\\"target_branch\\":\\"${config.bugfix}\\",\\"private_token\\":\\"${token}\\",\\"title\\":\\"Merge branch '${config.support}' into '${config.bugfix}'\\"}" "${config.gitHost}/api/v4/projects/${config.gitID}/merge_requests"`,
+                                      cmd: `curl -i -H "Content-Type: application/json" -X POST -d "{\u005c"source_branch\u005c":\u005c"${config.support}\u005c",\u005c"target_branch\u005c":\u005c"${config.bugfix}\u005c",\u005c"private_token\u005c":\u005c"${token}\u005c",\u005c"title\u005c":\u005c"Merge branch '${config.support}' into '${config.bugfix}'\u005c"}" "${config.gitHost}/api/v4/projects/${config.gitID}/merge_requests"`,
                                       config: {
                                           again: true,
                                           success: '成功创建合并请求',
@@ -270,7 +270,7 @@ if (publish.args.length > 0) {
                               ],
                               release: [
                                   {
-                                      cmd: `curl -i -H "Content-Type: application/json" -X POST -d "{\\"source_branch\\":\\"${config.release}\\",\\"target_branch\\":\\"${config.master}\\",\\"private_token\\":\\"${token}\\",\\"title\\":\\"Merge branch '${config.release}' into '${config.master}'\\"}" "${config.gitHost}/api/v4/projects/${config.gitID}/merge_requests"`,
+                                      cmd: `curl -i -H "Content-Type: application/json" -X POST -d "{\u005c"source_branch\u005c":\u005c"${config.release}\u005c",\u005c"target_branch\u005c":\u005c"${config.master}\u005c",\u005c"private_token\u005c":\u005c"${token}\u005c",\u005c"title\u005c":\u005c"Merge branch '${config.release}' into '${config.master}'\u005c"}" "${config.gitHost}/api/v4/projects/${config.gitID}/merge_requests"`,
                                       config: {
                                           again: true,
                                           success: '成功创建合并请求',
@@ -306,7 +306,7 @@ if (publish.args.length > 0) {
                               ]
                             : [
                                   {
-                                      cmd: `curl -i -H "Content-Type: application/json" -X POST -d "{\\"source_branch\\":\\"${config.bugfix}\\",\\"target_branch\\":\\"${config.master}\\",\\"private_token\\":\\"${token}\\",\\"title\\":\\"Merge branch '${config.bugfix}' into '${config.master}'\\"}" "${config.gitHost}/api/v4/projects/${config.gitID}/merge_requests"`,
+                                      cmd: `curl -i -H "Content-Type: application/json" -X POST -d "{\u005c"source_branch\u005c":\u005c"${config.bugfix}\u005c",\u005c"target_branch\u005c":\u005c"${config.master}\u005c",\u005c"private_token\u005c":\u005c"${token}\u005c",\u005c"title\u005c":\u005c"Merge branch '${config.bugfix}' into '${config.master}'\u005c"}" "${config.gitHost}/api/v4/projects/${config.gitID}/merge_requests"`,
                                       config: {
                                           again: true,
                                           success: '成功创建合并请求',
@@ -404,7 +404,7 @@ if (publish.args.length > 0) {
                                   ]
                                 : [
                                       {
-                                          cmd: `curl -i -H "Content-Type: application/json" -X POST -d "{\\"source_branch\\":\\"${config.release}\\",\\"target_branch\\":\\"${config.bugfix}\\",\\"private_token\\":\\"${token}\\",\\"title\\":\\"Merge branch '${config.release}' into '${config.bugfix}'\\"}" "${config.gitHost}/api/v4/projects/${config.gitID}/merge_requests"`,
+                                          cmd: `curl -i -H "Content-Type: application/json" -X POST -d "{\u005c"source_branch\u005c":\u005c"${config.release}\u005c",\u005c"target_branch\u005c":\u005c"${config.bugfix}\u005c",\u005c"private_token\u005c":\u005c"${token}\u005c",\u005c"title\u005c":\u005c"Merge branch '${config.release}' into '${config.bugfix}'\u005c"}" "${config.gitHost}/api/v4/projects/${config.gitID}/merge_requests"`,
                                           config: {
                                               again: true,
                                               success: '成功创建合并请求',
@@ -486,7 +486,7 @@ if (update.args.length > 0) {
                       ]
                     : [
                           {
-                              cmd: `curl -i -H "Content-Type: application/json" -X POST -d "{\\"source_branch\\":\\"${base}\\",\\"target_branch\\":\\"${config[type]}\\",\\"private_token\\":\\"${token}\\",\\"title\\":\\"Merge branch '${base}' into '${config[type]}'\\"}" "${config.gitHost}/api/v4/projects/${config.gitID}/merge_requests"`,
+                              cmd: `curl -i -H "Content-Type: application/json" -X POST -d "{\u005c"source_branch\u005c":\u005c"${base}\u005c",\u005c"target_branch\u005c":\u005c"${config[type]}\u005c",\u005c"private_token\u005c":\u005c"${token}\u005c",\u005c"title\u005c":\u005c"Merge branch '${base}' into '${config[type]}'\u005c"}" "${config.gitHost}/api/v4/projects/${config.gitID}/merge_requests"`,
                               config: {
                                   again: true,
                                   success: '成功创建合并请求',
