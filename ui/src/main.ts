@@ -15,7 +15,7 @@ import {
 	ElMessage,
 	ElMessageBox
 } from 'element-plus'
-import 'element-plus/theme-chalk/index.css'
+// import 'element-plus/theme-chalk/index.css'
 // @ts-ignore
 import plugins from '@/plugins'
 // @ts-ignore

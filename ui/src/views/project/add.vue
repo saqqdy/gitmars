@@ -25,8 +25,9 @@ export default {
 }
 </script>
 <script lang="ts" setup>
-import { reactive } from 'vue'
+import { reactive, watchEffect } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
+import { useMagicKeys } from '@vueuse/core'
 import useCurrentInstance from '@/hooks/use-current-instance'
 
 interface DataType {
@@ -34,14 +35,13 @@ interface DataType {
 }
 
 const {
-	globalProperties: { $axios, $box }
+	globalProperties: { $axios, $message }
 } = useCurrentInstance()
 const router = useRouter()
 const route = useRoute()
 const form: DataType = reactive({
 	path: '/Users/saqqdy/www/saqqdy/gitmars'
 })
-
 // checkPath
 const checkPath = (): Promise<boolean> => {
 	return new Promise((resolve, reject) => {
@@ -53,13 +53,9 @@ const checkPath = (): Promise<boolean> => {
 		})
 			.then(({ data: { code, message } = {} as any }) => {
 				if (code !== 0) {
-					$box(null, {
-						width: '320px',
-						height: '80px',
+					$message({
 						message,
-						showHeader: false,
-						showMax: false,
-						showBtn: false
+						type: 'error'
 					})
 					resolve(false)
 				} else {
@@ -82,17 +78,18 @@ const add = async () => {
 				path: form.path
 			}
 		}).then(() => {
-			$box(null, {
-				width: '320px',
-				height: '80px',
+			$message({
 				message: '操作成功！',
-				showHeader: false,
-				showMax: false,
-				showBtn: false
+				type: 'success'
 			})
 			router.push('/project/list')
 		})
 }
+const { enter } = useMagicKeys()
+watchEffect(() => {
+	if (enter.value) add()
+})
+
 defineExpose({
 	form,
 	// function

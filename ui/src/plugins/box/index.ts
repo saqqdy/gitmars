@@ -29,7 +29,7 @@ class Box {
 		options = extend(true, {}, defaults, options)
 		this.$el = document.createElement('div')
 		this.$el.className = 'mask'
-		this.$el.style.zIndex = String(nextIndex())
+		this.$el.style.zIndex = String(nextIndex(1000, 20000))
 		this.$el.style.background = 'rgba(0, 0, 0, ' + options.opacity + ')'
 		this.$el.id = uuidv4()
 		this.instance = createVNode(box)
