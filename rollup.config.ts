@@ -26,7 +26,7 @@ const readDir = entry => {
     })
 }
 const getInfo = url => {
-    url === 'bin/gitm-end.ts' && cjsList.push(url)
+    cjsList.push(url)
 }
 readDir('./bin')
 
