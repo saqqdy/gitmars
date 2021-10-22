@@ -2,8 +2,9 @@ import path from 'path'
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import legacy from '@vitejs/plugin-legacy'
-import Components from 'unplugin-vue-components/vite'
-import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
+// import Components from 'unplugin-vue-components/vite'
+// import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
+import ElementPlus from 'unplugin-element-plus/vite'
 // import { esbuildCommonjs } from '@originjs/vite-plugin-commonjs'
 // const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 
@@ -11,10 +12,11 @@ import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 export default defineConfig({
 	plugins: [
 		// tsconfigPaths(),
+		// Components({
+		// 	resolvers: [ElementPlusResolver()]
+		// }),
+        ElementPlus(),
 		vue(),
-		Components({
-			resolvers: [ElementPlusResolver()]
-		}),
 		legacy({
 			targets: ['defaults', 'not IE 10']
 		})

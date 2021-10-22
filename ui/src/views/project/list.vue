@@ -51,7 +51,7 @@ interface DataType {
 }
 
 const {
-	globalProperties: { $axios }
+	globalProperties: { $axios, $confirm }
 } = useCurrentInstance()
 const router = useRouter()
 const route = useRoute()
@@ -79,14 +79,20 @@ const goProject = ({ id }: ProjectType) => {
 }
 // del
 const del = ({ id }: ProjectType) => {
-	$axios({
-		url: '/common/project/del',
-		type: 'post',
-		data: {
-			id
-		}
+	$confirm('确认删除这个项目吗', '请确认', {
+		distinguishCancelAndClose: true,
+		confirmButtonText: '确认',
+		cancelButtonText: '取消'
 	}).then(() => {
-		getProjects()
+		$axios({
+			url: '/common/project/del',
+			type: 'post',
+			data: {
+				id
+			}
+		}).then(() => {
+			getProjects()
+		})
 	})
 }
 defineExpose({

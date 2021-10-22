@@ -56,7 +56,6 @@ router.get('/fs/read', (req: Request, res: Response, next: NextFunction) => {
 		query: { path: dir }
 	} = req
 	const type = (dir as string).replace(/[\s\S]*\.([a-z]+)$/, '$1')
-	console.log(type)
 	let data = fs.readFileSync(dir).toString()
 	if (type === 'json') data = JSON.parse(data)
 	success(res, { data })
