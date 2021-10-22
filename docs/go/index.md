@@ -2,7 +2,7 @@
 sidebar: null
 ---
 
-## gitm go <Badge text="beta" type="warning"/>
+## gitm go
 
 智能导航指令，只记一条指令就能完成所有功能使用
 

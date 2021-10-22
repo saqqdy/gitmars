@@ -7,7 +7,7 @@ sidebarDepth: 2
 
 ## 智能导航
 
-### gitm go <Badge text="beta" type="warning"/>
+### gitm go
 
 智能导航指令，只记一条指令就能完成所有功能使用
 
@@ -485,7 +485,7 @@ gitm revert xxxxxx --mode 1
 gitm rt xxxxxx -m 1
 ```
 
-### gitm undo
+### gitm undo <Badge text="开发中" type="warning"/>
 
 > 2.3.0 新增
 
@@ -527,7 +527,7 @@ gitm undo xxxxxx xxxxxx --mode 1
 gitm ud xxxxxx -m 1
 ```
 
-### gitm redo
+### gitm redo <Badge text="开发中" type="warning"/>
 
 > 2.3.0 新增
 
