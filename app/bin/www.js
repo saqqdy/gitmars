@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 "use strict";
-// Module dependencies.
+const { exec } = require('child_process');
 const app = require('../app');
 const debug = require('debug')('server:server');
 const http = require('http');
@@ -54,7 +54,15 @@ function onError(error) {
  * Event listener for HTTP server "listening" event.
  */
 function onListening() {
-    let addr = server.address(), bind = typeof addr === 'string' ? 'pipe ' + addr : 'port ' + addr.port;
-    console.info('server started on http://127.0.0.1:3000');
+    let addr = server.address(), bind = typeof addr === 'string' ? 'pipe ' + addr : 'port ' + addr.port, url = 'http://127.0.0.1:' + addr.port;
+    console.info(`server started on ${url}`);
+    // win系统使用 一下命令打开url在浏览器
+    if (process.platform === 'win32')
+        exec(`start ${url}`);
+    // mac系统使用 一下命令打开url在浏览器
+    else if (process.platform === 'darwin')
+        exec(`open ${url}`);
+    else
+        exec(`open ${url}`);
     debug('Listening on ' + bind);
 }

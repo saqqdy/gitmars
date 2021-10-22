@@ -38,11 +38,7 @@ program.action((opt: GitmBuildOption) => {
     // process.chdir(gitmDir + '/ui')
     // sh.exec(`pm2 start yarn --name ui -- run serve`, { silent: true })
     process.chdir(path.join(__dirname, '../app'))
-    // sh.exec(`cd app && yarn install`)
-    // sh.exec(`pm2 start yarn --name server -- run start`)
     sh.exec('npm run server:start')
-    // process.chdir(path.join(__dirname, '../ui'))
-    // sh.exec(`pm2 start yarn --name ui -- run serve`)
 })
 program.parse(process.argv)
 export {}
