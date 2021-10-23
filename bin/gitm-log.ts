@@ -12,14 +12,17 @@ if (!isGitProject()) {
 import { GitmarsOptionOptionsType } from '../typings'
 
 interface GitmBuildOption {
-    lastet: string
-    limit: number
+    lastet?: string
+    limit?: number
 }
 
 /**
  * gitm log
  */
-program.name('gitm log').usage('[branche]').description('日志查询')
+program
+    .name('gitm log')
+    .usage('[branche] [--lastet [lastet]] [--limit [limit]]')
+    .description('日志查询')
 if (args.length > 0) program.arguments(createArgs(args))
 options.forEach((o: GitmarsOptionOptionsType) => {
     program.option(o.flags, o.description, o.defaultValue)

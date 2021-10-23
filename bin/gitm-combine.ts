@@ -23,13 +23,13 @@ import {
 } from '../typings'
 
 interface GitmBuildOption {
-    dev: boolean
-    prod: boolean
-    build: boolean | string
-    commit: boolean | string
-    add: boolean
-    noBugfix: boolean
-    asFeature: boolean
+    dev?: boolean
+    prod?: boolean
+    build?: boolean | string
+    commit?: boolean | string
+    add?: boolean
+    noBugfix?: boolean
+    asFeature?: boolean
 }
 
 if (!isGitProject()) {
@@ -47,7 +47,9 @@ const config = getConfig()
  */
 program
     .name('gitm combine')
-    .usage('[type] [name] [-d --dev] [-p --prod]')
+    .usage(
+        '[type] [name] [-d --dev] [-p --prod] [-b --build [app]] [-a --add] [-m --commit <commit>] [--as-feature] [--no-bugfix]'
+    )
     .description('合并bugfix任务分支、合并feature功能开发分支、合并support分支')
 if (args.length > 0) program.arguments(createArgs(args))
 options.forEach((o: GitmarsOptionOptionsType) => {

@@ -22,9 +22,9 @@ const config = getConfig()
 import { GitmarsOptionOptionsType, CommandType } from '../typings'
 
 interface GitmBuildOption {
-    useMerge: boolean
-    useRebase: boolean
-    all: boolean
+    useMerge?: boolean
+    useRebase?: boolean
+    all?: boolean
 }
 
 /**
@@ -32,7 +32,7 @@ interface GitmBuildOption {
  */
 program
     .name('gitm update')
-    .usage('[type] [name]')
+    .usage('[type] [name] [--use-merge] [--use-rebase] [-a --all]')
     .description(
         '更新bug任务分支、更新feature功能开发分支、框架调整分支support'
     )

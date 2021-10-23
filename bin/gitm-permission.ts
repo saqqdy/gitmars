@@ -6,9 +6,9 @@ const getConfig = require('./js/getConfig')
 const config = getConfig()
 
 interface GitmBuildOption {
-    noVerify: boolean
-    dev: boolean
-    release: boolean
+    noVerify?: boolean
+    dev?: boolean
+    release?: boolean
 }
 
 /**
@@ -16,7 +16,7 @@ interface GitmBuildOption {
  */
 program
     .name('gitm permission')
-    .usage('[message]')
+    .usage('[message] [--no-verify] [--dev] [--release]')
     .arguments('[message]')
     .description('校验提交权限')
     .option('--no-verify', '是否需要跳过校验权限', false)

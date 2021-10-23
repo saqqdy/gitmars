@@ -119,6 +119,18 @@ gitm copy --help
 智能导航指令，只记一条指令就能完成所有功能使用
 
 -   使用：`gitm go`
+-   参数：
+
+| 参数    | 说明     | 类型   | 可选值                                                                                                                             | 必填 | 默认 |
+| ------- | -------- | ------ | ---------------------------------------------------------------------------------------------------------------------------------- | ---- | ---- |
+| command | 指令名称 | String | combine/end/update/build/start/admin.publish/admin.update/admin.create/admin.clean/branch/copy/get/save/revert/link/unlink/postmsg | 否   | -    |
+
+-   示例：
+
+```shell
+gitm go build
+```
+
 -   演示：
 
 ![gitmars-go.gif](https://raw.githubusercontent.com/saqqdy/gitmars/master/static/img/gitmars-go.gif)
@@ -130,6 +142,12 @@ gitm copy --help
 如果你厌倦了敲指令，gitmars 提供了懒人 UI 界面
 
 -   使用：`gitm ui`
+-   示例：
+
+```shell
+gitm ui --port 3000
+```
+
 -   演示：
 
 ![gitmars-ui.gif](https://raw.githubusercontent.com/saqqdy/gitmars/master/static/img/gitmars-ui.gif)

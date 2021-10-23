@@ -18,8 +18,8 @@ import {
 } from '../typings'
 
 interface GitmBuildOption {
-    branch: string
-    mode: 1 | 2
+    branch?: string
+    mode?: 1 | 2
 }
 
 /**
@@ -33,7 +33,7 @@ if (args.length > 0) program.arguments(createArgs(args))
 options.forEach((o: GitmarsOptionOptionsType) => {
     program.option(o.flags, o.description, o.defaultValue)
 })
-// .arguments('[commitid]')
+// .arguments('[commitid...]')
 // .option('-b, --branch [branch]', '需要撤销的分支名', '')
 // .option('-m, --mode [mode]', '针对撤销一次merge记录，需要传入类型：1 = 保留当前分支代码，2 = 保留传入代码', 1)
 program.action(async (commitid: string[], opt: GitmBuildOption) => {

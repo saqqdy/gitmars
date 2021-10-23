@@ -19,7 +19,7 @@ if (!isGitProject()) {
 import { GitmarsOptionOptionsType } from '../typings'
 
 interface GitmBuildOption {
-    keep: boolean
+    keep?: boolean
 }
 
 /**
@@ -27,7 +27,7 @@ interface GitmBuildOption {
  */
 program
     .name('gitm get')
-    .usage('[message] [index]')
+    .usage('[message] [index] [-k --keep [keep]]')
     .description('恢复暂存区文件')
 if (args.length > 0) program.arguments(createArgs(args))
 options.forEach((o: GitmarsOptionOptionsType) => {

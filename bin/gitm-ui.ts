@@ -16,7 +16,7 @@ interface GitmBuildOption {
 /**
  * gitm ui
  */
-program.name('gitm ui').usage('<name> <path>').description('链接本地包')
+program.name('gitm ui').usage('[-p --port <port>]').description('链接本地包')
 if (args.length > 0) program.arguments(createArgs(args))
 options.forEach((o: GitmarsOptionOptionsType) => {
     program.option(o.flags, o.description, o.defaultValue)
@@ -38,7 +38,7 @@ program.action((opt: GitmBuildOption) => {
     // process.chdir(gitmDir + '/ui')
     // sh.exec(`pm2 start yarn --name ui -- run serve`, { silent: true })
     process.chdir(path.join(__dirname, '../app'))
-    sh.exec('npm run server:start')
+    sh.exec(`npm run server:start ${opt.port ? '--port ' + opt.port : ''}`)
 })
 program.parse(process.argv)
 export {}

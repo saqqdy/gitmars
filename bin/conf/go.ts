@@ -3,7 +3,34 @@ import type { GitmarsOptionType } from '../../typings'
     const cmdConfig: GitmarsOptionType = {
         command: 'go',
         short: '',
-        args: [],
+        args: [
+            {
+                required: false,
+                name: 'command',
+                variadic: false,
+                description: '指令名称',
+                options: [
+                    'combine',
+                    'end',
+                    'update',
+                    'build',
+                    'start',
+                    'admin.publish',
+                    'admin.update',
+                    'admin.create',
+                    'admin.clean',
+                    'branch',
+                    'copy',
+                    'get',
+                    'save',
+                    'revert',
+                    'link',
+                    'unlink',
+                    'postmsg'
+                ],
+                value: ''
+            }
+        ],
         options: []
     }
 

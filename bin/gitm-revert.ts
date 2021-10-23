@@ -12,8 +12,8 @@ if (!isGitProject()) {
 import { GitmarsOptionOptionsType, CommandType } from '../typings'
 
 interface GitmBuildOption {
-    number: number
-    mode: 1 | 2 | ''
+    number?: number
+    mode?: 1 | 2 | ''
 }
 
 /**

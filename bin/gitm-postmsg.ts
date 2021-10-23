@@ -8,7 +8,7 @@ const { encodeUnicode } = require('./js/unicode')
 import { GitmarsOptionOptionsType } from '../typings'
 
 interface GitmBuildOption {
-    url: string
+    url?: string
 }
 
 /**

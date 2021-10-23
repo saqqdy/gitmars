@@ -35,16 +35,16 @@ import {
 
 interface GitmBuildOption {
     publish: {
-        combine: boolean
-        useRebase: boolean
-        prod: boolean
-        build: boolean | string
-        postmsg: boolean
+        combine?: boolean
+        useRebase?: boolean
+        prod?: boolean
+        build?: boolean | string
+        postmsg?: boolean
     }
     update: {
-        useRebase: boolean
-        mode: 0 | 1 | 2
-        postmsg: boolean
+        useRebase?: boolean
+        mode?: 0 | 1 | 2
+        postmsg?: boolean
     }
 }
 
@@ -114,7 +114,9 @@ if (create.args.length > 0) {
 if (publish.args.length > 0) {
     const _program = program
         .name('gitm admin')
-        .usage('<command> <type>')
+        .usage(
+            '<command> <type> [-c --combine] [--use-rebase] [-p --prod] [-b --build [app]] [--postmsg]'
+        )
         .description('发布bugfix、release、support分支')
         .command('publish ' + createArgs(publish.args))
     publish.options.forEach((o: GitmarsOptionOptionsType) => {
@@ -433,7 +435,7 @@ if (publish.args.length > 0) {
 if (update.args.length > 0) {
     const _program = program
         .name('gitm admin')
-        .usage('<command> <type> [-m --mode [mode]]')
+        .usage('<command> <type> [-m --mode [mode]] [--use-rebase] [--postmsg]')
         .description('更新bugfix、release、support分支代码')
         .command('update ' + createArgs(update.args))
     update.options.forEach((o: GitmarsOptionOptionsType) => {

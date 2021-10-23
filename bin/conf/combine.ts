@@ -8,8 +8,6 @@ import type { GitmarsOptionType } from '../../typings'
                 required: false,
                 name: 'type',
                 variadic: false,
-                // validator: null,
-                // transformer: null,
                 description: '分支类型',
                 options: ['feature', 'bugfix', 'support'],
                 value: ''
@@ -18,8 +16,6 @@ import type { GitmarsOptionType } from '../../typings'
                 required: false,
                 name: 'name',
                 variadic: false,
-                // validator: null,
-                // transformer: null,
                 description: '分支名称(不带feature/bugfix前缀)'
             }
         ],
