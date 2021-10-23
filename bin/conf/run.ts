@@ -13,7 +13,7 @@ import type { GitmarsOptionType } from '../../typings'
                 required: false,
                 name: 'args',
                 variadic: true,
-                description: '参数列表',
+                description: '参数列表'
             }
         ],
         options: []
