@@ -1,6 +1,5 @@
-![logo.png](https://raw.githubusercontent.com/saqqdy/gitmars/master/static/img/logo.png)
 
-# 一个定制化的 git 工作流操作工具
+![logo.png](https://raw.githubusercontent.com/saqqdy/gitmars/master/static/img/logo.png)
 
 [![NPM version][npm-image]][npm-url]
 [![build status][travis-image]][travis-url]
@@ -28,6 +27,9 @@
 [license-url]: LICENSE
 [sonar-image]: https://sonarcloud.io/api/project_badges/quality_gate?project=saqqdy_gitmars
 [sonar-url]: https://sonarcloud.io/dashboard?id=saqqdy_gitmars
+
+
+# Gitmars: 一个定制化的 git 工作流操作工具
 
 > 1. gitmars 每一个子命令都带了 help 功能，可输入 gitm [command] --help 获取对应指令的帮助
 > 2. <type>意思是 type 必传；[type]意思是 type 选填；[-a --app [app]]其中-a 是--app 的简写，后面[app]指的是-a 后面的传值
