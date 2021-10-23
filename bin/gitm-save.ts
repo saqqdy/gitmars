@@ -12,13 +12,16 @@ if (!isGitProject()) {
 import { GitmarsOptionOptionsType, CommandType } from '../typings'
 
 interface GitmBuildOption {
-    force: boolean
+    force?: boolean
 }
 
 /**
  * gitm save
  */
-program.name('gitm save').usage('[message]').description('暂存当前分支文件')
+program
+    .name('gitm save')
+    .usage('[message] [-f --force]')
+    .description('暂存当前分支文件')
 if (args.length > 0) program.arguments(createArgs(args))
 options.forEach((o: GitmarsOptionOptionsType) => {
     program.option(o.flags, o.description, o.defaultValue)

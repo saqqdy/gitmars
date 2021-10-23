@@ -12,7 +12,20 @@ sidebarDepth: 2
 智能导航指令，只记一条指令就能完成所有功能使用
 
 -   使用：`gitm go`
+-   参数：
+
+| 参数    | 说明     | 类型   | 可选值                                                                                                                             | 必填 | 默认 |
+| ------- | -------- | ------ | ---------------------------------------------------------------------------------------------------------------------------------- | ---- | ---- |
+| command | 指令名称 | String | combine/end/update/build/start/admin.publish/admin.update/admin.create/admin.clean/branch/copy/get/save/revert/link/unlink/postmsg | 否   | -    |
+
+-   示例：
+
+```shell
+gitm go build
+```
+
 -   演示：
+
     > ![gitmars-go.gif](https://raw.githubusercontent.com/saqqdy/gitmars/master/static/img/gitmars-go.gif)
 
 ## 配置
@@ -946,10 +959,10 @@ gitm admin publish release
 gitm admin publish release --build
 # or
 gitm admin publish release -b
-# 仅构建cloud-ui
-gitm admin publish release --build cloud-ui
+# 仅构建app
+gitm admin publish release --build app
 # or
-gitm admin publish release -b cloud-ui
+gitm admin publish release -b app
 ```
 
 ### gitm admin update

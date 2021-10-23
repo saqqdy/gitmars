@@ -7,13 +7,16 @@ const runJenkins = require('./js/runJenkins')
 import { GitmarsOptionOptionsType } from '../typings'
 
 interface GitmBuildOption {
-    env: string
-    app: string
+    env?: string
+    app?: string
 }
 /**
  * gitm build
  */
-program.name('gitm build').usage('<project>').description('构建Jenkins')
+program
+    .name('gitm build')
+    .usage('<project> [-e --env [env]] [-a --app [app]]')
+    .description('构建Jenkins')
 if (args.length > 0) program.arguments(createArgs(args))
 options.forEach((o: GitmarsOptionOptionsType) => {
     program.option(o.flags, o.description, o.defaultValue)

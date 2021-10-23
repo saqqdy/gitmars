@@ -17,12 +17,12 @@ import {
 } from '../typings'
 
 interface GitmBuildOption {
-    key: string
-    remote: boolean
-    type: GitmarsBranchType
-    delete: string | null
-    forcedelete: string | null
-    upstream: string
+    key?: string
+    remote?: boolean
+    type?: GitmarsBranchType
+    delete?: string | null
+    forcedelete?: string | null
+    upstream?: string
 }
 
 /**
@@ -31,7 +31,7 @@ interface GitmBuildOption {
 program
     .name('gitm branch')
     .usage(
-        '[-k --key [keyword]] [-t --type [type]] [-d --delete [branch]] [-r --remote [remote]] [-D --forcedelete [branch]]'
+        '[-k --key [keyword]] [-t --type [type]] [-d --delete [branch]] [-r --remote [remote]] [-D --forcedelete [branch]] [-u --upstream [upstream]]'
     )
     .description(
         '分支查询、删除（注意该指令不用于创建分支，如需创建分支请走start流程）'

@@ -12,7 +12,7 @@ if (!isGitProject()) {
 import { GitmarsOptionOptionsType, CommandType } from '../typings'
 
 interface GitmBuildOption {
-    list: boolean
+    list?: boolean
 }
 
 /**

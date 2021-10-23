@@ -8,7 +8,7 @@ const cacheDir = path.join(__dirname, '../cache')
 const { root, gitDir } = gitRevParse()
 
 interface GitmBuildOption {
-    force: string
+    force?: string
 }
 
 /**
@@ -16,6 +16,7 @@ interface GitmBuildOption {
  */
 program
     .name('gitm clean')
+    .usage('[-f --force]')
     .description('清理gitmars缓存')
     .option('-f, --force', '强制清理', false)
     .action((opt: GitmBuildOption): void => {

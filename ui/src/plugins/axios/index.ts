@@ -1,30 +1,3 @@
-// import axios from 'axios'
-
-// axios.interceptors.request.use(
-// 	config => {
-// 		return config
-// 	},
-// 	error => {
-// 		return Promise.reject(error)
-// 	}
-// )
-
-// axios.interceptors.response.use(
-// 	response => {
-// 		if (response.status == 200 && response.data.code === 0) {
-// 			return response.data.data
-// 		} else {
-// 			return Promise.reject(response.data)
-// 		}
-// 	},
-// 	error => {
-// 		return Promise.reject(error)
-// 	}
-// )
-
-// export default axios
-
-// import Vue from 'vue'
 import axios from 'axios'
 import qs from 'qs'
 
@@ -71,6 +44,7 @@ export default function (options) {
 		// 添加一个响应拦截器
 		instance.interceptors.response.use(
 			res => {
+				// @ts-ignore
 				if (res.data.success || options.responseType === 'text') {
 					return res.data
 				} else {

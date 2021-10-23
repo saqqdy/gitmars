@@ -26,11 +26,11 @@ const config = getConfig()
 import { GitmarsOptionOptionsType } from '../typings'
 
 interface GitmBuildOption {
-    noVerify: boolean
-    lastet: string
-    limit: number
-    type: string
-    branch: string
+    noVerify?: boolean
+    lastet?: string
+    limit?: number
+    type?: string
+    branch?: string
 }
 
 /**
@@ -39,7 +39,12 @@ interface GitmBuildOption {
  * gitm hook remove
  * gitm hook config
  */
-program.name('gitm hook').usage('[command]').description('git hook钩子')
+program
+    .name('gitm hook')
+    .usage(
+        '[command] [args...] [--no-verify] [--lastet [lastet]] [--limit [limit]] [-t --type <type>] [--branch [branch]]'
+    )
+    .description('git hook钩子')
 if (args.length > 0) program.arguments(createArgs(args))
 options.forEach((o: GitmarsOptionOptionsType) => {
     program.option(o.flags, o.description, o.defaultValue)

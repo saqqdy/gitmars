@@ -4,7 +4,21 @@ import type { GitmarsOptionType } from '../../typings'
         command: 'ui',
         short: null,
         args: [],
-        options: []
+        options: [
+            {
+                flags: '-p, --port [port]',
+                required: false,
+                optional: true,
+                variadic: false,
+                mandatory: false,
+                short: '-p',
+                long: '--port',
+                negate: false,
+                description: '指定端口号',
+                defaultValue: 3000,
+                recommend: false
+            }
+        ]
     }
 
     /* istanbul ignore next */

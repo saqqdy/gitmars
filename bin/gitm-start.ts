@@ -26,7 +26,7 @@ interface GitmBuildOption {
  */
 program
     .name('gitm start')
-    .usage('<type> <name>')
+    .usage('<type> <name> [-t --tag <tag>]')
     .description(
         '创建bugfix任务分支、创建feature功能开发分支、support框架支持分支'
     )

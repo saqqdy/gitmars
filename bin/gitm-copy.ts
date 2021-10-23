@@ -23,8 +23,8 @@ import {
 } from '../typings'
 
 interface GitmBuildOption {
-    key: string
-    author: string
+    key?: string
+    author?: string
 }
 
 /**
@@ -32,7 +32,7 @@ interface GitmBuildOption {
  */
 program
     .name('gitm copy')
-    .usage('<from> [commitid...] [-k] [-a]')
+    .usage('<from> [commitid...] [-k --key [keyword]] [-a --author [author]]')
     .description('cherry-pick易用版本，从某个分支拷贝某条记录合并到当前分支')
 if (args.length > 0) program.arguments(createArgs(args))
 options.forEach((o: GitmarsOptionOptionsType) => {

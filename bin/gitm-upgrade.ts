@@ -10,13 +10,16 @@ const ora = require('ora')
 import { GitmarsOptionOptionsType } from '../typings'
 
 interface GitmBuildOption {
-    mirror: boolean
+    mirror?: boolean
 }
 
 /**
  * gitm upgrade
  */
-program.name('gitm upgrade').usage('[version]').description('升级gitmars')
+program
+    .name('gitm upgrade')
+    .usage('[version] [-m --mirror]')
+    .description('升级gitmars')
 if (args.length > 0) program.arguments(createArgs(args))
 options.forEach((o: GitmarsOptionOptionsType) => {
     program.option(o.flags, o.description, o.defaultValue)
