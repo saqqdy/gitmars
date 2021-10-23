@@ -210,7 +210,7 @@ gitm cb -pd --no-bugfix
 
 任务完成，合并并删除分支，这个操作会把 20001 这个分支代码合并到 bug 分支并删除 20001 分支(远程的 20001 分支也会同步删除)
 
--   使用：`gitm end [type] [name]`
+-   使用：`gitm end [type] [name] [--no-combine] [--as-feature]`
 -   参数：
 
 | 参数 | 说明     | 类型   | 可选值                 | 必填 | 默认         |
@@ -309,6 +309,12 @@ gitm up feature -a
 
 -   使用：`gitm continue`
 -   示例：
+
+```shell
+gitm continue
+# or
+gitm ct
+```
 
 ## 效率
 
@@ -706,26 +712,23 @@ gitm log --latest 7d --limit 50
 
 发布操作
 
--   使用：`gitm admin publish <type> [-c --combine] [--use-rebase] [-p --prod] [-b --build [build]] [-p --postmsg]`
+-   使用：`gitm hook [command] [args...] [--no-verify] [--lastet [lastet]] [--limit [limit]] [-t --type <type>] [--branch [branch]]`
 -   参数：
 
-| 参数 | 说明     | 类型   | 可选值                 | 必填 | 默认 |
-| ---- | -------- | ------ | ---------------------- | ---- | ---- |
-| type | 分支类型 | String | bugfix/release/support | 是   | -    |
+| 参数    | 说明     | 类型   | 可选值 | 必填 | 默认 |
+| ------- | -------- | ------ | ------ | ---- | ---- |
+| command | 命令名称 | String | -      | 是   | -    |
 
 -   传值：
 
-| 名称      | 简写 | 说明                                                                         | 类型    | 可选值 | 传值必填 | 默认  |
-| --------- | ---- | ---------------------------------------------------------------------------- | ------- | ------ | -------- | ----- |
-| --combine | -c   | 是否在合并 release 之后会把 release 同步到 bugfix（仅在合并 release 时可用） | Boolean | -      | 否       | false |
+| 名称        | 简写 | 说明                                                   | 类型    | 可选值 | 传值必填 | 默认  |
+| ----------- | ---- | ------------------------------------------------------ | ------- | ------ | -------- | ----- |
+| --no-verify | -    | 是否需要跳过校验权限                                   | Boolean | -      | 否       | false |
+| --lastet    | -    | 查询在某个时间之后的日志，填写格式：10s/2m/2h/3d/4M/5y | Boolean | -      | 否       | -     |
+| --limit     | -    | 最多查询的日志条数                                     | Number  | -      | 否       | 20    |
+| --type      | -t   | 检测类型                                               | Number  | -      | 是       | ''    |
+| --branch    | -    | 要查询的分支                                           | String  | -      | 否       | ''    |
 
--   示例：
-
-1. 合并 release 代码到预发环境
-
-```shell
-gitm admin publish release
-```
 
 ### gitm run
 
@@ -737,26 +740,14 @@ gitm admin publish release
 
 run 指令是 gitmars hook 里面执行的内部指令，用来执行钩子方法
 
--   使用：`gitm run <hookName> [args...]`
+-   使用：`gitm run <command> [args...]`
 -   参数：
 
-| 参数     | 说明     | 类型   | 可选值 | 必填 | 默认 |
-| -------- | -------- | ------ | ------ | ---- | ---- |
-| hookName | 钩子名称 | String |        | 是   | -    |
+| 参数    | 说明     | 类型   | 可选值 | 必填 | 默认 |
+| ------- | -------- | ------ | ------ | ---- | ---- |
+| command | 钩子名称 | String |        | 是   | -    |
+| args    | 参数列表 | String |        | 否   | -    |
 
--   传值：
-
-| 名称      | 简写 | 说明                                                                         | 类型    | 可选值 | 传值必填 | 默认  |
-| --------- | ---- | ---------------------------------------------------------------------------- | ------- | ------ | -------- | ----- |
-| --combine | -c   | 是否在合并 release 之后会把 release 同步到 bugfix（仅在合并 release 时可用） | Boolean | -      | 否       | false |
-
--   示例：
-
-1. 合并 release 代码到预发环境
-
-```shell
-gitm admin publish release
-```
 
 ### gitm upgrade
 
@@ -1024,7 +1015,7 @@ gitm admin clean bugfix
 
 ### gitm version
 
-智能导航指令，只记一条指令就能完成所有功能使用
+查看gitmars版本号
 
 -   使用：`gitm --version`
 -   示例：
