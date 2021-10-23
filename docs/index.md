@@ -1,6 +1,6 @@
 ---
 home: true
-heroImage: null # /images/gitmars.png
+heroImage: null # /images/gitmars-branch.png
 heroText: Gitmars
 tagline: 一个高度定制化的git工作流
 actionText: 开始 →

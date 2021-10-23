@@ -75,7 +75,7 @@ gitm copy --help
 
 # 工作流展示
 
-![gitmars.png](https://raw.githubusercontent.com/saqqdy/gitmars/master/static/img/gitmars-branch.png)
+![gitmars-branch.png](https://raw.githubusercontent.com/saqqdy/gitmars/master/static/img/gitmars-branch.png)
 
 # 有哪些功能
 
