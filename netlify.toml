@@ -1,0 +1,11 @@
+[build.environment]
+  NODE_VERSION = "14"
+
+[build]
+  publish = "docs/.vuepress/dist"
+  command = "sed -i \"s/base: '\/gitmars\/'/base: '\/'/g\" docs/.vuepress/config.js && npm run docs:build"
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
