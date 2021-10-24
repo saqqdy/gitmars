@@ -1,4 +1,5 @@
 import path from 'path'
+import fs from 'fs'
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import legacy from '@vitejs/plugin-legacy'
@@ -21,9 +22,33 @@ export default defineConfig({
 			targets: ['defaults', 'not IE 10']
 		})
 	],
-	base: '/',
+	base: process.env.ELECTRON === 'true' ? './' : '/',
 	build: {
-		outDir: '../app/www'
+		outDir: '../app/www',
+		rollupOptions: {
+			output: {
+				manualChunks(id) {
+					if (id.includes('node_modules')) {
+						const [, module] =
+							/node_modules\/(@?[a-z0-9-]+?[a-z0-9-]+)/.exec(id)
+						const url = path.join(
+							process.cwd(),
+							'node_modules',
+							module,
+							'package.json'
+						)
+						if (fs.existsSync(url)) {
+							try {
+								const { version } = require(url)
+								return `vendor/${module}_${version}.js`
+							} catch {
+								console.info('none')
+							}
+						}
+					}
+				}
+			}
+		}
 	},
 	resolve: {
 		alias: {
