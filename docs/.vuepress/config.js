@@ -4,8 +4,8 @@ module.exports = {
     base: '/gitmars/',
     dest: './docs/.vuepress/dist',
     theme: '@vuepress/default',
-    // theme: 'antdocs',
     themeConfig: {
+		prefersTheme: 'dark',
         nav: [
             { text: '首页', link: '/' },
             { text: '指南', link: '/guide/' },
