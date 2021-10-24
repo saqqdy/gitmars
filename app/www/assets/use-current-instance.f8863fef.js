@@ -1,0 +1,1 @@
+import{al as o,S as t}from"./vendor.89db70a2.js";function e(e){"string"==typeof e&&(e=[e]);const{appContext:r,proxy:s}=t(),l=r.config.globalProperties;let n={};return e&&e.includes("style")&&(n=o()),{globalProperties:l,proxy:s,style:n}}export{e as u};
