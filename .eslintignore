@@ -8,5 +8,4 @@
 *.bak
 *_bak
 
-*.js
 /stats.html
