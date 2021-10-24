@@ -1,0 +1,17 @@
+{
+    "appId": "com.gitmars.app",
+    "productName": "Gitmars",
+    "copyright": "Copyright © 2019 saqqdy",
+    "mac": {
+        "category": "public.app-category.utilities"
+    },
+    "nsis": {
+        "oneClick": false,
+        "allowToChangeInstallationDirectory": true
+    },
+    "buildDependenciesFromSource": false,
+    "files": ["app/**/*", "lib/**/*", "preload.js", "electron.js"],
+    "directories": {
+        "output": "dist_electron"
+    }
+}

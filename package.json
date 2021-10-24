@@ -21,11 +21,20 @@
         "dev": "cross-env BUILD_ENV=DEV rollup -c -w",
         "dist": "run-s eslint prettier build build:server build:ui",
         "docs": "rimraf docs && typedoc",
+        "electron": "wait-on tcp:8888 && cross-env IS_DEV=true electron .",
+        "electron:pack": "electron-builder -c electron.json --dir",
+        "electron:dev": "concurrently -k \"cross-env BROWSER=none yarn dev\" \"yarn electron\"",
+        "electron:build": "yarn build-electron1 && yarn builder",
+        "builder": "cross-env ELECTRON=true electron-builder",
+        "build-electron": "vue-tsc --noEmit && cross-env ELECTRON=true vite build",
+        "rebuild": "electron-rebuild -f -p",
+        "postinstall1": "electron-builder install-app-deps",
+        "build-electron1": "cross-env ELECTRON=true",
         "eslint": "eslint --fix --ext .ts,.js",
         "prettier": "prettier --write \"**/*.{js,ts,json,md}\"",
         "prettier:docs": "prettier --write \"**/*.md\""
     },
-    "main": "lib/gitm.js",
+    "main": "electron.js",
     "bin": {
         "gitm": "lib/gitm.js"
     },
@@ -35,16 +44,27 @@
         "lib",
         "typings"
     ],
-    "directories": {
-        "app": "app",
-        "bin": "bin",
-        "es": "es",
-        "lib": "lib",
-        "src": "src",
-        "cache": "cache",
-        "server": "server",
-        "ui": "ui",
-        "typings": "typings"
+    "build": {
+        "appId": "com.gitmars.app",
+        "productName": "Gitmars",
+        "copyright": "Copyright © 2019 saqqdy",
+        "mac": {
+            "category": "public.app-category.utilities"
+        },
+        "nsis": {
+            "oneClick": false,
+            "allowToChangeInstallationDirectory": true
+        },
+        "buildDependenciesFromSource": true,
+        "files": [
+            "app/**/*",
+            "lib/**/*",
+            "preload.js",
+            "electron.js"
+        ],
+        "directories": {
+            "output": "dist_electron"
+        }
     },
     "dependencies": {
         "ci-info": "^3.2.0",
@@ -93,6 +113,9 @@
         "@vuepress/plugin-medium-zoom": "^1.8.2",
         "babel-eslint": "^10.1.0",
         "cross-env": "^7.0.3",
+        "electron": "^15.3.0",
+        "electron-builder": "^22.13.1",
+        "electron-rebuild": "^3.2.3",
         "esbuild": "^0.13.6",
         "eslint": "^8.0.1",
         "eslint-config-prettier": "^8.3.0",

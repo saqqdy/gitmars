@@ -1,11 +1,11 @@
 #!/usr/bin/env node
 
 const { exec } = require('child_process')
-const app = require('../app')
 const debug = require('debug')('server:server')
 const http = require('http')
 const args = process.argv.slice(2)
 const port = normalizePort(['-p', '--port'].includes(args[0]) && args[1] ? args[1] : process.env.PORT || '3000') // Get port from environment and store in Express.
+const app = require('../app')
 const createSocketServer = require('../socket/index')
 
 app.set('port', port)
@@ -14,10 +14,12 @@ app.set('port', port)
 const server = http.createServer(app)
 createSocketServer(server)
 
-// Listen on provided port, on all network interfaces.
-server.listen(port)
-server.on('error', onError)
-server.on('listening', onListening)
+function start() {
+	// Listen on provided port, on all network interfaces.
+	server.listen(port)
+	server.on('error', onError)
+	server.on('listening', onListening)
+}
 
 /**
  * Normalize a port into a number, string, or false.
@@ -69,3 +71,7 @@ function onListening() {
 	else exec(`open ${url}`)
 	debug('Listening on ' + bind)
 }
+
+start()
+
+module.exports = server
