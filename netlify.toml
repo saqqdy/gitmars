@@ -3,7 +3,7 @@
 
 [build]
   publish = "docs/.vuepress/dist"
-  command = "npm run docs:build"
+  command = "sed -i \"s/base: '\/gitmars\/'/base: '\/'/g\" docs/.vuepress/config.js && npm run docs:build"
 
 [[redirects]]
   from = "/*"
