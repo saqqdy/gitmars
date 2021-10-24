@@ -9,14 +9,13 @@
 		"eslint": "eslint --fix --ext .vue,.js",
 		"prettier": "prettier --write \"**/*.{js,jsx,ts,tsx,vue,json,md}\""
 	},
-	"main": "background.js",
 	"dependencies": {
 		"@vueuse/core": "^6.7.3",
 		"axios": "^0.23.0",
 		"core-js": "^3.18.3",
 		"dayjs": "^1.10.7",
 		"element-plus": "^1.1.0-beta.24",
-		"js-cool": "^2.2.3",
+		"js-cool": "^2.2.4",
 		"qs": "^6.10.1",
 		"socket.io-client": "^4.3.2",
 		"uuid": "^8.3.2",

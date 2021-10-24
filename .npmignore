@@ -2,6 +2,7 @@ buildConfig.json
 gitmarsconfig.json
 .gitmarsrc
 node_modules
+dist_electron
 /ui
 /docs
 /cache/*
