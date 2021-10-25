@@ -4,8 +4,7 @@ const { exec } = require('child_process')
 const app = require('../app')
 const debug = require('debug')('server:server')
 const http = require('http')
-const args = process.argv.slice(2)
-const port = normalizePort(['-p', '--port'].includes(args[0]) && args[1] ? args[1] : process.env.PORT || '3000') // Get port from environment and store in Express.
+const port = normalizePort(process.env.PORT || '3000') // Get port from environment and store in Express.
 const createSocketServer = require('../socket/index')
 
 app.set('port', port)
