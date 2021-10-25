@@ -21,4 +21,4 @@ gitm ui --port 3000
 
 -   演示：
 
-![gitmars-ui.gif](https://gitee.com/saqqdy/gitmars/raw/master/static/img/gitmars-ui.gif)
+![gitmars-ui.gif](https://raw.githubusercontent.com/saqqdy/gitmars/master/static/img/gitmars-ui.gif)

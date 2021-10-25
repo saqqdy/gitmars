@@ -1,4 +1,4 @@
-![logo.png](https://gitee.com/saqqdy/gitmars/raw/master/static/img/logo.png)
+![logo.png](https://raw.githubusercontent.com/saqqdy/gitmars/master/static/img/logo.png)
 
 [![NPM version][npm-image]][npm-url]
 [![build status][travis-image]][travis-url]
@@ -76,7 +76,7 @@ gitm copy --help
 
 # 工作流展示
 
-![gitmars-branch.png](https://gitee.com/saqqdy/gitmars/raw/master/static/img/gitmars-branch.png)
+![gitmars-branch.png](https://raw.githubusercontent.com/saqqdy/gitmars/master/static/img/gitmars-branch.png)
 
 # 有哪些功能
 
@@ -134,7 +134,7 @@ gitm go build
 
 -   演示：
 
-![gitmars-go.gif](https://gitee.com/saqqdy/gitmars/raw/master/static/img/gitmars-go.gif)
+![gitmars-go.gif](https://raw.githubusercontent.com/saqqdy/gitmars/master/static/img/gitmars-go.gif)
 
 # UI 界面
 
@@ -157,4 +157,4 @@ gitm ui --port 3000
 
 -   演示：
 
-![gitmars-ui.gif](https://gitee.com/saqqdy/gitmars/raw/master/static/img/gitmars-ui.gif)
+![gitmars-ui.gif](https://raw.githubusercontent.com/saqqdy/gitmars/master/static/img/gitmars-ui.gif)

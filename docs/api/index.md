@@ -26,7 +26,7 @@ gitm go build
 
 -   演示：
 
-    > ![gitmars-go.gif](https://gitee.com/saqqdy/gitmars/raw/master/static/img/gitmars-go.gif)
+    > ![gitmars-go.gif](https://raw.githubusercontent.com/saqqdy/gitmars/master/static/img/gitmars-go.gif)
 
 ## 配置
 
