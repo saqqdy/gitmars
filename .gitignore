@@ -42,7 +42,7 @@ pnpm-lock.yaml
 *.sw*
 cache/*
 !cache/.gitkeep
-/stats.html
+stats.html
 
 #Electron-builder output
-/dist_electron
+dist_electron
