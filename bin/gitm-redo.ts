@@ -2,6 +2,7 @@
 const { program } = require('commander')
 const inquirer = require('inquirer')
 const sh = require('shelljs')
+sh.config.execPath = sh.which('node').toString()
 const { options, args } = require('./conf/redo')
 const { error, warning, queue, isGitProject } = require('./js/index')
 const { createArgs } = require('./js/tools')

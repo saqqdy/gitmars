@@ -1,6 +1,7 @@
 const fs = require('fs')
 const path = require('path')
 const sh = require('shelljs')
+sh.config.execPath = sh.which('node').toString()
 const { warning, compareVersion } = require('../index')
 const { hookList } = require('../global')
 const gitRevParse = require('../gitRevParse')

@@ -1,5 +1,6 @@
 const fs = require('fs')
 const sh = require('shelljs')
+sh.config.execPath = sh.which('node').toString()
 const colors = require('colors')
 const getGitConfig = require('./getGitConfig')
 const gitRevParse = require('./gitRevParse')

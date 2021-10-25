@@ -2,6 +2,7 @@
 const { program } = require('commander')
 const path = require('path')
 const sh = require('shelljs')
+sh.config.execPath = sh.which('node').toString()
 const { success, warning, isGitProject } = require('./js/index')
 const gitRevParse = require('./js/gitRevParse')
 const cacheDir = path.join(__dirname, '../cache')

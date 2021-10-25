@@ -1,6 +1,7 @@
 #!/usr/bin/env ts-node
 const { program } = require('commander')
 const sh = require('shelljs')
+sh.config.execPath = sh.which('node').toString()
 const { error, queue, isGitProject } = require('./js/index')
 if (!isGitProject()) {
     sh.echo(error('当前目录不是git项目目录'))

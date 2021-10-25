@@ -1,6 +1,7 @@
 #!/usr/bin/env ts-node
 const { Command } = require('commander')
 const sh = require('shelljs')
+sh.config.execPath = sh.which('node').toString()
 const { create, publish, update, clean } = require('./conf/admin')
 const getUserToken = require('./js/api')
 const {

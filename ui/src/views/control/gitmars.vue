@@ -372,7 +372,9 @@ export default defineComponent({
 			return (
 				await $axios({
 					url: '/cmd/branch/list',
-					data: {}
+					data: {
+						path: data.project.path
+					}
 				})
 			).data
 		}

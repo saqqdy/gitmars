@@ -2,6 +2,7 @@
 const { program } = require('commander')
 const fs = require('fs')
 const sh = require('shelljs')
+sh.config.execPath = sh.which('node').toString()
 const inquirer = require('inquirer')
 const { error, success, isGitProject } = require('./js/index')
 const { defaults } = require('./js/global')

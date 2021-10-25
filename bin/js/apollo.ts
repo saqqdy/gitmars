@@ -1,6 +1,7 @@
 const path = require('path')
 const apollo = require('node-apollo')
 const sh = require('shelljs')
+sh.config.execPath = sh.which('node').toString()
 const { error, writeFile } = require('./index')
 const getConfig = require('./getConfig')
 

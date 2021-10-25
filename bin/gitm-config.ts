@@ -1,6 +1,7 @@
 #!/usr/bin/env ts-node
 const { program } = require('commander')
 const sh = require('shelljs')
+sh.config.execPath = sh.which('node').toString()
 const gitRevParse = require('./js/gitRevParse')
 const { error, success, writeFile, isGitProject } = require('./js/index')
 const { defaults } = require('./js/global')

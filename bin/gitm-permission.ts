@@ -1,6 +1,7 @@
 #!/usr/bin/env ts-node
 const { program } = require('commander')
 const sh = require('shelljs')
+sh.config.execPath = sh.which('node').toString()
 const { error, getCurrent } = require('./js/index')
 const getConfig = require('./js/getConfig')
 const config = getConfig()

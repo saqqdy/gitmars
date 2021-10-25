@@ -2,6 +2,7 @@
 const { program } = require('commander')
 const { version } = require('../package.json')
 const sh = require('shelljs')
+sh.config.execPath = sh.which('node').toString()
 
 if (!sh.which('git')) {
     sh.echo('gitmars只能在git环境下执行，请先安装git')
