@@ -38,7 +38,9 @@ program.action((opt: GitmBuildOption) => {
     // process.chdir(gitmDir + '/ui')
     // sh.exec(`pm2 start yarn --name ui -- run serve`, { silent: true })
     process.chdir(path.join(__dirname, '../app'))
-    sh.exec(`npm run server:start ${opt.port ? '--port ' + opt.port : ''}`)
+    // 市值启动端口号
+    opt.port && (process.env.PORT = String(opt.port))
+    sh.exec(`npm run server:start`)
 })
 program.parse(process.argv)
 export {}

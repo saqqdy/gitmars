@@ -1,11 +1,13 @@
-/lib
-/dist
-/docs
-/app
-/ui
-/cache/*
+lib
+dist
+docs
+app
+ui
+cache/*
 
 *.bak
 *_bak
 
-/stats.html
+stats.html
+#Electron-builder output
+dist_electron
