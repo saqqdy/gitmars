@@ -23,8 +23,8 @@ function createWindow() {
         webPreferences: {
             nodeIntegration: true,
             contextIsolation: false,
-            enableRemoteModule: true
-            // preload: path.join(app.getAppPath(), 'preload.js'),
+            enableRemoteModule: true,
+            // preload: path.join(__dirname, 'preload.js'),
         }
     })
     // win.loadURL(`file://${__dirname}/server.html`);

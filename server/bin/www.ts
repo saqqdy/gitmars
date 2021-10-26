@@ -64,10 +64,10 @@ function onListening() {
 		url = 'http://127.0.0.1:' + addr.port
 	console.info(`server started on ${url}`)
 	// win系统使用 一下命令打开url在浏览器
-	if (process.platform === 'win32') exec(`start ${url}`)
+	// if (process.platform === 'win32') exec(`start ${url}`)
 	// mac系统使用 一下命令打开url在浏览器
-	else if (process.platform === 'darwin') exec(`open ${url}`)
-	else exec(`open ${url}`)
+	// else if (process.platform === 'darwin') exec(`open ${url}`)
+	// else exec(`open ${url}`)
 	debug('Listening on ' + bind)
 }
 
