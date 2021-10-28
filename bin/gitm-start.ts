@@ -57,6 +57,8 @@ program.action((type: string, name: string, opt: GitmBuildOption) => {
                 sh.exit(1)
             }
         }
+        // 替换开头的'/'
+        name = name.replace(/^\//, '')
         // feature从release拉取，bugfix从bug拉取，support从master分支拉取
         const base = opt.tag
             ? opt.tag
