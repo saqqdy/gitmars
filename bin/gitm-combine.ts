@@ -78,6 +78,7 @@ program.action(
             nickname = ''
         } = config.api ? getUserToken() : ({} as FetchDataType)
         const status = !opt.add && opt.commit === '' ? getStatus() : true
+        let _nameArr: string[] = [] // 分支名称数组
         if (!opt.dev && !opt.prod) {
             sh.echo('请输入需要同步到的环境')
             sh.exit(1)
@@ -89,7 +90,8 @@ program.action(
         }
         if (!type) {
             // type和name都没传且当前分支是开发分支
-            ;[type, name] = getCurrent().split('/')
+            ;[type, ..._nameArr] = getCurrent().split('/')
+            name = _nameArr.join('/')
             if (!name) {
                 deny.includes(type) &&
                     sh.echo(
@@ -105,7 +107,8 @@ program.action(
             }
             const branchs = await searchBranch(type)
             if (branchs.length === 1) {
-                ;[type, name] = branchs[0].split('/')
+                ;[type, _nameArr] = branchs[0].split('/')
+                name = _nameArr.join('/')
             } else {
                 sh.echo(
                     branchs.length > 1

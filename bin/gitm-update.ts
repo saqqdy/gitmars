@@ -55,7 +55,8 @@ program.action(
         ]
         const status = getStatus()
         let cmds: Array<CommandType | string> = [],
-            branchList = []
+            branchList = [],
+            _nameArr: string[] = [] // 分支名称数组
         if (!status) sh.exit(1)
         if (opt.all) {
             // 更新全部分支
@@ -64,7 +65,8 @@ program.action(
         } else if (!type || !name) {
             // type或name没传
             const current = getCurrent()
-            ;[type, name] = current.split('/')
+            ;[type, ..._nameArr] = current.split('/')
+            name = _nameArr.join('/')
             if (!name) {
                 deny.includes(type) &&
                     sh.echo(
@@ -88,7 +90,8 @@ program.action(
         }
         branchList.forEach((branch: string) => {
             // feature从release拉取，bugfix从bug拉取，support从master分支拉取
-            ;[type, name] = branch.split('/')
+            ;[type, ..._nameArr] = branch.split('/')
+            name = _nameArr.join('/')
             const base: string =
                 type === 'bugfix'
                     ? config.bugfix
