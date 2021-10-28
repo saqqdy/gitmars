@@ -4,6 +4,7 @@ const sh = require('shelljs')
 const { options, args } = require('./conf/start')
 const { error, success, queue, getStatus, isGitProject } = require('./js/index')
 const { createArgs } = require('./js/tools')
+const getType = require('js-cool/lib/getType')
 if (!isGitProject()) {
     sh.echo(error('当前目录不是git项目目录'))
     sh.exit(1)
@@ -45,6 +46,19 @@ program.action((type: string, name: string, opt: GitmBuildOption) => {
             sh.echo(error('指定从tag拉取分支时仅支持创建bugfix分支'))
             sh.exit(1)
         }
+        // 校验分支名称规范
+        if (config.nameValidator) {
+            const reg =
+                getType(config.nameValidator) === 'regexp'
+                    ? config.nameValidator
+                    : new RegExp(config.nameValidator)
+            if (!reg.test(name)) {
+                sh.echo(error('分支名称不符合规范'))
+                sh.exit(1)
+            }
+        }
+        // 替换开头的'/'
+        name = name.replace(/^\//, '')
         // feature从release拉取，bugfix从bug拉取，support从master分支拉取
         const base = opt.tag
             ? opt.tag

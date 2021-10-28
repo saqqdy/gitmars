@@ -64,6 +64,13 @@ program
                             ? true
                             : '请输入正确的邮箱'
                 })
+            } else if (key === 'nameValidator') {
+                prompts.push({
+                    type: 'input',
+                    name: key,
+                    message: '请输入分支名称命名规则',
+                    transformer: (val, answers, flags) => val.trim()
+                })
             } else if (key === 'msgTemplate') {
                 prompts.push({
                     type: 'input',
