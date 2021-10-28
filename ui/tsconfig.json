@@ -2,8 +2,8 @@
 	"include": ["./**/*.ts", "typings", "./*.d.ts"],
 	"exclude": ["node_modules", "**/__tests__"],
 	"compilerOptions": {
-		"target": "esnext",
-		"module": "esnext",
+		"target": "ESNext",
+		"module": "ESNext",
 		"strict": false,
 		"jsx": "preserve",
 		"importHelpers": true,

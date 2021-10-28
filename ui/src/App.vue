@@ -27,11 +27,15 @@ interface TermObject {
 	pid: number | null
 }
 
+const SOCKET_HOST = import.meta.env.DEV
+	? 'http://127.0.0.1:3000'
+	: location.origin
+
 // data
-const socket: Socket = io('http://127.0.0.1:3000/terminal', {
+const socket: Socket = io(`${SOCKET_HOST}/terminal`, {
 	reconnection: true
 })
-const socketGitmars: Socket = io('http://127.0.0.1:3000/gitmars', {
+const socketGitmars: Socket = io(`${SOCKET_HOST}/gitmars`, {
 	reconnection: true
 })
 // const attachAddon = new AttachAddon(socket)

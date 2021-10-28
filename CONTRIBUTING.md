@@ -2,7 +2,7 @@
 
 Thanks for being interested in contributing to this project!
 
-## Development 
+## Development
 
 ### Setup
 
@@ -20,12 +20,9 @@ yarn dev
 
 ## Contributing
 
-
-
 ## Project Structure
 
 ### Function Folder
-
 
 ## Code Style
 
