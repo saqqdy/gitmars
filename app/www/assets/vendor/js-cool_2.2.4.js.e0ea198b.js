@@ -1,4 +1,4 @@
-import"./core-js_3.18.3.js.a64c1281.js";
+import"./core-js_3.19.0.js.95aab93d.js";
 /*!
  * js-cool v2.2.4
  * 一些常用的JS方法，支持按需引入

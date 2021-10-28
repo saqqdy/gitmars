@@ -1,10 +1,10 @@
 {
     "compilerOptions": {
         "allowJs": true,
-        "target": "es5",
+        "target": "ESNext",
         "moduleResolution": "node",
         "noLib": false,
-        "lib": ["ESNext"],
+        "lib": ["esnext"],
         "sourceMap": true,
         "module": "ESNext",
         "jsx": "preserve",
