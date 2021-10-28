@@ -40,7 +40,7 @@ support 分支实际名称
 -   默认：`support`
 -   必填：是
 
-### user
+### user <Badge text="已弃用" type="error"/>
 
 用户名称
 
@@ -48,13 +48,38 @@ support 分支实际名称
 -   默认：``
 -   必填：否
 
-### email
+### email <Badge text="已弃用" type="error"/>
 
 用户邮箱
 
 -   类型：`String`
 -   默认：``
 -   必填：否
+
+### nameValidator
+
+校验分支命名规范的正则表达式，可输入字符串或者正则
+
+-   类型：`String`,`RegExp`
+-   默认：``
+-   必填：否
+-   示例：
+
+1. 设置正则字符串
+
+```json
+{
+    nameValidator: "[a-z]{3,}_\w+", // 检验：saqqdy_xxxxxx
+}
+```
+
+2. 设置正则
+
+```json
+{
+    nameValidator: /[a-z]{3,}_\w+/, // 检验：saqqdy_xxxxxx
+}
+```
 
 ### msgTemplate
 
