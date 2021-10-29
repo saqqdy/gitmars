@@ -26,8 +26,18 @@ function getIsUpdatedInTime({
     const current = getCurrent()
     const mainVers: string[] = []
     const currentVers: string[] = []
-    const mainLogs = getLogs({ lastet, limit, branches })
-    const currentLogs = getLogs({ lastet, limit, branches: current })
+    const mainLogs = getLogs({
+        lastet,
+        limit,
+        branches,
+        params: '--no-merges'
+    })
+    const currentLogs = getLogs({
+        lastet,
+        limit,
+        branches: current,
+        params: '--no-merges'
+    })
     mainLogs.forEach((log: GitLogType) => {
         mainVers.push(log['%H'])
     })
