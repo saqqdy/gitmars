@@ -3,7 +3,7 @@ const { getCurrent, getLogs } = require('../index')
 /**
  * 获取主干分支推送的内容是否是merge内容，暂时只检测最后一条记录
  *
- * @returns isMergedDevBranch - 是否merge
+ * @returns isMergeAction - 是否merge
  */
 function getIsMergeAction(): boolean {
     const current = getCurrent()

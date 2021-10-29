@@ -10,7 +10,7 @@ const {
     isGitProject
 } = require('./js/index')
 const { createArgs } = require('./js/tools')
-const getIsMergedDevBranch = require('./js/branch/getIsMergedDevBranch')
+const getIsMergedTargetBranch = require('./js/branch/getIsMergedTargetBranch')
 const getIsUpdatedInTime = require('./js/branch/getIsUpdatedInTime')
 const getIsMergeAction = require('./js/branch/getIsMergeAction')
 const getBehindLogs = require('./js/branch/getBehindLogs')
@@ -342,7 +342,7 @@ program.action(
                     ? process.env.GIT_REFLOG_ACTION.split(' ')
                     : []
                 if (command === 'merge') {
-                    const isMergedBranch = getIsMergedDevBranch(
+                    const isMergedBranch = getIsMergedTargetBranch(
                         branch,
                         config.develop
                     )

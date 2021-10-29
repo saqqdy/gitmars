@@ -1,5 +1,11 @@
 # 更新日志
 
+## 2021.10.30 v2.9.6 更新日志
+
+1. `end`指令智能判断是否需要合并代码，不传`--no-combine`时，不需要合并的时候不会发起合并操作
+2. `getIsMergedDevBranch`改为`getIsMergedTargetBranch`，新增`remote`参数
+3. 抽象`getIsBranchOrCommitExist`方法的判断分支或commit是否存在
+
 ## 2021.10.29 v2.9.5 更新日志
 
 1. 优化`getIsUpdatedInTime`方法的判断策略

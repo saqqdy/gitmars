@@ -3,6 +3,7 @@ const { program } = require('commander')
 const sh = require('shelljs')
 const { options, args } = require('./conf/branch')
 const { error, queue, isGitProject } = require('./js/index')
+const getIsBranchOrCommitExist = require('./js/branch/getIsBranchOrCommitExist')
 const { createArgs } = require('./js/tools')
 if (!isGitProject()) {
     sh.echo(error('当前目录不是git项目目录'))
@@ -48,19 +49,14 @@ options.forEach((o: GitmarsOptionOptionsType) => {
 // .option('-u, --upstream [upstream]', '设置与远程分支关联')
 program.action((opt: GitmBuildOption): void => {
     const cmd: Array<CommandType | string> = []
+    const isBranchExist = getIsBranchOrCommitExist(opt.delete)
     if (opt.delete) {
         // 删除分支
-        const id = sh
-            .exec(`git rev-parse --verify ${opt.delete}`, { silent: true })
-            .stdout.replace(/\s+$/g, '')
-        if (/^[a-z0-9]+$/.test(id)) cmd.push(`git branch -d ${opt.delete}`)
+        if (isBranchExist) cmd.push(`git branch -d ${opt.delete}`)
         if (opt.remote) cmd.push(`git push origin --delete ${opt.delete}`)
     } else if (opt.forcedelete) {
         // 强行删除分支
-        const id = sh
-            .exec(`git rev-parse --verify ${opt.delete}`, { silent: true })
-            .stdout.replace(/\s+$/g, '')
-        if (/^[a-z0-9]+$/.test(id)) cmd.push(`git branch -D ${opt.forcedelete}`)
+        if (isBranchExist) cmd.push(`git branch -D ${opt.forcedelete}`)
         if (opt.remote) cmd.push(`git push origin --delete ${opt.delete}`)
     } else if (opt.upstream) {
         if (typeof opt.upstream === 'string') {

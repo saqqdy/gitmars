@@ -15,7 +15,7 @@ export interface IsUpdatedInTimeConfigType {
  * @param option.lastet - 最近几天的日志，可以是10s/2m/2h/3d/4M/5y
  * @param option.limit - 日志数量限制
  * @param option.branch - 目标分支
- * @returns isMergedDevBranch - 是否合并过
+ * @returns isMergedTargetBranch - 是否合并过
  */
 function getIsUpdatedInTime({
     lastet,
