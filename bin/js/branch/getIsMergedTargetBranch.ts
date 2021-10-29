@@ -6,10 +6,16 @@ const { getCurrent } = require('../index')
  *
  * @param branch - 待检测分支名
  * @param targetBranch - 目标分支
- * @returns isMergedDevBranch - 是否合并过
+ * @param remote - 是否查询远程，默认：false
+ * @returns isMergedTargetBranch - 是否合并过
  */
-function getIsMergedDevBranch(branch: string, targetBranch = 'dev'): boolean {
+function getIsMergedTargetBranch(
+    branch: string,
+    targetBranch = 'dev',
+    remote: boolean = false
+): boolean {
     if (!branch) branch = getCurrent()
+    if (remote) branch = 'origin/' + branch
     const result = sh
         .exec(`git branch --contains ${branch} --format="%(refname:short)"`, {
             silent: true
@@ -18,5 +24,5 @@ function getIsMergedDevBranch(branch: string, targetBranch = 'dev'): boolean {
     return result.split('\n').includes(targetBranch)
 }
 
-module.exports = getIsMergedDevBranch
+module.exports = getIsMergedTargetBranch
 export {}

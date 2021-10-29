@@ -10,6 +10,8 @@ const {
     searchBranch,
     isGitProject
 } = require('./js/index')
+const getIsMergedTargetBranch = require('./js/branch/getIsMergedTargetBranch')
+const getIsBranchOrCommitExist = require('./js/branch/getIsBranchOrCommitExist')
 const { createArgs } = require('./js/tools')
 if (!isGitProject()) {
     sh.echo(error('当前目录不是git项目目录'))
@@ -96,11 +98,10 @@ program.action(
                 sh.exit(1)
             }
         }
-        // const isBranchExist = sh.exec(`git rev-parse --verify ${type}/${name}`, { silent: true }).code === 0
-        const isRemoteBranchExist =
-            sh.exec(`git rev-parse --verify origin/${type}/${name}`, {
-                silent: true
-            }).code === 0
+        const isRemoteBranchExist = getIsBranchOrCommitExist(
+            `${type}/${name}`,
+            true
+        )
         if (allow.includes(type) && name) {
             const base: string = opt.asFeature
                 ? config.release
@@ -108,7 +109,25 @@ program.action(
                 ? config.bugfix
                 : config.release
             let cmd: Array<CommandType | string> = []
-            if (opt.combine) {
+            // 是否需要合并dev
+            const isNeedCombineDevelop = !getIsMergedTargetBranch(
+                `${type}/${name}`,
+                config.develop,
+                true
+            )
+            // 是否需要合并base
+            const isNeedCombineBase = !getIsMergedTargetBranch(
+                `${type}/${name}`,
+                base,
+                true
+            )
+            // 是否需要合并bug
+            const isNeedCombineBugfix = !getIsMergedTargetBranch(
+                `${type}/${name}`,
+                config.bugfix,
+                true
+            )
+            if (opt.combine && isNeedCombineDevelop) {
                 // 需要合并代码到dev
                 cmd = [
                     'git fetch',
@@ -134,7 +153,7 @@ program.action(
                 ]
             }
             // support分支需要合到bugfix
-            if (type === 'support') {
+            if (type === 'support' && opt.combine && isNeedCombineBugfix) {
                 cmd = cmd.concat(
                     !level || level < 3
                         ? [
@@ -180,7 +199,7 @@ program.action(
                           ]
                 )
             }
-            if (!opt.combine) {
+            if (!opt.combine || !isNeedCombineBase) {
                 // 不合并代码
                 cmd = cmd.concat([
                     `git checkout ${config.develop}`,

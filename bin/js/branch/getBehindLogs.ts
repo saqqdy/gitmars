@@ -6,7 +6,7 @@ const { getCurrent } = require('../index')
  *
  * @param branch - 待检测分支名
  * @param targetBranch - 目标分支
- * @returns isMergedDevBranch - 是否
+ * @returns behindLogs - 是否
  */
 function getBehindLogs(): string[] {
     const current = getCurrent()

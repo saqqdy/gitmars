@@ -11,7 +11,7 @@ const {
     searchBranch,
     isGitProject
 } = require('./js/index')
-const getIsMergedDevBranch = require('./js/branch/getIsMergedDevBranch')
+const getIsMergedTargetBranch = require('./js/branch/getIsMergedTargetBranch')
 const getIsUpdatedInTime = require('./js/branch/getIsUpdatedInTime')
 const { createArgs } = require('./js/tools')
 const { defaults } = require('./js/global')
@@ -181,13 +181,14 @@ program.action(
                 // 判断是否同步过dev分支
                 if (
                     !opt.dev &&
-                    !getIsMergedDevBranch(`${type}/${name}`, config.develop)
+                    !getIsMergedTargetBranch(`${type}/${name}`, config.develop)
                 ) {
                     sh.echo(
                         warning(
                             `检测到你的分支没有合并过${config.develop}，请先合并到${config.develop}分支`
                         )
                     )
+                    sh.exit(1)
                 } else {
                     // 同步到prod环境
                     if (!opt.noBugfix && !opt.asFeature) {
