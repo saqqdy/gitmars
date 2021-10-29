@@ -336,7 +336,7 @@ function getStatus(): boolean {
  * @returns {Array} true 返回列表
  */
 function getLogs(config: any = {}): GitLogType[] {
-    const { lastet, limit, branches } = config
+    const { lastet, limit, branches, params = '' } = config
     const keys = [
         '%H',
         // '%h',
@@ -401,7 +401,7 @@ function getLogs(config: any = {}): GitLogType[] {
                 lastet ? ' --since="' + getSeconds(lastet) + '"' : ''
             }${
                 branches ? ' --branches="*' + branches + '"' : ''
-            } --date-order --pretty=format:"${keys.join(',=')}-end-"`,
+            } --date-order --pretty=format:"${keys.join(',=')}-end-" ${params}`,
             { silent: true }
         )
         .stdout.replace(/[\r\n]+/g, '')
