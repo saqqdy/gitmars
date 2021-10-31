@@ -73,7 +73,7 @@
         "uuid": "^8.3.2"
     },
     "devDependencies": {
-        "@microsoft/api-extractor": "^7.18.16",
+        "@microsoft/api-extractor": "^7.18.17",
         "@rollup/plugin-commonjs": "^21.0.0",
         "@rollup/plugin-json": "^4.1.0",
         "@rollup/plugin-node-resolve": "^13.0.5",
@@ -93,7 +93,7 @@
         "@vuepress/plugin-medium-zoom": "^1.8.2",
         "babel-eslint": "^10.1.0",
         "cross-env": "^7.0.3",
-        "esbuild": "^0.13.6",
+        "esbuild": "^0.13.12",
         "eslint": "^8.0.1",
         "eslint-config-prettier": "^8.3.0",
         "eslint-config-sets": "^1.5.3",
