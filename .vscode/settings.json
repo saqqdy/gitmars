@@ -11,7 +11,9 @@
         "lastet",
         "forcedelete",
         "postmsg",
-        "vssue"
+        "vssue",
+        "gitmarsdb",
+        "gitmarsrc"
     ],
     "typescript.tsdk": "node_modules/typescript/lib",
     "editor.codeActionsOnSave": {
