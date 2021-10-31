@@ -3,6 +3,9 @@
 # 确保脚本抛出遇到的错误
 set -e
 
+# 替换图片资源
+find ./docs -type f -path "*.md" | xargs sed -i '' "s/https:\/\/raw.githubusercontent.com\/saqqdy\/gitmars/https:\/\/gitee.com\/saqqdy\/gitmars\/raw/g"
+
 # 生成静态文件
 yarn run docs:build
 
@@ -27,3 +30,6 @@ git push -f git@github.com:saqqdy/gitmars.git master:gh-pages
 git push -f git@gitee.com:saqqdy/gitmars.git master:gh-pages
 
 cd -
+
+# 重置图片资源
+find ./docs -type f -path "*.md" | xargs sed -i '' "s/https:\/\/gitee.com\/saqqdy\/gitmars\/raw/https:\/\/raw.githubusercontent.com\/saqqdy\/gitmars/g"
