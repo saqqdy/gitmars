@@ -3,7 +3,7 @@
 
 [build]
   publish = "docs/.vuepress/dist"
-  command = "find ./docs -type f -path \"*.md\" | xargs sed -i \"s/https://raw.githubusercontent.com/saqqdy/gitmars/https://gitee.com/saqqdy/gitmars/raw/g" && sed -i \"s/base: '\/gitmars\/'/base: '\/'/g\" docs/.vuepress/config.js && npm run docs:build && git checkout . && git clean -fd"
+  command = "find ./docs -type f -path \"*.md\" | xargs sed -i \"s/https://raw.githubusercontent.com/saqqdy/gitmars/https://gitee.com/saqqdy/gitmars/raw/g\" && sed -i \"s/base: '\/gitmars\/'/base: '\/'/g\" docs/.vuepress/config.js && npm run docs:build && git checkout . && git clean -fd"
 
 [[redirects]]
   from = "/*"
