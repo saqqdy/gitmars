@@ -815,7 +815,7 @@ module.exports = {
     queue,
     getCache,
     setCache,
-	cleanCache,
+    cleanCache,
     setLog,
     getStatusInfo,
     getStatus,
