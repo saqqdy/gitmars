@@ -312,10 +312,20 @@ gitm up feature -a
 -   使用：`gitm continue`
 -   示例：
 
+1. 继续未完成的操作
+
 ```shell
 gitm continue
 # or
 gitm ct
+```
+
+2. 查看未完成的指令列表
+
+```shell
+gitm continue --list
+# or
+gitm ct -l
 ```
 
 ## 效率
