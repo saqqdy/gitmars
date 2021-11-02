@@ -311,11 +311,26 @@ gitm up feature -a
 
 -   使用：`gitm continue`
 -   示例：
+-   传值：
+
+| 名称   | 简写 | 说明                 | 类型   | 可选值 | 传值必填 | 默认 |
+| ------ | ---- | -------------------- | ------ | ------ | -------- | ---- |
+| --list | -l   | 查看未完成的指令列表 | String | -      | 否       | -    |
+
+1. 继续未完成的操作
 
 ```shell
 gitm continue
 # or
 gitm ct
+```
+
+2. 查看未完成的指令列表
+
+```shell
+gitm continue --list
+# or
+gitm ct -l
 ```
 
 ## 效率
