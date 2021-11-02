@@ -311,11 +311,26 @@ gitm up feature -a
 
 -   使用：`gitm continue`
 -   示例：
+-   传值：
+
+| 名称   | 简写 | 说明                 | 类型   | 可选值 | 传值必填 | 默认 |
+| ------ | ---- | -------------------- | ------ | ------ | -------- | ---- |
+| --list | -l   | 查看未完成的指令列表 | String | -      | 否       | -    |
+
+1. 继续未完成的操作
 
 ```shell
 gitm continue
 # or
 gitm ct
+```
+
+2. 查看未完成的指令列表
+
+```shell
+gitm continue --list
+# or
+gitm ct -l
 ```
 
 ## 效率
@@ -349,33 +364,33 @@ gitm mg 20001
 
 复制其他分支上的提交记录到当前分支
 
--   使用：`gitm copy <from> [commitid...]` 或者 `gitm copy <from> [-k --key] [-a --author]`
+-   使用：`gitm copy [commitid...]` 或者 `gitm copy [-s --source [source]] [-k --key [keyword]] [-a --author [author]]`
 -   参数：
 
 | 参数     | 说明                                        | 类型   | 可选值 | 必填 | 默认 |
 | -------- | ------------------------------------------- | ------ | ------ | ---- | ---- |
-| from     | 需要 copy 的来源分支                        | String | -      | 是   | -    |
 | commitid | 需要 copy 的 commitID，可传入多个，空格隔开 | String | -      | 否   | -    |
 
 -   传值：
 
-| 名称     | 简写 | 说明                 | 类型   | 可选值 | 传值必填 | 默认 |
-| -------- | ---- | -------------------- | ------ | ------ | -------- | ---- |
-| --key    | -k   | 模糊匹配的查询关键词 | String | -      | 否       | -    |
-| --author | -a   | 查询提交的用户名     | String | -      | 否       | -    |
+| 名称     | 简写 | 说明                                           | 类型   | 可选值 | 传值必填 | 默认 |
+| -------- | ---- | ---------------------------------------------- | ------ | ------ | -------- | ---- |
+| --source | -s   | 拷贝记录的来源分支，当不传commitid时，参数必填 | String | -      | 是/否    | -    |
+| --key    | -k   | 模糊匹配的查询关键词，不能少于3个字            | String | -      | 是       | -    |
+| --author | -a   | 查询提交的用户名                               | String | -      | 否       | -    |
 
 -   示例：
 
 1. 传入 commit-id，把其他分支上的 commit-id 复制过来，执行下面指令
 
 ```shell
-gitm copy feature/test xxxxxx xxxxxx xxxxxx
+gitm copy xxxxxx xxxxxx xxxxxx
 ```
 
 2. 传入查询关键词，gitm 会根据提供的关键词（为确保 copy 准确，请尽量完整填写关键词），在对应分支的提交记录里面搜索提交记录并自动执行 copy 指令
 
 ```shell
-gitm copy dev --key 100000 --author saqqdy
+gitm copy --source dev --key 100000 --author saqqdy
 ```
 
 ### gitm build
