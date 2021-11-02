@@ -5,20 +5,6 @@ import type { GitmarsOptionType } from '../../typings'
         short: 'cp',
         args: [
             {
-                required: true,
-                name: 'from',
-                variadic: false,
-                validator: (val, opts, cb) => {
-                    if (/\s+/.test(val)) {
-                        cb(new Error('请不要输入空格'))
-                        return
-                    }
-                    cb()
-                },
-                // transformer: null,
-                description: '来源分支'
-            },
-            {
                 required: false,
                 name: 'commitid',
                 variadic: true,
@@ -30,6 +16,18 @@ import type { GitmarsOptionType } from '../../typings'
             }
         ],
         options: [
+            {
+                flags: '-s, --source [source]',
+                required: false,
+                optional: true,
+                variadic: false,
+                mandatory: false,
+                short: '-s',
+                long: '--source',
+                negate: false,
+                description: '拷贝记录的来源分支',
+                defaultValue: ''
+            },
             {
                 flags: '-k, --key [keyword]',
                 required: false,

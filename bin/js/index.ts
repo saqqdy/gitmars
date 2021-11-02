@@ -265,6 +265,13 @@ function setCache(rest: Array<CommandType | string>): void {
 }
 
 /**
+ * 清除队列缓存
+ */
+function cleanCache(): void {
+    setCache([])
+}
+
+/**
  * setLog
  * @description 存储错误日志
  */
@@ -808,6 +815,7 @@ module.exports = {
     queue,
     getCache,
     setCache,
+    cleanCache,
     setLog,
     getStatusInfo,
     getStatus,
