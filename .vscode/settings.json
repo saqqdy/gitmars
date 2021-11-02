@@ -13,7 +13,8 @@
         "postmsg",
         "vssue",
         "gitmarsdb",
-        "gitmarsrc"
+        "gitmarsrc",
+        "commitid"
     ],
     "typescript.tsdk": "node_modules/typescript/lib",
     "editor.codeActionsOnSave": {

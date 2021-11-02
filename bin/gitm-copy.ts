@@ -23,6 +23,7 @@ import {
 } from '../typings'
 
 interface GitmBuildOption {
+    source?: string
     key?: string
     author?: string
 }
@@ -32,24 +33,60 @@ interface GitmBuildOption {
  */
 program
     .name('gitm copy')
-    .usage('<from> [commitid...] [-k --key [keyword]] [-a --author [author]]')
-    .description('cherry-pick易用版本，从某个分支拷贝某条记录合并到当前分支')
+    .usage(
+        '[commitid...] [-t --target [target]] [-k --key [keyword]] [-a --author [author]]'
+    )
+    .description('cherry-pick批量版本，从某个分支拷贝某条记录合并到当前分支')
 if (args.length > 0) program.arguments(createArgs(args))
 options.forEach((o: GitmarsOptionOptionsType) => {
     program.option(o.flags, o.description, o.defaultValue)
 })
+// .option('-s, --source [source]', '拷贝记录的来源分支', '')
 // .option('-k, --key [keyword]', '模糊搜索commit信息关键词', '')
 // .option('-a, --author [author]', '提交者', '')
-program.action((from: string, commitid: string[], opts: GitmBuildOption) => {
+program.action((commitid: string[], opts: GitmBuildOption) => {
     const status = getStatus()
     const cur = getCurrent()
     if (!status) sh.exit(1)
-    if (opts.key !== '' || opts.author !== '') {
+    if (commitid.length > 0) {
         const cmd: Array<CommandType | string> = [
-            `git checkout ${from}`,
-            `git log --grep=${opts.key} --author=${opts.author}`
+            {
+                cmd: `git cherry-pick ${commitid.join(' ')}`,
+                config: {
+                    again: false,
+                    success: '记录合并成功',
+                    fail: '合并失败，请根据提示处理'
+                }
+            },
+            {
+                cmd: 'git push',
+                config: {
+                    again: true,
+                    success: '推送成功',
+                    fail: '推送失败，请根据提示处理'
+                }
+            }
         ]
-        sh.echo(warning('为确保copy准确，请尽量完整填写关键词'))
+        queue(cmd)
+    } else if (!opts.key) {
+        sh.echo('请填写关键词')
+        sh.exit(1)
+    } else if (!opts.source) {
+        sh.echo('请填写源分支')
+        sh.exit(1)
+    } else {
+        if (opts.key.length < 3) {
+            sh.echo(
+                warning(
+                    '为确保copy准确，关键词不能少于4个字，请尽量完整填写关键词'
+                )
+            )
+            sh.exit(1)
+        }
+        const cmd: Array<CommandType | string> = [
+            `git checkout ${opts.source}`,
+            `git log --grep=${opts.key} --author=${opts.author} --no-merges`
+        ]
         // if (!/^\d{4,}$/.test(opts.key)) {
         // 	sh.echo(error('为确保copy准确，关键词必须是4位以上的任务号或者bug修复编号'))
         // 	sh.exit(1)
@@ -90,26 +127,6 @@ program.action((from: string, commitid: string[], opts: GitmBuildOption) => {
                 sh.echo(data[1].err)
             }
         })
-    } else {
-        const cmd: Array<CommandType | string> = [
-            {
-                cmd: `git cherry-pick ${commitid.join(' ')}`,
-                config: {
-                    again: false,
-                    success: '记录合并成功',
-                    fail: '合并失败，请根据提示处理'
-                }
-            },
-            {
-                cmd: 'git push',
-                config: {
-                    again: true,
-                    success: '推送成功',
-                    fail: '推送失败，请根据提示处理'
-                }
-            }
-        ]
-        queue(cmd)
     }
 })
 program.parse(process.argv)

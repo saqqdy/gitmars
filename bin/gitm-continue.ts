@@ -2,7 +2,13 @@
 const { program } = require('commander')
 const sh = require('shelljs')
 const { options, args } = require('./conf/continue')
-const { error, queue, getCache, isGitProject } = require('./js/index')
+const {
+    error,
+    queue,
+    getCache,
+    cleanCache,
+    isGitProject
+} = require('./js/index')
 const { createArgs } = require('./js/tools')
 if (!isGitProject()) {
     sh.echo(error('当前目录不是git项目目录'))
@@ -34,7 +40,9 @@ program.action((opt: GitmBuildOption) => {
         sh.exit(0)
     }
     if (cmd.length > 0) {
-        queue(cmd)
+        queue(cmd).then(() => {
+            cleanCache()
+        })
     } else {
         sh.echo(error('队列里面没有未执行的指令'))
     }

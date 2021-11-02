@@ -1,5 +1,16 @@
 # 更新日志
 
+## 2021.11.02 v2.10.0 更新日志
+
+### 功能
+
+1. `copy`指令使用方式调整，from参数改成`--source`传参。使用：`gitm copy [commitid...]` 或者 `gitm copy [-s --source [source]] [-k --key [keyword]] [-a --author [author]]`
+2. `copy`指令在使用模糊查询批量copy时，`--key`参数必传，且不能少于3个字
+
+### 优化
+
+1. `continue`指令在执行成功后清理执行缓存
+
 ## 2021.10.31 v2.9.7 更新日志
 
 1. 调整数据库存放位置，避免升级之后数据丢失
