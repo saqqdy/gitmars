@@ -11,6 +11,8 @@ import { GitmarsOptionOptionsType } from '../typings'
 
 interface GitmBuildOption {
     mirror?: boolean
+    client?: 'npm' | 'yarn' | 'pnpm' | 'cnpm' | string
+    registry?: string
 }
 
 /**
@@ -25,6 +27,8 @@ options.forEach((o: GitmarsOptionOptionsType) => {
     program.option(o.flags, o.description, o.defaultValue)
 })
 // .option('-m, --mirror', '是否使用淘宝镜像', false)
+// .option('-c, --client [client]', '用于装包的客户端名称', 'npm')
+// .option('-r, --registry [registry]', '使用镜像地址', '')
 program.action(async (version: string, opt: GitmBuildOption) => {
     const spinner = ora(success('正在安装请稍后')).start()
     if (version) {
@@ -41,13 +45,26 @@ program.action(async (version: string, opt: GitmBuildOption) => {
     } else {
         version = 'latest'
     }
-    const cmdAdd: any[] = ['npm', ['install', '-g', `gitmars@${version}`]]
-    const cmdDel = ['npm', ['uninstall', '-g', 'gitmars']]
-    if (opt.mirror)
-        cmdAdd[1] = cmdAdd[1].concat([
-            '-registry',
-            'https://registry.npm.taobao.org'
-        ])
+    let cmdAdd: any[], cmdDel: any[]
+    switch (opt.client) {
+        case 'yarn':
+            cmdAdd = [opt.client, ['global', 'add', `gitmars@${version}`]]
+            cmdDel = [opt.client, ['global', 'remove', 'gitmars']]
+            break
+        case 'pnpm':
+            cmdAdd = [opt.client, ['add', '-g', `gitmars@${version}`]]
+            cmdDel = [opt.client, ['remove', '-g', 'gitmars']]
+            break
+        default:
+            // default npm or cnpm
+            cmdAdd = [opt.client, ['install', '-g', `gitmars@${version}`]]
+            cmdDel = [opt.client, ['uninstall', '-g', 'gitmars']]
+            break
+    }
+    // 这一行后面准备删掉
+    if (!opt.registry && opt.mirror)
+        opt.registry = 'https://registry.npm.taobao.org'
+    if (opt.registry) cmdAdd[1] = cmdAdd[1].concat(['-registry', opt.registry])
     const uninstall = spawnSync(cmdDel[0], cmdDel[1], {
         stdio: 'inherit',
         shell: process.platform === 'win32' /*, env: { detached: true }*/

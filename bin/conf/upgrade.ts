@@ -31,6 +31,34 @@ import type { GitmarsOptionType } from '../../typings'
                 negate: false,
                 description: '是否使用淘宝镜像',
                 defaultValue: false
+            },
+            {
+                flags: '-c, --client [client]',
+                required: false,
+                optional: true,
+                variadic: false,
+                mandatory: false,
+                short: '-c',
+                long: '--client',
+                negate: false,
+                description: '用于装包的客户端名称',
+                defaultValue: 'npm',
+                recommend: true,
+                value: 'npm'
+            },
+            {
+                flags: '-r, --registry [registry]',
+                required: false,
+                optional: true,
+                variadic: false,
+                mandatory: false,
+                short: '-r',
+                long: '--registry',
+                negate: false,
+                description: '使用镜像地址',
+                defaultValue: '',
+                recommend: true,
+                value: 'https://registry.npm.taobao.org'
             }
         ],
         // 校验传值
