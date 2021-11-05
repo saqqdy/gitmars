@@ -344,7 +344,8 @@ program.action(
                 if (command === 'merge') {
                     const isMergedBranch = getIsMergedTargetBranch(
                         branch,
-                        config.develop
+                        config.develop,
+                        true
                     )
                     if (!isMergedBranch) {
                         console.info(
