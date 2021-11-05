@@ -181,7 +181,11 @@ program.action(
                 // 判断是否同步过dev分支
                 if (
                     !opt.dev &&
-                    !getIsMergedTargetBranch(`${type}/${name}`, config.develop, true)
+                    !getIsMergedTargetBranch(
+                        `${type}/${name}`,
+                        config.develop,
+                        true
+                    )
                 ) {
                     sh.echo(
                         warning(
