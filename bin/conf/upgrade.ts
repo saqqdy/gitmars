@@ -47,7 +47,7 @@ import type { GitmarsOptionType } from '../../typings'
                 value: 'npm'
             },
             {
-                flags: '-r, --registry [registry]',
+                flags: '-r, --registry <registry>',
                 required: true,
                 optional: true,
                 variadic: false,
