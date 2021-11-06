@@ -20,7 +20,9 @@ interface GitmBuildOption {
  */
 program
     .name('gitm upgrade')
-    .usage('[version] [-m --mirror]')
+    .usage(
+        '[version] [-m --mirror] [-c --client [client]] [-r --registry <registry>]'
+    )
     .description('升级gitmars')
 if (args.length > 0) program.arguments(createArgs(args))
 options.forEach((o: GitmarsOptionOptionsType) => {
@@ -28,7 +30,7 @@ options.forEach((o: GitmarsOptionOptionsType) => {
 })
 // .option('-m, --mirror', '是否使用淘宝镜像', false)
 // .option('-c, --client [client]', '用于装包的客户端名称', 'npm')
-// .option('-r, --registry [registry]', '使用镜像地址', '')
+// .option('-r, --registry <registry]>', '使用镜像地址', '')
 program.action(async (version: string, opt: GitmBuildOption) => {
     const spinner = ora(success('正在安装请稍后')).start()
     if (version) {

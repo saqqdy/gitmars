@@ -48,7 +48,7 @@ import type { GitmarsOptionType } from '../../typings'
             },
             {
                 flags: '-r, --registry [registry]',
-                required: false,
+                required: true,
                 optional: true,
                 variadic: false,
                 mandatory: false,
