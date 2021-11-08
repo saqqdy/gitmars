@@ -15,11 +15,17 @@ function getIsMergedTargetBranch(
     remote: boolean = false
 ): boolean {
     if (!branch) branch = getCurrent()
-    if (remote) branch = 'origin/' + branch
+    if (remote && targetBranch.indexOf('origin') === -1)
+        targetBranch = 'origin/' + targetBranch
     const result = sh
-        .exec(`git branch --contains ${branch} --format="%(refname:short)"`, {
-            silent: true
-        })
+        .exec(
+            `git branch --contains ${branch} --format="%(refname:short)" ${
+                remote ? '--remote' : ''
+            }`,
+            {
+                silent: true
+            }
+        )
         .stdout.replace(/\s+$/g, '')
     return result.split('\n').includes(targetBranch)
 }
