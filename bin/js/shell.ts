@@ -1,5 +1,5 @@
 const { encodeUnicode } = require('./unicode')
-const getConfig = require('./js/getConfig')
+const getConfig = require('./getConfig')
 const config = getConfig()
 
 /**

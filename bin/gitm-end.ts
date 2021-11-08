@@ -2,7 +2,7 @@
 const { program } = require('commander')
 const sh = require('shelljs')
 const { options, args } = require('./conf/end')
-const getType = require('js-cool/lib/getType')
+const { getType } = require('js-cool')
 const {
     error,
     queue,

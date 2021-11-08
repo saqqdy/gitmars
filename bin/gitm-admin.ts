@@ -3,7 +3,7 @@ const { Command } = require('commander')
 const sh = require('shelljs')
 const { create, publish, update, clean } = require('./conf/admin')
 const getUserToken = require('./js/api')
-const getType = require('js-cool/lib/getType')
+const { getType } = require('js-cool')
 const {
     error,
     success,
