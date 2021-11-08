@@ -43,7 +43,9 @@ interface GitmBuildOption {
  */
 program
     .name('gitm end')
-    .usage('[type] [name] [--description [description]] [--as-feature] [--no-combine]')
+    .usage(
+        '[type] [name] [--description [description]] [--as-feature] [--no-combine]'
+    )
     .description(
         '合并bugfix任务分支、合并feature功能开发分支，合并完成后将删除对应分支'
     )
