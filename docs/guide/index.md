@@ -40,9 +40,15 @@ title: guide
 2. <type>意思是type必传；[type]意思是type选填；[-a --app [app]]其中-a是--app的简写，后面[app]指的是-a后面的传值
 ```
 
-## 工作流展示
+# 工作流展示
+
+## 1. 双主干分支发版模式
 
 ![gitmars-branch.png](https://raw.githubusercontent.com/saqqdy/gitmars/master/static/img/gitmars-branch.png)
+
+## 2. 单主干分支发版模式
+
+![gitmars-branch.png](https://raw.githubusercontent.com/saqqdy/gitmars/master/static/img/gitmars-branch2.png)
 
 ## 有哪些功能
 

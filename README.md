@@ -78,7 +78,13 @@ gitm copy --help
 
 # 工作流展示
 
+## 1. 双主干分支发版模式
+
 ![gitmars-branch.png](https://raw.githubusercontent.com/saqqdy/gitmars/master/static/img/gitmars-branch.png)
+
+## 2. 单主干分支发版模式
+
+![gitmars-branch.png](https://raw.githubusercontent.com/saqqdy/gitmars/master/static/img/gitmars-branch2.png)
 
 # 有哪些功能
 
