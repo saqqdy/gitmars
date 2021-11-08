@@ -141,6 +141,7 @@ if (publish.args.length > 0) {
             const opts = ['bugfix', 'release', 'support'] // 允许执行的指令
             const status = getStatus()
             const curBranch = await getCurrent()
+            let isDescriptionCorrect = true // 本次提交的原因描述是否符合规范
             if (!status) sh.exit(1)
             // 有配置descriptionValidator时需要校验描述信息
             if (config.descriptionValidator) {
@@ -149,14 +150,8 @@ if (publish.args.length > 0) {
                     getType(config.descriptionValidator) === 'regexp'
                         ? config.descriptionValidator
                         : new RegExp(config.descriptionValidator)
-                if (!opt.description) {
-                    sh.echo(error('请填写本次提交的原因描述'))
-                    sh.exit(1)
-                }
-                if (!reg.test(opt.description)) {
-                    sh.echo(error('提交的原因描述不符合规范'))
-                    sh.exit(1)
-                }
+                isDescriptionCorrect =
+                    opt.description && reg.test(opt.description)
             }
             if (opts.includes(type)) {
                 /**
@@ -165,205 +160,215 @@ if (publish.args.length > 0) {
                  * develop -> null
                  * support -> bugfix/release
                  */
-                const cmd: {
+                let cmd: {
                     [prop in PublishOptsType]: Array<CommandType | string>
-                } =
-                    !level || level < 3
-                        ? {
-                              bugfix: [
-                                  'git fetch',
-                                  `git checkout ${config.bugfix}`,
-                                  'git pull',
-                                  `git checkout ${config.release}`,
-                                  'git pull',
-                                  {
-                                      cmd: `git merge --no-ff ${config.bugfix}`,
-                                      config: {
-                                          again: false,
-                                          postmsg: opt.postmsg,
-                                          success: `${config.bugfix}合并到${config.release}成功`,
-                                          fail: `${config.bugfix}合并到${config.release}出错了，请根据提示处理`
-                                      }
-                                  },
-                                  {
-                                      cmd: 'git push',
-                                      config: {
-                                          again: true,
-                                          success: '推送成功',
-                                          fail: '推送失败，请根据提示处理'
-                                      }
-                                  }
-                              ],
-                              support: [
-                                  'git fetch',
-                                  `git checkout ${config.support}`,
-                                  'git pull',
-                                  `git checkout ${config.release}`,
-                                  'git pull',
-                                  {
-                                      cmd: `git merge --no-ff ${config.support}`,
-                                      config: {
-                                          again: false,
-                                          success: `${config.support}合并到${config.release}成功`,
-                                          fail: `${config.support}合并到${config.release}出错了，请根据提示处理`
-                                      }
-                                  },
-                                  {
-                                      cmd: 'git push',
-                                      config: {
-                                          again: true,
-                                          success: '推送成功',
-                                          fail: '推送失败，请根据提示处理'
-                                      }
-                                  },
-                                  `git checkout ${config.bugfix}`,
-                                  'git pull',
-                                  {
-                                      cmd: `git merge --no-ff ${config.support}`,
-                                      config: {
-                                          again: false,
-                                          success: `${config.support}合并到${config.bugfix}成功`,
-                                          fail: `${config.support}合并到${config.bugfix}出错了，请根据提示处理`
-                                      }
-                                  },
-                                  {
-                                      cmd: 'git push',
-                                      config: {
-                                          again: true,
-                                          success: '推送成功',
-                                          fail: '推送失败，请根据提示处理'
-                                      }
-                                  }
-                              ],
-                              release: [
-                                  'git fetch',
-                                  `git checkout ${config.release}`,
-                                  'git pull',
-                                  `git checkout ${config.master}`,
-                                  'git pull',
-                                  {
-                                      cmd: `git merge --no-ff ${config.release}`,
-                                      config: {
-                                          again: false,
-                                          success: `${config.release}合并到${config.master}成功`,
-                                          fail: `${config.release}合并到${config.master}出错了，请根据提示处理`
-                                      }
-                                  },
-                                  {
-                                      cmd: 'git push',
-                                      config: {
-                                          again: true,
-                                          success: '推送成功',
-                                          fail: '推送失败，请根据提示处理'
-                                      }
-                                  }
-                              ]
-                          }
-                        : {
-                              bugfix: [
-                                  {
-                                      cmd: getCurlMergeRequestCommand({
-                                          source_branch: config.bugfix,
-                                          target_branch: config.release,
-                                          token,
-                                          description: opt.description
-                                      }),
-                                      config: {
-                                          again: true,
-                                          success: '成功创建合并请求',
-                                          fail: '创建合并请求出错了，请根据提示处理'
-                                      }
-                                  },
-                                  `gitm postmsg "${nickname}在${appName}项目提交了${config.bugfix}分支合并到${config.release}分支的merge请求"`
-                              ],
-                              support: [
-                                  {
-                                      cmd: getCurlMergeRequestCommand({
-                                          source_branch: config.support,
-                                          target_branch: config.release,
-                                          token,
-                                          description: opt.description
-                                      }),
-                                      config: {
-                                          again: true,
-                                          success: '成功创建合并请求',
-                                          fail: '创建合并请求出错了，请根据提示处理'
-                                      }
-                                  },
-                                  `gitm postmsg "${nickname}在${appName}项目提交了${config.support}分支合并到${config.release}分支的merge请求"`,
-                                  {
-                                      cmd: getCurlMergeRequestCommand({
-                                          source_branch: config.support,
-                                          target_branch: config.bugfix,
-                                          token,
-                                          description: opt.description
-                                      }),
-                                      config: {
-                                          again: true,
-                                          success: '成功创建合并请求',
-                                          fail: '创建合并请求出错了，请根据提示处理'
-                                      }
-                                  },
-                                  `gitm postmsg "${nickname}在${appName}项目提交了${config.support}分支合并到${config.bugfix}分支的merge请求"`
-                              ],
-                              release: [
-                                  {
-                                      cmd: getCurlMergeRequestCommand({
-                                          source_branch: config.release,
-                                          target_branch: config.master,
-                                          token,
-                                          description: opt.description
-                                      }),
-                                      config: {
-                                          again: true,
-                                          success: '成功创建合并请求',
-                                          fail: '创建合并请求出错了，请根据提示处理'
-                                      }
-                                  },
-                                  `gitm postmsg "${nickname}在${appName}项目提交了${config.release}分支合并到${config.master}分支的merge请求"`
-                              ]
-                          }
+                }
+                if (!level || level < 3) {
+                    cmd = {
+                        bugfix: [
+                            'git fetch',
+                            `git checkout ${config.bugfix}`,
+                            'git pull',
+                            `git checkout ${config.release}`,
+                            'git pull',
+                            {
+                                cmd: `git merge --no-ff ${config.bugfix}`,
+                                config: {
+                                    again: false,
+                                    postmsg: opt.postmsg,
+                                    success: `${config.bugfix}合并到${config.release}成功`,
+                                    fail: `${config.bugfix}合并到${config.release}出错了，请根据提示处理`
+                                }
+                            },
+                            {
+                                cmd: 'git push',
+                                config: {
+                                    again: true,
+                                    success: '推送成功',
+                                    fail: '推送失败，请根据提示处理'
+                                }
+                            }
+                        ],
+                        support: [
+                            'git fetch',
+                            `git checkout ${config.support}`,
+                            'git pull',
+                            `git checkout ${config.release}`,
+                            'git pull',
+                            {
+                                cmd: `git merge --no-ff ${config.support}`,
+                                config: {
+                                    again: false,
+                                    success: `${config.support}合并到${config.release}成功`,
+                                    fail: `${config.support}合并到${config.release}出错了，请根据提示处理`
+                                }
+                            },
+                            {
+                                cmd: 'git push',
+                                config: {
+                                    again: true,
+                                    success: '推送成功',
+                                    fail: '推送失败，请根据提示处理'
+                                }
+                            },
+                            `git checkout ${config.bugfix}`,
+                            'git pull',
+                            {
+                                cmd: `git merge --no-ff ${config.support}`,
+                                config: {
+                                    again: false,
+                                    success: `${config.support}合并到${config.bugfix}成功`,
+                                    fail: `${config.support}合并到${config.bugfix}出错了，请根据提示处理`
+                                }
+                            },
+                            {
+                                cmd: 'git push',
+                                config: {
+                                    again: true,
+                                    success: '推送成功',
+                                    fail: '推送失败，请根据提示处理'
+                                }
+                            }
+                        ],
+                        release: [
+                            'git fetch',
+                            `git checkout ${config.release}`,
+                            'git pull',
+                            `git checkout ${config.master}`,
+                            'git pull',
+                            {
+                                cmd: `git merge --no-ff ${config.release}`,
+                                config: {
+                                    again: false,
+                                    success: `${config.release}合并到${config.master}成功`,
+                                    fail: `${config.release}合并到${config.master}出错了，请根据提示处理`
+                                }
+                            },
+                            {
+                                cmd: 'git push',
+                                config: {
+                                    again: true,
+                                    success: '推送成功',
+                                    fail: '推送失败，请根据提示处理'
+                                }
+                            }
+                        ]
+                    }
+                } else {
+                    if (!isDescriptionCorrect) {
+                        sh.echo(error('提交的原因描述不符合规范'))
+                        sh.exit(1)
+                    }
+                    cmd = {
+                        bugfix: [
+                            {
+                                cmd: getCurlMergeRequestCommand({
+                                    source_branch: config.bugfix,
+                                    target_branch: config.release,
+                                    token,
+                                    description: opt.description
+                                }),
+                                config: {
+                                    again: true,
+                                    success: '成功创建合并请求',
+                                    fail: '创建合并请求出错了，请根据提示处理'
+                                }
+                            },
+                            `gitm postmsg "${nickname}在${appName}项目提交了${config.bugfix}分支合并到${config.release}分支的merge请求"`
+                        ],
+                        support: [
+                            {
+                                cmd: getCurlMergeRequestCommand({
+                                    source_branch: config.support,
+                                    target_branch: config.release,
+                                    token,
+                                    description: opt.description
+                                }),
+                                config: {
+                                    again: true,
+                                    success: '成功创建合并请求',
+                                    fail: '创建合并请求出错了，请根据提示处理'
+                                }
+                            },
+                            `gitm postmsg "${nickname}在${appName}项目提交了${config.support}分支合并到${config.release}分支的merge请求"`,
+                            {
+                                cmd: getCurlMergeRequestCommand({
+                                    source_branch: config.support,
+                                    target_branch: config.bugfix,
+                                    token,
+                                    description: opt.description
+                                }),
+                                config: {
+                                    again: true,
+                                    success: '成功创建合并请求',
+                                    fail: '创建合并请求出错了，请根据提示处理'
+                                }
+                            },
+                            `gitm postmsg "${nickname}在${appName}项目提交了${config.support}分支合并到${config.bugfix}分支的merge请求"`
+                        ],
+                        release: [
+                            {
+                                cmd: getCurlMergeRequestCommand({
+                                    source_branch: config.release,
+                                    target_branch: config.master,
+                                    token,
+                                    description: opt.description
+                                }),
+                                config: {
+                                    again: true,
+                                    success: '成功创建合并请求',
+                                    fail: '创建合并请求出错了，请根据提示处理'
+                                }
+                            },
+                            `gitm postmsg "${nickname}在${appName}项目提交了${config.release}分支合并到${config.master}分支的merge请求"`
+                        ]
+                    }
+                }
                 // 发布bug分支且同步到master
                 if (type === 'bugfix' && opt.prod) {
-                    cmd[type] = cmd[type].concat(
-                        !level || level < 3
-                            ? [
-                                  `git checkout ${config.master}`,
-                                  'git pull',
-                                  {
-                                      cmd: `git merge --no-ff ${config.bugfix}`,
-                                      config: {
-                                          again: false,
-                                          success: `${config.bugfix}合并到${config.master}成功`,
-                                          fail: `${config.bugfix}合并到${config.master}出错了，请根据提示处理`
-                                      }
-                                  },
-                                  {
-                                      cmd: 'git push',
-                                      config: {
-                                          again: true,
-                                          success: '推送成功',
-                                          fail: '推送失败，请根据提示处理'
-                                      }
-                                  }
-                              ]
-                            : [
-                                  {
-                                      cmd: getCurlMergeRequestCommand({
-                                          source_branch: config.bugfix,
-                                          target_branch: config.master,
-                                          token,
-                                          description: opt.description
-                                      }),
-                                      config: {
-                                          again: true,
-                                          success: '成功创建合并请求',
-                                          fail: '创建合并请求出错了，请根据提示处理'
-                                      }
-                                  },
-                                  `gitm postmsg "${nickname}在${appName}项目提交了${config.bugfix}分支合并到${config.master}分支的merge请求"`
-                              ]
-                    )
+                    if (!level || level < 3) {
+                        cmd[type] = cmd[type].concat([
+                            `git checkout ${config.master}`,
+                            'git pull',
+                            {
+                                cmd: `git merge --no-ff ${config.bugfix}`,
+                                config: {
+                                    again: false,
+                                    success: `${config.bugfix}合并到${config.master}成功`,
+                                    fail: `${config.bugfix}合并到${config.master}出错了，请根据提示处理`
+                                }
+                            },
+                            {
+                                cmd: 'git push',
+                                config: {
+                                    again: true,
+                                    success: '推送成功',
+                                    fail: '推送失败，请根据提示处理'
+                                }
+                            }
+                        ])
+                    } else {
+                        if (!isDescriptionCorrect) {
+                            sh.echo(error('提交的原因描述不符合规范'))
+                            sh.exit(1)
+                        }
+                        cmd[type] = cmd[type].concat([
+                            {
+                                cmd: getCurlMergeRequestCommand({
+                                    source_branch: config.bugfix,
+                                    target_branch: config.master,
+                                    token,
+                                    description: opt.description
+                                }),
+                                config: {
+                                    again: true,
+                                    success: '成功创建合并请求',
+                                    fail: '创建合并请求出错了，请根据提示处理'
+                                }
+                            },
+                            `gitm postmsg "${nickname}在${appName}项目提交了${config.bugfix}分支合并到${config.master}分支的merge请求"`
+                        ])
+                    }
                     if (opt.build && (!level || level < 3)) {
                         cmd[type] = cmd[type].concat([
                             {
@@ -425,48 +430,52 @@ if (publish.args.length > 0) {
                             }
                         ])
                     } else {
-                        cmd[type] = cmd[type].concat(
-                            !level || level < 3
-                                ? [
-                                      `git checkout ${config.release}`,
-                                      'git pull',
-                                      `git checkout ${config.bugfix}`,
-                                      'git pull',
-                                      {
-                                          cmd: `git merge --no-ff ${config.release}`,
-                                          config: {
-                                              again: false,
-                                              postmsg: opt.postmsg,
-                                              success: `${config.release}合并到${config.bugfix}成功`,
-                                              fail: `${config.release}合并到${config.bugfix}出错了，请根据提示处理`
-                                          }
-                                      },
-                                      {
-                                          cmd: 'git push',
-                                          config: {
-                                              again: true,
-                                              success: '推送成功',
-                                              fail: '推送失败，请根据提示处理'
-                                          }
-                                      }
-                                  ]
-                                : [
-                                      {
-                                          cmd: getCurlMergeRequestCommand({
-                                              source_branch: config.release,
-                                              target_branch: config.bugfix,
-                                              token,
-                                              description: opt.description
-                                          }),
-                                          config: {
-                                              again: true,
-                                              success: '成功创建合并请求',
-                                              fail: '创建合并请求出错了，请根据提示处理'
-                                          }
-                                      },
-                                      `gitm postmsg "${nickname}在${appName}项目提交了${config.release}分支合并到${config.bugfix}分支的merge请求"`
-                                  ]
-                        )
+                        if (!level || level < 3) {
+                            cmd[type] = cmd[type].concat([
+                                `git checkout ${config.release}`,
+                                'git pull',
+                                `git checkout ${config.bugfix}`,
+                                'git pull',
+                                {
+                                    cmd: `git merge --no-ff ${config.release}`,
+                                    config: {
+                                        again: false,
+                                        postmsg: opt.postmsg,
+                                        success: `${config.release}合并到${config.bugfix}成功`,
+                                        fail: `${config.release}合并到${config.bugfix}出错了，请根据提示处理`
+                                    }
+                                },
+                                {
+                                    cmd: 'git push',
+                                    config: {
+                                        again: true,
+                                        success: '推送成功',
+                                        fail: '推送失败，请根据提示处理'
+                                    }
+                                }
+                            ])
+                        } else {
+                            if (!isDescriptionCorrect) {
+                                sh.echo(error('提交的原因描述不符合规范'))
+                                sh.exit(1)
+                            }
+                            cmd[type] = cmd[type].concat([
+                                {
+                                    cmd: getCurlMergeRequestCommand({
+                                        source_branch: config.release,
+                                        target_branch: config.bugfix,
+                                        token,
+                                        description: opt.description
+                                    }),
+                                    config: {
+                                        again: true,
+                                        success: '成功创建合并请求',
+                                        fail: '创建合并请求出错了，请根据提示处理'
+                                    }
+                                },
+                                `gitm postmsg "${nickname}在${appName}项目提交了${config.release}分支合并到${config.bugfix}分支的merge请求"`
+                            ])
+                        }
                     }
                 }
                 let key: keyof typeof cmd
@@ -503,7 +512,8 @@ if (update.args.length > 0) {
         const opts = ['bugfix', 'release', 'support'] // 允许执行的指令
         const base = type === 'release' ? config.master : config.release
         const status = getStatus()
-        let mode = '' // 冲突时，保留哪方代码
+        let mode = '', // 冲突时，保留哪方代码
+            isDescriptionCorrect = true // 本次提交的原因描述是否符合规范
         if (!status) sh.exit(1)
         // 有配置descriptionValidator时需要校验描述信息
         if (config.descriptionValidator) {
@@ -512,14 +522,7 @@ if (update.args.length > 0) {
                 getType(config.descriptionValidator) === 'regexp'
                     ? config.descriptionValidator
                     : new RegExp(config.descriptionValidator)
-            if (!opt.description) {
-                sh.echo(error('请填写本次提交的原因描述'))
-                sh.exit(1)
-            }
-            if (!reg.test(opt.description)) {
-                sh.echo(error('提交的原因描述不符合规范'))
-                sh.exit(1)
-            }
+            isDescriptionCorrect = opt.description && reg.test(opt.description)
         }
         if (opt.mode === 1) {
             mode = ' --strategy-option ours'
@@ -527,51 +530,57 @@ if (update.args.length > 0) {
             mode = ' --strategy-option theirs'
         }
         if (opts.includes(type)) {
-            let cmd =
-                !level || level < 3
-                    ? [
-                          'git fetch',
-                          `git checkout ${base}`,
-                          'git pull',
-                          `git checkout ${config[type]}`,
-                          {
-                              cmd: 'git pull',
-                              config: { again: true }
-                          },
-                          {
-                              cmd: `git merge --no-ff ${base}${mode}`,
-                              config: {
-                                  again: false,
-                                  postmsg: opt.postmsg,
-                                  success: `${base}同步到${config[type]}成功`,
-                                  fail: `${base}同步到${config[type]}出错了，请根据提示处理`
-                              }
-                          },
-                          {
-                              cmd: 'git push',
-                              config: {
-                                  again: true,
-                                  success: '推送成功',
-                                  fail: '推送失败，请根据提示处理'
-                              }
-                          }
-                      ]
-                    : [
-                          {
-                              cmd: getCurlMergeRequestCommand({
-                                  source_branch: base,
-                                  target_branch: config[type],
-                                  token,
-                                  description: opt.description
-                              }),
-                              config: {
-                                  again: true,
-                                  success: '成功创建合并请求',
-                                  fail: '创建合并请求出错了，请根据提示处理'
-                              }
-                          },
-                          `gitm postmsg "${nickname}在${appName}项目提交了${base}分支合并到${config[type]}分支的merge请求"`
-                      ]
+            let cmd
+            if (!level || level < 3) {
+                cmd = [
+                    'git fetch',
+                    `git checkout ${base}`,
+                    'git pull',
+                    `git checkout ${config[type]}`,
+                    {
+                        cmd: 'git pull',
+                        config: { again: true }
+                    },
+                    {
+                        cmd: `git merge --no-ff ${base}${mode}`,
+                        config: {
+                            again: false,
+                            postmsg: opt.postmsg,
+                            success: `${base}同步到${config[type]}成功`,
+                            fail: `${base}同步到${config[type]}出错了，请根据提示处理`
+                        }
+                    },
+                    {
+                        cmd: 'git push',
+                        config: {
+                            again: true,
+                            success: '推送成功',
+                            fail: '推送失败，请根据提示处理'
+                        }
+                    }
+                ]
+            } else {
+                if (!isDescriptionCorrect) {
+                    sh.echo(error('提交的原因描述不符合规范'))
+                    sh.exit(1)
+                }
+                cmd = [
+                    {
+                        cmd: getCurlMergeRequestCommand({
+                            source_branch: base,
+                            target_branch: config[type],
+                            token,
+                            description: opt.description
+                        }),
+                        config: {
+                            again: true,
+                            success: '成功创建合并请求',
+                            fail: '创建合并请求出错了，请根据提示处理'
+                        }
+                    },
+                    `gitm postmsg "${nickname}在${appName}项目提交了${base}分支合并到${config[type]}分支的merge请求"`
+                ]
+            }
             if (opt.useRebase) {
                 cmd = [
                     'git fetch',
