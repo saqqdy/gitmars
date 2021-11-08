@@ -3,6 +3,7 @@ const { Command } = require('commander')
 const sh = require('shelljs')
 const { create, publish, update, clean } = require('./conf/admin')
 const getUserToken = require('./js/api')
+const getType = require('js-cool/lib/getType')
 const {
     error,
     success,
@@ -12,6 +13,7 @@ const {
     getCurrent,
     isGitProject
 } = require('./js/index')
+const { getCurlMergeRequestCommand } = require('./js/shell')
 const { createArgs } = require('./js/tools')
 if (!isGitProject()) {
     sh.echo(error('当前目录不是git项目目录'))
@@ -39,11 +41,13 @@ interface GitmBuildOption {
         useRebase?: boolean
         prod?: boolean
         build?: boolean | string
+        description?: string
         postmsg?: boolean
     }
     update: {
         useRebase?: boolean
         mode?: 0 | 1 | 2
+        description?: string
         postmsg?: boolean
     }
 }
@@ -115,7 +119,7 @@ if (publish.args.length > 0) {
     const _program = program
         .name('gitm admin')
         .usage(
-            '<command> <type> [-c --combine] [--use-rebase] [-p --prod] [-b --build [app]] [--postmsg]'
+            '<command> <type> [--description [description]] [-c --combine] [--use-rebase] [-p --prod] [-b --build [app]] [--postmsg]'
         )
         .description('发布bugfix、release、support分支')
         .command('publish ' + createArgs(publish.args))
@@ -128,6 +132,7 @@ if (publish.args.length > 0) {
     // .option('-p, --prod', '发布bug分支时，是否合并bug到master', false)
     // .option('-b, --build [build]', '需要构建的应用')
     // .option('--postmsg', '发送消息', false)
+    // .option('--description [description]', '本次提交的原因描述', '')
     _program.action(
         async (
             type: PublishOptsType,
@@ -137,6 +142,22 @@ if (publish.args.length > 0) {
             const status = getStatus()
             const curBranch = await getCurrent()
             if (!status) sh.exit(1)
+            // 有配置descriptionValidator时需要校验描述信息
+            if (config.descriptionValidator) {
+                // 校验本次提交的原因描述
+                const reg =
+                    getType(config.descriptionValidator) === 'regexp'
+                        ? config.descriptionValidator
+                        : new RegExp(config.descriptionValidator)
+                if (!opt.description) {
+                    sh.echo(error('请填写本次提交的原因描述'))
+                    sh.exit(1)
+                }
+                if (!reg.test(opt.description)) {
+                    sh.echo(error('提交的原因描述不符合规范'))
+                    sh.exit(1)
+                }
+            }
             if (opts.includes(type)) {
                 /**
                  * bugfix -> master/release
@@ -241,7 +262,12 @@ if (publish.args.length > 0) {
                         : {
                               bugfix: [
                                   {
-                                      cmd: `curl -i -H "Content-Type: application/json" -X POST -d "{\u005c"source_branch\u005c":\u005c"${config.bugfix}\u005c",\u005c"target_branch\u005c":\u005c"${config.release}\u005c",\u005c"private_token\u005c":\u005c"${token}\u005c",\u005c"title\u005c":\u005c"Merge branch '${config.bugfix}' into '${config.release}'\u005c"}" "${config.gitHost}/api/v4/projects/${config.gitID}/merge_requests"`,
+                                      cmd: getCurlMergeRequestCommand({
+                                          source_branch: config.bugfix,
+                                          target_branch: config.release,
+                                          token,
+                                          description: opt.description
+                                      }),
                                       config: {
                                           again: true,
                                           success: '成功创建合并请求',
@@ -252,7 +278,12 @@ if (publish.args.length > 0) {
                               ],
                               support: [
                                   {
-                                      cmd: `curl -i -H "Content-Type: application/json" -X POST -d "{\u005c"source_branch\u005c":\u005c"${config.support}\u005c",\u005c"target_branch\u005c":\u005c"${config.release}\u005c",\u005c"private_token\u005c":\u005c"${token}\u005c",\u005c"title\u005c":\u005c"Merge branch '${config.support}' into '${config.release}'\u005c"}" "${config.gitHost}/api/v4/projects/${config.gitID}/merge_requests"`,
+                                      cmd: getCurlMergeRequestCommand({
+                                          source_branch: config.support,
+                                          target_branch: config.release,
+                                          token,
+                                          description: opt.description
+                                      }),
                                       config: {
                                           again: true,
                                           success: '成功创建合并请求',
@@ -261,7 +292,12 @@ if (publish.args.length > 0) {
                                   },
                                   `gitm postmsg "${nickname}在${appName}项目提交了${config.support}分支合并到${config.release}分支的merge请求"`,
                                   {
-                                      cmd: `curl -i -H "Content-Type: application/json" -X POST -d "{\u005c"source_branch\u005c":\u005c"${config.support}\u005c",\u005c"target_branch\u005c":\u005c"${config.bugfix}\u005c",\u005c"private_token\u005c":\u005c"${token}\u005c",\u005c"title\u005c":\u005c"Merge branch '${config.support}' into '${config.bugfix}'\u005c"}" "${config.gitHost}/api/v4/projects/${config.gitID}/merge_requests"`,
+                                      cmd: getCurlMergeRequestCommand({
+                                          source_branch: config.support,
+                                          target_branch: config.bugfix,
+                                          token,
+                                          description: opt.description
+                                      }),
                                       config: {
                                           again: true,
                                           success: '成功创建合并请求',
@@ -272,7 +308,12 @@ if (publish.args.length > 0) {
                               ],
                               release: [
                                   {
-                                      cmd: `curl -i -H "Content-Type: application/json" -X POST -d "{\u005c"source_branch\u005c":\u005c"${config.release}\u005c",\u005c"target_branch\u005c":\u005c"${config.master}\u005c",\u005c"private_token\u005c":\u005c"${token}\u005c",\u005c"title\u005c":\u005c"Merge branch '${config.release}' into '${config.master}'\u005c"}" "${config.gitHost}/api/v4/projects/${config.gitID}/merge_requests"`,
+                                      cmd: getCurlMergeRequestCommand({
+                                          source_branch: config.release,
+                                          target_branch: config.master,
+                                          token,
+                                          description: opt.description
+                                      }),
                                       config: {
                                           again: true,
                                           success: '成功创建合并请求',
@@ -308,7 +349,12 @@ if (publish.args.length > 0) {
                               ]
                             : [
                                   {
-                                      cmd: `curl -i -H "Content-Type: application/json" -X POST -d "{\u005c"source_branch\u005c":\u005c"${config.bugfix}\u005c",\u005c"target_branch\u005c":\u005c"${config.master}\u005c",\u005c"private_token\u005c":\u005c"${token}\u005c",\u005c"title\u005c":\u005c"Merge branch '${config.bugfix}' into '${config.master}'\u005c"}" "${config.gitHost}/api/v4/projects/${config.gitID}/merge_requests"`,
+                                      cmd: getCurlMergeRequestCommand({
+                                          source_branch: config.bugfix,
+                                          target_branch: config.master,
+                                          token,
+                                          description: opt.description
+                                      }),
                                       config: {
                                           again: true,
                                           success: '成功创建合并请求',
@@ -406,7 +452,12 @@ if (publish.args.length > 0) {
                                   ]
                                 : [
                                       {
-                                          cmd: `curl -i -H "Content-Type: application/json" -X POST -d "{\u005c"source_branch\u005c":\u005c"${config.release}\u005c",\u005c"target_branch\u005c":\u005c"${config.bugfix}\u005c",\u005c"private_token\u005c":\u005c"${token}\u005c",\u005c"title\u005c":\u005c"Merge branch '${config.release}' into '${config.bugfix}'\u005c"}" "${config.gitHost}/api/v4/projects/${config.gitID}/merge_requests"`,
+                                          cmd: getCurlMergeRequestCommand({
+                                              source_branch: config.release,
+                                              target_branch: config.bugfix,
+                                              token,
+                                              description: opt.description
+                                          }),
                                           config: {
                                               again: true,
                                               success: '成功创建合并请求',
@@ -435,7 +486,9 @@ if (publish.args.length > 0) {
 if (update.args.length > 0) {
     const _program = program
         .name('gitm admin')
-        .usage('<command> <type> [-m --mode [mode]] [--use-rebase] [--postmsg]')
+        .usage(
+            '<command> <type> [-m --mode [mode]] [--description [description]] [--use-rebase] [--postmsg]'
+        )
         .description('更新bugfix、release、support分支代码')
         .command('update ' + createArgs(update.args))
     update.options.forEach((o: GitmarsOptionOptionsType) => {
@@ -445,12 +498,29 @@ if (update.args.length > 0) {
     // .option('--use-rebase', '是否使用rebase方式更新，默认merge', false)
     // .option('-m, --mode [mode]', '出现冲突时，保留传入代码还是保留当前代码；1=采用当前 2=采用传入；默认为 0=手动处理。本参数不可与--use-rebase同时使用', 0)
     // .option('--postmsg', '发送消息', false)
+    // .option('--description [description]', '本次提交的原因描述', '')
     _program.action((type: string, opt: GitmBuildOption['update']): void => {
         const opts = ['bugfix', 'release', 'support'] // 允许执行的指令
         const base = type === 'release' ? config.master : config.release
         const status = getStatus()
         let mode = '' // 冲突时，保留哪方代码
         if (!status) sh.exit(1)
+        // 有配置descriptionValidator时需要校验描述信息
+        if (config.descriptionValidator) {
+            // 校验本次提交的原因描述
+            const reg =
+                getType(config.descriptionValidator) === 'regexp'
+                    ? config.descriptionValidator
+                    : new RegExp(config.descriptionValidator)
+            if (!opt.description) {
+                sh.echo(error('请填写本次提交的原因描述'))
+                sh.exit(1)
+            }
+            if (!reg.test(opt.description)) {
+                sh.echo(error('提交的原因描述不符合规范'))
+                sh.exit(1)
+            }
+        }
         if (opt.mode === 1) {
             mode = ' --strategy-option ours'
         } else if (opt.mode === 2) {
@@ -488,7 +558,12 @@ if (update.args.length > 0) {
                       ]
                     : [
                           {
-                              cmd: `curl -i -H "Content-Type: application/json" -X POST -d "{\u005c"source_branch\u005c":\u005c"${base}\u005c",\u005c"target_branch\u005c":\u005c"${config[type]}\u005c",\u005c"private_token\u005c":\u005c"${token}\u005c",\u005c"title\u005c":\u005c"Merge branch '${base}' into '${config[type]}'\u005c"}" "${config.gitHost}/api/v4/projects/${config.gitID}/merge_requests"`,
+                              cmd: getCurlMergeRequestCommand({
+                                  source_branch: base,
+                                  target_branch: config[type],
+                                  token,
+                                  description: opt.description
+                              }),
                               config: {
                                   again: true,
                                   success: '成功创建合并请求',

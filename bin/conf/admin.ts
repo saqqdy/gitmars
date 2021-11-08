@@ -121,6 +121,18 @@ import type { GitmarsMultiOptionType } from '../../typings'
                     description: '发送消息',
                     defaultValue: false,
                     recommend: false
+                },
+                {
+                    flags: '--description [description]',
+                    required: false,
+                    optional: true,
+                    variadic: false,
+                    mandatory: false,
+                    long: '--description',
+                    negate: false,
+                    description: '本次提交的原因描述',
+                    defaultValue: '',
+                    recommend: false
                 }
             ],
             // 校验传值
@@ -204,6 +216,18 @@ import type { GitmarsMultiOptionType } from '../../typings'
                     negate: false,
                     description: '发送消息',
                     defaultValue: false,
+                    recommend: false
+                },
+                {
+                    flags: '--description [description]',
+                    required: false,
+                    optional: true,
+                    variadic: false,
+                    mandatory: false,
+                    long: '--description',
+                    negate: false,
+                    description: '本次提交的原因描述',
+                    defaultValue: '',
                     recommend: false
                 }
             ],

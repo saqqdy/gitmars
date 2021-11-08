@@ -2,6 +2,7 @@
 const { program } = require('commander')
 const sh = require('shelljs')
 const { options, args } = require('./conf/end')
+const getType = require('js-cool/lib/getType')
 const {
     error,
     queue,
@@ -10,6 +11,7 @@ const {
     searchBranch,
     isGitProject
 } = require('./js/index')
+const { getCurlMergeRequestCommand } = require('./js/shell')
 const getIsMergedTargetBranch = require('./js/branch/getIsMergedTargetBranch')
 const getIsBranchOrCommitExist = require('./js/branch/getIsBranchOrCommitExist')
 const { createArgs } = require('./js/tools')
@@ -33,6 +35,7 @@ import {
 interface GitmBuildOption {
     combine?: boolean
     asFeature?: boolean
+    description?: string
 }
 
 /**
@@ -40,7 +43,7 @@ interface GitmBuildOption {
  */
 program
     .name('gitm end')
-    .usage('[type] [name] [--as-feature] [--no-combine]')
+    .usage('[type] [name] [--description [description]] [--as-feature] [--no-combine]')
     .description(
         '合并bugfix任务分支、合并feature功能开发分支，合并完成后将删除对应分支'
     )
@@ -50,6 +53,7 @@ options.forEach((o: GitmarsOptionOptionsType) => {
 })
 // .option('--no-combine', '不合并主干分支（请确保分支已经上线）')
 // .option('--as-feature', 'bug分支合并到release')
+// .option('--description [description]', '本次提交的原因描述', '')
 program.action(
     async (type: string, name: string, opt: GitmBuildOption): Promise<void> => {
         const allow = ['bugfix', 'feature', 'support'] // 允许执行的指令
@@ -68,6 +72,22 @@ program.action(
         const status = getStatus()
         let _nameArr: string[] = [] // 分支名称数组
         if (!status) sh.exit(1)
+        // 有配置descriptionValidator时需要校验描述信息
+        if (config.descriptionValidator) {
+            // 校验本次提交的原因描述
+            const reg =
+                getType(config.descriptionValidator) === 'regexp'
+                    ? config.descriptionValidator
+                    : new RegExp(config.descriptionValidator)
+            if (!opt.description) {
+                sh.echo(error('请填写本次提交的原因描述'))
+                sh.exit(1)
+            }
+            if (!reg.test(opt.description)) {
+                sh.echo(error('提交的原因描述不符合规范'))
+                sh.exit(1)
+            }
+        }
         if (!type) {
             // type和name都没传且当前分支是开发分支
             ;[type, ..._nameArr] = getCurrent().split('/')
@@ -188,7 +208,12 @@ program.action(
                                   }
                               },
                               {
-                                  cmd: `curl -i -H "Content-Type: application/json" -X POST -d "{\u005c"source_branch\u005c":\u005c"${type}/${name}\u005c",\u005c"target_branch\u005c":\u005c"${config.bugfix}\u005c",\u005c"private_token\u005c":\u005c"${token}\u005c",\u005c"title\u005c":\u005c"Merge branch '${type}/${name}' into '${config.bugfix}'\u005c"}" "${config.gitHost}/api/v4/projects/${config.gitID}/merge_requests"`,
+                                  cmd: getCurlMergeRequestCommand({
+                                      source_branch: `${type}/${name}`,
+                                      target_branch: config.bugfix,
+                                      token,
+                                      description: opt.description
+                                  }),
                                   config: {
                                       again: true,
                                       success: '成功创建合并请求',
@@ -268,7 +293,12 @@ program.action(
                             }
                         },
                         {
-                            cmd: `curl -i -H "Content-Type: application/json" -X POST -d "{\u005c"source_branch\u005c":\u005c"${type}/${name}\u005c",\u005c"target_branch\u005c":\u005c"${base}\u005c",\u005c"private_token\u005c":\u005c"${token}\u005c",\u005c"title\u005c":\u005c"Merge branch '${type}/${name}' into '${base}'\u005c"}" "${config.gitHost}/api/v4/projects/${config.gitID}/merge_requests"`,
+                            cmd: getCurlMergeRequestCommand({
+                                source_branch: `${type}/${name}`,
+                                target_branch: base,
+                                token,
+                                description: opt.description
+                            }),
                             config: {
                                 again: true,
                                 success: '成功创建合并请求',

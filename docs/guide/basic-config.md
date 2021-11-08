@@ -58,6 +58,8 @@ support 分支实际名称
 
 ### nameValidator
 
+> v2.9.4新增
+
 校验分支命名规范的正则表达式，可输入字符串或者正则
 
 -   类型：`String`,`RegExp`
@@ -78,6 +80,33 @@ support 分支实际名称
 ```json
 {
     nameValidator: /[a-z]{3,}_\w+/, // 检验：saqqdy_xxxxxx
+}
+```
+
+### descriptionValidator
+
+> v2.11.0新增
+
+校验本次提交的原因描述，可输入字符串或者正则，如果不需要校验，请保持参数为：''
+
+-   类型：`String`,`RegExp`
+-   默认：``
+-   必填：否
+-   示例：
+
+1. 设置正则字符串
+
+```json
+{
+    descriptionValidator: "【修改原因】.+【修改内容】.+", // 检验：【修改原因】10010某个功能有BUG【修改内容】改了某个方法
+}
+```
+
+2. 设置正则
+
+```json
+{
+    descriptionValidator: /【修改原因】.+【修改内容】.+/, // 检验：【修改原因】10010某个功能有BUG【修改内容】改了某个方法
 }
 ```
 
