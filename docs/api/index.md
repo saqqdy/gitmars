@@ -136,6 +136,8 @@ gitm start bugfix 1001 --tag 20211010
 
 #### 短指令：gitm cb
 
+> v2.11.0新增`--description`传参
+
 bugfix 分支和 feature 分支需要提交到 dev 或者预发布环境时使用 combine 指令来自动执行合并
 
 -   使用：`gitm combine [type] [name] [-a --add] [-m --commit [message]] [-d --dev] [-p --prod] [-b --build [build]] [--description [description]] [--no-bugfix] [--as-feature]`
@@ -210,6 +212,7 @@ gitm cb -pd --no-bugfix
 #### 短指令：gitm ed
 
 > v2.9.6版本开始，`end`指令智能判断是否需要合并代码，不传`--no-combine`时，不需要合并的时候不会发起合并操作
+> v2.11.0新增`--description`传参
 
 任务完成，合并并删除分支，这个操作会把 20001 这个分支代码合并到 bug 分支并删除 20001 分支(远程的 20001 分支也会同步删除)
 
@@ -937,6 +940,8 @@ gitm admin create release
 
 ### gitm admin publish
 
+> v2.11.0新增`--description`传参
+
 发布操作
 
 -   使用：`gitm admin publish <type> [--description [description]] [-c --combine] [--use-rebase] [-p --prod] [-b --build [build]] [-p --postmsg]`
@@ -979,6 +984,8 @@ gitm admin publish release -b app
 ```
 
 ### gitm admin update
+
+> v2.11.0新增`--description`传参
 
 更新 release、bugfix、support 分支代码，默认走 merge 方法
 
