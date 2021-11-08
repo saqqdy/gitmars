@@ -75,6 +75,18 @@ import type { GitmarsOptionType } from '../../typings'
                 recommend: false
             },
             {
+                flags: '--description [description]',
+                required: false,
+                optional: true,
+                variadic: false,
+                mandatory: false,
+                long: '--description',
+                negate: false,
+                description: '本次提交的原因描述',
+                defaultValue: '',
+                recommend: false
+            },
+            {
                 flags: '-a, --add',
                 required: false,
                 optional: false,

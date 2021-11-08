@@ -27,6 +27,7 @@ const defaults = {
     user: '',
     email: '',
     nameValidator: '',
+    descriptionValidator: '',
     msgTemplate: '${message}；项目：${project}；路径：${pwd}',
     msgUrl: '',
     apolloConfig: '',

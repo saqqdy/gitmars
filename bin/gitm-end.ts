@@ -2,6 +2,7 @@
 const { program } = require('commander')
 const sh = require('shelljs')
 const { options, args } = require('./conf/end')
+const { getType } = require('js-cool')
 const {
     error,
     queue,
@@ -10,6 +11,7 @@ const {
     searchBranch,
     isGitProject
 } = require('./js/index')
+const { getCurlMergeRequestCommand } = require('./js/shell')
 const getIsMergedTargetBranch = require('./js/branch/getIsMergedTargetBranch')
 const getIsBranchOrCommitExist = require('./js/branch/getIsBranchOrCommitExist')
 const { createArgs } = require('./js/tools')
@@ -33,6 +35,7 @@ import {
 interface GitmBuildOption {
     combine?: boolean
     asFeature?: boolean
+    description?: string
 }
 
 /**
@@ -40,7 +43,9 @@ interface GitmBuildOption {
  */
 program
     .name('gitm end')
-    .usage('[type] [name] [--as-feature] [--no-combine]')
+    .usage(
+        '[type] [name] [--description [description]] [--as-feature] [--no-combine]'
+    )
     .description(
         '合并bugfix任务分支、合并feature功能开发分支，合并完成后将删除对应分支'
     )
@@ -50,6 +55,7 @@ options.forEach((o: GitmarsOptionOptionsType) => {
 })
 // .option('--no-combine', '不合并主干分支（请确保分支已经上线）')
 // .option('--as-feature', 'bug分支合并到release')
+// .option('--description [description]', '本次提交的原因描述', '')
 program.action(
     async (type: string, name: string, opt: GitmBuildOption): Promise<void> => {
         const allow = ['bugfix', 'feature', 'support'] // 允许执行的指令
@@ -66,8 +72,18 @@ program.action(
             nickname = ''
         } = config.api ? getUserToken() : ({} as FetchDataType)
         const status = getStatus()
-        let _nameArr: string[] = [] // 分支名称数组
+        let _nameArr: string[] = [], // 分支名称数组
+            isDescriptionCorrect = true // 本次提交的原因描述是否符合规范
         if (!status) sh.exit(1)
+        // 有配置descriptionValidator时需要校验描述信息
+        if (config.descriptionValidator) {
+            // 校验本次提交的原因描述
+            const reg =
+                getType(config.descriptionValidator) === 'regexp'
+                    ? config.descriptionValidator
+                    : new RegExp(config.descriptionValidator)
+            isDescriptionCorrect = opt.description && reg.test(opt.description)
+        }
         if (!type) {
             // type和name都没传且当前分支是开发分支
             ;[type, ..._nameArr] = getCurrent().split('/')
@@ -154,50 +170,59 @@ program.action(
             }
             // support分支需要合到bugfix
             if (type === 'support' && opt.combine && isNeedCombineBugfix) {
-                cmd = cmd.concat(
-                    !level || level < 3
-                        ? [
-                              'git fetch',
-                              `git checkout ${config.bugfix}`,
-                              'git pull',
-                              {
-                                  cmd: `git merge --no-ff ${type}/${name}`,
-                                  config: {
-                                      again: false,
-                                      success: `${type}/${name}合并到${config.bugfix}成功`,
-                                      fail: `${type}/${name}合并到${config.bugfix}出错了，请根据提示处理`
-                                  }
-                              },
-                              {
-                                  cmd: 'git push',
-                                  config: {
-                                      again: true,
-                                      success: '推送成功',
-                                      fail: '推送失败，请根据提示处理'
-                                  }
-                              },
-                              `git checkout ${type}/${name}`
-                          ]
-                        : [
-                              {
-                                  cmd: `git push --set-upstream origin ${type}/${name}`,
-                                  config: {
-                                      again: true,
-                                      success: '推送远程并关联远程分支成功',
-                                      fail: '推送远程失败，请根据提示处理'
-                                  }
-                              },
-                              {
-                                  cmd: `curl -i -H "Content-Type: application/json" -X POST -d "{\u005c"source_branch\u005c":\u005c"${type}/${name}\u005c",\u005c"target_branch\u005c":\u005c"${config.bugfix}\u005c",\u005c"private_token\u005c":\u005c"${token}\u005c",\u005c"title\u005c":\u005c"Merge branch '${type}/${name}' into '${config.bugfix}'\u005c"}" "${config.gitHost}/api/v4/projects/${config.gitID}/merge_requests"`,
-                                  config: {
-                                      again: true,
-                                      success: '成功创建合并请求',
-                                      fail: '创建合并请求出错了，请根据提示处理'
-                                  }
-                              },
-                              `gitm postmsg "${nickname}在${appName}项目提交了${type}/${name}分支合并到${config.bugfix}分支的merge请求"`
-                          ]
-                )
+                if (!level || level < 3) {
+                    cmd = cmd.concat([
+                        'git fetch',
+                        `git checkout ${config.bugfix}`,
+                        'git pull',
+                        {
+                            cmd: `git merge --no-ff ${type}/${name}`,
+                            config: {
+                                again: false,
+                                success: `${type}/${name}合并到${config.bugfix}成功`,
+                                fail: `${type}/${name}合并到${config.bugfix}出错了，请根据提示处理`
+                            }
+                        },
+                        {
+                            cmd: 'git push',
+                            config: {
+                                again: true,
+                                success: '推送成功',
+                                fail: '推送失败，请根据提示处理'
+                            }
+                        },
+                        `git checkout ${type}/${name}`
+                    ])
+                } else {
+                    if (!isDescriptionCorrect) {
+                        sh.echo(error('提交的原因描述不符合规范'))
+                        sh.exit(1)
+                    }
+                    cmd = cmd.concat([
+                        {
+                            cmd: `git push --set-upstream origin ${type}/${name}`,
+                            config: {
+                                again: true,
+                                success: '推送远程并关联远程分支成功',
+                                fail: '推送远程失败，请根据提示处理'
+                            }
+                        },
+                        {
+                            cmd: getCurlMergeRequestCommand({
+                                source_branch: `${type}/${name}`,
+                                target_branch: config.bugfix,
+                                token,
+                                description: opt.description
+                            }),
+                            config: {
+                                again: true,
+                                success: '成功创建合并请求',
+                                fail: '创建合并请求出错了，请根据提示处理'
+                            }
+                        },
+                        `gitm postmsg "${nickname}在${appName}项目提交了${type}/${name}分支合并到${config.bugfix}分支的merge请求"`
+                    ])
+                }
             }
             if (!opt.combine || !isNeedCombineBase) {
                 // 不合并代码
@@ -258,6 +283,10 @@ program.action(
                         ])
                     }
                 } else {
+                    if (!isDescriptionCorrect) {
+                        sh.echo(error('提交的原因描述不符合规范'))
+                        sh.exit(1)
+                    }
                     cmd = cmd.concat([
                         {
                             cmd: `git push --set-upstream origin ${type}/${name}`,
@@ -268,7 +297,12 @@ program.action(
                             }
                         },
                         {
-                            cmd: `curl -i -H "Content-Type: application/json" -X POST -d "{\u005c"source_branch\u005c":\u005c"${type}/${name}\u005c",\u005c"target_branch\u005c":\u005c"${base}\u005c",\u005c"private_token\u005c":\u005c"${token}\u005c",\u005c"title\u005c":\u005c"Merge branch '${type}/${name}' into '${base}'\u005c"}" "${config.gitHost}/api/v4/projects/${config.gitID}/merge_requests"`,
+                            cmd: getCurlMergeRequestCommand({
+                                source_branch: `${type}/${name}`,
+                                target_branch: base,
+                                token,
+                                description: opt.description
+                            }),
                             config: {
                                 again: true,
                                 success: '成功创建合并请求',

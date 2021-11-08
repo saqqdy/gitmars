@@ -4,7 +4,7 @@ const sh = require('shelljs')
 const { options, args } = require('./conf/start')
 const { error, success, queue, getStatus, isGitProject } = require('./js/index')
 const { createArgs } = require('./js/tools')
-const getType = require('js-cool/lib/getType')
+const { getType } = require('js-cool')
 if (!isGitProject()) {
     sh.echo(error('当前目录不是git项目目录'))
     sh.exit(1)
