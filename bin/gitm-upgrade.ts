@@ -7,7 +7,7 @@ const { success } = require('./js/index')
 const { createArgs } = require('./js/tools')
 const ora = require('ora')
 
-import { GitmarsOptionOptionsType } from '../typings'
+import { GitmarsOptionOptionsType, PackageVersionTag } from '../typings'
 
 interface GitmBuildOption {
     mirror?: boolean
@@ -31,7 +31,7 @@ options.forEach((o: GitmarsOptionOptionsType) => {
 // .option('-m, --mirror', '是否使用淘宝镜像', false)
 // .option('-c, --client [client]', '用于装包的客户端名称', 'npm')
 // .option('-r, --registry <registry]>', '使用镜像地址', '')
-program.action(async (version: string, opt: GitmBuildOption) => {
+program.action(async (version: PackageVersionTag | string, opt: GitmBuildOption) => {
     const spinner = ora(success('正在安装请稍后')).start()
     if (version) {
         const match = version.match(/[0-9.]+$/)

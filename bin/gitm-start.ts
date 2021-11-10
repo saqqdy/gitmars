@@ -3,6 +3,7 @@ const { program } = require('commander')
 const sh = require('shelljs')
 const { options, args } = require('./conf/start')
 const { error, success, queue, getStatus, isGitProject } = require('./js/index')
+const { isNeedUpgrade, upgradeGitmars } = require('./js/versionControl')
 const { createArgs } = require('./js/tools')
 const { getType } = require('js-cool')
 if (!isGitProject()) {
@@ -37,6 +38,8 @@ options.forEach((o: GitmarsOptionOptionsType) => {
 })
 // .option('-t, --tag <tag>', '从tag创建分支', '')
 program.action((type: string, name: string, opt: GitmBuildOption) => {
+    // 检测是否需要升级版本
+    isNeedUpgrade() && upgradeGitmars()
     const opts = ['bugfix', 'feature', 'support'] // 允许执行的指令
     const status = getStatus()
     if (!status) sh.exit(1)

@@ -10,6 +10,7 @@ const {
     filterBranch,
     isGitProject
 } = require('./js/index')
+const { isNeedUpgrade, upgradeGitmars } = require('./js/versionControl')
 const { createArgs } = require('./js/tools')
 if (!isGitProject()) {
     sh.echo(error('当前目录不是git项目目录'))
@@ -45,6 +46,8 @@ options.forEach((o: GitmarsOptionOptionsType) => {
 // .option('-a --all', '更新本地所有bugfix、feature、support分支', false)
 program.action(
     (type: string | string[], name: string, opt: GitmBuildOption) => {
+        // 检测是否需要升级版本
+        isNeedUpgrade() && upgradeGitmars()
         const allow = ['bugfix', 'feature', 'support'] // 允许执行的指令
         const deny = [
             defaults.master,

@@ -12,6 +12,13 @@ export type ValueOf<T> = T extends ReadonlyArray<any> ? T[number] : T[keyof T]
 
 export type GitmarsBranchType = 'feature' | 'bugfix' | 'support'
 export type ShellCode = 0 | 1 | 127
+export type PackageVersionTag =
+    | 'alpha'
+    | 'lite'
+    | 'beta'
+    | 'release'
+    | 'latest'
+    | 'next'
 
 export interface GitmarsOptionArgsType {
     required: boolean
