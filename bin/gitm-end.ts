@@ -12,6 +12,7 @@ const {
     isGitProject
 } = require('./js/index')
 const { getCurlMergeRequestCommand } = require('./js/shell')
+const { isNeedUpgrade, upgradeGitmars } = require('./js/versionControl')
 const getIsMergedTargetBranch = require('./js/branch/getIsMergedTargetBranch')
 const getIsBranchOrCommitExist = require('./js/branch/getIsBranchOrCommitExist')
 const { createArgs } = require('./js/tools')
@@ -58,6 +59,9 @@ options.forEach((o: GitmarsOptionOptionsType) => {
 // .option('--description [description]', '本次提交的原因描述', '')
 program.action(
     async (type: string, name: string, opt: GitmBuildOption): Promise<void> => {
+        // 检测是否需要升级版本
+        const needUpgrade = await isNeedUpgrade()
+        needUpgrade && upgradeGitmars()
         const allow = ['bugfix', 'feature', 'support'] // 允许执行的指令
         const deny = [
             defaults.master,
