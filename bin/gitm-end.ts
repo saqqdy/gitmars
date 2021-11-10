@@ -60,7 +60,8 @@ options.forEach((o: GitmarsOptionOptionsType) => {
 program.action(
     async (type: string, name: string, opt: GitmBuildOption): Promise<void> => {
         // 检测是否需要升级版本
-        isNeedUpgrade() && upgradeGitmars()
+        const needUpgrade = await isNeedUpgrade()
+        needUpgrade && upgradeGitmars()
         const allow = ['bugfix', 'feature', 'support'] // 允许执行的指令
         const deny = [
             defaults.master,

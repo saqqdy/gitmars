@@ -37,9 +37,10 @@ options.forEach((o: GitmarsOptionOptionsType) => {
     program.option(o.flags, o.description, o.defaultValue)
 })
 // .option('-t, --tag <tag>', '从tag创建分支', '')
-program.action((type: string, name: string, opt: GitmBuildOption) => {
+program.action(async (type: string, name: string, opt: GitmBuildOption) => {
     // 检测是否需要升级版本
-    isNeedUpgrade() && upgradeGitmars()
+    const needUpgrade = await isNeedUpgrade()
+    needUpgrade && upgradeGitmars()
     const opts = ['bugfix', 'feature', 'support'] // 允许执行的指令
     const status = getStatus()
     if (!status) sh.exit(1)

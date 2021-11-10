@@ -1,5 +1,5 @@
 const sh = require('shelljs')
-const { error } = require('./index')
+const { error, success } = require('./index')
 const getPkgInfo = require('./getPkgInfo')
 const { version } = require('../../package.json')
 
@@ -8,8 +8,8 @@ const { version } = require('../../package.json')
  *
  * @returns isNeedUpgrade 返回是/否
  */
-function isNeedUpgrade(): boolean {
-    const { 'dist-tags': tags, versions } = getPkgInfo()
+async function isNeedUpgrade(): Promise<boolean> {
+    const { 'dist-tags': tags, versions } = await getPkgInfo()
     // let compareVers = []
     if (version.indexOf('1.') === 0) {
         // compareVers = versions.filter(
@@ -35,7 +35,9 @@ function upgradeGitmars() {
         error(
             `检测到你的版本比较古老，为避免版本碎片化问题，请升级之后再使用!`
         ) +
-            '\nMac用户：sudo gitm upgrade latest -m -c npm\nWindows用户：npm i -g gitmars@lite'
+            success(
+                '\nMac用户升级方法：sudo gitm upgrade latest -m -c npm\nWindows用户升级方法：npm i -g gitmars@lite'
+            )
     )
     sh.exit(1)
 }
