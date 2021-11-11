@@ -37,10 +37,15 @@ async function runJenkins({
         sh.exit(1)
         return
     }
-    if (app && p.apps && !p.apps.includes(app)) {
-        sh.echo(error('请输入正确的应用名称'))
-        sh.exit(1)
-        return
+    if (app && p.apps) {
+        let appList = app.split(',')
+        for (const item of appList) {
+            if (!p.apps.includes(item)) {
+                sh.echo(error('请输入正确的应用名称'))
+                sh.exit(1)
+                return
+            }
+        }
     }
     if (!buildConfig.template) {
         sh.echo(error('请配置Jenkins构建地址模板'))
