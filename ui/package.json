@@ -15,7 +15,7 @@
 		"core-js": "^3.19.1",
 		"dayjs": "^1.10.7",
 		"element-plus": "^1.2.0-beta.3",
-		"js-cool": "^2.2.4",
+		"js-cool": "^2.3.0",
 		"qs": "^6.10.1",
 		"socket.io-client": "^4.3.2",
 		"uuid": "^8.3.2",
