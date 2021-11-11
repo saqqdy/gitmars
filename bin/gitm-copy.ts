@@ -57,14 +57,6 @@ program.action((commitid: string[], opts: GitmBuildOption) => {
                     success: '记录合并成功',
                     fail: '合并失败，请根据提示处理'
                 }
-            },
-            {
-                cmd: 'git push',
-                config: {
-                    again: true,
-                    success: '推送成功',
-                    fail: '推送失败，请根据提示处理'
-                }
             }
         ]
         queue(cmd)
@@ -108,14 +100,6 @@ program.action((commitid: string[], opts: GitmBuildOption) => {
                                 again: false,
                                 success: '记录合并成功',
                                 fail: '合并失败，请根据提示处理'
-                            }
-                        },
-                        {
-                            cmd: 'git push',
-                            config: {
-                                again: true,
-                                success: '推送成功',
-                                fail: '推送失败，请根据提示处理'
                             }
                         }
                     ])
