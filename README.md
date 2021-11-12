@@ -1,4 +1,4 @@
-![logo.png](https://raw.githubusercontent.com/saqqdy/gitmars/master/static/img/logo.png)
+![logo.png](https://gh.api.99988866.xyz/https://raw.githubusercontent.com/saqqdy/gitmars/master/static/img/logo.png)
 
 [![NPM version][npm-image]][npm-url]
 [![build status][travis-image]][travis-url]
