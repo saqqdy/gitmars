@@ -1,4 +1,4 @@
-![logo.png](https://github.com.cnpmjs.org/saqqdy/gitmars/blob/dev/static/img/gitmars-branch.png)
+![logo.png](https://raw.githubusercontent.com/saqqdy/gitmars/master/static/img/logo.png)
 
 [![NPM version][npm-image]][npm-url]
 [![build status][travis-image]][travis-url]
