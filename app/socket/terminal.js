@@ -8,7 +8,7 @@ const shell = os.platform() === 'win32' ? 'powershell.exe' : sh.which('zsh') ? '
 let ptyContainers = {};
 module.exports = (socket) => {
     socket.on('create', option => {
-        let ptyProcess = pty.spawn(shell, ['--login'], {
+        let ptyProcess = pty.spawn(shell, [], {
             name: 'xterm-color',
             cols: option.cols || 80,
             rows: option.rows || 24,

@@ -9,7 +9,7 @@ let ptyContainers: Record<string, IPty> = {}
 
 module.exports = (socket: http.Server) => {
 	socket.on('create', option => {
-		let ptyProcess = pty.spawn(shell, ['--login'], {
+		let ptyProcess = pty.spawn(shell, [], {
 			name: 'xterm-color',
 			cols: option.cols || 80,
 			rows: option.rows || 24,
