@@ -56,7 +56,6 @@ program.action(async (opt: GitmBuildOption) => {
                     default: false
                 })
                 .then((answers: any) => {
-                    console.log(answers)
                     if (!answers.value) {
                         sh.echo(success('已退出'))
                         sh.exit(0)

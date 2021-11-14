@@ -312,6 +312,8 @@ gitm up feature -a
 
 ### gitm continue
 
+#### 短指令：gitm ct
+
 继续未完成的操作
 
 -   使用：`gitm continue`
