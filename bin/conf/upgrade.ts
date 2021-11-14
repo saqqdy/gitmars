@@ -58,7 +58,7 @@ import type { GitmarsOptionType } from '../../typings'
                 description: '使用镜像地址',
                 defaultValue: '',
                 recommend: true,
-                value: 'https://registry.npm.taobao.org'
+                value: 'https://registry.npmmirror.com'
             }
         ],
         // 校验传值
