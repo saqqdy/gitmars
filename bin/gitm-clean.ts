@@ -32,8 +32,9 @@ program
             sh.echo(warning('当前目录不是git项目目录'))
         }
         sh.rm(
-            cacheDir + '/buildConfig.json',
+            cacheDir + '/buildConfig*.json',
             cacheDir + '/buildConfig.txt',
+            cacheDir + '/packageInfo.json',
             cacheDir + '/timestamp.json'
         )
         sh.echo(success('清理完毕'))

@@ -71,7 +71,7 @@ program.action(
         }
         // 这一行后面准备删掉
         if (!opt.registry && opt.mirror)
-            opt.registry = 'https://registry.npm.taobao.org'
+            opt.registry = 'https://registry.npmmirror.com'
         if (opt.registry)
             cmdAdd[1] = cmdAdd[1].concat(['-registry', opt.registry])
         const uninstall = spawnSync(cmdDel[0], cmdDel[1], {
