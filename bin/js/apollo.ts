@@ -14,19 +14,22 @@ import type { ApolloConfigType, GitmarsConfigType } from '../../typings'
  */
 async function apolloConfig(): Promise<ApolloConfigType | void> {
     const cacheDir = path.join(__dirname, '../../cache')
-    let apolloConfig
-    // 有配置文件且没有过期，返回配置
-    if (
-        !isCacheExpired('buildConfigTime') &&
-        sh.test('-f', cacheDir + '/buildConfig.json')
-    ) {
-        return require(cacheDir + '/buildConfig.json')
-    }
     const config = getConfig() as GitmarsConfigType
     if (!config.apolloConfig) {
         sh.echo(error('请配置apollo'))
         sh.exit(0)
         return
+    }
+    const { appId, clusterName } = config.apolloConfig
+    const BUILD_CONFIG_TIME_NAME = `buildConfigTime-${appId}-${clusterName}`
+    const BUILD_CONFIG_PATH = `${cacheDir}/buildConfig-${appId}-${clusterName}.json`
+    let apolloConfig
+    // 有配置文件且没有过期，返回配置
+    if (
+        !isCacheExpired(BUILD_CONFIG_TIME_NAME) &&
+        sh.test('-f', BUILD_CONFIG_PATH)
+    ) {
+        return require(BUILD_CONFIG_PATH)
     }
     // 如果传入的是json字符串，转json
     if (typeof config.apolloConfig === 'string') {
@@ -39,11 +42,8 @@ async function apolloConfig(): Promise<ApolloConfigType | void> {
         apolloConfig = config.apolloConfig
     }
     const result = await apollo.remoteConfigService(apolloConfig)
-    await updateCacheTime('buildConfigTime')
-    await writeFile(
-        cacheDir + '/buildConfig.json',
-        JSON.stringify(result.content)
-    )
+    await updateCacheTime(BUILD_CONFIG_TIME_NAME)
+    await writeFile(BUILD_CONFIG_PATH, JSON.stringify(result.content))
     return result.content
 }
 

@@ -2,8 +2,9 @@ const path = require('path')
 const sh = require('shelljs')
 const { writeFile } = require('../index')
 
-interface TimestampType {
-    buildConfigTime?: number
+type TimestampType = {
+    [prop: string]: number
+} & {
     packageInfoTime?: number
 }
 
