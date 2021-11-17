@@ -80,7 +80,10 @@ program.action(async (type: string, name: string, opt: GitmBuildOption) => {
                   `git checkout -b ${type}/${name} ${base}`
               ]
         queue(cmd).then((data: QueueReturnsType[]) => {
-            if (data[3].code === 0) {
+            if (
+                (opt.tag && data[1].code === 0) ||
+                (!opt.tag && data[3].code === 0)
+            ) {
                 sh.echo(
                     `${name}分支创建成功，该分支基于${base}创建，您当前已经切换到${type}/${name}\n如果需要提测，请执行${success(
                         'gitm combine ' + type + ' ' + name
