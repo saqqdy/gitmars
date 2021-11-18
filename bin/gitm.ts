@@ -99,7 +99,7 @@ program.on('command:*', function (types: string[], opts: string[]) {
         'sv',
         'get',
         'gt',
-		'cleanbranch',
+        'cleanbranch',
         'copy',
         'cp',
         'merge',

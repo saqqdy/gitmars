@@ -54,7 +54,6 @@ program.action(async (opt: GitmBuildOption) => {
         type: opt.type,
         except: opt.except
     })
-	console.log(branchs)
     if (branchs.length > 0) {
         await inquirer
             .prompt({
@@ -93,7 +92,6 @@ program.action(async (opt: GitmBuildOption) => {
         //     opt.remote
         // )
         // if (!isMergedBug) continue
-        return
         // 仅清理合过dev和release的分支
         sh.exec(`git branch -D ${branchName}`, { silent: true })
         if (opt.remote && getIsBranchOrCommitExist(branchName, true)) {
