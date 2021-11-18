@@ -97,6 +97,7 @@ gitm copy --help
 -   分支操作 [gitm branch](http://www.saqqdy.com/gitmars/api/#gitm-branch)
 -   暂存当前分支文件 [gitm save](http://www.saqqdy.com/gitmars/api/#gitm-save)
 -   恢复暂存区最近一次暂存的文件 [gitm get](http://www.saqqdy.com/gitmars/api/#gitm-get)
+-   清理合并过的功能分支 [gitm cleanbranch](http://www.saqqdy.com/gitmars/api/#gitm-cleanbranch)
 -   简化 git 的 cherry-pick 操作 [gitm copy](http://www.saqqdy.com/gitmars/api/#gitm-copy)
 -   合并代码 [gitm merge](http://www.saqqdy.com/gitmars/api/#gitm-merge)
 -   继续未完成的操作 [gitm continue](http://www.saqqdy.com/gitmars/api/#gitm-continue)
@@ -130,9 +131,9 @@ gitm copy --help
 -   使用：`gitm go`
 -   参数：
 
-| 参数    | 说明     | 类型   | 可选值                                                                                                                                                    | 必填 | 默认 |
-| ------- | -------- | ------ | --------------------------------------------------------------------------------------------------------------------------------------------------------- | ---- | ---- |
-| command | 指令名称 | String | combine、end、update、build、start、admin.publish、admin.update、admin.create、admin.clean、branch、copy、get、save、clean、revert、link、unlink、postmsg | 否   | -    |
+| 参数    | 说明     | 类型   | 可选值                                                                                                                                                                 | 必填 | 默认 |
+| ------- | -------- | ------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---- | ---- |
+| command | 指令名称 | String | combine、end、update、build、start、admin.publish、admin.update、admin.create、admin.clean、branch、copy、get、save、cleanbranch、clean、revert、link、unlink、postmsg | 否   | -    |
 
 -   示例：
 

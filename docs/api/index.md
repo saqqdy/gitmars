@@ -14,9 +14,9 @@ sidebarDepth: 2
 -   使用：`gitm go`
 -   参数：
 
-| 参数    | 说明     | 类型   | 可选值                                                                                                                                                    | 必填 | 默认 |
-| ------- | -------- | ------ | --------------------------------------------------------------------------------------------------------------------------------------------------------- | ---- | ---- |
-| command | 指令名称 | String | combine、end、update、build、start、admin.publish、admin.update、admin.create、admin.clean、branch、copy、get、save、clean、revert、link、unlink、postmsg | 否   | -    |
+| 参数    | 说明     | 类型   | 可选值                                                                                                                                                                 | 必填 | 默认 |
+| ------- | -------- | ------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---- | ---- |
+| command | 指令名称 | String | combine、end、update、build、start、admin.publish、admin.update、admin.create、admin.clean、branch、copy、get、save、cleanbranch、clean、revert、link、unlink、postmsg | 否   | -    |
 
 -   示例：
 
@@ -705,6 +705,49 @@ gitm get -k
 
 ```shell
 gitm get "test login"
+```
+
+### gitm cleanbranch
+
+#### 短指令：gitm clb
+
+> 2.13.0 新增
+
+清理合并过的功能分支
+
+-   使用：`gitm cleanbranch [--except [exception]] [-t --type [type]] [-r --remote]`
+-   传值：
+
+| 名称     | 简写 | 说明                               | 类型          | 可选值                 | 传值必填 | 默认  |
+| -------- | ---- | ---------------------------------- | ------------- | ---------------------- | -------- | ----- |
+| --except | -s   | 排除的分支名，支持正则或字符串     | String/RegExp | -                      | 否       | -     |
+| --type   | -t   | 分支类型                           | String        | feature/bugfix/support | 否       | -     |
+| --remote | -r   | 是否清理远程分支，默认清理本地分支 | Boolean       | -                      | 否       | false |
+
+-   示例：
+
+1. 清理远程所有功能分支
+
+```shell
+gitm cleanbranch --remote
+# or
+gitm cleanbranch -r
+```
+
+2. 清理远程所有功能分支，除了except匹配的分支
+
+```shell
+gitm cleanbranch --remote --except "saqqdy$"
+# or
+gitm cleanbranch -r --except "saqqdy$"
+```
+
+3. 清理本地所有feature分支
+
+```shell
+gitm cleanbranch --type feature
+# or
+gitm cleanbranch -t feature
 ```
 
 ### gitm log

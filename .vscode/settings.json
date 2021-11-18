@@ -17,6 +17,7 @@
         "gitmarscommands",
         "gitmarsconfig",
         "gitmarslog",
+        "cleanbranch",
         "commitid",
         "pnpm",
         "cnpm"

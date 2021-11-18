@@ -484,7 +484,7 @@ async function searchBranch(
  * @returns {Array} 返回列表数组
  */
 function searchBranchs(opt: any = {}): string[] {
-    const { key, type, remote = false } = opt
+    const { key, type, remote = false, local = true, except } = opt
     let { path } = opt
     if (!path) path = sh.pwd().stdout
     const data = sh
@@ -521,9 +521,33 @@ function searchBranchs(opt: any = {}): string[] {
                 break
         }
     }
-    if (type && ['bugfix', 'feature', 'support'].includes(type)) {
-        map.heads = map.heads.filter(el => el.indexOf('/' + type + '/') > -1)
+    // 剔除本地分支
+    if (!local) {
+        map.heads = map.heads.filter(el => el.indexOf('origin/') === 0)
     }
+    // 按类型筛选
+    if (type) {
+        let _types = type.split(','),
+            temp: string[] = []
+        map.heads.forEach(item => {
+            types: for (let t of _types) {
+                if (
+                    ['bugfix', 'feature', 'support'].includes(t) &&
+                    item.indexOf(t + '/') > -1
+                ) {
+                    temp.push(item)
+                    break types
+                }
+            }
+        })
+        map.heads = temp
+    }
+    // 正则排除
+    if (except) {
+        const reg = new RegExp(except)
+        map.heads = map.heads.filter(el => !reg.test(el))
+    }
+    // 按关键词筛选
     if (key) {
         map.heads = map.heads.filter(el => el.indexOf(key) > -1)
     }
