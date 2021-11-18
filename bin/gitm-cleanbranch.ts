@@ -19,7 +19,6 @@ const config = getConfig()
 
 import {
     GitmarsOptionOptionsType,
-    CommandType,
     GitmarsBranchType
 } from '../typings'
 
@@ -71,7 +70,6 @@ program.action(async (opt: GitmBuildOption) => {
     }
     for (const branch of branchs) {
         const branchName = branch.replace(/^origin\//, '')
-        let cmd: Array<CommandType | string> = []
         // const [type, ..._nameArr] = branchName.split('/')
         // const name = _nameArr.join('/')
         const isMergedDev = getIsMergedTargetBranch(
