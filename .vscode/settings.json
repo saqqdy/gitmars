@@ -14,6 +14,9 @@
         "vssue",
         "gitmarsdb",
         "gitmarsrc",
+        "gitmarscommands",
+        "gitmarsconfig",
+        "gitmarslog",
         "commitid",
         "pnpm",
         "cnpm"

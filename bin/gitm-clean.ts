@@ -2,6 +2,7 @@
 const { program } = require('commander')
 const path = require('path')
 const sh = require('shelljs')
+const inquirer = require('inquirer')
 const { options, args } = require('./conf/clean')
 const { success, warning, isGitProject } = require('./js/index')
 const { createArgs } = require('./js/tools')
@@ -24,11 +25,24 @@ options.forEach((o: GitmarsOptionOptionsType) => {
     program.option(o.flags, o.description, o.defaultValue)
 })
 // .option('-f, --force', '强制清理', false)
-program.action((opt: GitmBuildOption): void => {
+program.action(async (opt: GitmBuildOption) => {
     if (isGitProject()) {
         sh.rm(gitDir + '/.gitmarscommands', gitDir + '/.gitmarslog')
         if (opt.force) {
-            sh.echo(warning('您输入了--force，将同时清理本地gitmars配置文件'))
+            await inquirer
+                .prompt({
+                    type: 'confirm',
+                    name: 'value',
+                    message:
+                        '您输入了--force，将同时清理本地gitmars配置文件。是否继续？',
+                    default: false
+                })
+                .then((answers: any) => {
+                    if (!answers.value) {
+                        sh.echo(success('已退出'))
+                        sh.exit(0)
+                    }
+                })
             sh.rm(root + '/gitmarsconfig.json', root + '/.gitmarsrc')
         }
     } else {
