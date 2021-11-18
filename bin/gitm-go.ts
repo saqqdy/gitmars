@@ -53,6 +53,7 @@ program.action(async (command: string): Promise<void> => {
                     'copy',
                     'get',
                     'save',
+                    'clean',
                     'revert',
                     'link',
                     'unlink',
