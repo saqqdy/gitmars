@@ -95,8 +95,6 @@ program.action(async (opt: GitmBuildOption) => {
         sh.echo(success('没有查询到任何分支'))
         sh.exit(0)
     }
-	console.log(branches)
-	return
     for (const branch of branches) {
         const branchName = branch.replace(/^origin\//, '')
         // 跳过主干分支和非二级名称的分支
