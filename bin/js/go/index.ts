@@ -12,6 +12,7 @@ const startConfig = require('../../conf/start')
 const copyConfig = require('../../conf/copy')
 const getConfig = require('../../conf/get')
 const saveConfig = require('../../conf/save')
+const cleanbranchConfig = require('../../conf/cleanbranch')
 const cleanConfig = require('../../conf/clean')
 const revertConfig = require('../../conf/revert')
 const linkConfig = require('../../conf/link')
@@ -131,6 +132,13 @@ export const get = async () => {
 export const save = async () => {
     const config = cleanConfigSet(saveConfig)
     const command = 'gitm save ' + (await getCommand(config))
+    sh.exec(command)
+}
+
+// 清理合并过的功能分支
+export const cleanbranch = async () => {
+    const config = cleanConfigSet(cleanbranchConfig)
+    const command = 'gitm cleanbranch ' + (await getCommand(config))
     sh.exec(command)
 }
 

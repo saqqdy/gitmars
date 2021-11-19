@@ -19,15 +19,10 @@ if (!isGitProject()) {
     sh.echo(error('当前目录不是git项目目录'))
     sh.exit(1)
 }
-const getUserToken = require('./js/api')
 const getConfig = require('./js/getConfig')
 const config = getConfig()
 
-import {
-    GitmarsOptionOptionsType,
-    FetchDataType,
-    GitmarsBranchType
-} from '../typings'
+import { GitmarsOptionOptionsType, GitmarsBranchType } from '../typings'
 
 interface GitmBuildOption {
     list?: boolean
@@ -56,21 +51,15 @@ options.forEach((o: GitmarsOptionOptionsType) => {
 // .option('-r, --remote', '是否清理远程分支，默认清理本地分支', false)
 // .option('--deadline [deadline]', '删除固定时长之前的分支，填写格式：10s/2m/2h/3d/4M/5y', '15d') -----------------------
 program.action(async (opt: GitmBuildOption) => {
-    const { level } = config.api ? getUserToken() : ({} as FetchDataType)
     const spinner = ora()
     spinner.color = 'green'
     // 管理员以上级别才可执行，必须先配置好权限项
-    if (!opt.list && (!level || level > 2)) {
-        sh.echo(success('仅管理员以上的权限可执行这个指令'))
-        sh.exit(0)
-    }
     const current = getCurrent()
     sh.exec(`git fetch`, { silent: true })
     current !== config.develop &&
         sh.exec(`git checkout ${config.develop}`, { silent: true })
     const branches = searchBranches({
         remote: opt.remote,
-        local: !opt.remote,
         type: opt.type,
         except: opt.except
     })
