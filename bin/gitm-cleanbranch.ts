@@ -135,7 +135,6 @@ program.action(async (opt: GitmBuildOption) => {
             await delay(200)
             spinner.succeed()
         }
-        return
         // 仅清理合过dev和release的分支
         if (removeLocal) {
             sh.exec(`git branch -D ${branch}`, { silent: true })
