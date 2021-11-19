@@ -22,10 +22,7 @@ if (!isGitProject()) {
 const getConfig = require('./js/getConfig')
 const config = getConfig()
 
-import {
-    GitmarsOptionOptionsType,
-    GitmarsBranchType
-} from '../typings'
+import { GitmarsOptionOptionsType, GitmarsBranchType } from '../typings'
 
 interface GitmBuildOption {
     list?: boolean
