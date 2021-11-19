@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const home = require('../lib/home')();
-const { getCurrent, searchBranchs } = require('../../lib/js/index');
+const { getCurrent, searchBranches } = require('../../lib/js/index');
 let glob = {}, config = {}, branch = [], current = '', interval = null;
 /**
  * getData
@@ -12,7 +12,7 @@ let glob = {}, config = {}, branch = [], current = '', interval = null;
 const getData = (socket, option) => {
     delete require.cache[require.resolve('../../lib/js/global')];
     delete require.cache[require.resolve('../../lib/js/config')];
-    let g = require('../../lib/js/global'), c = require('../../lib/js/config'), bh = searchBranchs({ path: option.cwd || home }), cur = getCurrent({ path: option.cwd || home });
+    let g = require('../../lib/js/global'), c = require('../../lib/js/config'), bh = searchBranches({ path: option.cwd || home }), cur = getCurrent({ path: option.cwd || home });
     if (!glob || JSON.stringify(glob) !== JSON.stringify(g)) {
         glob = g;
         socket.emit(option.name + '-global', g);
