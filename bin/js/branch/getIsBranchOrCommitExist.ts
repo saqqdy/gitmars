@@ -13,7 +13,7 @@ function getIsBranchOrCommitExist(
     remote: boolean = false
 ): boolean {
     if (!name) name = getCurrent()
-    if (remote) name = 'origin/' + name
+    if (remote && name.indexOf('origin') === -1) name = 'origin/' + name
     return (
         sh.exec(`git rev-parse --verify ${name}`, {
             silent: true

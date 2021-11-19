@@ -69,6 +69,18 @@ import type { GitmarsOptionType } from '../../typings'
                 negate: false,
                 description: '是否清理远程分支，默认清理本地分支',
                 defaultValue: false
+            },
+            {
+                flags: '-c, --confirm',
+                required: false,
+                optional: false,
+                variadic: false,
+                mandatory: false,
+                short: '-c',
+                long: '--confirm',
+                negate: false,
+                description: '确认开始，为true时不显示确认框',
+                defaultValue: false
             }
         ],
         // 校验传值
