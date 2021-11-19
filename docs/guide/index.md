@@ -61,7 +61,7 @@ title: guide
 -   分支操作 [gitm branch](../api/#gitm-branch)
 -   暂存当前分支文件 [gitm save](../api/#gitm-save)
 -   恢复暂存区最近一次暂存的文件 [gitm get](../api/#gitm-get)
--   清理合并过的功能分支 [gitm cleanbranch](http://www.saqqdy.com/gitmars/api/#gitm-cleanbranch)
+-   清理合并过的功能分支 [gitm cleanbranch](../api/#gitm-cleanbranch)
 -   简化 git 的 cherry-pick 操作 [gitm copy](../api/#gitm-copy)
 -   合并代码 [gitm merge](../api/#gitm-merge)
 -   继续未完成的操作 [gitm continue](../api/#gitm-continue)
