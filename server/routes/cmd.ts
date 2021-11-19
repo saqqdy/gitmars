@@ -3,7 +3,7 @@ const router = express.Router()
 const fs = require('fs')
 // const sh = require('shelljs')
 const glob = require('../../lib/js/global')
-const { getCurrent, searchBranchs } = require('../../lib/js/index')
+const { getCurrent, searchBranches } = require('../../lib/js/index')
 
 // const error503 = (res: Response) => {
 // 	res.status(503).send({ data: null, success: false, code: 0, msg: 'fail' })
@@ -40,7 +40,7 @@ router.get('/status', function (req: Request, res: Response, next: NextFunction)
 router.get('/branch/list', (req: Request, res: Response, next: NextFunction) => {
 	const { path, key, type, remote } = req.query
 	// process.chdir('/Users/saqqdy/www/wojiayun/wyweb/webapp/app')
-	let data = searchBranchs({ path, key, type, remote })
+	let data = searchBranches({ path, key, type, remote })
 	success(res, { data })
 })
 

@@ -6,7 +6,7 @@ const {
     error,
     success,
     getCurrent,
-    getBranchsFromID,
+    getBranchesFromID,
     isGitProject
 } = require('./js/index')
 const { createArgs } = require('./js/tools')
@@ -74,7 +74,7 @@ program.action(
             remove()
         } else {
             const types: string[] = opt.type ? opt.type.split(',') : []
-            const mainBranchs = [
+            const mainBranches = [
                 config.master,
                 config.develop,
                 config.release,
@@ -328,13 +328,13 @@ program.action(
                 types,
                 process.env,
                 process.argv,
-                getBranchsFromID('2080d17e')
+                getBranchesFromID('2080d17e')
             )
             // 检测权限 command = hookName
             // 检测类型对应上面的检测方法
             if (
                 current !== config.develop &&
-                mainBranchs.includes(current) &&
+                mainBranches.includes(current) &&
                 types.includes('1')
             ) {
                 // 分支合并主干分支之后，检测该分支是否合并过dev，没有合并过的，不允许继续执行commit
@@ -359,7 +359,7 @@ program.action(
                     }
                 }
             }
-            if (mainBranchs.includes(current) && types.includes('2')) {
+            if (mainBranches.includes(current) && types.includes('2')) {
                 // 分支合并主干分支之后，检测该分支是否同步过上游分支的代码，没有同步过的，不允许继续执行commit
                 const [command, branch] = process.env.GIT_REFLOG_ACTION
                     ? process.env.GIT_REFLOG_ACTION.split(' ')
@@ -387,7 +387,7 @@ program.action(
                     }
                 }
             }
-            if (mainBranchs.includes(current) && types.includes('3')) {
+            if (mainBranches.includes(current) && types.includes('3')) {
                 // 在主干分支执行push推送时，检测最后一次提交是否为merge记录，如果不是，提示不允许直接在主干分支做修改
                 const isMergeAction = getIsMergeAction()
                 if (!isMergeAction) {
@@ -416,7 +416,7 @@ program.action(
                 // 	sh.exit(1)
                 // }
             }
-            if (mainBranchs.includes(current) && types.includes('4')) {
+            if (mainBranches.includes(current) && types.includes('4')) {
                 // 在主干分支执行push推送时，检测是否需要先执行pull
                 const behindLogs = getBehindLogs()
                 if (!behindLogs.length) {

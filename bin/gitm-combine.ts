@@ -123,13 +123,13 @@ program.action(
                 sh.echo('请输入分支名称')
                 sh.exit(1)
             }
-            const branchs = await searchBranch(type)
-            if (branchs.length === 1) {
-                ;[type, _nameArr] = branchs[0].split('/')
+            const branches = await searchBranch(type)
+            if (branches.length === 1) {
+                ;[type, _nameArr] = branches[0].split('/')
                 name = _nameArr.join('/')
             } else {
                 sh.echo(
-                    branchs.length > 1
+                    branches.length > 1
                         ? `查询到多条名称包含${type}的分支，请输入分支类型`
                         : error('分支不存在，请正确输入')
                 )

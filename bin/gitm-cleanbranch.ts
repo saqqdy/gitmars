@@ -8,7 +8,7 @@ const {
     success,
     isGitProject,
     getCurrent,
-    searchBranchs,
+    searchBranches,
     delay
 } = require('./js/index')
 const getIsMergedTargetBranch = require('./js/branch/getIsMergedTargetBranch')
@@ -68,14 +68,14 @@ program.action(async (opt: GitmBuildOption) => {
     sh.exec(`git fetch`, { silent: true })
     current !== config.develop &&
         sh.exec(`git checkout ${config.develop}`, { silent: true })
-    const branchs = searchBranchs({
+    const branches = searchBranches({
         remote: opt.remote,
         local: !opt.remote,
         type: opt.type,
         except: opt.except
     })
     let _willDeleteBranch: string[] = []
-    if (branchs.length > 0) {
+    if (branches.length > 0) {
         if (!opt.list) {
             await inquirer
                 .prompt({
@@ -95,7 +95,9 @@ program.action(async (opt: GitmBuildOption) => {
         sh.echo(success('没有查询到任何分支'))
         sh.exit(0)
     }
-    for (const branch of branchs) {
+	console.log(branches)
+	return
+    for (const branch of branches) {
         const branchName = branch.replace(/^origin\//, '')
         // 跳过主干分支和非二级名称的分支
         if (

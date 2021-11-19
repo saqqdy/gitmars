@@ -1,5 +1,9 @@
 # 更新日志
 
+## 2021.11.19 v2.13.2 更新日志
+
+1. `searchBranches`方法改进，删除`local`参数
+
 ## 2021.11.19 v2.13.1 更新日志
 
 1. `cleanbranch`指令增加-l参数，删除前可以先预览
@@ -11,7 +15,7 @@
 ## 2021.11.18 v2.13.0 更新日志
 
 1. 新增`cleanbranch`指令，清理合并过的功能分支
-2. `searchBranchs`方法改进，支持多类型查找，增加`local`参数和`except`正则排除
+2. `searchBranches`方法改进，支持多类型查找，增加`local`参数和`except`正则排除
 
 ## 2021.11.18 v2.12.8 更新日志
 
@@ -283,7 +287,7 @@
 
 1. 新增`gitm ui`指令，启动 UI 界面
 2. 新增无 git 权限自动调起合并请求的功能，需要配置`api`、`gitHost`、`gitID`，具体配置查阅：[Gitmars 基本配置](http://www.saqqdy.com/gitmars/guide/basic-config.html)
-3. 升级`checkBranch`、`searchBranchs`、`getCurrent`方法，执行更加高效
+3. 升级`checkBranch`、`searchBranches`、`getCurrent`方法，执行更加高效
 4. 取消强制配置 api
 5. `git config`和`git init`加入对`api`/`gitHost`/`gitID`参数设置的支持
 

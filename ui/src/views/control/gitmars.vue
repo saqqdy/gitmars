@@ -282,7 +282,7 @@ interface DataType {
 	project: ProjectType
 	terminal: TerminalType
 	activeNames: string
-	branchs: string[]
+	branches: string[]
 	current: string
 	ready: boolean
 	error: Error | Object
@@ -306,7 +306,7 @@ export default defineComponent({
 			project: { id: '', name: '', path: '' },
 			terminal: { name: '' },
 			activeNames: '',
-			branchs: [], // 分支列表
+			branches: [], // 分支列表
 			current: '',
 			ready: false,
 			error: {}
@@ -323,7 +323,7 @@ export default defineComponent({
 				feature: [],
 				others: []
 			} as BranchListType
-			data.branchs.forEach((branch: string): void => {
+			data.branches.forEach((branch: string): void => {
 				if (branch.indexOf('bugfix/') > -1) {
 					o.bugfix.push(branch)
 				} else if (branch.indexOf('feature/') > -1) {
@@ -341,7 +341,7 @@ export default defineComponent({
 				cwd: data.project.path
 			})
 			socketGitmars.on(data.project.id + '-branch', (res: any) => {
-				if (data) data.branchs = res
+				if (data) data.branches = res
 			})
 			socketGitmars.on(data.project.id + '-current', (res: string) => {
 				if (data) data.current = res
@@ -368,7 +368,7 @@ export default defineComponent({
 			).data
 		}
 		// 获取分支列表
-		const getBranchs = async () => {
+		const getBranches = async () => {
 			return (
 				await $axios({
 					url: '/cmd/branch/list',
@@ -400,7 +400,7 @@ export default defineComponent({
 			}
 		})
 
-		data.branchs = await getBranchs()
+		data.branches = await getBranches()
 		data.current = await getCurrent()
 		data.terminal =
 			getTerminal &&
