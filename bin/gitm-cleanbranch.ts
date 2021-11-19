@@ -3,26 +3,34 @@ const { program } = require('commander')
 const sh = require('shelljs')
 const inquirer = require('inquirer')
 const { options, args } = require('./conf/cleanbranch')
-const { error, success, isGitProject, searchBranchs } = require('./js/index')
+const {
+    error,
+    success,
+    isGitProject,
+    getCurrent,
+    searchBranchs,
+    delay
+} = require('./js/index')
 const getIsMergedTargetBranch = require('./js/branch/getIsMergedTargetBranch')
 const getIsBranchOrCommitExist = require('./js/branch/getIsBranchOrCommitExist')
+const ora = require('ora')
 const { createArgs } = require('./js/tools')
 if (!isGitProject()) {
     sh.echo(error('当前目录不是git项目目录'))
     sh.exit(1)
 }
-// const getUserToken = require('./js/api')
-// const getGitConfig = require('./js/getGitConfig')
+const getUserToken = require('./js/api')
 const getConfig = require('./js/getConfig')
-// const { appName } = getGitConfig()
 const config = getConfig()
 
 import {
     GitmarsOptionOptionsType,
+    FetchDataType,
     GitmarsBranchType
 } from '../typings'
 
 interface GitmBuildOption {
+    list?: boolean
     type?: GitmarsBranchType
     except?: string
     remote?: boolean
@@ -40,63 +48,106 @@ if (args.length > 0) program.arguments(createArgs(args))
 options.forEach((o: GitmarsOptionOptionsType) => {
     program.option(o.flags, o.description, o.defaultValue)
 })
+// .option('-l, --list', '显示符合条件的分支列表', false)
 // .option('-t, --type [type]', '分支的类型，共有3种：feature、bugfix、support，不传则默认全部', null)
 // .option('--except [except]', '排除关键词', '')
 // .option('-r, --remote', '是否清理远程分支，默认清理本地分支', false)
 // .option('--deadline [deadline]', '删除固定时长之前的分支，填写格式：10s/2m/2h/3d/4M/5y', '15d') -----------------------
 program.action(async (opt: GitmBuildOption) => {
+    const { level } = config.api ? getUserToken() : ({} as FetchDataType)
+    const spinner = ora()
+    spinner.color = 'green'
+    // 管理员以上级别才可执行，必须先配置好权限项
+    if (!opt.list && (!level || level > 2)) {
+        sh.echo(success('仅管理员以上的权限可执行这个指令'))
+        sh.exit(0)
+    }
+    const current = getCurrent()
     sh.exec(`git fetch`, { silent: true })
-    sh.exec(`git checkout ${config.develop}`, { silent: true })
+    current !== config.develop &&
+        sh.exec(`git checkout ${config.develop}`, { silent: true })
     const branchs = searchBranchs({
         remote: opt.remote,
         local: !opt.remote,
-        type: opt.type,
+        type: opt.type || 'feature,bugfix,support',
         except: opt.except
     })
+    let _willDeleteBranch: string[] = []
     if (branchs.length > 0) {
-        await inquirer
-            .prompt({
-                type: 'confirm',
-                name: 'value',
-                message: '即将开始批量删除分支，是否继续？',
-                default: false
-            })
-            .then((answers: any) => {
-                if (!answers.value) {
-                    sh.echo(success('已退出'))
-                    sh.exit(0)
-                }
-            })
+        if (!opt.list) {
+            await inquirer
+                .prompt({
+                    type: 'confirm',
+                    name: 'value',
+                    message: '即将开始批量删除分支，是否继续？',
+                    default: false
+                })
+                .then((answers: any) => {
+                    if (!answers.value) {
+                        sh.echo(success('已退出'))
+                        sh.exit(0)
+                    }
+                })
+        }
+    } else {
+        sh.echo(success('没有查询到任何分支'))
+        sh.exit(0)
     }
     for (const branch of branchs) {
         const branchName = branch.replace(/^origin\//, '')
-        // const [type, ..._nameArr] = branchName.split('/')
-        // const name = _nameArr.join('/')
+        spinner.start(success(`开始分析：${branchName}`))
         const isMergedDev = getIsMergedTargetBranch(
             branch,
             config.dev,
             opt.remote
         )
-        if (!isMergedDev) continue
+        if (!isMergedDev) {
+            spinner.fail()
+            continue
+        }
         const isMergedRelease = getIsMergedTargetBranch(
             branch,
             config.release,
             opt.remote
         )
-        if (!isMergedRelease) continue
-        // const isMergedBug = getIsMergedTargetBranch(
-        //     branch,
-        //     config.bugfix,
-        //     opt.remote
-        // )
-        // if (!isMergedBug) continue
+        if (!isMergedRelease) {
+            spinner.fail()
+            continue
+        }
+        _willDeleteBranch.push(branchName)
+        await delay(200)
+        spinner.succeed()
+        if (opt.list) {
+            continue
+        }
+
+        // 开始分支删除流程
+        const removeLocal = getIsBranchOrCommitExist(branchName)
+        const removeRemote =
+            opt.remote && getIsBranchOrCommitExist(branchName, true)
+        if (removeLocal || removeRemote) {
+            spinner.start(success(`正在删除：${branchName}`))
+            await delay(200)
+            spinner.succeed()
+        }
         // 仅清理合过dev和release的分支
-        sh.exec(`git branch -D ${branchName}`, { silent: true })
-        if (opt.remote && getIsBranchOrCommitExist(branchName, true)) {
+        if (removeLocal) {
+            sh.exec(`git branch -D ${branchName}`, { silent: true })
+        }
+        // 清理远程分支
+        if (removeRemote) {
             sh.exec(`git push origin --delete ${branchName}`, {
                 silent: true
             })
         }
+    }
+    spinner.stop()
+    // 打印列表
+    if (opt.list) {
+        sh.echo(success('分析完成，找到了以下分支：'))
+        console.info(_willDeleteBranch)
+    } else {
+        sh.echo(success('删除完成'))
     }
 })
 program.parse(process.argv)

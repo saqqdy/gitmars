@@ -6,6 +6,18 @@ import type { GitmarsOptionType } from '../../typings'
         args: [],
         options: [
             {
+                flags: '-l, --list',
+                required: false,
+                optional: false,
+                variadic: false,
+                mandatory: false,
+                short: '-l',
+                long: '--list',
+                negate: false,
+                description: '显示符合条件的分支列表',
+                defaultValue: false
+            },
+            {
                 flags: '-t, --type [type]',
                 required: false,
                 optional: true,

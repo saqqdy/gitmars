@@ -41,6 +41,7 @@ program
     .command('get', '恢复暂存区最近一次暂存的文件')
     .alias('gt')
     .command('cleanbranch', '清理合并过的功能分支')
+    .alias('clb')
     .command('copy <id>', '简化git的cherry-pick操作')
     .alias('cp')
     .command('merge <name>', '合并代码')
@@ -100,6 +101,7 @@ program.on('command:*', function (types: string[], opts: string[]) {
         'get',
         'gt',
         'cleanbranch',
+		'clb',
         'copy',
         'cp',
         'merge',
