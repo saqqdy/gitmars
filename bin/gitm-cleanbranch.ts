@@ -42,8 +42,10 @@ interface GitmBuildOption {
  */
 program
     .name('gitm cleanbranch')
-    .usage('[-f --force]')
-    .description('暂存当前分支文件')
+    .usage(
+        '[-l --list [list]] [--except [exception]] [-t --type [type]] [-r --remote]'
+    )
+    .description('清理合并过的功能分支')
 if (args.length > 0) program.arguments(createArgs(args))
 options.forEach((o: GitmarsOptionOptionsType) => {
     program.option(o.flags, o.description, o.defaultValue)
@@ -69,7 +71,7 @@ program.action(async (opt: GitmBuildOption) => {
     const branchs = searchBranchs({
         remote: opt.remote,
         local: !opt.remote,
-        type: opt.type || 'feature,bugfix,support',
+        type: opt.type,
         except: opt.except
     })
     let _willDeleteBranch: string[] = []
@@ -95,6 +97,19 @@ program.action(async (opt: GitmBuildOption) => {
     }
     for (const branch of branchs) {
         const branchName = branch.replace(/^origin\//, '')
+        // 跳过主干分支和非二级名称的分支
+        if (
+            [
+                config.master,
+                config.develop,
+                config.release,
+                config.bugfix,
+                config.support
+            ].includes(branchName) ||
+            branchName.indexOf('/') === -1
+        ) {
+            continue
+        }
         spinner.start(success(`开始分析：${branchName}`))
         const isMergedDev = getIsMergedTargetBranch(
             branch,
