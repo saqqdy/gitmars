@@ -712,19 +712,21 @@ gitm get "test login"
 #### 短指令：gitm clb
 
 > 2.13.0 新增
-> 2.13.0 新增--list参数
+> 2.13.1 新增--list参数
+> 2.13.4 新增--confirm参数
 
 清理合并过的功能分支
 
 -   使用：`gitm cleanbranch [-l --list [list]] [--except [exception]] [-t --type [type]] [-r --remote]`
 -   传值：
 
-| 名称     | 简写 | 说明                                   | 类型          | 可选值 | 传值必填 | 默认  |
-| -------- | ---- | -------------------------------------- | ------------- | ------ | -------- | ----- |
-| --list   | -l   | 显示符合条件的分支列表                 | Boolean       | -      | 否       | false |
-| --except | -s   | 排除的分支名，支持正则或字符串         | String/RegExp | -      | 否       | -     |
-| --type   | -t   | 分支类型，支持：feature/bugfix/support | String        | -      | 否       | -     |
-| --remote | -r   | 是否清理远程分支，默认清理本地分支     | Boolean       | -      | 否       | false |
+| 名称      | 简写 | 说明                                   | 类型          | 可选值 | 传值必填 | 默认  |
+| --------- | ---- | -------------------------------------- | ------------- | ------ | -------- | ----- |
+| --list    | -l   | 显示符合条件的分支列表                 | Boolean       | -      | 否       | false |
+| --except  | -s   | 排除的分支名，支持正则或字符串         | String/RegExp | -      | 否       | -     |
+| --type    | -t   | 分支类型，支持：feature/bugfix/support | String        | -      | 否       | -     |
+| --remote  | -r   | 是否清理远程分支，默认清理本地分支     | Boolean       | -      | 否       | false |
+| --confirm | -c   | 确认开始，为true时不显示确认框         | Boolean       | -      | 否       | false |
 
 -   示例：
 

@@ -29,7 +29,7 @@ interface GitmBuildOption {
     type?: GitmarsBranchType
     except?: string
     remote?: boolean
-    local?: boolean
+    confirm?: boolean
 }
 
 /**
@@ -49,6 +49,7 @@ options.forEach((o: GitmarsOptionOptionsType) => {
 // .option('-t, --type [type]', '分支的类型，共有3种：feature、bugfix、support，不传则默认全部', null)
 // .option('--except [except]', '排除关键词', '')
 // .option('-r, --remote', '是否清理远程分支，默认清理本地分支', false)
+// .option('-c, --confirm', '确认开始，为true时不显示确认框', false)
 // .option('--deadline [deadline]', '删除固定时长之前的分支，填写格式：10s/2m/2h/3d/4M/5y', '15d') -----------------------
 program.action(async (opt: GitmBuildOption) => {
     const spinner = ora()
@@ -65,7 +66,7 @@ program.action(async (opt: GitmBuildOption) => {
     })
     let _willDeleteBranch: string[] = []
     if (branches.length > 0) {
-        if (!opt.list) {
+        if (!opt.list && !opt.confirm) {
             await inquirer
                 .prompt({
                     type: 'confirm',
@@ -85,7 +86,7 @@ program.action(async (opt: GitmBuildOption) => {
         sh.exit(0)
     }
     for (const branch of branches) {
-        const branchName = branch.replace(/^origin\//, '')
+        const branchName = opt.remote ? 'origin/' + branch : branch
         // 跳过主干分支和非二级名称的分支
         if (
             [
@@ -94,14 +95,14 @@ program.action(async (opt: GitmBuildOption) => {
                 config.release,
                 config.bugfix,
                 config.support
-            ].includes(branchName) ||
-            branchName.indexOf('/') === -1
+            ].includes(branch) ||
+            branch.indexOf('/') === -1
         ) {
             continue
         }
-        spinner.start(success(`开始分析：${branchName}`))
+        spinner.start(success(`开始分析：${branch}`))
         const isMergedDev = getIsMergedTargetBranch(
-            branch,
+            branchName,
             config.dev,
             opt.remote
         )
@@ -110,7 +111,7 @@ program.action(async (opt: GitmBuildOption) => {
             continue
         }
         const isMergedRelease = getIsMergedTargetBranch(
-            branch,
+            branchName,
             config.release,
             opt.remote
         )
@@ -118,7 +119,7 @@ program.action(async (opt: GitmBuildOption) => {
             spinner.fail()
             continue
         }
-        _willDeleteBranch.push(branchName)
+        _willDeleteBranch.push(branch)
         await delay(200)
         spinner.succeed()
         if (opt.list) {
@@ -126,21 +127,22 @@ program.action(async (opt: GitmBuildOption) => {
         }
 
         // 开始分支删除流程
-        const removeLocal = getIsBranchOrCommitExist(branchName)
+        const removeLocal = getIsBranchOrCommitExist(branch)
         const removeRemote =
-            opt.remote && getIsBranchOrCommitExist(branchName, true)
+            opt.remote && getIsBranchOrCommitExist(branch, true)
         if (removeLocal || removeRemote) {
-            spinner.start(success(`正在删除：${branchName}`))
+            spinner.start(success(`正在删除：${branch}`))
             await delay(200)
             spinner.succeed()
         }
+        return
         // 仅清理合过dev和release的分支
         if (removeLocal) {
-            sh.exec(`git branch -D ${branchName}`, { silent: true })
+            sh.exec(`git branch -D ${branch}`, { silent: true })
         }
         // 清理远程分支
         if (removeRemote) {
-            sh.exec(`git push origin --delete ${branchName}`, {
+            sh.exec(`git push origin --delete ${branch}`, {
                 silent: true
             })
         }
