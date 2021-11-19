@@ -320,9 +320,9 @@ gitm up feature -a
 -   示例：
 -   传值：
 
-| 名称   | 简写 | 说明                 | 类型   | 可选值 | 传值必填 | 默认 |
-| ------ | ---- | -------------------- | ------ | ------ | -------- | ---- |
-| --list | -l   | 查看未完成的指令列表 | String | -      | 否       | -    |
+| 名称   | 简写 | 说明                 | 类型    | 可选值 | 传值必填 | 默认 |
+| ------ | ---- | -------------------- | ------- | ------ | -------- | ---- |
+| --list | -l   | 查看未完成的指令列表 | Boolean | -      | 否       | -    |
 
 1. 继续未完成的操作
 
@@ -712,21 +712,31 @@ gitm get "test login"
 #### 短指令：gitm clb
 
 > 2.13.0 新增
+> 2.13.0 新增--list参数
 
 清理合并过的功能分支
 
--   使用：`gitm cleanbranch [--except [exception]] [-t --type [type]] [-r --remote]`
+-   使用：`gitm cleanbranch [-l --list [list]] [--except [exception]] [-t --type [type]] [-r --remote]`
 -   传值：
 
-| 名称     | 简写 | 说明                               | 类型          | 可选值                 | 传值必填 | 默认  |
-| -------- | ---- | ---------------------------------- | ------------- | ---------------------- | -------- | ----- |
-| --except | -s   | 排除的分支名，支持正则或字符串     | String/RegExp | -                      | 否       | -     |
-| --type   | -t   | 分支类型                           | String        | feature/bugfix/support | 否       | -     |
-| --remote | -r   | 是否清理远程分支，默认清理本地分支 | Boolean       | -                      | 否       | false |
+| 名称     | 简写 | 说明                                   | 类型          | 可选值 | 传值必填 | 默认  |
+| -------- | ---- | -------------------------------------- | ------------- | ------ | -------- | ----- |
+| --list   | -l   | 显示符合条件的分支列表                 | Boolean       | -      | 否       | false |
+| --except | -s   | 排除的分支名，支持正则或字符串         | String/RegExp | -      | 否       | -     |
+| --type   | -t   | 分支类型，支持：feature/bugfix/support | String        | -      | 否       | -     |
+| --remote | -r   | 是否清理远程分支，默认清理本地分支     | Boolean       | -      | 否       | false |
 
 -   示例：
 
-1. 清理远程所有功能分支
+1. 清理前查看符合条件的分支列表
+
+```shell
+gitm cleanbranch --remote --except "saqqdy$" --list
+# or
+gitm cleanbranch -r --except "saqqdy$" -l
+```
+
+2. 清理远程所有功能分支
 
 ```shell
 gitm cleanbranch --remote
@@ -734,7 +744,7 @@ gitm cleanbranch --remote
 gitm cleanbranch -r
 ```
 
-2. 清理远程所有功能分支，除了except匹配的分支
+3. 清理远程所有功能分支，除了except匹配的分支
 
 ```shell
 gitm cleanbranch --remote --except "saqqdy$"
@@ -742,7 +752,7 @@ gitm cleanbranch --remote --except "saqqdy$"
 gitm cleanbranch -r --except "saqqdy$"
 ```
 
-3. 清理本地所有feature分支
+4. 清理本地所有feature分支
 
 ```shell
 gitm cleanbranch --type feature

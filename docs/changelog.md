@@ -1,5 +1,13 @@
 # 更新日志
 
+## 2021.11.19 v2.13.1 更新日志
+
+1. `cleanbranch`指令增加-l参数，删除前可以先预览
+2. `cleanbranch`指令流程优化，加上了动效和提示
+3. `cleanbranch`增加短指令`gitm clb`
+4. `cleanbranch`指令增加权限控制，仅管理员以上的级别（level < 3）可执行
+5. `cleanbranch`指令执行前自动切分支
+
 ## 2021.11.18 v2.13.0 更新日志
 
 1. 新增`cleanbranch`指令，清理合并过的功能分支
