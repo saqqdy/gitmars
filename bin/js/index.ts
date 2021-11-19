@@ -33,7 +33,7 @@ export type QueueStartFunction = {
     (command?: CommandType | string, cb?: WaitCallback): void
 }
 
-export interface SearchBranchsMapType {
+export interface SearchBranchesMapType {
     heads: string[]
     tags: string[]
     others: string[]
@@ -479,24 +479,30 @@ async function searchBranch(
 }
 
 /**
- * searchBranchs
- * @description 获取当前分支
- * @returns {Array} 返回列表数组
+ * 搜索分支
+ *
+ * @returns branches - 返回列表数组
  */
-function searchBranchs(opt: any = {}): string[] {
-    const { key, type, remote = false, local = true, except } = opt
+function searchBranches(opt: any = {}): string[] {
+    const { key, type, remote = false, except } = opt
     let { path } = opt
-    if (!path) path = sh.pwd().stdout
+    if (!path) {
+        if (remote) {
+            const { gitUrl } = getGitConfig()
+            path = gitUrl
+        } else {
+            const { root } = gitRevParse()
+            path = root
+        }
+    }
     const data = sh
         .exec(
-            `git ls-remote${
-                remote ? ' --refs' : ' --heads'
-            } --quiet --sort="version:refname" ${path}`,
+            `git ls-remote --heads --quiet --sort="version:refname" ${path}`,
             { silent: true }
         )
         .stdout.replace(/\n*$/g, '')
     const arr = data ? data.split('\n') : []
-    const map: SearchBranchsMapType = {
+    const map: SearchBranchesMapType = {
         heads: [],
         tags: [],
         others: []
@@ -520,10 +526,6 @@ function searchBranchs(opt: any = {}): string[] {
                 map.others.push(match[2])
                 break
         }
-    }
-    // 剔除本地分支
-    if (!local) {
-        map.heads = map.heads.filter(el => el.indexOf('origin/') === 0)
     }
     // 按类型筛选
     if (type) {
@@ -779,11 +781,11 @@ function compareVersion(basicVer: string, compareVer: string): boolean | null {
 }
 
 /**
- * getBranchsFromID
+ * getBranchesFromID
  * @description 获取包含commitID的分支
  * @returns {Array} 返回数组
  */
-function getBranchsFromID(commitID: string, remote = false): string[] {
+function getBranchesFromID(commitID: string, remote = false): string[] {
     const out = sh
         .exec(
             `git branch ${
@@ -859,14 +861,14 @@ module.exports = {
     checkBranch,
     getCurrent,
     searchBranch,
-    searchBranchs,
+    searchBranches,
     filterBranch,
     getStashList,
     postMessage,
     sendMessage,
     getCommandMessage,
     compareVersion,
-    getBranchsFromID,
+    getBranchesFromID,
     getGitUser,
     getGitEmail,
     isGitProject,

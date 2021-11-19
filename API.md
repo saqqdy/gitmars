@@ -67,7 +67,7 @@
 <dt><a href="#searchBranch">searchBranch()</a> ⇒ <code>Array</code></dt>
 <dd><p>获取当前分支</p>
 </dd>
-<dt><a href="#searchBranchs">searchBranchs()</a> ⇒ <code>Array</code></dt>
+<dt><a href="#searchBranches">searchBranches()</a> ⇒ <code>Array</code></dt>
 <dd><p>获取当前分支</p>
 </dd>
 <dt><a href="#filterBranch">filterBranch()</a> ⇒ <code>Array</code></dt>
@@ -91,7 +91,7 @@
 <dt><a href="#compareVersion">compareVersion(appName, compareVer, userAgent)</a> ⇒ <code>Boolean</code> | <code>null</code></dt>
 <dd><p>compareVersion版本号大小对比</p>
 </dd>
-<dt><a href="#getBranchsFromID">getBranchsFromID()</a> ⇒ <code>Array</code></dt>
+<dt><a href="#getBranchesFromID">getBranchesFromID()</a> ⇒ <code>Array</code></dt>
 <dd><p>获取包含commitID的分支</p>
 </dd>
 <dt><a href="#getGitUser">getGitUser()</a> ⇒ <code>String</code></dt>
@@ -300,9 +300,9 @@ debug
 
 **Kind**: global function  
 **Returns**: <code>Array</code> - 返回列表数组  
-<a name="searchBranchs"></a>
+<a name="searchBranches"></a>
 
-## searchBranchs() ⇒ <code>Array</code>
+## searchBranches() ⇒ <code>Array</code>
 
 获取当前分支
 
@@ -367,9 +367,9 @@ compareVersion 版本号大小对比
 | compareVer | <code>String</code> | 必传 需要对比的版本号                   |
 | userAgent  | <code>String</code> | ua，可不传，默认取 navigator.appVersion |
 
-<a name="getBranchsFromID"></a>
+<a name="getBranchesFromID"></a>
 
-## getBranchsFromID() ⇒ <code>Array</code>
+## getBranchesFromID() ⇒ <code>Array</code>
 
 获取包含 commitID 的分支
 
