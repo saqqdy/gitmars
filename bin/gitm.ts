@@ -101,7 +101,7 @@ program.on('command:*', function (types: string[], opts: string[]) {
         'get',
         'gt',
         'cleanbranch',
-		'clb',
+        'clb',
         'copy',
         'cp',
         'merge',
