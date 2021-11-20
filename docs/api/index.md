@@ -714,19 +714,27 @@ gitm get "test login"
 > 2.13.0 新增
 > 2.13.1 新增--list参数
 > 2.13.4 新增--confirm参数
+> 2.13.6 新增branches，新增--target
 
 清理合并过的功能分支
 
--   使用：`gitm cleanbranch [-l --list [list]] [--except [exception]] [-t --type [type]] [-r --remote]`
+-   使用：`gitm cleanbranch [branches...] [-l --list [list]] [--except [exception]] [-t --type [type]] [--target [target]] [-r --remote]`
+-   参数：
+
+| 参数     | 说明         | 类型   | 可选值 | 必填 | 默认 |
+| -------- | ------------ | ------ | ------ | ---- | ---- |
+| branches | 指定清理分支 | String | -      | 否   | -    |
+
 -   传值：
 
-| 名称      | 简写 | 说明                                   | 类型          | 可选值 | 传值必填 | 默认  |
-| --------- | ---- | -------------------------------------- | ------------- | ------ | -------- | ----- |
-| --list    | -l   | 显示符合条件的分支列表                 | Boolean       | -      | 否       | false |
-| --except  | -s   | 排除的分支名，支持正则或字符串         | String/RegExp | -      | 否       | -     |
-| --type    | -t   | 分支类型，支持：feature/bugfix/support | String        | -      | 否       | -     |
-| --remote  | -r   | 是否清理远程分支，默认清理本地分支     | Boolean       | -      | 否       | false |
-| --confirm | -c   | 确认开始，为true时不显示确认框         | Boolean       | -      | 否       | false |
+| 名称      | 简写 | 说明                                                     | 类型          | 可选值 | 传值必填 | 默认  |
+| --------- | ---- | -------------------------------------------------------- | ------------- | ------ | -------- | ----- |
+| --list    | -l   | 显示符合条件的分支列表                                   | Boolean       | -      | 否       | false |
+| --except  | -s   | 排除的分支名，支持正则或字符串                           | String/RegExp | -      | 否       | -     |
+| --type    | -t   | 分支类型，支持：feature/bugfix/support                   | String        | -      | 否       | -     |
+| --target  |      | 需要检测是否合过的目标分支名，不传默认是develop和release | String        | -      | 否       | -     |
+| --remote  | -r   | 是否清理远程分支，默认清理本地分支                       | Boolean       | -      | 否       | false |
+| --confirm | -c   | 确认开始，为true时不显示确认框                           | Boolean       | -      | 否       | false |
 
 -   示例：
 
@@ -760,6 +768,18 @@ gitm cleanbranch -r --except "saqqdy$"
 gitm cleanbranch --type feature
 # or
 gitm cleanbranch -t feature
+```
+
+5. 清理指定分支：`feature/10000`和`feature/10001`
+
+```shell
+gitm cleanbranch feature/10000 feature/10001
+```
+
+6. 需要检测是否合过的目标分支名改为只需要合过`release`分支即可
+
+```shell
+gitm cleanbranch --target release
 ```
 
 ### gitm log

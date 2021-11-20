@@ -27,9 +27,32 @@ import { GitmarsOptionOptionsType, GitmarsBranchType } from '../typings'
 interface GitmBuildOption {
     list?: boolean
     type?: GitmarsBranchType
+    target?: string
     except?: string
     remote?: boolean
     confirm?: boolean
+}
+
+/**
+ * 判断是否合过
+ *
+ * @param branch - 分支名称
+ * @param targets - 目标分支，数组或字符串
+ * @param remote - 是否判断远程分支
+ * @returns isMergedTarget - 是否合过
+ */
+function getIsMergedTarget(
+    branch: string,
+    targets: string | string[],
+    remote?: boolean
+) {
+    branch = remote ? 'origin/' + branch : branch
+    if (typeof targets === 'string') targets = [targets]
+    for (const target of targets) {
+        const isMerged = getIsMergedTargetBranch(branch, target, remote)
+        if (!isMerged) return false
+    }
+    return true
 }
 
 /**
@@ -38,7 +61,7 @@ interface GitmBuildOption {
 program
     .name('gitm cleanbranch')
     .usage(
-        '[-l --list [list]] [--except [exception]] [-t --type [type]] [-r --remote]'
+        '[branches...] [-l --list [list]] [--except [exception]] [-t --type [type]] [--target [target]] [-r --remote]'
     )
     .description('清理合并过的功能分支')
 if (args.length > 0) program.arguments(createArgs(args))
@@ -47,23 +70,30 @@ options.forEach((o: GitmarsOptionOptionsType) => {
 })
 // .option('-l, --list', '显示符合条件的分支列表', false)
 // .option('-t, --type [type]', '分支的类型，共有3种：feature、bugfix、support，不传则默认全部', null)
+// .option('--target [target]', '需要检测是否合过的目标分支名，不传默认是develop和release', null)
 // .option('--except [except]', '排除关键词', '')
 // .option('-r, --remote', '是否清理远程分支，默认清理本地分支', false)
 // .option('-c, --confirm', '确认开始，为true时不显示确认框', false)
 // .option('--deadline [deadline]', '删除固定时长之前的分支，填写格式：10s/2m/2h/3d/4M/5y', '15d') -----------------------
-program.action(async (opt: GitmBuildOption) => {
+program.action(async (branches: string[], opt: GitmBuildOption) => {
     const spinner = ora()
     spinner.color = 'green'
     // 管理员以上级别才可执行，必须先配置好权限项
     const current = getCurrent()
+    const targets = opt.target
+        ? opt.target.split(',')
+        : [config.develop, config.release]
     sh.exec(`git fetch`, { silent: true })
     current !== config.develop &&
         sh.exec(`git checkout ${config.develop}`, { silent: true })
-    const branches = searchBranches({
-        remote: opt.remote,
-        type: opt.type,
-        except: opt.except
-    })
+    // 没有传入指定分支，进行查询
+    if (branches.length === 0) {
+        branches = searchBranches({
+            remote: opt.remote,
+            type: opt.type,
+            except: opt.except
+        })
+    }
     let _willDeleteBranch: string[] = []
     if (branches.length > 0) {
         if (!opt.list && !opt.confirm) {
@@ -86,7 +116,6 @@ program.action(async (opt: GitmBuildOption) => {
         sh.exit(0)
     }
     for (const branch of branches) {
-        const branchName = opt.remote ? 'origin/' + branch : branch
         // 跳过主干分支和非二级名称的分支
         if (
             [
@@ -101,24 +130,12 @@ program.action(async (opt: GitmBuildOption) => {
             continue
         }
         spinner.start(success(`开始分析：${branch}`))
-        const isMergedDev = getIsMergedTargetBranch(
-            branchName,
-            config.dev,
-            opt.remote
-        )
-        if (!isMergedDev) {
+        const isMerged = getIsMergedTarget(branch, targets, opt.remote)
+        if (!isMerged) {
             spinner.fail()
             continue
         }
-        const isMergedRelease = getIsMergedTargetBranch(
-            branchName,
-            config.release,
-            opt.remote
-        )
-        if (!isMergedRelease) {
-            spinner.fail()
-            continue
-        }
+
         _willDeleteBranch.push(branch)
         await delay(200)
         spinner.succeed()
@@ -149,8 +166,18 @@ program.action(async (opt: GitmBuildOption) => {
     spinner.stop()
     // 打印列表
     if (opt.list) {
-        sh.echo(success('分析完成，找到了以下分支：'))
-        console.info(_willDeleteBranch)
+        if (_willDeleteBranch.length > 0) {
+            sh.echo(
+                success(
+                    `分析完成，以下分支合并过${targets.join(
+                        ','
+                    )}分支，可以清理：`
+                )
+            )
+            console.info(_willDeleteBranch)
+        } else {
+            sh.echo(success(`分析完成，没有分支需要清理`))
+        }
     } else {
         sh.echo(success('删除完成'))
     }
