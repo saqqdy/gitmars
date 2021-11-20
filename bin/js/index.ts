@@ -497,7 +497,8 @@ function searchBranches(opt: any = {}): string[] {
     }
     const data = sh
         .exec(
-            `git ls-remote --heads --quiet --sort="version:refname" ${path}`,
+            // `git ls-remote --heads --quiet --sort="version:refname" ${path}`,
+            `git ls-remote --heads --quiet ${path}`,
             { silent: true }
         )
         .stdout.replace(/\n*$/g, '')
