@@ -3,7 +3,17 @@ import type { GitmarsOptionType } from '../../typings'
     const cmdConfig: GitmarsOptionType = {
         command: 'cleanbranch',
         short: 'clb',
-        args: [],
+        args: [
+            {
+                required: false,
+                name: 'branches',
+                variadic: true,
+                validator: (val, opts, cb) => {
+                    cb()
+                },
+                description: '指定要清理的分支'
+            }
+        ],
         options: [
             {
                 flags: '-l, --list',
@@ -30,6 +40,20 @@ import type { GitmarsOptionType } from '../../typings'
                     '分支的类型，共有3种：feature、bugfix、support，不传则默认全部',
                 defaultValue: null,
                 options: ['feature', 'bugfix', 'support'],
+                value: ''
+            },
+            {
+                flags: '--target [target]',
+                required: false,
+                optional: true,
+                variadic: false,
+                mandatory: false,
+                short: '',
+                long: '--target',
+                negate: false,
+                description:
+                    '需要检测是否合过的目标分支名，不传默认是develop和release',
+                defaultValue: null,
                 value: ''
             },
             {
