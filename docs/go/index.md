@@ -9,9 +9,13 @@ sidebar: null
 -   使用：`gitm go [command]`
 -   参数：
 
+<div class="table-prop">
+
 | 参数    | 说明     | 类型   | 可选值                                                                                                                                             | 必填 | 默认 |
 | ------- | -------- | ------ | -------------------------------------------------------------------------------------------------------------------------------------------------- | ---- | ---- |
 | command | 指令名称 | String | combine、end、update、build、start、admin.publish、admin.update、admin.create、admin.clean、branch、copy、get、save、clean、revert、link、unlink、postmsg | 否   | -    |
+
+</div>
 
 -   示例：
 

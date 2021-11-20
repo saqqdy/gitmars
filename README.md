@@ -29,7 +29,7 @@
 
 # Gitmars: 一个定制化的`git`工作流操作工具
 
-> 1. gitmars 每一个子命令都带了`help`功能，可输入`gitm [command] --help`获取对应指令的帮助
+> 1. gitmars 每一个子命令都带了`help`功能，可输入`gitm [command] --help`获取对应指令的帮助</br>
 > 2. `<type>`意思是 type 必传；`[type]`意思是 type 选填；`[-a --app [app]]`其中-a 是--app 的简写，后面`[app]`指的是-a 后面的传值
 
 # **完整文档请查阅： [Gitmars 使用文档](http://www.saqqdy.com/gitmars/api/)**
@@ -53,8 +53,7 @@ npm install -g gitmars@lite
 
 # 使用
 
-> 开始： [快速上手](http://www.saqqdy.com/gitmars/guide/getting-start.html)
-
+> 开始： [快速上手](http://www.saqqdy.com/gitmars/guide/getting-start.html)</br>
 > gitmars 配置参数：[参数说明](http://www.saqqdy.com/gitmars/guide/basic-config.html)
 
 ```shell
