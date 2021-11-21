@@ -4,13 +4,19 @@
 
 </div>
 
-<div style="text-align: center;" align="center">
+<div style="text-align: center; margin-bottom: 0.5em;" align="center">
 
 这是一个 git 工作流工具
 
 </div>
 
-<div style="text-align: center; margin-bottom: 0.5em;" align="center">
+<div style="text-align: center; margin-bottom: 1em;" align="center">
+
+### **[Gitmars 使用文档](http://www.saqqdy.com/gitmars/api/)**&nbsp; &nbsp; &nbsp; &nbsp;[更新日志](http://www.saqqdy.com/gitmars/changelog.html)
+
+</div>
+
+<div style="text-align: center; margin-bottom: 1em;" align="center">
 
 [![NPM version][npm-image]][npm-url]
 [![build status][travis-image]][travis-url]
@@ -20,12 +26,6 @@
 [![License][license-image]][license-url]
 
 [![Sonar][sonar-image]][sonar-url]
-
-</div>
-
-<div style="text-align: center; margin-bottom: 1em;" align="center">
-
-### **[Gitmars 使用文档](http://www.saqqdy.com/gitmars/api/)**&nbsp; &nbsp; &nbsp; &nbsp;[更新日志](http://www.saqqdy.com/gitmars/changelog.html)
 
 </div>
 
