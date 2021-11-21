@@ -5,7 +5,7 @@ const path = require('path')
 const sh = require('shelljs')
 const { options, args } = require('./conf/ui')
 // const { pwd } = require('./js/global')
-const { createArgs } = require('./js/tools')
+const { createArgs } = require('./js/utils/index')
 
 import { GitmarsOptionOptionsType } from '../typings'
 

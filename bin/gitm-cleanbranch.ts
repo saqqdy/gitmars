@@ -10,10 +10,9 @@ const {
     searchBranches,
     delay
 } = require('./js/index')
-const { error, success } = require('./js/utils/index')
+const { error, success, createArgs } = require('./js/utils/index')
 const getIsMergedTargetBranch = require('./js/branch/getIsMergedTargetBranch')
 const getIsBranchOrCommitExist = require('./js/branch/getIsBranchOrCommitExist')
-const { createArgs } = require('./js/tools')
 if (!isGitProject()) {
     sh.echo(error('当前目录不是git项目目录'))
     sh.exit(1)

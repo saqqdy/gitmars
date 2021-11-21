@@ -1,6 +1,7 @@
 const { warning, error, success } = require('./colors')
 const { writeFile, isFileExist } = require('./file')
 const { isCacheExpired, updateCacheTime } = require('./cache')
+const { createArgs } = require('./command')
 
 module.exports = {
     warning,
@@ -11,5 +12,7 @@ module.exports = {
     isFileExist,
 
     isCacheExpired,
-    updateCacheTime
+    updateCacheTime,
+
+    createArgs
 }

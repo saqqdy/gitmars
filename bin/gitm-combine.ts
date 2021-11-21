@@ -10,12 +10,11 @@ const {
     searchBranch,
     isGitProject
 } = require('./js/index')
-const { error, warning } = require('./js/utils/index')
+const { error, warning, createArgs } = require('./js/utils/index')
 const { getCurlMergeRequestCommand } = require('./js/shell')
 const { isNeedUpgrade, upgradeGitmars } = require('./js/versionControl')
 const getIsMergedTargetBranch = require('./js/branch/getIsMergedTargetBranch')
 const getIsUpdatedInTime = require('./js/branch/getIsUpdatedInTime')
-const { createArgs } = require('./js/tools')
 const { defaults } = require('./js/global')
 
 import {

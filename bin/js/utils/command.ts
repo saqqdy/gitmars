@@ -1,6 +1,4 @@
-const fs = require('fs')
-
-import type { GitmarsOptionArgsType } from '../../typings'
+import type { GitmarsOptionArgsType } from '../../../typings'
 
 /**
  * createArgs

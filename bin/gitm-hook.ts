@@ -7,8 +7,7 @@ const {
     getBranchesFromID,
     isGitProject
 } = require('./js/index')
-const { error, success } = require('./js/utils/index')
-const { createArgs } = require('./js/tools')
+const { error, success, createArgs } = require('./js/utils/index')
 const getIsMergedTargetBranch = require('./js/branch/getIsMergedTargetBranch')
 const getIsUpdatedInTime = require('./js/branch/getIsUpdatedInTime')
 const getIsMergeAction = require('./js/branch/getIsMergeAction')

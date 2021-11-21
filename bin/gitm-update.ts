@@ -11,7 +11,7 @@ const {
 } = require('./js/index')
 const { error } = require('./js/utils/index')
 const { isNeedUpgrade, upgradeGitmars } = require('./js/versionControl')
-const { createArgs } = require('./js/tools')
+const { createArgs } = require('./js/utils/index')
 if (!isGitProject()) {
     sh.echo(error('当前目录不是git项目目录'))
     sh.exit(1)

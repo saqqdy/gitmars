@@ -4,7 +4,7 @@ const { spawnSync } = require('child_process')
 const sh = require('shelljs')
 const { options, args } = require('./conf/upgrade')
 const { error, success } = require('./js/utils/index')
-const { createArgs } = require('./js/tools')
+const { createArgs } = require('./js/utils/index')
 const ora = require('ora')
 
 import { GitmarsOptionOptionsType, PackageVersionTag } from '../typings'

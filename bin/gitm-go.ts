@@ -6,8 +6,7 @@ const { options, args } = require('./conf/go')
 const { getProperty } = require('js-cool')
 const commands = require('./js/go/index')
 const { getCurrent } = require('./js/index')
-const { error, success } = require('./js/utils/index')
-const { createArgs } = require('./js/tools')
+const { error, success, createArgs } = require('./js/utils/index')
 
 import { GitmarsOptionOptionsType } from '../typings'
 
