@@ -28,7 +28,9 @@ interface GitmBuildOption {
     list?: boolean
     type?: GitmarsBranchType
     target?: string
-    except?: string
+    key?: string
+    exclude?: string
+	include?: string
     remote?: boolean
     confirm?: boolean
 }
@@ -61,7 +63,7 @@ function getIsMergedTarget(
 program
     .name('gitm cleanbranch')
     .usage(
-        '[branches...] [-l --list [list]] [--except [exception]] [-t --type [type]] [--target [target]] [-r --remote]'
+        '[branches...] [-l --list [list]] [-k --key [keyword]] [--exclude [exclude]] [--include [include]] [-t --type [type]] [--target [target]] [-r --remote]'
     )
     .description('清理合并过的功能分支')
 if (args.length > 0) program.arguments(createArgs(args))
@@ -71,7 +73,9 @@ options.forEach((o: GitmarsOptionOptionsType) => {
 // .option('-l, --list', '显示符合条件的分支列表', false)
 // .option('-t, --type [type]', '分支的类型，共有3种：feature、bugfix、support，不传则默认全部', null)
 // .option('--target [target]', '需要检测是否合过的目标分支名，不传默认是develop和release', null)
-// .option('--except [except]', '排除关键词', '')
+// .option('-k, --key [keyword]', '查询分支的关键词', null)
+// .option('--exclude [exclude]', '排除关键词', '')
+// .option('--include [include]', '包含关键词', '')
 // .option('-r, --remote', '是否清理远程分支，默认清理本地分支', false)
 // .option('-c, --confirm', '确认开始，为true时不显示确认框', false)
 // .option('--deadline [deadline]', '删除固定时长之前的分支，填写格式：10s/2m/2h/3d/4M/5y', '15d') -----------------------
@@ -91,7 +95,9 @@ program.action(async (branches: string[], opt: GitmBuildOption) => {
         branches = searchBranches({
             remote: opt.remote,
             type: opt.type,
-            except: opt.except
+			key: opt.key,
+            exclude: opt.exclude,
+            include: opt.include
         })
     }
     let _willDeleteBranch: string[] = []

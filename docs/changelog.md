@@ -1,5 +1,11 @@
 # 更新日志
 
+## 2021.11.22 v2.13.9 更新日志
+
+1. `cleanbranch`指令增加`--key`传参，传递筛选关键词
+2. `cleanbranch`指令新增`--include`传参，用于正则筛选分支
+3. `cleanbranch`指令`--except`传参更改为`--exclude`，用法不变
+
 ## 2021.11.21 v2.13.8 更新日志
 
 1. 优化脚本执行提示，增加`processing`状态提示
@@ -43,7 +49,7 @@
 ## 2021.11.18 v2.13.0 更新日志
 
 1. 新增`cleanbranch`指令，清理合并过的功能分支
-2. `searchBranches`方法改进，支持多类型查找，增加`local`参数和`except`正则排除
+2. `searchBranches`方法改进，支持多类型查找，增加`local`参数和`exclude`正则排除
 
 ## 2021.11.18 v2.12.8 更新日志
 
