@@ -1,6 +1,16 @@
-<div style="text-align: center;">
+<div style="text-align: center;" align="center">
 
-![logo.png](https://raw.githubusercontent.com/saqqdy/gitmars/master/static/img/logo.png)
+## ![logo.png](https://raw.githubusercontent.com/saqqdy/gitmars/master/static/img/logo.png)
+
+</div>
+
+<div style="text-align: center;" align="center">
+
+这是一个 git 工作流工具
+
+</div>
+
+<div style="text-align: center; margin-bottom: 20px;" align="center">
 
 [![NPM version][npm-image]][npm-url]
 [![build status][travis-image]][travis-url]
@@ -11,33 +21,18 @@
 
 [![Sonar][sonar-image]][sonar-url]
 
-[npm-image]: https://img.shields.io/npm/v/gitmars.svg?style=flat-square
-[npm-url]: https://npmjs.org/package/gitmars
-[travis-image]: https://travis-ci.com/saqqdy/gitmars.svg?branch=master
-[travis-url]: https://travis-ci.com/saqqdy/gitmars
-[codecov-image]: https://img.shields.io/codecov/c/github/saqqdy/gitmars.svg?style=flat-square
-[codecov-url]: https://codecov.io/github/saqqdy/gitmars?branch=master
-[snyk-image]: https://snyk.io/test/npm/gitmars/badge.svg?style=flat-square
-[snyk-url]: https://snyk.io/test/npm/gitmars
-[download-image]: https://img.shields.io/npm/dm/gitmars.svg?style=flat-square
-[download-url]: https://npmjs.org/package/gitmars
-[license-image]: https://img.shields.io/badge/License-ISC-blue.svg
-[license-url]: LICENSE
-[sonar-image]: https://sonarcloud.io/api/project_badges/quality_gate?project=saqqdy_gitmars
-[sonar-url]: https://sonarcloud.io/dashboard?id=saqqdy_gitmars
-
 </div>
 
-# Gitmars: 一个定制化的`git`工作流操作工具
+<div style="text-align: center; margin-bottom: 20px;" align="center">
+
+### **[Gitmars 使用文档](http://www.saqqdy.com/gitmars/api/)**&nbsp; &nbsp; &nbsp; &nbsp;[更新日志](http://www.saqqdy.com/gitmars/changelog.html)
+
+</div>
 
 > 1. gitmars 每一个子命令都带了`help`功能，可输入`gitm [command] --help`获取对应指令的帮助</br>
 > 2. `<type>`意思是 type 必传；`[type]`意思是 type 选填；`[-a --app [app]]`其中-a 是--app 的简写，后面`[app]`指的是-a 后面的传值
 
-# **完整文档请查阅： [Gitmars 使用文档](http://www.saqqdy.com/gitmars/api/)**
-
-> 更新日志请查阅：[Gitmars 更新日志](http://www.saqqdy.com/gitmars/changelog.html)
-
-# 安装
+## 安装
 
 > Windows 用户需要先安装`Python`
 
@@ -52,7 +47,7 @@ yarn global add gitmars
 npm install -g gitmars@lite
 ```
 
-# 使用
+## 使用
 
 > 开始： [快速上手](http://www.saqqdy.com/gitmars/guide/getting-start.html)</br>
 > gitmars 配置参数：[参数说明](http://www.saqqdy.com/gitmars/guide/basic-config.html)
@@ -76,17 +71,17 @@ gitm --help
 gitm copy --help
 ```
 
-# 工作流展示
+## 工作流展示
 
-## 1. 双主干分支发版模式
+### 1. 双主干分支发版模式
 
 ![gitmars-branch.png](https://raw.githubusercontent.com/saqqdy/gitmars/master/static/img/gitmars-branch.png)
 
-## 2. 单主干分支发版模式
+### 2. 单主干分支发版模式
 
 ![gitmars-branch.png](https://raw.githubusercontent.com/saqqdy/gitmars/master/static/img/gitmars-branch2.png)
 
-# 有哪些功能
+## 有哪些功能
 
 -   初始化 gitmars 配置 [gitm init](http://www.saqqdy.com/gitmars/api/#gitm-init)
 -   查看/设置 gitmars 的配置项 [gitm config](http://www.saqqdy.com/gitmars/api/#gitm-config)
@@ -122,9 +117,9 @@ gitm copy --help
 -   清理分支 [gitm admin clean](http://www.saqqdy.com/gitmars/api/#gitm-admin-clean)
 -   查看版本号 [gitm version](http://www.saqqdy.com/gitmars/api/#gitm-version)
 
-# 智能导航
+## 智能导航
 
-## gitm go
+### gitm go
 
 智能导航指令，只记一条指令就能完成所有功能使用
 
@@ -145,9 +140,9 @@ gitm go build
 
 ![gitmars-go.gif](https://raw.githubusercontent.com/saqqdy/gitmars/master/static/img/gitmars-go.gif)
 
-# UI 界面
+## UI 界面
 
-## gitm ui
+### gitm ui
 
 如果你厌倦了敲指令，gitmars 提供了懒人 UI 界面
 
@@ -167,3 +162,18 @@ gitm ui --port 3000
 -   演示：
 
 ![gitmars-ui.gif](https://raw.githubusercontent.com/saqqdy/gitmars/master/static/img/gitmars-ui.gif)
+
+[npm-image]: https://img.shields.io/npm/v/gitmars.svg?style=flat-square
+[npm-url]: https://npmjs.org/package/gitmars
+[travis-image]: https://travis-ci.com/saqqdy/gitmars.svg?branch=master
+[travis-url]: https://travis-ci.com/saqqdy/gitmars
+[codecov-image]: https://img.shields.io/codecov/c/github/saqqdy/gitmars.svg?style=flat-square
+[codecov-url]: https://codecov.io/github/saqqdy/gitmars?branch=master
+[snyk-image]: https://snyk.io/test/npm/gitmars/badge.svg?style=flat-square
+[snyk-url]: https://snyk.io/test/npm/gitmars
+[download-image]: https://img.shields.io/npm/dm/gitmars.svg?style=flat-square
+[download-url]: https://npmjs.org/package/gitmars
+[license-image]: https://img.shields.io/badge/License-ISC-blue.svg
+[license-url]: LICENSE
+[sonar-image]: https://sonarcloud.io/api/project_badges/quality_gate?project=saqqdy_gitmars
+[sonar-url]: https://sonarcloud.io/dashboard?id=saqqdy_gitmars

@@ -96,7 +96,7 @@ program.action(
             shell: process.platform === 'win32' /*, env: { detached: true }*/
         })
         spawnSync('gitm', ['-v'], {
-            stdio: 'ignore',
+            stdio: 'inherit',
             shell: process.platform === 'win32' /*, env: { detached: true }*/
         })
         if (install.status === 0) {
