@@ -25,7 +25,7 @@
 
 <div style="text-align: center;" align="center">
 
-# **[Gitmars 使用文档](http://www.saqqdy.com/gitmars/api/)**
+## **[Gitmars 使用文档](http://www.saqqdy.com/gitmars/api/)**
 
 [更新日志](http://www.saqqdy.com/gitmars/changelog.html)
 
