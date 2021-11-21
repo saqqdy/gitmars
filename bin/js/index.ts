@@ -1,7 +1,7 @@
 const fs = require('fs')
 const sh = require('shelljs')
 const ora = require('ora')
-const isFileExist = require('./isFileExist')
+const { isFileExist } = require('./utils/index')
 const getGitConfig = require('./getGitConfig')
 const gitRevParse = require('./gitRevParse')
 const getConfig = require('./getConfig')

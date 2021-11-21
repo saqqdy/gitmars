@@ -1,4 +1,4 @@
-const isFileExist = require('./isFileExist')
+const { isFileExist } = require('./utils/index')
 const gitRevParse = require('./gitRevParse')
 const { root } = gitRevParse()
 /**
