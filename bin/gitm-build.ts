@@ -1,8 +1,8 @@
 #!/usr/bin/env ts-node
 const { program } = require('commander')
 const { options, args } = require('./conf/build')
-const { createArgs } = require('./js/utils/index')
-const runJenkins = require('./js/runJenkins')
+const { createArgs } = require('./core/utils/index')
+const runJenkins = require('./core/runJenkins')
 
 import { GitmarsOptionOptionsType } from '../typings'
 

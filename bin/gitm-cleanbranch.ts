@@ -4,20 +4,20 @@ const sh = require('shelljs')
 const inquirer = require('inquirer')
 const ora = require('ora')
 const { options, args } = require('./conf/cleanbranch')
-const { delay } = require('./js/index')
+const { delay } = require('./core/index')
 const {
     getIsGitProject,
     searchBranches,
     getCurrentBranch
-} = require('./js/git/index')
-const { error, success, createArgs } = require('./js/utils/index')
-const getIsMergedTargetBranch = require('./js/branch/getIsMergedTargetBranch')
-const getIsBranchOrCommitExist = require('./js/branch/getIsBranchOrCommitExist')
+} = require('./core/git/index')
+const { error, success, createArgs } = require('./core/utils/index')
+const getIsMergedTargetBranch = require('./core/branch/getIsMergedTargetBranch')
+const getIsBranchOrCommitExist = require('./core/branch/getIsBranchOrCommitExist')
 if (!getIsGitProject()) {
     sh.echo(error('当前目录不是git项目目录'))
     sh.exit(1)
 }
-const getConfig = require('./js/getConfig')
+const getConfig = require('./core/getConfig')
 const config = getConfig()
 
 import { GitmarsOptionOptionsType, GitmarsBranchType } from '../typings'

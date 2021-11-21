@@ -2,17 +2,17 @@
 const { program } = require('commander')
 const sh = require('shelljs')
 const { options, args } = require('./conf/update')
-const { queue, getStatus, filterBranch } = require('./js/index')
-const { getIsGitProject, getCurrentBranch } = require('./js/git/index')
-const { error } = require('./js/utils/index')
-const { isNeedUpgrade, upgradeGitmars } = require('./js/versionControl')
-const { createArgs } = require('./js/utils/index')
+const { queue, getStatus, filterBranch } = require('./core/index')
+const { getIsGitProject, getCurrentBranch } = require('./core/git/index')
+const { error } = require('./core/utils/index')
+const { isNeedUpgrade, upgradeGitmars } = require('./core/versionControl')
+const { createArgs } = require('./core/utils/index')
 if (!getIsGitProject()) {
     sh.echo(error('当前目录不是git项目目录'))
     sh.exit(1)
 }
-const getConfig = require('./js/getConfig')
-const { defaults } = require('./js/global')
+const getConfig = require('./core/getConfig')
+const { defaults } = require('./core/global')
 const config = getConfig()
 
 import { GitmarsOptionOptionsType, CommandType } from '../typings'

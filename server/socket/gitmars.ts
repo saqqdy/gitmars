@@ -1,5 +1,5 @@
 const home = require('../lib/home')()
-const { getCurrentBranch, searchBranches } = require('../../lib/js/git/index')
+const { getCurrentBranch, searchBranches } = require('../../lib/core/git/index')
 
 import type { Socket } from 'socket.io'
 
@@ -21,10 +21,10 @@ let glob = {},
  * @param {*} option 参数
  */
 const getData = (socket: Socket, option: SocketOption) => {
-	delete require.cache[require.resolve('../../lib/js/global')]
-	delete require.cache[require.resolve('../../lib/js/config')]
-	let g = require('../../lib/js/global'),
-		c = require('../../lib/js/config'),
+	delete require.cache[require.resolve('../../lib/core/global')]
+	delete require.cache[require.resolve('../../lib/core/config')]
+	let g = require('../../lib/core/global'),
+		c = require('../../lib/core/config'),
 		bh = searchBranches({ path: option.cwd || home }),
 		cur = getCurrentBranch({ path: option.cwd || home })
 	if (!glob || JSON.stringify(glob) !== JSON.stringify(g)) {

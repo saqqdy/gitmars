@@ -1,9 +1,9 @@
 #!/usr/bin/env ts-node
 const { program } = require('commander')
 const sh = require('shelljs')
-const { queue } = require('./js/index')
-const { getIsGitProject } = require('./js/git/index')
-const { error } = require('./js/utils/index')
+const { queue } = require('./core/index')
+const { getIsGitProject } = require('./core/git/index')
+const { error } = require('./core/utils/index')
 if (!getIsGitProject()) {
     sh.echo(error('当前目录不是git项目目录'))
     sh.exit(1)

@@ -1,15 +1,15 @@
 #!/usr/bin/env ts-node
 const { program } = require('commander')
 const sh = require('shelljs')
-const gitRevParse = require('./js/gitRevParse')
-const { getIsGitProject } = require('./js/git/index')
-const { error, success, writeFile } = require('./js/utils/index')
-const { defaults } = require('./js/global')
+const gitRevParse = require('./core/gitRevParse')
+const { getIsGitProject } = require('./core/git/index')
+const { error, success, writeFile } = require('./core/utils/index')
+const { defaults } = require('./core/global')
 if (!getIsGitProject()) {
     sh.echo(error('当前目录不是git项目目录'))
     sh.exit(1)
 }
-const getConfig = require('./js/getConfig')
+const getConfig = require('./core/getConfig')
 const config = getConfig()
 
 /**

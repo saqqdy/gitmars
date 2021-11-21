@@ -1,9 +1,9 @@
 #!/usr/bin/env ts-node
 const { program } = require('commander')
 const sh = require('shelljs')
-const { getCurrentBranch } = require('./js/git/index')
-const { error } = require('./js/utils/index')
-const getConfig = require('./js/getConfig')
+const { getCurrentBranch } = require('./core/git/index')
+const { error } = require('./core/utils/index')
+const getConfig = require('./core/getConfig')
 const config = getConfig()
 
 interface GitmBuildOption {

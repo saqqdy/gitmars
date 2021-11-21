@@ -2,17 +2,17 @@
 const { program } = require('commander')
 const sh = require('shelljs')
 const { options, args } = require('./conf/start')
-const { queue, getStatus } = require('./js/index')
-const { getIsGitProject } = require('./js/git/index')
-const { error, success } = require('./js/utils/index')
-const { isNeedUpgrade, upgradeGitmars } = require('./js/versionControl')
-const { createArgs } = require('./js/utils/index')
+const { queue, getStatus } = require('./core/index')
+const { getIsGitProject } = require('./core/git/index')
+const { error, success } = require('./core/utils/index')
+const { isNeedUpgrade, upgradeGitmars } = require('./core/versionControl')
+const { createArgs } = require('./core/utils/index')
 const { getType } = require('js-cool')
 if (!getIsGitProject()) {
     sh.echo(error('当前目录不是git项目目录'))
     sh.exit(1)
 }
-const getConfig = require('./js/getConfig')
+const getConfig = require('./core/getConfig')
 const config = getConfig()
 
 import {

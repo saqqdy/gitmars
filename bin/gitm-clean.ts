@@ -5,14 +5,14 @@ const sh = require('shelljs')
 const inquirer = require('inquirer')
 const ora = require('ora')
 const { options, args } = require('./conf/clean')
-const { getIsGitProject } = require('./js/git/index')
+const { getIsGitProject } = require('./core/git/index')
 const {
     success,
     warning,
     isFileExist,
     createArgs
-} = require('./js/utils/index')
-const gitRevParse = require('./js/gitRevParse')
+} = require('./core/utils/index')
+const gitRevParse = require('./core/gitRevParse')
 const cacheDir = path.join(__dirname, '../cache')
 const { gitDir } = gitRevParse()
 

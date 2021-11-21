@@ -4,9 +4,9 @@ const sh = require('shelljs')
 const inquirer = require('inquirer')
 const { options, args } = require('./conf/go')
 const { getProperty } = require('js-cool')
-const commands = require('./js/go/index')
-const { getCurrentBranch } = require('./js/git/index')
-const { error, success, createArgs } = require('./js/utils/index')
+const commands = require('./core/go/index')
+const { getCurrentBranch } = require('./core/git/index')
+const { error, success, createArgs } = require('./core/utils/index')
 
 import { GitmarsOptionOptionsType } from '../typings'
 

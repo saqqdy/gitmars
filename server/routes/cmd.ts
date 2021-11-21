@@ -2,8 +2,8 @@ import express, { Request, Response, NextFunction } from 'express'
 const router = express.Router()
 const fs = require('fs')
 // const sh = require('shelljs')
-const glob = require('../../lib/js/global')
-const { getCurrentBranch, searchBranches } = require('../../lib/js/git/index')
+const glob = require('../../lib/core/global')
+const { getCurrentBranch, searchBranches } = require('../../lib/core/git/index')
 
 // const error503 = (res: Response) => {
 // 	res.status(503).send({ data: null, success: false, code: 0, msg: 'fail' })

@@ -1,9 +1,9 @@
 #!/usr/bin/env ts-node
 const { program } = require('commander')
 const { options, args } = require('./conf/postmsg')
-const sendGroupMessage = require('./js/sendGroupMessage')
-const { createArgs } = require('./js/utils/index')
-const { encodeUnicode } = require('./js/unicode')
+const sendGroupMessage = require('./core/sendGroupMessage')
+const { createArgs } = require('./core/utils/index')
+const { encodeUnicode } = require('./core/unicode')
 
 import { GitmarsOptionOptionsType } from '../typings'
 
