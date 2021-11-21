@@ -2,6 +2,8 @@
 title: guide
 ---
 
+<div style="text-align: center;">
+
 ![logo.png](https://raw.githubusercontent.com/saqqdy/gitmars/master/static/img/logo.png)
 
 [![NPM version][npm-image]][npm-url]
@@ -27,6 +29,8 @@ title: guide
 [license-url]: LICENSE
 [sonar-image]: https://sonarcloud.io/api/project_badges/quality_gate?project=saqqdy_gitmars
 [sonar-url]: https://sonarcloud.io/dashboard?id=saqqdy_gitmars
+
+</div>
 
 ## 它是如何工作的
 
