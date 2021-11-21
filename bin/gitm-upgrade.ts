@@ -3,7 +3,7 @@ const { program } = require('commander')
 const { spawnSync } = require('child_process')
 const sh = require('shelljs')
 const { options, args } = require('./conf/upgrade')
-const { success, error } = require('./js/index')
+const { error, success } = require('./js/utils/index')
 const { createArgs } = require('./js/tools')
 const ora = require('ora')
 

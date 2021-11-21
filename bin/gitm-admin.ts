@@ -5,14 +5,13 @@ const { create, publish, update, clean } = require('./conf/admin')
 const getUserToken = require('./js/api')
 const { getType } = require('js-cool')
 const {
-    error,
-    success,
     queue,
     getStatus,
     checkBranch,
     getCurrent,
     isGitProject
 } = require('./js/index')
+const { error, success } = require('./js/utils/index')
 const { getCurlMergeRequestCommand } = require('./js/shell')
 const { createArgs } = require('./js/tools')
 if (!isGitProject()) {

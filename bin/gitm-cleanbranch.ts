@@ -5,13 +5,12 @@ const inquirer = require('inquirer')
 const ora = require('ora')
 const { options, args } = require('./conf/cleanbranch')
 const {
-    error,
-    success,
     isGitProject,
     getCurrent,
     searchBranches,
     delay
 } = require('./js/index')
+const { error, success } = require('./js/utils/index')
 const getIsMergedTargetBranch = require('./js/branch/getIsMergedTargetBranch')
 const getIsBranchOrCommitExist = require('./js/branch/getIsBranchOrCommitExist')
 const { createArgs } = require('./js/tools')

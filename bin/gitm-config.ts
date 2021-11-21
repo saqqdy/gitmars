@@ -2,7 +2,8 @@
 const { program } = require('commander')
 const sh = require('shelljs')
 const gitRevParse = require('./js/gitRevParse')
-const { error, success, writeFile, isGitProject } = require('./js/index')
+const { writeFile, isGitProject } = require('./js/index')
+const { error, success } = require('./js/utils/index')
 const { defaults } = require('./js/global')
 if (!isGitProject()) {
     sh.echo(error('当前目录不是git项目目录'))

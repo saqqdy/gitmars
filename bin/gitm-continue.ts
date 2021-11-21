@@ -4,15 +4,14 @@ const sh = require('shelljs')
 const inquirer = require('inquirer')
 const { options, args } = require('./conf/continue')
 const {
-    success,
     queue,
     getCache,
     getStatusInfo,
     cleanCache,
     isGitProject
 } = require('./js/index')
+const { error, success, warning } = require('./js/utils/index')
 const { createArgs } = require('./js/tools')
-const { error, warning } = require('./js/utils/index')
 if (!isGitProject()) {
     sh.echo(error('当前目录不是git项目目录'))
     sh.exit(1)
