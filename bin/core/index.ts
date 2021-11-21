@@ -1,8 +1,7 @@
-const fs = require('fs')
 const sh = require('shelljs')
 const ora = require('ora')
 const { isFileExist } = require('./utils/index')
-const getGitConfig = require('./getGitConfig')
+const { getGitConfig } = require('./git/index')
 const gitRevParse = require('./gitRevParse')
 const getConfig = require('./getConfig')
 
@@ -600,4 +599,3 @@ export function getGitEmail(): string {
         .exec('git config user.email', { silent: true })
         .stdout.replace(/(^\s+|\n*$)/g, '') // 去除首尾
 }
-

@@ -7,9 +7,10 @@ export interface GitProjectConfigType {
 }
 
 /**
- * getGitConfig
- * @description 获取git配置
- * @returns {Object} arr 返回对象
+ * 获取git配置
+ * 
+ * @param cwd - 当前工作目录
+ * @returns config - GitProjectConfigType
  */
 function getGitConfig(cwd: string = process.cwd()): GitProjectConfigType {
     const result = sh
@@ -26,3 +27,4 @@ function getGitConfig(cwd: string = process.cwd()): GitProjectConfigType {
 }
 
 module.exports = getGitConfig
+export {}

@@ -1,4 +1,4 @@
-const getGitConfig = require('../getGitConfig')
+const { getGitConfig } = require('../git/index')
 const gitRevParse = require('../gitRevParse')
 const { gitUrl } = getGitConfig()
 const { root } = gitRevParse()
