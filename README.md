@@ -3,7 +3,6 @@
 [![NPM version][npm-image]][npm-url]
 [![build status][travis-image]][travis-url]
 [![Test coverage][codecov-image]][codecov-url]
-[![David deps][david-image]][david-url]
 [![Known Vulnerabilities][snyk-image]][snyk-url]
 [![npm download][download-image]][download-url]
 [![License][license-image]][license-url]
@@ -16,13 +15,11 @@
 [travis-url]: https://travis-ci.com/saqqdy/gitmars
 [codecov-image]: https://img.shields.io/codecov/c/github/saqqdy/gitmars.svg?style=flat-square
 [codecov-url]: https://codecov.io/github/saqqdy/gitmars?branch=master
-[david-image]: https://img.shields.io/david/saqqdy/gitmars.svg?style=flat-square
-[david-url]: https://david-dm.org/saqqdy/gitmars
 [snyk-image]: https://snyk.io/test/npm/gitmars/badge.svg?style=flat-square
 [snyk-url]: https://snyk.io/test/npm/gitmars
 [download-image]: https://img.shields.io/npm/dm/gitmars.svg?style=flat-square
 [download-url]: https://npmjs.org/package/gitmars
-[license-image]: https://img.shields.io/badge/License-ISC-yellow.svg
+[license-image]: https://img.shields.io/badge/License-ISC-blue.svg
 [license-url]: LICENSE
 [sonar-image]: https://sonarcloud.io/api/project_badges/quality_gate?project=saqqdy_gitmars
 [sonar-url]: https://sonarcloud.io/dashboard?id=saqqdy_gitmars
