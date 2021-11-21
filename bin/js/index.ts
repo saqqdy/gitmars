@@ -13,8 +13,7 @@ import type {
     CommandType,
     QueueReturnsType,
     GitStatusInfoType,
-    GitmarsBranchType,
-    GitLogType
+    GitmarsBranchType
 } from '../../typings'
 
 export interface CommandMessageType {
@@ -33,12 +32,6 @@ export type WaitCallback = {
 
 export type QueueStartFunction = {
     (command?: CommandType | string, cb?: WaitCallback): void
-}
-
-export interface SearchBranchesMapType {
-    heads: string[]
-    tags: string[]
-    others: string[]
 }
 
 /**
@@ -65,39 +58,6 @@ export function mapTemplate(
     return str
 }
 
-/**
- * getSeconds
- * @description 传入字符串转换成时间（秒）
- */
-export function getSeconds(str: string): number | null {
-    const match = String(str).match(/^(\d+)([a-zA-Z]+)$/)
-    let time
-    if (!match) return null
-    time = +match[1]
-    switch (match[2]) {
-        case 'm':
-            time *= 60
-            break
-        case 'h':
-            time *= 3600
-            break
-        case 'd':
-            time *= 86400
-            break
-        case 'w':
-            time *= 604800
-            break
-        case 'M':
-            time *= 2592000
-            break
-        case 'y':
-            time *= 31536000
-            break
-        default:
-            break
-    }
-    return parseInt(String(Date.now() / 1000 - time))
-}
 /**
  * wait
  * @description 递归执行程序
@@ -324,99 +284,6 @@ export function getStatus(): boolean {
 }
 
 /**
- * getLogs
- * @description 获取日志
- * @returns {Array} true 返回列表
- */
-export function getLogs(config: any = {}): GitLogType[] {
-    const { lastet, limit, branches, params = '' } = config
-    const keys = [
-        '%H',
-        // '%h',
-        '%T',
-        // '%t',
-        '%P',
-        // '%p',
-        '%an',
-        // '%aN',
-        '%ae',
-        // '%aE',
-        '%al',
-        '%aL',
-        '%ad',
-        // '%aD',
-        '%ar',
-        '%at',
-        // '%ai',
-        '%aI',
-        '%as',
-        '%cn',
-        // '%cN',
-        '%ce',
-        // '%cE',
-        '%cl',
-        '%cL',
-        '%cd',
-        // '%cD',
-        '%cr',
-        '%ct',
-        // '%ci',
-        '%cI',
-        '%cs',
-        '%d',
-        '%D',
-        // %(describe[:options]), // human-readable name, like git-describe[1]; empty string for undescribable commits. The describe string may be followed by a colon and zero or more comma-separated options. Descriptions can be inconsistent when tags are added or removed at the same time.
-        '%S', // ref name given on the command line by which the commit was reached (like git log --source), only works with git log
-        '%e', // encoding
-        // ----------
-        '%s', // subject
-        '%f', // sanitized subject line, suitable for a filename
-        '%b', // body
-        '%B', // raw body (unwrapped subject and body)
-        '%N', // commit notes
-        '%GG', // raw verification message from GPG for a signed commit
-        '%G?', // show "G" for a good (valid) signature, "B" for a bad signature, "U" for a good signature with unknown validity, "X" for a good signature that has expired, "Y" for a good signature made by an expired key, "R" for a good signature made by a revoked key, "E" if the signature cannot be checked (e.g. missing key) and "N" for no signature
-        '%GS', // show the name of the signer for a signed commit
-        '%GK', // show the key used to sign a signed commit
-        '%GF', // show the fingerprint of the key used to sign a signed commit
-        '%GP', // show the fingerprint of the primary key whose subkey was used to sign a signed commit
-        '%GT', // show the trust level for the key used to sign a signed commit
-        '%gD', // reflog selector, e.g., refs/stash@{1} or refs/stash@{2 minutes ago}; the format follows the rules described for the -g option. The portion before the @ is the refname as given on the command line (so git log -g refs/heads/master would yield refs/heads/master@{0}).
-        '%gd', // shortened reflog selector; same as %gD, but the refname portion is shortened for human readability (so refs/heads/master becomes just master).
-        '%gn', // reflog identity name
-        '%gN', // reflog identity name (respecting .mailmap, see git-shortlog[1] or git-blame[1])
-        '%ge', // reflog identity email
-        '%gE', // reflog identity email (respecting .mailmap, see git-shortlog[1] or git-blame[1])
-        '%gs' // reflog subject
-        // '%(trailers:key=Reviewed-by)' // display the trailers of the body as interpreted by git-interpret-trailers[1]. The trailers string may be followed by a colon and zero or more comma-separated options. If any option is provided multiple times the last occurrence wins.
-    ]
-    const results = sh
-        .exec(
-            `git log${limit ? ' -"' + limit + '"' : ''}${
-                lastet ? ' --since="' + getSeconds(lastet) + '"' : ''
-            }${
-                branches ? ' --branches="*' + branches + '"' : ''
-            } --date-order --pretty=format:"${keys.join(',=')}-end-" ${params}`,
-            { silent: true }
-        )
-        .stdout.replace(/[\r\n]+/g, '')
-        .replace(/-end-$/, '')
-    const logList: GitLogType[] = []
-    results &&
-        results.split('-end-').forEach((log: string) => {
-            const args = log.split(',=')
-            const map: {
-                [props: string]: string
-            } = {}
-            keys.forEach((key, i) => {
-                map[key] = args[i]
-            })
-            logList.push(map)
-        })
-    return logList
-}
-
-/**
  * checkBranch
  * @description 获取是否有某个分支
  * @returns {Boolean} true 返回true/false
@@ -430,17 +297,6 @@ export async function checkBranch(name: string): Promise<string> {
 // 		return resolve(data[0].out.replace(/^\s+/, ''))
 // 	})
 // }
-
-/**
- * getCurrent
- * @description 获取当前分支
- * @returns {String} 返回名称
- */
-export function getCurrent(): string {
-    return sh
-        .exec('git symbolic-ref --short -q HEAD', { silent: true })
-        .stdout.replace(/[\n\s]*$/g, '')
-}
 
 /**
  * searchBranch
@@ -462,91 +318,6 @@ export async function searchBranch(
     let arr = data ? data.split('\n') : []
     arr = arr.map(el => el.trim())
     return arr
-}
-
-/**
- * 搜索分支
- *
- * @param opt - 筛选参数
- * @returns branches - 返回列表数组
- */
-export function searchBranches(opt: any = {}): string[] {
-    const { key, type, remote = false, exclude, include } = opt
-    let { path } = opt
-    if (!path) {
-        if (remote) {
-            const { gitUrl } = getGitConfig()
-            path = gitUrl
-        } else {
-            const { root } = gitRevParse()
-            path = root
-        }
-    }
-    const data = sh
-        .exec(
-            // `git ls-remote --heads --quiet --sort="version:refname" ${path}`,
-            `git ls-remote --heads --quiet ${path}`,
-            { silent: true }
-        )
-        .stdout.replace(/\n*$/g, '')
-    const arr = data ? data.split('\n') : []
-    const map: SearchBranchesMapType = {
-        heads: [],
-        tags: [],
-        others: []
-    }
-    for (const el of arr) {
-        const match = el.match(
-            /^\w+[\s]+refs\/(heads|remotes|tags)\/([\w-\/]+)$/
-        )
-        if (!match) continue
-        switch (match[1]) {
-            case 'heads':
-                map.heads.push(match[2])
-                break
-            case 'remotes':
-                map.heads.push(match[2])
-                break
-            case 'tags':
-                map.tags.push(match[2])
-                break
-            default:
-                map.others.push(match[2])
-                break
-        }
-    }
-    // 按类型筛选
-    if (type) {
-        let _types = type.split(','),
-            temp: string[] = []
-        map.heads.forEach(item => {
-            types: for (let t of _types) {
-                if (
-                    ['bugfix', 'feature', 'support'].includes(t) &&
-                    item.indexOf(t + '/') > -1
-                ) {
-                    temp.push(item)
-                    break types
-                }
-            }
-        })
-        map.heads = temp
-    }
-    // 正则排除
-    if (exclude) {
-        const reg = new RegExp(exclude)
-        map.heads = map.heads.filter(el => !reg.test(el))
-    }
-    // 正则包含
-    if (include) {
-        const reg = new RegExp(include)
-        map.heads = map.heads.filter(el => reg.test(el))
-    }
-    // 按关键词筛选
-    if (key) {
-        map.heads = map.heads.filter(el => el.indexOf(key) > -1)
-    }
-    return map.heads
 }
 
 /**
@@ -591,7 +362,8 @@ export function filterBranch(
  * @description 获取暂存区列表
  * @returns {String} 返回名称
  */
-export async function async(key: string) {
+
+export async function getStashList(key: string) {
     const data = (await queue(['git stash list']))[0].out.replace(/^\*\s+/, '')
     const list: string[] = (data && data.split('\n')) || []
     const arr: {

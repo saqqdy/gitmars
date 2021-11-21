@@ -4,8 +4,8 @@ const sh = require('shelljs')
 const { create, publish, update, clean } = require('./conf/admin')
 const getUserToken = require('./js/api')
 const { getType } = require('js-cool')
-const { queue, getStatus, checkBranch, getCurrent } = require('./js/index')
-const { getIsGitProject } = require('./js/git/index')
+const { queue, getStatus, checkBranch } = require('./js/index')
+const { getIsGitProject, getCurrentBranch } = require('./js/git/index')
 const { error, success, createArgs } = require('./js/utils/index')
 const { getCurlMergeRequestCommand } = require('./js/shell')
 if (!getIsGitProject()) {
@@ -133,7 +133,7 @@ if (publish.args.length > 0) {
         ): Promise<void> => {
             const opts = ['bugfix', 'release', 'support'] // 允许执行的指令
             const status = getStatus()
-            const curBranch = await getCurrent()
+            const curBranch = await getCurrentBranch()
             let isDescriptionCorrect = true // 本次提交的原因描述是否符合规范
             if (!status) sh.exit(1)
             // 有配置descriptionValidator时需要校验描述信息

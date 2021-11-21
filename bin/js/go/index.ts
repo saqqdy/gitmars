@@ -1,5 +1,5 @@
 const sh = require('shelljs')
-const { getCurrent } = require('../index')
+const { getCurrentBranch } = require('../git/index')
 const getCommand = require('./getCommand')
 const cleanConfigSet = require('./cleanConfigSet')
 
@@ -25,7 +25,7 @@ const {
     clean: adminCleanConfig
 } = require('../../conf/admin')
 
-const current = getCurrent()
+const current = getCurrentBranch()
 const branchPrefix = current.split('/')[0]
 const functionBuanchs = ['feature', 'bugfix', 'support']
 

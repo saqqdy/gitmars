@@ -5,11 +5,9 @@ const inquirer = require('inquirer')
 const ora = require('ora')
 const { options, args } = require('./conf/cleanbranch')
 const {
-    getCurrent,
-    searchBranches,
     delay
 } = require('./js/index')
-const { getIsGitProject } = require('./js/git/index')
+const { getIsGitProject, searchBranches, getCurrentBranch } = require('./js/git/index')
 const { error, success, createArgs } = require('./js/utils/index')
 const getIsMergedTargetBranch = require('./js/branch/getIsMergedTargetBranch')
 const getIsBranchOrCommitExist = require('./js/branch/getIsBranchOrCommitExist')
@@ -81,7 +79,7 @@ program.action(async (branches: string[], opt: GitmBuildOption) => {
     const spinner = ora()
     spinner.color = 'green'
     // 管理员以上级别才可执行，必须先配置好权限项
-    const current = getCurrent()
+    const current = getCurrentBranch()
     const targets = opt.target
         ? opt.target.split(',')
         : [config.develop, config.release]

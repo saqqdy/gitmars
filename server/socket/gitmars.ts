@@ -1,5 +1,5 @@
 const home = require('../lib/home')()
-const { getCurrent, searchBranches } = require('../../lib/js/index')
+const { getCurrentBranch, searchBranches } = require('../../lib/js/git/index')
 
 import type { Socket } from 'socket.io'
 
@@ -26,7 +26,7 @@ const getData = (socket: Socket, option: SocketOption) => {
 	let g = require('../../lib/js/global'),
 		c = require('../../lib/js/config'),
 		bh = searchBranches({ path: option.cwd || home }),
-		cur = getCurrent({ path: option.cwd || home })
+		cur = getCurrentBranch({ path: option.cwd || home })
 	if (!glob || JSON.stringify(glob) !== JSON.stringify(g)) {
 		glob = g
 		socket.emit(option.name + '-global', g)

@@ -55,13 +55,13 @@
 <dt><a href="#getStatus">getStatus()</a> ⇒ <code>Boolean</code></dt>
 <dd><p>获取是否有未提交的文件</p>
 </dd>
-<dt><a href="#getLogs">getLogs()</a> ⇒ <code>Array</code></dt>
+<dt><a href="#getGitLogs">getGitLogs()</a> ⇒ <code>Array</code></dt>
 <dd><p>获取日志</p>
 </dd>
 <dt><a href="#checkBranch">checkBranch()</a> ⇒ <code>Boolean</code></dt>
 <dd><p>获取是否有某个分支</p>
 </dd>
-<dt><a href="#getCurrent">getCurrent()</a> ⇒ <code>String</code></dt>
+<dt><a href="#getCurrentBranch">getCurrentBranch()</a> ⇒ <code>String</code></dt>
 <dd><p>获取当前分支</p>
 </dd>
 <dt><a href="#searchBranch">searchBranch()</a> ⇒ <code>Array</code></dt>
@@ -268,9 +268,9 @@ debug
 
 **Kind**: global function  
 **Returns**: <code>Boolean</code> - true 返回 true/false  
-<a name="getLogs"></a>
+<a name="getGitLogs"></a>
 
-## getLogs() ⇒ <code>Array</code>
+## getGitLogs() ⇒ <code>Array</code>
 
 获取日志
 
@@ -284,9 +284,9 @@ debug
 
 **Kind**: global function  
 **Returns**: <code>Boolean</code> - true 返回 true/false  
-<a name="getCurrent"></a>
+<a name="getCurrentBranch"></a>
 
-## getCurrent() ⇒ <code>String</code>
+## getCurrentBranch() ⇒ <code>String</code>
 
 获取当前分支
 

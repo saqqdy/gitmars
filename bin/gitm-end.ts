@@ -6,10 +6,9 @@ const { getType } = require('js-cool')
 const {
     queue,
     getStatus,
-    getCurrent,
     searchBranch
 } = require('./js/index')
-const { getIsGitProject } = require('./js/git/index')
+const { getIsGitProject, getCurrentBranch } = require('./js/git/index')
 const { error, createArgs } = require('./js/utils/index')
 const { getCurlMergeRequestCommand } = require('./js/shell')
 const { isNeedUpgrade, upgradeGitmars } = require('./js/versionControl')
@@ -89,7 +88,7 @@ program.action(
         }
         if (!type) {
             // type和name都没传且当前分支是开发分支
-            ;[type, ..._nameArr] = getCurrent().split('/')
+            ;[type, ..._nameArr] = getCurrentBranch().split('/')
             name = _nameArr.join('/')
             if (!name) {
                 deny.includes(type) &&

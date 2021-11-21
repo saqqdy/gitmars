@@ -377,7 +377,7 @@ export default defineComponent({
 			).data
 		}
 		// 获取当前分支
-		const getCurrent = async () => {
+		const getCurrentBranch = async () => {
 			return (
 				await $axios({
 					url: '/cmd/branch/current',
@@ -401,7 +401,7 @@ export default defineComponent({
 		})
 
 		data.branches = await getBranches()
-		data.current = await getCurrent()
+		data.current = await getCurrentBranch()
 		data.terminal =
 			getTerminal &&
 			getTerminal(

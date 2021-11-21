@@ -3,10 +3,9 @@ const { program } = require('commander')
 const sh = require('shelljs')
 const { options, args } = require('./conf/hook')
 const {
-    getCurrent,
     getBranchesFromID
 } = require('./js/index')
-const { getIsGitProject } = require('./js/git/index')
+const { getIsGitProject, getCurrentBranch } = require('./js/git/index')
 const { error, success, createArgs } = require('./js/utils/index')
 const getIsMergedTargetBranch = require('./js/branch/getIsMergedTargetBranch')
 const getIsUpdatedInTime = require('./js/branch/getIsUpdatedInTime')
@@ -79,7 +78,7 @@ program.action(
                 config.support,
                 config.bugfix
             ]
-            const current = getCurrent()
+            const current = getCurrentBranch()
             // GIT_REFLOG_ACTION: 'merge feature/wu',   说明走的是pre-merge-commit钩子，没有冲突的时候才会走这里
 
             // [1,2]

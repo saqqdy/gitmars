@@ -5,10 +5,9 @@ const { options, args } = require('./conf/update')
 const {
     queue,
     getStatus,
-    getCurrent,
     filterBranch
 } = require('./js/index')
-const { getIsGitProject } = require('./js/git/index')
+const { getIsGitProject, getCurrentBranch } = require('./js/git/index')
 const { error } = require('./js/utils/index')
 const { isNeedUpgrade, upgradeGitmars } = require('./js/versionControl')
 const { createArgs } = require('./js/utils/index')
@@ -68,7 +67,7 @@ program.action(
             branchList = filterBranch('', type)
         } else if (!type || !name) {
             // type或name没传
-            const current = getCurrent()
+            const current = getCurrentBranch()
             ;[type, ..._nameArr] = current.split('/')
             name = _nameArr.join('/')
             if (!name) {

@@ -2,8 +2,7 @@
 const { program } = require('commander')
 const sh = require('shelljs')
 const { options, args } = require('./conf/log')
-const { getLogs } = require('./js/index')
-const { getIsGitProject } = require('./js/git/index')
+const { getIsGitProject, getGitLogs } = require('./js/git/index')
 const { error } = require('./js/utils/index')
 const { createArgs } = require('./js/utils/index')
 if (!getIsGitProject()) {
@@ -32,7 +31,7 @@ options.forEach((o: GitmarsOptionOptionsType) => {
 // .option('--lastet [lastet]', '查询在某个时间之后的日志，填写格式：10s/2m/2h/3d/4M/5y', '7d')
 // .option('--limit [limit]', '最多查询的日志条数', 20)
 program.action(async (branche: string, opt: GitmBuildOption) => {
-    const logs = getLogs({
+    const logs = getGitLogs({
         lastet: opt.lastet,
         limit: opt.limit,
         branches: branche

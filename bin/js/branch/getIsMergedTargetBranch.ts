@@ -1,5 +1,5 @@
 const sh = require('shelljs')
-const { getCurrent } = require('../index')
+const { getCurrentBranch } = require('../git/index')
 
 /**
  * 获取是否合并过dev
@@ -14,7 +14,7 @@ function getIsMergedTargetBranch(
     targetBranch = 'dev',
     remote: boolean = false
 ): boolean {
-    if (!branch) branch = getCurrent()
+    if (!branch) branch = getCurrentBranch()
     if (remote && targetBranch.indexOf('origin') === -1)
         targetBranch = 'origin/' + targetBranch
     const result = sh

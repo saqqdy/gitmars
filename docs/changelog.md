@@ -321,7 +321,7 @@
 
 1. 新增`gitm ui`指令，启动 UI 界面
 2. 新增无 git 权限自动调起合并请求的功能，需要配置`api`、`gitHost`、`gitID`，具体配置查阅：[Gitmars 基本配置](http://www.saqqdy.com/gitmars/guide/basic-config.html)
-3. 升级`checkBranch`、`searchBranches`、`getCurrent`方法，执行更加高效
+3. 升级`checkBranch`、`searchBranches`、`getCurrentBranch`方法，执行更加高效
 4. 取消强制配置 api
 5. `git config`和`git init`加入对`api`/`gitHost`/`gitID`参数设置的支持
 

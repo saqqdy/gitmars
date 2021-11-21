@@ -1,4 +1,4 @@
-const { getCurrent, getLogs } = require('../index')
+const { getCurrentBranch, getGitLogs } = require('../git/index')
 
 import type { GitLogType } from '../../../typings'
 
@@ -23,16 +23,16 @@ function getIsUpdatedInTime({
     branch: branches
 }: IsUpdatedInTimeConfigType): boolean {
     let isUpdated = false
-    const current = getCurrent()
+    const current = getCurrentBranch()
     const mainVers: string[] = []
     const currentVers: string[] = []
-    const mainLogs = getLogs({
+    const mainLogs = getGitLogs({
         lastet,
         limit,
         branches,
         params: '--no-merges'
     })
-    const currentLogs = getLogs({
+    const currentLogs = getGitLogs({
         lastet,
         limit,
         branches: current,
