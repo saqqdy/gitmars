@@ -21,7 +21,7 @@ rimraf lib
 mkdir -p lib
 mkdir -p lib/conf
 # mkdir -p lib/img
-mkdir -p lib/js
+mkdir -p lib/core
 mkdir -p lib/sh
 rsync -av --exclude=*.bak bin/conf/* lib/conf
 # rsync -av --exclude=*.bak bin/img/* lib/img
