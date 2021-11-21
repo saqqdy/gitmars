@@ -2,7 +2,7 @@ const path = require('path')
 const sh = require('shelljs')
 const { getProperty } = require('js-cool')
 const { isCacheExpired, updateCacheTime } = require('./cacheControl')
-const { writeFile } = require('./index')
+const { writeFile } = require('./utils/index')
 const isFileExist = require('./isFileExist')
 
 const cacheDir = path.join(__dirname, '../../cache')

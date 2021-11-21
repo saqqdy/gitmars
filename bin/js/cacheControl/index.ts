@@ -1,6 +1,6 @@
 const path = require('path')
 const sh = require('shelljs')
-const { writeFile } = require('../index')
+const { writeFile } = require('../utils/index')
 const isFileExist = require('../isFileExist')
 
 type TimestampType = {

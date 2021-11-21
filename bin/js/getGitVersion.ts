@@ -1,5 +1,5 @@
 const sh = require('shelljs')
-const { warning } = require('./index')
+const { warning } = require('./utils/index')
 
 /**
  * getGitVersion

@@ -3,13 +3,13 @@ const { program } = require('commander')
 const sh = require('shelljs')
 const { options, args } = require('./conf/update')
 const {
-    error,
     queue,
     getStatus,
     getCurrent,
     filterBranch,
     isGitProject
 } = require('./js/index')
+const { error } = require('./js/utils/index')
 const { isNeedUpgrade, upgradeGitmars } = require('./js/versionControl')
 const { createArgs } = require('./js/tools')
 if (!isGitProject()) {

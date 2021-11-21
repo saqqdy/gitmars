@@ -1,6 +1,5 @@
 const fs = require('fs')
 const sh = require('shelljs')
-const colors = require('colors')
 const ora = require('ora')
 const isFileExist = require('./isFileExist')
 const getGitConfig = require('./getGitConfig')
@@ -40,32 +39,6 @@ export interface SearchBranchesMapType {
     heads: string[]
     tags: string[]
     others: string[]
-}
-
-export function warning(txt: string): string {
-    return colors.yellow(txt)
-}
-export function error(txt: string): string {
-    return colors.red(txt)
-}
-export function success(txt: string): string {
-    return colors.green(txt)
-}
-
-/**
- * writeFile
- * @description 写文件
- */
-export function writeFile(url: string, data: string): Promise<Error | boolean> {
-    return new Promise((resolve, reject) => {
-        fs.writeFile(url, data, (err: any) => {
-            if (err) {
-                reject(new Error('文件写入错误'))
-            } else {
-                resolve(true)
-            }
-        })
-    })
 }
 
 /**

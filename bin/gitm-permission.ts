@@ -1,7 +1,8 @@
 #!/usr/bin/env ts-node
 const { program } = require('commander')
 const sh = require('shelljs')
-const { error, getCurrent } = require('./js/index')
+const { getCurrent } = require('./js/index')
+const { error } = require('./js/utils/index')
 const getConfig = require('./js/getConfig')
 const config = getConfig()
 

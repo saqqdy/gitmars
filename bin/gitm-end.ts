@@ -4,13 +4,13 @@ const sh = require('shelljs')
 const { options, args } = require('./conf/end')
 const { getType } = require('js-cool')
 const {
-    error,
     queue,
     getStatus,
     getCurrent,
     searchBranch,
     isGitProject
 } = require('./js/index')
+const { error } = require('./js/utils/index')
 const { getCurlMergeRequestCommand } = require('./js/shell')
 const { isNeedUpgrade, upgradeGitmars } = require('./js/versionControl')
 const getIsMergedTargetBranch = require('./js/branch/getIsMergedTargetBranch')

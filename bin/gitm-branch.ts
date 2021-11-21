@@ -2,7 +2,8 @@
 const { program } = require('commander')
 const sh = require('shelljs')
 const { options, args } = require('./conf/branch')
-const { error, queue, isGitProject } = require('./js/index')
+const { queue, isGitProject } = require('./js/index')
+const { error } = require('./js/utils/index')
 const getIsBranchOrCommitExist = require('./js/branch/getIsBranchOrCommitExist')
 const { createArgs } = require('./js/tools')
 if (!isGitProject()) {

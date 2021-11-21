@@ -3,22 +3,6 @@ const fs = require('fs')
 import type { GitmarsOptionArgsType } from '../../typings'
 
 /**
- * writeFile
- * @description 写文件
- */
-function writeFile(url: string, data: string): Promise<Error | boolean> {
-    return new Promise((resolve, reject) => {
-        fs.writeFile(url, data, (err: any) => {
-            if (err) {
-                reject(new Error('文件写入错误'))
-            } else {
-                resolve(true)
-            }
-        })
-    })
-}
-
-/**
  * createArgs
  * @description 生成参数
  */
@@ -35,6 +19,5 @@ function createArgs(args: GitmarsOptionArgsType[]): string {
 }
 
 module.exports = {
-    writeFile,
     createArgs
 }
