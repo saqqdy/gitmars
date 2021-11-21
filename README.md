@@ -2,6 +2,10 @@
 
 ![logo.png](https://raw.githubusercontent.com/saqqdy/gitmars/master/static/img/logo.png)
 
+</div>
+
+<div style="text-align: center;" align="center">
+
 [![NPM version][npm-image]][npm-url]
 [![build status][travis-image]][travis-url]
 [![Test coverage][codecov-image]][codecov-url]
@@ -10,21 +14,6 @@
 [![License][license-image]][license-url]
 
 [![Sonar][sonar-image]][sonar-url]
-
-[npm-image]: https://img.shields.io/npm/v/gitmars.svg?style=flat-square
-[npm-url]: https://npmjs.org/package/gitmars
-[travis-image]: https://travis-ci.com/saqqdy/gitmars.svg?branch=master
-[travis-url]: https://travis-ci.com/saqqdy/gitmars
-[codecov-image]: https://img.shields.io/codecov/c/github/saqqdy/gitmars.svg?style=flat-square
-[codecov-url]: https://codecov.io/github/saqqdy/gitmars?branch=master
-[snyk-image]: https://snyk.io/test/npm/gitmars/badge.svg?style=flat-square
-[snyk-url]: https://snyk.io/test/npm/gitmars
-[download-image]: https://img.shields.io/npm/dm/gitmars.svg?style=flat-square
-[download-url]: https://npmjs.org/package/gitmars
-[license-image]: https://img.shields.io/badge/License-ISC-blue.svg
-[license-url]: LICENSE
-[sonar-image]: https://sonarcloud.io/api/project_badges/quality_gate?project=saqqdy_gitmars
-[sonar-url]: https://sonarcloud.io/dashboard?id=saqqdy_gitmars
 
 </div>
 
@@ -167,3 +156,18 @@ gitm ui --port 3000
 -   演示：
 
 ![gitmars-ui.gif](https://raw.githubusercontent.com/saqqdy/gitmars/master/static/img/gitmars-ui.gif)
+
+[npm-image]: https://img.shields.io/npm/v/gitmars.svg?style=flat-square
+[npm-url]: https://npmjs.org/package/gitmars
+[travis-image]: https://travis-ci.com/saqqdy/gitmars.svg?branch=master
+[travis-url]: https://travis-ci.com/saqqdy/gitmars
+[codecov-image]: https://img.shields.io/codecov/c/github/saqqdy/gitmars.svg?style=flat-square
+[codecov-url]: https://codecov.io/github/saqqdy/gitmars?branch=master
+[snyk-image]: https://snyk.io/test/npm/gitmars/badge.svg?style=flat-square
+[snyk-url]: https://snyk.io/test/npm/gitmars
+[download-image]: https://img.shields.io/npm/dm/gitmars.svg?style=flat-square
+[download-url]: https://npmjs.org/package/gitmars
+[license-image]: https://img.shields.io/badge/License-ISC-blue.svg
+[license-url]: LICENSE
+[sonar-image]: https://sonarcloud.io/api/project_badges/quality_gate?project=saqqdy_gitmars
+[sonar-url]: https://sonarcloud.io/dashboard?id=saqqdy_gitmars

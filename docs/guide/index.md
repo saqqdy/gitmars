@@ -2,9 +2,13 @@
 title: guide
 ---
 
-<div style="text-align: center;">
+<div style="text-align: center;" align="center">
 
 ![logo.png](https://raw.githubusercontent.com/saqqdy/gitmars/master/static/img/logo.png)
+
+</div>
+
+<div style="text-align: center;" align="center">
 
 [![NPM version][npm-image]][npm-url]
 [![build status][travis-image]][travis-url]
