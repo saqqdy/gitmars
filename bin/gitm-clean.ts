@@ -6,7 +6,12 @@ const inquirer = require('inquirer')
 const ora = require('ora')
 const { options, args } = require('./conf/clean')
 const { getIsGitProject } = require('./js/git/index')
-const { success, warning, isFileExist, createArgs } = require('./js/utils/index')
+const {
+    success,
+    warning,
+    isFileExist,
+    createArgs
+} = require('./js/utils/index')
 const gitRevParse = require('./js/gitRevParse')
 const cacheDir = path.join(__dirname, '../cache')
 const { gitDir } = gitRevParse()

@@ -2,10 +2,7 @@
 const { program } = require('commander')
 const sh = require('shelljs')
 const { options, args } = require('./conf/copy')
-const {
-    queue,
-    getStatus
-} = require('./js/index')
+const { queue, getStatus } = require('./js/index')
 const { getIsGitProject, getCurrentBranch } = require('./js/git/index')
 const { error, warning, createArgs } = require('./js/utils/index')
 if (!getIsGitProject()) {

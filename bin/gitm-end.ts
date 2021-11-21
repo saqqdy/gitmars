@@ -3,11 +3,7 @@ const { program } = require('commander')
 const sh = require('shelljs')
 const { options, args } = require('./conf/end')
 const { getType } = require('js-cool')
-const {
-    queue,
-    getStatus,
-    searchBranch
-} = require('./js/index')
+const { queue, getStatus, searchBranch } = require('./js/index')
 const { getIsGitProject, getCurrentBranch } = require('./js/git/index')
 const { error, createArgs } = require('./js/utils/index')
 const { getCurlMergeRequestCommand } = require('./js/shell')

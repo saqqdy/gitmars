@@ -2,7 +2,7 @@ const sh = require('shelljs')
 
 /**
  * 获取当前分支
- * 
+ *
  * @returns {String} 返回名称
  */
 export function getCurrentBranch(): string {

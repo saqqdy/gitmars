@@ -2,9 +2,7 @@
 const { program } = require('commander')
 const sh = require('shelljs')
 const { options, args } = require('./conf/hook')
-const {
-    getBranchesFromID
-} = require('./js/index')
+const { getBranchesFromID } = require('./js/index')
 const { getIsGitProject, getCurrentBranch } = require('./js/git/index')
 const { error, success, createArgs } = require('./js/utils/index')
 const getIsMergedTargetBranch = require('./js/branch/getIsMergedTargetBranch')

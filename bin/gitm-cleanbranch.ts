@@ -4,10 +4,12 @@ const sh = require('shelljs')
 const inquirer = require('inquirer')
 const ora = require('ora')
 const { options, args } = require('./conf/cleanbranch')
+const { delay } = require('./js/index')
 const {
-    delay
-} = require('./js/index')
-const { getIsGitProject, searchBranches, getCurrentBranch } = require('./js/git/index')
+    getIsGitProject,
+    searchBranches,
+    getCurrentBranch
+} = require('./js/git/index')
 const { error, success, createArgs } = require('./js/utils/index')
 const getIsMergedTargetBranch = require('./js/branch/getIsMergedTargetBranch')
 const getIsBranchOrCommitExist = require('./js/branch/getIsBranchOrCommitExist')

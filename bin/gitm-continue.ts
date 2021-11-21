@@ -3,12 +3,7 @@ const { program } = require('commander')
 const sh = require('shelljs')
 const inquirer = require('inquirer')
 const { options, args } = require('./conf/continue')
-const {
-    queue,
-    getCache,
-    getStatusInfo,
-    cleanCache
-} = require('./js/index')
+const { queue, getCache, getStatusInfo, cleanCache } = require('./js/index')
 const { getIsGitProject } = require('./js/git/index')
 const { error, success, warning, createArgs } = require('./js/utils/index')
 if (!getIsGitProject()) {
