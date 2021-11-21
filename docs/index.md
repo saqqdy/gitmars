@@ -11,8 +11,8 @@ features:
     - title: 智能
       details: 智能检测当前可执行的指令，智能导航
     - title: 安全
-      details: 内建了骚操作检测方法，可主动预防大量不合格的动作
-footer: MIT Licensed | Copyright © 2021-present saqqdy
+      details: 内建了骚操作检测方法，可主动防止不合规的操作
+footer: ISC Licensed | Copyright © 2020-present saqqdy
 ---
 
 ```shell

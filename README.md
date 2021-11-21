@@ -22,7 +22,7 @@
 [snyk-url]: https://snyk.io/test/npm/gitmars
 [download-image]: https://img.shields.io/npm/dm/gitmars.svg?style=flat-square
 [download-url]: https://npmjs.org/package/gitmars
-[license-image]: https://img.shields.io/badge/License-MIT-yellow.svg
+[license-image]: https://img.shields.io/badge/License-ISC-yellow.svg
 [license-url]: LICENSE
 [sonar-image]: https://sonarcloud.io/api/project_badges/quality_gate?project=saqqdy_gitmars
 [sonar-url]: https://sonarcloud.io/dashboard?id=saqqdy_gitmars
