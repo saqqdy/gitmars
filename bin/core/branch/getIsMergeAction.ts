@@ -1,4 +1,4 @@
-const { getCurrent, getLogs } = require('../index')
+const { getCurrentBranch, getGitLogs } = require('../git/index')
 
 /**
  * 获取主干分支推送的内容是否是merge内容，暂时只检测最后一条记录
@@ -6,8 +6,8 @@ const { getCurrent, getLogs } = require('../index')
  * @returns isMergeAction - 是否merge
  */
 function getIsMergeAction(): boolean {
-    const current = getCurrent()
-    const currentLogs = getLogs({
+    const current = getCurrentBranch()
+    const currentLogs = getGitLogs({
         limit: 1,
         branches: current
     })

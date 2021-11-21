@@ -2,10 +2,11 @@
 const { program } = require('commander')
 const sh = require('shelljs')
 const { options, args } = require('./conf/branch')
-const { error, queue, isGitProject } = require('./js/index')
-const getIsBranchOrCommitExist = require('./js/branch/getIsBranchOrCommitExist')
-const { createArgs } = require('./js/tools')
-if (!isGitProject()) {
+const { queue } = require('./core/index')
+const { getIsGitProject } = require('./core/git/index')
+const { error, createArgs } = require('./core/utils/index')
+const getIsBranchOrCommitExist = require('./core/branch/getIsBranchOrCommitExist')
+if (!getIsGitProject()) {
     sh.echo(error('当前目录不是git项目目录'))
     sh.exit(1)
 }

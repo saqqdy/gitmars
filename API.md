@@ -55,13 +55,13 @@
 <dt><a href="#getStatus">getStatus()</a> ⇒ <code>Boolean</code></dt>
 <dd><p>获取是否有未提交的文件</p>
 </dd>
-<dt><a href="#getLogs">getLogs()</a> ⇒ <code>Array</code></dt>
+<dt><a href="#getGitLogs">getGitLogs()</a> ⇒ <code>Array</code></dt>
 <dd><p>获取日志</p>
 </dd>
 <dt><a href="#checkBranch">checkBranch()</a> ⇒ <code>Boolean</code></dt>
 <dd><p>获取是否有某个分支</p>
 </dd>
-<dt><a href="#getCurrent">getCurrent()</a> ⇒ <code>String</code></dt>
+<dt><a href="#getCurrentBranch">getCurrentBranch()</a> ⇒ <code>String</code></dt>
 <dd><p>获取当前分支</p>
 </dd>
 <dt><a href="#searchBranch">searchBranch()</a> ⇒ <code>Array</code></dt>
@@ -100,7 +100,7 @@
 <dt><a href="#getGitEmail">getGitEmail()</a> ⇒ <code>String</code></dt>
 <dd><p>获取git用户邮箱</p>
 </dd>
-<dt><a href="#isGitProject">isGitProject()</a> ⇒ <code>String</code></dt>
+<dt><a href="#getIsGitProject">getIsGitProject()</a> ⇒ <code>String</code></dt>
 <dd><p>获取当前是否git项目目录</p>
 </dd>
 <dt><a href="#readPkg">readPkg()</a> ⇒ <code>Object</code></dt>
@@ -268,9 +268,9 @@ debug
 
 **Kind**: global function  
 **Returns**: <code>Boolean</code> - true 返回 true/false  
-<a name="getLogs"></a>
+<a name="getGitLogs"></a>
 
-## getLogs() ⇒ <code>Array</code>
+## getGitLogs() ⇒ <code>Array</code>
 
 获取日志
 
@@ -284,9 +284,9 @@ debug
 
 **Kind**: global function  
 **Returns**: <code>Boolean</code> - true 返回 true/false  
-<a name="getCurrent"></a>
+<a name="getCurrentBranch"></a>
 
-## getCurrent() ⇒ <code>String</code>
+## getCurrentBranch() ⇒ <code>String</code>
 
 获取当前分支
 
@@ -391,9 +391,9 @@ compareVersion 版本号大小对比
 
 **Kind**: global function  
 **Returns**: <code>String</code> - 返回字符串  
-<a name="isGitProject"></a>
+<a name="getIsGitProject"></a>
 
-## isGitProject() ⇒ <code>String</code>
+## getIsGitProject() ⇒ <code>String</code>
 
 获取当前是否 git 项目目录
 

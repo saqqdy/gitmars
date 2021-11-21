@@ -2,8 +2,8 @@ import express, { Request, Response, NextFunction } from 'express'
 const router = express.Router()
 const fs = require('fs')
 // const sh = require('shelljs')
-const glob = require('../../lib/js/global')
-const { getCurrent, searchBranches } = require('../../lib/js/index')
+const glob = require('../../lib/core/global')
+const { getCurrentBranch, searchBranches } = require('../../lib/core/git/index')
 
 // const error503 = (res: Response) => {
 // 	res.status(503).send({ data: null, success: false, code: 0, msg: 'fail' })
@@ -46,7 +46,7 @@ router.get('/branch/list', (req: Request, res: Response, next: NextFunction) => 
 
 // 获取项目列表
 router.get('/branch/current', (req: Request, res: Response, next: NextFunction) => {
-	let data = getCurrent()
+	let data = getCurrentBranch()
 	success(res, { data })
 })
 

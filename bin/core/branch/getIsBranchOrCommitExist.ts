@@ -1,5 +1,5 @@
 const sh = require('shelljs')
-const { getCurrent } = require('../index')
+const { getCurrentBranch } = require('../git/index')
 
 /**
  * 获取是否存在某个分支
@@ -12,7 +12,7 @@ function getIsBranchOrCommitExist(
     name: string,
     remote: boolean = false
 ): boolean {
-    if (!name) name = getCurrent()
+    if (!name) name = getCurrentBranch()
     if (remote && name.indexOf('origin') === -1) name = 'origin/' + name
     return (
         sh.exec(`git rev-parse --verify ${name}`, {

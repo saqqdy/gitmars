@@ -3,9 +3,11 @@ const { program } = require('commander')
 const inquirer = require('inquirer')
 const sh = require('shelljs')
 const { options, args } = require('./conf/undo')
-const { error, warning, queue, isGitProject } = require('./js/index')
-const { createArgs } = require('./js/tools')
-if (!isGitProject()) {
+const { queue } = require('./core/index')
+const { getIsGitProject } = require('./core/git/index')
+const { error, warning } = require('./core/utils/index')
+const { createArgs } = require('./core/utils/index')
+if (!getIsGitProject()) {
     sh.echo(error('当前目录不是git项目目录'))
     sh.exit(1)
 }

@@ -4,22 +4,20 @@ const sh = require('shelljs')
 const inquirer = require('inquirer')
 const ora = require('ora')
 const { options, args } = require('./conf/cleanbranch')
+const { delay } = require('./core/index')
 const {
-    error,
-    success,
-    isGitProject,
-    getCurrent,
+    getIsGitProject,
     searchBranches,
-    delay
-} = require('./js/index')
-const getIsMergedTargetBranch = require('./js/branch/getIsMergedTargetBranch')
-const getIsBranchOrCommitExist = require('./js/branch/getIsBranchOrCommitExist')
-const { createArgs } = require('./js/tools')
-if (!isGitProject()) {
+    getCurrentBranch
+} = require('./core/git/index')
+const { error, success, createArgs } = require('./core/utils/index')
+const getIsMergedTargetBranch = require('./core/branch/getIsMergedTargetBranch')
+const getIsBranchOrCommitExist = require('./core/branch/getIsBranchOrCommitExist')
+if (!getIsGitProject()) {
     sh.echo(error('当前目录不是git项目目录'))
     sh.exit(1)
 }
-const getConfig = require('./js/getConfig')
+const getConfig = require('./core/getConfig')
 const config = getConfig()
 
 import { GitmarsOptionOptionsType, GitmarsBranchType } from '../typings'
@@ -83,7 +81,7 @@ program.action(async (branches: string[], opt: GitmBuildOption) => {
     const spinner = ora()
     spinner.color = 'green'
     // 管理员以上级别才可执行，必须先配置好权限项
-    const current = getCurrent()
+    const current = getCurrentBranch()
     const targets = opt.target
         ? opt.target.split(',')
         : [config.develop, config.release]

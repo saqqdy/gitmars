@@ -4,9 +4,9 @@ const sh = require('shelljs')
 const inquirer = require('inquirer')
 const { options, args } = require('./conf/go')
 const { getProperty } = require('js-cool')
-const commands = require('./js/go/index')
-const { success, error, getCurrent } = require('./js/index')
-const { createArgs } = require('./js/tools')
+const commands = require('./core/go/index')
+const { getCurrentBranch } = require('./core/git/index')
+const { error, success, createArgs } = require('./core/utils/index')
 
 import { GitmarsOptionOptionsType } from '../typings'
 
@@ -19,7 +19,7 @@ options.forEach((o: GitmarsOptionOptionsType) => {
     program.option(o.flags, o.description, o.defaultValue)
 })
 program.action(async (command: string): Promise<void> => {
-    const current = getCurrent()
+    const current = getCurrentBranch()
     sh.echo(success(`当前分支${current}，系统猜测你可能想做以下操作：`))
     if (command) {
         // 执行对应指令

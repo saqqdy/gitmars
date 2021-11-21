@@ -2,9 +2,11 @@
 const { program } = require('commander')
 const sh = require('shelljs')
 const { options, args } = require('./conf/save')
-const { error, queue, getCurrent, isGitProject } = require('./js/index')
-const { createArgs } = require('./js/tools')
-if (!isGitProject()) {
+const { queue } = require('./core/index')
+const { getIsGitProject, getCurrentBranch } = require('./core/git/index')
+const { error } = require('./core/utils/index')
+const { createArgs } = require('./core/utils/index')
+if (!getIsGitProject()) {
     sh.echo(error('当前目录不是git项目目录'))
     sh.exit(1)
 }
@@ -28,7 +30,7 @@ options.forEach((o: GitmarsOptionOptionsType) => {
 })
 // .option('-f, --force', '没有版本的文件也暂存，这会执行git add .', false)
 program.action((message: string, opt: GitmBuildOption) => {
-    if (!message) message = getCurrent()
+    if (!message) message = getCurrentBranch()
     let cmd: Array<CommandType | string> = [
         {
             cmd: `git stash save "${message}"`,

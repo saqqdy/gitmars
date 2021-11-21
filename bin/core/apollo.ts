@@ -1,9 +1,13 @@
 const path = require('path')
 const apollo = require('node-apollo')
 const sh = require('shelljs')
-const { isCacheExpired, updateCacheTime } = require('./cacheControl')
-const { error, writeFile } = require('./index')
-const isFileExist = require('./isFileExist')
+const {
+    error,
+    writeFile,
+    isFileExist,
+    isCacheExpired,
+    updateCacheTime
+} = require('./utils/index')
 const getConfig = require('./getConfig')
 
 import type { ApolloConfigType, GitmarsConfigType } from '../../typings'

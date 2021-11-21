@@ -3,21 +3,14 @@ const { program } = require('commander')
 const sh = require('shelljs')
 const { options, args } = require('./conf/combine')
 const { getType } = require('js-cool')
-const {
-    error,
-    warning,
-    queue,
-    getStatus,
-    getCurrent,
-    searchBranch,
-    isGitProject
-} = require('./js/index')
-const { getCurlMergeRequestCommand } = require('./js/shell')
-const { isNeedUpgrade, upgradeGitmars } = require('./js/versionControl')
-const getIsMergedTargetBranch = require('./js/branch/getIsMergedTargetBranch')
-const getIsUpdatedInTime = require('./js/branch/getIsUpdatedInTime')
-const { createArgs } = require('./js/tools')
-const { defaults } = require('./js/global')
+const { queue, getStatus, searchBranch } = require('./core/index')
+const { getIsGitProject, getCurrentBranch } = require('./core/git/index')
+const { error, warning, createArgs } = require('./core/utils/index')
+const { getCurlMergeRequestCommand } = require('./core/shell')
+const { isNeedUpgrade, upgradeGitmars } = require('./core/versionControl')
+const getIsMergedTargetBranch = require('./core/branch/getIsMergedTargetBranch')
+const getIsUpdatedInTime = require('./core/branch/getIsUpdatedInTime')
+const { defaults } = require('./core/global')
 
 import {
     FetchDataType,
@@ -36,13 +29,13 @@ interface GitmBuildOption {
     asFeature?: boolean
 }
 
-if (!isGitProject()) {
+if (!getIsGitProject()) {
     sh.echo(error('当前目录不是git项目目录'))
     sh.exit(1)
 }
-const getUserToken = require('./js/api')
-const getGitConfig = require('./js/getGitConfig')
-const getConfig = require('./js/getConfig')
+const getUserToken = require('./core/api')
+const getGitConfig = require('./core/getGitConfig')
+const getConfig = require('./core/getConfig')
 const { appName } = getGitConfig()
 const config = getConfig()
 
@@ -108,7 +101,7 @@ program.action(
         }
         if (!type) {
             // type和name都没传且当前分支是开发分支
-            ;[type, ..._nameArr] = getCurrent().split('/')
+            ;[type, ..._nameArr] = getCurrentBranch().split('/')
             name = _nameArr.join('/')
             if (!name) {
                 deny.includes(type) &&

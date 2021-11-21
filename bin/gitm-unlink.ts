@@ -2,7 +2,7 @@
 const { program } = require('commander')
 const sh = require('shelljs')
 const { options, args } = require('./conf/unlink')
-const { createArgs } = require('./js/tools')
+const { createArgs } = require('./core/utils/index')
 
 import { GitmarsOptionOptionsType } from '../typings'
 

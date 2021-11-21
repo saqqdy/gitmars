@@ -2,22 +2,17 @@
 const { program } = require('commander')
 const sh = require('shelljs')
 const { options, args } = require('./conf/update')
-const {
-    error,
-    queue,
-    getStatus,
-    getCurrent,
-    filterBranch,
-    isGitProject
-} = require('./js/index')
-const { isNeedUpgrade, upgradeGitmars } = require('./js/versionControl')
-const { createArgs } = require('./js/tools')
-if (!isGitProject()) {
+const { queue, getStatus, filterBranch } = require('./core/index')
+const { getIsGitProject, getCurrentBranch } = require('./core/git/index')
+const { error } = require('./core/utils/index')
+const { isNeedUpgrade, upgradeGitmars } = require('./core/versionControl')
+const { createArgs } = require('./core/utils/index')
+if (!getIsGitProject()) {
     sh.echo(error('当前目录不是git项目目录'))
     sh.exit(1)
 }
-const getConfig = require('./js/getConfig')
-const { defaults } = require('./js/global')
+const getConfig = require('./core/getConfig')
+const { defaults } = require('./core/global')
 const config = getConfig()
 
 import { GitmarsOptionOptionsType, CommandType } from '../typings'
@@ -68,7 +63,7 @@ program.action(
             branchList = filterBranch('', type)
         } else if (!type || !name) {
             // type或name没传
-            const current = getCurrent()
+            const current = getCurrentBranch()
             ;[type, ..._nameArr] = current.split('/')
             name = _nameArr.join('/')
             if (!name) {

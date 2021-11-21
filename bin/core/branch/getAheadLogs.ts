@@ -1,5 +1,5 @@
 const sh = require('shelljs')
-const { getCurrent } = require('../index')
+const { getCurrentBranch } = require('../git/index')
 
 /**
  * 获取当前本地分支领先远程的日志
@@ -7,7 +7,7 @@ const { getCurrent } = require('../index')
  * @returns aheadLogs - 日志
  */
 function getAheadLogs(): string[] {
-    const current = getCurrent()
+    const current = getCurrentBranch()
     sh.exec('git fetch', { silent: true })
     const result = sh
         .exec(`git log origin/${current}..${current} --pretty=format:"%p"`, {

@@ -2,16 +2,10 @@
 const { program } = require('commander')
 const sh = require('shelljs')
 const { options, args } = require('./conf/get')
-const {
-    error,
-    queue,
-    getCurrent,
-    getStashList,
-    warning,
-    isGitProject
-} = require('./js/index')
-const { createArgs } = require('./js/tools')
-if (!isGitProject()) {
+const { queue, getStashList } = require('./core/index')
+const { getIsGitProject, getCurrentBranch } = require('./core/git/index')
+const { error, warning, createArgs } = require('./core/utils/index')
+if (!getIsGitProject()) {
     sh.echo(error('当前目录不是git项目目录'))
     sh.exit(1)
 }
@@ -35,7 +29,7 @@ options.forEach((o: GitmarsOptionOptionsType) => {
 })
 // .option('-k, --keep [keep]', '保留暂存区不删除', false)
 program.action(async (message: string, index: string, opt: GitmBuildOption) => {
-    if (!message) message = getCurrent()
+    if (!message) message = getCurrentBranch()
     const list = await getStashList(message)
     if (list.length === 0) {
         sh.echo(warning('该分支没有暂存任何文件！'))

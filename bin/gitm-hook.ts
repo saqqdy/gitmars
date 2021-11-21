@@ -2,25 +2,20 @@
 const { program } = require('commander')
 const sh = require('shelljs')
 const { options, args } = require('./conf/hook')
-const {
-    error,
-    success,
-    getCurrent,
-    getBranchesFromID,
-    isGitProject
-} = require('./js/index')
-const { createArgs } = require('./js/tools')
-const getIsMergedTargetBranch = require('./js/branch/getIsMergedTargetBranch')
-const getIsUpdatedInTime = require('./js/branch/getIsUpdatedInTime')
-const getIsMergeAction = require('./js/branch/getIsMergeAction')
-const getBehindLogs = require('./js/branch/getBehindLogs')
-// const getAheadLogs = require('./js/branch/getAheadLogs')
-const { init, remove } = require('./js/hook/index')
-if (!isGitProject()) {
+const { getBranchesFromID } = require('./core/index')
+const { getIsGitProject, getCurrentBranch } = require('./core/git/index')
+const { error, success, createArgs } = require('./core/utils/index')
+const getIsMergedTargetBranch = require('./core/branch/getIsMergedTargetBranch')
+const getIsUpdatedInTime = require('./core/branch/getIsUpdatedInTime')
+const getIsMergeAction = require('./core/branch/getIsMergeAction')
+const getBehindLogs = require('./core/branch/getBehindLogs')
+// const getAheadLogs = require('./core/branch/getAheadLogs')
+const { init, remove } = require('./core/hook/index')
+if (!getIsGitProject()) {
     sh.echo(error('当前目录不是git项目目录'))
     sh.exit(1)
 }
-const getConfig = require('./js/getConfig')
+const getConfig = require('./core/getConfig')
 const config = getConfig()
 
 import { GitmarsOptionOptionsType } from '../typings'
@@ -81,7 +76,7 @@ program.action(
                 config.support,
                 config.bugfix
             ]
-            const current = getCurrent()
+            const current = getCurrentBranch()
             // GIT_REFLOG_ACTION: 'merge feature/wu',   说明走的是pre-merge-commit钩子，没有冲突的时候才会走这里
 
             // [1,2]

@@ -1,5 +1,6 @@
 const sh = require('shelljs')
-const { error, getGitUser } = require('./index')
+const { getGitUser } = require('./index')
+const { error } = require('./utils/index')
 const getConfig = require('./getConfig')
 
 import { FetchDataType } from '../../typings'

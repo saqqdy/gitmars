@@ -2,16 +2,10 @@
 const { program } = require('commander')
 const sh = require('shelljs')
 const { options, args } = require('./conf/copy')
-const {
-    error,
-    warning,
-    queue,
-    getStatus,
-    getCurrent,
-    isGitProject
-} = require('./js/index')
-const { createArgs } = require('./js/tools')
-if (!isGitProject()) {
+const { queue, getStatus } = require('./core/index')
+const { getIsGitProject, getCurrentBranch } = require('./core/git/index')
+const { error, warning, createArgs } = require('./core/utils/index')
+if (!getIsGitProject()) {
     sh.echo(error('当前目录不是git项目目录'))
     sh.exit(1)
 }
@@ -46,7 +40,7 @@ options.forEach((o: GitmarsOptionOptionsType) => {
 // .option('-a, --author [author]', '提交者', '')
 program.action((commitid: string[], opts: GitmBuildOption) => {
     const status = getStatus()
-    const cur = getCurrent()
+    const cur = getCurrentBranch()
     if (!status) sh.exit(1)
     if (commitid.length > 0) {
         const cmd: Array<CommandType | string> = [

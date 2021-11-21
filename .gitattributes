@@ -6,9 +6,9 @@ server/*.ts  linguist-language=TypeScript
 **/config.js linguist-vendored
 typedoc.js linguist-vendored
 **/*.config.js linguist-vendored
-lib/* linguist-vendored
-es/* linguist-vendored
-app/* linguist-vendored
-script/* linguist-vendored
-static/* linguist-vendored
+lib/**/* linguist-vendored
+es/**/* linguist-vendored
+app/**/* linguist-vendored
+script/**/* linguist-vendored
+static/**/* linguist-vendored
 cache/* linguist-vendored

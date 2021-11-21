@@ -3,8 +3,8 @@ const { program } = require('commander')
 const { spawnSync } = require('child_process')
 const sh = require('shelljs')
 const { options, args } = require('./conf/upgrade')
-const { success, error } = require('./js/index')
-const { createArgs } = require('./js/tools')
+const { error, success } = require('./core/utils/index')
+const { createArgs } = require('./core/utils/index')
 const ora = require('ora')
 
 import { GitmarsOptionOptionsType, PackageVersionTag } from '../typings'

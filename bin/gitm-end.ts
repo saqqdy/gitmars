@@ -3,27 +3,21 @@ const { program } = require('commander')
 const sh = require('shelljs')
 const { options, args } = require('./conf/end')
 const { getType } = require('js-cool')
-const {
-    error,
-    queue,
-    getStatus,
-    getCurrent,
-    searchBranch,
-    isGitProject
-} = require('./js/index')
-const { getCurlMergeRequestCommand } = require('./js/shell')
-const { isNeedUpgrade, upgradeGitmars } = require('./js/versionControl')
-const getIsMergedTargetBranch = require('./js/branch/getIsMergedTargetBranch')
-const getIsBranchOrCommitExist = require('./js/branch/getIsBranchOrCommitExist')
-const { createArgs } = require('./js/tools')
-if (!isGitProject()) {
+const { queue, getStatus, searchBranch } = require('./core/index')
+const { getIsGitProject, getCurrentBranch } = require('./core/git/index')
+const { error, createArgs } = require('./core/utils/index')
+const { getCurlMergeRequestCommand } = require('./core/shell')
+const { isNeedUpgrade, upgradeGitmars } = require('./core/versionControl')
+const getIsMergedTargetBranch = require('./core/branch/getIsMergedTargetBranch')
+const getIsBranchOrCommitExist = require('./core/branch/getIsBranchOrCommitExist')
+if (!getIsGitProject()) {
     sh.echo(error('当前目录不是git项目目录'))
     sh.exit(1)
 }
-const getConfig = require('./js/getConfig')
-const getGitConfig = require('./js/getGitConfig')
-const getUserToken = require('./js/api')
-const { defaults } = require('./js/global')
+const getConfig = require('./core/getConfig')
+const getGitConfig = require('./core/getGitConfig')
+const getUserToken = require('./core/api')
+const { defaults } = require('./core/global')
 const config = getConfig()
 const { appName } = getGitConfig()
 
@@ -90,7 +84,7 @@ program.action(
         }
         if (!type) {
             // type和name都没传且当前分支是开发分支
-            ;[type, ..._nameArr] = getCurrent().split('/')
+            ;[type, ..._nameArr] = getCurrentBranch().split('/')
             name = _nameArr.join('/')
             if (!name) {
                 deny.includes(type) &&

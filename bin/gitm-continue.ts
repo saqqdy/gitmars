@@ -3,18 +3,10 @@ const { program } = require('commander')
 const sh = require('shelljs')
 const inquirer = require('inquirer')
 const { options, args } = require('./conf/continue')
-const {
-    error,
-    warning,
-    success,
-    queue,
-    getCache,
-    getStatusInfo,
-    cleanCache,
-    isGitProject
-} = require('./js/index')
-const { createArgs } = require('./js/tools')
-if (!isGitProject()) {
+const { queue, getCache, getStatusInfo, cleanCache } = require('./core/index')
+const { getIsGitProject } = require('./core/git/index')
+const { error, success, warning, createArgs } = require('./core/utils/index')
+if (!getIsGitProject()) {
     sh.echo(error('当前目录不是git项目目录'))
     sh.exit(1)
 }

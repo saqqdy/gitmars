@@ -1,8 +1,9 @@
 #!/usr/bin/env ts-node
 const { program } = require('commander')
 const sh = require('shelljs')
-const { error, getCurrent } = require('./js/index')
-const getConfig = require('./js/getConfig')
+const { getCurrentBranch } = require('./core/git/index')
+const { error } = require('./core/utils/index')
+const getConfig = require('./core/getConfig')
 const config = getConfig()
 
 interface GitmBuildOption {
@@ -24,7 +25,7 @@ program
     .option('--release', '是否限制release提交', false)
     .action((message: string, opt: GitmBuildOption) => {
         console.log('gitm permission is running')
-        const current = getCurrent()
+        const current = getCurrentBranch()
         const allow = [config.master]
         const msg = sh.exec('git show', { silent: true }).stdout
         if (opt.dev) allow.push(config.develop)

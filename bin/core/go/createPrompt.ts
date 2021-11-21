@@ -1,4 +1,4 @@
-const { warning } = require('../index')
+const { warning } = require('../utils/index')
 
 import {
     GitmarsOptionArgsType,
