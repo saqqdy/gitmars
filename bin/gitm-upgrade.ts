@@ -47,7 +47,9 @@ program.action(
                     'next'
                 ].includes(version)
             ) {
-                console.error('输入的版本号不正确，仅支持：alpha、lite、beta、release、latest、next')
+                console.error(
+                    '输入的版本号不正确，仅支持：alpha、lite、beta、release、latest、next'
+                )
                 sh.exit(0)
             }
         } else {

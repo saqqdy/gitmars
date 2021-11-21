@@ -12,7 +12,7 @@ const gitRevParse = require('./js/gitRevParse')
 const cacheDir = path.join(__dirname, '../cache')
 const { gitDir } = gitRevParse()
 
-sh.config.silent = true;
+sh.config.silent = true
 
 import { GitmarsOptionOptionsType } from '../typings'
 
@@ -43,7 +43,7 @@ function removeFile(files: GitmarsCacheFileDescriptionType[]) {
         }
     }
     spinner.stop()
-	sh.echo(success('清理完毕'))
+    sh.echo(success('清理完毕'))
 }
 
 /**
