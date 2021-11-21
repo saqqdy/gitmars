@@ -6,6 +6,12 @@
 
 <div style="text-align: center;" align="center">
 
+一个`git`工作流工具
+
+</div>
+
+<div style="text-align: center;" align="center">
+
 [![NPM version][npm-image]][npm-url]
 [![build status][travis-image]][travis-url]
 [![Test coverage][codecov-image]][codecov-url]
@@ -17,14 +23,16 @@
 
 </div>
 
-# Gitmars: 一个定制化的`git`工作流操作工具
-
 > 1. gitmars 每一个子命令都带了`help`功能，可输入`gitm [command] --help`获取对应指令的帮助</br>
 > 2. `<type>`意思是 type 必传；`[type]`意思是 type 选填；`[-a --app [app]]`其中-a 是--app 的简写，后面`[app]`指的是-a 后面的传值
 
-# **完整文档请查阅： [Gitmars 使用文档](http://www.saqqdy.com/gitmars/api/)**
 
-> 更新日志请查阅：[Gitmars 更新日志](http://www.saqqdy.com/gitmars/changelog.html)
+<div style="text-align: center;" align="center">
+
+# **[Gitmars 使用文档](http://www.saqqdy.com/gitmars/api/)**
+[更新日志](http://www.saqqdy.com/gitmars/changelog.html)
+
+</div>
 
 # 安装
 
