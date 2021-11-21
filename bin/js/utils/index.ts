@@ -1,9 +1,10 @@
 const { warning, error, success } = require('./colors')
-const { writeFile } = require('./file')
+const { writeFile, isFileExist } = require('./file')
 
 module.exports = {
     warning,
     error,
     success,
-    writeFile
+    writeFile,
+    isFileExist
 }
