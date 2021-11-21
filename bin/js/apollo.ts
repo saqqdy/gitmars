@@ -3,6 +3,7 @@ const apollo = require('node-apollo')
 const sh = require('shelljs')
 const { isCacheExpired, updateCacheTime } = require('./cacheControl')
 const { error, writeFile } = require('./index')
+const isFileExist = require('./isFileExist')
 const getConfig = require('./getConfig')
 
 import type { ApolloConfigType, GitmarsConfigType } from '../../typings'
@@ -27,7 +28,7 @@ async function apolloConfig(): Promise<ApolloConfigType | void> {
     // 有配置文件且没有过期，返回配置
     if (
         !isCacheExpired(BUILD_CONFIG_TIME_NAME) &&
-        sh.test('-f', BUILD_CONFIG_PATH)
+        isFileExist(BUILD_CONFIG_PATH)
     ) {
         return require(BUILD_CONFIG_PATH)
     }

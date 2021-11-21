@@ -3,7 +3,7 @@ const { program } = require('commander')
 const { spawnSync } = require('child_process')
 const sh = require('shelljs')
 const { options, args } = require('./conf/upgrade')
-const { success } = require('./js/index')
+const { success, error } = require('./js/index')
 const { createArgs } = require('./js/tools')
 const ora = require('ora')
 
@@ -33,7 +33,7 @@ options.forEach((o: GitmarsOptionOptionsType) => {
 // .option('-r, --registry <registry]>', '使用镜像地址', '')
 program.action(
     async (version: PackageVersionTag | string, opt: GitmBuildOption) => {
-        const spinner = ora(success('正在安装请稍后')).start()
+        const spinner = ora()
         if (version) {
             const match = version.match(/[0-9.]+$/)
             if (match) version = match[0]
@@ -47,7 +47,7 @@ program.action(
                     'next'
                 ].includes(version)
             ) {
-                console.error('输入的版本号不正确')
+                console.error('输入的版本号不正确，仅支持：alpha、lite、beta、release、latest、next')
                 sh.exit(0)
             }
         } else {
@@ -74,30 +74,38 @@ program.action(
             opt.registry = 'https://registry.npmmirror.com'
         if (opt.registry)
             cmdAdd[1] = cmdAdd[1].concat(['-registry', opt.registry])
+        spinner.start(success('正在卸载'))
         const uninstall = spawnSync(cmdDel[0], cmdDel[1], {
-            stdio: 'inherit',
+            stdio: 'ignore',
             shell: process.platform === 'win32' /*, env: { detached: true }*/
         })
         if (uninstall.status !== 0) {
-            console.warn('卸载出错了')
+            spinner.fail(
+                error(
+                    '卸载出错了，请尝试手动删除后运行：npm install -g gitmars'
+                )
+            )
             process.exit(0)
         }
+        spinner.succeed(success('卸载完成'))
+        spinner.start(success('正在安装'))
         const install = spawnSync(cmdAdd[0], cmdAdd[1], {
-            stdio: 'inherit',
+            stdio: 'ignore',
             shell: process.platform === 'win32' /*, env: { detached: true }*/
         })
         spawnSync('gitm', ['-v'], {
-            stdio: 'inherit',
+            stdio: 'ignore',
             shell: process.platform === 'win32' /*, env: { detached: true }*/
         })
-        sh.echo(`\n${success('安装完成')}`)
-        spinner.stop()
         if (install.status === 0) {
-            process.exit(0)
+            spinner.succeed(success('安装完成'))
         } else {
-            console.warn('安装出错了')
-            process.exit(0)
+            spinner.fail(
+                error('安装出错了，请尝试运行：npm install -g gitmars')
+            )
         }
+        spinner.stop()
+        process.exit(0)
     }
 )
 program.parse(process.argv)
