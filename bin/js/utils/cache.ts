@@ -1,6 +1,5 @@
 const path = require('path')
-const sh = require('shelljs')
-const { writeFile, isFileExist } = require('../utils/index')
+const { writeFile, isFileExist } = require('./file')
 
 type TimestampType = {
     [prop: string]: number
