@@ -7,15 +7,15 @@ const {
     queue,
     getStatus,
     getCurrent,
-    searchBranch,
-    isGitProject
+    searchBranch
 } = require('./js/index')
+const { getIsGitProject } = require('./js/git/index')
 const { error, createArgs } = require('./js/utils/index')
 const { getCurlMergeRequestCommand } = require('./js/shell')
 const { isNeedUpgrade, upgradeGitmars } = require('./js/versionControl')
 const getIsMergedTargetBranch = require('./js/branch/getIsMergedTargetBranch')
 const getIsBranchOrCommitExist = require('./js/branch/getIsBranchOrCommitExist')
-if (!isGitProject()) {
+if (!getIsGitProject()) {
     sh.echo(error('当前目录不是git项目目录'))
     sh.exit(1)
 }

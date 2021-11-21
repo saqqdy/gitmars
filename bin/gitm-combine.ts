@@ -7,9 +7,9 @@ const {
     queue,
     getStatus,
     getCurrent,
-    searchBranch,
-    isGitProject
+    searchBranch
 } = require('./js/index')
+const { getIsGitProject } = require('./js/git/index')
 const { error, warning, createArgs } = require('./js/utils/index')
 const { getCurlMergeRequestCommand } = require('./js/shell')
 const { isNeedUpgrade, upgradeGitmars } = require('./js/versionControl')
@@ -34,7 +34,7 @@ interface GitmBuildOption {
     asFeature?: boolean
 }
 
-if (!isGitProject()) {
+if (!getIsGitProject()) {
     sh.echo(error('当前目录不是git项目目录'))
     sh.exit(1)
 }

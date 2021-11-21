@@ -4,9 +4,9 @@ const sh = require('shelljs')
 const { options, args } = require('./conf/hook')
 const {
     getCurrent,
-    getBranchesFromID,
-    isGitProject
+    getBranchesFromID
 } = require('./js/index')
+const { getIsGitProject } = require('./js/git/index')
 const { error, success, createArgs } = require('./js/utils/index')
 const getIsMergedTargetBranch = require('./js/branch/getIsMergedTargetBranch')
 const getIsUpdatedInTime = require('./js/branch/getIsUpdatedInTime')
@@ -14,7 +14,7 @@ const getIsMergeAction = require('./js/branch/getIsMergeAction')
 const getBehindLogs = require('./js/branch/getBehindLogs')
 // const getAheadLogs = require('./js/branch/getAheadLogs')
 const { init, remove } = require('./js/hook/index')
-if (!isGitProject()) {
+if (!getIsGitProject()) {
     sh.echo(error('当前目录不是git项目目录'))
     sh.exit(1)
 }

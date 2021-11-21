@@ -3,10 +3,10 @@ const { program } = require('commander')
 const fs = require('fs')
 const sh = require('shelljs')
 const inquirer = require('inquirer')
-const { isGitProject } = require('./js/index')
+const { getIsGitProject } = require('./js/git/index')
 const { error, success } = require('./js/utils/index')
 const { defaults } = require('./js/global')
-if (!isGitProject()) {
+if (!getIsGitProject()) {
     sh.echo(error('当前目录不是git项目目录'))
     sh.exit(1)
 }

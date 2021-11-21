@@ -4,16 +4,11 @@ const sh = require('shelljs')
 const { create, publish, update, clean } = require('./conf/admin')
 const getUserToken = require('./js/api')
 const { getType } = require('js-cool')
-const {
-    queue,
-    getStatus,
-    checkBranch,
-    getCurrent,
-    isGitProject
-} = require('./js/index')
+const { queue, getStatus, checkBranch, getCurrent } = require('./js/index')
+const { getIsGitProject } = require('./js/git/index')
 const { error, success, createArgs } = require('./js/utils/index')
 const { getCurlMergeRequestCommand } = require('./js/shell')
-if (!isGitProject()) {
+if (!getIsGitProject()) {
     sh.echo(error('当前目录不是git项目目录'))
     sh.exit(1)
 }

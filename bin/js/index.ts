@@ -830,17 +830,6 @@ export function getGitEmail(): string {
 }
 
 /**
- * 获取当前是否git项目目录
- *
- * @returns {String} 返回字符串
- */
-export function isGitProject(): boolean {
-    return sh
-        .exec('git rev-parse --is-inside-work-tree', { silent: true })
-        .stdout.includes('true')
-}
-
-/**
  * 延迟执行
  *
  * @param millisecond - 毫秒

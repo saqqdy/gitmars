@@ -5,7 +5,7 @@ const sh = require('shelljs')
 const inquirer = require('inquirer')
 const ora = require('ora')
 const { options, args } = require('./conf/clean')
-const { isGitProject } = require('./js/index')
+const { getIsGitProject } = require('./js/git/index')
 const { success, warning, isFileExist, createArgs } = require('./js/utils/index')
 const gitRevParse = require('./js/gitRevParse')
 const cacheDir = path.join(__dirname, '../cache')
@@ -55,7 +55,7 @@ options.forEach((o: GitmarsOptionOptionsType) => {
 })
 // .option('-f, --force', '强制清理', false)
 program.action(async (opt: GitmBuildOption) => {
-    if (isGitProject()) {
+    if (getIsGitProject()) {
         if (opt.force) {
             await inquirer
                 .prompt({

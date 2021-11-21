@@ -6,13 +6,13 @@ const {
     queue,
     getStatus,
     getCurrent,
-    filterBranch,
-    isGitProject
+    filterBranch
 } = require('./js/index')
+const { getIsGitProject } = require('./js/git/index')
 const { error } = require('./js/utils/index')
 const { isNeedUpgrade, upgradeGitmars } = require('./js/versionControl')
 const { createArgs } = require('./js/utils/index')
-if (!isGitProject()) {
+if (!getIsGitProject()) {
     sh.echo(error('当前目录不是git项目目录'))
     sh.exit(1)
 }

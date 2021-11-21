@@ -100,7 +100,7 @@
 <dt><a href="#getGitEmail">getGitEmail()</a> ⇒ <code>String</code></dt>
 <dd><p>获取git用户邮箱</p>
 </dd>
-<dt><a href="#isGitProject">isGitProject()</a> ⇒ <code>String</code></dt>
+<dt><a href="#getIsGitProject">getIsGitProject()</a> ⇒ <code>String</code></dt>
 <dd><p>获取当前是否git项目目录</p>
 </dd>
 <dt><a href="#readPkg">readPkg()</a> ⇒ <code>Object</code></dt>
@@ -391,9 +391,9 @@ compareVersion 版本号大小对比
 
 **Kind**: global function  
 **Returns**: <code>String</code> - 返回字符串  
-<a name="isGitProject"></a>
+<a name="getIsGitProject"></a>
 
-## isGitProject() ⇒ <code>String</code>
+## getIsGitProject() ⇒ <code>String</code>
 
 获取当前是否 git 项目目录
 

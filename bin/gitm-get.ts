@@ -5,11 +5,11 @@ const { options, args } = require('./conf/get')
 const {
     queue,
     getCurrent,
-    getStashList,
-    isGitProject
+    getStashList
 } = require('./js/index')
+const { getIsGitProject } = require('./js/git/index')
 const { error, warning, createArgs } = require('./js/utils/index')
-if (!isGitProject()) {
+if (!getIsGitProject()) {
     sh.echo(error('当前目录不是git项目目录'))
     sh.exit(1)
 }
