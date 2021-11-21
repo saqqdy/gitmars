@@ -601,14 +601,3 @@ export function getGitEmail(): string {
         .stdout.replace(/(^\s+|\n*$)/g, '') // 去除首尾
 }
 
-/**
- * 延迟执行
- *
- * @param millisecond - 毫秒
- * @returns {String} 返回字符串
- */
-export function delay(millisecond: number = 0): Promise<void> {
-    return new Promise(resolve => {
-        setTimeout(resolve, millisecond)
-    })
-}

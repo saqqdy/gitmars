@@ -1,10 +1,10 @@
 const sh = require('shelljs')
-const { warning } = require('./utils/index')
+const { warning } = require('../utils/index')
 
 /**
- * getGitVersion
- * @description 获取git版本
- * @returns {String} str 返回版本号
+ * 获取git版本
+ * 
+ * @returns version - 返回版本号
  */
 function getGitVersion(): string | void {
     let version: any = sh

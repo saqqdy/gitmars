@@ -3,6 +3,7 @@ const { writeFile, isFileExist } = require('./file')
 const { isCacheExpired, updateCacheTime } = require('./cache')
 const { createArgs } = require('./command')
 const getSeconds = require('./getSeconds')
+const delay = require('./delay')
 
 module.exports = {
     warning,
@@ -13,5 +14,6 @@ module.exports = {
     isCacheExpired,
     updateCacheTime,
     createArgs,
-    getSeconds
+    getSeconds,
+    delay
 }
