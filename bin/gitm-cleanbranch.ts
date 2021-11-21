@@ -30,7 +30,7 @@ interface GitmBuildOption {
     target?: string
     key?: string
     exclude?: string
-	include?: string
+    include?: string
     remote?: boolean
     confirm?: boolean
 }
@@ -95,7 +95,7 @@ program.action(async (branches: string[], opt: GitmBuildOption) => {
         branches = searchBranches({
             remote: opt.remote,
             type: opt.type,
-			key: opt.key,
+            key: opt.key,
             exclude: opt.exclude,
             include: opt.include
         })
