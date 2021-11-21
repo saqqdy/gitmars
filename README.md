@@ -12,7 +12,7 @@
 
 <div style="text-align: center; margin-bottom: 1em;" align="center">
 
-### **[Gitmars 使用文档](http://www.saqqdy.com/gitmars/api/)**&nbsp; &nbsp; &nbsp; &nbsp;[更新日志](http://www.saqqdy.com/gitmars/changelog.html)
+## **[Gitmars 使用文档](http://www.saqqdy.com/gitmars/api/)**&nbsp; &nbsp; &nbsp; &nbsp;[更新日志](http://www.saqqdy.com/gitmars/changelog.html)
 
 </div>
 
