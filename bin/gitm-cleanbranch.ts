@@ -2,6 +2,7 @@
 const { program } = require('commander')
 const sh = require('shelljs')
 const inquirer = require('inquirer')
+const ora = require('ora')
 const { options, args } = require('./conf/cleanbranch')
 const {
     error,
@@ -13,7 +14,6 @@ const {
 } = require('./js/index')
 const getIsMergedTargetBranch = require('./js/branch/getIsMergedTargetBranch')
 const getIsBranchOrCommitExist = require('./js/branch/getIsBranchOrCommitExist')
-const ora = require('ora')
 const { createArgs } = require('./js/tools')
 if (!isGitProject()) {
     sh.echo(error('当前目录不是git项目目录'))

@@ -1,4 +1,4 @@
-const sh = require('shelljs')
+const isFileExist = require('./isFileExist')
 const gitRevParse = require('./gitRevParse')
 const { root } = gitRevParse()
 /**
@@ -7,9 +7,9 @@ const { root } = gitRevParse()
  * @returns {Number} 返回来源0，1，2
  */
 const getConfigFrom = (): 0 | 1 | 2 => {
-    if (sh.test('-f', root + '/.gitmarsrc')) {
+    if (isFileExist(root + '/.gitmarsrc')) {
         return 1
-    } else if (sh.test('-f', root + '/gitmarsconfig.json')) {
+    } else if (isFileExist(root + '/gitmarsconfig.json')) {
         return 2
     }
     return 0

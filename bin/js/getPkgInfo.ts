@@ -3,6 +3,7 @@ const sh = require('shelljs')
 const { getProperty } = require('js-cool')
 const { isCacheExpired, updateCacheTime } = require('./cacheControl')
 const { writeFile } = require('./index')
+const isFileExist = require('./isFileExist')
 
 const cacheDir = path.join(__dirname, '../../cache')
 
@@ -17,7 +18,7 @@ async function getPkgInfo(name: string): Promise<unknown | void> {
     // 有配置文件且没有过期，返回配置
     if (
         !isCacheExpired('packageInfoTime') &&
-        sh.test('-f', cacheDir + '/packageInfo.json')
+        isFileExist(cacheDir + '/packageInfo.json')
     ) {
         packageInfo = require(cacheDir + '/packageInfo.json')
         return name ? getProperty(packageInfo, name) : packageInfo

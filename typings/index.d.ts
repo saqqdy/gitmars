@@ -152,6 +152,7 @@ export type GitStatusInfoType = {
 export interface QueueConfigType {
     silent?: boolean
     again?: boolean
+    processing?: string
     success?: string
     fail?: string
     postmsg?: boolean

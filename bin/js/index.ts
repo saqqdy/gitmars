@@ -1,6 +1,8 @@
 const fs = require('fs')
 const sh = require('shelljs')
 const colors = require('colors')
+const ora = require('ora')
+const isFileExist = require('./isFileExist')
 const getGitConfig = require('./getGitConfig')
 const gitRevParse = require('./gitRevParse')
 const getConfig = require('./getConfig')
@@ -17,6 +19,7 @@ import type {
 } from '../../typings'
 
 export interface CommandMessageType {
+    processing: string
     success: string
     fail: string
 }
@@ -146,6 +149,7 @@ function wait(list: Array<CommandType | string>, fun: QueueStartFunction) {
  * @param {Array} list 脚本序列
  */
 function queue(list: Array<CommandType | string>): Promise<QueueReturnsType[]> {
+    const spinner = ora()
     return new Promise((resolve, reject) => {
         const returns: QueueReturnsType[] = []
         if (list.length === 0) reject('指令名称不能为空')
@@ -164,11 +168,15 @@ function queue(list: Array<CommandType | string>): Promise<QueueReturnsType[]> {
                 cmd = command.cmd as string
             }
             if (!cmd) {
+                spinner.stop()
                 // 只有一条指令，不需返回数组形式
                 resolve(returns)
             } else {
+                const msg = getCommandMessage(cmd)
+                spinner.start(
+                    success(cfg.processing || msg.processing || '正在处理')
+                )
                 sh.exec(cmd, cfg, (code: ShellCode, out: string, err: any) => {
-                    const msg = getCommandMessage(cmd)
                     try {
                         out = JSON.parse(out)
                     } catch {
@@ -187,8 +195,8 @@ function queue(list: Array<CommandType | string>): Promise<QueueReturnsType[]> {
                         cb && cb(true) // 回调并中断执行
                         setCache(rest)
                         // 只有silent模式才需要输出信息
-                        cfg.silent && sh.echo(error(err))
-                        sh.echo(
+                        cfg.silent && spinner.fail(error(err))
+                        spinner.fail(
                             error(
                                 cfg.fail ||
                                     msg.fail ||
@@ -202,23 +210,23 @@ function queue(list: Array<CommandType | string>): Promise<QueueReturnsType[]> {
                                 '出错了！指令 ' + cmd + ' 执行失败，中断了进程'
                             )
                         rest.length > 0 &&
-                            sh.echo(
+                            spinner.fail(
                                 error('请处理相关问题之后输入gitm continue继续')
                             )
                         sh.exit(1)
                     } else {
                         if (code === 0) {
-                            const m = cfg.success || msg.success
-                            if (m) {
-                                sh.echo(success(m))
-                                cfg.postmsg && postMessage(m)
+                            const _message = cfg.success || msg.success
+                            if (_message) {
+                                spinner.succeed(success(_message))
+                                cfg.postmsg && postMessage(_message)
                             }
                         } else {
                             const m =
                                 cfg.fail ||
                                 msg.fail ||
                                 '指令 ' + cmd + ' 执行失败'
-                            m && sh.echo(warning(m))
+                            m && spinner.warn(warning(m))
                         }
                         cb && cb() // 回调，继续执行下一条
                     }
@@ -236,7 +244,7 @@ function queue(list: Array<CommandType | string>): Promise<QueueReturnsType[]> {
 function getCache() {
     const { gitDir } = gitRevParse()
     let arr = []
-    if (sh.test('-f', gitDir + '/.gitmarscommands')) {
+    if (isFileExist(gitDir + '/.gitmarscommands')) {
         arr = sh
             .cat(gitDir + '/.gitmarscommands')
             .stdout.split('\n')[0]
@@ -707,42 +715,52 @@ function getCommandMessage(cmd: string): CommandMessageType {
     if (arr.length < 2 || arr[0] !== 'git') return msg
     switch (arr[1]) {
         case 'checkout':
+            msg.processing = '正在切换分支'
             msg.success = '切换分支成功'
             msg.fail = '切换分支失败'
             break
         case 'pull':
+            msg.processing = '正在拉取代码'
             msg.success = '拉取代码成功'
             msg.fail = '拉取代码失败'
             break
         case 'fetch':
+            msg.processing = '正在拉取远程版本'
             msg.success = '抓取成功'
             msg.fail = '抓取失败'
             break
         case 'commit':
+            msg.processing = '正在提交'
             msg.success = '提交成功'
             msg.fail = '提交失败'
             break
         case 'push':
+            msg.processing = '正在推送'
             msg.success = '推送成功'
             msg.fail = '推送失败'
             break
         case 'cherry-pick':
+            msg.processing = '正在同步提交记录'
             msg.success = '同步提交记录成功'
             msg.fail = '同步提交记录失败'
             break
         case 'merge':
+            msg.processing = '正在merge分支'
             msg.success = 'merge分支成功'
             msg.fail = 'merge分支失败'
             break
         case 'rebase':
+            msg.processing = '正在rebase分支'
             msg.success = 'rebase分支成功'
             msg.fail = 'rebase分支失败'
             break
         case 'revert':
+            msg.processing = '正在回撤代码'
             msg.success = '撤销成功'
             msg.fail = '撤销失败'
             break
         case 'clean':
+            msg.processing = '正在清理'
             msg.success = '清理成功'
             msg.fail = '清理失败'
             break
