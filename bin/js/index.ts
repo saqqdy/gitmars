@@ -489,10 +489,11 @@ async function searchBranch(
 /**
  * 搜索分支
  *
+ * @param opt - 筛选参数
  * @returns branches - 返回列表数组
  */
 function searchBranches(opt: any = {}): string[] {
-    const { key, type, remote = false, except } = opt
+    const { key, type, remote = false, exclude, include } = opt
     let { path } = opt
     if (!path) {
         if (remote) {
@@ -554,9 +555,14 @@ function searchBranches(opt: any = {}): string[] {
         map.heads = temp
     }
     // 正则排除
-    if (except) {
-        const reg = new RegExp(except)
+    if (exclude) {
+        const reg = new RegExp(exclude)
         map.heads = map.heads.filter(el => !reg.test(el))
+    }
+    // 正则包含
+    if (include) {
+        const reg = new RegExp(include)
+        map.heads = map.heads.filter(el => reg.test(el))
     }
     // 按关键词筛选
     if (key) {

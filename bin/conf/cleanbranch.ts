@@ -57,15 +57,40 @@ import type { GitmarsOptionType } from '../../typings'
                 value: ''
             },
             {
-                flags: '--except [exception]',
+                flags: '-k, --key [keyword]',
+                required: false,
+                optional: true,
+                variadic: false,
+                mandatory: false,
+                short: '-k',
+                long: '--key',
+                negate: false,
+                description: '查询分支的关键词',
+                defaultValue: null
+            },
+            {
+                flags: '--exclude [exclude]',
                 required: false,
                 optional: true,
                 variadic: false,
                 mandatory: false,
                 short: '',
-                long: '--except',
+                long: '--exclude',
                 negate: false,
                 description: '排除关键词',
+                defaultValue: '',
+                value: ''
+            },
+            {
+                flags: '--include [include]',
+                required: false,
+                optional: true,
+                variadic: false,
+                mandatory: false,
+                short: '',
+                long: '--include',
+                negate: false,
+                description: '包含关键词',
                 defaultValue: '',
                 value: ''
             },

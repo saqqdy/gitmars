@@ -827,11 +827,12 @@ gitm get "test login"
 > 2.13.0 新增</br>
 > 2.13.1 新增--list参数</br>
 > 2.13.4 新增--confirm参数</br>
-> 2.13.6 新增branches，新增--target
+> 2.13.6 新增branches，新增--target</br>
+> 2.13.9 --except改成--exclude，用法不变；新增--include传参；新增--key传参
 
 清理合并过的功能分支
 
--   使用：`gitm cleanbranch [branches...] [-l --list [list]] [--except [exception]] [-t --type [type]] [--target [target]] [-r --remote]`
+-   使用：`gitm cleanbranch [branches...] [-l --list [list]] [-k --key [keyword]] [--exclude [exclude]] [--include [include]] [-t --type [type]] [--target [target]] [-r --remote]`
 -   参数：
 
 <div class="table-prop">
@@ -849,7 +850,9 @@ gitm get "test login"
 | 名称      | 简写 | 说明                                                     | 类型          | 可选值 | 传值必填 | 默认  |
 | --------- | ---- | -------------------------------------------------------- | ------------- | ------ | -------- | ----- |
 | --list    | -l   | 显示符合条件的分支列表                                   | Boolean       | -      | 否       | false |
-| --except  |      | 排除的分支名，支持正则或字符串                           | String/RegExp | -      | 否       | -     |
+| --key     | -k   | 查询分支的关键词                                         | String        | -      | 否       | -     |
+| --exclude |      | 排除的分支名，支持正则或字符串                           | String/RegExp | -      | 否       | -     |
+| --include |      | 筛选符合条件的分支，支持正则或字符串                     | String/RegExp | -      | 否       | -     |
 | --type    | -t   | 分支类型，支持：feature/bugfix/support                   | String        | -      | 否       | -     |
 | --target  |      | 需要检测是否合过的目标分支名，不传默认是develop和release | String        | -      | 否       | -     |
 | --remote  | -r   | 是否清理远程分支，默认清理本地分支                       | Boolean       | -      | 否       | false |
@@ -862,9 +865,9 @@ gitm get "test login"
 1. 清理前查看符合条件的分支列表
 
 ```shell
-gitm cleanbranch --remote --except "saqqdy$" --list
+gitm cleanbranch --remote --exclude "saqqdy$" --include "[a-z]+$" --key "wu" --list
 # or
-gitm cleanbranch -r --except "saqqdy$" -l
+gitm cleanbranch -r --exclude "saqqdy$" --include "[a-z]+$" -k "wu" -l
 ```
 
 2. 清理远程所有功能分支
@@ -875,12 +878,12 @@ gitm cleanbranch --remote
 gitm cleanbranch -r
 ```
 
-3. 清理远程所有功能分支，除了except匹配的分支
+3. 清理远程所有功能分支，除了exclude匹配的分支
 
 ```shell
-gitm cleanbranch --remote --except "saqqdy$"
+gitm cleanbranch --remote --exclude "saqqdy$"
 # or
-gitm cleanbranch -r --except "saqqdy$"
+gitm cleanbranch -r --exclude "saqqdy$"
 ```
 
 4. 清理本地所有feature分支
