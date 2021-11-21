@@ -42,13 +42,13 @@ export interface SearchBranchesMapType {
     others: string[]
 }
 
-function warning(txt: string): string {
+export function warning(txt: string): string {
     return colors.yellow(txt)
 }
-function error(txt: string): string {
+export function error(txt: string): string {
     return colors.red(txt)
 }
-function success(txt: string): string {
+export function success(txt: string): string {
     return colors.green(txt)
 }
 
@@ -56,7 +56,7 @@ function success(txt: string): string {
  * writeFile
  * @description 写文件
  */
-function writeFile(url: string, data: string): Promise<Error | boolean> {
+export function writeFile(url: string, data: string): Promise<Error | boolean> {
     return new Promise((resolve, reject) => {
         fs.writeFile(url, data, (err: any) => {
             if (err) {
@@ -72,7 +72,7 @@ function writeFile(url: string, data: string): Promise<Error | boolean> {
  * mapTemplate
  * @description 获取模板数据
  */
-function mapTemplate(
+export function mapTemplate(
     tmp: string,
     data: AnyFunction | AnyObject
 ): string | null {
@@ -96,7 +96,7 @@ function mapTemplate(
  * getSeconds
  * @description 传入字符串转换成时间（秒）
  */
-function getSeconds(str: string): number | null {
+export function getSeconds(str: string): number | null {
     const match = String(str).match(/^(\d+)([a-zA-Z]+)$/)
     let time
     if (!match) return null
@@ -129,7 +129,10 @@ function getSeconds(str: string): number | null {
  * wait
  * @description 递归执行程序
  */
-function wait(list: Array<CommandType | string>, fun: QueueStartFunction) {
+export function wait(
+    list: Array<CommandType | string>,
+    fun: QueueStartFunction
+) {
     // 最后一条指令，执行完成之后退出递归
     if (list.length === 0) {
         fun()
@@ -148,7 +151,9 @@ function wait(list: Array<CommandType | string>, fun: QueueStartFunction) {
  * @description 脚本执行主程序
  * @param {Array} list 脚本序列
  */
-function queue(list: Array<CommandType | string>): Promise<QueueReturnsType[]> {
+export function queue(
+    list: Array<CommandType | string>
+): Promise<QueueReturnsType[]> {
     const spinner = ora()
     return new Promise((resolve, reject) => {
         const returns: QueueReturnsType[] = []
@@ -241,7 +246,7 @@ function queue(list: Array<CommandType | string>): Promise<QueueReturnsType[]> {
  * @description 获取未执行脚本列表
  * @returns {Array} arr 返回数组
  */
-function getCache() {
+export function getCache() {
     const { gitDir } = gitRevParse()
     let arr = []
     if (isFileExist(gitDir + '/.gitmarscommands')) {
@@ -260,7 +265,7 @@ function getCache() {
  * setCache
  * @description 存储未执行脚本列表
  */
-function setCache(rest: Array<CommandType | string>): void {
+export function setCache(rest: Array<CommandType | string>): void {
     const { gitDir } = gitRevParse()
     sh.touch(gitDir + '/.gitmarscommands')
     // eslint-disable-next-line no-control-regex
@@ -275,7 +280,7 @@ function setCache(rest: Array<CommandType | string>): void {
 /**
  * 清除队列缓存
  */
-function cleanCache(): void {
+export function cleanCache(): void {
     setCache([])
 }
 
@@ -283,7 +288,7 @@ function cleanCache(): void {
  * setLog
  * @description 存储错误日志
  */
-function setLog(log: object): void {
+export function setLog(log: object): void {
     const { gitDir } = gitRevParse()
     sh.touch(gitDir + '/.gitmarslog')
     // eslint-disable-next-line no-control-regex
@@ -300,7 +305,7 @@ function setLog(log: object): void {
  * @description 获取分支状态
  * @returns {Boolean} true 返回true/false
  */
-function getStatusInfo(config: any = {}): GitStatusInfoType {
+export function getStatusInfo(config: any = {}): GitStatusInfoType {
     const { silent = true } = config
     const out = sh
         .exec('git status -s --no-column', { silent })
@@ -327,7 +332,7 @@ function getStatusInfo(config: any = {}): GitStatusInfoType {
  * @description 获取是否有未提交的文件
  * @returns {Boolean} true 返回true/false
  */
-function getStatus(): boolean {
+export function getStatus(): boolean {
     const sum = getStatusInfo({ silent: false })
     if (sum.A.length > 0 || sum.D.length > 0 || sum.M.length > 0) {
         sh.echo(
@@ -350,7 +355,7 @@ function getStatus(): boolean {
  * @description 获取日志
  * @returns {Array} true 返回列表
  */
-function getLogs(config: any = {}): GitLogType[] {
+export function getLogs(config: any = {}): GitLogType[] {
     const { lastet, limit, branches, params = '' } = config
     const keys = [
         '%H',
@@ -443,11 +448,11 @@ function getLogs(config: any = {}): GitLogType[] {
  * @description 获取是否有某个分支
  * @returns {Boolean} true 返回true/false
  */
-async function checkBranch(name: string): Promise<string> {
+export async function checkBranch(name: string): Promise<string> {
     const data = await queue([`gitm branch -k ${name}`])
     return data[0].out.replace(/^\s+/, '')
 }
-// function checkBranch(name) {
+// export function checkBranch(name) {
 // 	return queue([`gitm branch -k ${name}`]).then(data => {
 // 		return resolve(data[0].out.replace(/^\s+/, ''))
 // 	})
@@ -458,7 +463,7 @@ async function checkBranch(name: string): Promise<string> {
  * @description 获取当前分支
  * @returns {String} 返回名称
  */
-function getCurrent(): string {
+export function getCurrent(): string {
     return sh
         .exec('git symbolic-ref --short -q HEAD', { silent: true })
         .stdout.replace(/[\n\s]*$/g, '')
@@ -469,7 +474,7 @@ function getCurrent(): string {
  * @description 获取当前分支
  * @returns array 返回列表数组
  */
-async function searchBranch(
+export async function searchBranch(
     key: string,
     type: GitmarsBranchType,
     remote = false
@@ -492,7 +497,7 @@ async function searchBranch(
  * @param opt - 筛选参数
  * @returns branches - 返回列表数组
  */
-function searchBranches(opt: any = {}): string[] {
+export function searchBranches(opt: any = {}): string[] {
     const { key, type, remote = false, exclude, include } = opt
     let { path } = opt
     if (!path) {
@@ -576,7 +581,11 @@ function searchBranches(opt: any = {}): string[] {
  * @description 搜索分支
  * @returns {Array} 返回列表数组
  */
-function filterBranch(key: string, types: string, remote = false): string[] {
+export function filterBranch(
+    key: string,
+    types: string,
+    remote = false
+): string[] {
     let typesList: string[] = [types],
         list: string[]
     if (typeof types === 'string') typesList = types.split(',')
@@ -609,7 +618,7 @@ function filterBranch(key: string, types: string, remote = false): string[] {
  * @description 获取暂存区列表
  * @returns {String} 返回名称
  */
-async function getStashList(key: string) {
+export async function async(key: string) {
     const data = (await queue(['git stash list']))[0].out.replace(/^\*\s+/, '')
     const list: string[] = (data && data.split('\n')) || []
     const arr: {
@@ -646,7 +655,7 @@ async function getStashList(key: string) {
  * getMessage
  * @description 解析模板数据
  */
-function getMessage(type: string): string {
+export function getMessage(type: string): string {
     const { root } = gitRevParse()
     const { appName } = getGitConfig()
     const config = getConfig()
@@ -679,7 +688,7 @@ function getMessage(type: string): string {
  * postMessage
  * @description 生成消息
  */
-function postMessage(msg = ''): void {
+export function postMessage(msg = ''): void {
     const config = getConfig()
     if (!config.msgTemplate) {
         sh.echo(error('请配置消息发送api模板地址'))
@@ -696,7 +705,7 @@ function postMessage(msg = ''): void {
  * sendMessage
  * @description 发送消息
  */
-function sendMessage(message = '', cfg = {} as SendMessageType): void {
+export function sendMessage(message = '', cfg = {} as SendMessageType): void {
     const config = getConfig()
     const { silent = true } = cfg
     if (!config.msgUrl) {
@@ -715,7 +724,7 @@ function sendMessage(message = '', cfg = {} as SendMessageType): void {
  * getCommandMessage
  * @description 获取通用的指令提示信息
  */
-function getCommandMessage(cmd: string): CommandMessageType {
+export function getCommandMessage(cmd: string): CommandMessageType {
     const msg = {} as CommandMessageType
     const arr = cmd.replace(/[\s]+/g, ' ').split(' ')
     if (arr.length < 2 || arr[0] !== 'git') return msg
@@ -784,7 +793,10 @@ function getCommandMessage(cmd: string): CommandMessageType {
  * @param userAgent - ua，可不传，默认取navigator.appVersion
  * @return null/true/false
  */
-function compareVersion(basicVer: string, compareVer: string): boolean | null {
+export function compareVersion(
+    basicVer: string,
+    compareVer: string
+): boolean | null {
     if (basicVer === null) return null
     basicVer = basicVer + '.'
     compareVer = compareVer + '.'
@@ -810,7 +822,7 @@ function compareVersion(basicVer: string, compareVer: string): boolean | null {
  * @description 获取包含commitID的分支
  * @returns {Array} 返回数组
  */
-function getBranchesFromID(commitID: string, remote = false): string[] {
+export function getBranchesFromID(commitID: string, remote = false): string[] {
     const out = sh
         .exec(
             `git branch ${
@@ -827,7 +839,7 @@ function getBranchesFromID(commitID: string, remote = false): string[] {
  * @description 获取git用户名称
  * @returns {String} 返回字符串
  */
-function getGitUser(): string {
+export function getGitUser(): string {
     return sh
         .exec('git config user.name', { silent: true })
         .stdout.replace(/(^\s+|\n*$)/g, '') // 去除首尾
@@ -838,7 +850,7 @@ function getGitUser(): string {
  * @description 获取git用户邮箱
  * @returns {String} 返回字符串
  */
-function getGitEmail(): string {
+export function getGitEmail(): string {
     return sh
         .exec('git config user.email', { silent: true })
         .stdout.replace(/(^\s+|\n*$)/g, '') // 去除首尾
@@ -849,7 +861,7 @@ function getGitEmail(): string {
  *
  * @returns {String} 返回字符串
  */
-function isGitProject(): boolean {
+export function isGitProject(): boolean {
     return sh
         .exec('git rev-parse --is-inside-work-tree', { silent: true })
         .stdout.includes('true')
@@ -861,41 +873,8 @@ function isGitProject(): boolean {
  * @param millisecond - 毫秒
  * @returns {String} 返回字符串
  */
-function delay(millisecond: number = 0): Promise<void> {
+export function delay(millisecond: number = 0): Promise<void> {
     return new Promise(resolve => {
         setTimeout(resolve, millisecond)
     })
-}
-
-module.exports = {
-    warning,
-    error,
-    success,
-    writeFile,
-    mapTemplate,
-    getSeconds,
-    wait,
-    queue,
-    getCache,
-    setCache,
-    cleanCache,
-    setLog,
-    getStatusInfo,
-    getStatus,
-    getLogs,
-    checkBranch,
-    getCurrent,
-    searchBranch,
-    searchBranches,
-    filterBranch,
-    getStashList,
-    postMessage,
-    sendMessage,
-    getCommandMessage,
-    compareVersion,
-    getBranchesFromID,
-    getGitUser,
-    getGitEmail,
-    isGitProject,
-    delay
 }

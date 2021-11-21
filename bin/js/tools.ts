@@ -1,17 +1,6 @@
 const fs = require('fs')
-const colors = require('colors')
 
 import type { GitmarsOptionArgsType } from '../../typings'
-
-function warning(txt: string): string {
-    return colors.yellow(txt)
-}
-function error(txt: string): string {
-    return colors.red(txt)
-}
-function success(txt: string): string {
-    return colors.green(txt)
-}
 
 /**
  * writeFile
@@ -46,9 +35,6 @@ function createArgs(args: GitmarsOptionArgsType[]): string {
 }
 
 module.exports = {
-    warning,
-    error,
-    success,
     writeFile,
     createArgs
 }
