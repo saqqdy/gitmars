@@ -1,5 +1,5 @@
 const sh = require('shelljs')
-const { getGitConfig } = require('../git/index')
+const getGitConfig = require('./getGitConfig')
 const gitRevParse = require('../gitRevParse')
 
 export interface SearchBranchesMapType {

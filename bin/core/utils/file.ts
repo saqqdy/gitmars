@@ -1,6 +1,8 @@
 const fs = require('fs')
 const sh = require('shelljs')
 
+sh.config.silent = true
+
 /**
  * 写文件
  */
