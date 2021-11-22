@@ -12,8 +12,10 @@ const {
 const { error, warning, createArgs } = require('./core/utils/index')
 const { getCurlOfMergeRequest } = require('./core/shell/index')
 const { isNeedUpgrade, upgradeGitmars } = require('./core/versionControl')
-const getIsMergedTargetBranch = require('./core/branch/getIsMergedTargetBranch')
-const getIsUpdatedInTime = require('./core/branch/getIsUpdatedInTime')
+const {
+    getIsMergedTargetBranch,
+    getIsUpdatedInTime
+} = require('./core/branch/index')
 const { defaults } = require('./core/global')
 
 import {

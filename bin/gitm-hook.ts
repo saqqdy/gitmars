@@ -5,11 +5,12 @@ const { options, args } = require('./conf/hook')
 const { getBranchesFromID } = require('./core/index')
 const { getIsGitProject, getCurrentBranch } = require('./core/git/index')
 const { error, success, createArgs } = require('./core/utils/index')
-const getIsMergedTargetBranch = require('./core/branch/getIsMergedTargetBranch')
-const getIsUpdatedInTime = require('./core/branch/getIsUpdatedInTime')
-const getIsMergeAction = require('./core/branch/getIsMergeAction')
-const getBehindLogs = require('./core/branch/getBehindLogs')
-// const getAheadLogs = require('./core/branch/getAheadLogs')
+const {
+    getIsMergedTargetBranch,
+    getIsUpdatedInTime,
+    getIsMergeAction,
+    getBehindLogs
+} = require('./core/branch/index')
 const { init, remove } = require('./core/hook/index')
 if (!getIsGitProject()) {
     sh.echo(error('当前目录不是git项目目录'))

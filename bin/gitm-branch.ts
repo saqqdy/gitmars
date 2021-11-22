@@ -5,7 +5,7 @@ const { options, args } = require('./conf/branch')
 const { queue } = require('./core/index')
 const { getIsGitProject } = require('./core/git/index')
 const { error, createArgs } = require('./core/utils/index')
-const getIsBranchOrCommitExist = require('./core/branch/getIsBranchOrCommitExist')
+const { getIsBranchOrCommitExist } = require('./core/branch/index')
 if (!getIsGitProject()) {
     sh.echo(error('当前目录不是git项目目录'))
     sh.exit(1)

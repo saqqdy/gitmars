@@ -10,8 +10,10 @@ const {
     getCurrentBranch
 } = require('./core/git/index')
 const { error, success, createArgs, delay } = require('./core/utils/index')
-const getIsMergedTargetBranch = require('./core/branch/getIsMergedTargetBranch')
-const getIsBranchOrCommitExist = require('./core/branch/getIsBranchOrCommitExist')
+const {
+    getIsMergedTargetBranch,
+    getIsBranchOrCommitExist
+} = require('./core/branch/index')
 if (!getIsGitProject()) {
     sh.echo(error('当前目录不是git项目目录'))
     sh.exit(1)

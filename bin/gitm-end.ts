@@ -12,8 +12,10 @@ const {
 const { error, createArgs } = require('./core/utils/index')
 const { getCurlOfMergeRequest } = require('./core/shell/index')
 const { isNeedUpgrade, upgradeGitmars } = require('./core/versionControl')
-const getIsMergedTargetBranch = require('./core/branch/getIsMergedTargetBranch')
-const getIsBranchOrCommitExist = require('./core/branch/getIsBranchOrCommitExist')
+const {
+    getIsMergedTargetBranch,
+    getIsBranchOrCommitExist
+} = require('./core/branch/index')
 if (!getIsGitProject()) {
     sh.echo(error('当前目录不是git项目目录'))
     sh.exit(1)
