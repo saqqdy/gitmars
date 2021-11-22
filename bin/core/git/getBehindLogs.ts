@@ -1,5 +1,5 @@
 const sh = require('shelljs')
-const { getCurrentBranch } = require('../git/index')
+const getCurrentBranch = require('./getCurrentBranch')
 
 /**
  * 获取当前本地分支落后远程的日志

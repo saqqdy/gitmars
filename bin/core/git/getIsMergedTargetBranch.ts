@@ -1,5 +1,5 @@
 const sh = require('shelljs')
-const { getCurrentBranch } = require('../git/index')
+const getCurrentBranch = require('./getCurrentBranch')
 
 /**
  * 获取是否合并过dev

@@ -3,14 +3,15 @@ const { program } = require('commander')
 const sh = require('shelljs')
 const { options, args } = require('./conf/hook')
 const { getBranchesFromID } = require('./core/index')
-const { getIsGitProject, getCurrentBranch } = require('./core/git/index')
-const { error, success, createArgs } = require('./core/utils/index')
 const {
+    getIsGitProject,
+    getCurrentBranch,
     getIsMergedTargetBranch,
     getIsUpdatedInTime,
     getIsMergeAction,
     getBehindLogs
-} = require('./core/branch/index')
+} = require('./core/git/index')
+const { error, success, createArgs } = require('./core/utils/index')
 const { init, remove } = require('./core/hook/index')
 if (!getIsGitProject()) {
     sh.echo(error('当前目录不是git项目目录'))

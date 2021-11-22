@@ -7,15 +7,13 @@ const { queue, getStatus, searchBranch } = require('./core/index')
 const {
     getIsGitProject,
     getCurrentBranch,
-    getGitConfig
+    getGitConfig,
+    getIsMergedTargetBranch,
+    getIsUpdatedInTime
 } = require('./core/git/index')
 const { error, warning, createArgs } = require('./core/utils/index')
 const { getCurlOfMergeRequest } = require('./core/shell/index')
 const { isNeedUpgrade, upgradeGitmars } = require('./core/versionControl')
-const {
-    getIsMergedTargetBranch,
-    getIsUpdatedInTime
-} = require('./core/branch/index')
 const { defaults } = require('./core/global')
 
 import {

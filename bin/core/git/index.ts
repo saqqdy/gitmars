@@ -6,6 +6,12 @@ const getGitVersion = require('./getGitVersion')
 const getGitConfig = require('./getGitConfig')
 const getGitRevParse = require('./getGitRevParse')
 const checkGitDirEnv = require('./checkGitDirEnv')
+const getAheadLogs = require('./getAheadLogs')
+const getBehindLogs = require('./getBehindLogs')
+const getIsBranchOrCommitExist = require('./getIsBranchOrCommitExist')
+const getIsMergeAction = require('./getIsMergeAction')
+const getIsMergedTargetBranch = require('./getIsMergedTargetBranch')
+const getIsUpdatedInTime = require('./getIsUpdatedInTime')
 
 module.exports = {
     getIsGitProject,
@@ -15,6 +21,12 @@ module.exports = {
     getGitVersion,
     getGitConfig,
     getGitRevParse,
-    checkGitDirEnv
+    checkGitDirEnv,
+    getAheadLogs,
+    getBehindLogs,
+    getIsBranchOrCommitExist,
+    getIsMergeAction,
+    getIsMergedTargetBranch,
+    getIsUpdatedInTime
 }
 export {}

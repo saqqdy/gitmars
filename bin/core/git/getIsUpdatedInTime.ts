@@ -1,4 +1,5 @@
-const { getCurrentBranch, getGitLogs } = require('../git/index')
+const getCurrentBranch = require('./getCurrentBranch')
+const getGitLogs = require('./getGitLogs')
 
 import type { GitLogType } from '../../../typings'
 

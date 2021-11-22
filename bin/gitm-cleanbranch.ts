@@ -7,13 +7,11 @@ const { options, args } = require('./conf/cleanbranch')
 const {
     getIsGitProject,
     searchBranches,
-    getCurrentBranch
-} = require('./core/git/index')
-const { error, success, createArgs, delay } = require('./core/utils/index')
-const {
+    getCurrentBranch,
     getIsMergedTargetBranch,
     getIsBranchOrCommitExist
-} = require('./core/branch/index')
+} = require('./core/git/index')
+const { error, success, createArgs, delay } = require('./core/utils/index')
 if (!getIsGitProject()) {
     sh.echo(error('当前目录不是git项目目录'))
     sh.exit(1)
