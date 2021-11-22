@@ -1,8 +1,7 @@
-const debug = require('./debug')
+const debug = require('../debug')
 
 /**
- * checkGitDirEnv
- * @description 检查git环境变量
+ * 检查git环境变量
  */
 function checkGitDirEnv(): void {
     if (process.env.GIT_DIR) {
@@ -11,4 +10,4 @@ function checkGitDirEnv(): void {
     }
 }
 
-export { checkGitDirEnv, checkGitDirEnv as default }
+module.exports = checkGitDirEnv

@@ -5,6 +5,7 @@ const getGitLogs = require('./getGitLogs')
 const getGitVersion = require('./getGitVersion')
 const getGitConfig = require('./getGitConfig')
 const getGitRevParse = require('./getGitRevParse')
+const checkGitDirEnv = require('./checkGitDirEnv')
 
 module.exports = {
     getIsGitProject,
@@ -13,6 +14,7 @@ module.exports = {
     getGitLogs,
     getGitVersion,
     getGitConfig,
-    getGitRevParse
+    getGitRevParse,
+    checkGitDirEnv
 }
 export {}
