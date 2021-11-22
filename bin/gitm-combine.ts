@@ -37,7 +37,7 @@ if (!getIsGitProject()) {
     sh.echo(error('当前目录不是git项目目录'))
     sh.exit(1)
 }
-const getUserToken = require('./core/api')
+const { getUserToken } = require('./core/api/index')
 const getConfig = require('./core/getConfig')
 const { appName } = getGitConfig()
 const config = getConfig()

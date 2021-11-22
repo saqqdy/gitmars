@@ -1,9 +1,9 @@
 const sh = require('shelljs')
-const { getGitUser } = require('./index')
-const { error } = require('./utils/index')
-const getConfig = require('./getConfig')
+const { getGitUser } = require('../index')
+const { error } = require('../utils/index')
+const getConfig = require('../getConfig')
 
-import { FetchDataType } from '../../typings'
+import { FetchDataType } from '../../../typings'
 
 // 获取用户信息
 function getUserToken(): FetchDataType {

@@ -2,7 +2,7 @@
 const { Command } = require('commander')
 const sh = require('shelljs')
 const { create, publish, update, clean } = require('./conf/admin')
-const getUserToken = require('./core/api')
+const { getUserToken } = require('./core/api/index')
 const { getType } = require('js-cool')
 const { queue, getStatus, checkBranch } = require('./core/index')
 const {

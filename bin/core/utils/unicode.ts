@@ -1,8 +1,8 @@
 /**
- * encodeUnicode
- * @description 中文转unioncode
- * @param {string} str 字符串
- * @returns {String} 返回字符串
+ * 中文转unioncode
+ *
+ * @param str - 字符串
+ * @returns code - 返回字符串
  */
 function encodeUnicode(str: string): string {
     const res = []
@@ -13,10 +13,10 @@ function encodeUnicode(str: string): string {
 }
 
 /**
- * decodeUnicode
- * @description 中文转unioncode
- * @param {string} str 字符串
- * @returns {String} 返回字符串
+ * 中文转unioncode
+ *
+ * @param str - 字符串
+ * @returns code - 返回字符串
  */
 function decodeUnicode(str: string): string {
     str = str.replace(/\\/g, '%')
@@ -27,3 +27,4 @@ module.exports = {
     encodeUnicode,
     decodeUnicode
 }
+export {}

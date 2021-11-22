@@ -4,6 +4,7 @@ const { isCacheExpired, updateCacheTime } = require('./cache')
 const { createArgs } = require('./command')
 const getSeconds = require('./getSeconds')
 const delay = require('./delay')
+const { encodeUnicode, decodeUnicode } = require('./utils/index')
 
 module.exports = {
     warning,
@@ -15,5 +16,8 @@ module.exports = {
     updateCacheTime,
     createArgs,
     getSeconds,
-    delay
+    delay,
+    encodeUnicode,
+    decodeUnicode
 }
+export {}
