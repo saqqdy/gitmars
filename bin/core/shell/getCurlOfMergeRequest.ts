@@ -1,4 +1,4 @@
-const { encodeUnicode } = require('../utils/index')
+const { encodeUnicode } = require('../utils/unicode')
 const getConfig = require('../getConfig')
 const config = getConfig()
 

@@ -1,5 +1,5 @@
 const sh = require('shelljs')
-const { warning } = require('../utils/index')
+const { warning } = require('../utils/colors')
 
 /**
  * 获取git版本

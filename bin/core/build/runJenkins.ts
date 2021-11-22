@@ -1,7 +1,7 @@
 const sh = require('shelljs')
 const getApolloConfig = require('./getApolloConfig')
 const { mapTemplate } = require('../index')
-const { error, success } = require('../utils/index')
+const { error, success } = require('../utils/colors')
 
 import type {
     ApolloConfigType,
