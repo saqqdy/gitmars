@@ -59,7 +59,7 @@
         "inquirer": "^8.2.0",
         "js-cool": "^2.3.0",
         "logger": "^0.0.1",
-        "lowdb": "^1.0.0",
+        "lowdb": "^3.0.0",
         "morgan": "^1.10.0",
         "node-apollo": "^1.2.1",
         "node-pty": "^0.10.1",
