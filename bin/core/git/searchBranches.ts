@@ -1,6 +1,6 @@
 const sh = require('shelljs')
 const getGitConfig = require('./getGitConfig')
-const gitRevParse = require('../gitRevParse')
+const getGitRevParse = require('./getGitRevParse')
 
 export interface SearchBranchesMapType {
     heads: string[]
@@ -22,7 +22,7 @@ function searchBranches(opt: any = {}): string[] {
             const { gitUrl } = getGitConfig()
             path = gitUrl
         } else {
-            const { root } = gitRevParse()
+            const { root } = getGitRevParse()
             path = root
         }
     }

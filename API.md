@@ -22,7 +22,7 @@
 <dt><a href="#getGitVersion">getGitVersion()</a> ⇒ <code>String</code></dt>
 <dd><p>获取git版本</p>
 </dd>
-<dt><a href="#gitRevParse">gitRevParse()</a> ⇒ <code>Object</code></dt>
+<dt><a href="#getGitRevParse">getGitRevParse()</a> ⇒ <code>Object</code></dt>
 <dd><p>获取git路径</p>
 </dd>
 <dt><a href="#writeFile">writeFile()</a></dt>
@@ -182,9 +182,9 @@ debug
 
 **Kind**: global function  
 **Returns**: <code>String</code> - str 返回版本号  
-<a name="gitRevParse"></a>
+<a name="getGitRevParse"></a>
 
-## gitRevParse() ⇒ <code>Object</code>
+## getGitRevParse() ⇒ <code>Object</code>
 
 获取 git 路径
 

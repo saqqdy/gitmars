@@ -1,8 +1,7 @@
 #!/usr/bin/env ts-node
 const { program } = require('commander')
 const sh = require('shelljs')
-const gitRevParse = require('./core/gitRevParse')
-const { getIsGitProject } = require('./core/git/index')
+const { getIsGitProject, getGitRevParse } = require('./core/git/index')
 const { error, success, writeFile } = require('./core/utils/index')
 const { defaults } = require('./core/global')
 if (!getIsGitProject()) {
@@ -23,7 +22,7 @@ program
     .action(async (option: string, value: string): Promise<void> => {
         let { filepath } = config
         if (!filepath) {
-            const { root } = gitRevParse()
+            const { root } = getGitRevParse()
             filepath = root + '/.gitmarsrc'
         }
         if (value) {

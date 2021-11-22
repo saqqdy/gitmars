@@ -10,7 +10,7 @@
 // }
 // export const readPkg = readPkg
 
-const gitRevParse = require('./gitRevParse')
+const { getGitRevParse } = require('./git/index')
 const fs = require('fs')
 const path = require('path')
 
@@ -23,7 +23,7 @@ import type { AnyObject } from '../../typings'
  */
 function readPkg(dir?: string): AnyObject {
     if (!dir) {
-        const { root } = gitRevParse()
+        const { root } = getGitRevParse()
         dir = root
     }
     const pkgFile = path.resolve(dir, 'package.json')

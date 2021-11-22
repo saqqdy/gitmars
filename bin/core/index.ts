@@ -1,8 +1,7 @@
 const sh = require('shelljs')
 const ora = require('ora')
-const { isFileExist } = require('./utils/index')
-const { getGitConfig } = require('./git/index')
-const gitRevParse = require('./gitRevParse')
+const { success, warning, error, isFileExist } = require('./utils/index')
+const { getGitConfig, getGitRevParse } = require('./git/index')
 const getConfig = require('./getConfig')
 
 import type {
@@ -179,7 +178,7 @@ export function queue(
  * @returns {Array} arr 返回数组
  */
 export function getCache() {
-    const { gitDir } = gitRevParse()
+    const { gitDir } = getGitRevParse()
     let arr = []
     if (isFileExist(gitDir + '/.gitmarscommands')) {
         arr = sh
@@ -198,7 +197,7 @@ export function getCache() {
  * @description 存储未执行脚本列表
  */
 export function setCache(rest: Array<CommandType | string>): void {
-    const { gitDir } = gitRevParse()
+    const { gitDir } = getGitRevParse()
     sh.touch(gitDir + '/.gitmarscommands')
     // eslint-disable-next-line no-control-regex
     sh.sed(
@@ -221,7 +220,7 @@ export function cleanCache(): void {
  * @description 存储错误日志
  */
 export function setLog(log: object): void {
-    const { gitDir } = gitRevParse()
+    const { gitDir } = getGitRevParse()
     sh.touch(gitDir + '/.gitmarslog')
     // eslint-disable-next-line no-control-regex
     sh.sed(
@@ -400,7 +399,7 @@ export async function getStashList(key: string) {
  * @description 解析模板数据
  */
 export function getMessage(type: string): string {
-    const { root } = gitRevParse()
+    const { root } = getGitRevParse()
     const { appName } = getGitConfig()
     const config = getConfig()
     const d = new Date()

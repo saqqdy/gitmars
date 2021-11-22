@@ -1,6 +1,6 @@
 const fs = require('fs')
-const gitRevParse = require('./gitRevParse')
 const { cosmiconfigSync } = require('cosmiconfig')
+const { getGitRevParse } = require('./git/index')
 const { defaults } = require('./global')
 
 import type { GitmarsConfigType } from 'typings'
@@ -17,7 +17,7 @@ module.exports = function getConfig(
 ): GitmarsConfigType {
     let info
     if (!pathName) {
-        const { root } = gitRevParse()
+        const { root } = getGitRevParse()
         try {
             pathName = root + '/gitmarsconfig.json'
             info = fs.statSync(pathName)

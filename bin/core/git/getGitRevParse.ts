@@ -11,11 +11,12 @@ export interface GitProjectRevParseType {
 }
 
 /**
- * gitRevParse
- * @description 获取git路径
- * @returns {Object} arr 返回对象
+ * 获取git路径
+ *
+ * @param cwd - 当前工作目录
+ * @returns gitRevParse - 返回对象GitProjectRevParseType
  */
-function gitRevParse(cwd: string = process.cwd()): GitProjectRevParseType {
+function getGitRevParse(cwd: string = process.cwd()): GitProjectRevParseType {
     const result = sh
         .exec(
             'git rev-parse --show-toplevel --show-prefix --git-common-dir --absolute-git-dir --show-cdup',
@@ -36,4 +37,4 @@ function gitRevParse(cwd: string = process.cwd()): GitProjectRevParseType {
     }
 }
 
-module.exports = gitRevParse
+module.exports = getGitRevParse
