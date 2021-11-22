@@ -1,5 +1,5 @@
-const { encodeUnicode } = require('./utils/index')
-const getConfig = require('./getConfig')
+const { encodeUnicode } = require('../utils/index')
+const getConfig = require('../getConfig')
 const config = getConfig()
 
 /**
@@ -8,7 +8,7 @@ const config = getConfig()
  * @param option - options
  * @returns command
  */
-function getCurlMergeRequestCommand({
+function getCurlOfMergeRequest({
     source_branch,
     target_branch,
     token,
@@ -24,7 +24,5 @@ function getCurlMergeRequestCommand({
     return `curl -i -H "Content-Type: application/json" -X POST -d "{\u005c"source_branch\u005c":\u005c"${source_branch}\u005c",\u005c"target_branch\u005c":\u005c"${target_branch}\u005c",\u005c"private_token\u005c":\u005c"${token}\u005c",\u005c"title\u005c":\u005c"Merge branch '${source_branch}' into '${target_branch}'\u005c"${des}}" "${config.gitHost}/api/v4/projects/${config.gitID}/merge_requests"`
 }
 
-module.exports = {
-    getCurlMergeRequestCommand
-}
+module.exports = getCurlOfMergeRequest
 export {}

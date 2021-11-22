@@ -10,7 +10,7 @@ const {
     getGitConfig
 } = require('./core/git/index')
 const { error, createArgs } = require('./core/utils/index')
-const { getCurlMergeRequestCommand } = require('./core/shell')
+const { getCurlOfMergeRequest } = require('./core/shell/index')
 const { isNeedUpgrade, upgradeGitmars } = require('./core/versionControl')
 const getIsMergedTargetBranch = require('./core/branch/getIsMergedTargetBranch')
 const getIsBranchOrCommitExist = require('./core/branch/getIsBranchOrCommitExist')
@@ -209,7 +209,7 @@ program.action(
                             }
                         },
                         {
-                            cmd: getCurlMergeRequestCommand({
+                            cmd: getCurlOfMergeRequest({
                                 source_branch: `${type}/${name}`,
                                 target_branch: config.bugfix,
                                 token,
@@ -298,7 +298,7 @@ program.action(
                             }
                         },
                         {
-                            cmd: getCurlMergeRequestCommand({
+                            cmd: getCurlOfMergeRequest({
                                 source_branch: `${type}/${name}`,
                                 target_branch: base,
                                 token,

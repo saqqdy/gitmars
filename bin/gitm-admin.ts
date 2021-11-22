@@ -11,7 +11,7 @@ const {
     getGitConfig
 } = require('./core/git/index')
 const { error, success, createArgs } = require('./core/utils/index')
-const { getCurlMergeRequestCommand } = require('./core/shell')
+const { getCurlOfMergeRequest } = require('./core/shell/index')
 if (!getIsGitProject()) {
     sh.echo(error('当前目录不是git项目目录'))
     sh.exit(1)
@@ -258,7 +258,7 @@ if (publish.args.length > 0) {
                     cmd = {
                         bugfix: [
                             {
-                                cmd: getCurlMergeRequestCommand({
+                                cmd: getCurlOfMergeRequest({
                                     source_branch: config.bugfix,
                                     target_branch: config.release,
                                     token,
@@ -274,7 +274,7 @@ if (publish.args.length > 0) {
                         ],
                         support: [
                             {
-                                cmd: getCurlMergeRequestCommand({
+                                cmd: getCurlOfMergeRequest({
                                     source_branch: config.support,
                                     target_branch: config.release,
                                     token,
@@ -288,7 +288,7 @@ if (publish.args.length > 0) {
                             },
                             `gitm postmsg "${nickname}在${appName}项目提交了${config.support}分支合并到${config.release}分支的merge请求"`,
                             {
-                                cmd: getCurlMergeRequestCommand({
+                                cmd: getCurlOfMergeRequest({
                                     source_branch: config.support,
                                     target_branch: config.bugfix,
                                     token,
@@ -304,7 +304,7 @@ if (publish.args.length > 0) {
                         ],
                         release: [
                             {
-                                cmd: getCurlMergeRequestCommand({
+                                cmd: getCurlOfMergeRequest({
                                     source_branch: config.release,
                                     target_branch: config.master,
                                     token,
@@ -350,7 +350,7 @@ if (publish.args.length > 0) {
                         }
                         cmd[type] = cmd[type].concat([
                             {
-                                cmd: getCurlMergeRequestCommand({
+                                cmd: getCurlOfMergeRequest({
                                     source_branch: config.bugfix,
                                     target_branch: config.master,
                                     token,
@@ -457,7 +457,7 @@ if (publish.args.length > 0) {
                             }
                             cmd[type] = cmd[type].concat([
                                 {
-                                    cmd: getCurlMergeRequestCommand({
+                                    cmd: getCurlOfMergeRequest({
                                         source_branch: config.release,
                                         target_branch: config.bugfix,
                                         token,
@@ -562,7 +562,7 @@ if (update.args.length > 0) {
                 }
                 cmd = [
                     {
-                        cmd: getCurlMergeRequestCommand({
+                        cmd: getCurlOfMergeRequest({
                             source_branch: base,
                             target_branch: config[type],
                             token,
