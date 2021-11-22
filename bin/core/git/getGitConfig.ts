@@ -8,7 +8,7 @@ export interface GitProjectConfigType {
 
 /**
  * 获取git配置
- * 
+ *
  * @param cwd - 当前工作目录
  * @returns config - GitProjectConfigType
  */

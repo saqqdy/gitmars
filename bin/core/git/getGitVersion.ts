@@ -3,7 +3,7 @@ const { warning } = require('../utils/index')
 
 /**
  * 获取git版本
- * 
+ *
  * @returns version - 返回版本号
  */
 function getGitVersion(): string | void {

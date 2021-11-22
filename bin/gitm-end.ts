@@ -4,7 +4,11 @@ const sh = require('shelljs')
 const { options, args } = require('./conf/end')
 const { getType } = require('js-cool')
 const { queue, getStatus, searchBranch } = require('./core/index')
-const { getIsGitProject, getCurrentBranch, getGitConfig } = require('./core/git/index')
+const {
+    getIsGitProject,
+    getCurrentBranch,
+    getGitConfig
+} = require('./core/git/index')
 const { error, createArgs } = require('./core/utils/index')
 const { getCurlMergeRequestCommand } = require('./core/shell')
 const { isNeedUpgrade, upgradeGitmars } = require('./core/versionControl')

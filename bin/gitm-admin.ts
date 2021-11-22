@@ -5,7 +5,11 @@ const { create, publish, update, clean } = require('./conf/admin')
 const getUserToken = require('./core/api')
 const { getType } = require('js-cool')
 const { queue, getStatus, checkBranch } = require('./core/index')
-const { getIsGitProject, getCurrentBranch, getGitConfig } = require('./core/git/index')
+const {
+    getIsGitProject,
+    getCurrentBranch,
+    getGitConfig
+} = require('./core/git/index')
 const { error, success, createArgs } = require('./core/utils/index')
 const { getCurlMergeRequestCommand } = require('./core/shell')
 if (!getIsGitProject()) {
