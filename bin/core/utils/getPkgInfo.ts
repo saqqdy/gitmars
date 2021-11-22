@@ -1,14 +1,10 @@
 const path = require('path')
 const sh = require('shelljs')
-const { getProperty } = require('js-cool')
-const {
-    writeFile,
-    isFileExist,
-    isCacheExpired,
-    updateCacheTime
-} = require('./utils/index')
+const getProperty = require('js-cool/lib/getProperty')
+const { writeFile, isFileExist } = require('./file')
+const { isCacheExpired, updateCacheTime } = require('./cache')
 
-const cacheDir = path.join(__dirname, '../../cache')
+const cacheDir = path.join(__dirname, '../../../cache')
 
 /**
  * 读取gitmars在线版本列表

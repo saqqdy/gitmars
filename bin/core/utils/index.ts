@@ -5,6 +5,7 @@ const { createArgs } = require('./command')
 const getSeconds = require('./getSeconds')
 const delay = require('./delay')
 const { encodeUnicode, decodeUnicode } = require('./utils/index')
+const getPkgInfo = require('./getPkgInfo')
 
 module.exports = {
     warning,
@@ -18,6 +19,7 @@ module.exports = {
     getSeconds,
     delay,
     encodeUnicode,
-    decodeUnicode
+    decodeUnicode,
+    getPkgInfo
 }
 export {}
