@@ -1,19 +1,19 @@
 const path = require('path')
 const apollo = require('node-apollo')
 const sh = require('shelljs')
-const { error, writeFile, isFileExist } = require('./utils/index')
-const { isCacheExpired, updateCacheTime } = require('./cache/index')
-const getConfig = require('./getConfig')
+const { error, writeFile, isFileExist } = require('../utils/index')
+const { isCacheExpired, updateCacheTime } = require('../cache/index')
+const getConfig = require('../getConfig')
 
-import type { ApolloConfigType, GitmarsConfigType } from '../../typings'
+import type { ApolloConfigType, GitmarsConfigType } from '../../../typings'
 
 /**
- * apolloConfig
- * @description 读取构建配置
- * @returns {Object} arr 返回配置对象
+ * 读取构建配置
+ *
+ * @returns apolloConfig - 返回配置对象
  */
-async function apolloConfig(): Promise<ApolloConfigType | void> {
-    const cacheDir = path.join(__dirname, '../../cache')
+async function getApolloConfig(): Promise<ApolloConfigType | void> {
+    const cacheDir = path.join(__dirname, '../../../cache')
     const config = getConfig() as GitmarsConfigType
     if (!config.apolloConfig) {
         sh.echo(error('请配置apollo'))
@@ -47,5 +47,5 @@ async function apolloConfig(): Promise<ApolloConfigType | void> {
     return result.content
 }
 
-module.exports = apolloConfig
+module.exports = getApolloConfig
 export {}

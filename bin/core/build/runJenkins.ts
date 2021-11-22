@@ -1,13 +1,13 @@
 const sh = require('shelljs')
-const apolloConfig = require('./apollo')
-const { mapTemplate } = require('./index')
-const { error, success } = require('./utils/index')
+const getApolloConfig = require('./getApolloConfig')
+const { mapTemplate } = require('../index')
+const { error, success } = require('../utils/index')
 
 import type {
     ApolloConfigType,
     ApolloConfigBranchType,
     ApolloBranchList
-} from '../../typings'
+} from '../../../typings'
 
 export interface RunJenkinsOptionType {
     env: ApolloBranchList
@@ -16,15 +16,16 @@ export interface RunJenkinsOptionType {
 }
 
 /**
- * runJenkins
- * @description 调起Jenkins构建
+ * 调起Jenkins构建
+ *
+ * @param option - 配置
  */
 async function runJenkins({
     env,
     project,
     app = 'all'
 }: RunJenkinsOptionType): Promise<void | unknown> {
-    const buildConfig = (await apolloConfig()) as ApolloConfigType
+    const buildConfig = (await getApolloConfig()) as ApolloConfigType
     const cfg: ApolloConfigBranchType = buildConfig[env]
     let p
     if (!cfg) {
