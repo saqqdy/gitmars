@@ -1,5 +1,5 @@
 const { spawnSync } = require('child_process')
-const { checkGitDirEnv } = require('../git/index')
+const checkGitDirEnv = require('./checkGitDirEnv')
 const getConfig = require('../getConfig')
 const config = getConfig()
 

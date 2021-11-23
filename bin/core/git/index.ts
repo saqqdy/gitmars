@@ -5,7 +5,6 @@ const getGitLogs = require('./getGitLogs')
 const getGitVersion = require('./getGitVersion')
 const getGitConfig = require('./getGitConfig')
 const getGitRevParse = require('./getGitRevParse')
-const checkGitDirEnv = require('./checkGitDirEnv')
 const getAheadLogs = require('./getAheadLogs')
 const getBehindLogs = require('./getBehindLogs')
 const getIsBranchOrCommitExist = require('./getIsBranchOrCommitExist')
@@ -21,7 +20,6 @@ module.exports = {
     getGitVersion,
     getGitConfig,
     getGitRevParse,
-    checkGitDirEnv,
     getAheadLogs,
     getBehindLogs,
     getIsBranchOrCommitExist,

@@ -1,4 +1,4 @@
-const debug = require('../debug')
+const debug = require('./debug')
 
 /**
  * 检查git环境变量
@@ -11,3 +11,4 @@ function checkGitDirEnv(): void {
 }
 
 module.exports = checkGitDirEnv
+export {}
