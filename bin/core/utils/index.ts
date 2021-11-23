@@ -5,6 +5,7 @@ const getSeconds = require('./getSeconds')
 const delay = require('./delay')
 const { encodeUnicode, decodeUnicode } = require('./unicode')
 const getPkgInfo = require('./getPkgInfo')
+const readPkg = require('./readPkg')
 
 module.exports = {
     warning,
@@ -17,6 +18,7 @@ module.exports = {
     delay,
     encodeUnicode,
     decodeUnicode,
-    getPkgInfo
+    getPkgInfo,
+    readPkg
 }
 export {}

@@ -1,7 +1,7 @@
 const { getGitConfig, getGitRevParse } = require('../git/index')
 const { gitUrl } = getGitConfig()
 const { root } = getGitRevParse()
-const readPkg = require('../readPkg')
+const readPkg = require('../utils/readPkg')
 
 /**
  * getHookComment

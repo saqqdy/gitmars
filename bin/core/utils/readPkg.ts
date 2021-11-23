@@ -10,16 +10,17 @@
 // }
 // export const readPkg = readPkg
 
-const { getGitRevParse } = require('./git/index')
+const { getGitRevParse } = require('../git/index')
 const fs = require('fs')
 const path = require('path')
 
-import type { AnyObject } from '../../typings'
+import type { AnyObject } from '../../../typings'
 
 /**
- * getConfig
- * @description 读取配置
- * @returns {Object} arr 返回配置对象
+ * 读取配置
+ *
+ * @param dir - 项目目录
+ * @returns config - package.json
  */
 function readPkg(dir?: string): AnyObject {
     if (!dir) {
@@ -30,4 +31,5 @@ function readPkg(dir?: string): AnyObject {
     const pkgStr = fs.readFileSync(pkgFile, 'utf-8')
     return JSON.parse(pkgStr)
 }
+
 module.exports = readPkg

@@ -1,6 +1,6 @@
 const fs = require('fs')
 const path = require('path')
-const readPkg = require('../readPkg')
+const readPkg = require('../utils/readPkg')
 const getHookComment = require('./getHookComment')
 
 /**
