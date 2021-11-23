@@ -119,7 +119,7 @@ program.action(async (branches: string[], opt: GitmBuildOption) => {
         sh.exit(0)
     }
     for (const branch of branches) {
-        // 跳过主干分支和非二级名称的分支
+        // 跳过主干分支
         if (
             [
                 config.master,
@@ -127,8 +127,7 @@ program.action(async (branches: string[], opt: GitmBuildOption) => {
                 config.release,
                 config.bugfix,
                 config.support
-            ].includes(branch) ||
-            branch.indexOf('/') === -1
+            ].includes(branch)
         ) {
             continue
         }
@@ -177,7 +176,7 @@ program.action(async (branches: string[], opt: GitmBuildOption) => {
                     )}分支，可以清理：`
                 )
             )
-            console.info(_willDeleteBranch)
+            console.info('\n' + success(_willDeleteBranch.join(' ') + '\n'))
         } else {
             sh.echo(success(`分析完成，没有分支需要清理`))
         }
