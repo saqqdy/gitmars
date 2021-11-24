@@ -1,5 +1,5 @@
 const sh = require('shelljs')
-const { getGitUser } = require('../index')
+const { getGitUser } = require('../git/getGitUser')
 const { error } = require('../utils/colors')
 const getConfig = require('../getConfig')
 

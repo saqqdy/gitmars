@@ -11,6 +11,8 @@ const getIsBranchOrCommitExist = require('./getIsBranchOrCommitExist')
 const getIsMergeAction = require('./getIsMergeAction')
 const getIsMergedTargetBranch = require('./getIsMergedTargetBranch')
 const getIsUpdatedInTime = require('./getIsUpdatedInTime')
+const { getGitUser, getGitEmail } = require('./getGitUser')
+const getBranchesFromID = require('./getBranchesFromID')
 
 module.exports = {
     getIsGitProject,
@@ -25,6 +27,9 @@ module.exports = {
     getIsBranchOrCommitExist,
     getIsMergeAction,
     getIsMergedTargetBranch,
-    getIsUpdatedInTime
+    getIsUpdatedInTime,
+    getGitUser,
+    getGitEmail,
+    getBranchesFromID
 }
 export {}

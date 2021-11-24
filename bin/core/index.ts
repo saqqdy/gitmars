@@ -560,41 +560,4 @@ export function compareVersion(
     }
 }
 
-/**
- * getBranchesFromID
- * @description 获取包含commitID的分支
- * @returns {Array} 返回数组
- */
-export function getBranchesFromID(commitID: string, remote = false): string[] {
-    const out = sh
-        .exec(
-            `git branch ${
-                remote ? '-r' : ''
-            } --contains ${commitID} --format="%(refname:short)`,
-            { silent: true }
-        )
-        .stdout.replace(/(^\s+|\n*$)/g, '') // 去除首尾
-    return out ? out.split('\n') : []
-}
 
-/**
- * getGitUser
- * @description 获取git用户名称
- * @returns {String} 返回字符串
- */
-export function getGitUser(): string {
-    return sh
-        .exec('git config user.name', { silent: true })
-        .stdout.replace(/(^\s+|\n*$)/g, '') // 去除首尾
-}
-
-/**
- * getGitEmail
- * @description 获取git用户邮箱
- * @returns {String} 返回字符串
- */
-export function getGitEmail(): string {
-    return sh
-        .exec('git config user.email', { silent: true })
-        .stdout.replace(/(^\s+|\n*$)/g, '') // 去除首尾
-}
