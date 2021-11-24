@@ -3,8 +3,9 @@ const { program } = require('commander')
 const sh = require('shelljs')
 const inquirer = require('inquirer')
 const { options, args } = require('./conf/continue')
-const { queue, getCache, getStatusInfo, cleanCache } = require('./core/index')
-const { getIsGitProject } = require('./core/git/index')
+const { queue } = require('./core/index')
+const { getCommandCache, cleanCommandCache } = require('./core/cache/index')
+const { getIsGitProject, getGitStatus } = require('./core/git/index')
 const { error, success, warning, createArgs } = require('./core/utils/index')
 if (!getIsGitProject()) {
     sh.echo(error('当前目录不是git项目目录'))
@@ -30,8 +31,8 @@ options.forEach((o: GitmarsOptionOptionsType) => {
 })
 // .option('-l, --list', '显示指令队列', false)
 program.action(async (opt: GitmBuildOption) => {
-    const sum = getStatusInfo()
-    const cmd: Array<CommandType | string> = getCache()
+    const sum = getGitStatus()
+    const cmd: Array<CommandType | string> = getCommandCache()
     if (opt.list) {
         sh.echo(cmd)
         sh.exit(0)
@@ -57,7 +58,7 @@ program.action(async (opt: GitmBuildOption) => {
             sh.echo(warning('检测到有未加入版本的文件，请留意！'))
         }
         queue(cmd).then(() => {
-            cleanCache()
+            cleanCommandCache()
         })
     } else {
         sh.echo(error('队列里面没有未执行的指令'))

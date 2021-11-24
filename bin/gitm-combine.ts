@@ -4,12 +4,16 @@ const sh = require('shelljs')
 const { options, args } = require('./conf/combine')
 const { getType } = require('js-cool')
 const { queue, getStatus, searchBranch } = require('./core/index')
-const { getIsGitProject, getCurrentBranch } = require('./core/git/index')
+const {
+    getIsGitProject,
+    getCurrentBranch,
+    getGitConfig,
+    getIsMergedTargetBranch,
+    getIsUpdatedInTime
+} = require('./core/git/index')
 const { error, warning, createArgs } = require('./core/utils/index')
-const { getCurlMergeRequestCommand } = require('./core/shell')
+const { getCurlOfMergeRequest } = require('./core/shell/index')
 const { isNeedUpgrade, upgradeGitmars } = require('./core/versionControl')
-const getIsMergedTargetBranch = require('./core/branch/getIsMergedTargetBranch')
-const getIsUpdatedInTime = require('./core/branch/getIsUpdatedInTime')
 const { defaults } = require('./core/global')
 
 import {
@@ -33,8 +37,7 @@ if (!getIsGitProject()) {
     sh.echo(error('当前目录不是git项目目录'))
     sh.exit(1)
 }
-const getUserToken = require('./core/api')
-const getGitConfig = require('./core/getGitConfig')
+const { getUserToken } = require('./core/api/index')
 const getConfig = require('./core/getConfig')
 const { appName } = getGitConfig()
 const config = getConfig()
@@ -246,7 +249,7 @@ program.action(
                                     }
                                 },
                                 {
-                                    cmd: getCurlMergeRequestCommand({
+                                    cmd: getCurlOfMergeRequest({
                                         source_branch: `${type}/${name}`,
                                         target_branch: base,
                                         token,
@@ -302,7 +305,7 @@ program.action(
                                     }
                                 },
                                 {
-                                    cmd: getCurlMergeRequestCommand({
+                                    cmd: getCurlOfMergeRequest({
                                         source_branch: `${type}/${name}`,
                                         target_branch: config.release,
                                         token,
@@ -358,7 +361,7 @@ program.action(
                                     }
                                 },
                                 {
-                                    cmd: getCurlMergeRequestCommand({
+                                    cmd: getCurlOfMergeRequest({
                                         source_branch: `${type}/${name}`,
                                         target_branch: config.bugfix,
                                         token,

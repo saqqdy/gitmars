@@ -1,9 +1,8 @@
-const fs = require('fs')
 const sh = require('shelljs')
 const ora = require('ora')
-const { isFileExist } = require('./utils/index')
-const getGitConfig = require('./getGitConfig')
-const gitRevParse = require('./gitRevParse')
+const { success, warning, error } = require('./utils/index')
+const { getCommandCache } = require('./cache/index')
+const { getGitConfig, getGitRevParse, getGitStatus } = require('./git/index')
 const getConfig = require('./getConfig')
 
 import type {
@@ -12,7 +11,6 @@ import type {
     ShellCode,
     CommandType,
     QueueReturnsType,
-    GitStatusInfoType,
     GitmarsBranchType
 } from '../../typings'
 
@@ -131,7 +129,7 @@ export function queue(
                             rest.splice(0, 1, cfg.again)
                         }
                         cb && cb(true) // 回调并中断执行
-                        setCache(rest)
+                        getCommandCache(rest)
                         // 只有silent模式才需要输出信息
                         cfg.silent && spinner.fail(error(err))
                         spinner.fail(
@@ -175,54 +173,11 @@ export function queue(
 }
 
 /**
- * getCache
- * @description 获取未执行脚本列表
- * @returns {Array} arr 返回数组
- */
-export function getCache() {
-    const { gitDir } = gitRevParse()
-    let arr = []
-    if (isFileExist(gitDir + '/.gitmarscommands')) {
-        arr = sh
-            .cat(gitDir + '/.gitmarscommands')
-            .stdout.split('\n')[0]
-            .replace(/(^\n*)|(\n*$)/g, '')
-            .replace(/\n{2,}/g, '\n')
-            .replace(/\r/g, '')
-        arr = JSON.parse(decodeURIComponent(arr))
-    }
-    return arr
-}
-
-/**
- * setCache
- * @description 存储未执行脚本列表
- */
-export function setCache(rest: Array<CommandType | string>): void {
-    const { gitDir } = gitRevParse()
-    sh.touch(gitDir + '/.gitmarscommands')
-    // eslint-disable-next-line no-control-regex
-    sh.sed(
-        '-i',
-        /[\s\S\n\r\x0a\x0d]*/,
-        encodeURIComponent(JSON.stringify(rest)),
-        gitDir + '/.gitmarscommands'
-    )
-}
-
-/**
- * 清除队列缓存
- */
-export function cleanCache(): void {
-    setCache([])
-}
-
-/**
  * setLog
  * @description 存储错误日志
  */
 export function setLog(log: object): void {
-    const { gitDir } = gitRevParse()
+    const { gitDir } = getGitRevParse()
     sh.touch(gitDir + '/.gitmarslog')
     // eslint-disable-next-line no-control-regex
     sh.sed(
@@ -234,39 +189,12 @@ export function setLog(log: object): void {
 }
 
 /**
- * getStatusInfo
- * @description 获取分支状态
- * @returns {Boolean} true 返回true/false
- */
-export function getStatusInfo(config: any = {}): GitStatusInfoType {
-    const { silent = true } = config
-    const out = sh
-        .exec('git status -s --no-column', { silent })
-        .stdout.replace(/(^\s+|\n*$)/g, '') // 去除首尾
-    const list = out ? out.replace(/\n(\s+)/g, '\n').split('\n') : []
-    const sum: GitStatusInfoType = {
-        A: [],
-        D: [],
-        M: [],
-        '??': []
-    }
-    if (list.length === 0) return sum
-    list.forEach((str: string) => {
-        const arr: string[] = str.trim().replace(/\s+/g, ' ').split(' ')
-        const type = arr.splice(0, 1)[0] as keyof GitStatusInfoType
-        if (!sum[type]) sum[type] = []
-        sum[type].push(arr.join(' '))
-    })
-    return sum
-}
-
-/**
  * getStatus
  * @description 获取是否有未提交的文件
  * @returns {Boolean} true 返回true/false
  */
 export function getStatus(): boolean {
-    const sum = getStatusInfo({ silent: false })
+    const sum = getGitStatus({ silent: false })
     if (sum.A.length > 0 || sum.D.length > 0 || sum.M.length > 0) {
         sh.echo(
             error('您还有未提交的文件，请处理后再继续') +
@@ -401,7 +329,7 @@ export async function getStashList(key: string) {
  * @description 解析模板数据
  */
 export function getMessage(type: string): string {
-    const { root } = gitRevParse()
+    const { root } = getGitRevParse()
     const { appName } = getGitConfig()
     const config = getConfig()
     const d = new Date()
@@ -529,86 +457,4 @@ export function getCommandMessage(cmd: string): CommandMessageType {
             break
     }
     return msg
-}
-
-/**
- * @description compareVersion版本号大小对比
- * @param appName - app名称
- * @param compareVer - 必传 需要对比的版本号
- * @param userAgent - ua，可不传，默认取navigator.appVersion
- * @return null/true/false
- */
-export function compareVersion(
-    basicVer: string,
-    compareVer: string
-): boolean | null {
-    if (basicVer === null) return null
-    basicVer = basicVer + '.'
-    compareVer = compareVer + '.'
-    const bStr = parseFloat(basicVer)
-    const cStr = parseFloat(compareVer)
-    const bStrNext = parseFloat(basicVer.replace(bStr + '.', '')) || 0
-    const cStrNext = parseFloat(compareVer.replace(cStr + '.', '')) || 0
-    if (cStr > bStr) {
-        return false
-    } else if (cStr < bStr) {
-        return true
-    } else {
-        if (bStrNext >= cStrNext) {
-            return true
-        } else {
-            return false
-        }
-    }
-}
-
-/**
- * getBranchesFromID
- * @description 获取包含commitID的分支
- * @returns {Array} 返回数组
- */
-export function getBranchesFromID(commitID: string, remote = false): string[] {
-    const out = sh
-        .exec(
-            `git branch ${
-                remote ? '-r' : ''
-            } --contains ${commitID} --format="%(refname:short)`,
-            { silent: true }
-        )
-        .stdout.replace(/(^\s+|\n*$)/g, '') // 去除首尾
-    return out ? out.split('\n') : []
-}
-
-/**
- * getGitUser
- * @description 获取git用户名称
- * @returns {String} 返回字符串
- */
-export function getGitUser(): string {
-    return sh
-        .exec('git config user.name', { silent: true })
-        .stdout.replace(/(^\s+|\n*$)/g, '') // 去除首尾
-}
-
-/**
- * getGitEmail
- * @description 获取git用户邮箱
- * @returns {String} 返回字符串
- */
-export function getGitEmail(): string {
-    return sh
-        .exec('git config user.email', { silent: true })
-        .stdout.replace(/(^\s+|\n*$)/g, '') // 去除首尾
-}
-
-/**
- * 延迟执行
- *
- * @param millisecond - 毫秒
- * @returns {String} 返回字符串
- */
-export function delay(millisecond: number = 0): Promise<void> {
-    return new Promise(resolve => {
-        setTimeout(resolve, millisecond)
-    })
 }

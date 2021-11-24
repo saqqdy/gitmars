@@ -3,15 +3,14 @@ const { program } = require('commander')
 const fs = require('fs')
 const sh = require('shelljs')
 const inquirer = require('inquirer')
-const { getIsGitProject } = require('./core/git/index')
+const { getIsGitProject, getGitRevParse } = require('./core/git/index')
 const { error, success } = require('./core/utils/index')
 const { defaults } = require('./core/global')
 if (!getIsGitProject()) {
     sh.echo(error('当前目录不是git项目目录'))
     sh.exit(1)
 }
-const gitRevParse = require('./core/gitRevParse')
-const { root } = gitRevParse()
+const { root } = getGitRevParse()
 
 import { InitInquirerPromptType } from '../typings'
 

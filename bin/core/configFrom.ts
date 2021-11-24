@@ -1,6 +1,6 @@
 const { isFileExist } = require('./utils/index')
-const gitRevParse = require('./gitRevParse')
-const { root } = gitRevParse()
+const { getGitRevParse } = require('./git/index')
+const { root } = getGitRevParse()
 /**
  * getConfigFrom
  * @description 读取配置来源

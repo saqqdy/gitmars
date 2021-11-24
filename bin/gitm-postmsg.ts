@@ -2,8 +2,7 @@
 const { program } = require('commander')
 const { options, args } = require('./conf/postmsg')
 const sendGroupMessage = require('./core/sendGroupMessage')
-const { createArgs } = require('./core/utils/index')
-const { encodeUnicode } = require('./core/unicode')
+const { createArgs, encodeUnicode } = require('./core/utils/index')
 
 import { GitmarsOptionOptionsType } from '../typings'
 

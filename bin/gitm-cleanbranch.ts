@@ -4,15 +4,14 @@ const sh = require('shelljs')
 const inquirer = require('inquirer')
 const ora = require('ora')
 const { options, args } = require('./conf/cleanbranch')
-const { delay } = require('./core/index')
 const {
     getIsGitProject,
     searchBranches,
-    getCurrentBranch
+    getCurrentBranch,
+    getIsMergedTargetBranch,
+    getIsBranchOrCommitExist
 } = require('./core/git/index')
-const { error, success, createArgs } = require('./core/utils/index')
-const getIsMergedTargetBranch = require('./core/branch/getIsMergedTargetBranch')
-const getIsBranchOrCommitExist = require('./core/branch/getIsBranchOrCommitExist')
+const { error, success, createArgs, delay } = require('./core/utils/index')
 if (!getIsGitProject()) {
     sh.echo(error('当前目录不是git项目目录'))
     sh.exit(1)
@@ -120,7 +119,7 @@ program.action(async (branches: string[], opt: GitmBuildOption) => {
         sh.exit(0)
     }
     for (const branch of branches) {
-        // 跳过主干分支和非二级名称的分支
+        // 跳过主干分支
         if (
             [
                 config.master,
@@ -128,8 +127,7 @@ program.action(async (branches: string[], opt: GitmBuildOption) => {
                 config.release,
                 config.bugfix,
                 config.support
-            ].includes(branch) ||
-            branch.indexOf('/') === -1
+            ].includes(branch)
         ) {
             continue
         }
@@ -178,7 +176,7 @@ program.action(async (branches: string[], opt: GitmBuildOption) => {
                     )}分支，可以清理：`
                 )
             )
-            console.info(_willDeleteBranch)
+            console.info('\n' + success(_willDeleteBranch.join(' ') + '\n'))
         } else {
             sh.echo(success(`分析完成，没有分支需要清理`))
         }

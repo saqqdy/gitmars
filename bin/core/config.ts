@@ -1,8 +1,8 @@
 const sh = require('shelljs')
 const { defaults } = require('./global')
-const gitRevParse = require('./gitRevParse')
+const { getGitRevParse } = require('./git/index')
 const configFrom = require('./configFrom')
-const { root } = gitRevParse()
+const { root } = getGitRevParse()
 
 import type { GitmarsConfigType } from 'typings'
 

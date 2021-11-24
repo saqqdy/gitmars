@@ -1,5 +1,5 @@
 const sh = require('shelljs')
-const { getSeconds } = require('../utils/index')
+const getSeconds = require('../utils/getSeconds')
 
 import type { GitLogType } from '../../../typings'
 

@@ -5,16 +5,15 @@ const sh = require('shelljs')
 const inquirer = require('inquirer')
 const ora = require('ora')
 const { options, args } = require('./conf/clean')
-const { getIsGitProject } = require('./core/git/index')
+const { getIsGitProject, getGitRevParse } = require('./core/git/index')
 const {
     success,
     warning,
     isFileExist,
     createArgs
 } = require('./core/utils/index')
-const gitRevParse = require('./core/gitRevParse')
 const cacheDir = path.join(__dirname, '../cache')
-const { gitDir } = gitRevParse()
+const { gitDir } = getGitRevParse()
 
 sh.config.silent = true
 

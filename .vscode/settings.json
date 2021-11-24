@@ -20,7 +20,9 @@
         "cleanbranch",
         "commitid",
         "pnpm",
-        "cnpm"
+        "cnpm",
+        "untarget",
+        "untargets"
     ],
     "typescript.tsdk": "node_modules/typescript/lib",
     "editor.codeActionsOnSave": {

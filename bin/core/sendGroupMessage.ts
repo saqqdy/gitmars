@@ -1,5 +1,5 @@
 const sh = require('shelljs')
-const apolloConfig = require('./apollo')
+const { getApolloConfig } = require('./build/index')
 const { error } = require('./utils/index')
 
 import type { ApolloConfigType } from '../../typings'
@@ -17,7 +17,7 @@ async function sendGroupMessage(
     message: string,
     cfg: GroupMessageConfigType = {}
 ): Promise<void> {
-    const config = (await apolloConfig()) as ApolloConfigType
+    const config = (await getApolloConfig()) as ApolloConfigType
     const { silent = true, url } = cfg
     let urls: string[] = []
     if (!config.gitNotificationGroupUrl && !url) {
