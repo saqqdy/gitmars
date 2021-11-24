@@ -1,7 +1,9 @@
 const { isCacheExpired, updateCacheTime } = require('./cache')
+const getCommandCache = require('./getCommandCache')
 
 module.exports = {
     isCacheExpired,
-    updateCacheTime
+    updateCacheTime,
+    getCommandCache
 }
 export {}

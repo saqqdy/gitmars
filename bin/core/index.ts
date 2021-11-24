@@ -1,6 +1,7 @@
 const sh = require('shelljs')
 const ora = require('ora')
-const { success, warning, error, isFileExist } = require('./utils/index')
+const { success, warning, error } = require('./utils/index')
+const { getCommandCache } = require('./cache/index')
 const { getGitConfig, getGitRevParse, getGitStatus } = require('./git/index')
 const getConfig = require('./getConfig')
 
@@ -128,7 +129,7 @@ export function queue(
                             rest.splice(0, 1, cfg.again)
                         }
                         cb && cb(true) // 回调并中断执行
-                        setCache(rest)
+                        getCommandCache(rest)
                         // 只有silent模式才需要输出信息
                         cfg.silent && spinner.fail(error(err))
                         spinner.fail(
@@ -169,49 +170,6 @@ export function queue(
             }
         })
     })
-}
-
-/**
- * getCache
- * @description 获取未执行脚本列表
- * @returns {Array} arr 返回数组
- */
-export function getCache() {
-    const { gitDir } = getGitRevParse()
-    let arr = []
-    if (isFileExist(gitDir + '/.gitmarscommands')) {
-        arr = sh
-            .cat(gitDir + '/.gitmarscommands')
-            .stdout.split('\n')[0]
-            .replace(/(^\n*)|(\n*$)/g, '')
-            .replace(/\n{2,}/g, '\n')
-            .replace(/\r/g, '')
-        arr = JSON.parse(decodeURIComponent(arr))
-    }
-    return arr
-}
-
-/**
- * setCache
- * @description 存储未执行脚本列表
- */
-export function setCache(rest: Array<CommandType | string>): void {
-    const { gitDir } = getGitRevParse()
-    sh.touch(gitDir + '/.gitmarscommands')
-    // eslint-disable-next-line no-control-regex
-    sh.sed(
-        '-i',
-        /[\s\S\n\r\x0a\x0d]*/,
-        encodeURIComponent(JSON.stringify(rest)),
-        gitDir + '/.gitmarscommands'
-    )
-}
-
-/**
- * 清除队列缓存
- */
-export function cleanCache(): void {
-    setCache([])
 }
 
 /**
@@ -500,6 +458,3 @@ export function getCommandMessage(cmd: string): CommandMessageType {
     }
     return msg
 }
-
-
-
