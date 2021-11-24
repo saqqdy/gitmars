@@ -1,6 +1,6 @@
 /**
  * compareVersion版本号大小对比
- * 
+ *
  * @param basicVer - 必传 版本号
  * @param compareVer - 必传 需要对比的版本号
  * @return isNew - null/true/false
