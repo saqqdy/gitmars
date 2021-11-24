@@ -3,8 +3,8 @@ const { program } = require('commander')
 const sh = require('shelljs')
 const inquirer = require('inquirer')
 const { options, args } = require('./conf/continue')
-const { queue, getCache, getStatusInfo, cleanCache } = require('./core/index')
-const { getIsGitProject } = require('./core/git/index')
+const { queue, getCache, cleanCache } = require('./core/index')
+const { getIsGitProject, getGitStatus } = require('./core/git/index')
 const { error, success, warning, createArgs } = require('./core/utils/index')
 if (!getIsGitProject()) {
     sh.echo(error('当前目录不是git项目目录'))
@@ -30,7 +30,7 @@ options.forEach((o: GitmarsOptionOptionsType) => {
 })
 // .option('-l, --list', '显示指令队列', false)
 program.action(async (opt: GitmBuildOption) => {
-    const sum = getStatusInfo()
+    const sum = getGitStatus()
     const cmd: Array<CommandType | string> = getCache()
     if (opt.list) {
         sh.echo(cmd)

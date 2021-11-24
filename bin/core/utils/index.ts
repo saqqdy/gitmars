@@ -6,6 +6,7 @@ const delay = require('./delay')
 const { encodeUnicode, decodeUnicode } = require('./unicode')
 const getPkgInfo = require('./getPkgInfo')
 const readPkg = require('./readPkg')
+const compareVersion = require('./compareVersion')
 
 module.exports = {
     warning,
@@ -19,6 +20,7 @@ module.exports = {
     encodeUnicode,
     decodeUnicode,
     getPkgInfo,
-    readPkg
+    readPkg,
+    compareVersion
 }
 export {}

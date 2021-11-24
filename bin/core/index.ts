@@ -1,7 +1,7 @@
 const sh = require('shelljs')
 const ora = require('ora')
 const { success, warning, error, isFileExist } = require('./utils/index')
-const { getGitConfig, getGitRevParse } = require('./git/index')
+const { getGitConfig, getGitRevParse, getGitStatus } = require('./git/index')
 const getConfig = require('./getConfig')
 
 import type {
@@ -10,7 +10,6 @@ import type {
     ShellCode,
     CommandType,
     QueueReturnsType,
-    GitStatusInfoType,
     GitmarsBranchType
 } from '../../typings'
 
@@ -232,39 +231,12 @@ export function setLog(log: object): void {
 }
 
 /**
- * getStatusInfo
- * @description 获取分支状态
- * @returns {Boolean} true 返回true/false
- */
-export function getStatusInfo(config: any = {}): GitStatusInfoType {
-    const { silent = true } = config
-    const out = sh
-        .exec('git status -s --no-column', { silent })
-        .stdout.replace(/(^\s+|\n*$)/g, '') // 去除首尾
-    const list = out ? out.replace(/\n(\s+)/g, '\n').split('\n') : []
-    const sum: GitStatusInfoType = {
-        A: [],
-        D: [],
-        M: [],
-        '??': []
-    }
-    if (list.length === 0) return sum
-    list.forEach((str: string) => {
-        const arr: string[] = str.trim().replace(/\s+/g, ' ').split(' ')
-        const type = arr.splice(0, 1)[0] as keyof GitStatusInfoType
-        if (!sum[type]) sum[type] = []
-        sum[type].push(arr.join(' '))
-    })
-    return sum
-}
-
-/**
  * getStatus
  * @description 获取是否有未提交的文件
  * @returns {Boolean} true 返回true/false
  */
 export function getStatus(): boolean {
-    const sum = getStatusInfo({ silent: false })
+    const sum = getGitStatus({ silent: false })
     if (sum.A.length > 0 || sum.D.length > 0 || sum.M.length > 0) {
         sh.echo(
             error('您还有未提交的文件，请处理后再继续') +
@@ -529,35 +501,5 @@ export function getCommandMessage(cmd: string): CommandMessageType {
     return msg
 }
 
-/**
- * @description compareVersion版本号大小对比
- * @param appName - app名称
- * @param compareVer - 必传 需要对比的版本号
- * @param userAgent - ua，可不传，默认取navigator.appVersion
- * @return null/true/false
- */
-export function compareVersion(
-    basicVer: string,
-    compareVer: string
-): boolean | null {
-    if (basicVer === null) return null
-    basicVer = basicVer + '.'
-    compareVer = compareVer + '.'
-    const bStr = parseFloat(basicVer)
-    const cStr = parseFloat(compareVer)
-    const bStrNext = parseFloat(basicVer.replace(bStr + '.', '')) || 0
-    const cStrNext = parseFloat(compareVer.replace(cStr + '.', '')) || 0
-    if (cStr > bStr) {
-        return false
-    } else if (cStr < bStr) {
-        return true
-    } else {
-        if (bStrNext >= cStrNext) {
-            return true
-        } else {
-            return false
-        }
-    }
-}
 
 
