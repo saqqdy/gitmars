@@ -10,7 +10,7 @@
 // }
 // export const readPkg = readPkg
 
-const { getGitRevParse } = require('../git/index')
+const getGitRevParse = require('../git/getGitRevParse')
 const fs = require('fs')
 const path = require('path')
 
