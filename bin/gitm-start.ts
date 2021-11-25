@@ -2,7 +2,7 @@
 const { program } = require('commander')
 const sh = require('shelljs')
 const { options, args } = require('./conf/start')
-const { queue } = require('./core/utils/index')
+const { queue } = require('./core/queue')
 const { getIsGitProject, checkGitStatus } = require('./core/git/index')
 const { error, success } = require('./core/utils/index')
 const { isNeedUpgrade, upgradeGitmars } = require('./core/versionControl')

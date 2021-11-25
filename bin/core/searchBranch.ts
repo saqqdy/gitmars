@@ -1,6 +1,6 @@
-const { queue } = require('../utils/queue')
+const { queue } = require('./queue')
 
-import type { GitmarsBranchType } from '../../../typings'
+import type { GitmarsBranchType } from '../../typings'
 
 /**
  * 获取当前分支
