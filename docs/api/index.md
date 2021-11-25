@@ -206,7 +206,7 @@ gitm combine -d -b
 # or
 gitm combine -d --build all
 # or
-gitm cb -d -b cloud-ui
+gitm cb -d -b gitmars
 ```
 
 3. 合并 bugfix/20001 分支到 alpha 和 prod
@@ -490,10 +490,10 @@ gitm copy --source dev --key 100000 --author saqqdy
 
 -   示例：
 
-1. 构建 wyweb 的 cloud-ui 应用
+1. 构建 gitmars 的 app 应用
 
 ```shell
-gitm build wyweb --env dev --app cloud-ui
+gitm build gitmars --env dev --app app
 ```
 
 ### gitm branch

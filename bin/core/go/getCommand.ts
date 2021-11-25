@@ -12,17 +12,18 @@ export interface CommandNeedInput {
 }
 
 /**
- * @description 执行问答程序
+ * 执行问答程序
+ *
  * @public
- * @param {object} config 配置
- * @param {string} config.command 指令名称
- * @param {object} config.args 指令参数
- * @param {object} config.options 指令传参
- * @param {object} config.validatorOpts 校验参数
- * @param {object} config.validatorArgs 校验传参
- * @param {object} config.transformOpts 参数值转换
- * @param {object} config.transformArgs 传参值转换
- * @returns {string} result 返回指令结果Promise
+ * @param config - 配置
+ * @param config.command - 指令名称
+ * @param config.args - 指令参数
+ * @param config.options - 指令传参
+ * @param config.validatorOpts - 校验参数
+ * @param config.validatorArgs - 校验传参
+ * @param config.transformOpts - 参数值转换
+ * @param config.transformArgs - 传参值转换
+ * @returns result - 返回指令结果Promise
  */
 const getCommand = async ({
     command,
@@ -112,3 +113,4 @@ const getCommand = async ({
 }
 
 module.exports = getCommand
+export {}

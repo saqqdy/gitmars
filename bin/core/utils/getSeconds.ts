@@ -4,7 +4,7 @@
  * @param str - 时间字符串
  * @returns seconds - 时间（秒）
  */
-export function getSeconds(str: string): number | null {
+function getSeconds(str: string): number | null {
     const match = String(str).match(/^(\d+)([a-zA-Z]+)$/)
     let time
     if (!match) return null

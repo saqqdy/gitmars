@@ -38,3 +38,4 @@ const defaults = {
 }
 
 module.exports = { hookList, defaults }
+export {}

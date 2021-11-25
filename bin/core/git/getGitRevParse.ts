@@ -38,3 +38,4 @@ function getGitRevParse(cwd: string = process.cwd()): GitProjectRevParseType {
 }
 
 module.exports = getGitRevParse
+export {}

@@ -35,14 +35,15 @@ export interface PromptOptionInputType {
 }
 
 /**
- * @description 创建promot参数
- * @param {string} command 指令名称
- * @param {object} config 配置
- * @param {object} config.options 配置参数
- * @param {object} config.validator 校验器
- * @param {object} config.transform 参数转换
- * @param {object} type 类型checkbox/input/list
- * @returns {opject} 返回prompt
+ * 创建promot参数
+ *
+ * @param command - 指令名称
+ * @param config - 配置
+ * @param config.options - 配置参数
+ * @param config.validator - 校验器
+ * @param config.transform - 参数转换
+ * @param type - 类型checkbox/input/list
+ * @returns prompt - 返回prompt
  */
 const createPrompt = (
     command: string,
@@ -127,3 +128,4 @@ const createPrompt = (
 }
 
 module.exports = createPrompt
+export {}

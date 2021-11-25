@@ -2,8 +2,8 @@
 const { program } = require('commander')
 const sh = require('shelljs')
 const { options, args } = require('./conf/start')
-const { queue, getStatus } = require('./core/index')
-const { getIsGitProject } = require('./core/git/index')
+const { queue } = require('./core/utils/index')
+const { getIsGitProject, checkGitStatus } = require('./core/git/index')
 const { error, success } = require('./core/utils/index')
 const { isNeedUpgrade, upgradeGitmars } = require('./core/versionControl')
 const { createArgs } = require('./core/utils/index')
@@ -44,7 +44,7 @@ program.action(async (type: string, name: string, opt: GitmBuildOption) => {
     const needUpgrade = await isNeedUpgrade()
     needUpgrade && upgradeGitmars()
     const opts = ['bugfix', 'feature', 'support'] // 允许执行的指令
-    const status = getStatus()
+    const status = checkGitStatus()
     if (!status) sh.exit(1)
     if (opts.includes(type)) {
         // 指定从tag拉取分支时，仅支持创建bugfix分支

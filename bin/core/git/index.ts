@@ -1,5 +1,6 @@
 const getIsGitProject = require('./getIsGitProject')
 const searchBranches = require('./searchBranches')
+const searchBranch = require('./searchBranch')
 const getCurrentBranch = require('./getCurrentBranch')
 const getGitLogs = require('./getGitLogs')
 const getGitVersion = require('./getGitVersion')
@@ -14,10 +15,16 @@ const getIsUpdatedInTime = require('./getIsUpdatedInTime')
 const { getGitUser, getGitEmail } = require('./getGitUser')
 const getBranchesFromID = require('./getBranchesFromID')
 const getGitStatus = require('./getGitStatus')
+const getCommandMessage = require('./getCommandMessage')
+const getStashList = require('./getStashList')
+const checkGitStatus = require('./checkGitStatus')
+const checkBranch = require('./checkBranch')
+const filterBranch = require('./filterBranch')
 
 module.exports = {
     getIsGitProject,
     searchBranches,
+    searchBranch,
     getCurrentBranch,
     getGitLogs,
     getGitVersion,
@@ -32,6 +39,11 @@ module.exports = {
     getGitUser,
     getGitEmail,
     getBranchesFromID,
-    getGitStatus
+    getGitStatus,
+    getCommandMessage,
+    getStashList,
+    checkGitStatus,
+    checkBranch,
+    filterBranch
 }
 export {}

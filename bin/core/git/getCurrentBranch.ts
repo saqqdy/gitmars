@@ -5,10 +5,11 @@ const sh = require('shelljs')
  *
  * @returns {String} 返回名称
  */
-export function getCurrentBranch(): string {
+function getCurrentBranch(): string {
     return sh
         .exec('git symbolic-ref --short -q HEAD', { silent: true })
         .stdout.replace(/[\n\s]*$/g, '')
 }
 
 module.exports = getCurrentBranch
+export {}

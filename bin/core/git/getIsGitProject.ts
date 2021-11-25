@@ -12,3 +12,4 @@ function getIsGitProject(): boolean {
 }
 
 module.exports = getIsGitProject
+export {}

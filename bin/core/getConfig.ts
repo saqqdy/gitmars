@@ -6,12 +6,13 @@ const { defaults } = require('./global')
 import type { GitmarsConfigType } from 'typings'
 
 /**
- * getConfig
- * @description 读取配置
- * @param {String} pathName 可传入目录或者文件，传入文件时，直接读取文件
- * @returns {Object} arr 返回配置对象
+ * 读取配置
+ *
+ * @param pathName - 可传入目录或者文件，传入文件时，直接读取文件
+ * @param moduleName - 包名称
+ * @returns config - 返回配置对象
  */
-module.exports = function getConfig(
+function getConfig(
     pathName?: string,
     moduleName = 'gitmars'
 ): GitmarsConfigType {
@@ -40,3 +41,6 @@ module.exports = function getConfig(
         return Object.assign({}, defaults, defaultSet, config, { filepath })
     }
 }
+
+module.exports = getConfig
+export {}

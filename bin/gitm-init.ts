@@ -16,7 +16,7 @@ import { InitInquirerPromptType } from '../typings'
 
 /**
  * gitm init
- * @description 初始化gitmars配置
+ * 初始化gitmars配置
  */
 program
     .name('gitm init')

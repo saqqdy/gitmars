@@ -134,13 +134,13 @@ program.action(async (branches: string[], opt: GitmBuildOption) => {
         spinner.start(success(`开始分析：${branch}`))
         const isMerged = getIsMergedTarget(branch, targets, opt.remote)
         if (!isMerged) {
-            spinner.fail()
+            spinner.fail(error(`不可删除：${branch}`))
             continue
         }
 
         _willDeleteBranch.push(branch)
         await delay(200)
-        spinner.succeed()
+        spinner.succeed(success(`分析完成：${branch}`))
         if (opt.list) {
             continue
         }
@@ -152,7 +152,7 @@ program.action(async (branches: string[], opt: GitmBuildOption) => {
         if (removeLocal || removeRemote) {
             spinner.start(success(`正在删除：${branch}`))
             await delay(200)
-            spinner.succeed()
+            spinner.succeed(success(`删除成功：${branch}`))
         }
         // 仅清理合过dev和release的分支
         if (removeLocal) {

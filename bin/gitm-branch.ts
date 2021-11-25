@@ -2,7 +2,7 @@
 const { program } = require('commander')
 const sh = require('shelljs')
 const { options, args } = require('./conf/branch')
-const { queue } = require('./core/index')
+const { queue } = require('./core/utils/index')
 const {
     getIsGitProject,
     getIsBranchOrCommitExist

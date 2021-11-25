@@ -3,13 +3,15 @@ const { program } = require('commander')
 const sh = require('shelljs')
 const { options, args } = require('./conf/combine')
 const { getType } = require('js-cool')
-const { queue, getStatus, searchBranch } = require('./core/index')
+const { queue } = require('./core/utils/index')
 const {
     getIsGitProject,
     getCurrentBranch,
     getGitConfig,
     getIsMergedTargetBranch,
-    getIsUpdatedInTime
+    getIsUpdatedInTime,
+    checkGitStatus,
+    searchBranch
 } = require('./core/git/index')
 const { error, warning, createArgs } = require('./core/utils/index')
 const { getCurlOfMergeRequest } = require('./core/shell/index')
@@ -81,7 +83,7 @@ program.action(
             level,
             nickname = ''
         } = config.api ? getUserToken() : ({} as FetchDataType)
-        const status = !opt.add && opt.commit === '' ? getStatus() : true
+        const status = !opt.add && opt.commit === '' ? checkGitStatus() : true
         let _nameArr: string[] = [], // 分支名称数组
             isDescriptionCorrect = true // 本次提交的原因描述是否符合规范
         if (!opt.dev && !opt.prod) {

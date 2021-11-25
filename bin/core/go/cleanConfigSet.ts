@@ -8,7 +8,8 @@ export interface GoCleanConfigType {
 }
 
 /**
- * @description 清理参数
+ * 清理参数
+ *
  * @public
  * @param {object} config 配置
  * @param {object} sets 清理设置
@@ -64,3 +65,4 @@ const cleanConfig = (
 }
 
 module.exports = cleanConfig
+export {}

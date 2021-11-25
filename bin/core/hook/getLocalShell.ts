@@ -2,11 +2,12 @@ const getHookComment = require('./getHookComment')
 const hookComment = getHookComment()
 
 /**
- * getLocalShell
- * @description 获取本地脚本
- * @returns {Object} arr 返回对象
+ * 获取本地脚本
+ *
+ * @param pmName - pmName
+ * @param relativeUserPkgDir - relativeUserPkgDir
+ * @returns shell - 脚本
  */
-
 function getLocalShell(pmName: string, relativeUserPkgDir: string): string {
     return `${hookComment}
 
@@ -16,3 +17,4 @@ cd "${relativeUserPkgDir}"
 }
 
 module.exports = getLocalShell
+export {}

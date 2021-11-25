@@ -10,8 +10,10 @@ export interface GroupMessageConfigType {
 }
 
 /**
- * sendGroupMessage
- * @description 发送群消息
+ * 发送群消息
+ *
+ * @param message - 消息
+ * @param cfg - 配置
  */
 async function sendGroupMessage(
     message: string,
@@ -42,3 +44,4 @@ async function sendGroupMessage(
 }
 
 module.exports = sendGroupMessage
+export {}
