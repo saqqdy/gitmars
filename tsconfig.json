@@ -10,6 +10,7 @@
         "jsx": "preserve",
         "strict": true,
         "declaration": true,
+        "skipLibCheck": true,
         "noImplicitOverride": true,
         "noUnusedLocals": false,
         "esModuleInterop": true,
@@ -34,5 +35,5 @@
         "src/**/*.vue",
         "typings/*.d.ts"
     ],
-    "exclude": ["**/node_modules", "**/__tests__"]
+    "exclude": ["node_modules", "**/__tests__"]
 }
