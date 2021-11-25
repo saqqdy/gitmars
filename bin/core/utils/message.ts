@@ -1,7 +1,9 @@
 const sh = require('shelljs')
-const { error, mapTemplate } = require('./utils/index')
-const { getGitConfig, getGitRevParse } = require('./git/index')
-const getConfig = require('./getConfig')
+const { error } = require('./colors')
+const mapTemplate = require('./mapTemplate')
+const getGitConfig = require('../git/getGitConfig')
+const getGitRevParse = require('../git/getGitRevParse')
+const getConfig = require('../getConfig')
 
 export type SendMessageType = {
     silent: boolean
