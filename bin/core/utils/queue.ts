@@ -3,7 +3,7 @@ const ora = require('ora')
 const { getCommandCache } = require('../cache/commandCache')
 const getCommandMessage = require('../git/getCommandMessage')
 const { setLog } = require('../cache/log')
-const { error, success, warning } = require('../utils/colors')
+const { error, success, warning } = require('./colors')
 const { postMessage } = require('./message')
 
 import type { ShellCode, CommandType, QueueReturnsType } from '../../../typings'

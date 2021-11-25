@@ -23,6 +23,8 @@ import type { GitmarsOptionType } from '../../typings'
                     'copy',
                     'get',
                     'save',
+                    'cleanbranch',
+                    'clean',
                     'revert',
                     'link',
                     'unlink',

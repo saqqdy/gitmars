@@ -1,7 +1,8 @@
-const { getGitConfig, getGitRevParse } = require('../git/index')
+const getGitConfig = require('../git/getGitConfig')
+const getGitRevParse = require('../git/getGitRevParse')
+const readPkg = require('../utils/readPkg')
 const { gitUrl } = getGitConfig()
 const { root } = getGitRevParse()
-const readPkg = require('../utils/readPkg')
 
 /**
  * 生成hook注释，广告

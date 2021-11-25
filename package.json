@@ -20,7 +20,7 @@
         "roll-types": "api-extractor run && rimraf temp",
         "dev": "cross-env BUILD_ENV=DEV rollup -c -w",
         "dist": "run-s eslint prettier build build:server build:ui",
-        "docs": "rimraf docs && typedoc",
+        "docs": "rimraf typedoc && typedoc",
         "eslint": "eslint --fix --ext .ts,.js ./",
         "prettier": "prettier --write \"**/*.{js,ts,json,md}\"",
         "prettier:docs": "prettier --write \"**/*.md\""
