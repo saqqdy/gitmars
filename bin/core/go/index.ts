@@ -1,5 +1,5 @@
 const sh = require('shelljs')
-const { getCurrentBranch } = require('../git/index')
+const getCurrentBranch = require('../git/getCurrentBranch')
 const getCommand = require('./getCommand')
 const cleanConfigSet = require('./cleanConfigSet')
 
