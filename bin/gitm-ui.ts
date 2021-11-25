@@ -40,7 +40,7 @@ program.action((opt: GitmBuildOption) => {
     process.chdir(path.join(__dirname, '../app'))
     // 市值启动端口号
     opt.port && (process.env.PORT = String(opt.port))
-    sh.exec(`npm run server:start`)
+    sh.exec('npm run server:start')
 })
 program.parse(process.argv)
 export {}

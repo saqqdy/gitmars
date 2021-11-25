@@ -84,7 +84,7 @@ program.action(async (branches: string[], opt: GitmBuildOption) => {
     const targets = opt.target
         ? opt.target.split(',')
         : [config.develop, config.release]
-    sh.exec(`git fetch`, { silent: true })
+    sh.exec('git fetch', { silent: true })
     current !== config.develop &&
         sh.exec(`git checkout ${config.develop}`, { silent: true })
     // 没有传入指定分支，进行查询
@@ -97,7 +97,7 @@ program.action(async (branches: string[], opt: GitmBuildOption) => {
             include: opt.include
         })
     }
-    let _willDeleteBranch: string[] = []
+    const _willDeleteBranch: string[] = []
     if (branches.length > 0) {
         if (!opt.list && !opt.confirm) {
             await inquirer
@@ -178,7 +178,7 @@ program.action(async (branches: string[], opt: GitmBuildOption) => {
             )
             console.info('\n' + success(_willDeleteBranch.join(' ') + '\n'))
         } else {
-            sh.echo(success(`分析完成，没有分支需要清理`))
+            sh.echo(success('分析完成，没有分支需要清理'))
         }
     } else {
         sh.echo(success('删除完成'))

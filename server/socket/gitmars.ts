@@ -11,7 +11,7 @@ export interface SocketOption {
 let glob = {},
 	config = {},
 	branch: string[] = [],
-	current: string = '',
+	current = '',
 	interval: any = null
 
 /**
@@ -23,10 +23,10 @@ let glob = {},
 const getData = (socket: Socket, option: SocketOption) => {
 	delete require.cache[require.resolve('../../lib/core/global')]
 	delete require.cache[require.resolve('../../lib/core/config')]
-	let g = require('../../lib/core/global'),
-		c = require('../../lib/core/config'),
-		bh = searchBranches({ path: option.cwd || home }),
-		cur = getCurrentBranch({ path: option.cwd || home })
+	const g = require('../../lib/core/global')
+	const c = require('../../lib/core/config')
+	const bh = searchBranches({ path: option.cwd || home })
+	const cur = getCurrentBranch({ path: option.cwd || home })
 	if (!glob || JSON.stringify(glob) !== JSON.stringify(g)) {
 		glob = g
 		socket.emit(option.name + '-global', g)

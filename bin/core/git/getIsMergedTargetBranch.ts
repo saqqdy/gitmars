@@ -12,7 +12,7 @@ const getCurrentBranch = require('./getCurrentBranch')
 function getIsMergedTargetBranch(
     branch: string,
     targetBranch = 'dev',
-    remote: boolean = false
+    remote = false
 ): boolean {
     if (!branch) branch = getCurrentBranch()
     if (remote && targetBranch.indexOf('origin') === -1)

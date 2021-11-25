@@ -12,7 +12,7 @@ const isDev = process.env.BUILD_ENV === 'dev'
 const config = require('./config')
 const deps = Object.keys(pkg.dependencies)
 
-let cjsList = []
+const cjsList = []
 const readDir = entry => {
     const dirInfo = fs.readdirSync(entry)
     dirInfo.forEach(item => {

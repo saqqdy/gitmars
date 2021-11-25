@@ -8,7 +8,7 @@ interface EventsMap {
 interface ListenEvents extends EventsMap {
 	[event: string]: (...args: any[]) => void
 }
-interface EmitEvents extends EventsMap {}
+type EmitEvents = EventsMap
 interface ServerSideEvents extends EventsMap {
 	[event: string]: (...args: any[]) => void
 }

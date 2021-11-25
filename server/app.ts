@@ -4,10 +4,10 @@ import path from 'path'
 import cookieParser from 'cookie-parser'
 // import logger from 'logger'
 
-var indexRouter = require('./routes/index'),
-	cmdRouter = require('./routes/cmd'),
-	commonRouter = require('./routes/common'),
-	app = express()
+const indexRouter = require('./routes/index')
+const cmdRouter = require('./routes/cmd')
+const commonRouter = require('./routes/common')
+const app = express()
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'))

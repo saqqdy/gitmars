@@ -24,7 +24,7 @@ async function getPkgInfo(name: string): Promise<unknown | void> {
     }
     try {
         packageInfo = JSON.parse(
-            sh.exec(`npm view gitmars --json`, {
+            sh.exec('npm view gitmars --json', {
                 silent: true
             }).stdout
         )

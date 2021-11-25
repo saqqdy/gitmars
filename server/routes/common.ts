@@ -36,16 +36,13 @@ router.get('/project/list', (req: Request, res: Response, next: NextFunction) =>
 // 添加项目
 router.post('/project/add', (req: Request, res: Response, next: NextFunction) => {
 	const cwd = process.cwd()
-	let { path: dir = null } = req.body,
-		id,
-		url,
-		name
+	let { path: dir = null } = req.body
 	if (!dir) error503(res)
 	dir = dir.split(path.sep).join('/')
-	id = uuidv4()
+	const id = uuidv4()
 	process.chdir(dir)
-	url = sh.exec(`git config --local --get remote.origin.url`, { silent: true }).stdout.replace(/\s+$/g, '')
-	name = url ? url.replace(/^[\s\S]+\/([\w-]+)\.git$/, '$1') : dir.replace(/^[\s\S]+\/([\w-]+)$/, '$1')
+	const url = sh.exec('git config --local --get remote.origin.url', { silent: true }).stdout.replace(/\s+$/g, '')
+	const name = url ? url.replace(/^[\s\S]+\/([\w-]+)\.git$/, '$1') : dir.replace(/^[\s\S]+\/([\w-]+)$/, '$1')
 	process.chdir(cwd)
 	db.get('projects').push({ id, name, path: dir }).write()
 	success(res, { data: true })
