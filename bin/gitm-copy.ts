@@ -2,7 +2,7 @@
 const { program } = require('commander')
 const sh = require('shelljs')
 const { options, args } = require('./conf/copy')
-const { queue } = require('./core/utils/index')
+const { queue } = require('./core/queue')
 const {
     getIsGitProject,
     getCurrentBranch,

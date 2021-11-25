@@ -1,6 +1,6 @@
 const sh = require('shelljs')
-const { queue } = require('../utils/queue')
-const { warning } = require('../utils/colors')
+const { queue } = require('./queue')
+const { warning } = require('./utils/colors')
 
 /**
  * 获取暂存区列表

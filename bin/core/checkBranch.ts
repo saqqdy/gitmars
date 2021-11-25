@@ -1,4 +1,4 @@
-const { queue } = require('../utils/queue')
+const { queue } = require('./queue')
 
 /**
  * 获取是否有某个分支
