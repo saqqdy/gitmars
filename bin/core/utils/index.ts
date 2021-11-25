@@ -8,7 +8,6 @@ const getPkgInfo = require('./getPkgInfo')
 const readPkg = require('./readPkg')
 const compareVersion = require('./compareVersion')
 const mapTemplate = require('./mapTemplate')
-const { wait, queue } = require('./queue')
 const { getMessage, postMessage, sendMessage } = require('./message')
 
 module.exports = {
@@ -26,8 +25,6 @@ module.exports = {
     readPkg,
     compareVersion,
     mapTemplate,
-    wait,
-    queue,
     getMessage,
     postMessage,
     sendMessage
