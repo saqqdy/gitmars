@@ -8,7 +8,10 @@ const express_1 = __importDefault(require("express"));
 const path_1 = __importDefault(require("path"));
 const cookie_parser_1 = __importDefault(require("cookie-parser"));
 // import logger from 'logger'
-var indexRouter = require('./routes/index'), cmdRouter = require('./routes/cmd'), commonRouter = require('./routes/common'), app = (0, express_1.default)();
+const indexRouter = require('./routes/index');
+const cmdRouter = require('./routes/cmd');
+const commonRouter = require('./routes/common');
+const app = (0, express_1.default)();
 // view engine setup
 app.set('views', path_1.default.join(__dirname, 'views'));
 app.set('view engine', 'hbs');

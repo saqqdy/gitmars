@@ -6,6 +6,7 @@ cache/*
 
 *.bak
 *_bak
+*.bak.js
 
 stats.html
 #Electron-builder output

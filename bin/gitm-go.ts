@@ -23,7 +23,7 @@ program.action(async (command: string): Promise<void> => {
     sh.echo(success(`当前分支${current}，系统猜测你可能想做以下操作：`))
     if (command) {
         // 执行对应指令
-        let cmd = getProperty(commands, command)
+        const cmd = getProperty(commands, command)
         if (!cmd) {
             sh.echo(error('您输入的指令没有找到，可能暂不支持'))
             sh.exit(1)

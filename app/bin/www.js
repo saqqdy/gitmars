@@ -54,7 +54,9 @@ function onError(error) {
  * Event listener for HTTP server "listening" event.
  */
 function onListening() {
-    let addr = server.address(), bind = typeof addr === 'string' ? 'pipe ' + addr : 'port ' + addr.port, url = 'http://127.0.0.1:' + addr.port;
+    const addr = server.address();
+    const bind = typeof addr === 'string' ? 'pipe ' + addr : 'port ' + addr.port;
+    const url = 'http://127.0.0.1:' + addr.port;
     console.info(`server started on ${url}`);
     // win系统使用 一下命令打开url在浏览器
     if (process.platform === 'win32')

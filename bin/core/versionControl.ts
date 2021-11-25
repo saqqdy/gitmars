@@ -32,7 +32,7 @@ async function isNeedUpgrade(): Promise<boolean> {
 function upgradeGitmars() {
     sh.echo(
         error(
-            `检测到你的版本比较古老，为避免版本碎片化问题，请升级之后再使用!`
+            '检测到你的版本比较古老，为避免版本碎片化问题，请升级之后再使用!'
         ) +
             success(
                 '\nMac用户升级方法：sudo gitm upgrade latest -m -c npm\nWindows用户升级方法：npm i -g gitmars@lite'

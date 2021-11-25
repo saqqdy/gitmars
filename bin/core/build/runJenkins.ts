@@ -27,20 +27,19 @@ async function runJenkins({
 }: RunJenkinsOptionType): Promise<void | unknown> {
     const buildConfig = (await getApolloConfig()) as ApolloConfigType
     const cfg: ApolloConfigBranchType = buildConfig[env]
-    let p
     if (!cfg) {
         sh.echo(error('请输入正确的环境名称'))
         sh.exit(1)
         return
     }
-    p = cfg.list.find(el => el.name === project)
+    const p = cfg.list.find(el => el.name === project)
     if (!p) {
         sh.echo(error('请输入正确的项目名称'))
         sh.exit(1)
         return
     }
     if (app && p.apps) {
-        let appList = app.split(',')
+        const appList = app.split(',')
         for (const item of appList) {
             if (!p.apps.includes(item)) {
                 sh.echo(error('请输入正确的应用名称'))

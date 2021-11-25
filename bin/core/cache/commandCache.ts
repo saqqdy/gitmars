@@ -1,3 +1,4 @@
+const sh = require('shelljs')
 const getGitRevParse = require('../git/getGitRevParse')
 const { isFileExist } = require('../utils/file')
 
@@ -31,9 +32,9 @@ function getCommandCache() {
 function setCommandCache(rest: Array<CommandType | string>): void {
     const { gitDir } = getGitRevParse()
     sh.touch(gitDir + '/.gitmarscommands')
-    // eslint-disable-next-line no-control-regex
     sh.sed(
         '-i',
+        // eslint-disable-next-line no-control-regex
         /[\s\S\n\r\x0a\x0d]*/,
         encodeURIComponent(JSON.stringify(rest)),
         gitDir + '/.gitmarscommands'

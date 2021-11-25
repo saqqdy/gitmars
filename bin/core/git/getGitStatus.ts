@@ -1,3 +1,5 @@
+const sh = require('shelljs')
+
 import type { GitStatusInfoType } from '../../../typings'
 
 /**

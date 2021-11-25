@@ -5,10 +5,10 @@ const sh = require('shelljs');
 const os = require('os');
 const home = require('../lib/home')();
 const shell = os.platform() === 'win32' ? 'powershell.exe' : sh.which('zsh') ? 'zsh' : 'bash';
-let ptyContainers = {};
+const ptyContainers = {};
 module.exports = (socket) => {
     socket.on('create', option => {
-        let ptyProcess = pty.spawn(shell, [], {
+        const ptyProcess = pty.spawn(shell, [], {
             name: 'xterm-color',
             cols: option.cols || 80,
             rows: option.rows || 24,

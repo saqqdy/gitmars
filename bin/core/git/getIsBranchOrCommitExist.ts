@@ -8,10 +8,7 @@ const getCurrentBranch = require('./getCurrentBranch')
  * @param remote - 是否查询远程，默认：false
  * @returns isBranchOrCommitExist - 返回true/false
  */
-function getIsBranchOrCommitExist(
-    name: string,
-    remote: boolean = false
-): boolean {
+function getIsBranchOrCommitExist(name: string, remote = false): boolean {
     if (!name) name = getCurrentBranch()
     if (remote && name.indexOf('origin') === -1) name = 'origin/' + name
     return (

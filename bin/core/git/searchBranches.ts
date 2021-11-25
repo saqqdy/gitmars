@@ -61,10 +61,10 @@ function searchBranches(opt: any = {}): string[] {
     }
     // 按类型筛选
     if (type) {
-        let _types = type.split(','),
-            temp: string[] = []
+        const _types = type.split(',')
+        const temp: string[] = []
         map.heads.forEach(item => {
-            types: for (let t of _types) {
+            types: for (const t of _types) {
                 if (
                     ['bugfix', 'feature', 'support'].includes(t) &&
                     item.indexOf(t + '/') > -1

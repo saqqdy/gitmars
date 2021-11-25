@@ -39,12 +39,12 @@ router.get('/status', function (req, res, next) {
 router.get('/branch/list', (req, res, next) => {
     const { path, key, type, remote } = req.query;
     // process.chdir('/Users/saqqdy/www/wojiayun/wyweb/webapp/app')
-    let data = searchBranches({ path, key, type, remote });
+    const data = searchBranches({ path, key, type, remote });
     success(res, { data });
 });
 // 获取项目列表
 router.get('/branch/current', (req, res, next) => {
-    let data = getCurrentBranch();
+    const data = getCurrentBranch();
     success(res, { data });
 });
 // 读取文件

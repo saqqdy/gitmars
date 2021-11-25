@@ -179,9 +179,9 @@ export function queue(
 export function setLog(log: object): void {
     const { gitDir } = getGitRevParse()
     sh.touch(gitDir + '/.gitmarslog')
-    // eslint-disable-next-line no-control-regex
     sh.sed(
         '-i',
+        // eslint-disable-next-line no-control-regex
         /[\s\S\n\r\x0a\x0d]*/,
         encodeURIComponent(JSON.stringify(log)),
         gitDir + '/.gitmarslog'
