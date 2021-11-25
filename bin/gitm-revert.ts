@@ -2,7 +2,7 @@
 const { program } = require('commander')
 const sh = require('shelljs')
 const { options, args } = require('./conf/revert')
-const { queue } = require('./core/index')
+const { queue } = require('./core/utils/index')
 const { getIsGitProject } = require('./core/git/index')
 const { error, warning } = require('./core/utils/index')
 const { createArgs } = require('./core/utils/index')

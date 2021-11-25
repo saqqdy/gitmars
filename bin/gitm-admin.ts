@@ -4,11 +4,13 @@ const sh = require('shelljs')
 const { create, publish, update, clean } = require('./conf/admin')
 const { getUserToken } = require('./core/api/index')
 const { getType } = require('js-cool')
-const { queue, getStatus, checkBranch } = require('./core/index')
+const { queue } = require('./core/utils/index')
 const {
     getIsGitProject,
     getCurrentBranch,
-    getGitConfig
+    getGitConfig,
+    checkGitStatus,
+    checkBranch
 } = require('./core/git/index')
 const { error, success, createArgs } = require('./core/utils/index')
 const { getCurlOfMergeRequest } = require('./core/shell/index')
@@ -71,7 +73,7 @@ if (create.args.length > 0) {
     _program.action(async (type: string): Promise<void> => {
         const opts = ['bugfix', 'release', 'develop', 'support'] // 允许执行的指令
         const base: string = type === 'release' ? config.master : config.release
-        const status = getStatus()
+        const status = checkGitStatus()
         const hasBase = await checkBranch(base)
         const exits = await checkBranch(config[type])
         if (!status) sh.exit(1)
@@ -135,7 +137,7 @@ if (publish.args.length > 0) {
             opt: GitmBuildOption['publish']
         ): Promise<void> => {
             const opts = ['bugfix', 'release', 'support'] // 允许执行的指令
-            const status = getStatus()
+            const status = checkGitStatus()
             const curBranch = await getCurrentBranch()
             let isDescriptionCorrect = true // 本次提交的原因描述是否符合规范
             if (!status) sh.exit(1)
@@ -507,7 +509,7 @@ if (update.args.length > 0) {
     _program.action((type: string, opt: GitmBuildOption['update']): void => {
         const opts = ['bugfix', 'release', 'support'] // 允许执行的指令
         const base = type === 'release' ? config.master : config.release
-        const status = getStatus()
+        const status = checkGitStatus()
         let mode = '', // 冲突时，保留哪方代码
             isDescriptionCorrect = true // 本次提交的原因描述是否符合规范
         if (!status) sh.exit(1)
@@ -626,7 +628,7 @@ if (clean.args.length > 0) {
     // .command('clean <type>')
     _program.action((type: string): void => {
         const opts = ['bugfix', 'release', 'develop', 'master'] // 允许执行的指令
-        const status = getStatus()
+        const status = checkGitStatus()
         if (!status) sh.exit(1)
         if (opts.includes(type)) {
             let cmd = [

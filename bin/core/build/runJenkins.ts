@@ -1,6 +1,6 @@
 const sh = require('shelljs')
 const getApolloConfig = require('./getApolloConfig')
-const { mapTemplate } = require('../index')
+const mapTemplate = require('../utils/mapTemplate')
 const { error, success } = require('../utils/colors')
 
 import type {
@@ -72,3 +72,4 @@ async function runJenkins({
 }
 
 module.exports = runJenkins
+export {}

@@ -2,8 +2,12 @@
 const { program } = require('commander')
 const sh = require('shelljs')
 const { options, args } = require('./conf/get')
-const { queue, getStashList } = require('./core/index')
-const { getIsGitProject, getCurrentBranch } = require('./core/git/index')
+const { queue } = require('./core/utils/index')
+const {
+    getIsGitProject,
+    getCurrentBranch,
+    getStashList
+} = require('./core/git/index')
 const { error, warning, createArgs } = require('./core/utils/index')
 if (!getIsGitProject()) {
     sh.echo(error('当前目录不是git项目目录'))

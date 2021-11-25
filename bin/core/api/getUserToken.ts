@@ -46,3 +46,4 @@ function getUserToken(): FetchDataType {
 }
 
 module.exports = getUserToken
+export {}

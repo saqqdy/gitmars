@@ -2,8 +2,13 @@
 const { program } = require('commander')
 const sh = require('shelljs')
 const { options, args } = require('./conf/update')
-const { queue, getStatus, filterBranch } = require('./core/index')
-const { getIsGitProject, getCurrentBranch } = require('./core/git/index')
+const { queue } = require('./core/utils/index')
+const {
+    getIsGitProject,
+    getCurrentBranch,
+    checkGitStatus,
+    filterBranch
+} = require('./core/git/index')
 const { error } = require('./core/utils/index')
 const { isNeedUpgrade, upgradeGitmars } = require('./core/versionControl')
 const { createArgs } = require('./core/utils/index')
@@ -52,7 +57,7 @@ program.action(
             defaults.bugfix,
             defaults.support
         ]
-        const status = getStatus()
+        const status = checkGitStatus()
         let cmds: Array<CommandType | string> = [],
             branchList = [],
             _nameArr: string[] = [] // 分支名称数组

@@ -9,9 +9,13 @@ function getCommand(cwd: string, hookName: string) {
     return config && config.hooks && config.hooks[hookName]
 }
 /**
- * runCommand
- * @description 执行脚本
- * @returns {Number} 0|1 返回状态
+ * 执行脚本
+ *
+ * @param cwd - 当前工作目录
+ * @param hookName - hookName
+ * @param cmd - command
+ * @param env - environment
+ * @returns status - 0|1 返回状态
  */
 function runCommand(cwd: string, hookName: string, cmd: string, env: any) {
     console.info(`gitmars > ${hookName} (node ${process.version})`)
@@ -40,9 +44,9 @@ function runCommand(cwd: string, hookName: string, cmd: string, env: any) {
     return status || 0
 }
 /**
- * start
- * @description 运行主程序
- * @returns {Number} 0|1 返回状态
+ * 运行主程序
+ *
+ * @returns status - 0|1 返回状态
  */
 // @ts-ignore
 function start(
@@ -77,3 +81,4 @@ async function run() {
 }
 
 module.exports = run
+export {}

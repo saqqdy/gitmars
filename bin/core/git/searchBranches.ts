@@ -94,3 +94,4 @@ function searchBranches(opt: any = {}): string[] {
 }
 
 module.exports = searchBranches
+export {}

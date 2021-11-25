@@ -4,9 +4,9 @@ const { root } = getGitRevParse()
 const readPkg = require('../utils/readPkg')
 
 /**
- * getHookComment
- * @description 生成hook注释，广告
- * @returns {Object} arr 返回对象
+ * 生成hook注释，广告
+ *
+ * @returns comment - 返回注释
  */
 function getHookComment(): string {
     // const pkgHomepage = process.env.npm_package_homepage

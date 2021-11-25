@@ -7,11 +7,11 @@ const { root } = getGitRevParse()
 import type { GitmarsConfigType } from 'typings'
 
 /**
- * getConfig
- * @description 读取配置
- * @returns {Object} arr 返回配置对象
+ * 取配置
+ *
+ * @returns config - 返回配置对象
  */
-const getConfig = (): GitmarsConfigType => {
+function getConfig(): GitmarsConfigType {
     let config: any = {}
     if (configFrom === 1) {
         const str = sh
@@ -37,4 +37,6 @@ const getConfig = (): GitmarsConfigType => {
     }
     return { ...defaults, ...config }
 }
+
 module.exports = getConfig()
+export {}

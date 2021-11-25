@@ -3,9 +3,9 @@ export type PmFromUserAgentType = {
     version: string
 }
 /**
- * getPackageManager
- * @description 获取本地使用的包管理工具
- * @returns {Object} arr 返回对象
+ * 获取本地使用的包管理工具
+ *
+ * @returns userAgent - 返回PmFromUserAgent
  */
 function getPackageManager(): PmFromUserAgentType | undefined {
     if (!process.env.npm_config_user_agent) {
@@ -15,9 +15,10 @@ function getPackageManager(): PmFromUserAgentType | undefined {
 }
 
 /**
- * pmFromUserAgent
- * @description 读取UA里面的pm
- * @returns {Object} arr 返回对象
+ * 读取UA里面的pm
+ *
+ * @param userAgent - userAgent
+ * @returns userAgent - PmFromUserAgentType
  */
 function pmFromUserAgent(userAgent: string): PmFromUserAgentType {
     const pmSpec = userAgent.split(' ')[0]
@@ -29,3 +30,4 @@ function pmFromUserAgent(userAgent: string): PmFromUserAgentType {
 }
 
 module.exports = getPackageManager
+export {}

@@ -33,3 +33,4 @@ function readPkg(dir?: string): AnyObject {
 }
 
 module.exports = readPkg
+export {}

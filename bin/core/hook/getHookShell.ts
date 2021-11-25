@@ -4,9 +4,9 @@ const readPkg = require('../utils/readPkg')
 const getHookComment = require('./getHookComment')
 
 /**
- * getHookShell
- * @description 生成hook主程序
- * @returns {Object} arr 返回对象
+ * 生成hook主程序
+ *
+ * @returns arr 返回对象
  */
 function getHookShell(): string {
     const pkg = readPkg()
@@ -15,5 +15,6 @@ function getHookShell(): string {
         .replace('gitmarsVersion="0.0.0"', `gitmarsVersion="${pkg.version}"`)
     return [getHookComment(), '', hookShell].join('\n')
 }
+
 module.exports = getHookShell
 export {}

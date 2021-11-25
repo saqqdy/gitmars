@@ -7,6 +7,9 @@ const { encodeUnicode, decodeUnicode } = require('./unicode')
 const getPkgInfo = require('./getPkgInfo')
 const readPkg = require('./readPkg')
 const compareVersion = require('./compareVersion')
+const mapTemplate = require('./mapTemplate')
+const { wait, queue } = require('./queue')
+const { getMessage, postMessage, sendMessage } = require('./message')
 
 module.exports = {
     warning,
@@ -21,6 +24,12 @@ module.exports = {
     decodeUnicode,
     getPkgInfo,
     readPkg,
-    compareVersion
+    compareVersion,
+    mapTemplate,
+    wait,
+    queue,
+    getMessage,
+    postMessage,
+    sendMessage
 }
 export {}
