@@ -12,7 +12,7 @@ features:
       details: 智能检测当前可执行的指令，智能导航
     - title: 安全
       details: 内建了骚操作检测方法，可主动防止不合规的操作
-footer: ISC Licensed | Copyright © 2020-present saqqdy
+footer: GPL-3.0 Licensed | Copyright © 2020-present saqqdy
 ---
 
 ```shell
