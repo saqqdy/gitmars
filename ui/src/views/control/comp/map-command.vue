@@ -68,12 +68,11 @@ const mapComamnds = ({ options, args }: CommandSetsType): string => {
 						: option.value
 			// 可选的，带参数或者没有短指令的
 			if (option.optional || !option.short) {
+				value = value || option.defaultValue
 				if (!value) continue
 				if (option.optional) {
 					// 可选值
 					value = ' "' + value + '"'
-					if (option.defaultValue)
-						value = ' "' + option.defaultValue + '"'
 					optional.push(k + value)
 				} else optional.push(k)
 			} else if (option.short) {
