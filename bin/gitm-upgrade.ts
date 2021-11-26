@@ -95,12 +95,13 @@ program.action(
             stdio: 'ignore',
             shell: process.platform === 'win32' /*, env: { detached: true }*/
         })
-        spawnSync('gitm', ['-v'], {
-            stdio: 'inherit',
-            shell: process.platform === 'win32' /*, env: { detached: true }*/
-        })
         if (install.status === 0) {
             spinner.succeed(success('安装完成'))
+            spawnSync('gitm', ['-v'], {
+                stdio: 'inherit',
+                shell:
+                    process.platform === 'win32' /*, env: { detached: true }*/
+            })
         } else {
             spinner.fail(
                 error('安装出错了，请尝试运行：npm install -g gitmars')

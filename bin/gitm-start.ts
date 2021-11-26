@@ -7,7 +7,7 @@ const { getIsGitProject, checkGitStatus } = require('./core/git/index')
 const { error, success } = require('./core/utils/index')
 const { isNeedUpgrade, upgradeGitmars } = require('./core/versionControl')
 const { createArgs } = require('./core/utils/index')
-const { getType } = require('js-cool')
+const getType = require('js-cool/lib/getType')
 if (!getIsGitProject()) {
     sh.echo(error('当前目录不是git项目目录'))
     sh.exit(1)
