@@ -15,7 +15,7 @@ function getBranchesFromID(commitID: string, remote = false): string[] {
             } --contains ${commitID} --format="%(refname:short)`,
             { silent: true }
         )
-        .stdout.replace(/(^\s+|\n*$)/g, '') // 去除首尾
+        .stdout.replace(/(^\s+|\n+$)/, '') // 去除首尾
     return out ? out.split('\n') : []
 }
 

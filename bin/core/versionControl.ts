@@ -35,7 +35,7 @@ function upgradeGitmars() {
             '检测到你的版本比较古老，为避免版本碎片化问题，请升级之后再使用!'
         ) +
             success(
-                '\nMac用户升级方法：sudo gitm upgrade latest -m -c npm\nWindows用户升级方法：npm i -g gitmars@lite'
+                '\nMac用户升级方法：sudo gitm upgrade latest -m -c npm\nWindows用户使用PowerShell或CMD：gitm upgrade lite -m -c npm.cmd'
             )
     )
     sh.exit(1)
