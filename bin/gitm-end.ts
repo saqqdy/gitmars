@@ -4,14 +4,14 @@ const sh = require('shelljs')
 const { options, args } = require('./conf/end')
 const { getType } = require('js-cool')
 const { queue } = require('./core/queue')
-const searchBranch = require('./core/searchBranch')
 const {
     getIsGitProject,
     getCurrentBranch,
     getGitConfig,
     getIsMergedTargetBranch,
     getIsBranchOrCommitExist,
-    checkGitStatus
+    checkGitStatus,
+    searchBranches
 } = require('./core/git/index')
 const { error, createArgs } = require('./core/utils/index')
 const { getCurlOfMergeRequest } = require('./core/shell/index')
@@ -104,7 +104,7 @@ program.action(
                 sh.echo('请输入分支名称')
                 sh.exit(1)
             }
-            const branches = await searchBranch(type)
+            const branches = searchBranches({ type })
             if (branches.length === 1) {
                 ;[type, ..._nameArr] = branches[0].split('/')
                 name = _nameArr.join('/')

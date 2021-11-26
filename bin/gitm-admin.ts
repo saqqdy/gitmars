@@ -5,7 +5,7 @@ const { create, publish, update, clean } = require('./conf/admin')
 const { getUserToken } = require('./core/api/index')
 const { getType } = require('js-cool')
 const { queue } = require('./core/queue')
-const checkBranch = require('./core/checkBranch')
+const { getIsBranchOrCommitExist } = require('./core/git/index')
 const {
     getIsGitProject,
     getCurrentBranch,
@@ -70,12 +70,12 @@ if (create.args.length > 0) {
         _program.option(o.flags, o.description, o.defaultValue)
     })
     // .command('create <type>')
-    _program.action(async (type: string): Promise<void> => {
+    _program.action((type: string): void => {
         const opts = ['bugfix', 'release', 'develop', 'support'] // 允许执行的指令
         const base: string = type === 'release' ? config.master : config.release
         const status = checkGitStatus()
-        const hasBase = await checkBranch(base)
-        const exits = await checkBranch(config[type])
+        const hasBase = getIsBranchOrCommitExist(base)
+        const exits = getIsBranchOrCommitExist(config[type])
         if (!status) sh.exit(1)
         if (!hasBase) {
             sh.echo(error(base + '分支不存在，请先创建' + base + '分支'))

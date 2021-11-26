@@ -17,6 +17,7 @@ const getGitStatus = require('./getGitStatus')
 const getCommandMessage = require('./getCommandMessage')
 const checkGitStatus = require('./checkGitStatus')
 const filterBranch = require('./filterBranch')
+const getStashList = require('./getStashList')
 
 module.exports = {
     getIsGitProject,
@@ -38,6 +39,7 @@ module.exports = {
     getGitStatus,
     getCommandMessage,
     checkGitStatus,
-    filterBranch
+    filterBranch,
+    getStashList
 }
 export {}

@@ -8,7 +8,7 @@ const sh = require('shelljs')
 function getGitUser(): string {
     return sh
         .exec('git config user.name', { silent: true })
-        .stdout.replace(/(^\s+|\n*$)/g, '') // 去除首尾
+        .stdout.replace(/(^\s+|\n+$)/, '') // 去除首尾
 }
 
 /**
@@ -19,7 +19,7 @@ function getGitUser(): string {
 function getGitEmail(): string {
     return sh
         .exec('git config user.email', { silent: true })
-        .stdout.replace(/(^\s+|\n*$)/g, '') // 去除首尾
+        .stdout.replace(/(^\s+|\n+$)/, '') // 去除首尾
 }
 
 module.exports = {

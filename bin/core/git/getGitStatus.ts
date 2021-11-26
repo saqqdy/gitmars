@@ -12,7 +12,7 @@ function getGitStatus(config: any = {}): GitStatusInfoType {
     const { silent = true } = config
     const out = sh
         .exec('git status -s --no-column', { silent })
-        .stdout.replace(/(^\s+|\n*$)/g, '') // 去除首尾
+        .stdout.replace(/(^\s+|\n+$)/, '') // 去除首尾
     const list = out ? out.replace(/\n(\s+)/g, '\n').split('\n') : []
     const sum: GitStatusInfoType = {
         A: [],

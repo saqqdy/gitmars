@@ -22,9 +22,9 @@ let glob = {},
  */
 const getData = (socket: Socket, option: SocketOption) => {
 	delete require.cache[require.resolve('../../lib/core/global')]
-	delete require.cache[require.resolve('../../lib/core/config')]
+	delete require.cache[require.resolve('../../lib/core/getConfig')]
 	const g = require('../../lib/core/global')
-	const c = require('../../lib/core/config')
+	const c = require('../../lib/core/getConfig')()
 	const bh = searchBranches({ path: option.cwd || home })
 	const cur = getCurrentBranch({ path: option.cwd || home })
 	if (!glob || JSON.stringify(glob) !== JSON.stringify(g)) {
