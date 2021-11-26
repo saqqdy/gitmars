@@ -1,6 +1,5 @@
 const sh = require('shelljs')
-const { queue } = require('./queue')
-const { warning } = require('./utils/colors')
+const { warning } = require('../utils/colors')
 
 /**
  * 获取暂存区列表
@@ -8,8 +7,10 @@ const { warning } = require('./utils/colors')
  * @param key - 名称
  * @returns stashList - 返回stashList
  */
-async function getStashList(key: string) {
-    const data = (await queue(['git stash list']))[0].out.replace(/^\*\s+/, '')
+function getStashList(key: string) {
+    const data = sh
+        .exec('git stash list', { silent: true })
+        .stdout.replace(/(^\s+|\n+$)/, '')
     const list: string[] = (data && data.split('\n')) || []
     const arr: {
         key: string
