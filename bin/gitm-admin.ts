@@ -3,7 +3,7 @@ const { Command } = require('commander')
 const sh = require('shelljs')
 const { create, publish, update, clean } = require('./conf/admin')
 const { getUserToken } = require('./core/api/index')
-const { getType } = require('js-cool')
+const getType = require('js-cool/lib/getType')
 const { queue } = require('./core/queue')
 const { getIsBranchOrCommitExist } = require('./core/git/index')
 const {
