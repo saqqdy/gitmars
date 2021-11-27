@@ -181,7 +181,11 @@ program.action(async (branches: string[], opt: GitmBuildOption) => {
             sh.echo(success('分析完成，没有分支需要清理'))
         }
     } else {
-        sh.echo(success('删除完成'))
+        sh.echo(
+            success(
+                '删除完成，这些分支已被清理：' + _willDeleteBranch.join(' ')
+            )
+        )
     }
 })
 program.parse(process.argv)

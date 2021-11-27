@@ -500,21 +500,25 @@ gitm build gitmars --env dev --app app
 
 #### 短指令：gitm bh
 
+> v2.14.2 新增--exclude和--include传值
+
 提供分支搜索和删除功能
 
--   使用：`gitm branch [-k --key] [-t --type] [-r --remote]` 或者 `gitm branch [-d --delete [name]] [-D --forcedelete [name]]` 或者 `gitm branch [-u --upstream [upstream]]`
+-   使用：`gitm branch [-k --key] [-t --type] [--exclude [exclude]] [--include [include]] [-r --remote]` 或者 `gitm branch [-d --delete [name]] [-D --forcedelete [name]]` 或者 `gitm branch [-u --upstream [upstream]]`
 -   传值：
 
 <div class="table-option">
 
-| 名称          | 简写 | 说明                                           | 类型    | 可选值                 | 传值必填 | 默认  |
-| ------------- | ---- | ---------------------------------------------- | ------- | ---------------------- | -------- | ----- |
-| --key         | -k   | 模糊匹配关键词                                 | String  | -                      | 否       | -     |
-| --type        | -t   | 分支类型，默认查询全部                         | String  | bugfix/feature/support | 否       | -     |
-| --remote      | -r   | 是否查询远程分支                               | Boolean | -                      | 否       | false |
-| --delete      | -d   | 删除本地分支                                   | String  | -                      | 是       | -     |
-| --forcedelete | -D   | 强制删除本地分支                               | String  | -                      | 是       | -     |
-| --upstream    | -u   | 传入分支名称可绑定分支，不传分支名称则取消绑定 | String  | -                      | 否       | ''    |
+| 名称          | 简写 | 说明                                           | 类型          | 可选值                 | 传值必填 | 默认  |
+| ------------- | ---- | ---------------------------------------------- | ------------- | ---------------------- | -------- | ----- |
+| --key         | -k   | 模糊匹配关键词                                 | String        | -                      | 否       | -     |
+| --exclude     |      | 排除的分支名，支持正则或字符串                 | String/RegExp | -                      | 否       | -     |
+| --include     |      | 筛选符合条件的分支，支持正则或字符串           | String/RegExp | -                      | 否       | -     |
+| --type        | -t   | 分支类型，默认查询全部                         | String        | bugfix/feature/support | 否       | -     |
+| --remote      | -r   | 是否查询远程分支                               | Boolean       | -                      | 否       | false |
+| --delete      | -d   | 删除本地分支                                   | String        | -                      | 是       | -     |
+| --forcedelete | -D   | 强制删除本地分支                               | String        | -                      | 是       | -     |
+| --upstream    | -u   | 传入分支名称可绑定分支，不传分支名称则取消绑定 | String        | -                      | 否       | ''    |
 
 </div>
 
@@ -523,10 +527,10 @@ gitm build gitmars --env dev --app app
 1. 查询本地 feature 功能分支
 
 ```shell
-# 形式：gitm branch [-k --key] [-t --type] [-r --remote]
-gitm branch --key bug001 -r -t feature
+# 形式：gitm branch [-k --key] [-t --type] [--exclude [exclude]] [--include [include]] [-r --remote]
+gitm branch --key bug001 --exclude="saqqdy$" --include="wu$" --remote --type feature
 # or
-gitm bh -k bug001 -r -t feature
+gitm bh -k bug001 --exclude="saqqdy$" --include="wu$" -r -t feature
 ```
 
 2. 删除本地分支
@@ -610,7 +614,7 @@ gitm rt xxxxxx -m 1
 
 ### gitm undo <Badge text="开发中" type="warning"/>
 
-> 2.3.0 新增
+> v2.3.0 新增
 
 #### 短指令：gitm ud
 
@@ -660,7 +664,7 @@ gitm ud xxxxxx -m 1
 
 ### gitm redo <Badge text="开发中" type="warning"/>
 
-> 2.3.0 新增
+> v2.3.0 新增
 
 #### 短指令：gitm rd
 
@@ -824,11 +828,11 @@ gitm get "test login"
 
 #### 短指令：gitm clb
 
-> 2.13.0 新增</br>
-> 2.13.1 新增--list参数</br>
-> 2.13.4 新增--confirm参数</br>
-> 2.13.6 新增branches，新增--target</br>
-> 2.13.9 --except改成--exclude，用法不变；新增--include传参；新增--key传参
+> v2.13.0 新增</br>
+> v2.13.1 新增--list参数</br>
+> v2.13.4 新增--confirm参数</br>
+> v2.13.6 新增branches，新增--target</br>
+> v2.13.9 --except改成--exclude，用法不变；新增--include传参；新增--key传参
 
 清理合并过的功能分支
 

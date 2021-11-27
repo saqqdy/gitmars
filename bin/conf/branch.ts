@@ -18,6 +18,32 @@ import type { GitmarsOptionType } from '../../typings'
                 defaultValue: null
             },
             {
+                flags: '--exclude [exclude]',
+                required: false,
+                optional: true,
+                variadic: false,
+                mandatory: false,
+                short: '',
+                long: '--exclude',
+                negate: false,
+                description: '排除关键词',
+                defaultValue: '',
+                value: ''
+            },
+            {
+                flags: '--include [include]',
+                required: false,
+                optional: true,
+                variadic: false,
+                mandatory: false,
+                short: '',
+                long: '--include',
+                negate: false,
+                description: '包含关键词',
+                defaultValue: '',
+                value: ''
+            },
+            {
                 flags: '-r, --remote',
                 required: false,
                 optional: false,

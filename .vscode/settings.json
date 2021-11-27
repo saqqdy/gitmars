@@ -22,7 +22,8 @@
         "pnpm",
         "cnpm",
         "untarget",
-        "untargets"
+        "untargets",
+        "refname"
     ],
     "typescript.tsdk": "node_modules/typescript/lib",
     "editor.codeActionsOnSave": {
