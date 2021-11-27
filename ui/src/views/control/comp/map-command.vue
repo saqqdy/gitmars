@@ -30,6 +30,11 @@ const props = defineProps({
 		default: () => ({ options: [], args: [] }),
 		required: true
 	},
+	execName: {
+		type: String,
+		default: 'gitm',
+		required: false
+	},
 	current: {
 		type: String,
 		default: '',
@@ -84,7 +89,7 @@ const mapComamnds = ({ options, args }: CommandSetsType): string => {
 	for (let arg of args) {
 		arg.value && argument.push(arg.value)
 	}
-	return `gitm ${command} ${argument.join(' ')} ${notOptional.join(
+	return `${props.execName} ${command} ${argument.join(' ')} ${notOptional.join(
 		''
 	)} ${optional.join(' ')}`.replace(/[\s]{2,}/g, ' ')
 }

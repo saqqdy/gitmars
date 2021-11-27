@@ -11,6 +11,7 @@ import {
 	ElForm,
 	ElInput,
 	ElSelect,
+	ElOption,
 	ElTooltip,
 	ElMessage,
 	ElMessageBox
@@ -40,6 +41,7 @@ app.use(ElCarousel)
 app.use(ElForm)
 app.use(ElInput)
 app.use(ElSelect)
+app.use(ElOption)
 app.use(ElTooltip)
 app.use(ElMessage)
 app.use(ElMessageBox)

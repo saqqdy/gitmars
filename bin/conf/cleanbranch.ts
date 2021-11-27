@@ -25,7 +25,8 @@ import type { GitmarsOptionType } from '../../typings'
                 long: '--list',
                 negate: false,
                 description: '显示符合条件的分支列表',
-                defaultValue: false
+                defaultValue: false,
+                value: true
             },
             {
                 flags: '-t, --type [type]',
@@ -54,7 +55,7 @@ import type { GitmarsOptionType } from '../../typings'
                 description:
                     '需要检测是否合过的目标分支名，不传默认是develop和release',
                 defaultValue: null,
-                value: ''
+                value: 'dev,release'
             },
             {
                 flags: '-k, --key [keyword]',

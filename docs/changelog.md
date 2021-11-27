@@ -4,6 +4,7 @@
 
 1. `branch`指令名称更改为`branches`，更换查询分支方法
 2. `cleanbranch`指令优化提示信息
+3. `ui`界面支持`cleanbranch`/`admin publish`/`clean`/`log`四个指令
 
 ## 2021.11.26 v2.14.1 更新日志
 
