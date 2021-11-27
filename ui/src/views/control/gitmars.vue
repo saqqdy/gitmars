@@ -155,6 +155,33 @@
 									v-model="commandValue['branch']"
 								></Command>
 							</v3-collapse-item>
+							<v3-collapse-item name="7">
+								<template #title>
+									<MapCommand
+										:value="commandValue['cleanbranch']"
+										:current="data.current"
+										@exec="exec"
+									></MapCommand>
+								</template>
+								<Command
+									v-model="commandValue['cleanbranch']"
+								></Command>
+							</v3-collapse-item>
+							<v3-collapse-item name="8">
+								<template #title>
+									<MapCommand
+										:value="
+											commandValue['admin']['publish']
+										"
+										:current="data.current"
+										execName="gitm admin"
+										@exec="exec"
+									></MapCommand>
+								</template>
+								<Command
+									v-model="commandValue['admin']['publish']"
+								></Command>
+							</v3-collapse-item>
 						</v3-collapse>
 					</div>
 					<div class="section">
@@ -234,6 +261,30 @@
 								</template>
 								<Command
 									v-model="commandValue['unlink']"
+								></Command>
+							</v3-collapse-item>
+							<v3-collapse-item name="17">
+								<template #title>
+									<MapCommand
+										:value="commandValue['clean']"
+										:current="data.current"
+										@exec="exec"
+									></MapCommand>
+								</template>
+								<Command
+									v-model="commandValue['clean']"
+								></Command>
+							</v3-collapse-item>
+							<v3-collapse-item name="18">
+								<template #title>
+									<MapCommand
+										:value="commandValue['log']"
+										:current="data.current"
+										@exec="exec"
+									></MapCommand>
+								</template>
+								<Command
+									v-model="commandValue['log']"
 								></Command>
 							</v3-collapse-item>
 						</v3-collapse>
@@ -388,7 +439,7 @@ export default defineComponent({
 		// 执行指令
 		const exec = (cmd: string): void => {
 			if (!data.terminal) return
-			socket.emit(data.terminal.name + '-input', ` ${cmd}\r`)
+			socket.emit(data.terminal.name + '-input', `${cmd}\r`)
 		}
 		data.project = await getProject()
 
@@ -572,8 +623,8 @@ export default defineComponent({
 				gap: 20px;
 			}
 			.xterm {
-				height: calc(100% - 438px);
-				min-height: 408px;
+				height: calc(100% - 534px);
+				min-height: 360px;
 			}
 		}
 	}

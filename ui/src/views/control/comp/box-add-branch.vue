@@ -28,7 +28,7 @@ export default {
 
 <script lang="ts" setup>
 import { reactive, toRaw, Ref, ref, onMounted, watchEffect } from 'vue'
-import { ElInput, ElSelect, ElMessage } from 'element-plus'
+import { ElInput, ElSelect, ElOption, ElMessage } from 'element-plus'
 import useCurrentInstance from '@/hooks/use-current-instance'
 
 interface DataType {
@@ -42,9 +42,9 @@ const data: DataType = reactive({
 	name: ''
 })
 
-		const {
-			globalProperties: { $axios, $box }
-		} = useCurrentInstance()
+const {
+	globalProperties: { $axios, $box }
+} = useCurrentInstance()
 const submit = (): Promise<DataType> => {
 	return new Promise((resolve, reject) => {
 		if (!data.type || !data.name) {

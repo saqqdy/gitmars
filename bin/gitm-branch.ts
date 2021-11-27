@@ -4,10 +4,11 @@ const sh = require('shelljs')
 const { options, args } = require('./conf/branch')
 const { queue } = require('./core/queue')
 const {
+    searchBranches,
     getIsGitProject,
     getIsBranchOrCommitExist
 } = require('./core/git/index')
-const { error, createArgs } = require('./core/utils/index')
+const { success, error, createArgs } = require('./core/utils/index')
 if (!getIsGitProject()) {
     sh.echo(error('当前目录不是git项目目录'))
     sh.exit(1)
@@ -15,13 +16,14 @@ if (!getIsGitProject()) {
 
 import {
     GitmarsBranchType,
-    QueueReturnsType,
     GitmarsOptionOptionsType,
     CommandType
 } from '../typings'
 
 interface GitmBuildOption {
     key?: string
+    exclude?: string
+    include?: string
     remote?: boolean
     type?: GitmarsBranchType
     delete?: string | null
@@ -35,7 +37,7 @@ interface GitmBuildOption {
 program
     .name('gitm branch')
     .usage(
-        '[-k --key [keyword]] [-t --type [type]] [-d --delete [branch]] [-r --remote [remote]] [-D --forcedelete [branch]] [-u --upstream [upstream]]'
+        '[-k --key [keyword]] [-t --type [type]] [-d --delete [branch]] [--exclude [exclude]] [--include [include]] [-r --remote [remote]] [-D --forcedelete [branch]] [-u --upstream [upstream]]'
     )
     .description(
         '分支查询、删除（注意该指令不用于创建分支，如需创建分支请走start流程）'
@@ -45,6 +47,8 @@ options.forEach((o: GitmarsOptionOptionsType) => {
     program.option(o.flags, o.description, o.defaultValue)
 })
 // .option('-k, --key [keyword]', '查询分支的关键词', null)
+// .option('--exclude [exclude]', '排除关键词', '')
+// .option('--include [include]', '包含关键词', '')
 // .option('-r, --remote', '是否查询远程分支（deletes模式下改用于删除远程分支）默认只查询本地', false)
 // .option('-t, --type [type]', '查询分支的类型，共有3种：feature、bugfix、support，不传则查询全部', null)
 // .option('-d, --delete [branch]', '删除分支', null)
@@ -71,34 +75,14 @@ program.action((opt: GitmBuildOption): void => {
         }
     } else {
         // 分支查询
-        cmd.push('git branch -a')
-        queue(cmd).then((data: QueueReturnsType[]) => {
-            data.forEach((el: QueueReturnsType, index: number): void => {
-                if (index === 0 && el.code === 0) {
-                    let list =
-                        (el.out &&
-                            typeof el.out === 'string' &&
-                            el.out.split('\n')) ||
-                        []
-                    list = list.filter(el => {
-                        let fit = true
-                        if (opt.key) {
-                            fit = fit && el.indexOf(opt.key) > -1
-                        }
-                        if (opt.type) {
-                            fit = fit && el.indexOf(opt.type) > -1
-                        }
-                        if (opt.remote) {
-                            fit = fit && el.indexOf('remotes/origin') > -1
-                        } else {
-                            fit = fit && el.indexOf('remotes/origin') === -1
-                        }
-                        return fit
-                    })
-                    sh.echo(list.join('\n'))
-                }
-            })
+        const branches = searchBranches({
+            remote: opt.remote,
+            type: opt.type,
+            key: opt.key,
+            exclude: opt.exclude,
+            include: opt.include
         })
+        sh.echo(success(branches.join('\n')))
         return
     }
     queue(cmd)

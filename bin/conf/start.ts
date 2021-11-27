@@ -8,7 +8,9 @@ import type { GitmarsOptionType } from '../../typings'
                 required: true,
                 name: 'type',
                 variadic: false,
-                description: '分支类型'
+                description: '分支类型',
+                options: ['feature', 'bugfix', 'support'],
+                value: ''
             },
             {
                 required: true,

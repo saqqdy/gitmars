@@ -56,7 +56,9 @@ import type { GitmarsMultiOptionType } from '../../typings'
                         cb()
                     },
                     // transformer: null,
-                    description: '分支类型'
+                    description: '分支类型',
+                    options: ['release', 'bugfix'],
+                    value: ''
                 }
             ],
             options: [

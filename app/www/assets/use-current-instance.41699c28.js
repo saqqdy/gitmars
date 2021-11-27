@@ -1,0 +1,1 @@
+import{al as e,g as o}from"./vendor/vue_3.2.23.js.9f5d2e7e.js";function t(t){"string"==typeof t&&(t=[t]);const{appContext:r,proxy:s}=o(),l=r.config.globalProperties;let n={};return t&&t.includes("style")&&(n=e()),{globalProperties:l,proxy:s,style:n}}export{t as u};
