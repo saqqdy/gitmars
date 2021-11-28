@@ -1222,7 +1222,7 @@ gitm admin create release
 | --prod        | -p   | 发布 bugfix 时，是否需要把 bugfix 合并到 master                              | Boolean | -      | 否       | false |
 | --build       | -b   | 是否使用淘宝镜像升级                                                         | Boolean | -      | 否       | false |
 | --use-rebase  |      | 是否使用 rebase 执行合并                                                     | Boolean | -      | 否       | false |
-| --postmsg     | -p   | 是否需要发送指令处理消息到云之家                                             | Boolean | -      | 否       | false |
+| --postmsg     | -p   | 是否需要发送群消息                                                           | Boolean | -      | 否       | false |
 | --description |      | 本次提交的原因描述                                                           | String  | -      | 否       | ''    |
 
 </div>
@@ -1273,7 +1273,7 @@ gitm admin publish release -b app
 | ------------- | ---- | --------------------------------------------------------------------------------------------------------------------- | ------- | ------ | -------- | ----- |
 | --mode        | -m   | 出现冲突时，保留传入代码还是保留当前代码；1=采用当前 2=采用传入；默认为 0=手动处理。本参数不可与--use-rebase 同时使用 | Number  | 0/1/2  | 否       | 0     |
 | --use-rebase  |      | 是否使用 rebase 执行同步                                                                                              | Boolean | -      | 否       | false |
-| --postmsg     | -p   | 是否需要发送指令处理消息到云之家                                                                                      | Boolean | -      | 否       | false |
+| --postmsg     | -p   | 是否需要发送群消息                                                                                                    | Boolean | -      | 否       | false |
 | --description |      | 本次提交的原因描述                                                                                                    | String  | -      | 否       | ''    |
 
 </div>
