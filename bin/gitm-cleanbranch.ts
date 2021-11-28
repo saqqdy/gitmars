@@ -85,8 +85,6 @@ program.action(async (branches: string[], opt: GitmBuildOption) => {
         ? opt.target.split(',')
         : [config.develop, config.release]
     sh.exec('git fetch', { silent: true })
-    current !== config.develop &&
-        sh.exec(`git checkout ${config.develop}`, { silent: true })
     // 没有传入指定分支，进行查询
     if (branches.length === 0) {
         branches = searchBranches({
@@ -156,6 +154,9 @@ program.action(async (branches: string[], opt: GitmBuildOption) => {
         }
         // 仅清理合过dev和release的分支
         if (removeLocal) {
+            // 删除当前分支，需要切到其他分支去
+            if (current === branch)
+                sh.exec(`git checkout ${config.master}`, { silent: true })
             sh.exec(`git branch -D ${branch}`, { silent: true })
         }
         // 清理远程分支

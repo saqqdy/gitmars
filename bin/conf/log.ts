@@ -6,7 +6,7 @@ import type { GitmarsOptionType } from '../../typings'
         args: [
             {
                 required: false,
-                name: 'branche',
+                name: 'branch',
                 variadic: false
             }
         ],
