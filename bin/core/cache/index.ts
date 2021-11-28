@@ -4,6 +4,12 @@ const {
     setCommandCache,
     cleanCommandCache
 } = require('./commandCache')
+const {
+    getRevertCache,
+    setRevertCache,
+    addRevertCache,
+    cleanRevertCache
+} = require('./revertCache')
 const { setLog } = require('./log')
 
 module.exports = {
@@ -12,6 +18,10 @@ module.exports = {
     getCommandCache,
     setCommandCache,
     cleanCommandCache,
+    getRevertCache,
+    setRevertCache,
+    addRevertCache,
+    cleanRevertCache,
     setLog
 }
 export {}

@@ -15,6 +15,7 @@
         "gitmarsdb",
         "gitmarsrc",
         "gitmarscommands",
+        "gitmarsreverts",
         "gitmarsconfig",
         "gitmarslog",
         "cleanbranch",

@@ -1,10 +1,14 @@
 # 更新日志
 
+## 2021.11.28 v2.14.3 更新日志
+
+1. `cleanbranch`指令不再主动切换分支
+2. `log`指令体验优化
+
 ## 2021.11.27 v2.14.2 更新日志
 
-1. `branch`指令名称更改为`branches`，更换查询分支方法
-2. `cleanbranch`指令优化提示信息
-3. `ui`界面支持`cleanbranch`/`admin publish`/`clean`/`log`四个指令
+1. `cleanbranch`指令优化提示信息
+2. `ui`界面支持`cleanbranch`/`admin publish`/`clean`/`log`四个指令
 
 ## 2021.11.26 v2.14.1 更新日志
 

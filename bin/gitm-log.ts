@@ -22,7 +22,7 @@ interface GitmBuildOption {
  */
 program
     .name('gitm log')
-    .usage('[branche] [--lastet [lastet]] [--limit [limit]]')
+    .usage('[branch] [--lastet [lastet]] [--limit [limit]]')
     .description('日志查询')
 if (args.length > 0) program.arguments(createArgs(args))
 options.forEach((o: GitmarsOptionOptionsType) => {
@@ -30,14 +30,14 @@ options.forEach((o: GitmarsOptionOptionsType) => {
 })
 // .option('--lastet [lastet]', '查询在某个时间之后的日志，填写格式：10s/2m/2h/3d/4M/5y', '7d')
 // .option('--limit [limit]', '最多查询的日志条数', 20)
-program.action(async (branche: string, opt: GitmBuildOption) => {
+program.action(async (branch: string, opt: GitmBuildOption) => {
     const logs = getGitLogs({
         lastet: opt.lastet,
         limit: opt.limit,
-        branches: branche
+        branches: branch
     })
     console.log(logs)
-    sh.exit(1)
+    sh.exit(0)
 })
 program.parse(process.argv)
 export {}
