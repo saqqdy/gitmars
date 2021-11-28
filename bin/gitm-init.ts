@@ -90,7 +90,7 @@ program
                 prompts.push({
                     type: 'input',
                     name: key,
-                    message: '请输入云之家消息推送地址',
+                    message: '请输入消息推送地址',
                     transformer: (val, answers, flags) => val.trim(),
                     validate: val =>
                         val === '' || /^https?:\/\/[\S]*$/.test(val)

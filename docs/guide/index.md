@@ -78,7 +78,7 @@ title: guide
 -   解除软链接 [gitm unlink](../api/#gitm-unlink)
 -   软链接 [gitm link](../api/#gitm-link)
 -   清除缓存 [gitm clean](../api/#gitm-clean)
--   推送云之家消息 [gitm postmsg](../api/#gitm-postmsg)
+-   推送消息 [gitm postmsg](../api/#gitm-postmsg)
 -   提交权限 [gitm permission](../api/#gitm-permission)
 -   git 钩子指令 [gitm hook](../api/#gitm-hook)
 -   git 钩子运行指令 [gitm run](../api/#gitm-run)

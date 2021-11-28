@@ -104,7 +104,7 @@ gitm copy --help
 -   解除软链接 [gitm unlink](http://www.saqqdy.com/gitmars/api/#gitm-unlink)
 -   软链接 [gitm link](http://www.saqqdy.com/gitmars/api/#gitm-link)
 -   清除缓存 [gitm clean](http://www.saqqdy.com/gitmars/api/#gitm-clean)
--   推送云之家消息 [gitm postmsg](http://www.saqqdy.com/gitmars/api/#gitm-postmsg)
+-   推送消息 [gitm postmsg](http://www.saqqdy.com/gitmars/api/#gitm-postmsg)
 -   提交权限 [gitm permission](http://www.saqqdy.com/gitmars/api/#gitm-permission)
 -   git 钩子指令 [gitm hook](http://www.saqqdy.com/gitmars/api/#gitm-hook)
 -   git 钩子运行指令 [gitm run](http://www.saqqdy.com/gitmars/api/#gitm-run)
