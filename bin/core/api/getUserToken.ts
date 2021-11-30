@@ -25,7 +25,7 @@ async function getUserToken(): Promise<FetchDataType> {
     }
 
     const fetchData =
-        ((await request({ url: `${config.api}?name=${user}` }))
+        ((await request.get({ url: `${config.api}?name=${user}` }))
             .data as FetchDataType) || null
     // 没有查到用户信息或者没有设置token
     if (!fetchData) {
