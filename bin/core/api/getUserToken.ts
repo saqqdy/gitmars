@@ -1,12 +1,13 @@
 const sh = require('shelljs')
 const { getGitUser } = require('../git/getGitUser')
 const { error } = require('../utils/colors')
+const request = require('../request')
 const getConfig = require('../getConfig')
 
 import { FetchDataType } from '../../../typings'
 
 // 获取用户信息
-function getUserToken(): FetchDataType {
+async function getUserToken(): Promise<FetchDataType> {
     const config = getConfig()
     if (!config.api) {
         sh.echo(
@@ -23,26 +24,18 @@ function getUserToken(): FetchDataType {
         process.exit(1)
     }
 
-    let fetchData: any = sh.exec(`curl -s ${config.api}?name=${user}`, {
-            silent: true
-        }).stdout,
-        userInfo
-    try {
-        fetchData = JSON.parse(fetchData)
-        userInfo = (fetchData.data as FetchDataType) || null
-    } catch (err) {
-        userInfo = null
-    }
-
+    const fetchData =
+        ((await request.get({ url: `${config.api}?name=${user}` }))
+            .data as FetchDataType) || null
     // 没有查到用户信息或者没有设置token
-    if (!userInfo) {
+    if (!fetchData) {
         sh.echo(error('没有找到用户，请联系管理员'))
         process.exit(1)
-    } else if (!userInfo.token) {
+    } else if (!fetchData.token) {
         sh.echo(error('请设置access_token'))
         process.exit(1)
     }
-    return userInfo
+    return fetchData
 }
 
 module.exports = getUserToken

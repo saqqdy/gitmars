@@ -1,7 +1,7 @@
 {
     "name": "gitmars",
     "description": "这是一个git工作流工具",
-    "version": "1.17.3",
+    "version": "1.17.4",
     "scripts": {
         "docs:dev": "vuepress dev docs",
         "docs:build": "vuepress build docs",
@@ -55,10 +55,12 @@
         "js-cool": "^2.3.0",
         "node-apollo": "^1.2.1",
         "ora": "^5.4.1",
+        "qs": "^6.10.1",
         "shelljs": "^0.8.4",
         "slash": "^3.0.0",
         "text-table": "^0.2.0",
-        "tracer": "1.1.5"
+        "tracer": "1.1.5",
+        "zlib": "^1.0.5"
     },
     "devDependencies": {
         "@microsoft/api-extractor": "^8.0.0",

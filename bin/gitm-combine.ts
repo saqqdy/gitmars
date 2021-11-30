@@ -82,7 +82,7 @@ program.action(
             token,
             level,
             nickname = ''
-        } = config.api ? getUserToken() : ({} as FetchDataType)
+        } = config.api ? await getUserToken() : ({} as FetchDataType)
         const status = !opt.add && opt.commit === '' ? checkGitStatus() : true
         let _nameArr: string[] = [], // 分支名称数组
             isDescriptionCorrect = true // 本次提交的原因描述是否符合规范
