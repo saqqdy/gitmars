@@ -14,7 +14,7 @@ const {
     searchBranches
 } = require('./core/git/index')
 const { error, warning, createArgs } = require('./core/utils/index')
-const { getCurlOfMergeRequest } = require('./core/shell/index')
+const { mergeRequest } = require('./core/git/index')
 const { isNeedUpgrade, upgradeGitmars } = require('./core/versionControl')
 const { defaults } = require('./core/global')
 
@@ -251,7 +251,7 @@ program.action(
                                     }
                                 },
                                 {
-                                    cmd: getCurlOfMergeRequest({
+                                    cmd: mergeRequest.bind(null, {
                                         source_branch: `${type}/${name}`,
                                         target_branch: base,
                                         token,
@@ -307,7 +307,7 @@ program.action(
                                     }
                                 },
                                 {
-                                    cmd: getCurlOfMergeRequest({
+                                    cmd: mergeRequest.bind(null, {
                                         source_branch: `${type}/${name}`,
                                         target_branch: config.release,
                                         token,
@@ -363,7 +363,7 @@ program.action(
                                     }
                                 },
                                 {
-                                    cmd: getCurlOfMergeRequest({
+                                    cmd: mergeRequest.bind(null, {
                                         source_branch: `${type}/${name}`,
                                         target_branch: config.bugfix,
                                         token,

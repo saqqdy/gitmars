@@ -1,5 +1,6 @@
 const sh = require('shelljs')
 const ora = require('ora')
+const getType = require('js-cool/lib/getType')
 const { getCommandCache } = require('./cache/commandCache')
 const getCommandMessage = require('./git/getCommandMessage')
 const { setLog } = require('./cache/log')
@@ -45,7 +46,8 @@ function wait(list: Array<CommandType | string>, fun: QueueStartFunction) {
  */
 function queue(list: Array<CommandType | string>): Promise<QueueReturnsType[]> {
     const spinner = ora()
-    return new Promise((resolve, reject) => {
+    // eslint-disable-next-line no-async-promise-executor
+    return new Promise(async (resolve, reject) => {
         const returns: QueueReturnsType[] = []
         if (list.length === 0) reject('指令名称不能为空')
         list = JSON.parse(JSON.stringify(list))
@@ -67,65 +69,84 @@ function queue(list: Array<CommandType | string>): Promise<QueueReturnsType[]> {
                 // 只有一条指令，不需返回数组形式
                 resolve(returns)
             } else {
-                const msg = getCommandMessage(cmd)
-                spinner.start(
-                    success(cfg.processing || msg.processing || '正在处理')
-                )
-                sh.exec(cmd, cfg, (code: ShellCode, out: string, err: any) => {
+                if (typeof cmd === 'function') {
                     try {
-                        out = JSON.parse(out)
+                        spinner.start(success(cfg.processing || '正在处理'))
+                        // @ts-ignore
+                        const result = await cmd()
+
                     } catch {
-                        out = out.replace(/\n*$/g, '')
+                        // 请求出错
                     }
-                    returns.push({ code, out, err, cfg, cmd })
-                    if (code !== 0) setLog({ command, code, out, err })
-                    if (code !== 0 && cfg.kill) {
-                        // 当前指令执行错误且设置该条指令需要中断，则中断递归
-                        const rest = JSON.parse(JSON.stringify(list))
-                        if (!cfg.again) {
-                            rest.shift()
-                        } else if (cfg.again !== true) {
-                            rest.splice(0, 1, cfg.again)
-                        }
-                        cb && cb(true) // 回调并中断执行
-                        getCommandCache(rest)
-                        // 只有silent模式才需要输出信息
-                        cfg.silent && spinner.fail(error(err))
-                        spinner.fail(
-                            error(
-                                cfg.fail ||
-                                    msg.fail ||
-                                    '出错了！指令 ' +
-                                        cmd +
-                                        ' 执行失败，中断了进程'
-                            )
-                        )
-                        cfg.postmsg &&
-                            postMessage(
-                                '出错了！指令 ' + cmd + ' 执行失败，中断了进程'
-                            )
-                        rest.length > 0 &&
-                            spinner.fail(
-                                error('请处理相关问题之后输入gitm continue继续')
-                            )
-                        sh.exit(1)
-                    } else {
-                        if (code === 0) {
-                            const _message = cfg.success || msg.success
-                            if (_message) {
-                                spinner.succeed(success(_message))
-                                cfg.postmsg && postMessage(_message)
+                } else {
+                    const msg = getCommandMessage(cmd)
+                    spinner.start(
+                        success(cfg.processing || msg.processing || '正在处理')
+                    )
+                    sh.exec(
+                        cmd,
+                        cfg,
+                        (code: ShellCode, out: string, err: any) => {
+                            try {
+                                out = JSON.parse(out)
+                            } catch {
+                                out = out.replace(/\n*$/g, '')
                             }
-                        } else {
-                            const m =
-                                cfg.fail ||
-                                msg.fail ||
-                                '指令 ' + cmd + ' 执行失败'
-                            m && spinner.warn(warning(m))
+                            returns.push({ code, out, err, cfg, cmd })
+                            if (code !== 0) setLog({ command, code, out, err })
+                            if (code !== 0 && cfg.kill) {
+                                // 当前指令执行错误且设置该条指令需要中断，则中断递归
+                                const rest = JSON.parse(JSON.stringify(list))
+                                if (!cfg.again) {
+                                    rest.shift()
+                                } else if (cfg.again !== true) {
+                                    rest.splice(0, 1, cfg.again)
+                                }
+                                cb && cb(true) // 回调并中断执行
+                                getCommandCache(rest)
+                                // 只有silent模式才需要输出信息
+                                cfg.silent && spinner.fail(error(err))
+                                spinner.fail(
+                                    error(
+                                        cfg.fail ||
+                                            msg.fail ||
+                                            '出错了！指令 ' +
+                                                cmd +
+                                                ' 执行失败，中断了进程'
+                                    )
+                                )
+                                cfg.postmsg &&
+                                    postMessage(
+                                        '出错了！指令 ' +
+                                            cmd +
+                                            ' 执行失败，中断了进程'
+                                    )
+                                rest.length > 0 &&
+                                    spinner.fail(
+                                        error(
+                                            '请处理相关问题之后输入gitm continue继续'
+                                        )
+                                    )
+                                sh.exit(1)
+                            } else {
+                                if (code === 0) {
+                                    const _message = cfg.success || msg.success
+                                    if (_message) {
+                                        spinner.succeed(success(_message))
+                                        cfg.postmsg && postMessage(_message)
+                                    }
+                                } else {
+                                    const m =
+                                        cfg.fail ||
+                                        msg.fail ||
+                                        '指令 ' + cmd + ' 执行失败'
+                                    m && spinner.warn(warning(m))
+                                }
+                                cb && cb() // 回调，继续执行下一条
+                            }
                         }
-                        cb && cb() // 回调，继续执行下一条
-                    }
-                })
+                    )
+                }
             }
         })
     })

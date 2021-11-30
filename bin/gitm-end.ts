@@ -14,7 +14,7 @@ const {
     searchBranches
 } = require('./core/git/index')
 const { error, createArgs } = require('./core/utils/index')
-const { getCurlOfMergeRequest } = require('./core/shell/index')
+const { mergeRequest } = require('./core/git/index')
 const { isNeedUpgrade, upgradeGitmars } = require('./core/versionControl')
 if (!getIsGitProject()) {
     sh.echo(error('当前目录不是git项目目录'))
@@ -211,7 +211,7 @@ program.action(
                             }
                         },
                         {
-                            cmd: getCurlOfMergeRequest({
+                            cmd: mergeRequest.bind(null, {
                                 source_branch: `${type}/${name}`,
                                 target_branch: config.bugfix,
                                 token,
@@ -300,7 +300,7 @@ program.action(
                             }
                         },
                         {
-                            cmd: getCurlOfMergeRequest({
+                            cmd: mergeRequest.bind(null, {
                                 source_branch: `${type}/${name}`,
                                 target_branch: base,
                                 token,
