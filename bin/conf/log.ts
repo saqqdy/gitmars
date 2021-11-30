@@ -14,7 +14,7 @@ import type { GitmarsOptionType } from '../../typings'
             {
                 flags: '--lastet [lastet]',
                 required: false,
-                optional: false,
+                optional: true,
                 variadic: false,
                 mandatory: false,
                 short: '',
@@ -27,7 +27,7 @@ import type { GitmarsOptionType } from '../../typings'
             {
                 flags: '--limit [limit]',
                 required: false,
-                optional: false,
+                optional: true,
                 variadic: false,
                 mandatory: false,
                 short: '',

@@ -21,11 +21,6 @@ if (!getIsGitProject()) {
 const getConfig = require('./core/getConfig')
 const { appName } = getGitConfig()
 const config = getConfig()
-const {
-    token,
-    level,
-    nickname = ''
-} = config.api ? getUserToken() : ({} as FetchDataType)
 
 import {
     FetchDataType,
@@ -136,6 +131,11 @@ if (publish.args.length > 0) {
             type: PublishOptsType,
             opt: GitmBuildOption['publish']
         ): Promise<void> => {
+            const {
+                token,
+                level,
+                nickname = ''
+            } = config.api ? await getUserToken() : ({} as FetchDataType)
             const opts = ['bugfix', 'release', 'support'] // 允许执行的指令
             const status = checkGitStatus()
             const curBranch = await getCurrentBranch()
@@ -506,114 +506,122 @@ if (update.args.length > 0) {
     // .option('-m, --mode [mode]', '出现冲突时，保留传入代码还是保留当前代码；1=采用当前 2=采用传入；默认为 0=手动处理。本参数不可与--use-rebase同时使用', 0)
     // .option('--postmsg', '发送消息', false)
     // .option('--description [description]', '本次提交的原因描述', '')
-    _program.action((type: string, opt: GitmBuildOption['update']): void => {
-        const opts = ['bugfix', 'release', 'support'] // 允许执行的指令
-        const base = type === 'release' ? config.master : config.release
-        const status = checkGitStatus()
-        let mode = '', // 冲突时，保留哪方代码
-            isDescriptionCorrect = true // 本次提交的原因描述是否符合规范
-        if (!status) sh.exit(1)
-        // 有配置descriptionValidator时需要校验描述信息
-        if (config.descriptionValidator) {
-            // 校验本次提交的原因描述
-            const reg =
-                getType(config.descriptionValidator) === 'regexp'
-                    ? config.descriptionValidator
-                    : new RegExp(config.descriptionValidator)
-            isDescriptionCorrect = opt.description && reg.test(opt.description)
-        }
-        if (opt.mode === 1) {
-            mode = ' --strategy-option ours'
-        } else if (opt.mode === 2) {
-            mode = ' --strategy-option theirs'
-        }
-        if (opts.includes(type)) {
-            let cmd
-            if (!level || level < 3) {
-                cmd = [
-                    'git fetch',
-                    `git checkout ${base}`,
-                    'git pull',
-                    `git checkout ${config[type]}`,
-                    {
-                        cmd: 'git pull',
-                        config: { again: true }
-                    },
-                    {
-                        cmd: `git merge --no-ff ${base}${mode}`,
-                        config: {
-                            again: false,
-                            postmsg: opt.postmsg,
-                            success: `${base}同步到${config[type]}成功`,
-                            fail: `${base}同步到${config[type]}出错了，请根据提示处理`
+    _program.action(
+        async (type: string, opt: GitmBuildOption['update']): Promise<void> => {
+            const {
+                token,
+                level,
+                nickname = ''
+            } = config.api ? await getUserToken() : ({} as FetchDataType)
+            const opts = ['bugfix', 'release', 'support'] // 允许执行的指令
+            const base = type === 'release' ? config.master : config.release
+            const status = checkGitStatus()
+            let mode = '', // 冲突时，保留哪方代码
+                isDescriptionCorrect = true // 本次提交的原因描述是否符合规范
+            if (!status) sh.exit(1)
+            // 有配置descriptionValidator时需要校验描述信息
+            if (config.descriptionValidator) {
+                // 校验本次提交的原因描述
+                const reg =
+                    getType(config.descriptionValidator) === 'regexp'
+                        ? config.descriptionValidator
+                        : new RegExp(config.descriptionValidator)
+                isDescriptionCorrect =
+                    opt.description && reg.test(opt.description)
+            }
+            if (opt.mode === 1) {
+                mode = ' --strategy-option ours'
+            } else if (opt.mode === 2) {
+                mode = ' --strategy-option theirs'
+            }
+            if (opts.includes(type)) {
+                let cmd
+                if (!level || level < 3) {
+                    cmd = [
+                        'git fetch',
+                        `git checkout ${base}`,
+                        'git pull',
+                        `git checkout ${config[type]}`,
+                        {
+                            cmd: 'git pull',
+                            config: { again: true }
+                        },
+                        {
+                            cmd: `git merge --no-ff ${base}${mode}`,
+                            config: {
+                                again: false,
+                                postmsg: opt.postmsg,
+                                success: `${base}同步到${config[type]}成功`,
+                                fail: `${base}同步到${config[type]}出错了，请根据提示处理`
+                            }
+                        },
+                        {
+                            cmd: 'git push',
+                            config: {
+                                again: true,
+                                success: '推送成功',
+                                fail: '推送失败，请根据提示处理'
+                            }
                         }
-                    },
-                    {
-                        cmd: 'git push',
-                        config: {
-                            again: true,
-                            success: '推送成功',
-                            fail: '推送失败，请根据提示处理'
-                        }
+                    ]
+                } else {
+                    if (!isDescriptionCorrect) {
+                        sh.echo(error('提交的原因描述不符合规范'))
+                        sh.exit(1)
                     }
-                ]
-            } else {
-                if (!isDescriptionCorrect) {
-                    sh.echo(error('提交的原因描述不符合规范'))
-                    sh.exit(1)
+                    cmd = [
+                        {
+                            cmd: getCurlOfMergeRequest({
+                                source_branch: base,
+                                target_branch: config[type],
+                                token,
+                                description: opt.description
+                            }),
+                            config: {
+                                again: true,
+                                success: '成功创建合并请求',
+                                fail: '创建合并请求出错了，请根据提示处理'
+                            }
+                        },
+                        `gitm postmsg "${nickname}在${appName}项目提交了${base}分支合并到${config[type]}分支的merge请求"`
+                    ]
                 }
-                cmd = [
-                    {
-                        cmd: getCurlOfMergeRequest({
-                            source_branch: base,
-                            target_branch: config[type],
-                            token,
-                            description: opt.description
-                        }),
-                        config: {
-                            again: true,
-                            success: '成功创建合并请求',
-                            fail: '创建合并请求出错了，请根据提示处理'
+                if (opt.useRebase) {
+                    cmd = [
+                        'git fetch',
+                        `git checkout ${base}`,
+                        'git pull',
+                        `git checkout ${config[type]}`,
+                        {
+                            cmd: `git pull origin ${config[type]} --rebase`,
+                            config: { again: true }
+                        },
+                        {
+                            cmd: `git rebase ${base}`,
+                            config: {
+                                again: false,
+                                postmsg: opt.postmsg,
+                                success: `${base}同步到${config[type]}成功`,
+                                fail: `${base}同步到${config[type]}出错了，请根据提示处理`
+                            }
+                        },
+                        {
+                            cmd: 'git push',
+                            config: {
+                                again: true,
+                                success: '推送成功',
+                                fail: '推送失败，请根据提示处理'
+                            }
                         }
-                    },
-                    `gitm postmsg "${nickname}在${appName}项目提交了${base}分支合并到${config[type]}分支的merge请求"`
-                ]
+                    ]
+                }
+                queue(cmd)
+            } else {
+                sh.echo(error('type只允许输入：' + opts.join(',')))
+                sh.exit(1)
             }
-            if (opt.useRebase) {
-                cmd = [
-                    'git fetch',
-                    `git checkout ${base}`,
-                    'git pull',
-                    `git checkout ${config[type]}`,
-                    {
-                        cmd: `git pull origin ${config[type]} --rebase`,
-                        config: { again: true }
-                    },
-                    {
-                        cmd: `git rebase ${base}`,
-                        config: {
-                            again: false,
-                            postmsg: opt.postmsg,
-                            success: `${base}同步到${config[type]}成功`,
-                            fail: `${base}同步到${config[type]}出错了，请根据提示处理`
-                        }
-                    },
-                    {
-                        cmd: 'git push',
-                        config: {
-                            again: true,
-                            success: '推送成功',
-                            fail: '推送失败，请根据提示处理'
-                        }
-                    }
-                ]
-            }
-            queue(cmd)
-        } else {
-            sh.echo(error('type只允许输入：' + opts.join(',')))
-            sh.exit(1)
         }
-    })
+    )
 }
 
 if (clean.args.length > 0) {
