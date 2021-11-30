@@ -180,3 +180,9 @@ export interface InitInquirerPromptType {
 export interface GitLogType {
     [props: string]: string
 }
+
+export interface CommandMessageType {
+    processing: string
+    success: string
+    fail: string
+}

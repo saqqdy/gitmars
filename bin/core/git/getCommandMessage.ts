@@ -1,8 +1,4 @@
-export interface CommandMessageType {
-    processing: string
-    success: string
-    fail: string
-}
+import type { CommandMessageType } from '../../../typings'
 
 /**
  * 获取通用的指令提示信息

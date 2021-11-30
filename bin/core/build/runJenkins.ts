@@ -1,4 +1,5 @@
 const sh = require('shelljs')
+const request = require('../request')
 const getApolloConfig = require('./getApolloConfig')
 const mapTemplate = require('../utils/mapTemplate')
 const { error, success } = require('../utils/colors')
@@ -64,11 +65,24 @@ async function runJenkins({
             app
         }
     )
-    sh.exec(
-        `curl -u ${buildConfig.username}:${buildConfig.password} "${url}"`,
-        { silent: true }
-    )
-    sh.echo(success('成功调起Jenkins构建'))
+    await request
+        .post(
+            {
+                url
+            },
+            {
+                username: buildConfig.username,
+                password: buildConfig.password
+            }
+        )
+        .then(() => {
+            sh.echo(success('成功调起Jenkins构建'))
+        })
+    // sh.exec(
+    //     `curl -u ${buildConfig.username}:${buildConfig.password} "${url}"`,
+    //     { silent: true }
+    // )
+    // sh.echo(success('成功调起Jenkins构建'))
 }
 
 module.exports = runJenkins
