@@ -13,7 +13,6 @@ const {
     checkGitStatus
 } = require('./core/git/index')
 const { error, success, createArgs } = require('./core/utils/index')
-const { mergeRequest } = require('./core/git/index')
 if (!getIsGitProject()) {
     sh.echo(error('当前目录不是git项目目录'))
     sh.exit(1)
@@ -21,6 +20,9 @@ if (!getIsGitProject()) {
 const getConfig = require('./core/getConfig')
 const { appName } = getGitConfig()
 const config = getConfig()
+const remoteRequestModule = require.resolve(
+    __dirname + '/core/git/remoteRequest'
+)
 
 import {
     FetchDataType,
@@ -260,12 +262,16 @@ if (publish.args.length > 0) {
                     cmd = {
                         bugfix: [
                             {
-                                cmd: mergeRequest.bind(null, {
-                                    source_branch: config.bugfix,
-                                    target_branch: config.release,
-                                    token,
-                                    description: opt.description
-                                }),
+                                cmd: {
+                                    module: remoteRequestModule,
+                                    entry: 'mergeRequest',
+                                    options: {
+                                        source_branch: config.bugfix,
+                                        target_branch: config.release,
+                                        token,
+                                        description: opt.description
+                                    }
+                                },
                                 config: {
                                     again: true,
                                     success: '成功创建合并请求',
@@ -276,12 +282,16 @@ if (publish.args.length > 0) {
                         ],
                         support: [
                             {
-                                cmd: mergeRequest.bind(null, {
-                                    source_branch: config.support,
-                                    target_branch: config.release,
-                                    token,
-                                    description: opt.description
-                                }),
+                                cmd: {
+                                    module: remoteRequestModule,
+                                    entry: 'mergeRequest',
+                                    options: {
+                                        source_branch: config.support,
+                                        target_branch: config.release,
+                                        token,
+                                        description: opt.description
+                                    }
+                                },
                                 config: {
                                     again: true,
                                     success: '成功创建合并请求',
@@ -290,12 +300,16 @@ if (publish.args.length > 0) {
                             },
                             `gitm postmsg "${nickname}在${appName}项目提交了${config.support}分支合并到${config.release}分支的merge请求"`,
                             {
-                                cmd: mergeRequest.bind(null, {
-                                    source_branch: config.support,
-                                    target_branch: config.bugfix,
-                                    token,
-                                    description: opt.description
-                                }),
+                                cmd: {
+                                    module: remoteRequestModule,
+                                    entry: 'mergeRequest',
+                                    options: {
+                                        source_branch: config.support,
+                                        target_branch: config.bugfix,
+                                        token,
+                                        description: opt.description
+                                    }
+                                },
                                 config: {
                                     again: true,
                                     success: '成功创建合并请求',
@@ -306,12 +320,16 @@ if (publish.args.length > 0) {
                         ],
                         release: [
                             {
-                                cmd: mergeRequest.bind(null, {
-                                    source_branch: config.release,
-                                    target_branch: config.master,
-                                    token,
-                                    description: opt.description
-                                }),
+                                cmd: {
+                                    module: remoteRequestModule,
+                                    entry: 'mergeRequest',
+                                    options: {
+                                        source_branch: config.release,
+                                        target_branch: config.master,
+                                        token,
+                                        description: opt.description
+                                    }
+                                },
                                 config: {
                                     again: true,
                                     success: '成功创建合并请求',
@@ -352,12 +370,16 @@ if (publish.args.length > 0) {
                         }
                         cmd[type] = cmd[type].concat([
                             {
-                                cmd: mergeRequest.bind(null, {
-                                    source_branch: config.bugfix,
-                                    target_branch: config.master,
-                                    token,
-                                    description: opt.description
-                                }),
+                                cmd: {
+                                    module: remoteRequestModule,
+                                    entry: 'mergeRequest',
+                                    options: {
+                                        source_branch: config.bugfix,
+                                        target_branch: config.master,
+                                        token,
+                                        description: opt.description
+                                    }
+                                },
                                 config: {
                                     again: true,
                                     success: '成功创建合并请求',
@@ -459,12 +481,16 @@ if (publish.args.length > 0) {
                             }
                             cmd[type] = cmd[type].concat([
                                 {
-                                    cmd: mergeRequest.bind(null, {
-                                        source_branch: config.release,
-                                        target_branch: config.bugfix,
-                                        token,
-                                        description: opt.description
-                                    }),
+                                    cmd: {
+                                        module: remoteRequestModule,
+                                        entry: 'mergeRequest',
+                                        options: {
+                                            source_branch: config.release,
+                                            target_branch: config.bugfix,
+                                            token,
+                                            description: opt.description
+                                        }
+                                    },
                                     config: {
                                         again: true,
                                         success: '成功创建合并请求',
@@ -571,12 +597,16 @@ if (update.args.length > 0) {
                     }
                     cmd = [
                         {
-                            cmd: mergeRequest.bind(null, {
-                                source_branch: base,
-                                target_branch: config[type],
-                                token,
-                                description: opt.description
-                            }),
+                            cmd: {
+                                module: remoteRequestModule,
+                                entry: 'mergeRequest',
+                                options: {
+                                    source_branch: base,
+                                    target_branch: config[type],
+                                    token,
+                                    description: opt.description
+                                }
+                            },
                             config: {
                                 again: true,
                                 success: '成功创建合并请求',

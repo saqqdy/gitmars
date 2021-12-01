@@ -132,8 +132,14 @@ export type ApolloConfigType = {
     gitNotificationGroupUrl?: string | string[] // 推送群消息的api
 }
 
+export interface ModuleCommandType {
+    module: string
+    entry?: string
+    options?: unknown
+}
+
 export interface CommandType {
-    cmd: string
+    cmd: string | ModuleCommandType
     config: QueueConfigType
 }
 
@@ -164,7 +170,7 @@ export interface QueueReturnsType {
     out: string
     err: string
     cfg: QueueConfigType
-    cmd: string
+    cmd: string | ModuleCommandType
 }
 
 export interface InitInquirerPromptType {

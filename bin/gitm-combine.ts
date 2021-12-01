@@ -14,9 +14,11 @@ const {
     searchBranches
 } = require('./core/git/index')
 const { error, warning, createArgs } = require('./core/utils/index')
-const { mergeRequest } = require('./core/git/index')
 const { isNeedUpgrade, upgradeGitmars } = require('./core/versionControl')
 const { defaults } = require('./core/global')
+const remoteRequestModule = require.resolve(
+    __dirname + '/core/git/remoteRequest'
+)
 
 import {
     FetchDataType,
@@ -251,12 +253,16 @@ program.action(
                                     }
                                 },
                                 {
-                                    cmd: mergeRequest.bind(null, {
-                                        source_branch: `${type}/${name}`,
-                                        target_branch: base,
-                                        token,
-                                        description: opt.description
-                                    }),
+                                    cmd: {
+                                        module: remoteRequestModule,
+                                        entry: 'mergeRequest',
+                                        options: {
+                                            source_branch: `${type}/${name}`,
+                                            target_branch: base,
+                                            token,
+                                            description: opt.description
+                                        }
+                                    },
                                     config: {
                                         again: true,
                                         success: '成功创建合并请求',
@@ -307,12 +313,16 @@ program.action(
                                     }
                                 },
                                 {
-                                    cmd: mergeRequest.bind(null, {
-                                        source_branch: `${type}/${name}`,
-                                        target_branch: config.release,
-                                        token,
-                                        description: opt.description
-                                    }),
+                                    cmd: {
+                                        module: remoteRequestModule,
+                                        entry: 'mergeRequest',
+                                        options: {
+                                            source_branch: `${type}/${name}`,
+                                            target_branch: config.release,
+                                            token,
+                                            description: opt.description
+                                        }
+                                    },
                                     config: {
                                         again: true,
                                         success: '成功创建合并请求',
@@ -363,12 +373,16 @@ program.action(
                                     }
                                 },
                                 {
-                                    cmd: mergeRequest.bind(null, {
-                                        source_branch: `${type}/${name}`,
-                                        target_branch: config.bugfix,
-                                        token,
-                                        description: opt.description
-                                    }),
+                                    cmd: {
+                                        module: remoteRequestModule,
+                                        entry: 'mergeRequest',
+                                        options: {
+                                            source_branch: `${type}/${name}`,
+                                            target_branch: config.bugfix,
+                                            token,
+                                            description: opt.description
+                                        }
+                                    },
                                     config: {
                                         again: true,
                                         success: '成功创建合并请求',

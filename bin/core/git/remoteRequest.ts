@@ -32,13 +32,13 @@ async function mergeRequest({
         url: `${config.gitHost}/api/v4/projects/${config.gitID}/merge_requests`,
         data: params
     })
-    if ('data' in fetchData) {
-        return fetchData.data
+    if ('message' in fetchData) {
+        const message = fetchData.message
+            ? [].concat(fetchData.message).join('')
+            : '请求报错了'
+        return Promise.reject(error(message))
     }
-    const message = fetchData.message
-        ? [].concat(fetchData.message).join('')
-        : '请求报错了'
-    return Promise.reject(error('请求报错了：' + message))
+    return fetchData
 }
 
 module.exports = {
