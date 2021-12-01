@@ -1,7 +1,7 @@
 const sh = require('shelljs')
 const request = require('./request')
-const { getApolloConfig } = require('./build/index')
-const { error, success } = require('./utils/index')
+const getApolloConfig = require('./build/getApolloConfig')
+const { error, success } = require('./utils/colors')
 
 import type { ApolloConfigType } from '../../typings'
 

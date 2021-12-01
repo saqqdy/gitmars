@@ -106,7 +106,7 @@ program.action(
         }
         if (!type) {
             // type和name都没传且当前分支是开发分支
-            ;[type, ..._nameArr] = getCurrentBranch().split('/')
+            [type, ..._nameArr] = getCurrentBranch().split('/')
             name = _nameArr.join('/')
             if (!name) {
                 deny.includes(type) &&
@@ -123,7 +123,7 @@ program.action(
             }
             const branches = searchBranches({ type })
             if (branches.length === 1) {
-                ;[type, _nameArr] = branches[0].split('/')
+                [type, _nameArr] = branches[0].split('/')
                 name = _nameArr.join('/')
             } else {
                 sh.echo(

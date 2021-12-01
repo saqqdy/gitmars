@@ -58,18 +58,14 @@ class Request {
      *
      * @param method - 请求方法：'GET' | 'POST' | 'DELETE' | 'OPTIONS'
      * @param url - 请求链接
-     * @param params - 请求参数
+     * @param postData - 序列化之后的请求参数
      * @returns Promise - 请求结果
      */
     public request(
         method: 'GET' | 'POST' | 'DELETE' | 'OPTIONS',
         url: string,
-        params?: object
+        postData?: string
     ) {
-        const postData = qs.stringify(params || {}, {
-            arrayFormat: 'indices',
-            allowDots: true
-        })
         const urlObj = new URL(url)
         const options = {
             hostname: urlObj.hostname,
@@ -84,7 +80,7 @@ class Request {
                 (res: any) => {
                     const chunks: any[] = []
                     res.on('data', (buf: any) => {
-                        // const data = JSON.parse(Buffer.from(buf).toString())
+                        // console.info(JSON.parse(Buffer.from(buf).toString()))
                         chunks.push(buf)
                     })
                     res.on('end', () => {
@@ -126,7 +122,15 @@ class Request {
      * @param option.url - 请求链接
      * @returns Promise - 请求结果
      */
-    public async get({ url }: any) {
+    public async get({ url, data = {} }: any) {
+        const postData = qs.stringify(data, {
+            arrayFormat: 'indices',
+            allowDots: true
+        })
+        if (postData) {
+            url += url.indexOf('?') !== -1 ? '?' : '&'
+            url += postData
+        }
         return await this.request('GET', url)
     }
     /**
@@ -137,8 +141,12 @@ class Request {
      * @param option.params - 请求参数
      * @returns Promise - 请求结果
      */
-    public async post({ url, params }: any) {
-        return await this.request('POST', url, params)
+    public async post({ url, data }: any) {
+        const postData = qs.stringify(data, {
+            arrayFormat: 'indices',
+            allowDots: true
+        })
+        return await this.request('POST', url, postData)
     }
 }
 

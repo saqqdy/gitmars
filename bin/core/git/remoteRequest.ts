@@ -1,4 +1,4 @@
-// const { warning } = require('../utils/colors')
+const { error } = require('../utils/colors')
 const request = require('../request')
 const getConfig = require('../getConfig')
 const config = getConfig()
@@ -28,17 +28,17 @@ async function mergeRequest({
     if (description) {
         params.description = description
     }
-    const fetchData =
-        (
-            await request.post(
-                {
-                    url: `${config.gitHost}/api/v4/projects/${config.gitID}/merge_requests`
-                },
-                params
-            )
-        ).data || null
-    console.log(fetchData)
-    return fetchData
+    const fetchData = await request.post({
+        url: `${config.gitHost}/api/v4/projects/${config.gitID}/merge_requests`,
+        data: params
+    })
+    if ('data' in fetchData) {
+        return fetchData.data
+    }
+    const message = fetchData.message
+        ? [].concat(fetchData.message).join('')
+        : '请求报错了'
+    return Promise.reject(error('请求报错了：' + message))
 }
 
 module.exports = {

@@ -21,7 +21,7 @@ const readDir = entry => {
         if (info.isDirectory()) {
             readDir(name)
         } else {
-            ;/^[\S]*\.ts$/.test(item) && getInfo(name)
+            /^[\S]*\.ts$/.test(item) && getInfo(name)
         }
     })
 }
@@ -34,10 +34,30 @@ const getOutFile = (name, dir = 'lib', suffix = '') => {
     return name.replace(/^bin/, dir).replace(/\.ts$/, suffix + '.js')
 }
 
+const onwarn = (warning, rollupWarn) => {
+    const ignoredWarnings = [
+        {
+            ignoredCode: 'CIRCULAR_DEPENDENCY',
+            ignoredPath: 'node_modules/js-cool/lib/'
+        }
+    ]
+    // only show warning when code and path don't match
+    if (
+        !ignoredWarnings.some(
+            ({ ignoredCode, ignoredPath }) =>
+                warning.code === ignoredCode &&
+                warning.importer.includes(path.normalize(ignoredPath))
+        )
+    ) {
+        rollupWarn(warning)
+    }
+}
+
 const production = !process.env.ROLLUP_WATCH
 
 export default cjsList.map(filePath => ({
     input: path.resolve(__dirname, filePath),
+    onwarn,
     output: [
         {
             format: 'cjs',
