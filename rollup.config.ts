@@ -21,7 +21,7 @@ const readDir = entry => {
         if (info.isDirectory()) {
             readDir(name)
         } else {
-            /^[\S]*\.ts$/.test(item) && getInfo(name)
+            ;/^[\S]*\.ts$/.test(item) && getInfo(name)
         }
     })
 }
