@@ -1,5 +1,6 @@
 const sh = require('shelljs')
-const { error } = require('./colors')
+const request = require('../request')
+const { error, success } = require('./colors')
 const mapTemplate = require('./mapTemplate')
 const getGitConfig = require('../git/getGitConfig')
 const getGitRevParse = require('../git/getGitRevParse')
@@ -68,7 +69,10 @@ function postMessage(msg = ''): void {
  * @param message - 消息
  * @param cfg - 配置 SendMessageType
  */
-function sendMessage(message = '', cfg = {} as SendMessageType): void {
+async function sendMessage(
+    message = '',
+    cfg = {} as SendMessageType
+): Promise<void> {
     const config = getConfig()
     const { silent = true } = cfg
     if (!config.msgUrl) {
@@ -76,6 +80,22 @@ function sendMessage(message = '', cfg = {} as SendMessageType): void {
         return
     }
     message = message.replace(/\s/g, '')
+    // if (config.msgUrl) {
+    //     await request
+    //         .post(
+    //             {
+    //                 url: config.msgUrl
+    //             },
+    //             {
+    //                 envParams: {
+    //                     error_msg: message
+    //                 }
+    //             }
+    //         )
+    //         .then(() => {
+    //             sh.echo(success('发送消息成功'))
+    //         })
+    // }
     config.msgUrl &&
         sh.exec(
             `curl -i -H "Content-Type: application/json" -X POST -d '{"envParams":{"error_msg":"'${message}'"}}' "${config.msgUrl}"`,

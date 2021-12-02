@@ -1,6 +1,7 @@
 const sh = require('shelljs')
-const { getApolloConfig } = require('./build/index')
-const { error } = require('./utils/index')
+const request = require('./request')
+const getApolloConfig = require('./build/getApolloConfig')
+const { error, success } = require('./utils/colors')
 
 import type { ApolloConfigType } from '../../typings'
 
@@ -33,10 +34,22 @@ async function sendGroupMessage(
         else urls = config.gitNotificationGroupUrl
     }
     message = message.replace(/\s/g, '')
-    urls.forEach(() => {
+    urls.forEach(async item => {
+        // await request
+        //     .post(
+        //         {
+        //             url: item || config.gitNotificationGroupUrl
+        //         },
+        //         {
+        //             content: message
+        //         }
+        //     )
+        //     .then(() => {
+        //         sh.echo(success('发送消息成功'))
+        //     })
         sh.exec(
             `curl -i -H "Content-Type: application/json" -X POST -d "{\u005c"content\u005c":\u005c"${message}\u005c"}" "${
-                url || config.gitNotificationGroupUrl
+                item || config.gitNotificationGroupUrl
             }"`,
             { silent }
         )

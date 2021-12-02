@@ -14,7 +14,6 @@ const {
     searchBranches
 } = require('./core/git/index')
 const { error, createArgs } = require('./core/utils/index')
-const { getCurlOfMergeRequest } = require('./core/shell/index')
 const { isNeedUpgrade, upgradeGitmars } = require('./core/versionControl')
 if (!getIsGitProject()) {
     sh.echo(error('当前目录不是git项目目录'))
@@ -25,6 +24,9 @@ const { getUserToken } = require('./core/api/index')
 const { defaults } = require('./core/global')
 const config = getConfig()
 const { appName } = getGitConfig()
+const remoteRequestModule = require.resolve(
+    __dirname + '/core/git/remoteRequest'
+)
 
 import {
     FetchDataType,
@@ -211,12 +213,16 @@ program.action(
                             }
                         },
                         {
-                            cmd: getCurlOfMergeRequest({
-                                source_branch: `${type}/${name}`,
-                                target_branch: config.bugfix,
-                                token,
-                                description: opt.description
-                            }),
+                            cmd: {
+                                module: remoteRequestModule,
+                                entry: 'mergeRequest',
+                                options: {
+                                    source_branch: `${type}/${name}`,
+                                    target_branch: config.bugfix,
+                                    token,
+                                    description: opt.description
+                                }
+                            },
                             config: {
                                 again: true,
                                 success: '成功创建合并请求',
@@ -300,12 +306,16 @@ program.action(
                             }
                         },
                         {
-                            cmd: getCurlOfMergeRequest({
-                                source_branch: `${type}/${name}`,
-                                target_branch: base,
-                                token,
-                                description: opt.description
-                            }),
+                            cmd: {
+                                module: remoteRequestModule,
+                                entry: 'mergeRequest',
+                                options: {
+                                    source_branch: `${type}/${name}`,
+                                    target_branch: base,
+                                    token,
+                                    description: opt.description
+                                }
+                            },
                             config: {
                                 again: true,
                                 success: '成功创建合并请求',

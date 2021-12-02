@@ -1,7 +1,7 @@
 {
     "name": "gitmars",
     "description": "这是一个git工作流工具",
-    "version": "1.17.4",
+    "version": "1.17.5",
     "scripts": {
         "docs:dev": "vuepress dev docs",
         "docs:build": "vuepress build docs",
@@ -18,8 +18,9 @@
         "build-temp-types": "tsc --emitDeclarationOnly --outDir temp/ -p bin/",
         "patch-types": "node script/patchTypes",
         "roll-types": "api-extractor run && rimraf temp",
+        "circular": "madge lib/ -c",
         "dev": "cross-env BUILD_ENV=DEV rollup -c -w",
-        "dist": "run-s eslint prettier build build:server build:ui",
+        "dist": "run-s eslint prettier build build:server circular build:ui",
         "docs": "rimraf typedoc && typedoc",
         "eslint": "eslint --fix --ext .ts,.js ./",
         "prettier": "prettier --write \"**/*.{js,ts,json,md}\"",
@@ -92,6 +93,7 @@
         "esno": "^0.12.0",
         "less": "^4.1.2",
         "less-loader": "7.3.0",
+        "madge": "^5.0.1",
         "npm-run-all": "^4.1.5",
         "prettier": "^2.5.0",
         "rimraf": "^3.0.2",

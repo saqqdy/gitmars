@@ -1,4 +1,5 @@
 const sh = require('shelljs')
+const request = require('../request')
 const getApolloConfig = require('./getApolloConfig')
 const mapTemplate = require('../utils/mapTemplate')
 const { error, success } = require('../utils/colors')
@@ -64,6 +65,17 @@ async function runJenkins({
             app
         }
     )
+    // await request
+    //     .get({
+    //         url: 'http://tdeploy:tdeploy@deploy.wojiayun.cn/view/git_bug/job/git_wjweb_bug/buildWithParameters?token=wojiayunbug&build_app=all',
+    //         data: {
+    //             username: buildConfig.username,
+    //             password: buildConfig.password
+    //         }
+    //     })
+    //     .then(() => {
+    //         sh.echo(success('成功调起Jenkins构建'))
+    //     })
     sh.exec(
         `curl -u ${buildConfig.username}:${buildConfig.password} "${url}"`,
         { silent: true }

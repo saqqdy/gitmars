@@ -1,6 +1,6 @@
 const fs = require('fs')
 const { cosmiconfigSync } = require('cosmiconfig')
-const { getGitRevParse } = require('./git/index')
+const getGitRevParse = require('./git/getGitRevParse')
 const { defaults } = require('./global')
 
 import type { GitmarsConfigType } from 'typings'
