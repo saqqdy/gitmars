@@ -42,8 +42,8 @@ class Request {
             Connection: 'keep-alive',
             'Cache-Control': 'no-cache',
             'Content-Type': 'application/x-www-form-urlencoded',
-            'Accept-Language': 'zh-CN,zh;q=0.8,en;q=0.6,zh-TW;q=0.4,es;q=0.2',
-            Accept: 'text/html,application/xhtml+xml,application/json,application/xml;q=0.9,image/webp,*/*;q=0.8',
+            // 'Accept-Language': 'zh-CN,zh;q=0.8,en;q=0.6,zh-TW;q=0.4,es;q=0.2',
+            // Accept: 'text/html,application/xhtml+xml,application/json,application/xml;q=0.9,image/webp,*/*;q=0.8',
             'User-Agent':
                 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.55 Safari/537.36 Gitmars/' +
                 GITMARS_VERSION
@@ -129,13 +129,21 @@ class Request {
                             }
                         }
                         if (
-                            (!data ||
-                                data.status === false ||
-                                data.success === false) &&
-                            options.error
+                            !data ||
+                            data.status === false ||
+                            data.success === false
                         ) {
-                            // 请求端自行处理error
-                            reject(data)
+                            if (options.error) {
+                                // 请求端自行处理error
+                                reject(data)
+                            } else {
+                                // 直接抛出异常
+                                console.error(
+                                    typeof data === 'object'
+                                        ? data.msg || data.message
+                                        : data
+                                )
+                            }
                             return
                         }
                         resolve(data)

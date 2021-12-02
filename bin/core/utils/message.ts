@@ -46,7 +46,7 @@ function getMessage(type: string): string {
  *
  * @param msg - 消息
  */
-function postMessage(msg = ''): void {
+async function postMessage(msg = ''): Promise<void> {
     const config = getConfig()
     if (!config.msgTemplate) {
         sh.echo(error('请配置消息发送api模板地址'))
@@ -56,7 +56,7 @@ function postMessage(msg = ''): void {
         if (key === 'message') return msg
         return getMessage(key)
     })
-    config.msgUrl && message && sendMessage(message)
+    config.msgUrl && message && (await sendMessage(message))
 }
 
 /**
@@ -81,9 +81,9 @@ async function sendMessage(message = ''): Promise<void> {
                         error_msg: message
                     }
                 },
-                headers: { 'Content-Type': 'application/json' },
-                options: {
-                    error: true
+                headers: {
+                    'Content-Type': 'application/json',
+                    Accept: 'application/json'
                 }
             })
             .then(() => {
