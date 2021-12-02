@@ -24,7 +24,7 @@ program
     .option('--dev', '是否限制dev提交', false)
     .option('--release', '是否限制release提交', false)
     .action((message: string, opt: GitmBuildOption) => {
-        console.log('gitm permission is running')
+        console.info('gitm permission is running')
         const current = getCurrentBranch()
         const allow = [config.master]
         const msg = sh.exec('git show', { silent: true }).stdout

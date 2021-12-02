@@ -101,6 +101,7 @@ class Request {
                                 }
                             )
                         } else {
+                            // console.log(buffer.toString())
                             resolve(JSON.parse(buffer.toString()))
                         }
                     })
@@ -128,7 +129,7 @@ class Request {
             allowDots: true
         })
         if (postData) {
-            url += url.indexOf('?') !== -1 ? '?' : '&'
+            url += url.indexOf('?') === -1 ? '?' : '&'
             url += postData
         }
         return await this.request('GET', url)

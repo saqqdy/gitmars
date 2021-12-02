@@ -3,7 +3,7 @@
 ## 2021.12.01 v2.14.5 更新日志
 
 1. `queue`方法扩展支持promise函数
-2. 替换剩余几个`curl`脚本，处理win7不能执行curl的兼容问题
+2. 替换创建远程合并请求的`curl`脚本，处理win7不能执行curl的兼容问题
 3. 解决脚本队列`continue`缓存保存失败的问题
 4. 解决`circular dependency`问题
 

@@ -80,27 +80,27 @@ async function sendMessage(
         return
     }
     message = message.replace(/\s/g, '')
-    if (config.msgUrl) {
-        await request
-            .post(
-                {
-                    url: config.msgUrl
-                },
-                {
-                    envParams: {
-                        error_msg: message
-                    }
-                }
-            )
-            .then(() => {
-                sh.echo(success('发送消息成功'))
-            })
-    }
-    // config.msgUrl &&
-    //     sh.exec(
-    //         `curl -i -H "Content-Type: application/json" -X POST -d '{"envParams":{"error_msg":"'${message}'"}}' "${config.msgUrl}"`,
-    //         { silent }
-    //     )
+    // if (config.msgUrl) {
+    //     await request
+    //         .post(
+    //             {
+    //                 url: config.msgUrl
+    //             },
+    //             {
+    //                 envParams: {
+    //                     error_msg: message
+    //                 }
+    //             }
+    //         )
+    //         .then(() => {
+    //             sh.echo(success('发送消息成功'))
+    //         })
+    // }
+    config.msgUrl &&
+        sh.exec(
+            `curl -i -H "Content-Type: application/json" -X POST -d '{"envParams":{"error_msg":"'${message}'"}}' "${config.msgUrl}"`,
+            { silent }
+        )
 }
 
 module.exports = {
