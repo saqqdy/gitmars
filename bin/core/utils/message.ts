@@ -6,10 +6,6 @@ const getGitConfig = require('../git/getGitConfig')
 const getGitRevParse = require('../git/getGitRevParse')
 const getConfig = require('../getConfig')
 
-export type SendMessageType = {
-    silent: boolean
-}
-
 /**
  * 解析模板数据
  *
@@ -69,38 +65,36 @@ function postMessage(msg = ''): void {
  * @param message - 消息
  * @param cfg - 配置 SendMessageType
  */
-async function sendMessage(
-    message = '',
-    cfg = {} as SendMessageType
-): Promise<void> {
+async function sendMessage(message = ''): Promise<void> {
     const config = getConfig()
-    const { silent = true } = cfg
     if (!config.msgUrl) {
         sh.echo(error('请配置消息推送地址'))
         return
     }
     message = message.replace(/\s/g, '')
-    // if (config.msgUrl) {
-    //     await request
-    //         .post(
-    //             {
-    //                 url: config.msgUrl
-    //             },
-    //             {
-    //                 envParams: {
-    //                     error_msg: message
-    //                 }
-    //             }
-    //         )
-    //         .then(() => {
-    //             sh.echo(success('发送消息成功'))
-    //         })
-    // }
-    config.msgUrl &&
-        sh.exec(
-            `curl -i -H "Content-Type: application/json" -X POST -d '{"envParams":{"error_msg":"'${message}'"}}' "${config.msgUrl}"`,
-            { silent }
-        )
+    if (config.msgUrl) {
+        await request
+            .post({
+                url: config.msgUrl,
+                data: {
+                    envParams: {
+                        error_msg: message
+                    }
+                },
+                headers: { 'Content-Type': 'application/json' },
+                options: {
+                    error: true
+                }
+            })
+            .then(() => {
+                sh.echo(success('发送消息成功'))
+            })
+    }
+    // config.msgUrl &&
+    //     sh.exec(
+    //         `curl -i -H "Content-Type: application/json" -X POST -d '{"envParams":{"error_msg":"'${message}'"}}' "${config.msgUrl}"`,
+    //         { silent }
+    //     )
 }
 
 module.exports = {

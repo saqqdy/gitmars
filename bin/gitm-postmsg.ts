@@ -2,7 +2,7 @@
 const { program } = require('commander')
 const { options, args } = require('./conf/postmsg')
 const sendGroupMessage = require('./core/sendGroupMessage')
-const { createArgs, encodeUnicode } = require('./core/utils/index')
+const { createArgs } = require('./core/utils/index')
 
 import { GitmarsOptionOptionsType } from '../typings'
 
@@ -23,7 +23,7 @@ options.forEach((o: GitmarsOptionOptionsType) => {
 })
 // .option('-u, --url [url]', '推送消息的api地址', '')
 program.action((message: string, opt: GitmBuildOption) => {
-    sendGroupMessage(encodeUnicode(message), { url: opt.url || '' })
+    sendGroupMessage(message, opt.url || '')
 })
 program.parse(process.argv)
 export {}
