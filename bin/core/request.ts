@@ -129,17 +129,16 @@ class Request {
                             }
                         }
                         if (
-                            !data ||
-                            data.status === false ||
-                            data.success === false
+                            (!data ||
+                                data.status === false ||
+                                data.success === false) &&
+                            options.error
                         ) {
-                            if (options.error) {
-                                // 请求端自行处理error
-                                reject(data)
-                                return
-                            }
-                            resolve(data)
+                            // 请求端自行处理error
+                            reject(data)
+                            return
                         }
+                        resolve(data)
                     })
                 }
             )
