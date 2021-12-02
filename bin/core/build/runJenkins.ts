@@ -65,22 +65,22 @@ async function runJenkins({
             app
         }
     )
-    // await request
-    //     .get({
-    //         url: 'http://tdeploy:tdeploy@deploy.wojiayun.cn/view/git_bug/job/git_wjweb_bug/buildWithParameters?token=wojiayunbug&build_app=all',
-    //         data: {
-    //             username: buildConfig.username,
-    //             password: buildConfig.password
-    //         }
-    //     })
-    //     .then(() => {
-    //         sh.echo(success('成功调起Jenkins构建'))
-    //     })
-    sh.exec(
-        `curl -u ${buildConfig.username}:${buildConfig.password} "${url}"`,
-        { silent: true }
-    )
-    sh.echo(success('成功调起Jenkins构建'))
+    const auth = `Basic ${Buffer.from(
+        buildConfig.username + ':' + buildConfig.password
+    ).toString('base64')}`
+    await request
+        .get({
+            url,
+            headers: { Authorization: auth }
+        })
+        .then(() => {
+            sh.echo(success('成功调起Jenkins构建'))
+        })
+    // sh.exec(
+    //     `curl -u ${buildConfig.username}:${buildConfig.password} "${url}"`,
+    //     { silent: true }
+    // )
+    // sh.echo(success('成功调起Jenkins构建'))
 }
 
 module.exports = runJenkins
