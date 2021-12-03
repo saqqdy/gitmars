@@ -90,11 +90,6 @@ async function sendMessage(message = ''): Promise<void> {
                 sh.echo(success('发送消息成功'))
             })
     }
-    // config.msgUrl &&
-    //     sh.exec(
-    //         `curl -i -H "Content-Type: application/json" -X POST -d '{"envParams":{"error_msg":"'${message}'"}}' "${config.msgUrl}"`,
-    //         { silent }
-    //     )
 }
 
 module.exports = {

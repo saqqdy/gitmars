@@ -76,11 +76,6 @@ async function runJenkins({
         .then(() => {
             sh.echo(success('成功调起Jenkins构建'))
         })
-    // sh.exec(
-    //     `curl -u ${buildConfig.username}:${buildConfig.password} "${url}"`,
-    //     { silent: true }
-    // )
-    // sh.echo(success('成功调起Jenkins构建'))
 }
 
 module.exports = runJenkins

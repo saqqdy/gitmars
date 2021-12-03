@@ -37,12 +37,6 @@ async function sendGroupMessage(message: string, url = ''): Promise<void> {
             .then(() => {
                 sh.echo(success('发送消息成功'))
             })
-        // sh.exec(
-        //     `curl -i -H "Content-Type: application/json" -X POST -d "{\u005c"content\u005c":\u005c"${message}\u005c"}" "${
-        //         item || config.gitNotificationGroupUrl
-        //     }"`,
-        //     { silent }
-        // )
     })
 }
 

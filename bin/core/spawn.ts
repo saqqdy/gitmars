@@ -1,6 +1,10 @@
 const crossSpawn = require('cross-spawn')
 
-import type { ExecOptions, SpawnSyncReturns } from 'child_process'
+import type {
+    SpawnOptions,
+    SpawnSyncOptions,
+    SpawnSyncReturns
+} from 'child_process'
 
 /**
  * 异步执行脚本
@@ -13,7 +17,7 @@ import type { ExecOptions, SpawnSyncReturns } from 'child_process'
 function spawn(
     client: string,
     argv: string[],
-    options: ExecOptions
+    options: SpawnOptions
 ): Partial<SpawnSyncReturns<string>> {
     let len = argv.length
     while (len--) {
@@ -47,7 +51,7 @@ function spawn(
 function spawnSync(
     client: string,
     argv: string[],
-    options: ExecOptions
+    options: SpawnSyncOptions
 ): Partial<SpawnSyncReturns<string>> {
     let len = argv.length
     while (len--) {

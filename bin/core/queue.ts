@@ -55,7 +55,7 @@ function queue(list: Array<CommandType | string>): Promise<QueueReturnsType[]> {
             list,
             async (command?: CommandType | string, cb?: WaitCallback) => {
                 let cfg = {
-                        silent: true,
+                        stdio: 'ignore',
                         postmsg: false,
                         kill: true,
                         again: false // 指令执行中断之后是否需要重新执行，类似冲突解决之后的指令，不再需要重复执行
@@ -98,7 +98,13 @@ function queue(list: Array<CommandType | string>): Promise<QueueReturnsType[]> {
                             cb && cb(true) // 回调并中断执行
                             setCommandCache(rest)
                             // 只有silent模式才需要输出信息
-                            cfg.silent && spinner.fail(error(err))
+                            if (
+                                !cfg.stdio ||
+                                (typeof cfg.stdio === 'string' &&
+                                    ['ignore'].includes(cfg.stdio))
+                            ) {
+                                spinner.fail(error(err))
+                            }
                             spinner.fail(
                                 error(
                                     cfg.fail ||
@@ -168,7 +174,13 @@ function queue(list: Array<CommandType | string>): Promise<QueueReturnsType[]> {
                         cb && cb(true) // 回调并中断执行
                         setCommandCache(rest)
                         // 只有silent模式才需要输出信息
-                        cfg.silent && spinner.fail(error(stderr))
+                        if (
+                            !cfg.stdio ||
+                            (typeof cfg.stdio === 'string' &&
+                                ['ignore'].includes(cfg.stdio))
+                        ) {
+                            spinner.fail(error(stderr))
+                        }
                         spinner.fail(
                             error(
                                 cfg.fail ||
