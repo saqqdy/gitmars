@@ -1,6 +1,6 @@
 #!/usr/bin/env ts-node
 const { program } = require('commander')
-const { spawnSync } = require('child_process')
+const { spawnSync } = require('./core/spawn')
 const sh = require('shelljs')
 const { options, args } = require('./conf/upgrade')
 const { error, success } = require('./core/utils/index')

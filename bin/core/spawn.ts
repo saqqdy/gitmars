@@ -23,7 +23,7 @@ function spawn(
     return {
         pid: program.pid,
         stdout: program.stdout
-            ? program.stdout.toString().replace(/\s+$/g, '')
+            ? program.stdout.toString().replace(/\s+$/, '')
             : '',
         stderr: program.stderr ? program.stderr.toString() : '',
         status: program.status,
@@ -53,7 +53,7 @@ function spawnSync(
     return {
         pid: program.pid,
         stdout: program.stdout
-            ? program.stdout.toString().replace(/\s+$/g, '')
+            ? program.stdout.toString().replace(/\s+$/, '')
             : '',
         stderr: program.stderr ? program.stderr.toString() : '',
         status: program.status,
