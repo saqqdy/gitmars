@@ -1,8 +1,8 @@
 const path = require('path')
-const sh = require('shelljs')
 const getProperty = require('js-cool/lib/getProperty')
 const { writeFile, isFileExist } = require('./file')
 const { isCacheExpired, updateCacheTime } = require('../cache/cache')
+const { spawnSync } = require('../spawn')
 
 const cacheDir = path.join(__dirname, '../../../cache')
 
@@ -22,12 +22,9 @@ async function getPkgInfo(name: string): Promise<unknown | void> {
         packageInfo = require(cacheDir + '/packageInfo.json')
         return name ? getProperty(packageInfo, name) : packageInfo
     }
+    const { stdout } = spawnSync('npm', ['view', 'gitmars', '--json'])
     try {
-        packageInfo = JSON.parse(
-            sh.exec('npm view gitmars --json', {
-                silent: true
-            }).stdout
-        )
+        packageInfo = JSON.parse(stdout)
     } catch {
         throw '出错了'
     }

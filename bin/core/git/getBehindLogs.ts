@@ -1,4 +1,4 @@
-const sh = require('shelljs')
+const { spawnSync } = require('../spawn')
 const getCurrentBranch = require('./getCurrentBranch')
 
 /**
@@ -10,13 +10,13 @@ const getCurrentBranch = require('./getCurrentBranch')
  */
 function getBehindLogs(): string[] {
     const current = getCurrentBranch()
-    sh.exec('git fetch', { silent: true })
-    const result = sh
-        .exec(`git log ${current}..origin/${current} --pretty=format:"%p"`, {
-            silent: true
-        })
-        .stdout.replace(/\s+$/g, '')
-    return result ? result.split('\n') : []
+    spawnSync('git', ['fetch'])
+    const { stdout } = spawnSync('git', [
+        'log',
+        `${current}..origin/${current}`,
+        '--pretty=format:"%p"'
+    ])
+    return stdout ? stdout.split('\n') : []
 }
 
 module.exports = getBehindLogs

@@ -1,4 +1,5 @@
 const sh = require('shelljs')
+const { spawnSync } = require('../spawn')
 const getCurrentBranch = require('../git/getCurrentBranch')
 const getCommand = require('./getCommand')
 const cleanConfigSet = require('./cleanConfigSet')
@@ -32,8 +33,8 @@ const functionBuanchs = ['feature', 'bugfix', 'support']
 // 新建功能分支
 export const start = async () => {
     const config = cleanConfigSet(startConfig)
-    const command = 'gitm start ' + (await getCommand(config))
-    sh.exec(command)
+    const command = 'start ' + (await getCommand(config))
+    spawnSync('gitm', command.split(' '), { stdio: 'inherit' })
 }
 
 // 合并代码
@@ -66,8 +67,8 @@ export const combine = async () => {
         delArgs,
         requiredArgs
     })
-    const command = 'gitm combine ' + (await getCommand(config))
-    sh.exec(command)
+    const command = 'combine ' + (await getCommand(config))
+    spawnSync('gitm', command.split(' '), { stdio: 'inherit' })
 }
 
 // 合并代码并删除
@@ -81,8 +82,8 @@ export const end = async () => {
         delArgs = ['type', 'name']
     }
     const config = cleanConfigSet(endConfig, { delArgs, requiredArgs })
-    const command = 'gitm end ' + (await getCommand(config))
-    sh.exec(command)
+    const command = 'end ' + (await getCommand(config))
+    spawnSync('gitm', command.split(' '), { stdio: 'inherit' })
 }
 
 // 同步上游分支代码
@@ -96,107 +97,107 @@ export const update = async () => {
         delArgs = ['type', 'name']
     }
     const config = cleanConfigSet(updateConfig, { delArgs, requiredArgs })
-    const command = 'gitm update ' + (await getCommand(config))
-    sh.exec(command)
+    const command = 'update ' + (await getCommand(config))
+    spawnSync('gitm', command.split(' '), { stdio: 'inherit' })
 }
 
 // branch分支操作指令
 export const branch = async () => {
     const config = cleanConfigSet(branchConfig)
-    const command = 'gitm branch ' + (await getCommand(config))
-    sh.exec(command)
+    const command = 'branch ' + (await getCommand(config))
+    spawnSync('gitm', command.split(' '), { stdio: 'inherit' })
 }
 
 // 构建指令
 export const build = async () => {
     const config = cleanConfigSet(buildConfig)
-    const command = 'gitm build ' + (await getCommand(config))
-    sh.exec(command)
+    const command = 'build ' + (await getCommand(config))
+    spawnSync('gitm', command.split(' '), { stdio: 'inherit' })
 }
 
 // 复制、cherry-pick
 export const copy = async () => {
     const config = cleanConfigSet(copyConfig)
-    const command = 'gitm copy ' + (await getCommand(config))
-    sh.exec(command)
+    const command = 'copy ' + (await getCommand(config))
+    spawnSync('gitm', command.split(' '), { stdio: 'inherit' })
 }
 
 // 从暂存区取出
 export const get = async () => {
     const config = cleanConfigSet(getConfig)
-    const command = 'gitm get ' + (await getCommand(config))
-    sh.exec(command)
+    const command = 'get ' + (await getCommand(config))
+    spawnSync('gitm', command.split(' '), { stdio: 'inherit' })
 }
 
 // 存入暂存区
 export const save = async () => {
     const config = cleanConfigSet(saveConfig)
-    const command = 'gitm save ' + (await getCommand(config))
-    sh.exec(command)
+    const command = 'save ' + (await getCommand(config))
+    spawnSync('gitm', command.split(' '), { stdio: 'inherit' })
 }
 
 // 清理合并过的功能分支
 export const cleanbranch = async () => {
     const config = cleanConfigSet(cleanbranchConfig)
-    const command = 'gitm cleanbranch ' + (await getCommand(config))
-    sh.exec(command)
+    const command = 'cleanbranch ' + (await getCommand(config))
+    spawnSync('gitm', command.split(' '), { stdio: 'inherit' })
 }
 
 // 清理缓存
 export const clean = async () => {
     const config = cleanConfigSet(cleanConfig)
-    const command = 'gitm clean ' + (await getCommand(config))
-    sh.exec(command)
+    const command = 'clean ' + (await getCommand(config))
+    spawnSync('gitm', command.split(' '), { stdio: 'inherit' })
 }
 
 // revert撤回
 export const revert = async () => {
     const config = cleanConfigSet(revertConfig)
-    const command = 'gitm revert ' + (await getCommand(config))
-    sh.exec(command)
+    const command = 'revert ' + (await getCommand(config))
+    spawnSync('gitm', command.split(' '), { stdio: 'inherit' })
 }
 
 // link创建软链
 export const link = async () => {
     const config = cleanConfigSet(linkConfig)
-    const command = 'gitm link ' + (await getCommand(config))
-    sh.exec(command)
+    const command = 'link ' + (await getCommand(config))
+    spawnSync('gitm', command.split(' '), { stdio: 'inherit' })
 }
 
 // unlink取消软链
 export const unlink = async () => {
     const config = cleanConfigSet(unlinkConfig)
-    const command = 'gitm unlink ' + (await getCommand(config))
-    sh.exec(command)
+    const command = 'unlink ' + (await getCommand(config))
+    spawnSync('gitm', command.split(' '), { stdio: 'inherit' })
 }
 
 // postmsg发送消息
 export const postmsg = async () => {
     const config = cleanConfigSet(postmsgConfig)
-    const command = 'gitm postmsg ' + (await getCommand(config))
-    sh.exec(command)
+    const command = 'postmsg ' + (await getCommand(config))
+    spawnSync('gitm', command.split(' '), { stdio: 'inherit' })
 }
 
 // 管理员操作
 export const admin = {
     create: async () => {
         const config = cleanConfigSet(adminCreateConfig)
-        const command = 'gitm admin create ' + (await getCommand(config))
-        sh.exec(command)
+        const command = 'admin create ' + (await getCommand(config))
+        spawnSync('gitm', command.split(' '), { stdio: 'inherit' })
     },
     publish: async () => {
         const config = cleanConfigSet(adminPublishConfig)
-        const command = 'gitm admin publish ' + (await getCommand(config))
-        sh.exec(command)
+        const command = 'admin publish ' + (await getCommand(config))
+        spawnSync('gitm', command.split(' '), { stdio: 'inherit' })
     },
     update: async () => {
         const config = cleanConfigSet(adminUpdateConfig)
-        const command = 'gitm admin update ' + (await getCommand(config))
-        sh.exec(command)
+        const command = 'admin update ' + (await getCommand(config))
+        spawnSync('gitm', command.split(' '), { stdio: 'inherit' })
     },
     clean: async () => {
         const config = cleanConfigSet(adminCleanConfig)
-        const command = 'gitm admin clean ' + (await getCommand(config))
-        sh.exec(command)
+        const command = 'admin clean ' + (await getCommand(config))
+        spawnSync('gitm', command.split(' '), { stdio: 'inherit' })
     }
 }
