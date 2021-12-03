@@ -7,7 +7,7 @@ const {
     getIsGitProject,
     getCurrentBranch,
     checkGitStatus,
-    filterBranch
+    searchBranches
 } = require('./core/git/index')
 const { error } = require('./core/utils/index')
 const { isNeedUpgrade, upgradeGitmars } = require('./core/versionControl')
@@ -64,8 +64,8 @@ program.action(
         if (!status) sh.exit(1)
         if (opt.all) {
             // 更新全部分支
-            if (!type) type = allow
-            branchList = filterBranch('', type)
+            if (!type) type = allow.join(',')
+            branchList = searchBranches({ type })
         } else if (!type || !name) {
             // type或name没传
             const current = getCurrentBranch()

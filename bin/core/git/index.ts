@@ -16,7 +16,6 @@ const getBranchesFromID = require('./getBranchesFromID')
 const getGitStatus = require('./getGitStatus')
 const getCommandMessage = require('./getCommandMessage')
 const checkGitStatus = require('./checkGitStatus')
-const filterBranch = require('./filterBranch')
 const getStashList = require('./getStashList')
 const { mergeRequest } = require('./remoteRequest')
 
@@ -40,7 +39,6 @@ module.exports = {
     getGitStatus,
     getCommandMessage,
     checkGitStatus,
-    filterBranch,
     getStashList,
     mergeRequest
 }
