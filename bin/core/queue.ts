@@ -5,8 +5,9 @@ const getCommandMessage = require('./git/getCommandMessage')
 const { setLog } = require('./cache/log')
 const { error, success, warning } = require('./utils/colors')
 const { postMessage } = require('./utils/message')
+const { spawnSync } = require('./spawn')
 
-import type { ShellCode, CommandType, QueueReturnsType } from '../../typings'
+import type { CommandType, QueueReturnsType } from '../../typings'
 
 export type WaitCallback = {
     (kill?: boolean): void
@@ -127,79 +128,86 @@ function queue(list: Array<CommandType | string>): Promise<QueueReturnsType[]> {
                         }
                     }
                 } else {
+                    const [client, ...argv] = cmd.split(' ')
                     // cmd是字符串
                     const msg = getCommandMessage(cmd)
                     spinner.start(
                         success(cfg.processing || msg.processing || '正在处理')
                     )
-                    sh.exec(
-                        cmd,
+                    // cfg -----------------------------
+                    const program = spawnSync(client, argv, cfg)
+                    const { status, stderr } = program
+                    let { stdout } = program
+                    try {
+                        stdout = JSON.parse(stdout)
+                    } catch {
+                        //
+                    }
+                    returns.push({
+                        code: status,
+                        out: stdout,
+                        err: stderr,
                         cfg,
-                        (code: ShellCode, out: string, err: any) => {
-                            try {
-                                out = JSON.parse(out)
-                            } catch {
-                                out = out.replace(/\n*$/g, '')
-                            }
-                            returns.push({ code, out, err, cfg, cmd })
-                            if (code !== 0) setLog({ command, code, out, err })
-                            if (code !== 0 && cfg.kill) {
-                                // 当前指令执行错误且设置该条指令需要中断，则中断递归
-                                const rest = JSON.parse(JSON.stringify(list))
-                                if (!cfg.again) {
-                                    rest.shift()
-                                } else if (cfg.again !== true) {
-                                    rest.splice(0, 1, cfg.again)
-                                }
-                                cb && cb(true) // 回调并中断执行
-                                setCommandCache(rest)
-                                // 只有silent模式才需要输出信息
-                                cfg.silent && spinner.fail(error(err))
-                                spinner.fail(
-                                    error(
-                                        cfg.fail ||
-                                            msg.fail ||
-                                            '出错了！指令 ' +
-                                                cmd +
-                                                ' 执行失败，中断了进程'
-                                    )
-                                )
-                                cfg.postmsg &&
-                                    postMessage(
-                                        '出错了！指令 ' +
-                                            cmd +
-                                            ' 执行失败，中断了进程'
-                                    )
-                                rest.length > 0 &&
-                                    spinner.fail(
-                                        error(
-                                            '请处理相关问题之后输入gitm continue继续'
-                                        )
-                                    )
-                                sh.exit(1)
-                            } else {
-                                // 1. 执行成功且不需要中断
-                                // 2. 执行成功且需要中断
-                                // 3. 执行失败且不需要中断
-                                if (code === 0) {
-                                    // code === 0 执行成功
-                                    const _message = cfg.success || msg.success
-                                    if (_message) {
-                                        spinner.succeed(success(_message))
-                                        cfg.postmsg && postMessage(_message)
-                                    }
-                                } else {
-                                    // code !== 0 执行失败
-                                    const _message =
-                                        cfg.fail ||
-                                        msg.fail ||
-                                        '指令 ' + cmd + ' 执行失败'
-                                    _message && spinner.warn(warning(_message))
-                                }
-                                cb && cb() // 回调，继续执行下一条
-                            }
+                        cmd
+                    })
+                    if (status !== 0)
+                        setLog({
+                            command,
+                            code: status,
+                            out: stdout,
+                            err: stderr
+                        })
+                    if (status !== 0 && cfg.kill) {
+                        // 当前指令执行错误且设置该条指令需要中断，则中断递归
+                        const rest = JSON.parse(JSON.stringify(list))
+                        if (!cfg.again) {
+                            rest.shift()
+                        } else if (cfg.again !== true) {
+                            rest.splice(0, 1, cfg.again)
                         }
-                    )
+                        cb && cb(true) // 回调并中断执行
+                        setCommandCache(rest)
+                        // 只有silent模式才需要输出信息
+                        cfg.silent && spinner.fail(error(stderr))
+                        spinner.fail(
+                            error(
+                                cfg.fail ||
+                                    msg.fail ||
+                                    '出错了！指令 ' +
+                                        cmd +
+                                        ' 执行失败，中断了进程'
+                            )
+                        )
+                        cfg.postmsg &&
+                            postMessage(
+                                '出错了！指令 ' + cmd + ' 执行失败，中断了进程'
+                            )
+                        rest.length > 0 &&
+                            spinner.fail(
+                                error('请处理相关问题之后输入gitm continue继续')
+                            )
+                        sh.exit(1)
+                    } else {
+                        // 1. 执行成功且不需要中断
+                        // 2. 执行成功且需要中断
+                        // 3. 执行失败且不需要中断
+                        if (status === 0) {
+                            // status === 0 执行成功
+                            const _message = cfg.success || msg.success
+                            if (_message) {
+                                spinner.succeed(success(_message))
+                                cfg.postmsg && postMessage(_message)
+                            }
+                        } else {
+                            // status !== 0 执行失败
+                            const _message =
+                                cfg.fail ||
+                                msg.fail ||
+                                '指令 ' + cmd + ' 执行失败'
+                            _message && spinner.warn(warning(_message))
+                        }
+                        cb && cb() // 回调，继续执行下一条
+                    }
                 }
             }
         )

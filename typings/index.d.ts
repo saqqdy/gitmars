@@ -1,3 +1,5 @@
+/// <reference types="node" />
+
 export interface AnyObject {
     [prop: string]: any
 }
@@ -11,7 +13,10 @@ export type ValueOf<T> = T extends ReadonlyArray<any> ? T[number] : T[keyof T]
 // export function GitmarsOptionFunctionType(val: string, opts: object, cb: any): void
 
 export type GitmarsBranchType = 'feature' | 'bugfix' | 'support'
-export type ShellCode = 0 | 1 | 127
+
+// 127和128是git个别场景的执行结果值
+export type ShellCode = 0 | 1 | 127 | 128
+
 export type PackageVersionTag =
     | 'alpha'
     | 'lite'
