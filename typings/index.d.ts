@@ -1,5 +1,7 @@
 /// <reference types="node" />
 
+import type { ExecOptions } from 'child_process'
+
 export interface AnyObject {
     [prop: string]: any
 }
@@ -160,7 +162,7 @@ export type GitStatusInfoType = {
     [props in GitStatusListType]: string[]
 }
 
-export interface QueueConfigType {
+export interface QueueConfigType extends ExecOptions {
     silent?: boolean
     again?: boolean
     processing?: string

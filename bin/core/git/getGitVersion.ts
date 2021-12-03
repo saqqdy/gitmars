@@ -1,4 +1,5 @@
 const sh = require('shelljs')
+const { spawnSync } = require('../spawn')
 const { warning } = require('../utils/colors')
 
 /**
@@ -7,10 +8,8 @@ const { warning } = require('../utils/colors')
  * @returns version - 返回版本号
  */
 function getGitVersion(): string | void {
-    let version: any = sh
-        .exec('git --version', { silent: true })
-        .stdout.replace(/\s*$/g, '')
-        .match(/[\d.?]+/g) as string[]
+    const { stdout } = spawnSync('git', ['--version'])
+    let version: string | string[] | null = stdout.match(/[\d.?]+/g) as string[]
     if (!version) {
         sh.echo(warning('没有找到git'))
         sh.exit(1)

@@ -1,4 +1,5 @@
 const sh = require('shelljs')
+const { spawnSync } = require('../spawn')
 const { warning } = require('../utils/colors')
 
 /**
@@ -8,10 +9,13 @@ const { warning } = require('../utils/colors')
  * @returns stashList - 返回stashList
  */
 function getStashList(key: string) {
-    const data = sh
-        .exec('git stash list', { silent: true })
-        .stdout.replace(/(^\s+|\n+$)/, '')
-    const list: string[] = (data && data.split('\n')) || []
+    const { stdout } = spawnSync('git', [
+        'stash',
+        'list'
+        // '--name-only',
+        // '--pretty=format:%gd'
+    ])
+    const list: string[] = (stdout && stdout.split('\n')) || []
     const arr: {
         key: string
         index: number

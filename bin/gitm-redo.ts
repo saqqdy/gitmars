@@ -7,6 +7,7 @@ const { queue } = require('./core/queue')
 const { getIsGitProject } = require('./core/git/index')
 const { error, warning } = require('./core/utils/index')
 const { createArgs } = require('./core/utils/index')
+const { spawnSync } = require('./core/spawn')
 if (!getIsGitProject()) {
     sh.echo(error('当前目录不是git项目目录'))
     sh.exit(1)
@@ -44,20 +45,20 @@ program.action(async (commitid: string[], opt: GitmBuildOption) => {
     if (opt.mode) m = ' -m ' + Math.abs(Number(opt.mode))
     if (opt.branch) {
         const keys = ['%H', '%aI', '%an']
-        const results = sh
-            .exec(
-                `git log --merges --grep="'${
-                    opt.branch
-                }'" --date-order --pretty=format:"${keys.join(',=')}-end-"`,
-                { silent: true }
-            )
-            .stdout.replace(/[\r\n]+/g, '')
-            .replace(/-end-$/, '')
         const logList: GitLogType[] = []
-        let logs = logList.map(log => log['%H'])
+        let logs = logList.map(log => log['%H']),
+            { stdout } = spawnSync('git', [
+                'log',
+                '--merges',
+                `--grep="'${opt.branch}'"`,
+                '--date-order',
+                '--pretty',
+                `format:${keys.join(',=')}-end-`
+            ])
+        stdout = stdout.replace(/[\r\n]+/g, '').replace(/-end-$/, '')
         // 读取记录
-        results &&
-            results.split('-end-').forEach((log: string) => {
+        stdout &&
+            stdout.split('-end-').forEach((log: string) => {
                 const args = log.split(',=')
                 const map: {
                     [props: string]: string

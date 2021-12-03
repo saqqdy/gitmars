@@ -14,7 +14,8 @@ function getBehindLogs(): string[] {
     const { stdout } = spawnSync('git', [
         'log',
         `${current}..origin/${current}`,
-        '--pretty=format:"%p"'
+        '--pretty',
+        'format:%p'
     ])
     return stdout ? stdout.split('\n') : []
 }

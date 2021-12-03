@@ -1,4 +1,4 @@
-const sh = require('shelljs')
+const { spawnSync } = require('../spawn')
 
 /**
  * 搜索分支
@@ -12,11 +12,13 @@ function filterBranch(key: string, types: string, remote = false): string[] {
     let typesList: string[] = [types],
         list: string[]
     if (typeof types === 'string') typesList = types.split(',')
-    const out = sh
-        .exec(`git branch${remote ? ' -a' : ''}`, { silent: true })
-        .stdout.replace(/(^\s+|[\n\r]*$)/g, '') // 去除首尾
-        .replace(/\*\s+/, '') // 去除*
-    list = out ? out.replace(/\n(\s+)/g, '\n').split('\n') : []
+    const argv: string[] = ['branch']
+    if (remote) argv.push('-a')
+    const program = spawnSync('git', argv)
+    program.stdout = program.stdout.replace(/\*\s+/, '') // 去除*
+    list = program.stdout
+        ? program.stdout.replace(/\n(\s+)/g, '\n').split('\n')
+        : []
     list = list.filter(el => {
         let result = true
         // 匹配关键词

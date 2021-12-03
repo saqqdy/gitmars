@@ -12,7 +12,8 @@ function getAheadLogs(): string[] {
     const { stdout } = spawnSync('git', [
         'log',
         `origin/${current}..${current}`,
-        '--pretty=format:"%p"'
+        '--pretty',
+        'format:%p'
     ])
     return stdout ? stdout.split('\n') : []
 }

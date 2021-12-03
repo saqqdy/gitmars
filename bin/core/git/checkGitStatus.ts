@@ -8,7 +8,7 @@ const { warning, error } = require('../utils/colors')
  * @returns isOK - 返回true/false
  */
 function checkGitStatus(): boolean {
-    const sum = getGitStatus({ silent: false })
+    const sum = getGitStatus({ stdio: 'inherit' })
     if (sum.A.length > 0 || sum.D.length > 0 || sum.M.length > 0) {
         sh.echo(
             error('您还有未提交的文件，请处理后再继续') +

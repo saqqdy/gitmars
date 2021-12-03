@@ -1,4 +1,3 @@
-const getCurrentBranch = require('./getCurrentBranch')
 const getGitLogs = require('./getGitLogs')
 
 /**
@@ -7,10 +6,8 @@ const getGitLogs = require('./getGitLogs')
  * @returns isMergeAction - 是否merge
  */
 function getIsMergeAction(): boolean {
-    const current = getCurrentBranch()
     const currentLogs = getGitLogs({
-        limit: 1,
-        branches: current
+        limit: 1
     })
     const p = currentLogs[0]['%P'] ? currentLogs[0]['%P'].split(' ') : []
     return p.length > 1

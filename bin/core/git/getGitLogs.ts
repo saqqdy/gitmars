@@ -1,4 +1,4 @@
-const sh = require('shelljs')
+const { spawnSync } = require('../spawn')
 const getSeconds = require('../utils/getSeconds')
 
 import type { GitLogType } from '../../../typings'
@@ -71,20 +71,21 @@ function getGitLogs(config: any = {}): GitLogType[] {
         '%gs' // reflog subject
         // '%(trailers:key=Reviewed-by)' // display the trailers of the body as interpreted by git-interpret-trailers[1]. The trailers string may be followed by a colon and zero or more comma-separated options. If any option is provided multiple times the last occurrence wins.
     ]
-    const results = sh
-        .exec(
-            `git log${limit ? ' -"' + limit + '"' : ''}${
-                lastet ? ' --since="' + getSeconds(lastet) + '"' : ''
-            }${
-                branches ? ' --branches="*' + branches + '"' : ''
-            } --date-order --pretty=format:"${keys.join(',=')}-end-" ${params}`,
-            { silent: true }
-        )
+    let argv = [
+        'log',
+        '--date-order',
+        `--pretty=format:${keys.join(',=')}-end-`
+    ]
+    if (limit) argv.push('-' + limit)
+    if (lastet) argv = argv.concat(['--since', getSeconds(lastet)])
+    // if (branches) argv = argv.concat(['--branches', branches])
+    argv = argv.concat(params.split(' '))
+    const stdout = spawnSync('git', argv)
         .stdout.replace(/[\r\n]+/g, '')
         .replace(/-end-$/, '')
     const logList: GitLogType[] = []
-    results &&
-        results.split('-end-').forEach((log: string) => {
+    stdout &&
+        stdout.split('-end-').forEach((log: string) => {
             const args = log.split(',=')
             const map: {
                 [props: string]: string

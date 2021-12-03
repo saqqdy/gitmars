@@ -36,7 +36,7 @@ program.action(async (branch: string, opt: GitmBuildOption) => {
         limit: opt.limit,
         branches: branch
     })
-    console.log(logs)
+    console.info(logs)
     sh.exit(0)
 })
 program.parse(process.argv)

@@ -15,6 +15,10 @@ function spawn(
     argv: string[],
     options: ExecOptions
 ): Partial<SpawnSyncReturns<string>> {
+    let len = argv.length
+    while (len--) {
+        !argv[len] && argv.splice(len, 1)
+    }
     const program = crossSpawn.sync(client, argv, {
         // stdio: 'inherit',
         shell: process.platform === 'win32',
@@ -45,6 +49,10 @@ function spawnSync(
     argv: string[],
     options: ExecOptions
 ): Partial<SpawnSyncReturns<string>> {
+    let len = argv.length
+    while (len--) {
+        !argv[len] && argv.splice(len, 1)
+    }
     const program = crossSpawn.sync(client, argv, {
         // stdio: 'inherit',
         shell: process.platform === 'win32',
