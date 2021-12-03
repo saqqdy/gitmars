@@ -12,6 +12,7 @@ const {
     getIsBranchOrCommitExist
 } = require('./core/git/index')
 const { error, success, createArgs, delay } = require('./core/utils/index')
+const { spawnSync } = require('./core/spawn')
 if (!getIsGitProject()) {
     sh.echo(error('当前目录不是git项目目录'))
     sh.exit(1)
@@ -84,7 +85,7 @@ program.action(async (branches: string[], opt: GitmBuildOption) => {
     const targets = opt.target
         ? opt.target.split(',')
         : [config.develop, config.release]
-    sh.exec('git fetch', { silent: true })
+    spawnSync('git', ['fetch'])
     // 没有传入指定分支，进行查询
     if (branches.length === 0) {
         branches = searchBranches({
@@ -156,14 +157,12 @@ program.action(async (branches: string[], opt: GitmBuildOption) => {
         if (removeLocal) {
             // 删除当前分支，需要切到其他分支去
             if (current === branch)
-                sh.exec(`git checkout ${config.master}`, { silent: true })
-            sh.exec(`git branch -D ${branch}`, { silent: true })
+                spawnSync('git', ['checkout', config.master])
+            spawnSync('git', ['branch', '-D', branch])
         }
         // 清理远程分支
         if (removeRemote) {
-            sh.exec(`git push origin --delete ${branch}`, {
-                silent: true
-            })
+            spawnSync('git', ['push', 'origin', '--delete', branch])
         }
     }
     spinner.stop()

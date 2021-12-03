@@ -2,6 +2,7 @@
 const { program } = require('commander')
 const { version } = require('../package.json')
 const sh = require('shelljs')
+const { spawnSync } = require('./core/spawn')
 
 if (!sh.which('git')) {
     sh.echo('gitmars只能在git环境下执行，请先安装git')
@@ -132,7 +133,7 @@ program.on('command:*', function (types: string[], opts: string[]) {
     ]
     if (!cmd.includes(types[0])) {
         const arr = types.concat(opts)
-        sh.exec('git ' + arr.join(' '), { silent: false })
+        spawnSync('git', arr, { stdio: 'inherit' })
     }
 })
 

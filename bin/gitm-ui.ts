@@ -1,10 +1,8 @@
 #!/usr/bin/env ts-node
 const { program } = require('commander')
-// const fs = require('fs')
 const path = require('path')
-const sh = require('shelljs')
 const { options, args } = require('./conf/ui')
-// const { pwd } = require('./core/global')
+const { spawnSync } = require('./core/spawn')
 const { createArgs } = require('./core/utils/index')
 
 import { GitmarsOptionOptionsType } from '../typings'
@@ -22,10 +20,10 @@ options.forEach((o: GitmarsOptionOptionsType) => {
     program.option(o.flags, o.description, o.defaultValue)
 })
 program.action((opt: GitmBuildOption) => {
-    // console.log(process.cwd(), path.join(__dirname, '../ui'), path.join(process.execPath, '../../lib/node_modules/gitmars'))
-    // let data = sh.exec(`ls -l ${sh.which('gitm').stdout}`, { silent: true }).stdout,
+    // console.info(process.cwd(), path.join(__dirname, '../ui'), path.join(process.execPath, '../../lib/node_modules/gitmars'))
+    // const { stdout } = spawnSync('ls', ['-l', sh.which('gitm').stdout]),
     // 	gitmDir,
-    // 	arr = data.split('->').map(el => {
+    // 	arr = stdout.split('->').map(el => {
     // 		el = el.trim().split(' ')
     // 		if (el.length > 1) el = el.splice(el.length - 1)
     // 		return el.join()
@@ -34,13 +32,14 @@ program.action((opt: GitmBuildOption) => {
     // arr[1] = arr[1].replace(/\/(bin|lib)\/gitm.js$/, '')
     // gitmDir = path.join(...arr)
     // process.chdir(gitmDir + '/app')
-    // sh.exec(`pm2 start yarn --name server -- run start`)
+    // spawnSync('pm2', ['start', 'yarn', '--name', 'server', '--', 'run', 'start'])
     // process.chdir(gitmDir + '/ui')
-    // sh.exec(`pm2 start yarn --name ui -- run serve`, { silent: true })
+    // spawnSync('pm2', ['start', 'yarn', '--name', 'ui', '--', 'run', 'serve'])
     process.chdir(path.join(__dirname, '../app'))
     // 市值启动端口号
     opt.port && (process.env.PORT = String(opt.port))
-    sh.exec('npm run server:start')
+    spawnSync('npm', ['run', 'server:start'], { stdio: 'inherit' })
 })
+
 program.parse(process.argv)
 export {}

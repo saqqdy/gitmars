@@ -1,4 +1,4 @@
-// let system = sh.exec('uname -s', { silent: true }).stdout || 'MINGW64_NT',
+// let system = exec('uname -s', { silent: true }).stdout || 'MINGW64_NT',
 const hookList = [
     'applypatch-msg',
     'pre-applypatch',

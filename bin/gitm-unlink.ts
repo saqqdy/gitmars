@@ -3,6 +3,7 @@ const { program } = require('commander')
 const sh = require('shelljs')
 const { options, args } = require('./conf/unlink')
 const { createArgs } = require('./core/utils/index')
+const { spawnSync } = require('./core/spawn')
 
 import { GitmarsOptionOptionsType } from '../typings'
 
@@ -20,12 +21,12 @@ program.action((name: string) => {
     const npmClient = sh.which('yarn') ? 'yarn' : 'npm'
     if (!name) {
         // 解除当前包的软链
-        sh.exec(`${npmClient} unlink`, { silent: true })
+        spawnSync(npmClient, ['unlink'])
         sh.echo('处理完成')
         sh.exit(0)
     } else if (isLink) {
         // sh.rm('-rf', `./node_modules/${name}`)
-        sh.exec(`${npmClient} unlink ${name}`, { silent: true })
+        spawnSync(npmClient, ['unlink', name])
     } else {
         sh.echo('没有找到软链，请确认输入正确名称')
     }
