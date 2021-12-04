@@ -72,7 +72,7 @@ program.action(async (opt: GitmBuildOption) => {
                 .then((answers: any) => {
                     if (!answers.value) {
                         sh.echo(success('已退出'))
-                        sh.exit(0)
+                        process.exit(0)
                     }
                 })
             removeFile([

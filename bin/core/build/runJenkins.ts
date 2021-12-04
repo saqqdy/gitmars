@@ -30,13 +30,13 @@ async function runJenkins({
     const cfg: ApolloConfigBranchType = buildConfig[env]
     if (!cfg) {
         sh.echo(error('请输入正确的环境名称'))
-        sh.exit(1)
+        process.exit(1)
         return
     }
     const p = cfg.list.find(el => el.name === project)
     if (!p) {
         sh.echo(error('请输入正确的项目名称'))
-        sh.exit(1)
+        process.exit(1)
         return
     }
     if (app && p.apps) {
@@ -44,14 +44,14 @@ async function runJenkins({
         for (const item of appList) {
             if (!p.apps.includes(item)) {
                 sh.echo(error('请输入正确的应用名称'))
-                sh.exit(1)
+                process.exit(1)
                 return
             }
         }
     }
     if (!buildConfig.template) {
         sh.echo(error('请配置Jenkins构建地址模板'))
-        sh.exit(1)
+        process.exit(1)
         return
     }
     const url = mapTemplate(

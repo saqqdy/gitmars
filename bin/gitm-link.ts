@@ -25,7 +25,7 @@ program.action((name: string) => {
         const { status } = spawnSync(npmClient, ['link'])
         if (status === 0) sh.echo('处理完成')
         else sh.echo('出错了')
-        sh.exit(0)
+        process.exit(0)
     } else if (isLink) {
         sh.rm('-rf', `./node_modules/${name}`)
     } else if (isExist) {

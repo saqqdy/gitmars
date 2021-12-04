@@ -18,7 +18,7 @@ async function getApolloConfig(): Promise<ApolloConfigType | void> {
     const config = getConfig() as GitmarsConfigType
     if (!config.apolloConfig) {
         sh.echo(error('请配置apollo'))
-        sh.exit(0)
+        process.exit(0)
         return
     }
     const { appId, clusterName } = config.apolloConfig

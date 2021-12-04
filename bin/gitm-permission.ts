@@ -40,9 +40,9 @@ program
             stdout.indexOf('Merge branch') === -1
         ) {
             sh.echo(error(`${allow[index]}分支不允许直接提交`))
-            sh.exit(1)
+            process.exit(1)
         } else {
-            sh.exit(0)
+            process.exit(0)
         }
         // sh.echo(process.env.HUSKY_GIT_PARAMS)
         // sh.echo(process.env.FORCE_COMMIT)

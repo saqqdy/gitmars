@@ -9,7 +9,7 @@ const { getIsGitProject, getGitStatus } = require('./core/git/index')
 const { error, success, warning, createArgs } = require('./core/utils/index')
 if (!getIsGitProject()) {
     sh.echo(error('当前目录不是git项目目录'))
-    sh.exit(1)
+    process.exit(1)
 }
 
 import { GitmarsOptionOptionsType, CommandType } from '../typings'
@@ -35,7 +35,7 @@ program.action(async (opt: GitmBuildOption) => {
     const cmd: Array<CommandType | string> = getCommandCache()
     if (opt.list) {
         sh.echo(cmd)
-        sh.exit(0)
+        process.exit(0)
     }
     if (cmd.length > 0) {
         // 检测是否有未提交的文件
@@ -51,7 +51,7 @@ program.action(async (opt: GitmBuildOption) => {
                 .then((answers: any) => {
                     if (!answers.value) {
                         sh.echo(success('已退出'))
-                        sh.exit(0)
+                        process.exit(0)
                     }
                 })
         } else if (sum['??'].length > 0) {

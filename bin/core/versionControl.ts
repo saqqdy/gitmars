@@ -39,7 +39,7 @@ function upgradeGitmars() {
                 '\nMac用户升级方法：sudo gitm upgrade latest -m -c npm\nWindows用户使用PowerShell或CMD：gitm upgrade lite -m -c npm.cmd'
             )
     )
-    sh.exit(1)
+    process.exit(1)
 }
 
 module.exports = {

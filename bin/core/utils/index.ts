@@ -9,6 +9,7 @@ const readPkg = require('./readPkg')
 const compareVersion = require('./compareVersion')
 const mapTemplate = require('./mapTemplate')
 const { getMessage, postMessage, sendMessage } = require('./message')
+const echo = require('./echo')
 
 module.exports = {
     warning,
@@ -27,6 +28,7 @@ module.exports = {
     mapTemplate,
     getMessage,
     postMessage,
-    sendMessage
+    sendMessage,
+    echo
 }
 export {}

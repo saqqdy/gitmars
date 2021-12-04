@@ -23,7 +23,7 @@ program.action((name: string) => {
         // 解除当前包的软链
         spawnSync(npmClient, ['unlink'])
         sh.echo('处理完成')
-        sh.exit(0)
+        process.exit(0)
     } else if (isLink) {
         // sh.rm('-rf', `./node_modules/${name}`)
         spawnSync(npmClient, ['unlink', name])

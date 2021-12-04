@@ -9,7 +9,7 @@ const { error } = require('./core/utils/colors')
 const { createArgs } = require('./core/utils/command')
 if (!getIsGitProject()) {
     sh.echo(error('当前目录不是git项目目录'))
-    sh.exit(1)
+    process.exit(1)
 }
 
 import { GitmarsOptionOptionsType, CommandType } from '../typings'

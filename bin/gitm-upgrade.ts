@@ -1,7 +1,6 @@
 #!/usr/bin/env ts-node
 const { program } = require('commander')
 const { spawnSync } = require('./core/spawn')
-const sh = require('shelljs')
 const { options, args } = require('./conf/upgrade')
 const { error, success } = require('./core/utils/index')
 const { createArgs } = require('./core/utils/index')
@@ -50,7 +49,7 @@ program.action(
                 console.error(
                     '输入的版本号不正确，仅支持：alpha、lite、beta、release、latest、next'
                 )
-                sh.exit(0)
+                process.exit(0)
             }
         } else {
             version = 'latest'

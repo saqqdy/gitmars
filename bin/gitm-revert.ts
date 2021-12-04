@@ -8,7 +8,7 @@ const { error, warning } = require('./core/utils/index')
 const { createArgs } = require('./core/utils/index')
 if (!getIsGitProject()) {
     sh.echo(error('当前目录不是git项目目录'))
-    sh.exit(1)
+    process.exit(1)
 }
 
 import { GitmarsOptionOptionsType, CommandType } from '../typings'
@@ -59,7 +59,7 @@ program.action((commitid: string, opt: GitmBuildOption) => {
         })
     } else {
         sh.echo(warning('指令不合法'))
-        sh.exit(1)
+        process.exit(1)
     }
     queue(cmd)
 })

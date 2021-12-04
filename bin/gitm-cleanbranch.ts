@@ -15,7 +15,7 @@ const { error, success, createArgs, delay } = require('./core/utils/index')
 const { spawnSync } = require('./core/spawn')
 if (!getIsGitProject()) {
     sh.echo(error('当前目录不是git项目目录'))
-    sh.exit(1)
+    process.exit(1)
 }
 const getConfig = require('./core/getConfig')
 const config = getConfig()
@@ -109,13 +109,13 @@ program.action(async (branches: string[], opt: GitmBuildOption) => {
                 .then((answers: any) => {
                     if (!answers.value) {
                         sh.echo(success('已退出'))
-                        sh.exit(0)
+                        process.exit(0)
                     }
                 })
         }
     } else {
         sh.echo(success('没有查询到任何分支'))
-        sh.exit(0)
+        process.exit(0)
     }
     for (const branch of branches) {
         // 跳过主干分支

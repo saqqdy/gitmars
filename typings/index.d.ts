@@ -1,6 +1,6 @@
 /// <reference types="node" />
 
-import type { SpawnOptions } from 'child_process'
+import type { SpawnOptions, SpawnSyncReturns } from 'child_process'
 
 export interface AnyObject {
     [prop: string]: any
@@ -171,10 +171,10 @@ export interface QueueConfigType extends SpawnOptions {
     kill?: boolean
 }
 
-export interface QueueReturnsType {
-    code: ShellCode
-    out: string
-    err: string
+export interface QueueReturnsType
+    extends Partial<
+        Pick<SpawnSyncReturns<string>, 'stdout' | 'stderr' | 'status'>
+    > {
     cfg: QueueConfigType
     cmd: string | ModuleCommandType
 }
@@ -189,8 +189,11 @@ export interface InitInquirerPromptType {
     choices?: any
 }
 
-export interface GitLogType {
-    [props: string]: string
+export interface GitLogType
+    extends Partial<
+        Pick<SpawnSyncReturns<string>, 'stdout' | 'stderr' | 'status'>
+    > {
+    command: string
 }
 
 export interface CommandMessageType {

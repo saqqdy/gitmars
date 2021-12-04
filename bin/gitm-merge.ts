@@ -6,7 +6,7 @@ const { getIsGitProject } = require('./core/git/index')
 const { error } = require('./core/utils/index')
 if (!getIsGitProject()) {
     sh.echo(error('当前目录不是git项目目录'))
-    sh.exit(1)
+    process.exit(1)
 }
 
 import { CommandType } from '../typings'

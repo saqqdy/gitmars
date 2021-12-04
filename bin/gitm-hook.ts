@@ -15,7 +15,7 @@ const { error, success, createArgs } = require('./core/utils/index')
 const { init, remove } = require('./core/hook/index')
 if (!getIsGitProject()) {
     sh.echo(error('当前目录不是git项目目录'))
-    sh.exit(1)
+    process.exit(1)
 }
 const getConfig = require('./core/getConfig')
 const config = getConfig()
@@ -61,7 +61,7 @@ program.action(
         console.log('gitmars hooks is running')
         // 不检测直接返回
         if (opt.noVerify) {
-            sh.exit(0)
+            process.exit(0)
             return
         }
 
@@ -348,7 +348,7 @@ program.action(
                         console.info(
                             error('检测到你的分支没有合并过' + config.develop)
                         )
-                        sh.exit(0)
+                        process.exit(0)
                     } else {
                         console.info(
                             success(branch + '合并过' + config.develop)
@@ -376,7 +376,7 @@ program.action(
                                     '分支代码'
                             )
                         )
-                        sh.exit(0)
+                        process.exit(0)
                     } else {
                         console.info(
                             success(branch + '一周内同步过主干分支代码')
@@ -389,7 +389,7 @@ program.action(
                 const isMergeAction = getIsMergeAction()
                 if (!isMergeAction) {
                     console.info(error('检测到你直接在主干分支修改代码'))
-                    sh.exit(0)
+                    process.exit(0)
                 } else {
                     console.info(success('最后一条记录是merge记录'))
                 }
@@ -407,10 +407,10 @@ program.action(
                 // console.info('本地领先的记录', aheadLogs)
                 // console.info('本地落后的记录', behindLogs)
                 // if (isMerge) {
-                // 	sh.exit(0)
+                // 	process.exit(0)
                 // } else {
                 // 	sh.echo(error('不允许在主干分支直接更改代码提交，请联系管理员'))
-                // 	sh.exit(1)
+                // 	process.exit(1)
                 // }
             }
             if (mainBranches.includes(current) && types.includes('4')) {
@@ -418,13 +418,13 @@ program.action(
                 const behindLogs = getBehindLogs()
                 if (!behindLogs.length) {
                     console.info('你本地分支版本落后于远程分支，请先执行pull')
-                    sh.exit(0)
+                    process.exit(0)
                 } else {
                     console.info(success('本地版本没有落后远程，可直接push'))
                 }
             }
         }
-        sh.exit(0)
+        process.exit(0)
     }
 )
 program.parse(process.argv)

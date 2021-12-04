@@ -12,7 +12,7 @@ function getGitVersion(): string | void {
     let version: string | string[] | null = stdout.match(/[\d.?]+/g) as string[]
     if (!version) {
         sh.echo(warning('没有找到git'))
-        sh.exit(1)
+        process.exit(1)
         return
     }
     version = version[0]

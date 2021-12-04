@@ -14,7 +14,7 @@ const { isNeedUpgrade, upgradeGitmars } = require('./core/versionControl')
 const { createArgs } = require('./core/utils/index')
 if (!getIsGitProject()) {
     sh.echo(error('当前目录不是git项目目录'))
-    sh.exit(1)
+    process.exit(1)
 }
 const getConfig = require('./core/getConfig')
 const { defaults } = require('./core/global')
@@ -61,7 +61,7 @@ program.action(
         let cmds: Array<CommandType | string> = [],
             branchList = [],
             _nameArr: string[] = [] // 分支名称数组
-        if (!status) sh.exit(1)
+        if (!status) process.exit(1)
         if (opt.all) {
             // 更新全部分支
             if (!type) type = allow.join(',')
@@ -76,18 +76,18 @@ program.action(
                     sh.echo(
                         error(`骚年，你在${type}分支执行这个指令是什么骚操作？`)
                     )
-                sh.exit(1)
+                process.exit(1)
             }
             if (!allow.includes(type as string)) {
                 // type不合法
                 sh.echo(error('type只允许输入：' + JSON.stringify(allow)))
-                sh.exit(1)
+                process.exit(1)
             }
             branchList = [].concat(current)
         } else if (!allow.includes(type as string)) {
             // 传了type和name，但是不合法
             sh.echo(error('type只允许输入：' + JSON.stringify(allow)))
-            sh.exit(1)
+            process.exit(1)
         } else {
             // 传了正常的type和name
             branchList = [type + '/' + name]

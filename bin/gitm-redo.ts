@@ -10,7 +10,7 @@ const { createArgs } = require('./core/utils/index')
 const { spawnSync } = require('./core/spawn')
 if (!getIsGitProject()) {
     sh.echo(error('当前目录不是git项目目录'))
-    sh.exit(1)
+    process.exit(1)
 }
 
 import {
@@ -108,7 +108,7 @@ program.action(async (commitid: string[], opt: GitmBuildOption) => {
         })
     } else {
         sh.echo(warning('指令不合法'))
-        sh.exit(1)
+        process.exit(1)
     }
     queue(cmd)
 })

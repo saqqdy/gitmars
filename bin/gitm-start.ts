@@ -10,7 +10,7 @@ const { createArgs } = require('./core/utils/index')
 const getType = require('js-cool/lib/getType')
 if (!getIsGitProject()) {
     sh.echo(error('当前目录不是git项目目录'))
-    sh.exit(1)
+    process.exit(1)
 }
 const getConfig = require('./core/getConfig')
 const config = getConfig()
@@ -45,12 +45,12 @@ program.action(async (type: string, name: string, opt: GitmBuildOption) => {
     needUpgrade && upgradeGitmars()
     const opts = ['bugfix', 'feature', 'support'] // 允许执行的指令
     const status = checkGitStatus()
-    if (!status) sh.exit(1)
+    if (!status) process.exit(1)
     if (opts.includes(type)) {
         // 指定从tag拉取分支时，仅支持创建bugfix分支
         if (opt.tag && type !== 'bugfix') {
             sh.echo(error('指定从tag拉取分支时仅支持创建bugfix分支'))
-            sh.exit(1)
+            process.exit(1)
         }
         // 校验分支名称规范
         if (config.nameValidator) {
@@ -60,7 +60,7 @@ program.action(async (type: string, name: string, opt: GitmBuildOption) => {
                     : new RegExp(config.nameValidator)
             if (!reg.test(name)) {
                 sh.echo(error('分支名称不符合规范'))
-                sh.exit(1)
+                process.exit(1)
             }
         }
         // 替换开头的'/'
@@ -83,8 +83,8 @@ program.action(async (type: string, name: string, opt: GitmBuildOption) => {
               ]
         queue(cmd).then((data: QueueReturnsType[]) => {
             if (
-                (opt.tag && data[1].code === 0) ||
-                (!opt.tag && data[3].code === 0)
+                (opt.tag && data[1].status === 0) ||
+                (!opt.tag && data[3].status === 0)
             ) {
                 sh.echo(
                     `${name}分支创建成功，该分支基于${base}创建，您当前已经切换到${type}/${name}\n如果需要提测，请执行${success(
@@ -97,7 +97,7 @@ program.action(async (type: string, name: string, opt: GitmBuildOption) => {
         })
     } else {
         sh.echo(error('type只允许输入：' + JSON.stringify(opts)))
-        sh.exit(1)
+        process.exit(1)
     }
 })
 program.parse(process.argv)

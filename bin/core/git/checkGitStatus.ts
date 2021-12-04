@@ -14,7 +14,7 @@ function checkGitStatus(): boolean {
             error('您还有未提交的文件，请处理后再继续') +
                 '\n如果需要暂存文件请执行: gitm save\n恢复时执行：gitm get'
         )
-        sh.exit(1)
+        process.exit(1)
         return false
     } else if (sum['??'].length > 0) {
         sh.echo(

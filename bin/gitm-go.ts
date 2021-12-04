@@ -26,7 +26,7 @@ program.action(async (command: string): Promise<void> => {
         const cmd = getProperty(commands, command)
         if (!cmd) {
             sh.echo(error('您输入的指令没有找到，可能暂不支持'))
-            sh.exit(1)
+            process.exit(1)
         }
         cmd()
     } else {
@@ -70,7 +70,7 @@ program.action(async (command: string): Promise<void> => {
             .then((answers: any) => {
                 if (answers.command === 'exit') {
                     sh.echo(success('已退出'))
-                    sh.exit(0)
+                    process.exit(0)
                 }
                 sh.echo(success(`你选择了${answers.command}指令`))
                 // 执行对应指令

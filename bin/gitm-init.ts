@@ -8,7 +8,7 @@ const { error, success } = require('./core/utils/index')
 const { defaults } = require('./core/global')
 if (!getIsGitProject()) {
     sh.echo(error('当前目录不是git项目目录'))
-    sh.exit(1)
+    process.exit(1)
 }
 const { root } = getGitRevParse()
 

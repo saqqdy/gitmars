@@ -11,7 +11,7 @@ const {
 const { error, warning, createArgs } = require('./core/utils/index')
 if (!getIsGitProject()) {
     sh.echo(error('当前目录不是git项目目录'))
-    sh.exit(1)
+    process.exit(1)
 }
 
 import { GitmarsOptionOptionsType } from '../typings'
@@ -37,7 +37,7 @@ program.action((message: string, index: string, opt: GitmBuildOption) => {
     const list = getStashList(message)
     if (list.length === 0) {
         sh.echo(warning('该分支没有暂存任何文件！'))
-        sh.exit(0)
+        process.exit(0)
     }
     if (index === undefined && list.length > 1)
         sh.echo(

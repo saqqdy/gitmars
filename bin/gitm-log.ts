@@ -7,7 +7,7 @@ const { error } = require('./core/utils/index')
 const { createArgs } = require('./core/utils/index')
 if (!getIsGitProject()) {
     sh.echo(error('当前目录不是git项目目录'))
-    sh.exit(1)
+    process.exit(1)
 }
 
 import { GitmarsOptionOptionsType } from '../typings'
@@ -37,7 +37,7 @@ program.action(async (branch: string, opt: GitmBuildOption) => {
         branches: branch
     })
     console.info(logs)
-    sh.exit(0)
+    process.exit(0)
 })
 program.parse(process.argv)
 export {}

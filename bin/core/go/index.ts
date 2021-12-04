@@ -1,4 +1,3 @@
-const sh = require('shelljs')
 const { spawnSync } = require('../spawn')
 const getCurrentBranch = require('../git/getCurrentBranch')
 const getCommand = require('./getCommand')
