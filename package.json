@@ -1,7 +1,7 @@
 {
     "name": "gitmars",
     "description": "这是一个git工作流工具",
-    "version": "2.14.6",
+    "version": "2.15.0-beta.1",
     "scripts": {
         "docs:dev": "vuepress dev docs",
         "docs:build": "vuepress build docs",
@@ -53,6 +53,7 @@
         "commander": "8.3.0",
         "cookie-parser": "^1.4.6",
         "cosmiconfig": "^7.0.0",
+        "cross-spawn": "^7.0.3",
         "debug": "^4.3.2",
         "express": "^4.17.1",
         "hbs": "^4.2.0",
@@ -97,7 +98,7 @@
         "babel-eslint": "^10.1.0",
         "cron-parser": "^4.2.0",
         "cross-env": "^7.0.3",
-        "esbuild": "^0.13.13",
+        "esbuild": "^0.14.2",
         "eslint": "^8.2.0",
         "eslint-config-prettier": "^8.3.0",
         "eslint-config-sets": "^1.5.3",
