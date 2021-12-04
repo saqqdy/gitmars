@@ -78,3 +78,4 @@ module.exports = {
     spawnSync,
     spawn
 }
+export {}

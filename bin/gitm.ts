@@ -3,9 +3,11 @@ const { program } = require('commander')
 const { version } = require('../package.json')
 const sh = require('shelljs')
 const { spawnSync } = require('./core/spawn')
+const { success } = require('./core/utils/colors')
+const echo = require('./core/utils/echo')
 
 if (!sh.which('git')) {
-    sh.echo('gitmars只能在git环境下执行，请先安装git')
+    echo('Gitmars只能在git环境下执行，请先安装git')
     process.exit(1)
 }
 program.version(
@@ -76,10 +78,10 @@ program
 
 // 自定义帮助
 program.on('--help', function () {
-    sh.echo('使用案例:')
-    sh.echo('  $ gitm init')
-    sh.echo('  $ gitm --help')
-    sh.echo('  $ gitm -h')
+    echo('使用案例:')
+    echo('  $ gitm init')
+    echo('  $ gitm --help')
+    echo('  $ gitm -h')
 })
 
 // 映射不存在的指令
@@ -133,6 +135,11 @@ program.on('command:*', function (types: string[], opts: string[]) {
     ]
     if (!cmd.includes(types[0])) {
         const arr = types.concat(opts)
+        echo(
+            success(
+                `Gitmars没有提供“gitm ${types[0]}”这个指令，已透传到git执行，下面是执行结果：`
+            )
+        )
         spawnSync('git', arr, { stdio: 'inherit' })
     }
 })
