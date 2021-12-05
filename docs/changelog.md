@@ -6,14 +6,14 @@
 
 1. 改用性能更好的原生脚本执行器，替代shelljs的`sh.exec`
 2. 新增`undo`指令，用于撤回代码
-3. `undo`指令新增`--no-merges``--limit``--lastet`传参
+3. `undo`指令新增`--no-merges` `--limit` `--lastet`传参
 4. `log`指令增加`--no-merges`传参，用于排除merge记录
 5. `process.exit`替换`sh.exit`
 
 ### 优化
 
 1. 优化读取`git log`的体验
-2. 新增`echo``gitLogsFormatter``revertCache``writeFileSync`等方法
+2. 新增`echo` `gitLogsFormatter` `revertCache` `writeFileSync`等方法
 3. 移除`filterBranch`方法
 4. 完善`typescript`类型
 

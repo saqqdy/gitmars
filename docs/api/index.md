@@ -615,7 +615,7 @@ gitm rt xxxxxx -m 1
 ### gitm undo
 
 > v2.3.0 新增<br>
-> v2.15.0 新增`--no-merges``--limit``--lastet`传参，移除`--branch`传参
+> v2.15.0 新增`--no-merges` `--limit` `--lastet`传参，移除`--branch`传参
 
 #### 短指令：gitm ud
 
