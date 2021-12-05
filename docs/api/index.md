@@ -612,7 +612,7 @@ gitm revert xxxxxx --mode 1
 gitm rt xxxxxx -m 1
 ```
 
-### gitm undo
+### gitm undo <Badge text="开发中" type="warning"/>
 
 > v2.3.0 新增<br>
 > v2.15.0 新增`--no-merges` `--limit` `--lastet`传参，移除`--branch`传参
