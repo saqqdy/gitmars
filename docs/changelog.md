@@ -6,8 +6,9 @@
 
 1. 改用性能更好的原生脚本执行器，替代shelljs的`sh.exec`
 2. 新增`undo`指令，用于撤回代码
-3. `log`指令增加`--no-merges`传参，用于排除merge记录
-4. `process.exit`替换`sh.exit`
+3. `undo`指令新增`--no-merges``--limit``--lastet`传参
+4. `log`指令增加`--no-merges`传参，用于排除merge记录
+5. `process.exit`替换`sh.exit`
 
 ### 优化
 
