@@ -88,7 +88,7 @@ class GitLogsFormatter {
         if (stdout) {
             const match =
                 stdout
-                    .replace(/^-start-|-end-$/g, '')
+                    .replace(/(?:^--start--)|(?:--end--$)/g, '')
                     .replace(/-end-([.\n]+)-start-/g, '-split-')
                     .split('-split-') || []
             for (const log of match) {
