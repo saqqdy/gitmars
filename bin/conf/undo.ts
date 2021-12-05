@@ -17,16 +17,16 @@ import type { GitmarsOptionType } from '../../typings'
         ],
         options: [
             {
-                flags: '-b, --branch [branch]',
+                flags: '--no-merges',
                 required: false,
-                optional: true,
+                optional: false,
                 variadic: false,
                 mandatory: false,
-                short: '-b',
-                long: '--branch',
-                negate: false,
-                description: '需要撤销的分支名',
-                defaultValue: ''
+                long: '--no-merges',
+                negate: true,
+                description: '是否排除merge记录',
+                defaultValue: true,
+                recommend: false
             },
             {
                 flags: '-m, --mode [mode]',

@@ -1,14 +1,14 @@
 const sh = require('shelljs')
 const getGitRevParse = require('../git/getGitRevParse')
 
-import type { GitLogType } from '../../../typings'
+import type { GitmarsLogType } from '../../../typings'
 
 /**
  * 存储错误日志
  *
  * @param log - 错误日志
  */
-function setLog(log: GitLogType): void {
+function setLog(log: GitmarsLogType): void {
     const { gitDir } = getGitRevParse()
     sh.touch(gitDir + '/.gitmarslog')
     sh.sed(

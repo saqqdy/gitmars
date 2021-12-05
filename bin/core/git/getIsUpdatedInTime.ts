@@ -1,7 +1,7 @@
 const getCurrentBranch = require('./getCurrentBranch')
 const getGitLogs = require('./getGitLogs')
 
-import type { GitLogType } from '../../../typings'
+import type { GitLogsType } from '../../../typings'
 
 export interface IsUpdatedInTimeConfigType {
     lastet: string
@@ -39,10 +39,10 @@ function getIsUpdatedInTime({
         branches: current,
         params: '--no-merges'
     })
-    mainLogs.forEach((log: GitLogType) => {
+    mainLogs.forEach((log: GitLogsType) => {
         mainVers.push(log['%H'])
     })
-    currentLogs.forEach((log: GitLogType) => {
+    currentLogs.forEach((log: GitLogsType) => {
         const arr = log['%P'] ? log['%P'].split(' ') : []
         arr.forEach((item: string) => {
             currentVers.push(item)

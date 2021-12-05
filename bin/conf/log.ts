@@ -25,6 +25,18 @@ import type { GitmarsOptionType } from '../../typings'
                 defaultValue: '7d'
             },
             {
+                flags: '--no-merges',
+                required: false,
+                optional: false,
+                variadic: false,
+                mandatory: false,
+                long: '--no-merges',
+                negate: true,
+                description: '是否排除merge记录',
+                defaultValue: true,
+                recommend: false
+            },
+            {
                 flags: '--limit [limit]',
                 required: false,
                 optional: true,

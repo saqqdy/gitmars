@@ -55,6 +55,7 @@
         "cookie-parser": "^1.4.6",
         "cosmiconfig": "^7.0.0",
         "cross-spawn": "^7.0.3",
+        "dayjs": "^1.10.7",
         "debug": "^4.3.3",
         "express": "^4.17.1",
         "hbs": "^4.2.0",

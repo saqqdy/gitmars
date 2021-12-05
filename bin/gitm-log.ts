@@ -15,6 +15,7 @@ import { GitmarsOptionOptionsType } from '../typings'
 interface GitmBuildOption {
     lastet?: string
     limit?: number
+    merges?: boolean
 }
 
 /**
@@ -22,19 +23,21 @@ interface GitmBuildOption {
  */
 program
     .name('gitm log')
-    .usage('[branch] [--lastet [lastet]] [--limit [limit]]')
+    .usage('[branch] [--lastet [lastet]] [--limit [limit]] [--no-merges]')
     .description('日志查询')
 if (args.length > 0) program.arguments(createArgs(args))
 options.forEach((o: GitmarsOptionOptionsType) => {
     program.option(o.flags, o.description, o.defaultValue)
 })
 // .option('--lastet [lastet]', '查询在某个时间之后的日志，填写格式：10s/2m/2h/3d/4M/5y', '7d')
+// .option('--no-merges', '是否排除merge的日志')
 // .option('--limit [limit]', '最多查询的日志条数', 20)
 program.action(async (branch: string, opt: GitmBuildOption) => {
     const logs = getGitLogs({
         lastet: opt.lastet,
         limit: opt.limit,
-        branches: branch
+        branches: branch,
+        noMerges: !opt.merges
     })
     console.info(logs)
     process.exit(0)

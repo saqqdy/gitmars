@@ -1,9 +1,20 @@
 # 更新日志
 
-## 2021.12.02 v2.15.0 更新日志
+## 2021.12.06 v2.15.0 更新日志
+
+### 功能
 
 1. 改用性能更好的原生脚本执行器，替代shelljs的`sh.exec`
-2. 移除`filterBranch`方法
+2. 新增`undo`指令，用于撤回代码
+3. `log`指令增加`--no-merges`传参，用于排除merge记录
+4. `process.exit`替换`sh.exit`
+
+### 优化
+
+1. 优化读取`git log`的体验
+2. 新增`echo``gitLogsFormatter``revertCache``writeFileSync`等方法
+3. 移除`filterBranch`方法
+4. 完善`typescript`类型
 
 ## 2021.12.02 v2.14.6 更新日志
 

@@ -14,7 +14,7 @@ if (!getIsGitProject()) {
 }
 
 import {
-    GitLogType,
+    GitLogsType,
     GitmarsOptionOptionsType,
     CommandType,
     InitInquirerPromptType
@@ -45,7 +45,7 @@ program.action(async (commitid: string[], opt: GitmBuildOption) => {
     if (opt.mode) m = ' -m ' + Math.abs(Number(opt.mode))
     if (opt.branch) {
         const keys = ['%H', '%aI', '%an']
-        const logList: GitLogType[] = []
+        const logList: GitLogsType[] = []
         let logs = logList.map(log => log['%H']),
             { stdout } = spawnSync('git', [
                 'log',

@@ -1,13 +1,8 @@
 const sh = require('shelljs')
 const getGitRevParse = require('../git/getGitRevParse')
-const { writeFile, isFileExist } = require('../utils/file')
+const { writeFileSync, isFileExist } = require('../utils/file')
 
-import type { GitLogType } from '../../../typings'
-
-export interface RevertCacheType {
-    before: GitLogType
-    after: GitLogType
-}
+import type { GitLogsType, RevertCacheType } from '../../../typings'
 
 const { gitDir } = getGitRevParse()
 const GITMARS_REVERT_CACHE_FILE = gitDir + '/gitmarsreverts.json'
@@ -23,7 +18,8 @@ function getRevertCache() {
         reverts = require(GITMARS_REVERT_CACHE_FILE)
     } else {
         sh.touch(GITMARS_REVERT_CACHE_FILE)
-        sh.sed('-i', /.+/, '[]', GITMARS_REVERT_CACHE_FILE)
+        // sh.sed('-i', /[.\n]+/, '[]', GITMARS_REVERT_CACHE_FILE)
+        writeFileSync(GITMARS_REVERT_CACHE_FILE, JSON.stringify([]))
     }
     return reverts
 }
@@ -33,36 +29,42 @@ function getRevertCache() {
  *
  * @param reverts - revert缓存列表
  */
-async function setRevertCache(reverts: Array<RevertCacheType>): Promise<void> {
+function setRevertCache(reverts: Array<RevertCacheType>): void {
     sh.touch(GITMARS_REVERT_CACHE_FILE)
-    await writeFile(GITMARS_REVERT_CACHE_FILE, JSON.stringify(reverts))
+    writeFileSync(GITMARS_REVERT_CACHE_FILE, JSON.stringify(reverts, null, 4))
 }
 
 /**
  * 设置revert缓存
  *
  * @param reverts - revert缓存列表
+ * @returns result - 执行结果
  */
-async function addRevertCache(revert: GitLogType): Promise<void> {
-    const reverts = getRevertCache()
-    const _index = reverts.findIndex(
-        (item: RevertCacheType) => item.after['%H'] === revert['%H']
-    )
-    if (_index === -1) {
-        // 第一次revert
-        reverts.push({ before: revert, after: revert })
-    } else {
-        // revert后的第二次revert
-        reverts.splice(_index, 1)
+function addRevertCache(reverts: GitLogsType | GitLogsType[]): void {
+    if (!Array.isArray(reverts)) reverts = [reverts]
+    const revertCache = getRevertCache()
+    let len = reverts.length
+    while (len--) {
+        const _index = revertCache.findIndex(
+            (item: RevertCacheType) =>
+                item.after['%H'] === (reverts as GitLogsType[])[len]['%H']
+        )
+        if (_index === -1) {
+            // 第一次revert
+            revertCache.push({ before: reverts[len], after: {} as GitLogsType })
+        } else {
+            // revert后的第二次revert
+            // reverts.splice(_index, 1)
+        }
     }
-    await setRevertCache(reverts)
+    setRevertCache(revertCache)
 }
 
 /**
  * 清除队列缓存
  */
-async function cleanRevertCache(): Promise<void> {
-    await setRevertCache([])
+function cleanRevertCache(): void {
+    setRevertCache([])
 }
 
 module.exports = {
