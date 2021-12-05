@@ -104,7 +104,15 @@ program.action(async (commitid: string[], opt: GitmBuildOption) => {
             noMerges: !opt.merges,
             keys
         })
-        logList.reverse()
+        // 没有查询到日志
+        if (logList.length === 0) {
+            echo(
+                yellow(
+                    '没有找到符合条件的commit，请适当放宽筛选条件，默认："--lastet=7d --limit=20"。进程已退出'
+                )
+            )
+            process.exit(0)
+        }
     }
     // 多条记录，提示选择要恢复的记录
     if (logList.length > 1) {
@@ -142,7 +150,7 @@ program.action(async (commitid: string[], opt: GitmBuildOption) => {
         cmd: `git revert -s --no-edit ${log['%H']}${mode}`,
         config: {
             again: true,
-            success: '撤销成功',
+            success: `撤销成功：${log['%s']}`,
             fail: '出错了，请根据提示处理'
         }
     }))
