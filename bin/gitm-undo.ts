@@ -27,6 +27,8 @@ import {
 interface GitmBuildOption {
     mode?: 1 | 2
     merges?: boolean
+    lastet?: string
+    limit?: number
 }
 
 /**
@@ -60,7 +62,9 @@ function getRevertCommitIDs(commitIDs: string[]): string[] {
  */
 program
     .name('gitm undo')
-    .usage('[commitid...] [-m --mode [mode]] [--no-merges]')
+    .usage(
+        '[commitid...] [--lastet [lastet]] [--limit [limit]] [-m --mode [mode]] [--no-merges]'
+    )
     .description('撤销一次提交记录')
 if (args.length > 0) program.arguments(createArgs(args))
 options.forEach((o: GitmarsOptionOptionsType) => {
@@ -69,6 +73,8 @@ options.forEach((o: GitmarsOptionOptionsType) => {
 // .arguments('[commitid...]')
 // .option('--no-merges', '是否排除merge的日志')
 // .option('-m, --mode [mode]', '针对撤销一次merge记录，需要传入类型：1 = 保留当前分支代码，2 = 保留传入代码', 1)
+// .option('--lastet [lastet]', '查询在某个时间之后的日志，填写格式：10s/2m/2h/3d/4M/5y', '7d')
+// .option('--limit [limit]', '最多查询的日志条数', 20)
 program.action(async (commitid: string[], opt: GitmBuildOption) => {
     const formatter = new GitLogsFormatter()
     const keys = ['%H', '%T', '%P', '%aI', '%an', '%s', '%b'] as const
@@ -93,7 +99,8 @@ program.action(async (commitid: string[], opt: GitmBuildOption) => {
     } else {
         // 没有传入commitIDs，展示日志列表给用户选择
         logList = getGitLogs({
-            limit: 2,
+            lastet: opt.lastet,
+            limit: opt.limit,
             noMerges: !opt.merges,
             keys
         })

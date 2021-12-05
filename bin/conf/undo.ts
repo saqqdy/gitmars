@@ -17,6 +17,19 @@ import type { GitmarsOptionType } from '../../typings'
         ],
         options: [
             {
+                flags: '--lastet [lastet]',
+                required: false,
+                optional: true,
+                variadic: false,
+                mandatory: false,
+                short: '',
+                long: '--lastet',
+                negate: false,
+                description:
+                    '查询在某个时间之后的日志，填写格式：10s/2m/2h/3d/4M/5y',
+                defaultValue: '7d'
+            },
+            {
                 flags: '--no-merges',
                 required: false,
                 optional: false,
@@ -40,6 +53,18 @@ import type { GitmarsOptionType } from '../../typings'
                 description:
                     '针对撤销一次merge记录，需要传入类型：1 = 保留当前分支代码，2 = 保留传入代码',
                 defaultValue: 1
+            },
+            {
+                flags: '--limit [limit]',
+                required: false,
+                optional: true,
+                variadic: false,
+                mandatory: false,
+                short: '',
+                long: '--limit',
+                negate: false,
+                description: '最多查询的日志条数',
+                defaultValue: 20
             }
         ],
         // 校验传值

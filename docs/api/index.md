@@ -615,13 +615,13 @@ gitm rt xxxxxx -m 1
 ### gitm undo
 
 > v2.3.0 新增<br>
-> v2.15.0 新增`--no-merges`传参，移除`--branch`传参
+> v2.15.0 新增`--no-merges``--limit``--lastet`传参，移除`--branch`传参
 
 #### 短指令：gitm ud
 
 撤销当前分支的某条提交记录，或者撤销某条分支的多条合并记录，如果需要撤销一条 merge 记录，需要传入撤销方式，1 = 保留当前分支代码；2 = 保留传入代码
 
--   使用：`gitm undo [commitid...] [-m --mode [mode]]` 或者 `gitm undo [-m --mode [mode]]`
+-   使用：`gitm undo [commitid...] [-m --mode [mode]]` 或者 `gitm undo [--lastet [lastet]] [--limit [limit]] [-m --mode [mode]] [--no-merges]`
 -   参数：
 
 <div class="table-prop">
@@ -640,6 +640,8 @@ gitm rt xxxxxx -m 1
 | ---------- | ---- | --------------------------------------------------------------------- | ------- | ------ | -------- | ----- |
 | --mode     | -m   | 撤回 merge 记录时需要保留哪一方的代码，1=保留当前分支，2=保留传入分支 | Number  | -      | 否       | -     |
 | --no-merge | -    | 排除merge记录                                                         | Boolean | -      | 否       | false |
+| --lastet   | -    | 查询在某个时间之后的日志，填写格式：10s/2m/2h/3d/4M/5y                | String  | -      | 否       | '7d'  |
+| --limit    | -    | 最多查询的日志条数                                                    | Nmuber  | -      | 否       | 20    |
 
 </div>
 
@@ -654,7 +656,15 @@ gitm undo -m 1
 gitm ud -m 1
 ```
 
-2. 传入单个或者多个 commitID
+2. 不传commitid，筛选需要展示的日志（默认显示20条）
+
+```shell
+gitm undo --lastet 7d --limit 100 --mode 1
+# or
+gitm ud --lastet 7d --limit 100 --mode 1
+```
+
+3. 传入单个或者多个 commitID
 
 ```shell
 # 形式：gitm undo [commitid...] [-m --mode [mode]]
