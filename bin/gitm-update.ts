@@ -1,6 +1,7 @@
 #!/usr/bin/env ts-node
 const { program } = require('commander')
 const sh = require('shelljs')
+const { red } = require('colors')
 const { options, args } = require('./conf/update')
 const { queue } = require('./core/queue')
 const {
@@ -9,11 +10,10 @@ const {
     checkGitStatus,
     searchBranches
 } = require('./core/git/index')
-const { error } = require('./core/utils/index')
 const { isNeedUpgrade, upgradeGitmars } = require('./core/versionControl')
 const { createArgs } = require('./core/utils/index')
 if (!getIsGitProject()) {
-    sh.echo(error('当前目录不是git项目目录'))
+    sh.echo(red('当前目录不是git项目目录'))
     process.exit(1)
 }
 const getConfig = require('./core/getConfig')
@@ -74,19 +74,19 @@ program.action(
             if (!name) {
                 deny.includes(type) &&
                     sh.echo(
-                        error(`骚年，你在${type}分支执行这个指令是什么骚操作？`)
+                        red(`骚年，你在${type}分支执行这个指令是什么骚操作？`)
                     )
                 process.exit(1)
             }
             if (!allow.includes(type as string)) {
                 // type不合法
-                sh.echo(error('type只允许输入：' + JSON.stringify(allow)))
+                sh.echo(red('type只允许输入：' + JSON.stringify(allow)))
                 process.exit(1)
             }
             branchList = [].concat(current)
         } else if (!allow.includes(type as string)) {
             // 传了type和name，但是不合法
-            sh.echo(error('type只允许输入：' + JSON.stringify(allow)))
+            sh.echo(red('type只允许输入：' + JSON.stringify(allow)))
             process.exit(1)
         } else {
             // 传了正常的type和name

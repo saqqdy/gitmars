@@ -1,14 +1,14 @@
 #!/usr/bin/env ts-node
 const { program } = require('commander')
 const sh = require('shelljs')
+const { red } = require('colors')
 const { options, args } = require('./conf/save')
 const { queue } = require('./core/queue')
 const getIsGitProject = require('./core/git/getIsGitProject')
 const getCurrentBranch = require('./core/git/getCurrentBranch')
-const { error } = require('./core/utils/colors')
 const { createArgs } = require('./core/utils/command')
 if (!getIsGitProject()) {
-    sh.echo(error('当前目录不是git项目目录'))
+    sh.echo(red('当前目录不是git项目目录'))
     process.exit(1)
 }
 

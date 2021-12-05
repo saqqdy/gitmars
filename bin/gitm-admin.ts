@@ -1,6 +1,7 @@
 #!/usr/bin/env ts-node
 const { Command } = require('commander')
 const sh = require('shelljs')
+const { green, red } = require('colors')
 const { create, publish, update, clean } = require('./conf/admin')
 const { getUserToken } = require('./core/api/index')
 const getType = require('js-cool/lib/getType')
@@ -12,9 +13,9 @@ const {
     getGitConfig,
     checkGitStatus
 } = require('./core/git/index')
-const { error, success, createArgs } = require('./core/utils/index')
+const { createArgs } = require('./core/utils/index')
 if (!getIsGitProject()) {
-    sh.echo(error('当前目录不是git项目目录'))
+    sh.echo(red('当前目录不是git项目目录'))
     process.exit(1)
 }
 const getConfig = require('./core/getConfig')
@@ -75,11 +76,11 @@ if (create.args.length > 0) {
         const exits = getIsBranchOrCommitExist(config[type])
         if (!status) process.exit(1)
         if (!hasBase) {
-            sh.echo(error(base + '分支不存在，请先创建' + base + '分支'))
+            sh.echo(red(base + '分支不存在，请先创建' + base + '分支'))
             process.exit(1)
         }
         if (exits) {
-            sh.echo(error(config[type] + '分支已存在，不需要重复创建'))
+            sh.echo(red(config[type] + '分支已存在，不需要重复创建'))
             process.exit(1)
         }
         if (opts.includes(type)) {
@@ -97,14 +98,14 @@ if (create.args.length > 0) {
                             config[type]
                         }分支创建成功，该分支基于${base}创建，您当前已经切换到${
                             config[type]
-                        }\n需要发版时，记得执行: ${success(
+                        }\n需要发版时，记得执行: ${green(
                             'gitm admin publish ' + config[type]
                         )}`
                     )
                 }
             })
         } else {
-            sh.echo(error('type只允许输入：' + opts.join(',')))
+            sh.echo(red('type只允许输入：' + opts.join(',')))
             process.exit(1)
         }
     })
@@ -256,7 +257,7 @@ if (publish.args.length > 0) {
                     }
                 } else {
                     if (!isDescriptionCorrect) {
-                        sh.echo(error('提交的原因描述不符合规范'))
+                        sh.echo(red('提交的原因描述不符合规范'))
                         process.exit(1)
                     }
                     cmd = {
@@ -365,7 +366,7 @@ if (publish.args.length > 0) {
                         ])
                     } else {
                         if (!isDescriptionCorrect) {
-                            sh.echo(error('提交的原因描述不符合规范'))
+                            sh.echo(red('提交的原因描述不符合规范'))
                             process.exit(1)
                         }
                         cmd[type] = cmd[type].concat([
@@ -476,7 +477,7 @@ if (publish.args.length > 0) {
                             ])
                         } else {
                             if (!isDescriptionCorrect) {
-                                sh.echo(error('提交的原因描述不符合规范'))
+                                sh.echo(red('提交的原因描述不符合规范'))
                                 process.exit(1)
                             }
                             cmd[type] = cmd[type].concat([
@@ -509,7 +510,7 @@ if (publish.args.length > 0) {
                 }
                 queue(cmd[type])
             } else {
-                sh.echo(error('type只允许输入：' + opts.join(',')))
+                sh.echo(red('type只允许输入：' + opts.join(',')))
                 process.exit(1)
             }
         }
@@ -592,7 +593,7 @@ if (update.args.length > 0) {
                     ]
                 } else {
                     if (!isDescriptionCorrect) {
-                        sh.echo(error('提交的原因描述不符合规范'))
+                        sh.echo(red('提交的原因描述不符合规范'))
                         process.exit(1)
                     }
                     cmd = [
@@ -647,7 +648,7 @@ if (update.args.length > 0) {
                 }
                 queue(cmd)
             } else {
-                sh.echo(error('type只允许输入：' + opts.join(',')))
+                sh.echo(red('type只允许输入：' + opts.join(',')))
                 process.exit(1)
             }
         }
@@ -690,7 +691,7 @@ if (clean.args.length > 0) {
                 ]
             queue(cmd)
         } else {
-            sh.echo(error('type只允许输入：' + opts.join(',')))
+            sh.echo(red('type只允许输入：' + opts.join(',')))
             process.exit(1)
         }
     })

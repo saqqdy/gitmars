@@ -1,12 +1,13 @@
 #!/usr/bin/env ts-node
 const { program } = require('commander')
 const sh = require('shelljs')
+const { green, red } = require('colors')
 const inquirer = require('inquirer')
 const { options, args } = require('./conf/go')
 const getProperty = require('js-cool/lib/getProperty')
 const commands = require('./core/go/index')
 const { getCurrentBranch } = require('./core/git/index')
-const { error, success, createArgs } = require('./core/utils/index')
+const { createArgs } = require('./core/utils/index')
 
 import { GitmarsOptionOptionsType } from '../typings'
 
@@ -20,12 +21,12 @@ options.forEach((o: GitmarsOptionOptionsType) => {
 })
 program.action(async (command: string): Promise<void> => {
     const current = getCurrentBranch()
-    sh.echo(success(`当前分支${current}，系统猜测你可能想做以下操作：`))
+    sh.echo(green(`当前分支${current}，系统猜测你可能想做以下操作：`))
     if (command) {
         // 执行对应指令
         const cmd = getProperty(commands, command)
         if (!cmd) {
-            sh.echo(error('您输入的指令没有找到，可能暂不支持'))
+            sh.echo(red('您输入的指令没有找到，可能暂不支持'))
             process.exit(1)
         }
         cmd()
@@ -69,10 +70,10 @@ program.action(async (command: string): Promise<void> => {
             })
             .then((answers: any) => {
                 if (answers.command === 'exit') {
-                    sh.echo(success('已退出'))
+                    sh.echo(green('已退出'))
                     process.exit(0)
                 }
-                sh.echo(success(`你选择了${answers.command}指令`))
+                sh.echo(green(`你选择了${answers.command}指令`))
                 // 执行对应指令
                 getProperty(commands, answers.command)()
             })

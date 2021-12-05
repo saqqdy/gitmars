@@ -1,6 +1,6 @@
 const sh = require('shelljs')
 const request = require('../request')
-const { error, success } = require('./colors')
+const { green, red } = require('colors')
 const mapTemplate = require('./mapTemplate')
 const getGitConfig = require('../git/getGitConfig')
 const getGitRevParse = require('../git/getGitRevParse')
@@ -49,7 +49,7 @@ function getMessage(type: string): string {
 async function postMessage(msg = ''): Promise<void> {
     const config = getConfig()
     if (!config.msgTemplate) {
-        sh.echo(error('请配置消息发送api模板地址'))
+        sh.echo(red('请配置消息发送api模板地址'))
         return
     }
     const message = mapTemplate(config.msgTemplate, (key: string) => {
@@ -68,7 +68,7 @@ async function postMessage(msg = ''): Promise<void> {
 async function sendMessage(message = ''): Promise<void> {
     const config = getConfig()
     if (!config.msgUrl) {
-        sh.echo(error('请配置消息推送地址'))
+        sh.echo(red('请配置消息推送地址'))
         return
     }
     message = message.replace(/\s/g, '')
@@ -87,7 +87,7 @@ async function sendMessage(message = ''): Promise<void> {
                 }
             })
             .then(() => {
-                sh.echo(success('发送消息成功'))
+                sh.echo(green('发送消息成功'))
             })
     }
 }

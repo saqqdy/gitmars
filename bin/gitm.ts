@@ -2,8 +2,8 @@
 const { program } = require('commander')
 const { version } = require('../package.json')
 const sh = require('shelljs')
+const { green } = require('colors')
 const { spawnSync } = require('./core/spawn')
-const { success } = require('./core/utils/colors')
 const echo = require('./core/utils/echo')
 
 if (!sh.which('git')) {
@@ -136,7 +136,7 @@ program.on('command:*', function (types: string[], opts: string[]) {
     if (!cmd.includes(types[0])) {
         const arr = types.concat(opts)
         echo(
-            success(
+            green(
                 `Gitmars没有提供“gitm ${types[0]}”这个指令，已透传到git执行，下面是执行结果：`
             )
         )

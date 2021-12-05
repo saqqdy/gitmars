@@ -3,7 +3,7 @@ const extend = require('js-cool/lib/extend')
 const { setCommandCache } = require('./cache/commandCache')
 const getCommandMessage = require('./git/getCommandMessage')
 const { setLog } = require('./cache/log')
-const { error, success, warning } = require('./utils/colors')
+const { green, yellow, red } = require('colors')
 const { postMessage } = require('./utils/message')
 const { spawnSync } = require('./spawn')
 
@@ -58,7 +58,7 @@ function queue(list: Array<CommandType | string>): Promise<QueueReturnsType[]> {
     ) {
         const _message = cfg.success || msg.success || '处理完成'
         if (_message) {
-            spinner.succeed(success(_message))
+            spinner.succeed(green(_message))
             cfg.postmsg && postMessage(_message)
         }
         cb && cb() // 回调，继续执行下一条
@@ -88,10 +88,10 @@ function queue(list: Array<CommandType | string>): Promise<QueueReturnsType[]> {
                 (typeof cfg.stdio === 'string' &&
                     ['ignore'].includes(cfg.stdio))
             ) {
-                spinner.fail(error(err))
+                spinner.fail(red(err))
             }
             spinner.fail(
-                error(
+                red(
                     cfg.fail ||
                         msg.fail ||
                         '出错了！指令 ' + cmd + ' 执行失败，中断了进程'
@@ -100,11 +100,11 @@ function queue(list: Array<CommandType | string>): Promise<QueueReturnsType[]> {
             cfg.postmsg &&
                 postMessage('出错了！指令 ' + cmd + ' 执行失败，中断了进程')
             rest.length > 0 &&
-                spinner.fail(error('请处理相关问题之后输入gitm continue继续'))
+                spinner.fail(red('请处理相关问题之后输入gitm continue继续'))
             process.exit(1)
         } else {
             const _message = cfg.fail || msg.fail || '指令 ' + cmd + ' 执行失败'
-            _message && spinner.warn(warning(_message))
+            _message && spinner.warn(yellow(_message))
             cb && cb() // 回调，继续执行下一条
         }
     }
@@ -141,7 +141,7 @@ function queue(list: Array<CommandType | string>): Promise<QueueReturnsType[]> {
                         _execFunction = require(cmd.module)
                     if (cmd.entry) _execFunction = _execFunction[cmd.entry]
                     try {
-                        spinner.start(success(cfg.processing || '正在处理'))
+                        spinner.start(green(cfg.processing || '正在处理'))
                         stdout = await _execFunction(cmd.options)
                         onSuccess({} as CommandMessageType, cfg, cb)
                     } catch (err: any) {
@@ -169,7 +169,7 @@ function queue(list: Array<CommandType | string>): Promise<QueueReturnsType[]> {
                     // cmd是字符串
                     const msg = getCommandMessage(cmd)
                     spinner.start(
-                        success(cfg.processing || msg.processing || '正在处理')
+                        green(cfg.processing || msg.processing || '正在处理')
                     )
                     const program = spawnSync(client, argv, cfg)
                     const { status, stderr } = program

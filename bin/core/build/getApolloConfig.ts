@@ -1,7 +1,7 @@
 const path = require('path')
 const apollo = require('node-apollo')
 const sh = require('shelljs')
-const { error } = require('../utils/colors')
+const { red } = require('colors')
 const { writeFile, isFileExist } = require('../utils/file')
 const { isCacheExpired, updateCacheTime } = require('../cache/cache')
 const getConfig = require('../getConfig')
@@ -17,7 +17,7 @@ async function getApolloConfig(): Promise<ApolloConfigType | void> {
     const cacheDir = path.join(__dirname, '../../../cache')
     const config = getConfig() as GitmarsConfigType
     if (!config.apolloConfig) {
-        sh.echo(error('请配置apollo'))
+        sh.echo(red('请配置apollo'))
         process.exit(0)
         return
     }

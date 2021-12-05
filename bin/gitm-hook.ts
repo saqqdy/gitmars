@@ -1,6 +1,7 @@
 #!/usr/bin/env ts-node
 const { program } = require('commander')
 const sh = require('shelljs')
+const { green, red } = require('colors')
 const { options, args } = require('./conf/hook')
 const { getBranchesFromID } = require('./core/git/index')
 const {
@@ -11,10 +12,10 @@ const {
     getIsMergeAction,
     getBehindLogs
 } = require('./core/git/index')
-const { error, success, createArgs } = require('./core/utils/index')
+const { createArgs } = require('./core/utils/index')
 const { init, remove } = require('./core/hook/index')
 if (!getIsGitProject()) {
-    sh.echo(error('当前目录不是git项目目录'))
+    sh.echo(red('当前目录不是git项目目录'))
     process.exit(1)
 }
 const getConfig = require('./core/getConfig')
@@ -346,13 +347,11 @@ program.action(
                     )
                     if (!isMergedBranch) {
                         console.info(
-                            error('检测到你的分支没有合并过' + config.develop)
+                            red('检测到你的分支没有合并过' + config.develop)
                         )
                         process.exit(0)
                     } else {
-                        console.info(
-                            success(branch + '合并过' + config.develop)
-                        )
+                        console.info(green(branch + '合并过' + config.develop))
                     }
                 }
             }
@@ -370,7 +369,7 @@ program.action(
                     })
                     if (!isUpdatedInTime) {
                         console.info(
-                            error(
+                            red(
                                 '检测到你1周内没有同步过主干' +
                                     branchPrefix +
                                     '分支代码'
@@ -378,9 +377,7 @@ program.action(
                         )
                         process.exit(0)
                     } else {
-                        console.info(
-                            success(branch + '一周内同步过主干分支代码')
-                        )
+                        console.info(green(branch + '一周内同步过主干分支代码'))
                     }
                 }
             }
@@ -388,10 +385,10 @@ program.action(
                 // 在主干分支执行push推送时，检测最后一次提交是否为merge记录，如果不是，提示不允许直接在主干分支做修改
                 const isMergeAction = getIsMergeAction()
                 if (!isMergeAction) {
-                    console.info(error('检测到你直接在主干分支修改代码'))
+                    console.info(red('检测到你直接在主干分支修改代码'))
                     process.exit(0)
                 } else {
-                    console.info(success('最后一条记录是merge记录'))
+                    console.info(green('最后一条记录是merge记录'))
                 }
                 // const behindLogs = getBehindLogs()
                 // const aheadLogs = getAheadLogs()
@@ -399,7 +396,7 @@ program.action(
                 // aheadLog: for (let logStr of aheadLogs) {
                 // 	let logs = logStr.split(' ')
                 // 	if (logs.length < 2) {
-                // 		console.info(warning('检测到你直接在主干分支修改代码'))
+                // 		console.info(yellow('检测到你直接在主干分支修改代码'))
                 // 		isMerge = false
                 // 		break aheadLog
                 // 	}
@@ -409,7 +406,7 @@ program.action(
                 // if (isMerge) {
                 // 	process.exit(0)
                 // } else {
-                // 	sh.echo(error('不允许在主干分支直接更改代码提交，请联系管理员'))
+                // 	sh.echo(red('不允许在主干分支直接更改代码提交，请联系管理员'))
                 // 	process.exit(1)
                 // }
             }
@@ -420,7 +417,7 @@ program.action(
                     console.info('你本地分支版本落后于远程分支，请先执行pull')
                     process.exit(0)
                 } else {
-                    console.info(success('本地版本没有落后远程，可直接push'))
+                    console.info(green('本地版本没有落后远程，可直接push'))
                 }
             }
         }

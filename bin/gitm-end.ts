@@ -1,6 +1,7 @@
 #!/usr/bin/env ts-node
 const { program } = require('commander')
 const sh = require('shelljs')
+const { red } = require('colors')
 const { options, args } = require('./conf/end')
 const getType = require('js-cool/lib/getType')
 const { queue } = require('./core/queue')
@@ -13,10 +14,10 @@ const {
     checkGitStatus,
     searchBranches
 } = require('./core/git/index')
-const { error, createArgs } = require('./core/utils/index')
+const { createArgs } = require('./core/utils/index')
 const { isNeedUpgrade, upgradeGitmars } = require('./core/versionControl')
 if (!getIsGitProject()) {
-    sh.echo(error('当前目录不是git项目目录'))
+    sh.echo(red('当前目录不是git项目目录'))
     process.exit(1)
 }
 const getConfig = require('./core/getConfig')
@@ -96,7 +97,7 @@ program.action(
             if (!name) {
                 deny.includes(type) &&
                     sh.echo(
-                        error(`骚年，你在${type}分支执行这个指令是什么骚操作？`)
+                        red(`骚年，你在${type}分支执行这个指令是什么骚操作？`)
                     )
                 process.exit(1)
             }
@@ -114,7 +115,7 @@ program.action(
                 sh.echo(
                     branches.length > 1
                         ? `查询到多条名称包含${type}的分支，请输入分支类型`
-                        : error('分支不存在，请正确输入')
+                        : red('分支不存在，请正确输入')
                 )
                 process.exit(1)
             }
@@ -200,7 +201,7 @@ program.action(
                     ])
                 } else {
                     if (!isDescriptionCorrect) {
-                        sh.echo(error('提交的原因描述不符合规范'))
+                        sh.echo(red('提交的原因描述不符合规范'))
                         process.exit(1)
                     }
                     cmd = cmd.concat([
@@ -293,7 +294,7 @@ program.action(
                     }
                 } else {
                     if (!isDescriptionCorrect) {
-                        sh.echo(error('提交的原因描述不符合规范'))
+                        sh.echo(red('提交的原因描述不符合规范'))
                         process.exit(1)
                     }
                     cmd = cmd.concat([
@@ -328,7 +329,7 @@ program.action(
             }
             queue(cmd)
         } else {
-            sh.echo(error('type只允许输入：' + JSON.stringify(allow)))
+            sh.echo(red('type只允许输入：' + JSON.stringify(allow)))
             process.exit(1)
         }
     }

@@ -1,6 +1,6 @@
 const sh = require('shelljs')
 const { spawnSync } = require('../spawn')
-const { warning } = require('../utils/colors')
+const { yellow } = require('colors')
 
 /**
  * 获取暂存区列表
@@ -23,7 +23,7 @@ function getStashList(key: string) {
     }[] = []
     if (list.length > 10)
         sh.echo(
-            warning(`该项目下一共有${list.length}条暂存记录，建议定期清理！`)
+            yellow(`该项目下一共有${list.length}条暂存记录，建议定期清理！`)
         )
     try {
         list.forEach(item => {

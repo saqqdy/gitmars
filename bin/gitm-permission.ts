@@ -1,8 +1,8 @@
 #!/usr/bin/env ts-node
 const { program } = require('commander')
 const sh = require('shelljs')
+const { red } = require('colors')
 const { getCurrentBranch } = require('./core/git/index')
-const { error } = require('./core/utils/index')
 const getConfig = require('./core/getConfig')
 const { spawnSync } = require('./core/spawn')
 const config = getConfig()
@@ -39,7 +39,7 @@ program
             stdout.indexOf('Merge:') === -1 &&
             stdout.indexOf('Merge branch') === -1
         ) {
-            sh.echo(error(`${allow[index]}分支不允许直接提交`))
+            sh.echo(red(`${allow[index]}分支不允许直接提交`))
             process.exit(1)
         } else {
             process.exit(0)

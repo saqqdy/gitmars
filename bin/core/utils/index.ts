@@ -1,4 +1,3 @@
-const { warning, error, success } = require('./colors')
 const { writeFile, isFileExist } = require('./file')
 const { createArgs } = require('./command')
 const getSeconds = require('./getSeconds')
@@ -12,9 +11,6 @@ const { getMessage, postMessage, sendMessage } = require('./message')
 const echo = require('./echo')
 
 module.exports = {
-    warning,
-    error,
-    success,
     writeFile,
     isFileExist,
     createArgs,

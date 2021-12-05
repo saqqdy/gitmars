@@ -2,16 +2,12 @@
 const { program } = require('commander')
 const path = require('path')
 const sh = require('shelljs')
+const { green, yellow } = require('colors')
 const inquirer = require('inquirer')
 const ora = require('ora')
 const { options, args } = require('./conf/clean')
 const { getIsGitProject, getGitRevParse } = require('./core/git/index')
-const {
-    success,
-    warning,
-    isFileExist,
-    createArgs
-} = require('./core/utils/index')
+const { isFileExist, createArgs } = require('./core/utils/index')
 const cacheDir = path.join(__dirname, '../cache')
 const { gitDir } = getGitRevParse()
 
@@ -36,17 +32,17 @@ interface GitmarsCacheFileDescriptionType {
 function removeFile(files: GitmarsCacheFileDescriptionType[]) {
     const spinner = ora()
     for (const file of files) {
-        file.name && spinner.start(success(`正在处理${file.name}`))
+        file.name && spinner.start(green(`正在处理${file.name}`))
         const fileExist = isFileExist(file.url)
         if (fileExist) {
             sh.rm(file.url)
-            file.name && spinner.succeed(success(`${file.name}已删除`))
+            file.name && spinner.succeed(green(`${file.name}已删除`))
         } else {
-            file.name && spinner.warn(success(`${file.name}未找到`))
+            file.name && spinner.warn(green(`${file.name}未找到`))
         }
     }
     spinner.stop()
-    sh.echo(success('清理完毕'))
+    sh.echo(green('清理完毕'))
 }
 
 /**
@@ -71,7 +67,7 @@ program.action(async (opt: GitmBuildOption) => {
                 })
                 .then((answers: any) => {
                     if (!answers.value) {
-                        sh.echo(success('已退出'))
+                        sh.echo(green('已退出'))
                         process.exit(0)
                     }
                 })
@@ -87,7 +83,7 @@ program.action(async (opt: GitmBuildOption) => {
             ])
         }
     } else {
-        sh.echo(warning('当前目录不是git项目目录'))
+        sh.echo(yellow('当前目录不是git项目目录'))
     }
     removeFile([
         {

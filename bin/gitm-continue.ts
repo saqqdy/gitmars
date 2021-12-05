@@ -1,14 +1,15 @@
 #!/usr/bin/env ts-node
 const { program } = require('commander')
 const sh = require('shelljs')
+const { green, yellow, red } = require('colors')
 const inquirer = require('inquirer')
 const { options, args } = require('./conf/continue')
 const { queue } = require('./core/queue')
 const { getCommandCache, cleanCommandCache } = require('./core/cache/index')
 const { getIsGitProject, getGitStatus } = require('./core/git/index')
-const { error, success, warning, createArgs } = require('./core/utils/index')
+const { createArgs } = require('./core/utils/index')
 if (!getIsGitProject()) {
-    sh.echo(error('当前目录不是git项目目录'))
+    sh.echo(red('当前目录不是git项目目录'))
     process.exit(1)
 }
 
@@ -50,18 +51,18 @@ program.action(async (opt: GitmBuildOption) => {
                 })
                 .then((answers: any) => {
                     if (!answers.value) {
-                        sh.echo(success('已退出'))
+                        sh.echo(green('已退出'))
                         process.exit(0)
                     }
                 })
         } else if (sum['??'].length > 0) {
-            sh.echo(warning('检测到有未加入版本的文件，请留意！'))
+            sh.echo(yellow('检测到有未加入版本的文件，请留意！'))
         }
         queue(cmd).then(() => {
             cleanCommandCache()
         })
     } else {
-        sh.echo(error('队列里面没有未执行的指令'))
+        sh.echo(red('队列里面没有未执行的指令'))
     }
 })
 program.parse(process.argv)

@@ -1,6 +1,7 @@
 #!/usr/bin/env ts-node
 const { program } = require('commander')
 const sh = require('shelljs')
+const { green, red } = require('colors')
 const { options, args } = require('./conf/branch')
 const { queue } = require('./core/queue')
 const {
@@ -8,9 +9,9 @@ const {
     getIsGitProject,
     getIsBranchOrCommitExist
 } = require('./core/git/index')
-const { success, error, createArgs } = require('./core/utils/index')
+const { createArgs } = require('./core/utils/index')
 if (!getIsGitProject()) {
-    sh.echo(error('当前目录不是git项目目录'))
+    sh.echo(red('当前目录不是git项目目录'))
     process.exit(1)
 }
 
@@ -82,7 +83,7 @@ program.action((opt: GitmBuildOption): void => {
             exclude: opt.exclude,
             include: opt.include
         })
-        sh.echo(success(branches.join('\n')))
+        sh.echo(green(branches.join('\n')))
         return
     }
     queue(cmd)

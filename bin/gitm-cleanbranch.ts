@@ -1,6 +1,7 @@
 #!/usr/bin/env ts-node
 const { program } = require('commander')
 const sh = require('shelljs')
+const { green, red } = require('colors')
 const inquirer = require('inquirer')
 const ora = require('ora')
 const { options, args } = require('./conf/cleanbranch')
@@ -11,10 +12,10 @@ const {
     getIsMergedTargetBranch,
     getIsBranchOrCommitExist
 } = require('./core/git/index')
-const { error, success, createArgs, delay } = require('./core/utils/index')
+const { createArgs, delay } = require('./core/utils/index')
 const { spawnSync } = require('./core/spawn')
 if (!getIsGitProject()) {
-    sh.echo(error('当前目录不是git项目目录'))
+    sh.echo(red('当前目录不是git项目目录'))
     process.exit(1)
 }
 const getConfig = require('./core/getConfig')
@@ -108,13 +109,13 @@ program.action(async (branches: string[], opt: GitmBuildOption) => {
                 })
                 .then((answers: any) => {
                     if (!answers.value) {
-                        sh.echo(success('已退出'))
+                        sh.echo(green('已退出'))
                         process.exit(0)
                     }
                 })
         }
     } else {
-        sh.echo(success('没有查询到任何分支'))
+        sh.echo(green('没有查询到任何分支'))
         process.exit(0)
     }
     for (const branch of branches) {
@@ -130,16 +131,16 @@ program.action(async (branches: string[], opt: GitmBuildOption) => {
         ) {
             continue
         }
-        spinner.start(success(`开始分析：${branch}`))
+        spinner.start(green(`开始分析：${branch}`))
         const isMerged = getIsMergedTarget(branch, targets, opt.remote)
         if (!isMerged) {
-            spinner.fail(error(`不可删除：${branch}`))
+            spinner.fail(red(`不可删除：${branch}`))
             continue
         }
 
         _willDeleteBranch.push(branch)
         await delay(200)
-        spinner.succeed(success(`分析完成：${branch}`))
+        spinner.succeed(green(`分析完成：${branch}`))
         if (opt.list) {
             continue
         }
@@ -149,9 +150,9 @@ program.action(async (branches: string[], opt: GitmBuildOption) => {
         const removeRemote =
             opt.remote && getIsBranchOrCommitExist(branch, true)
         if (removeLocal || removeRemote) {
-            spinner.start(success(`正在删除：${branch}`))
+            spinner.start(green(`正在删除：${branch}`))
             await delay(200)
-            spinner.succeed(success(`删除成功：${branch}`))
+            spinner.succeed(green(`删除成功：${branch}`))
         }
         // 仅清理合过dev和release的分支
         if (removeLocal) {
@@ -170,21 +171,19 @@ program.action(async (branches: string[], opt: GitmBuildOption) => {
     if (opt.list) {
         if (_willDeleteBranch.length > 0) {
             sh.echo(
-                success(
+                green(
                     `分析完成，以下分支合并过${targets.join(
                         ','
                     )}分支，可以清理：`
                 )
             )
-            console.info('\n' + success(_willDeleteBranch.join(' ') + '\n'))
+            console.info('\n' + green(_willDeleteBranch.join(' ') + '\n'))
         } else {
-            sh.echo(success('分析完成，没有分支需要清理'))
+            sh.echo(green('分析完成，没有分支需要清理'))
         }
     } else {
         sh.echo(
-            success(
-                '删除完成，这些分支已被清理：' + _willDeleteBranch.join(' ')
-            )
+            green('删除完成，这些分支已被清理：' + _willDeleteBranch.join(' '))
         )
     }
 })

@@ -1,13 +1,13 @@
 #!/usr/bin/env ts-node
 const { program } = require('commander')
 const fs = require('fs')
+const { green, red } = require('colors')
 const sh = require('shelljs')
 const inquirer = require('inquirer')
 const { getIsGitProject, getGitRevParse } = require('./core/git/index')
-const { error, success } = require('./core/utils/index')
 const { defaults } = require('./core/global')
 if (!getIsGitProject()) {
-    sh.echo(error('当前目录不是git项目目录'))
+    sh.echo(red('当前目录不是git项目目录'))
     process.exit(1)
 }
 const { root } = getGitRevParse()
@@ -194,7 +194,7 @@ program
             } catch (e) {
                 answers.hooks = ''
             }
-            sh.echo(success('gitmars配置成功'))
+            sh.echo(green('gitmars配置成功'))
             fs.writeFileSync(
                 root + '/.gitmarsrc',
                 JSON.stringify(answers, null, 4),

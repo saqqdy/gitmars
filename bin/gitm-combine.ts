@@ -1,6 +1,7 @@
 #!/usr/bin/env ts-node
 const { program } = require('commander')
 const sh = require('shelljs')
+const { yellow, red } = require('colors')
 const { options, args } = require('./conf/combine')
 const getType = require('js-cool/lib/getType')
 const { queue } = require('./core/queue')
@@ -13,7 +14,7 @@ const {
     checkGitStatus,
     searchBranches
 } = require('./core/git/index')
-const { error, warning, createArgs } = require('./core/utils/index')
+const { createArgs } = require('./core/utils/index')
 const { isNeedUpgrade, upgradeGitmars } = require('./core/versionControl')
 const { defaults } = require('./core/global')
 const remoteRequestModule = require.resolve(
@@ -38,7 +39,7 @@ interface GitmBuildOption {
 }
 
 if (!getIsGitProject()) {
-    sh.echo(error('当前目录不是git项目目录'))
+    sh.echo(red('当前目录不是git项目目录'))
     process.exit(1)
 }
 const { getUserToken } = require('./core/api/index')
@@ -94,7 +95,7 @@ program.action(
         }
         if (!status) process.exit(1)
         if (opt.commit === true) {
-            sh.echo(error('请输入要提交的message'))
+            sh.echo(red('请输入要提交的message'))
             process.exit(1)
         }
         // 有配置descriptionValidator时需要校验描述信息
@@ -113,7 +114,7 @@ program.action(
             if (!name) {
                 deny.includes(type) &&
                     sh.echo(
-                        error(`骚年，你在${type}分支执行这个指令是什么骚操作？`)
+                        red(`骚年，你在${type}分支执行这个指令是什么骚操作？`)
                     )
                 process.exit(1)
             }
@@ -131,7 +132,7 @@ program.action(
                 sh.echo(
                     branches.length > 1
                         ? `查询到多条名称包含${type}的分支，请输入分支类型`
-                        : error('分支不存在，请正确输入')
+                        : red('分支不存在，请正确输入')
                 )
                 process.exit(1)
             }
@@ -145,7 +146,7 @@ program.action(
                 !getIsUpdatedInTime({ lastet: '7d', limit: 100, branch: base })
             ) {
                 sh.echo(
-                    warning(
+                    yellow(
                         '检测到该分支已经超过1周没有同步过主干代码了，请每周至少同步一次，执行：gitm update'
                     )
                 )
@@ -206,7 +207,7 @@ program.action(
                     )
                 ) {
                     sh.echo(
-                        warning(
+                        yellow(
                             `检测到你的分支没有合并过${config.develop}，请先合并到${config.develop}分支`
                         )
                     )
@@ -240,7 +241,7 @@ program.action(
                             ])
                         } else {
                             if (!isDescriptionCorrect) {
-                                sh.echo(error('提交的原因描述不符合规范'))
+                                sh.echo(red('提交的原因描述不符合规范'))
                                 process.exit(1)
                             }
                             cmd = cmd.concat([
@@ -300,7 +301,7 @@ program.action(
                             ])
                         } else {
                             if (!isDescriptionCorrect) {
-                                sh.echo(error('提交的原因描述不符合规范'))
+                                sh.echo(red('提交的原因描述不符合规范'))
                                 process.exit(1)
                             }
                             cmd = cmd.concat([
@@ -360,7 +361,7 @@ program.action(
                             ])
                         } else {
                             if (!isDescriptionCorrect) {
-                                sh.echo(error('提交的原因描述不符合规范'))
+                                sh.echo(red('提交的原因描述不符合规范'))
                                 process.exit(1)
                             }
                             cmd = cmd.concat([
@@ -429,7 +430,7 @@ program.action(
             }
             queue(cmd)
         } else {
-            sh.echo(error('type只允许输入：' + JSON.stringify(allow)))
+            sh.echo(red('type只允许输入：' + JSON.stringify(allow)))
             process.exit(1)
         }
     }

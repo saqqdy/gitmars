@@ -1,8 +1,8 @@
 const fs = require('fs')
 const path = require('path')
 const sh = require('shelljs')
+const { yellow } = require('colors')
 const compareVersion = require('../utils/compareVersion')
-const { warning } = require('../utils/colors')
 const { hookList } = require('../global')
 const getGitVersion = require('../git/getGitVersion')
 const getGitRevParse = require('../git/getGitRevParse')
@@ -154,13 +154,13 @@ function init(): void {
         fs.mkdirSync(gitHookDir)
     }
     if (['1', 'true'].includes(process.env.GITMARS_SKIP_HOOKS || '')) {
-        sh.echo(warning('已存在环境变量GITMARS_SKIP_HOOKS，跳过安装'))
+        sh.echo(yellow('已存在环境变量GITMARS_SKIP_HOOKS，跳过安装'))
         process.exit(0)
     }
     // git版本过旧
     if (!gitVersionIsNew) {
         sh.echo(
-            warning(
+            yellow(
                 'Gitmars需要使用2.13.0以上版本的Git，当前版本：' + gitVersion
             )
         )

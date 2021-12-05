@@ -1,6 +1,7 @@
 #!/usr/bin/env ts-node
 const { program } = require('commander')
 const sh = require('shelljs')
+const { yellow, red } = require('colors')
 const { options, args } = require('./conf/copy')
 const { queue } = require('./core/queue')
 const {
@@ -8,9 +9,9 @@ const {
     getCurrentBranch,
     checkGitStatus
 } = require('./core/git/index')
-const { error, warning, createArgs } = require('./core/utils/index')
+const { createArgs } = require('./core/utils/index')
 if (!getIsGitProject()) {
-    sh.echo(error('当前目录不是git项目目录'))
+    sh.echo(red('当前目录不是git项目目录'))
     process.exit(1)
 }
 
@@ -67,7 +68,7 @@ program.action((commitid: string[], opts: GitmBuildOption) => {
     } else {
         if (opts.key.length < 3) {
             sh.echo(
-                warning(
+                yellow(
                     '为确保copy准确，关键词不能少于4个字，请尽量完整填写关键词'
                 )
             )
@@ -78,7 +79,7 @@ program.action((commitid: string[], opts: GitmBuildOption) => {
             `git log --grep=${opts.key} --author=${opts.author} --no-merges`
         ]
         // if (!/^\d{4,}$/.test(opts.key)) {
-        // 	sh.echo(error('为确保copy准确，关键词必须是4位以上的任务号或者bug修复编号'))
+        // 	sh.echo(red('为确保copy准确，关键词必须是4位以上的任务号或者bug修复编号'))
         // 	process.exit(1)
         // }
         queue(cmd).then((data: QueueReturnsType[]) => {
