@@ -165,7 +165,9 @@ function queue(list: Array<CommandType | string>): Promise<QueueReturnsType[]> {
                         cmd
                     })
                 } else {
-                    const [client, ...argv] = cmd.split(' ')
+                    const [client, ...argv] = cmd
+                        .replace(/\s+/g, ' ')
+                        .split(' ')
                     // cmd是字符串
                     const msg = getCommandMessage(cmd)
                     spinner.start(

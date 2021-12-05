@@ -139,13 +139,15 @@ program.action(async (commitid: string[], opt: GitmBuildOption) => {
     // 筛选被选择的记录
     logList = logList.filter(log => commitIDs.includes(log['%H']))
     cmd = logList.map(log => ({
-        cmd: `git revert ${log['%H']}${mode}`,
+        cmd: `git revert -s --no-edit ${log['%H']}${mode}`,
         config: {
             again: true,
             success: '撤销成功',
             fail: '出错了，请根据提示处理'
         }
     }))
+    // 判断是否有merge的记录
+    // const hasMergeLog = logList.some(log => log['%P'].indexOf(' ') > -1)
     queue(cmd).then(() => {
         addRevertCache(logList)
     })

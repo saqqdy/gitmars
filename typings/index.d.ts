@@ -85,7 +85,8 @@ export type GitLogKeysType =
     | '%ge' // reflog identity email
     | '%gE' // reflog identity email (respecting .mailmap, see git-shortlog[1] or git-blame[1])
     | '%gs' // reflog subject
-// '%(trailers:key=Reviewed-by)' // display the trailers of the body as interpreted by git-interpret-trailers[1]. The trailers string may be followed by a colon and zero or more comma-separated options. If any option is provided multiple times the last occurrence wins.
+    | '%(trailers:key=Signed-off-by)'
+    | '%(trailers:key=Reviewed-by)' // display the trailers of the body as interpreted by git-interpret-trailers[1]. The trailers string may be followed by a colon and zero or more comma-separated options. If any option is provided multiple times the last occurrence wins.
 
 export type GitLogsType = {
     [key in GitLogKeysType]?: string
