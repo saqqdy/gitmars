@@ -21,7 +21,7 @@ export interface IsUpdatedInTimeConfigType {
 function getIsUpdatedInTime({
     lastet,
     limit,
-    branch: branches
+    branch
 }: IsUpdatedInTimeConfigType): boolean {
     let isUpdated = false
     const current = getCurrentBranch()
@@ -30,17 +30,17 @@ function getIsUpdatedInTime({
     const mainLogs = getGitLogs({
         lastet,
         limit,
-        branches,
+        branch,
         params: '--no-merges'
     })
     const currentLogs = getGitLogs({
         lastet,
         limit,
-        branches: current,
+        branch: current,
         params: '--no-merges'
     })
     mainLogs.forEach((log: GitLogsType) => {
-        mainVers.push(log['%H'])
+        mainVers.push(log['%H']!)
     })
     currentLogs.forEach((log: GitLogsType) => {
         const arr = log['%P'] ? log['%P'].split(' ') : []

@@ -2,6 +2,7 @@ const getIsGitProject = require('./getIsGitProject')
 const searchBranches = require('./searchBranches')
 const getCurrentBranch = require('./getCurrentBranch')
 const getGitLogs = require('./getGitLogs')
+const getGitLogsByCommitIDs = require('./getGitLogsByCommitIDs')
 const getGitVersion = require('./getGitVersion')
 const getGitConfig = require('./getGitConfig')
 const getGitRevParse = require('./getGitRevParse')
@@ -24,6 +25,7 @@ module.exports = {
     searchBranches,
     getCurrentBranch,
     getGitLogs,
+    getGitLogsByCommitIDs,
     getGitVersion,
     getGitConfig,
     getGitRevParse,

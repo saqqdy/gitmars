@@ -1,7 +1,6 @@
 #!/usr/bin/env ts-node
 const { program } = require('commander')
-const sh = require('shelljs')
-const { green, red } = require('colors')
+const { green, yellow, red } = require('colors')
 const inquirer = require('inquirer')
 const ora = require('ora')
 const { options, args } = require('./conf/cleanbranch')
@@ -12,16 +11,20 @@ const {
     getIsMergedTargetBranch,
     getIsBranchOrCommitExist
 } = require('./core/git/index')
-const { createArgs, delay } = require('./core/utils/index')
+const { createArgs, delay, echo } = require('./core/utils/index')
 const { spawnSync } = require('./core/spawn')
 if (!getIsGitProject()) {
-    sh.echo(red('当前目录不是git项目目录'))
+    echo(red('当前目录不是git项目目录'))
     process.exit(1)
 }
 const getConfig = require('./core/getConfig')
 const config = getConfig()
 
-import { GitmarsOptionOptionsType, GitmarsBranchType } from '../typings'
+import {
+    GitmarsOptionOptionsType,
+    GitmarsBranchType,
+    InitInquirerPromptType
+} from '../typings'
 
 interface GitmBuildOption {
     list?: boolean
@@ -81,8 +84,31 @@ options.forEach((o: GitmarsOptionOptionsType) => {
 program.action(async (branches: string[], opt: GitmBuildOption) => {
     const spinner = ora()
     spinner.color = 'green'
-    // 管理员以上级别才可执行，必须先配置好权限项
     const current = getCurrentBranch()
+
+    // 执行清理
+    async function clean(branch: string) {
+        const removeLocal = getIsBranchOrCommitExist(branch)
+        const removeRemote =
+            opt.remote && getIsBranchOrCommitExist(branch, true)
+        if (removeLocal || removeRemote) {
+            spinner.start(green(`正在删除：${branch}`))
+            await delay(200)
+            spinner.succeed(green(`删除成功：${branch}`))
+        }
+        // 仅清理合过dev和release的分支
+        if (removeLocal) {
+            // 删除当前分支，需要切到其他分支去
+            if (current === branch)
+                spawnSync('git', ['checkout', config.master])
+            spawnSync('git', ['branch', '-D', branch])
+        }
+        // 清理远程分支
+        if (removeRemote) {
+            spawnSync('git', ['push', 'origin', '--delete', branch])
+        }
+    }
+
     const targets = opt.target
         ? opt.target.split(',')
         : [config.develop, config.release]
@@ -109,13 +135,13 @@ program.action(async (branches: string[], opt: GitmBuildOption) => {
                 })
                 .then((answers: any) => {
                     if (!answers.value) {
-                        sh.echo(green('已退出'))
+                        echo(green('已退出'))
                         process.exit(0)
                     }
                 })
         }
     } else {
-        sh.echo(green('没有查询到任何分支'))
+        echo(green('没有查询到任何分支'))
         process.exit(0)
     }
     for (const branch of branches) {
@@ -146,46 +172,50 @@ program.action(async (branches: string[], opt: GitmBuildOption) => {
         }
 
         // 开始分支删除流程
-        const removeLocal = getIsBranchOrCommitExist(branch)
-        const removeRemote =
-            opt.remote && getIsBranchOrCommitExist(branch, true)
-        if (removeLocal || removeRemote) {
-            spinner.start(green(`正在删除：${branch}`))
-            await delay(200)
-            spinner.succeed(green(`删除成功：${branch}`))
-        }
-        // 仅清理合过dev和release的分支
-        if (removeLocal) {
-            // 删除当前分支，需要切到其他分支去
-            if (current === branch)
-                spawnSync('git', ['checkout', config.master])
-            spawnSync('git', ['branch', '-D', branch])
-        }
-        // 清理远程分支
-        if (removeRemote) {
-            spawnSync('git', ['push', 'origin', '--delete', branch])
-        }
+        await clean(branch)
     }
     spinner.stop()
     // 打印列表
     if (opt.list) {
         if (_willDeleteBranch.length > 0) {
-            sh.echo(
-                green(
-                    `分析完成，以下分支合并过${targets.join(
+            console.info('\r')
+            // 选择要清理的分支
+            const prompt: InitInquirerPromptType = {
+                type: 'checkbox',
+                message: yellow(
+                    `找到${_willDeleteBranch.length}条分支合并过${targets.join(
                         ','
-                    )}分支，可以清理：`
-                )
-            )
-            console.info('\n' + green(_willDeleteBranch.join(' ') + '\n'))
+                    )}分支，请选择要清理的分支`
+                ),
+                name: 'selectBranches',
+                choices: []
+            }
+            _willDeleteBranch.forEach((item, index) => {
+                prompt.choices.push({
+                    name: green(item),
+                    value: item,
+                    checked: true
+                })
+            })
+            inquirer.prompt(prompt).then(({ selectBranches }: any) => {
+                if (selectBranches.length === 0) {
+                    echo(yellow('没有选择任何分支，进程已退出'))
+                    process.exit(0)
+                }
+                selectBranches.forEach(async (branch: string) => {
+                    // 开始分支删除流程
+                    await clean(branch)
+                })
+            })
         } else {
-            sh.echo(green('分析完成，没有分支需要清理'))
+            echo(green('分析完成，没有分支需要清理'))
         }
     } else {
-        sh.echo(
+        echo(
             green('删除完成，这些分支已被清理：' + _willDeleteBranch.join(' '))
         )
     }
 })
+
 program.parse(process.argv)
 export {}

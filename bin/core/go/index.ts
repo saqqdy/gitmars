@@ -27,7 +27,7 @@ const {
 
 const current = getCurrentBranch()
 const branchPrefix = current.split('/')[0]
-const functionBuanchs = ['feature', 'bugfix', 'support']
+const functionBranches = ['feature', 'bugfix', 'support']
 
 // 新建功能分支
 export const start = async () => {
@@ -42,7 +42,7 @@ export const combine = async () => {
     let delOptions: string[] = [],
         delArgs: string[] = [],
         requiredArgs: string[] = []
-    if (!functionBuanchs.includes(branchPrefix)) {
+    if (!functionBranches.includes(branchPrefix)) {
         // 非功能分支不需要执行这些动作
         delOptions = ['--as-feature', '--no-bugfix']
         requiredArgs = ['type', 'name']
@@ -74,7 +74,7 @@ export const combine = async () => {
 export const end = async () => {
     let delArgs: string[] = [],
         requiredArgs: string[] = []
-    if (!functionBuanchs.includes(branchPrefix)) {
+    if (!functionBranches.includes(branchPrefix)) {
         // 非功能分支不需要执行这些动作
         requiredArgs = ['type', 'name']
     } else {
@@ -89,7 +89,7 @@ export const end = async () => {
 export const update = async () => {
     let delArgs: string[] = [],
         requiredArgs: string[] = []
-    if (!functionBuanchs.includes(branchPrefix)) {
+    if (!functionBranches.includes(branchPrefix)) {
         // 非功能分支不需要执行这些动作
         requiredArgs = ['type', 'name']
     } else {

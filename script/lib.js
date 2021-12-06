@@ -3,11 +3,11 @@
  * @Author:
  * @LastEditors: saqqdy
  * @Date: 2021-07-22 22:39:42
- * @LastEditTime: 2021-11-30 14:41:08
+ * @LastEditTime: 2021-12-06 16:41:47
  */
 const fs = require('fs')
 const path = require('path')
-const argvs = process.argv.slice(2)
+const argv = process.argv.slice(2)
 const builder = require('esbuild')
 
 const readDir = entry => {
@@ -33,4 +33,4 @@ const getInfo = url => {
         })
         .catch(() => process.exit(1))
 }
-readDir(argvs[0] || 'bin')
+readDir(argv[0] || 'bin')

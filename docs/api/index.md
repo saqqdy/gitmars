@@ -928,8 +928,16 @@ gitm cleanbranch --target release
 
 查询日志
 
--   使用：`gitm log [--lastet [lastet]] [--limit [limit]] [--no-merges]`
--   参数：无
+-   使用：`gitm log [branch] [--lastet [lastet]] [--limit [limit]] [--no-merges]`
+-   参数：
+
+<div class="table-prop">
+
+| 参数   | 说明     | 类型   | 可选值 | 必填 | 默认 |
+| ------ | -------- | ------ | ------ | ---- | ---- |
+| branch | 分支名称 | String | -      | 否   | -    |
+
+</div>
 -   传值：
 
 <div class="table-option">
@@ -954,6 +962,12 @@ gitm log --latest 7d --limit 50
 
 ```shell
 gitm log --no-merges --limit 50
+```
+
+3. 查看dev分支的log
+
+```shell
+gitm log dev
 ```
 
 ### gitm hook

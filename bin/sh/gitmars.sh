@@ -1,6 +1,6 @@
 # Created by Gitmars v1.4.1 (https://github.com/saqqdy/gitmars#readme)
 #   At: 10/11/2020, 4:04:28 PM
-#   From: /Users/saqqdy/www/wojiayun/wyweb/webapp/app/node_modules/gitmars (https://github.com/saqqdy/gitmars#readme)
+#   From: /Users/saqqdy/www/saqqdy/gitmars (https://github.com/saqqdy/gitmars#readme)
 
 debug() {
   if [ "$GITMARS_DEBUG" = "true" ] || [ "$GITMARS_DEBUG" = "1" ]; then

@@ -1,8 +1,13 @@
 const { simpleTs: config } = require('eslint-config-sets')
 const { extend } = require('js-cool')
+const { dependencies, devDependencies } = require('./package.json')
+let { 'cSpell.words': skipWords } = require('./.vscode/settings.json')
+skipWords = skipWords
+    .concat(Object.keys(dependencies))
+    .concat(Object.keys(devDependencies))
 
 module.exports = extend(true, config, {
-    // plugins: ['prettier'],
+    plugins: [...(config.plugins || []), 'spellcheck', 'prettier'],
     globals: {
         __DEV_MODEL__: true,
         __DEV__: true,
@@ -18,6 +23,20 @@ module.exports = extend(true, config, {
             {
                 argsIgnorePattern: '^h$',
                 varsIgnorePattern: '^h$'
+            }
+        ],
+        'spellcheck/spell-checker': [
+            2,
+            {
+                comments: false,
+                strings: false,
+                identifiers: true,
+                templates: true,
+                lang: 'en_US',
+                skipWords,
+                skipIfMatch: ['http://[^s]*', '^[-\\w]+/[-\\w\\.]+$'],
+                skipWordIfMatch: ['^.*gitmars.*$'],
+                minLength: 3
             }
         ]
     }

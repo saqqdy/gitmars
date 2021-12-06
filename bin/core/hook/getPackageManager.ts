@@ -22,10 +22,10 @@ function getPackageManager(): PmFromUserAgentType | undefined {
  */
 function pmFromUserAgent(userAgent: string): PmFromUserAgentType {
     const pmSpec = userAgent.split(' ')[0]
-    const pos = pmSpec.lastIndexOf('/')
+    const position = pmSpec.lastIndexOf('/')
     return {
-        name: pmSpec.substr(0, pos),
-        version: pmSpec.substr(pos + 1)
+        name: pmSpec.substr(0, position),
+        version: pmSpec.substr(position + 1)
     }
 }
 

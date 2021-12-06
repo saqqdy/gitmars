@@ -36,7 +36,7 @@ program.action(async (branch: string, opt: GitmBuildOption) => {
     const logs = getGitLogs({
         lastet: opt.lastet,
         limit: opt.limit,
-        branches: branch,
+        branch,
         noMerges: !opt.merges
     })
     console.info(logs)

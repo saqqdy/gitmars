@@ -99,9 +99,9 @@ class Request {
                 params,
                 (res: any) => {
                     const chunks: any[] = []
-                    res.on('data', (buf: any) => {
-                        // console.info(JSON.parse(Buffer.from(buf).toString()))
-                        chunks.push(buf)
+                    res.on('data', (buffer: any) => {
+                        // console.info(JSON.parse(Buffer.from(buffer).toString()))
+                        chunks.push(buffer)
                     })
                     res.on('end', () => {
                         const buffer = Buffer.concat(chunks)
