@@ -612,12 +612,11 @@ gitm revert xxxxxx --mode 1
 gitm rt xxxxxx -m 1
 ```
 
-### gitm undo <Badge text="开发中" type="warning"/>
-
-> v2.3.0 新增<br>
-> v2.15.0 新增`--no-merges` `--limit` `--lastet`传参，移除`--branch`传参
+### gitm undo
 
 #### 短指令：gitm ud
+
+> v2.15.0 新增指令。新增`--no-merges` `--limit` `--lastet`传参，移除`--branch`传参
 
 撤销当前分支的某条提交记录，或者撤销某条分支的多条合并记录，如果需要撤销一条 merge 记录，需要传入撤销方式，1 = 保留当前分支代码；2 = 保留传入代码
 
@@ -673,17 +672,16 @@ gitm undo xxxxxx xxxxxx --mode 1
 gitm ud xxxxxx -m 1
 ```
 
-### gitm redo <Badge text="开发中" type="warning"/>
-
-> v2.3.0 新增
+### gitm redo
 
 #### 短指令：gitm rd
 
+> v2.15.0 新增指令
+
 重做当前分支的某条提交记录，或者重做某条分支的多条合并记录，如果需要重做一条 merge 记录，需要传入重做方式，1 = 保留当前分支代码；2 = 保留传入代码
 
--   使用：`gitm revert [commitid...] [-m --mode [mode]]` 或者 `gitm revert [-b --branch] [-m --mode [mode]]`
+-   使用：`gitm redo [commitid...] [-m --mode [mode]]` 或者 `gitm redo [-m --mode [mode]]`
 -   参数：
-
 
 <div class="table-prop">
 
@@ -697,10 +695,9 @@ gitm ud xxxxxx -m 1
 
 <div class="table-option">
 
-| 名称     | 简写 | 说明                                                                  | 类型   | 可选值 | 传值必填 | 默认 |
-| -------- | ---- | --------------------------------------------------------------------- | ------ | ------ | -------- | ---- |
-| --branch | -b   | 需要重做的分支名                                                      | String | -      | 否       | -    |
-| --mode   | -m   | 撤回 merge 记录时需要保留哪一方的代码，1=保留当前分支，2=保留传入分支 | Number | -      | 否       | -    |
+| 名称   | 简写 | 说明                                                                  | 类型   | 可选值 | 传值必填 | 默认 |
+| ------ | ---- | --------------------------------------------------------------------- | ------ | ------ | -------- | ---- |
+| --mode | -m   | 撤回 merge 记录时需要保留哪一方的代码，1=保留当前分支，2=保留传入分支 | Number | -      | 否       | -    |
 
 </div>
 
@@ -709,19 +706,19 @@ gitm ud xxxxxx -m 1
 1. 传入分支名称
 
 ```shell
-# 形式：gitm redo [-b --branch] [-m --mode [mode]]
-gitm redo --branch feature/test
+# 形式：gitm redo [commitid...] [-m --mode [mode]]
+gitm redo xxxxxx xxxxxx --mode 1
 # or
-gitm rd -b feature/test
+gitm rd xxxxxx xxxxxx -m 1
 ```
 
 2. 传入单个或者多个 commitID
 
 ```shell
-# 形式：gitm redo [commitid...] [-m --mode [mode]]
-gitm redo xxxxxx xxxxxx --mode 1
+# 形式：gitm redo [-m --mode [mode]]
+gitm redo --mode 1
 # or
-gitm rd xxxxxx -m 1
+gitm rd -m 1
 ```
 
 ### gitm save

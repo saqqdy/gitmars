@@ -64,6 +64,25 @@ function addRevertCache(
 }
 
 /**
+ * 移除缓存
+ */
+function delRevertCache(commitIDs: string | string[]): void {
+    if (!Array.isArray(commitIDs)) commitIDs = [commitIDs]
+    const _cacheList = getRevertCache()
+    let len = commitIDs.length
+    while (len--) {
+        const _index = _cacheList.findIndex(
+            (item: RevertCacheType) =>
+                item.after['%H']!.indexOf((commitIDs as string[])[len]) > -1
+        )
+        if (_index > -1) {
+            _cacheList.splice(_index, 1)
+        }
+    }
+    setRevertCache(_cacheList)
+}
+
+/**
  * 清除队列缓存
  */
 function cleanRevertCache(): void {
@@ -74,6 +93,7 @@ module.exports = {
     getRevertCache,
     setRevertCache,
     addRevertCache,
+    delRevertCache,
     cleanRevertCache
 }
 export {}

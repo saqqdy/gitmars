@@ -147,11 +147,13 @@ program.action(async (commitid: string[], opt: GitmBuildOption) => {
         process.exit(0)
     }
     // 筛选被选择的记录
-    logList = logList.filter(log => commitIDs.includes(log['%H']))
+    logList = logList.filter(log =>
+        commitIDs.some(id => log['%H'].indexOf(id) > -1)
+    )
     cmd = logList.map(log => ({
         cmd: `git revert -s --no-edit ${log['%H']}${mode}`,
         config: {
-            again: true,
+            again: false,
             success: `撤销成功：${log['%s']}`,
             fail: '出错了，请根据提示处理'
         }

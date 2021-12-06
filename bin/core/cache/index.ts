@@ -8,6 +8,7 @@ const {
     getRevertCache,
     setRevertCache,
     addRevertCache,
+    delRevertCache,
     cleanRevertCache
 } = require('./revertCache')
 const { setLog } = require('./log')
@@ -21,6 +22,7 @@ module.exports = {
     getRevertCache,
     setRevertCache,
     addRevertCache,
+    delRevertCache,
     cleanRevertCache,
     setLog
 }
