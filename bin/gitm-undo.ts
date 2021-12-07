@@ -89,8 +89,8 @@ function calculate(all = false, opt: GitmBuildOption) {
     const current = getCurrentBranch()
     let len = revertCache.length
     while (len--) {
-        let { before, after, branch } = revertCache[len],
-            _undoLogs = [],
+        const { before, after, branch } = revertCache[len]
+        let _undoLogs = [],
             _redoLogs = []
         if (!after) {
             // 没有after，尝试恢复
