@@ -10,9 +10,10 @@ const GITMARS_REVERT_CACHE_FILE = gitDir + '/gitmarsreverts.json'
 /**
  * 获取revert缓存
  *
+ * @param branch - 分支名
  * @returns reverts - revert缓存列表
  */
-function getRevertCache() {
+function getRevertCache(branch?: string) {
     let reverts: RevertCacheType[] = []
     if (isFileExist(GITMARS_REVERT_CACHE_FILE)) {
         reverts = require(GITMARS_REVERT_CACHE_FILE)
@@ -21,6 +22,7 @@ function getRevertCache() {
         // sh.sed('-i', /[.\n]+/, '[]', GITMARS_REVERT_CACHE_FILE)
         writeFileSync(GITMARS_REVERT_CACHE_FILE, JSON.stringify([]))
     }
+    if (branch) reverts = reverts.filter(revert => revert.branch === branch)
     return reverts
 }
 

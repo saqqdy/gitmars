@@ -65,10 +65,39 @@ import type { GitmarsOptionType } from '../../typings'
                 negate: false,
                 description: '最多查询的日志条数',
                 defaultValue: 20
+            },
+            {
+                flags: '--calc',
+                required: false,
+                optional: false,
+                variadic: false,
+                mandatory: false,
+                long: '--calc',
+                negate: false,
+                description: '清理当前分支撤销失败的记录',
+                recommend: false
+            },
+            {
+                flags: '--calcAll',
+                required: false,
+                optional: false,
+                variadic: false,
+                mandatory: false,
+                long: '--calcAll',
+                negate: false,
+                description: '清理所有分支撤销失败的记录',
+                recommend: false
             }
         ],
         // 校验传值
         validatorOpts: (val, opts, cb) => {
+            if (
+                (val.includes('--calc') || val.includes('--calcAll')) &&
+                val.length > 1
+            ) {
+                cb(new Error('--calc和--calcAll只能单独使用'))
+                return
+            }
             cb()
         },
         // 校验参数

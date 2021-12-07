@@ -270,4 +270,5 @@ export interface CommandMessageType {
 export interface RevertCacheType {
     before: GitLogsType
     after: GitLogsType
+    branch: string
 }

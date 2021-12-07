@@ -6,7 +6,7 @@ const sh = require('shelljs')
 const { yellow, blue, green, red } = require('colors')
 const { options, args } = require('./conf/redo')
 const { queue } = require('./core/queue')
-const { getIsGitProject } = require('./core/git/index')
+const { getIsGitProject, getCurrentBranch } = require('./core/git/index')
 const { getRevertCache, delRevertCache } = require('./core/cache/index')
 const { createArgs, echo } = require('./core/utils/index')
 if (!getIsGitProject()) {
@@ -40,7 +40,8 @@ options.forEach((o: GitmarsOptionOptionsType) => {
 // .arguments('[commitid...]')
 // .option('-m, --mode [mode]', '针对撤销一次merge记录，需要传入类型：1 = 保留当前分支代码，2 = 保留传入代码', 1)
 program.action(async (commitid: string[], opt: GitmBuildOption) => {
-    let revertCache: RevertCacheType[] = getRevertCache(),
+    const current = getCurrentBranch()
+    let revertCache: RevertCacheType[] = getRevertCache(current),
         cmd: Array<CommandType | string> = [],
         commitIDs: string[] = [], // 需要恢复的commitID
         mode = ''

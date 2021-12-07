@@ -616,11 +616,11 @@ gitm rt xxxxxx -m 1
 
 #### 短指令：gitm ud
 
-> v2.15.0 新增指令。新增`--no-merges` `--limit` `--lastet`传参，移除`--branch`传参
+> v2.15.0 新增指令。新增`--no-merges` `--limit` `--lastet` `--calc` `--calcAll`传参，移除`--branch`传参
 
 撤销当前分支的某条提交记录，或者撤销某条分支的多条合并记录，如果需要撤销一条 merge 记录，需要传入撤销方式，1 = 保留当前分支代码；2 = 保留传入代码
 
--   使用：`gitm undo [commitid...] [-m --mode [mode]]` 或者 `gitm undo [--lastet [lastet]] [--limit [limit]] [-m --mode [mode]] [--no-merges]`
+-   使用：`gitm undo [commitid...] [-m --mode [mode]]` 或者 `gitm undo [--lastet [lastet]] [--limit [limit]] [-m --mode [mode]] [--no-merges]` 或者 `gitm undo [--calc] [--calcAll]`
 -   参数：
 
 <div class="table-prop">
@@ -641,6 +641,8 @@ gitm rt xxxxxx -m 1
 | --no-merge | -    | 排除merge记录                                                         | Boolean | -      | 否       | false |
 | --lastet   | -    | 查询在某个时间之后的日志，填写格式：10s/2m/2h/3d/4M/5y                | String  | -      | 否       | '7d'  |
 | --limit    | -    | 最多查询的日志条数                                                    | Nmuber  | -      | 否       | 20    |
+| --calc     | -    | 清理当前分支撤销失败的记录                                            | Boolean | -      | 否       | false |
+| --calcAll  | -    | 清理所有分支撤销失败的记录                                            | Boolean | -      | 否       | false |
 
 </div>
 
@@ -670,6 +672,15 @@ gitm ud --lastet 7d --limit 100 --mode 1
 gitm undo xxxxxx xxxxxx --mode 1
 # or
 gitm ud xxxxxx -m 1
+```
+
+4. 清理当前分支撤销失败的记录
+
+```shell
+# 形式：gitm undo [--calc] [--calcAll]
+gitm undo --calc
+# or
+gitm ud --calc
 ```
 
 ### gitm redo
