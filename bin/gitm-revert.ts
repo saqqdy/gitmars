@@ -1,14 +1,14 @@
 #!/usr/bin/env ts-node
 const { program } = require('commander')
 const sh = require('shelljs')
+const { yellow, red } = require('colors')
 const { options, args } = require('./conf/revert')
 const { queue } = require('./core/queue')
 const { getIsGitProject } = require('./core/git/index')
-const { error, warning } = require('./core/utils/index')
 const { createArgs } = require('./core/utils/index')
 if (!getIsGitProject()) {
-    sh.echo(error('当前目录不是git项目目录'))
-    sh.exit(1)
+    sh.echo(red('当前目录不是git项目目录'))
+    process.exit(1)
 }
 
 import { GitmarsOptionOptionsType, CommandType } from '../typings'
@@ -58,8 +58,8 @@ program.action((commitid: string, opt: GitmBuildOption) => {
             }
         })
     } else {
-        sh.echo(warning('指令不合法'))
-        sh.exit(1)
+        sh.echo(yellow('指令不合法'))
+        process.exit(1)
     }
     queue(cmd)
 })

@@ -1,9 +1,10 @@
 #!/usr/bin/env ts-node
 const { program } = require('commander')
 const sh = require('shelljs')
+const { red } = require('colors')
 const { getCurrentBranch } = require('./core/git/index')
-const { error } = require('./core/utils/index')
 const getConfig = require('./core/getConfig')
+const { spawnSync } = require('./core/spawn')
 const config = getConfig()
 
 interface GitmBuildOption {
@@ -27,21 +28,21 @@ program
         console.info('gitm permission is running')
         const current = getCurrentBranch()
         const allow = [config.master]
-        const msg = sh.exec('git show', { silent: true }).stdout
+        const { stdout } = spawnSync('git', ['show'])
         if (opt.dev) allow.push(config.develop)
         if (opt.release) allow.push(config.release)
         const index = allow.indexOf(current)
         if (
             index > -1 &&
             !opt.noVerify &&
-            msg &&
-            msg.indexOf('Merge:') === -1 &&
-            msg.indexOf('Merge branch') === -1
+            stdout &&
+            stdout.indexOf('Merge:') === -1 &&
+            stdout.indexOf('Merge branch') === -1
         ) {
-            sh.echo(error(`${allow[index]}分支不允许直接提交`))
-            sh.exit(1)
+            sh.echo(red(`${allow[index]}分支不允许直接提交`))
+            process.exit(1)
         } else {
-            sh.exit(0)
+            process.exit(0)
         }
         // sh.echo(process.env.HUSKY_GIT_PARAMS)
         // sh.echo(process.env.FORCE_COMMIT)

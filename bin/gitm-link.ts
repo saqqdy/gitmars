@@ -3,6 +3,7 @@ const { program } = require('commander')
 const sh = require('shelljs')
 const { options, args } = require('./conf/link')
 const { createArgs } = require('./core/utils/index')
+const { spawnSync } = require('./core/spawn')
 
 import { GitmarsOptionOptionsType } from '../typings'
 
@@ -21,18 +22,18 @@ program.action((name: string) => {
     const npmClient = sh.which('yarn') ? 'yarn' : 'npm'
     if (!name) {
         // 给当前包创建软链
-        const { code } = sh.exec(`${npmClient} link`, { silent: true })
-        if (code === 0) sh.echo('处理完成')
+        const { status } = spawnSync(npmClient, ['link'])
+        if (status === 0) sh.echo('处理完成')
         else sh.echo('出错了')
-        sh.exit(0)
+        process.exit(0)
     } else if (isLink) {
         sh.rm('-rf', `./node_modules/${name}`)
     } else if (isExist) {
         sh.mv(`./node_modules/${name}`, `./node_modules/${name}_bak`)
     }
     // sh.ln('-s', path, `./node_modules/${name}`)
-    const { code } = sh.exec(`${npmClient} link ${name}`, { silent: true })
-    if (code === 0) sh.echo('处理完成')
+    const { status } = spawnSync(npmClient, ['link', name])
+    if (status === 0) sh.echo('处理完成')
     else
         sh.echo(
             `处理失败，${name}软链不存在，请进入本地${name}根目录执行：gitm link`

@@ -1,19 +1,17 @@
-const sh = require('shelljs')
+const { spawnSync } = require('../spawn')
 
+import type { SpawnOptions } from 'child_process'
 import type { GitStatusInfoType } from '../../../typings'
 
 /**
  * 获取分支状态
  *
- * @param config - shelljs配置
+ * @param config - spawn配置
  * @returns gitStatus - git状态
  */
-function getGitStatus(config: any = {}): GitStatusInfoType {
-    const { silent = true } = config
-    const out = sh
-        .exec('git status -s --no-column', { silent })
-        .stdout.replace(/(^\s+|\n+$)/, '') // 去除首尾
-    const list = out ? out.replace(/\n(\s+)/g, '\n').split('\n') : []
+function getGitStatus(config: SpawnOptions = {}): GitStatusInfoType {
+    const { stdout } = spawnSync('git', ['status', '-s', '--no-column'], config)
+    const list = stdout ? stdout.replace(/\n(\s+)/g, '\n').split('\n') : []
     const sum: GitStatusInfoType = {
         A: [],
         D: [],

@@ -612,15 +612,15 @@ gitm revert xxxxxx --mode 1
 gitm rt xxxxxx -m 1
 ```
 
-### gitm undo <Badge text="开发中" type="warning"/>
-
-> v2.3.0 新增
+### gitm undo
 
 #### 短指令：gitm ud
 
+> v2.15.0 新增指令。新增`--no-merges` `--limit` `--lastet` `--calc` `--calcAll`传参，移除`--branch`传参
+
 撤销当前分支的某条提交记录，或者撤销某条分支的多条合并记录，如果需要撤销一条 merge 记录，需要传入撤销方式，1 = 保留当前分支代码；2 = 保留传入代码
 
--   使用：`gitm undo [commitid...] [-m --mode [mode]]` 或者 `gitm undo [-b --branch] [-m --mode [mode]]`
+-   使用：`gitm undo [commitid...] [-m --mode [mode]]` 或者 `gitm undo [--lastet [lastet]] [--limit [limit]] [-m --mode [mode]] [--no-merges]` 或者 `gitm undo [--calc] [--calcAll]`
 -   参数：
 
 <div class="table-prop">
@@ -635,25 +635,37 @@ gitm rt xxxxxx -m 1
 
 <div class="table-option">
 
-| 名称     | 简写 | 说明                                                                  | 类型   | 可选值 | 传值必填 | 默认 |
-| -------- | ---- | --------------------------------------------------------------------- | ------ | ------ | -------- | ---- |
-| --branch | -b   | 需要撤销的分支名                                                      | String | -      | 否       | -    |
-| --mode   | -m   | 撤回 merge 记录时需要保留哪一方的代码，1=保留当前分支，2=保留传入分支 | Number | -      | 否       | -    |
+| 名称       | 简写 | 说明                                                                  | 类型    | 可选值 | 传值必填 | 默认  |
+| ---------- | ---- | --------------------------------------------------------------------- | ------- | ------ | -------- | ----- |
+| --mode     | -m   | 撤回 merge 记录时需要保留哪一方的代码，1=保留当前分支，2=保留传入分支 | Number  | -      | 否       | -     |
+| --no-merge | -    | 排除merge记录                                                         | Boolean | -      | 否       | false |
+| --lastet   | -    | 查询在某个时间之后的日志，填写格式：10s/2m/2h/3d/4M/5y                | String  | -      | 否       | '7d'  |
+| --limit    | -    | 最多查询的日志条数                                                    | Nmuber  | -      | 否       | 20    |
+| --calc     | -    | 清理当前分支撤销失败的记录                                            | Boolean | -      | 否       | false |
+| --calcAll  | -    | 清理所有分支撤销失败的记录                                            | Boolean | -      | 否       | false |
 
 </div>
 
 -   示例：
 
-1. 传入分支名称
+1. 不传commitid，显示log列表选择要撤销的commit，如果是merge记录，保留当前分支代码
 
 ```shell
-# 形式：gitm undo [-b --branch] [-m --mode [mode]]
-gitm undo --branch feature/test
+# 形式：gitm undo [-m --mode [mode]]
+gitm undo -m 1
 # or
-gitm ud -b feature/test
+gitm ud -m 1
 ```
 
-2. 传入单个或者多个 commitID
+2. 不传commitid，筛选需要展示的日志（默认显示20条）
+
+```shell
+gitm undo --lastet 7d --limit 100 --mode 1
+# or
+gitm ud --lastet 7d --limit 100 --mode 1
+```
+
+3. 传入单个或者多个 commitID
 
 ```shell
 # 形式：gitm undo [commitid...] [-m --mode [mode]]
@@ -662,17 +674,25 @@ gitm undo xxxxxx xxxxxx --mode 1
 gitm ud xxxxxx -m 1
 ```
 
-### gitm redo <Badge text="开发中" type="warning"/>
+4. 清理当前分支撤销失败的记录
 
-> v2.3.0 新增
+```shell
+# 形式：gitm undo [--calc] [--calcAll]
+gitm undo --calc
+# or
+gitm ud --calc
+```
+
+### gitm redo
 
 #### 短指令：gitm rd
 
+> v2.15.0 新增指令
+
 重做当前分支的某条提交记录，或者重做某条分支的多条合并记录，如果需要重做一条 merge 记录，需要传入重做方式，1 = 保留当前分支代码；2 = 保留传入代码
 
--   使用：`gitm revert [commitid...] [-m --mode [mode]]` 或者 `gitm revert [-b --branch] [-m --mode [mode]]`
+-   使用：`gitm redo [commitid...] [-m --mode [mode]]` 或者 `gitm redo [-m --mode [mode]]`
 -   参数：
-
 
 <div class="table-prop">
 
@@ -686,10 +706,9 @@ gitm ud xxxxxx -m 1
 
 <div class="table-option">
 
-| 名称     | 简写 | 说明                                                                  | 类型   | 可选值 | 传值必填 | 默认 |
-| -------- | ---- | --------------------------------------------------------------------- | ------ | ------ | -------- | ---- |
-| --branch | -b   | 需要重做的分支名                                                      | String | -      | 否       | -    |
-| --mode   | -m   | 撤回 merge 记录时需要保留哪一方的代码，1=保留当前分支，2=保留传入分支 | Number | -      | 否       | -    |
+| 名称   | 简写 | 说明                                                                  | 类型   | 可选值 | 传值必填 | 默认 |
+| ------ | ---- | --------------------------------------------------------------------- | ------ | ------ | -------- | ---- |
+| --mode | -m   | 撤回 merge 记录时需要保留哪一方的代码，1=保留当前分支，2=保留传入分支 | Number | -      | 否       | -    |
 
 </div>
 
@@ -698,19 +717,19 @@ gitm ud xxxxxx -m 1
 1. 传入分支名称
 
 ```shell
-# 形式：gitm redo [-b --branch] [-m --mode [mode]]
-gitm redo --branch feature/test
+# 形式：gitm redo [commitid...] [-m --mode [mode]]
+gitm redo xxxxxx xxxxxx --mode 1
 # or
-gitm rd -b feature/test
+gitm rd xxxxxx xxxxxx -m 1
 ```
 
 2. 传入单个或者多个 commitID
 
 ```shell
-# 形式：gitm redo [commitid...] [-m --mode [mode]]
-gitm redo xxxxxx xxxxxx --mode 1
+# 形式：gitm redo [-m --mode [mode]]
+gitm redo --mode 1
 # or
-gitm rd xxxxxx -m 1
+gitm rd -m 1
 ```
 
 ### gitm save
@@ -912,20 +931,30 @@ gitm cleanbranch --target release
 
 ### gitm log
 
-> 1.4.0 新增
+> v1.4.0 新增<br>
+> v2.15.0 新增`--no-merges`传参
 
 查询日志
 
--   使用：`gitm log [--lastet [lastet]] [--limit [limit]]`
--   参数：无
+-   使用：`gitm log [branch] [--lastet [lastet]] [--limit [limit]] [--no-merges]`
+-   参数：
+
+<div class="table-prop">
+
+| 参数   | 说明     | 类型   | 可选值 | 必填 | 默认 |
+| ------ | -------- | ------ | ------ | ---- | ---- |
+| branch | 分支名称 | String | -      | 否   | -    |
+
+</div>
 -   传值：
 
 <div class="table-option">
 
-| 名称     | 简写 | 说明                                                   | 类型   | 可选值 | 传值必填 | 默认 |
-| -------- | ---- | ------------------------------------------------------ | ------ | ------ | -------- | ---- |
-| --lastet | -    | 查询在某个时间之后的日志，填写格式：10s/2m/2h/3d/4M/5y | String | -      | 否       | '7d' |
-| --limit  | -    | 最多查询的日志条数                                     | Nmuber | -      | 否       | 20   |
+| 名称       | 简写 | 说明                                                   | 类型    | 可选值 | 传值必填 | 默认  |
+| ---------- | ---- | ------------------------------------------------------ | ------- | ------ | -------- | ----- |
+| --lastet   | -    | 查询在某个时间之后的日志，填写格式：10s/2m/2h/3d/4M/5y | String  | -      | 否       | '7d'  |
+| --limit    | -    | 最多查询的日志条数                                     | Nmuber  | -      | 否       | 20    |
+| --no-merge | -    | 排除merge记录                                          | Boolean | -      | 否       | false |
 
 </div>
 
@@ -935,6 +964,18 @@ gitm cleanbranch --target release
 
 ```shell
 gitm log --latest 7d --limit 50
+```
+
+2. 排除merge记录
+
+```shell
+gitm log --no-merges --limit 50
+```
+
+3. 查看dev分支的log
+
+```shell
+gitm log dev
 ```
 
 ### gitm hook

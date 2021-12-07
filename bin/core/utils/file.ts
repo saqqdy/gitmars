@@ -19,6 +19,16 @@ function writeFile(url: string, data: string): Promise<Error | boolean> {
 }
 
 /**
+ * 同步写入文件
+ */
+function writeFileSync(url: string, data: string, options?: any): void {
+    fs.writeFileSync(url, data, {
+        mode: 0o0755,
+        ...options
+    })
+}
+
+/**
  * 判断文件是否存在
  *
  * @param filePath - 完整文件路径
@@ -31,6 +41,7 @@ function isFileExist(filePath: string): boolean {
 
 module.exports = {
     writeFile,
+    writeFileSync,
     isFileExist
 }
 export {}

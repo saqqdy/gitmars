@@ -1,6 +1,7 @@
 #!/usr/bin/env ts-node
 const { Command } = require('commander')
 const sh = require('shelljs')
+const { green, red } = require('colors')
 const { create, publish, update, clean } = require('./conf/admin')
 const { getUserToken } = require('./core/api/index')
 const getType = require('js-cool/lib/getType')
@@ -12,10 +13,10 @@ const {
     getGitConfig,
     checkGitStatus
 } = require('./core/git/index')
-const { error, success, createArgs } = require('./core/utils/index')
+const { createArgs } = require('./core/utils/index')
 if (!getIsGitProject()) {
-    sh.echo(error('当前目录不是git项目目录'))
-    sh.exit(1)
+    sh.echo(red('当前目录不是git项目目录'))
+    process.exit(1)
 }
 const getConfig = require('./core/getConfig')
 const { appName } = getGitConfig()
@@ -73,14 +74,14 @@ if (create.args.length > 0) {
         const status = checkGitStatus()
         const hasBase = getIsBranchOrCommitExist(base)
         const exits = getIsBranchOrCommitExist(config[type])
-        if (!status) sh.exit(1)
+        if (!status) process.exit(1)
         if (!hasBase) {
-            sh.echo(error(base + '分支不存在，请先创建' + base + '分支'))
-            sh.exit(1)
+            sh.echo(red(base + '分支不存在，请先创建' + base + '分支'))
+            process.exit(1)
         }
         if (exits) {
-            sh.echo(error(config[type] + '分支已存在，不需要重复创建'))
-            sh.exit(1)
+            sh.echo(red(config[type] + '分支已存在，不需要重复创建'))
+            process.exit(1)
         }
         if (opts.includes(type)) {
             // release从master拉取，其他从release拉取
@@ -91,21 +92,21 @@ if (create.args.length > 0) {
                 `git checkout -b ${config[type]} ${base}`
             ]
             queue(cmd).then((data: any[]) => {
-                if (data[3].code === 0) {
+                if (data[3].status === 0) {
                     sh.echo(
                         `${
                             config[type]
                         }分支创建成功，该分支基于${base}创建，您当前已经切换到${
                             config[type]
-                        }\n需要发版时，记得执行: ${success(
+                        }\n需要发版时，记得执行: ${green(
                             'gitm admin publish ' + config[type]
                         )}`
                     )
                 }
             })
         } else {
-            sh.echo(error('type只允许输入：' + opts.join(',')))
-            sh.exit(1)
+            sh.echo(red('type只允许输入：' + opts.join(',')))
+            process.exit(1)
         }
     })
 }
@@ -142,7 +143,7 @@ if (publish.args.length > 0) {
             const status = checkGitStatus()
             const curBranch = await getCurrentBranch()
             let isDescriptionCorrect = true // 本次提交的原因描述是否符合规范
-            if (!status) sh.exit(1)
+            if (!status) process.exit(1)
             // 有配置descriptionValidator时需要校验描述信息
             if (config.descriptionValidator) {
                 // 校验本次提交的原因描述
@@ -256,8 +257,8 @@ if (publish.args.length > 0) {
                     }
                 } else {
                     if (!isDescriptionCorrect) {
-                        sh.echo(error('提交的原因描述不符合规范'))
-                        sh.exit(1)
+                        sh.echo(red('提交的原因描述不符合规范'))
+                        process.exit(1)
                     }
                     cmd = {
                         bugfix: [
@@ -365,8 +366,8 @@ if (publish.args.length > 0) {
                         ])
                     } else {
                         if (!isDescriptionCorrect) {
-                            sh.echo(error('提交的原因描述不符合规范'))
-                            sh.exit(1)
+                            sh.echo(red('提交的原因描述不符合规范'))
+                            process.exit(1)
                         }
                         cmd[type] = cmd[type].concat([
                             {
@@ -476,8 +477,8 @@ if (publish.args.length > 0) {
                             ])
                         } else {
                             if (!isDescriptionCorrect) {
-                                sh.echo(error('提交的原因描述不符合规范'))
-                                sh.exit(1)
+                                sh.echo(red('提交的原因描述不符合规范'))
+                                process.exit(1)
                             }
                             cmd[type] = cmd[type].concat([
                                 {
@@ -509,8 +510,8 @@ if (publish.args.length > 0) {
                 }
                 queue(cmd[type])
             } else {
-                sh.echo(error('type只允许输入：' + opts.join(',')))
-                sh.exit(1)
+                sh.echo(red('type只允许输入：' + opts.join(',')))
+                process.exit(1)
             }
         }
     )
@@ -544,7 +545,7 @@ if (update.args.length > 0) {
             const status = checkGitStatus()
             let mode = '', // 冲突时，保留哪方代码
                 isDescriptionCorrect = true // 本次提交的原因描述是否符合规范
-            if (!status) sh.exit(1)
+            if (!status) process.exit(1)
             // 有配置descriptionValidator时需要校验描述信息
             if (config.descriptionValidator) {
                 // 校验本次提交的原因描述
@@ -592,8 +593,8 @@ if (update.args.length > 0) {
                     ]
                 } else {
                     if (!isDescriptionCorrect) {
-                        sh.echo(error('提交的原因描述不符合规范'))
-                        sh.exit(1)
+                        sh.echo(red('提交的原因描述不符合规范'))
+                        process.exit(1)
                     }
                     cmd = [
                         {
@@ -647,8 +648,8 @@ if (update.args.length > 0) {
                 }
                 queue(cmd)
             } else {
-                sh.echo(error('type只允许输入：' + opts.join(',')))
-                sh.exit(1)
+                sh.echo(red('type只允许输入：' + opts.join(',')))
+                process.exit(1)
             }
         }
     )
@@ -667,7 +668,7 @@ if (clean.args.length > 0) {
     _program.action((type: string): void => {
         const opts = ['bugfix', 'release', 'develop', 'master'] // 允许执行的指令
         const status = checkGitStatus()
-        if (!status) sh.exit(1)
+        if (!status) process.exit(1)
         if (opts.includes(type)) {
             let cmd = [
                 'git fetch',
@@ -690,8 +691,8 @@ if (clean.args.length > 0) {
                 ]
             queue(cmd)
         } else {
-            sh.echo(error('type只允许输入：' + opts.join(',')))
-            sh.exit(1)
+            sh.echo(red('type只允许输入：' + opts.join(',')))
+            process.exit(1)
         }
     })
 }

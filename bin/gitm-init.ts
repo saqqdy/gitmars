@@ -1,14 +1,14 @@
 #!/usr/bin/env ts-node
 const { program } = require('commander')
 const fs = require('fs')
+const { green, red } = require('colors')
 const sh = require('shelljs')
 const inquirer = require('inquirer')
 const { getIsGitProject, getGitRevParse } = require('./core/git/index')
-const { error, success } = require('./core/utils/index')
 const { defaults } = require('./core/global')
 if (!getIsGitProject()) {
-    sh.echo(error('当前目录不是git项目目录'))
-    sh.exit(1)
+    sh.echo(red('当前目录不是git项目目录'))
+    process.exit(1)
 }
 const { root } = getGitRevParse()
 
@@ -35,7 +35,7 @@ program
                     name: key,
                     message: `请输入${key}分支名称`,
                     default: () => key,
-                    transformer: (val, answers, flags) => val.trim(),
+                    transformer: val => val.trim(),
                     validate: val =>
                         /^\w+$/.test(val) ? true : '请输入可用名称'
                 })
@@ -44,7 +44,7 @@ program
                     type: 'input',
                     name: key,
                     message: '请输入Git用户名',
-                    transformer: (val, answers, flags) => val.trim(),
+                    transformer: val => val.trim(),
                     validate: val =>
                         val === '' || /^\w+$/.test(val)
                             ? true
@@ -55,7 +55,7 @@ program
                     type: 'input',
                     name: key,
                     message: '请输入Git邮箱',
-                    transformer: (val, answers, flags) => val.trim(),
+                    transformer: val => val.trim(),
                     validate: val =>
                         val === '' ||
                         /^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/.test(
@@ -69,14 +69,14 @@ program
                     type: 'input',
                     name: key,
                     message: '请输入分支名称命名规则',
-                    transformer: (val, answers, flags) => val.trim()
+                    transformer: val => val.trim()
                 })
             } else if (key === 'descriptionValidator') {
                 prompts.push({
                     type: 'input',
                     name: key,
                     message: '请输入commit信息规则',
-                    transformer: (val, answers, flags) => val.trim()
+                    transformer: val => val.trim()
                 })
             } else if (key === 'msgTemplate') {
                 prompts.push({
@@ -84,14 +84,14 @@ program
                     name: key,
                     message: '请输入消息模板',
                     default: () => '${message}；项目：${project}；路径：${pwd}',
-                    transformer: (val, answers, flags) => val.trim()
+                    transformer: val => val.trim()
                 })
             } else if (key === 'msgUrl') {
                 prompts.push({
                     type: 'input',
                     name: key,
                     message: '请输入消息推送地址',
-                    transformer: (val, answers, flags) => val.trim(),
+                    transformer: val => val.trim(),
                     validate: val =>
                         val === '' || /^https?:\/\/[\S]*$/.test(val)
                             ? true
@@ -131,7 +131,7 @@ program
                     validate: val => {
                         try {
                             val = JSON.parse(val)
-                            return true
+                            return !!val
                         } catch (e) {
                             return '请输入json'
                         }
@@ -142,7 +142,7 @@ program
                     type: 'input',
                     name: key,
                     message: '请输入查询用户权限接口',
-                    transformer: (val, answers, flags) => val.trim(),
+                    transformer: val => val.trim(),
                     validate: val =>
                         val === '' || /^https?:\/\/[\S]*$/.test(val)
                             ? true
@@ -153,7 +153,7 @@ program
                     type: 'input',
                     name: key,
                     message: '请输入git网址',
-                    transformer: (val, answers, flags) => val.trim(),
+                    transformer: val => val.trim(),
                     validate: val =>
                         val === '' || /^https?:\/\/[\S]*$/.test(val)
                             ? true
@@ -164,7 +164,7 @@ program
                     type: 'input',
                     name: key,
                     message: '请输入git项目ID，目前仅支持gitlab',
-                    transformer: (val, answers, flags) => val.trim(),
+                    transformer: val => val.trim(),
                     validate: val =>
                         val === '' || /^\d+$/.test(val) ? true : '请输入网址'
                 })
@@ -194,7 +194,7 @@ program
             } catch (e) {
                 answers.hooks = ''
             }
-            sh.echo(success('gitmars配置成功'))
+            sh.echo(green('gitmars配置成功'))
             fs.writeFileSync(
                 root + '/.gitmarsrc',
                 JSON.stringify(answers, null, 4),

@@ -19,6 +19,7 @@
         "allowSyntheticDefaultImports": true,
         "resolveJsonModule": true,
         "noUnusedParameters": false,
+        "typeRoots": ["node_modules/@types"],
         "baseUrl": ".",
         "rootDirs": ["ui", "server"],
         "paths": {

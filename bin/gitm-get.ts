@@ -1,6 +1,7 @@
 #!/usr/bin/env ts-node
 const { program } = require('commander')
 const sh = require('shelljs')
+const { yellow, red } = require('colors')
 const { options, args } = require('./conf/get')
 const { queue } = require('./core/queue')
 const {
@@ -8,10 +9,10 @@ const {
     getCurrentBranch,
     getStashList
 } = require('./core/git/index')
-const { error, warning, createArgs } = require('./core/utils/index')
+const { createArgs } = require('./core/utils/index')
 if (!getIsGitProject()) {
-    sh.echo(error('当前目录不是git项目目录'))
-    sh.exit(1)
+    sh.echo(red('当前目录不是git项目目录'))
+    process.exit(1)
 }
 
 import { GitmarsOptionOptionsType } from '../typings'
@@ -36,18 +37,16 @@ program.action((message: string, index: string, opt: GitmBuildOption) => {
     if (!message) message = getCurrentBranch()
     const list = getStashList(message)
     if (list.length === 0) {
-        sh.echo(warning('该分支没有暂存任何文件！'))
-        sh.exit(0)
+        sh.echo(yellow('该分支没有暂存任何文件！'))
+        process.exit(0)
     }
     if (index === undefined && list.length > 1)
         sh.echo(
-            warning(
-                `该分支下有${list.length}条暂存记录，默认恢复最近的一条记录`
-            )
+            yellow(`该分支下有${list.length}条暂存记录，默认恢复最近的一条记录`)
         )
     if (list.length > 2)
         sh.echo(
-            warning(
+            yellow(
                 `该分支下有${list.length}条暂存记录，建议定期清理不必要的暂存记录！`
             )
         )

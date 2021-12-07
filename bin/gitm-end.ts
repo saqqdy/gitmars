@@ -1,6 +1,7 @@
 #!/usr/bin/env ts-node
 const { program } = require('commander')
 const sh = require('shelljs')
+const { red } = require('colors')
 const { options, args } = require('./conf/end')
 const getType = require('js-cool/lib/getType')
 const { queue } = require('./core/queue')
@@ -13,11 +14,11 @@ const {
     checkGitStatus,
     searchBranches
 } = require('./core/git/index')
-const { error, createArgs } = require('./core/utils/index')
+const { createArgs } = require('./core/utils/index')
 const { isNeedUpgrade, upgradeGitmars } = require('./core/versionControl')
 if (!getIsGitProject()) {
-    sh.echo(error('当前目录不是git项目目录'))
-    sh.exit(1)
+    sh.echo(red('当前目录不是git项目目录'))
+    process.exit(1)
 }
 const getConfig = require('./core/getConfig')
 const { getUserToken } = require('./core/api/index')
@@ -79,7 +80,7 @@ program.action(
         const status = checkGitStatus()
         let _nameArr: string[] = [], // 分支名称数组
             isDescriptionCorrect = true // 本次提交的原因描述是否符合规范
-        if (!status) sh.exit(1)
+        if (!status) process.exit(1)
         // 有配置descriptionValidator时需要校验描述信息
         if (config.descriptionValidator) {
             // 校验本次提交的原因描述
@@ -96,15 +97,15 @@ program.action(
             if (!name) {
                 deny.includes(type) &&
                     sh.echo(
-                        error(`骚年，你在${type}分支执行这个指令是什么骚操作？`)
+                        red(`骚年，你在${type}分支执行这个指令是什么骚操作？`)
                     )
-                sh.exit(1)
+                process.exit(1)
             }
         } else if (!name) {
             // 传了type没传name
             if (allow.includes(type)) {
                 sh.echo('请输入分支名称')
-                sh.exit(1)
+                process.exit(1)
             }
             const branches = searchBranches({ type })
             if (branches.length === 1) {
@@ -114,9 +115,9 @@ program.action(
                 sh.echo(
                     branches.length > 1
                         ? `查询到多条名称包含${type}的分支，请输入分支类型`
-                        : error('分支不存在，请正确输入')
+                        : red('分支不存在，请正确输入')
                 )
-                sh.exit(1)
+                process.exit(1)
             }
         }
         const isRemoteBranchExist = getIsBranchOrCommitExist(
@@ -200,8 +201,8 @@ program.action(
                     ])
                 } else {
                     if (!isDescriptionCorrect) {
-                        sh.echo(error('提交的原因描述不符合规范'))
-                        sh.exit(1)
+                        sh.echo(red('提交的原因描述不符合规范'))
+                        process.exit(1)
                     }
                     cmd = cmd.concat([
                         {
@@ -293,8 +294,8 @@ program.action(
                     }
                 } else {
                     if (!isDescriptionCorrect) {
-                        sh.echo(error('提交的原因描述不符合规范'))
-                        sh.exit(1)
+                        sh.echo(red('提交的原因描述不符合规范'))
+                        process.exit(1)
                     }
                     cmd = cmd.concat([
                         {
@@ -328,8 +329,8 @@ program.action(
             }
             queue(cmd)
         } else {
-            sh.echo(error('type只允许输入：' + JSON.stringify(allow)))
-            sh.exit(1)
+            sh.echo(red('type只允许输入：' + JSON.stringify(allow)))
+            process.exit(1)
         }
     }
 )

@@ -1,5 +1,5 @@
 const sh = require('shelljs')
-const { error, success } = require('./utils/colors')
+const { green, red } = require('colors')
 const getPkgInfo = require('./utils/getPkgInfo')
 const { version } = require('../../package.json')
 
@@ -32,14 +32,12 @@ async function isNeedUpgrade(): Promise<boolean> {
  */
 function upgradeGitmars() {
     sh.echo(
-        error(
-            '检测到你的版本比较古老，为避免版本碎片化问题，请升级之后再使用!'
-        ) +
-            success(
+        red('检测到你的版本比较古老，为避免版本碎片化问题，请升级之后再使用!') +
+            green(
                 '\nMac用户升级方法：sudo gitm upgrade latest -m -c npm\nWindows用户使用PowerShell或CMD：gitm upgrade lite -m -c npm.cmd'
             )
     )
-    sh.exit(1)
+    process.exit(1)
 }
 
 module.exports = {

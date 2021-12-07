@@ -1,4 +1,4 @@
-const { warning } = require('../utils/colors')
+const { yellow } = require('colors')
 
 import {
     GitmarsOptionArgsType,
@@ -89,7 +89,7 @@ const createPrompt = (
                         opts.description || '请输入参数' + opts.name + '的值'
                     }${
                         !opts.required
-                            ? warning(
+                            ? yellow(
                                   '(可不填' +
                                       ('defaultValue' in opts &&
                                       opts.defaultValue !== ''

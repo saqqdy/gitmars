@@ -1,4 +1,4 @@
-const sh = require('shelljs')
+const { spawnSync } = require('../spawn')
 const slash = require('slash')
 
 export interface GitProjectConfigType {
@@ -13,16 +13,18 @@ export interface GitProjectConfigType {
  * @returns config - GitProjectConfigType
  */
 function getGitConfig(cwd: string = process.cwd()): GitProjectConfigType {
-    const result = sh
-        .exec('git config --local --get remote.origin.url', { silent: true })
-        .stdout.replace(/\s+$/g, '')
-    const [gitUrl] = result
+    const { stdout } = spawnSync(
+        'git',
+        ['config', '--local', '--get', 'remote.origin.url'],
+        { cwd }
+    )
+    const [gitUrl] = stdout
         .split('\n')
         .map((s: string) => s.trim())
         .map(slash)
     return {
         gitUrl,
-        appName: gitUrl.replace(/^[\s\S]+\/([a-z0-9A-Z-_]+)\.git$/, '$1')
+        appName: gitUrl.replace(/^.+\/(\w+)\.git$/, '$1')
     }
 }
 

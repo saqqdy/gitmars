@@ -164,7 +164,7 @@ gitm ui --port 3000
 ![gitmars-ui.gif](https://raw.githubusercontent.com/saqqdy/gitmars/master/static/img/gitmars-ui.gif)
 
 [npm-image]: https://img.shields.io/npm/v/gitmars.svg?style=flat-square
-[npm-url]: https://npmjs.org/package/gitmars
+[npm-url]: https://npmjs.com/package/gitmars
 [travis-image]: https://travis-ci.com/saqqdy/gitmars.svg?branch=master
 [travis-url]: https://travis-ci.com/saqqdy/gitmars
 [codecov-image]: https://img.shields.io/codecov/c/github/saqqdy/gitmars.svg?style=flat-square
@@ -172,7 +172,7 @@ gitm ui --port 3000
 [snyk-image]: https://snyk.io/test/npm/gitmars/badge.svg?style=flat-square
 [snyk-url]: https://snyk.io/test/npm/gitmars
 [download-image]: https://img.shields.io/npm/dm/gitmars.svg?style=flat-square
-[download-url]: https://npmjs.org/package/gitmars
+[download-url]: https://npmjs.com/package/gitmars
 [license-image]: https://img.shields.io/badge/License-GPL-blue.svg
 [license-url]: LICENSE
 [sonar-image]: https://sonarcloud.io/api/project_badges/quality_gate?project=saqqdy_gitmars

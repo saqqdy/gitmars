@@ -1,4 +1,4 @@
-const sh = require('shelljs')
+const { spawnSync } = require('../spawn')
 const getGitConfig = require('./getGitConfig')
 const getGitRevParse = require('./getGitRevParse')
 
@@ -26,14 +26,15 @@ function searchBranches(opt: any = {}): string[] {
             path = root
         }
     }
-    const data = sh
-        .exec(
-            // `git ls-remote --heads --quiet --sort="version:refname" ${path}`,
-            `git ls-remote --heads --quiet ${path}`,
-            { silent: true }
-        )
-        .stdout.replace(/\n*$/g, '')
-    const arr = data ? data.split('\n') : []
+    const { stdout } = spawnSync('git', [
+        'ls-remote',
+        '--heads',
+        '--quiet',
+        // '--sort',
+        // 'version:refname',
+        path
+    ])
+    const arr = stdout ? stdout.split('\n') : []
     const map: SearchBranchesMapType = {
         heads: [],
         tags: [],

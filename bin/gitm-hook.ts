@@ -1,6 +1,7 @@
 #!/usr/bin/env ts-node
 const { program } = require('commander')
 const sh = require('shelljs')
+const { green, red } = require('colors')
 const { options, args } = require('./conf/hook')
 const { getBranchesFromID } = require('./core/git/index')
 const {
@@ -11,11 +12,11 @@ const {
     getIsMergeAction,
     getBehindLogs
 } = require('./core/git/index')
-const { error, success, createArgs } = require('./core/utils/index')
+const { createArgs } = require('./core/utils/index')
 const { init, remove } = require('./core/hook/index')
 if (!getIsGitProject()) {
-    sh.echo(error('当前目录不是git项目目录'))
-    sh.exit(1)
+    sh.echo(red('当前目录不是git项目目录'))
+    process.exit(1)
 }
 const getConfig = require('./core/getConfig')
 const config = getConfig()
@@ -61,7 +62,7 @@ program.action(
         console.log('gitmars hooks is running')
         // 不检测直接返回
         if (opt.noVerify) {
-            sh.exit(0)
+            process.exit(0)
             return
         }
 
@@ -110,7 +111,7 @@ program.action(
             //   _: '/Users/saqqdy/.nvm/versions/node/v12.18.4/bin/gitm',
             //   LaunchInstanceID: '8EF81FC6-B59A-459E-8571-F561E68E8C5C',
             //   __CFBundleIdentifier: 'com.microsoft.VSCode',
-            //   PWD: '/Users/saqqdy/www/wojiayun/wyweb',
+            //   PWD: '/Users/saqqdy/www/saqqdy/gitmars',
             //   LANG: 'zh_CN.UTF-8',
             //   GITMARS_GIT_PARAMS: '',
             //   XPC_FLAGS: '0x0',
@@ -155,7 +156,7 @@ program.action(
             // 	PATH: '/usr/local/Cellar/git/2.30.0/libexec/git-core:/usr/local/Cellar/git/2.30.0/libexec/git-core:/Users/saqqdy/.nvm/versions/node/v12.18.4/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Applications/VMware Fusion.app/Contents/Public:/Library/Apple/usr/bin:/Users/saqqdy/.nvm/versions/node/v12.18.4/bin',
             // 	_: '/Users/saqqdy/.nvm/versions/node/v12.18.4/bin/gitm',
             // 	__CFBundleIdentifier: 'com.microsoft.VSCode',
-            // 	PWD: '/Users/saqqdy/www/wojiayun/wyweb/webapp/app',
+            // 	PWD: '/Users/saqqdy/www/saqqdy/gitmars/webapp/app',
             // 	LANG: 'zh_CN.UTF-8',
             // 	GITMARS_GIT_PARAMS: '.git/MERGE_MSG merge',
             // 	XPC_FLAGS: '0x0',
@@ -201,7 +202,7 @@ program.action(
             // 	PATH: '/usr/local/Cellar/git/2.30.0/libexec/git-core:/usr/local/Cellar/git/2.30.0/libexec/git-core:/usr/local/Cellar/git/2.30.0/libexec/git-core:/Users/saqqdy/.nvm/versions/node/v12.18.4/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Applications/VMware Fusion.app/Contents/Public:/Library/Apple/usr/bin:/Users/saqqdy/.nvm/versions/node/v12.18.4/bin',
             // 	_: '/Users/saqqdy/.nvm/versions/node/v12.18.4/bin/gitm',
             // 	__CFBundleIdentifier: 'com.microsoft.VSCode',
-            // 	PWD: '/Users/saqqdy/www/wojiayun/wyweb/webapp/app',
+            // 	PWD: '/Users/saqqdy/www/saqqdy/gitmars/webapp/app',
             // 	LANG: 'zh_CN.UTF-8',
             // 	GITMARS_GIT_PARAMS: '',
             // 	XPC_FLAGS: '0x0',
@@ -245,7 +246,7 @@ program.action(
             // 	PATH: '/usr/local/Cellar/git/2.30.0/libexec/git-core:/usr/local/Cellar/git/2.30.0/libexec/git-core:/Users/saqqdy/.nvm/versions/node/v12.18.4/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Applications/VMware Fusion.app/Contents/Public:/Library/Apple/usr/bin:/Users/saqqdy/.nvm/versions/node/v12.18.4/bin',
             // 	_: '/Users/saqqdy/.nvm/versions/node/v12.18.4/bin/gitm',
             // 	__CFBundleIdentifier: 'com.microsoft.VSCode',
-            // 	PWD: '/Users/saqqdy/www/wojiayun/wyweb/webapp/app',
+            // 	PWD: '/Users/saqqdy/www/saqqdy/gitmars/webapp/app',
             // 	LANG: 'zh_CN.UTF-8',
             // 	GITMARS_GIT_PARAMS: 'origin http://git.kingdee.com/wojiacloud_web/wyweb.git',
             // 	XPC_FLAGS: '0x0',
@@ -292,7 +293,7 @@ program.action(
             // 	PATH: '/usr/local/Cellar/git/2.30.0/libexec/git-core:/usr/local/Cellar/git/2.30.0/libexec/git-core:/Users/saqqdy/.nvm/versions/node/v12.18.4/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Applications/VMware Fusion.app/Contents/Public:/Library/Apple/usr/bin:/Users/saqqdy/.nvm/versions/node/v12.18.4/bin',
             // 	_: '/Users/saqqdy/.nvm/versions/node/v12.18.4/bin/gitm',
             // 	__CFBundleIdentifier: 'com.microsoft.VSCode',
-            // 	PWD: '/Users/saqqdy/www/wojiayun/wyweb/webapp/app',
+            // 	PWD: '/Users/saqqdy/www/saqqdy/gitmars/webapp/app',
             // 	LANG: 'zh_CN.UTF-8',
             // 	GITMARS_GIT_PARAMS: '',
             // 	XPC_FLAGS: '0x0',
@@ -346,13 +347,11 @@ program.action(
                     )
                     if (!isMergedBranch) {
                         console.info(
-                            error('检测到你的分支没有合并过' + config.develop)
+                            red('检测到你的分支没有合并过' + config.develop)
                         )
-                        sh.exit(0)
+                        process.exit(0)
                     } else {
-                        console.info(
-                            success(branch + '合并过' + config.develop)
-                        )
+                        console.info(green(branch + '合并过' + config.develop))
                     }
                 }
             }
@@ -370,17 +369,15 @@ program.action(
                     })
                     if (!isUpdatedInTime) {
                         console.info(
-                            error(
+                            red(
                                 '检测到你1周内没有同步过主干' +
                                     branchPrefix +
                                     '分支代码'
                             )
                         )
-                        sh.exit(0)
+                        process.exit(0)
                     } else {
-                        console.info(
-                            success(branch + '一周内同步过主干分支代码')
-                        )
+                        console.info(green(branch + '一周内同步过主干分支代码'))
                     }
                 }
             }
@@ -388,10 +385,10 @@ program.action(
                 // 在主干分支执行push推送时，检测最后一次提交是否为merge记录，如果不是，提示不允许直接在主干分支做修改
                 const isMergeAction = getIsMergeAction()
                 if (!isMergeAction) {
-                    console.info(error('检测到你直接在主干分支修改代码'))
-                    sh.exit(0)
+                    console.info(red('检测到你直接在主干分支修改代码'))
+                    process.exit(0)
                 } else {
-                    console.info(success('最后一条记录是merge记录'))
+                    console.info(green('最后一条记录是merge记录'))
                 }
                 // const behindLogs = getBehindLogs()
                 // const aheadLogs = getAheadLogs()
@@ -399,7 +396,7 @@ program.action(
                 // aheadLog: for (let logStr of aheadLogs) {
                 // 	let logs = logStr.split(' ')
                 // 	if (logs.length < 2) {
-                // 		console.info(warning('检测到你直接在主干分支修改代码'))
+                // 		console.info(yellow('检测到你直接在主干分支修改代码'))
                 // 		isMerge = false
                 // 		break aheadLog
                 // 	}
@@ -407,10 +404,10 @@ program.action(
                 // console.info('本地领先的记录', aheadLogs)
                 // console.info('本地落后的记录', behindLogs)
                 // if (isMerge) {
-                // 	sh.exit(0)
+                // 	process.exit(0)
                 // } else {
-                // 	sh.echo(error('不允许在主干分支直接更改代码提交，请联系管理员'))
-                // 	sh.exit(1)
+                // 	sh.echo(red('不允许在主干分支直接更改代码提交，请联系管理员'))
+                // 	process.exit(1)
                 // }
             }
             if (mainBranches.includes(current) && types.includes('4')) {
@@ -418,13 +415,13 @@ program.action(
                 const behindLogs = getBehindLogs()
                 if (!behindLogs.length) {
                     console.info('你本地分支版本落后于远程分支，请先执行pull')
-                    sh.exit(0)
+                    process.exit(0)
                 } else {
-                    console.info(success('本地版本没有落后远程，可直接push'))
+                    console.info(green('本地版本没有落后远程，可直接push'))
                 }
             }
         }
-        sh.exit(0)
+        process.exit(0)
     }
 )
 program.parse(process.argv)

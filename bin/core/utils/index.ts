@@ -1,4 +1,3 @@
-const { warning, error, success } = require('./colors')
 const { writeFile, isFileExist } = require('./file')
 const { createArgs } = require('./command')
 const getSeconds = require('./getSeconds')
@@ -9,11 +8,9 @@ const readPkg = require('./readPkg')
 const compareVersion = require('./compareVersion')
 const mapTemplate = require('./mapTemplate')
 const { getMessage, postMessage, sendMessage } = require('./message')
+const echo = require('./echo')
 
 module.exports = {
-    warning,
-    error,
-    success,
     writeFile,
     isFileExist,
     createArgs,
@@ -27,6 +24,7 @@ module.exports = {
     mapTemplate,
     getMessage,
     postMessage,
-    sendMessage
+    sendMessage,
+    echo
 }
 export {}

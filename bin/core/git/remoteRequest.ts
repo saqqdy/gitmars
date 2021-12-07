@@ -1,4 +1,4 @@
-const { error } = require('../utils/colors')
+const { red } = require('colors')
 const request = require('../request')
 const getConfig = require('../getConfig')
 const config = getConfig()
@@ -36,7 +36,7 @@ async function mergeRequest({
         const message = fetchData.message
             ? [].concat(fetchData.message).join('')
             : '请求报错了'
-        return Promise.reject(error(message))
+        return Promise.reject(red(message))
     }
     return fetchData
 }

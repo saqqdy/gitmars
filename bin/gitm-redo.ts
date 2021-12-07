@@ -1,22 +1,24 @@
 #!/usr/bin/env ts-node
 const { program } = require('commander')
+const dayjs = require('dayjs')
 const inquirer = require('inquirer')
 const sh = require('shelljs')
+const { yellow, blue, green, red } = require('colors')
 const { options, args } = require('./conf/redo')
 const { queue } = require('./core/queue')
-const { getIsGitProject } = require('./core/git/index')
-const { error, warning } = require('./core/utils/index')
-const { createArgs } = require('./core/utils/index')
+const { getIsGitProject, getCurrentBranch } = require('./core/git/index')
+const { getRevertCache, delRevertCache } = require('./core/cache/index')
+const { createArgs, echo } = require('./core/utils/index')
 if (!getIsGitProject()) {
-    sh.echo(error('当前目录不是git项目目录'))
-    sh.exit(1)
+    sh.echo(red('当前目录不是git项目目录'))
+    process.exit(1)
 }
 
 import {
-    GitLogType,
     GitmarsOptionOptionsType,
     CommandType,
-    InitInquirerPromptType
+    InitInquirerPromptType,
+    RevertCacheType
 } from '../typings'
 
 interface GitmBuildOption {
@@ -29,87 +31,72 @@ interface GitmBuildOption {
  */
 program
     .name('gitm redo')
-    .usage('[commitid...] [-b --branch [branch]] [-m --mode [mode]]')
+    .usage('[commitid...] [-m --mode [mode]]')
     .description('撤销一次提交记录')
 if (args.length > 0) program.arguments(createArgs(args))
 options.forEach((o: GitmarsOptionOptionsType) => {
     program.option(o.flags, o.description, o.defaultValue)
 })
 // .arguments('[commitid...]')
-// .option('-b, --branch [branch]', '需要撤销的分支名', '')
 // .option('-m, --mode [mode]', '针对撤销一次merge记录，需要传入类型：1 = 保留当前分支代码，2 = 保留传入代码', 1)
 program.action(async (commitid: string[], opt: GitmBuildOption) => {
-    const cmd: Array<CommandType | string> = []
-    let m = ''
-    if (opt.mode) m = ' -m ' + Math.abs(Number(opt.mode))
-    if (opt.branch) {
-        const keys = ['%H', '%aI', '%an']
-        const results = sh
-            .exec(
-                `git log --merges --grep="'${
-                    opt.branch
-                }'" --date-order --pretty=format:"${keys.join(',=')}-end-"`,
-                { silent: true }
-            )
-            .stdout.replace(/[\r\n]+/g, '')
-            .replace(/-end-$/, '')
-        const logList: GitLogType[] = []
-        let logs = logList.map(log => log['%H'])
-        // 读取记录
-        results &&
-            results.split('-end-').forEach((log: string) => {
-                const args = log.split(',=')
-                const map: {
-                    [props: string]: string
-                } = {}
-                keys.forEach((key, i) => {
-                    map[key] = args[i]
-                })
-                logList.push(map)
-            })
-        logList.reverse()
-        // 多条记录，提示选择要恢复的记录
-        if (logList.length > 1) {
-            const prompt: InitInquirerPromptType = {
-                type: 'checkbox',
-                message: '检测到存在多条记录，请选择要撤销的项',
-                name: 'commitIDs',
-                choices: []
-            }
-            logList.forEach(log => {
-                prompt.choices.push({
-                    name: `${log['%an']}操作于：${log['%aI']}`,
-                    value: log['%H'],
-                    checked: true
-                })
-            })
-            const { commitIDs } = await inquirer.prompt(prompt)
-            logs = commitIDs
-        }
-        logs.forEach(log => {
-            cmd.push({
-                cmd: `git revert ${log}${m}`,
-                config: {
-                    again: true,
-                    success: '撤销成功',
-                    fail: '出错了，请根据提示处理'
-                }
-            })
-        })
-    } else if (commitid) {
-        cmd.push({
-            cmd: `git revert ${commitid}${m}`,
-            config: {
-                again: true,
-                success: '撤销成功',
-                fail: '出错了，请根据提示处理'
-            }
-        })
-    } else {
-        sh.echo(warning('指令不合法'))
-        sh.exit(1)
+    const current = getCurrentBranch()
+    let revertCache: RevertCacheType[] = getRevertCache(current),
+        cmd: Array<CommandType | string> = [],
+        commitIDs: string[] = [], // 需要恢复的commitID
+        mode = ''
+    if (opt.mode) mode = ' -m ' + Math.abs(Number(opt.mode))
+    if (commitid.length > 0) {
+        // 传入了commitIDs
+        revertCache = revertCache.filter(item =>
+            commitid.some(id => item.after['%H']!.indexOf(id) > -1)
+        )
     }
-    queue(cmd)
+    // 没有查询到日志
+    if (revertCache.length === 0) {
+        // 没有查找到任何记录
+        echo(yellow('没有找到可恢复的撤销记录，进程已退出'))
+        process.exit(0)
+    }
+    // 多条记录
+    const prompt: InitInquirerPromptType = {
+        type: 'checkbox',
+        message: '请选择要恢复的撤销记录',
+        name: 'commitIDs',
+        choices: []
+    }
+    revertCache.forEach(({ after }, index) => {
+        const _time = dayjs(after['%aI']).format('YYYY/MM/DD HH:mm')
+        prompt.choices.push({
+            name: `${green(index + 1 + '.')} ${green(after['%s'])} | ${yellow(
+                after['%an']
+            )} | ${blue(_time)}`,
+            value: after['%H'],
+            checked: false
+        })
+    })
+    commitIDs = (await inquirer.prompt(prompt)).commitIDs
+    // 没有选择任何记录
+    if (commitIDs.length === 0) {
+        echo(yellow('没有选择任何记录，进程已退出'))
+        process.exit(0)
+    }
+    // 筛选被选择的记录
+    revertCache = revertCache.filter(item =>
+        commitIDs.includes(item.after['%H']!)
+    )
+    cmd = revertCache.map(item => ({
+        cmd: `git revert -s --no-edit ${item.after['%H']}${mode}`,
+        config: {
+            again: false,
+            success: `撤销成功：${item.after['%s']}`,
+            fail: '出错了，请根据提示处理'
+        }
+    }))
+    // 执行
+    queue(cmd).then(() => {
+        delRevertCache(commitIDs)
+    })
 })
 program.parse(process.argv)
 export {}

@@ -2,6 +2,7 @@ const getIsGitProject = require('./getIsGitProject')
 const searchBranches = require('./searchBranches')
 const getCurrentBranch = require('./getCurrentBranch')
 const getGitLogs = require('./getGitLogs')
+const getGitLogsByCommitIDs = require('./getGitLogsByCommitIDs')
 const getGitVersion = require('./getGitVersion')
 const getGitConfig = require('./getGitConfig')
 const getGitRevParse = require('./getGitRevParse')
@@ -16,7 +17,6 @@ const getBranchesFromID = require('./getBranchesFromID')
 const getGitStatus = require('./getGitStatus')
 const getCommandMessage = require('./getCommandMessage')
 const checkGitStatus = require('./checkGitStatus')
-const filterBranch = require('./filterBranch')
 const getStashList = require('./getStashList')
 const { mergeRequest } = require('./remoteRequest')
 
@@ -25,6 +25,7 @@ module.exports = {
     searchBranches,
     getCurrentBranch,
     getGitLogs,
+    getGitLogsByCommitIDs,
     getGitVersion,
     getGitConfig,
     getGitRevParse,
@@ -40,7 +41,6 @@ module.exports = {
     getGitStatus,
     getCommandMessage,
     checkGitStatus,
-    filterBranch,
     getStashList,
     mergeRequest
 }

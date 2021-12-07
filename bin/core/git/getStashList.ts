@@ -1,5 +1,6 @@
 const sh = require('shelljs')
-const { warning } = require('../utils/colors')
+const { spawnSync } = require('../spawn')
+const { yellow } = require('colors')
 
 /**
  * 获取暂存区列表
@@ -8,10 +9,13 @@ const { warning } = require('../utils/colors')
  * @returns stashList - 返回stashList
  */
 function getStashList(key: string) {
-    const data = sh
-        .exec('git stash list', { silent: true })
-        .stdout.replace(/(^\s+|\n+$)/, '')
-    const list: string[] = (data && data.split('\n')) || []
+    const { stdout } = spawnSync('git', [
+        'stash',
+        'list'
+        // '--name-only',
+        // '--pretty=format:%gd'
+    ])
+    const list: string[] = (stdout && stdout.split('\n')) || []
     const arr: {
         key: string
         index: number
@@ -19,7 +23,7 @@ function getStashList(key: string) {
     }[] = []
     if (list.length > 10)
         sh.echo(
-            warning(`该项目下一共有${list.length}条暂存记录，建议定期清理！`)
+            yellow(`该项目下一共有${list.length}条暂存记录，建议定期清理！`)
         )
     try {
         list.forEach(item => {

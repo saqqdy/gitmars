@@ -12,22 +12,10 @@ import type { GitmarsOptionType } from '../../typings'
                     cb()
                 },
                 // transformer: null,
-                description: '需要撤销的ID'
+                description: '需要恢复的撤销记录'
             }
         ],
         options: [
-            {
-                flags: '-b, --branch [branch]',
-                required: false,
-                optional: true,
-                variadic: false,
-                mandatory: false,
-                short: '-b',
-                long: '--branch',
-                negate: false,
-                description: '需要撤销的分支名',
-                defaultValue: ''
-            },
             {
                 flags: '-m, --mode [mode]',
                 required: false,

@@ -1,4 +1,4 @@
-const sh = require('shelljs')
+const { spawnSync } = require('../spawn')
 
 /**
  * 获取当前是否git项目目录
@@ -6,9 +6,8 @@ const sh = require('shelljs')
  * @returns isGitProject - 返回是否git项目目录
  */
 function getIsGitProject(): boolean {
-    return sh
-        .exec('git rev-parse --is-inside-work-tree', { silent: true })
-        .stdout.includes('true')
+    const { stdout } = spawnSync('git', ['rev-parse', '--is-inside-work-tree'])
+    return stdout.includes('true')
 }
 
 module.exports = getIsGitProject

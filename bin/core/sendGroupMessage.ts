@@ -1,7 +1,7 @@
 const sh = require('shelljs')
+const { green, red } = require('colors')
 const request = require('./request')
 const getApolloConfig = require('./build/getApolloConfig')
-const { error, success } = require('./utils/colors')
 
 import type { ApolloConfigType } from '../../typings'
 
@@ -15,7 +15,7 @@ async function sendGroupMessage(message: string, url = ''): Promise<void> {
     const config = (await getApolloConfig()) as ApolloConfigType
     let urls: string[] = []
     if (!config.gitNotificationGroupUrl && !url) {
-        sh.echo(error('没有配置群消息推送地址'))
+        sh.echo(red('没有配置群消息推送地址'))
         return
     }
     if (url) urls = [url]
@@ -35,14 +35,8 @@ async function sendGroupMessage(message: string, url = ''): Promise<void> {
                 headers: { 'Content-Type': 'application/json' }
             })
             .then(() => {
-                sh.echo(success('发送消息成功'))
+                sh.echo(green('发送消息成功'))
             })
-        // sh.exec(
-        //     `curl -i -H "Content-Type: application/json" -X POST -d "{\u005c"content\u005c":\u005c"${message}\u005c"}" "${
-        //         item || config.gitNotificationGroupUrl
-        //     }"`,
-        //     { silent }
-        // )
     })
 }
 

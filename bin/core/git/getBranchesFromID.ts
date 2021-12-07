@@ -1,4 +1,4 @@
-const sh = require('shelljs')
+const { spawnSync } = require('../spawn')
 
 /**
  * 获取包含commitID的分支
@@ -8,15 +8,15 @@ const sh = require('shelljs')
  * @returns branches - 返回分支列表
  */
 function getBranchesFromID(commitID: string, remote = false): string[] {
-    const out = sh
-        .exec(
-            `git branch ${
-                remote ? '-r' : ''
-            } --contains ${commitID} --format="%(refname:short)`,
-            { silent: true }
-        )
-        .stdout.replace(/(^\s+|\n+$)/, '') // 去除首尾
-    return out ? out.split('\n') : []
+    const { stdout } = spawnSync('git', [
+        'branch',
+        remote ? '-r' : '',
+        '--contains',
+        commitID,
+        '--format',
+        '%(refname:short)'
+    ])
+    return stdout ? stdout.split('\n') : []
 }
 
 module.exports = getBranchesFromID
