@@ -121,7 +121,6 @@ function calculate(all = false) {
                 grep: after['%H']
             })
         }
-		console.log(1000, _undoLogs, _redoLogs)
         // 不检测全部分支时，跳过非当前分支
         if (!all && current !== branch) continue
         // 没有找到该记录的撤销记录 或 撤销的记录被恢复过
@@ -255,7 +254,6 @@ program.action(async (commitid: string[], opt: GitmBuildOption) => {
             branch: current,
             grep: log['%H']
         })
-        console.log(_logs, logList, log)
         if (_logs.length > 0) cache.after = _logs[0]
         return cache
     })
