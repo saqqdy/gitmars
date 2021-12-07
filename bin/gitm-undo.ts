@@ -81,8 +81,9 @@ function getRevertCommitIDs(commitIDs: string[]): string[] {
  * 3. 有撤销记录，但已经恢复
  *
  * @param all - 是否清理全部，默认只清理当前分支
+ * @param opt - option: GitmBuildOption
  */
-function calculate(all = false) {
+function calculate(all = false, opt: GitmBuildOption) {
     const keys = ['%H', '%T', '%P', '%aI', '%an', '%s', '%b']
     const revertCache = getRevertCache()
     const current = getCurrentBranch()
@@ -94,8 +95,8 @@ function calculate(all = false) {
         if (!after) {
             // 没有after，尝试恢复
             const _logs = getGitLogs({
-                lastet: '1d',
-                limit: 40,
+                lastet: opt.lastet,
+                limit: opt.limit * 2,
                 noMerges: true,
                 keys,
                 branch,
@@ -170,11 +171,11 @@ program.action(async (commitid: string[], opt: GitmBuildOption) => {
         commitIDs: string[] = [], // 需要执行的commitID
         mode = ''
     if (opt.calc) {
-        calculate()
+        calculate(false, opt)
         return
     }
     if (opt.calcAll) {
-        calculate(true)
+        calculate(true, opt)
         return
     }
     if (!opt.limit) opt.limit = 20
@@ -247,7 +248,7 @@ program.action(async (commitid: string[], opt: GitmBuildOption) => {
     const revertCacheList = logList.map(log => {
         const cache = { before: log, after: null, branch: current }
         const _logs = getGitLogs({
-            lastet: '1d',
+            lastet: opt.lastet,
             limit: opt.limit * 2,
             noMerges: true,
             keys,
@@ -261,14 +262,10 @@ program.action(async (commitid: string[], opt: GitmBuildOption) => {
     // 执行
     queue(cmd)
         .then(() => {
-            calculate()
+            calculate(false, opt)
         })
         .catch(() => {
-            echo(
-                yellow(
-                    '处理冲突之后，执行：gitm undo --calc'
-                )
-            )
+            echo(yellow('处理冲突之后，执行：gitm undo --calc'))
         })
 })
 
