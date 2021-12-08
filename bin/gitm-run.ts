@@ -1,7 +1,7 @@
 #!/usr/bin/env ts-node
 const { program } = require('commander')
 const { options, args } = require('./conf/run')
-const { createArgs } = require('./core/utils/index')
+const { createArgs } = require('./core/utils/command')
 const run = require('./core/hook/run')
 
 import { GitmarsOptionOptionsType } from '../typings'

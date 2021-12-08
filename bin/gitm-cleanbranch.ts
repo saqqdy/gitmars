@@ -4,14 +4,14 @@ const { green, yellow, red } = require('colors')
 const inquirer = require('inquirer')
 const ora = require('ora')
 const { options, args } = require('./conf/cleanbranch')
-const {
-    getIsGitProject,
-    searchBranches,
-    getCurrentBranch,
-    getIsMergedTargetBranch,
-    getIsBranchOrCommitExist
-} = require('./core/git/index')
-const { createArgs, delay, echo } = require('./core/utils/index')
+const getIsGitProject = require('./core/git/getIsGitProject')
+const searchBranches = require('./core/git/searchBranches')
+const getCurrentBranch = require('./core/git/getCurrentBranch')
+const getIsMergedTargetBranch = require('./core/git/getIsMergedTargetBranch')
+const getIsBranchOrCommitExist = require('./core/git/getIsBranchOrCommitExist')
+const { createArgs } = require('./core/utils/command')
+const delay = require('./core/utils/delay')
+const echo = require('./core/utils/echo')
 const { spawnSync } = require('./core/spawn')
 if (!getIsGitProject()) {
     echo(red('当前目录不是git项目目录'))

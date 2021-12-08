@@ -3,7 +3,7 @@ const { program } = require('commander')
 const path = require('path')
 const { options, args } = require('./conf/ui')
 const { spawnSync } = require('./core/spawn')
-const { createArgs } = require('./core/utils/index')
+const { createArgs } = require('./core/utils/command')
 
 import { GitmarsOptionOptionsType } from '../typings'
 

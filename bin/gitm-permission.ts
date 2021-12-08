@@ -2,7 +2,7 @@
 const { program } = require('commander')
 const sh = require('shelljs')
 const { red } = require('colors')
-const { getCurrentBranch } = require('./core/git/index')
+const getCurrentBranch = require('./core/git/getCurrentBranch')
 const getConfig = require('./core/getConfig')
 const { spawnSync } = require('./core/spawn')
 const config = getConfig()

@@ -1,5 +1,6 @@
 const home = require('../lib/home')()
-const { getCurrentBranch, searchBranches } = require('../../lib/core/git/index')
+const getCurrentBranch = require('../../lib/core/git/getCurrentBranch')
+const searchBranches = require('../../lib/core/git/searchBranches')
 
 import type { Socket } from 'socket.io'
 
