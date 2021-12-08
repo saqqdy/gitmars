@@ -24,7 +24,10 @@ function getGitConfig(cwd: string = process.cwd()): GitProjectConfigType {
         .map(slash)
     return {
         gitUrl,
-        appName: gitUrl.replace(/^.+\/(\w+)\.git$/, '$1')
+        appName: gitUrl
+            .split('/')
+            .reverse()[0]
+            .replace(/\.git$/, '')
     }
 }
 
