@@ -21,7 +21,7 @@ if (!getIsGitProject()) {
     process.exit(1)
 }
 const getConfig = require('./core/getConfig')
-const { getUserToken } = require('./core/api/index')
+const getUserToken = require('./core/api/getUserToken')
 const { defaults } = require('./core/global')
 const config = getConfig()
 const { appName } = getGitConfig()

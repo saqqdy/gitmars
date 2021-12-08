@@ -4,12 +4,10 @@ const sh = require('shelljs')
 const { red } = require('colors')
 const { options, args } = require('./conf/update')
 const { queue } = require('./core/queue')
-const {
-    getIsGitProject,
-    getCurrentBranch,
-    checkGitStatus,
-    searchBranches
-} = require('./core/git/index')
+const getIsGitProject = require('./core/git/getIsGitProject')
+const getCurrentBranch = require('./core/git/getCurrentBranch')
+const checkGitStatus = require('./core/git/checkGitStatus')
+const searchBranches = require('./core/git/searchBranches')
 const { isNeedUpgrade, upgradeGitmars } = require('./core/versionControl')
 const { createArgs } = require('./core/utils/index')
 if (!getIsGitProject()) {

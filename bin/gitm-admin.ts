@@ -3,16 +3,14 @@ const { Command } = require('commander')
 const sh = require('shelljs')
 const { green, red } = require('colors')
 const { create, publish, update, clean } = require('./conf/admin')
-const { getUserToken } = require('./core/api/index')
+const getUserToken = require('./core/api/getUserToken')
 const getType = require('js-cool/lib/getType')
 const { queue } = require('./core/queue')
-const { getIsBranchOrCommitExist } = require('./core/git/index')
-const {
-    getIsGitProject,
-    getCurrentBranch,
-    getGitConfig,
-    checkGitStatus
-} = require('./core/git/index')
+const getIsBranchOrCommitExist = require('./core/git/getIsBranchOrCommitExist')
+const getIsGitProject = require('./core/git/getIsGitProject')
+const getCurrentBranch = require('./core/git/getCurrentBranch')
+const getGitConfig = require('./core/git/getGitConfig')
+const checkGitStatus = require('./core/git/checkGitStatus')
 const { createArgs } = require('./core/utils/index')
 if (!getIsGitProject()) {
     sh.echo(red('当前目录不是git项目目录'))

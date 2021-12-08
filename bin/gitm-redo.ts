@@ -7,7 +7,7 @@ const { yellow, blue, green, red } = require('colors')
 const { options, args } = require('./conf/redo')
 const { queue } = require('./core/queue')
 const { getIsGitProject, getCurrentBranch } = require('./core/git/index')
-const { getRevertCache, delRevertCache } = require('./core/cache/index')
+const { getRevertCache, delRevertCache } = require('./core/cache/revertCache')
 const { createArgs, echo } = require('./core/utils/index')
 if (!getIsGitProject()) {
     sh.echo(red('当前目录不是git项目目录'))

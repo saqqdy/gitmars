@@ -16,7 +16,7 @@ const {
     getRevertCache,
     addRevertCache,
     setRevertCache
-} = require('./core/cache/index')
+} = require('./core/cache/revertCache')
 const { createArgs, echo } = require('./core/utils/index')
 if (!getIsGitProject()) {
     sh.echo(red('当前目录不是git项目目录'))

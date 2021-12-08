@@ -5,7 +5,10 @@ const { green, yellow, red } = require('colors')
 const inquirer = require('inquirer')
 const { options, args } = require('./conf/continue')
 const { queue } = require('./core/queue')
-const { getCommandCache, cleanCommandCache } = require('./core/cache/index')
+const {
+    getCommandCache,
+    cleanCommandCache
+} = require('./core/cache/commandCache')
 const { getIsGitProject, getGitStatus } = require('./core/git/index')
 const { createArgs } = require('./core/utils/index')
 if (!getIsGitProject()) {
