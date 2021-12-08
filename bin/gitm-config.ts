@@ -2,8 +2,9 @@
 const { program } = require('commander')
 const sh = require('shelljs')
 const { green, red } = require('colors')
-const { getIsGitProject, getGitRevParse } = require('./core/git/index')
-const { writeFile } = require('./core/utils/index')
+const getIsGitProject = require('./core/git/getIsGitProject')
+const getGitRevParse = require('./core/git/getGitRevParse')
+const { writeFile } = require('./core/utils/file')
 const { defaults } = require('./core/global')
 if (!getIsGitProject()) {
     sh.echo(red('当前目录不是git项目目录'))

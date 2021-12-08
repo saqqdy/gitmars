@@ -6,8 +6,8 @@ const inquirer = require('inquirer')
 const { options, args } = require('./conf/go')
 const getProperty = require('js-cool/lib/getProperty')
 const commands = require('./core/go/index')
-const { getCurrentBranch } = require('./core/git/index')
-const { createArgs } = require('./core/utils/index')
+const getCurrentBranch = require('./core/git/getCurrentBranch')
+const { createArgs } = require('./core/utils/command')
 
 import { GitmarsOptionOptionsType } from '../typings'
 

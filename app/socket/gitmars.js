@@ -1,7 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const home = require('../lib/home')();
-const { getCurrentBranch, searchBranches } = require('../../lib/core/git/index');
+const getCurrentBranch = require('../../lib/core/git/getCurrentBranch');
+const searchBranches = require('../../lib/core/git/searchBranches');
 let glob = {}, config = {}, branch = [], current = '', interval = null;
 /**
  * getData

@@ -5,16 +5,14 @@ const { yellow, red } = require('colors')
 const { options, args } = require('./conf/combine')
 const getType = require('js-cool/lib/getType')
 const { queue } = require('./core/queue')
-const {
-    getIsGitProject,
-    getCurrentBranch,
-    getGitConfig,
-    getIsMergedTargetBranch,
-    getIsUpdatedInTime,
-    checkGitStatus,
-    searchBranches
-} = require('./core/git/index')
-const { createArgs } = require('./core/utils/index')
+const getIsGitProject = require('./core/git/getIsGitProject')
+const getCurrentBranch = require('./core/git/getCurrentBranch')
+const getGitConfig = require('./core/git/getGitConfig')
+const getIsMergedTargetBranch = require('./core/git/getIsMergedTargetBranch')
+const getIsUpdatedInTime = require('./core/git/getIsUpdatedInTime')
+const checkGitStatus = require('./core/git/checkGitStatus')
+const searchBranches = require('./core/git/searchBranches')
+const { createArgs } = require('./core/utils/command')
 const { isNeedUpgrade, upgradeGitmars } = require('./core/versionControl')
 const { defaults } = require('./core/global')
 const remoteRequestModule = require.resolve(

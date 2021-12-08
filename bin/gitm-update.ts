@@ -9,7 +9,7 @@ const getCurrentBranch = require('./core/git/getCurrentBranch')
 const checkGitStatus = require('./core/git/checkGitStatus')
 const searchBranches = require('./core/git/searchBranches')
 const { isNeedUpgrade, upgradeGitmars } = require('./core/versionControl')
-const { createArgs } = require('./core/utils/index')
+const { createArgs } = require('./core/utils/command')
 if (!getIsGitProject()) {
     sh.echo(red('当前目录不是git项目目录'))
     process.exit(1)

@@ -9,8 +9,9 @@ const {
     getCommandCache,
     cleanCommandCache
 } = require('./core/cache/commandCache')
-const { getIsGitProject, getGitStatus } = require('./core/git/index')
-const { createArgs } = require('./core/utils/index')
+const getIsGitProject = require('./core/git/getIsGitProject')
+const getGitStatus = require('./core/git/getGitStatus')
+const { createArgs } = require('./core/utils/command')
 if (!getIsGitProject()) {
     sh.echo(red('当前目录不是git项目目录'))
     process.exit(1)

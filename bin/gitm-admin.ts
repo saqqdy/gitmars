@@ -11,7 +11,7 @@ const getIsGitProject = require('./core/git/getIsGitProject')
 const getCurrentBranch = require('./core/git/getCurrentBranch')
 const getGitConfig = require('./core/git/getGitConfig')
 const checkGitStatus = require('./core/git/checkGitStatus')
-const { createArgs } = require('./core/utils/index')
+const { createArgs } = require('./core/utils/command')
 if (!getIsGitProject()) {
     sh.echo(red('当前目录不是git项目目录'))
     process.exit(1)

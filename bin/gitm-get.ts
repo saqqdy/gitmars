@@ -4,12 +4,10 @@ const sh = require('shelljs')
 const { yellow, red } = require('colors')
 const { options, args } = require('./conf/get')
 const { queue } = require('./core/queue')
-const {
-    getIsGitProject,
-    getCurrentBranch,
-    getStashList
-} = require('./core/git/index')
-const { createArgs } = require('./core/utils/index')
+const getIsGitProject = require('./core/git/getIsGitProject')
+const getCurrentBranch = require('./core/git/getCurrentBranch')
+const getStashList = require('./core/git/getStashList')
+const { createArgs } = require('./core/utils/command')
 if (!getIsGitProject()) {
     sh.echo(red('当前目录不是git项目目录'))
     process.exit(1)

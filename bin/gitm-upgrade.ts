@@ -3,7 +3,7 @@ const { program } = require('commander')
 const { green, red } = require('colors')
 const { spawnSync } = require('./core/spawn')
 const { options, args } = require('./conf/upgrade')
-const { createArgs } = require('./core/utils/index')
+const { createArgs } = require('./core/utils/command')
 const ora = require('ora')
 
 import { GitmarsOptionOptionsType, PackageVersionTag } from '../typings'

@@ -3,16 +3,14 @@ const { program } = require('commander')
 const sh = require('shelljs')
 const { green, red } = require('colors')
 const { options, args } = require('./conf/hook')
-const { getBranchesFromID } = require('./core/git/index')
-const {
-    getIsGitProject,
-    getCurrentBranch,
-    getIsMergedTargetBranch,
-    getIsUpdatedInTime,
-    getIsMergeAction,
-    getBehindLogs
-} = require('./core/git/index')
-const { createArgs } = require('./core/utils/index')
+const getBranchesFromID = require('./core/git/getBranchesFromID')
+const getIsGitProject = require('./core/git/getIsGitProject')
+const getCurrentBranch = require('./core/git/getCurrentBranch')
+const getIsMergedTargetBranch = require('./core/git/getIsMergedTargetBranch')
+const getIsUpdatedInTime = require('./core/git/getIsUpdatedInTime')
+const getIsMergeAction = require('./core/git/getIsMergeAction')
+const getBehindLogs = require('./core/git/getBehindLogs')
+const { createArgs } = require('./core/utils/command')
 const { init, remove } = require('./core/hook/index')
 if (!getIsGitProject()) {
     sh.echo(red('当前目录不是git项目目录'))

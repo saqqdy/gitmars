@@ -6,18 +6,17 @@ const sh = require('shelljs')
 const { yellow, blue, green, red } = require('colors')
 const { options, args } = require('./conf/undo')
 const { queue } = require('./core/queue')
-const {
-    getIsGitProject,
-    getGitLogs,
-    getGitLogsByCommitIDs,
-    getCurrentBranch
-} = require('./core/git/index')
+const getIsGitProject = require('./core/git/getIsGitProject')
+const getGitLogs = require('./core/git/getGitLogs')
+const getGitLogsByCommitIDs = require('./core/git/getGitLogsByCommitIDs')
+const getCurrentBranch = require('./core/git/getCurrentBranch')
 const {
     getRevertCache,
     addRevertCache,
     setRevertCache
 } = require('./core/cache/revertCache')
-const { createArgs, echo } = require('./core/utils/index')
+const { createArgs } = require('./core/utils/command')
+const echo = require('./core/utils/echo')
 if (!getIsGitProject()) {
     sh.echo(red('当前目录不是git项目目录'))
     process.exit(1)

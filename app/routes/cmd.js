@@ -8,7 +8,8 @@ const router = express_1.default.Router();
 const fs = require('fs');
 // const sh = require('shelljs')
 const glob = require('../../lib/core/global');
-const { getCurrentBranch, searchBranches } = require('../../lib/core/git/index');
+const getCurrentBranch = require('../../lib/core/git/getCurrentBranch');
+const searchBranches = require('../../lib/core/git/searchBranches');
 // const error503 = (res: Response) => {
 // 	res.status(503).send({ data: null, success: false, code: 0, msg: 'fail' })
 // }
