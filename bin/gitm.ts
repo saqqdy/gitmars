@@ -1,6 +1,6 @@
 #!/usr/bin/env ts-node
-import { version } from '../package.json'
 const { program } = require('commander')
+const { version } = require('../package.json')
 const sh = require('shelljs')
 const { green } = require('colors')
 const { spawnSync } = require('./core/spawn')
