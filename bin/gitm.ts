@@ -1,6 +1,6 @@
 #!/usr/bin/env ts-node
+import { version } from '../package.json'
 const { program } = require('commander')
-const { version } = require('../package.json')
 const sh = require('shelljs')
 const { green } = require('colors')
 const { spawnSync } = require('./core/spawn')
@@ -134,6 +134,11 @@ program.on('command:*', function (types: string[], opts: string[]) {
         'admin'
     ]
     if (!cmd.includes(types[0])) {
+        opts = opts.map(type =>
+            type.indexOf('-') === 0 || /^\w+$/.test(type)
+                ? type
+                : '"' + type + '"'
+        )
         const arr = types.concat(opts)
         echo(
             green(
