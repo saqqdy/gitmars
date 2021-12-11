@@ -31,13 +31,13 @@ function getIsUpdatedInTime({
         lastet,
         limit,
         branch,
-        params: '--no-merges'
+        noMerges: true
     })
     const currentLogs = getGitLogs({
         lastet,
         limit,
         branch: current,
-        params: '--no-merges'
+        noMerges: true
     })
     mainLogs.forEach((log: GitLogsType) => {
         mainVers.push(log['%H']!)
