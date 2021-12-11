@@ -158,16 +158,28 @@
 							<v3-collapse-item name="7">
 								<template #title>
 									<MapCommand
-										:value="commandValue['cleanbranch']"
+										:value="commandValue['undo']"
 										:current="data.current"
 										@exec="exec"
 									></MapCommand>
 								</template>
 								<Command
-									v-model="commandValue['cleanbranch']"
+									v-model="commandValue['undo']"
 								></Command>
 							</v3-collapse-item>
 							<v3-collapse-item name="8">
+								<template #title>
+									<MapCommand
+										:value="commandValue['redo']"
+										:current="data.current"
+										@exec="exec"
+									></MapCommand>
+								</template>
+								<Command
+									v-model="commandValue['redo']"
+								></Command>
+							</v3-collapse-item>
+							<v3-collapse-item name="9">
 								<template #title>
 									<MapCommand
 										:value="
@@ -242,6 +254,18 @@
 							<v3-collapse-item name="15">
 								<template #title>
 									<MapCommand
+										:value="commandValue['cleanbranch']"
+										:current="data.current"
+										@exec="exec"
+									></MapCommand>
+								</template>
+								<Command
+									v-model="commandValue['cleanbranch']"
+								></Command>
+							</v3-collapse-item>
+							<v3-collapse-item name="16">
+								<template #title>
+									<MapCommand
 										:value="commandValue['link']"
 										:current="data.current"
 										@exec="exec"
@@ -251,7 +275,7 @@
 									v-model="commandValue['link']"
 								></Command>
 							</v3-collapse-item>
-							<v3-collapse-item name="16">
+							<v3-collapse-item name="17">
 								<template #title>
 									<MapCommand
 										:value="commandValue['unlink']"
@@ -263,7 +287,7 @@
 									v-model="commandValue['unlink']"
 								></Command>
 							</v3-collapse-item>
-							<v3-collapse-item name="17">
+							<v3-collapse-item name="18">
 								<template #title>
 									<MapCommand
 										:value="commandValue['clean']"
@@ -275,7 +299,7 @@
 									v-model="commandValue['clean']"
 								></Command>
 							</v3-collapse-item>
-							<v3-collapse-item name="18">
+							<v3-collapse-item name="19">
 								<template #title>
 									<MapCommand
 										:value="commandValue['log']"
@@ -623,8 +647,8 @@ export default defineComponent({
 				gap: 20px;
 			}
 			.xterm {
-				height: calc(100% - 534px);
-				min-height: 360px;
+				height: calc(100% - 582px);
+				min-height: 320px;
 			}
 		}
 	}

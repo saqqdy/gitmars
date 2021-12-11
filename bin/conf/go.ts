@@ -15,6 +15,8 @@ import type { GitmarsOptionType } from '../../typings'
                     'update',
                     'build',
                     'start',
+                    'undo',
+                    'redo',
                     'admin.publish',
                     'admin.update',
                     'admin.create',

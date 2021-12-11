@@ -45,6 +45,8 @@ program.action(async (command: string): Promise<void> => {
                     'update',
                     'build',
                     'start',
+                    'undo',
+                    'redo',
                     'admin.publish',
                     'admin.update',
                     'admin.create',

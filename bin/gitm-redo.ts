@@ -40,14 +40,14 @@ options.forEach((o: GitmarsOptionOptionsType) => {
     program.option(o.flags, o.description, o.defaultValue)
 })
 // .arguments('[commitid...]')
-// .option('-m, --mode [mode]', '针对撤销一次merge记录，需要传入类型：1 = 保留当前分支代码，2 = 保留传入代码', 1)
+// .option('-m, --mode [mode]', '针对撤销一次merge记录，需要传入类型：1 = 保留当前分支代码，2 = 保留传入代码', null)
 program.action(async (commitid: string[], opt: GitmBuildOption) => {
     const current = getCurrentBranch()
     let revertCache: RevertCacheType[] = getRevertCache(current),
         cmd: Array<CommandType | string> = [],
         commitIDs: string[] = [], // 需要恢复的commitID
         mode = ''
-    if (opt.mode) mode = ' -m ' + Math.abs(Number(opt.mode))
+    mode = ' -m ' + Math.abs(Number(opt.mode || 1))
     if (commitid.length > 0) {
         // 传入了commitIDs
         revertCache = revertCache.filter(item =>
