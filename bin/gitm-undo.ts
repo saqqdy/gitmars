@@ -155,7 +155,7 @@ options.forEach((o: GitmarsOptionOptionsType) => {
 // .option('--calc', '清理当前分支撤销失败的记录')
 // .option('--calcAll', '清理所有撤销失败的记录')
 // .option('--no-merges', '是否排除merge的日志')
-// .option('-m, --mode [mode]', '针对撤销一次merge记录，需要传入类型：1 = 保留当前分支代码，2 = 保留传入代码', 1)
+// .option('-m, --mode [mode]', '针对撤销一次merge记录，需要传入类型：1 = 保留当前分支代码，2 = 保留传入代码', null)
 // .option('--lastet [lastet]', '查询在某个时间之后的日志，填写格式：10s/2m/2h/3d/4M/5y', '7d')
 // .option('--limit [limit]', '最多查询的日志条数', 20)
 program.action(async (commitid: string[], opt: GitmBuildOption) => {
@@ -178,7 +178,7 @@ program.action(async (commitid: string[], opt: GitmBuildOption) => {
         return
     }
     if (!opt.limit) opt.limit = 20
-    if (opt.mode) mode = ' -m ' + Math.abs(Number(opt.mode))
+    mode = ' -m ' + Math.abs(Number(opt.mode || 1))
     if (commitid.length > 0) {
         // 传入了commitIDs
         logList = getGitLogsByCommitIDs({ commitIDs: commitid, keys })
@@ -235,14 +235,18 @@ program.action(async (commitid: string[], opt: GitmBuildOption) => {
     logList = logList.filter(log =>
         commitIDs.some(id => log['%H'].indexOf(id) > -1)
     )
-    cmd = logList.map(log => ({
-        cmd: `git revert -s --no-edit ${log['%H']}${mode}`,
-        config: {
-            again: false,
-            success: `撤销成功：${log['%s']}`,
-            fail: '出错了，请根据提示处理'
+    cmd = logList.map(log => {
+        // 判断是否有merge的记录
+        // const isMergeLog = log['%P'].indexOf(' ') > -1
+        return {
+            cmd: `git revert -s --no-edit ${log['%H']}${mode}`,
+            config: {
+                again: false,
+                success: `撤销成功：${log['%s']}`,
+                fail: '出错了，请根据提示处理'
+            }
         }
-    }))
+    })
     // 先保存缓存
     const revertCacheList = logList.map(log => {
         const cache = { before: log, after: null, branch: current }

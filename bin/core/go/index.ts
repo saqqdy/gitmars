@@ -6,6 +6,8 @@ const cleanConfigSet = require('./cleanConfigSet')
 const combineConfig = require('../../conf/combine')
 const endConfig = require('../../conf/end')
 const updateConfig = require('../../conf/update')
+const undoConfig = require('../../conf/undo')
+const redoConfig = require('../../conf/redo')
 const branchConfig = require('../../conf/branch')
 const buildConfig = require('../../conf/build')
 const startConfig = require('../../conf/start')
@@ -97,6 +99,20 @@ export const update = async () => {
     }
     const config = cleanConfigSet(updateConfig, { delArgs, requiredArgs })
     const command = 'update ' + (await getCommand(config))
+    spawnSync('gitm', command.split(' '), { stdio: 'inherit' })
+}
+
+// 撤回代码
+export const undo = async () => {
+    const config = cleanConfigSet(undoConfig)
+    const command = 'undo ' + (await getCommand(config))
+    spawnSync('gitm', command.split(' '), { stdio: 'inherit' })
+}
+
+// 撤销撤回记录
+export const redo = async () => {
+    const config = cleanConfigSet(redoConfig)
+    const command = 'redo ' + (await getCommand(config))
     spawnSync('gitm', command.split(' '), { stdio: 'inherit' })
 }
 
