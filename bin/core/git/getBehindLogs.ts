@@ -1,5 +1,6 @@
 const { spawnSync } = require('../spawn')
 const getCurrentBranch = require('./getCurrentBranch')
+const { debug } = require('../utils/debug')
 
 /**
  * 获取当前本地分支落后远程的日志
@@ -17,6 +18,7 @@ function getBehindLogs(): string[] {
         '--pretty',
         'format:%p'
     ])
+    debug('getBehindLogs', stdout)
     return stdout ? stdout.split('\n') : []
 }
 

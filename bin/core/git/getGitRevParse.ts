@@ -1,5 +1,6 @@
 const { spawnSync } = require('../spawn')
 const slash = require('slash')
+const { debug } = require('../utils/debug')
 
 export interface GitProjectRevParseType {
     prefix: string
@@ -33,6 +34,14 @@ function getGitRevParse(cwd: string = process.cwd()): GitProjectRevParseType {
         .split('\n')
         .map((s: string) => s.trim())
         .map(slash)
+    debug('getGitRevParse', {
+        prefix: prefix || '.',
+        gitCommonDir,
+        root,
+        gitDir,
+        gitHookDir: gitDir + '/hooks',
+        cdup
+    })
     return {
         prefix: prefix || '.',
         gitCommonDir,

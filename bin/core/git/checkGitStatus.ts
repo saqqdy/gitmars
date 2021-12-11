@@ -1,6 +1,7 @@
 const sh = require('shelljs')
 const { yellow, red } = require('colors')
 const getGitStatus = require('./getGitStatus')
+const { debug } = require('../utils/debug')
 
 /**
  * 检测状态，获取是否有未提交的文件
@@ -9,6 +10,7 @@ const getGitStatus = require('./getGitStatus')
  */
 function checkGitStatus(): boolean {
     const sum = getGitStatus({ stdio: 'inherit' })
+    debug('checkGitStatus', sum)
     if (sum.A.length > 0 || sum.D.length > 0 || sum.M.length > 0) {
         sh.echo(
             red('您还有未提交的文件，请处理后再继续') +

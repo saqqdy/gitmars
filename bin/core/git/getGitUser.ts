@@ -1,4 +1,5 @@
 const { spawnSync } = require('../spawn')
+const { debug } = require('../utils/debug')
 
 /**
  * 获取git用户名称
@@ -7,6 +8,7 @@ const { spawnSync } = require('../spawn')
  */
 function getGitUser(): string {
     const { stdout } = spawnSync('git', ['config', 'user.name'])
+    debug('git.user', stdout)
     return stdout
 }
 
@@ -17,6 +19,7 @@ function getGitUser(): string {
  */
 function getGitEmail(): string {
     const { stdout } = spawnSync('git', ['config', 'user.email'])
+    debug('git.email', stdout)
     return stdout
 }
 

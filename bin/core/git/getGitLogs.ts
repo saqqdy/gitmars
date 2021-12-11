@@ -1,6 +1,7 @@
 const { spawnSync } = require('../spawn')
 const getSeconds = require('../utils/getSeconds')
 const GitLogsFormatter = require('./gitLogsFormatter')
+const { debug } = require('../utils/debug')
 
 import type { GitLogsType } from '../../../typings'
 
@@ -43,6 +44,7 @@ function getGitLogs(option: any = {}): GitLogsType[] {
     if (noMerges) argv.push('--no-merges')
     if (params) argv = argv.concat(params.split(' '))
     const { stdout } = spawnSync('git', argv)
+    debug('getGitLogs', stdout)
     return formatter.getLogs(stdout)
 }
 

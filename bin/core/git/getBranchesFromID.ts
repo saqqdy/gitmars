@@ -1,4 +1,5 @@
 const { spawnSync } = require('../spawn')
+const { debug } = require('../utils/debug')
 
 /**
  * 获取包含commitID的分支
@@ -16,6 +17,7 @@ function getBranchesFromID(commitID: string, remote = false): string[] {
         '--format',
         '%(refname:short)'
     ])
+    debug('getBranchesFromID', stdout)
     return stdout ? stdout.split('\n') : []
 }
 

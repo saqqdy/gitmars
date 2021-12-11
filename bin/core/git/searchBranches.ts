@@ -1,6 +1,7 @@
 const { spawnSync } = require('../spawn')
 const getGitConfig = require('./getGitConfig')
 const getGitRevParse = require('./getGitRevParse')
+const { debug } = require('../utils/debug')
 
 export interface SearchBranchesMapType {
     heads: string[]
@@ -34,6 +35,11 @@ function searchBranches(opt: any = {}): string[] {
         // 'version:refname',
         path
     ])
+    debug(
+        'searchBranches',
+        { key, type, remote, exclude, include, path },
+        stdout
+    )
     const arr = stdout ? stdout.split('\n') : []
     const map: SearchBranchesMapType = {
         heads: [],
@@ -91,6 +97,7 @@ function searchBranches(opt: any = {}): string[] {
     if (key) {
         map.heads = map.heads.filter(el => el.indexOf(key) > -1)
     }
+    debug('searchBranches', map.heads)
     return map.heads
 }
 

@@ -1,4 +1,5 @@
 const { spawnSync } = require('../spawn')
+const { debug } = require('../utils/debug')
 
 import type { SpawnOptions } from 'child_process'
 import type { GitStatusInfoType } from '../../../typings'
@@ -25,6 +26,7 @@ function getGitStatus(config: SpawnOptions = {}): GitStatusInfoType {
         if (!sum[type]) sum[type] = []
         sum[type].push(arr.join(' '))
     })
+    debug('getGitStatus', sum)
     return sum
 }
 
