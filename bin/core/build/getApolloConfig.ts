@@ -5,6 +5,7 @@ const { red } = require('colors')
 const { writeFile, isFileExist } = require('../utils/file')
 const { isCacheExpired, updateCacheTime } = require('../cache/cache')
 const getConfig = require('../getConfig')
+const { debug } = require('../utils/debug')
 
 import type { ApolloConfigType, GitmarsConfigType } from '../../../typings'
 
@@ -16,6 +17,7 @@ import type { ApolloConfigType, GitmarsConfigType } from '../../../typings'
 async function getApolloConfig(): Promise<ApolloConfigType | void> {
     const cacheDir = path.join(__dirname, '../../../cache')
     const config = getConfig() as GitmarsConfigType
+    debug('getApolloConfig', config)
     if (!config.apolloConfig) {
         sh.echo(red('请配置apollo'))
         process.exit(0)

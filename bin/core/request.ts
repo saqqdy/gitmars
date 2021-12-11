@@ -129,7 +129,11 @@ class Request {
                                 data = true
                             }
                         }
-                        debug('request-result', data)
+                        debug(
+                            'request-result',
+                            { method, url, postData, headers, options },
+                            data
+                        )
                         if (
                             !data ||
                             data.status === false ||
