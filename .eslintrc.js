@@ -26,7 +26,7 @@ module.exports = extend(true, config, {
             }
         ],
         'spellcheck/spell-checker': [
-            2,
+            1,
             {
                 comments: false,
                 strings: false,

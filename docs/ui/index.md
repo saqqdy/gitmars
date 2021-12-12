@@ -2,7 +2,7 @@
 sidebar: null
 ---
 
-## gitm ui <Badge text="beta" type="warning"/>
+## gitm ui
 
 如果你厌倦了敲指令，gitmars提供了懒人UI界面
 
