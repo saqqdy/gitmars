@@ -1,5 +1,17 @@
 # 更新日志
 
+## 2021.12.20 v2.16.0 更新日志
+
+### 功能
+
+1. 新增`approve`指令用于审批远程合并请求，支持差异预览，新增`gitm admin approve`指令，引用`approve`指令
+2. 新增`review`指令用于review代码，提交review记录
+3. 扩展`request`方法支持`PUT` `DELETE`
+
+### 优化
+
+1. 优化文档
+
 ## 2021.12.12 v2.15.2 更新日志
 
 1. 新增`debug`方法，开启debug功能

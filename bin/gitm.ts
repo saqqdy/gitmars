@@ -59,6 +59,10 @@ program
     .alias('bd')
     .command('suggest', '操作建议')
     .alias('sg')
+    .command('approve', '处理远程合并请求')
+    .alias('ap')
+    .command('review', 'review远程代码')
+    .alias('rv')
     .command('ui', '启动网页版gitmars')
     .command('unlink', '解除软链接')
     .command('link', '软链接')
@@ -121,6 +125,10 @@ program.on('command:*', function (types: string[], opts: string[]) {
         'bd',
         'suggest',
         'sg',
+        'approve',
+        'ap',
+        'review',
+        'rv',
         'ui',
         'unlink',
         'link',

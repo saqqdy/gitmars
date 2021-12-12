@@ -13,7 +13,7 @@ sidebar: null
 
 | 参数    | 说明     | 类型   | 可选值                                                                                                                                                         | 必填 | 默认 |
 | ------- | -------- | ------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---- | ---- |
-| command | 指令名称 | String | combine、end、update、build、start、undo、redo、admin.publish、admin.update、admin.create、admin.clean、branch、copy、get、save、revert、link、unlink、postmsg | 否   | -    |
+| command | 指令名称 | String | combine、end、update、build、start、undo、redo、suggest、approve、review、admin.publish、admin.update、admin.create、admin.clean、admin.approve、branch、copy、get、save、revert、link、unlink、postmsg | 否   | -    |
 
 </div>
 
