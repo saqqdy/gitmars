@@ -1096,6 +1096,32 @@ gitm ug -m
 gitm clean
 ```
 
+### gitm suggest
+
+#### 短指令：gitm sg
+
+git操作建议
+
+```shell
+形式：gitm suggest []
+```
+
+-   传值：
+
+<div class="table-option">
+
+| 名称    | 简写 | 说明                      | 类型    | 可选值 | 传值必填 | 默认  |
+| ------- | ---- | ------------------------- | ------- | ------ | -------- | ----- |
+| --force | -f   | 是否清理 gitmars 执行缓存 | Boolean | -      | 否       | false |
+
+</div>
+
+-   示例：
+
+```shell
+gitm suggest
+```
+
 ### gitm ui <Badge text="beta" type="warning"/>
 
 启动 UI 界面
