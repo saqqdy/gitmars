@@ -108,6 +108,66 @@ async function getMergeRequestCommits({
 }
 
 /**
+ * 获取合并请求的close issues
+ *
+ * @param option - options
+ * @returns command
+ */
+async function getMergeRequestCloseIssues({
+    iid,
+    token
+}: {
+    iid: string
+    token: string
+}) {
+    const params = {
+        private_token: token
+    }
+    const fetchData = await request.get({
+        url: `${MERGE_REQUESTS_URL}/${iid}/closes_issues`,
+        data: params
+    })
+    debug('fetchData', fetchData)
+    if (fetchData && 'message' in fetchData) {
+        const message = fetchData.message
+            ? [].concat(fetchData.message).join('')
+            : '请求报错了'
+        return Promise.reject(red(message))
+    }
+    return fetchData
+}
+
+/**
+ * 获取合并请求的参与者
+ *
+ * @param option - options
+ * @returns command
+ */
+async function getMergeRequestParticipants({
+    iid,
+    token
+}: {
+    iid: string
+    token: string
+}) {
+    const params = {
+        private_token: token
+    }
+    const fetchData = await request.get({
+        url: `${MERGE_REQUESTS_URL}/${iid}/participants`,
+        data: params
+    })
+    debug('fetchData', fetchData)
+    if (fetchData && 'message' in fetchData) {
+        const message = fetchData.message
+            ? [].concat(fetchData.message).join('')
+            : '请求报错了'
+        return Promise.reject(red(message))
+    }
+    return fetchData
+}
+
+/**
  * 获取合并请求的changes
  *
  * @param option - options
@@ -261,6 +321,8 @@ module.exports = {
     createMergeRequest,
     getMergeRequestList,
     getMergeRequestCommits,
+    getMergeRequestCloseIssues,
+    getMergeRequestParticipants,
     getMergeRequestChanges,
     getMergeRequestDiffVersions,
     acceptMergeRequest,
