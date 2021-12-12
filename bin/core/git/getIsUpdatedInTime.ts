@@ -1,5 +1,6 @@
 const getCurrentBranch = require('./getCurrentBranch')
 const getGitLogs = require('./getGitLogs')
+const { debug } = require('../utils/debug')
 
 import type { GitLogsType } from '../../../typings'
 
@@ -31,13 +32,13 @@ function getIsUpdatedInTime({
         lastet,
         limit,
         branch,
-        params: '--no-merges'
+        noMerges: true
     })
     const currentLogs = getGitLogs({
         lastet,
         limit,
         branch: current,
-        params: '--no-merges'
+        noMerges: true
     })
     mainLogs.forEach((log: GitLogsType) => {
         mainVers.push(log['%H']!)
@@ -50,6 +51,7 @@ function getIsUpdatedInTime({
     })
     mainVer: for (const ver of mainVers) {
         if (currentVers.includes(ver)) {
+            debug('getIsUpdatedInTime', ver)
             isUpdated = true
             break mainVer
         }

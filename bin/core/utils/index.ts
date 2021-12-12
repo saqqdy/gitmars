@@ -9,6 +9,7 @@ const compareVersion = require('./compareVersion')
 const mapTemplate = require('./mapTemplate')
 const { getMessage, postMessage, sendMessage } = require('./message')
 const echo = require('./echo')
+const { isDebug, debug } = require('./debug')
 
 module.exports = {
     writeFile,
@@ -25,6 +26,8 @@ module.exports = {
     getMessage,
     postMessage,
     sendMessage,
-    echo
+    echo,
+    isDebug,
+    debug
 }
 export {}

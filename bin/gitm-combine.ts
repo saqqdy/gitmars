@@ -141,7 +141,7 @@ program.action(
             let cmd: Array<CommandType | string> = []
             // 获取一周内是否同步过上游分支代码
             if (
-                !getIsUpdatedInTime({ lastet: '7d', limit: 100, branch: base })
+                !getIsUpdatedInTime({ lastet: '7d', limit: 1000, branch: base })
             ) {
                 sh.echo(
                     yellow(

@@ -2,6 +2,7 @@ const sh = require('shelljs')
 const { green, red } = require('colors')
 const getPkgInfo = require('./utils/getPkgInfo')
 const { version } = require('../../package.json')
+const { debug } = require('./utils/debug')
 
 /**
  * 判断是否需要升级版本
@@ -10,6 +11,7 @@ const { version } = require('../../package.json')
  */
 async function isNeedUpgrade(): Promise<boolean> {
     const { 'dist-tags': tags, versions } = await getPkgInfo()
+    debug('tags-versions', tags, versions)
     // let compareVers = []
     if (version.indexOf('1.') === 0) {
         // compareVers = versions.filter(

@@ -1,6 +1,7 @@
 const sh = require('shelljs')
 const getGitRevParse = require('../git/getGitRevParse')
 const { writeFileSync, isFileExist } = require('../utils/file')
+const { debug } = require('../utils/debug')
 
 import type { RevertCacheType } from '../../../typings'
 
@@ -22,6 +23,7 @@ function getRevertCache(branch?: string) {
         // sh.sed('-i', /[.\n]+/, '[]', GITMARS_REVERT_CACHE_FILE)
         writeFileSync(GITMARS_REVERT_CACHE_FILE, JSON.stringify([]))
     }
+    debug('getRevertCache', reverts, branch)
     if (branch) reverts = reverts.filter(revert => revert.branch === branch)
     return reverts
 }

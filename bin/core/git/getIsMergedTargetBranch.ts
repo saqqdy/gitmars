@@ -1,5 +1,6 @@
 const { spawnSync } = require('../spawn')
 const getCurrentBranch = require('./getCurrentBranch')
+const { debug } = require('../utils/debug')
 
 /**
  * 获取是否合并过dev
@@ -25,6 +26,7 @@ function getIsMergedTargetBranch(
         '%(refname:short)',
         remote ? '--remote' : ''
     ])
+    debug('getIsMergedTargetBranch', stdout)
     return stdout.split('\n').includes(targetBranch)
 }
 

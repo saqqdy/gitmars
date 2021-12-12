@@ -3,6 +3,7 @@ const { red } = require('colors')
 const { getGitUser } = require('../git/getGitUser')
 const request = require('../request')
 const getConfig = require('../getConfig')
+const { debug } = require('../utils/debug')
 
 import { FetchDataType } from '../../../typings'
 
@@ -27,6 +28,8 @@ async function getUserToken(): Promise<FetchDataType> {
     const fetchData =
         ((await request.get({ url: `${config.api}?name=${user}` }))
             .data as FetchDataType) || null
+    debug('getUserToken-user', user, config.api)
+    debug('getUserToken-fetchData', fetchData)
     // 没有查到用户信息或者没有设置token
     if (!fetchData) {
         sh.echo(red('没有找到用户，请联系管理员'))

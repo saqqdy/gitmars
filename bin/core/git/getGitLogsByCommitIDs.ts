@@ -1,5 +1,6 @@
 const { spawnSync } = require('../spawn')
 const GitLogsFormatter = require('./gitLogsFormatter')
+const { debug } = require('../utils/debug')
 
 import type { GitLogsType } from '../../../typings'
 
@@ -26,6 +27,7 @@ function getGitLogsByCommitIDs({
         `--pretty=format:${formatter.getFormat(keys)}`,
         ...params.split(' ')
     ])
+    debug('getGitLogsByCommitIDs', stdout)
     return formatter.getLogs(stdout)
 }
 

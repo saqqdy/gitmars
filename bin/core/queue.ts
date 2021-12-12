@@ -6,6 +6,7 @@ const { setLog } = require('./cache/log')
 const { green, yellow, red } = require('colors')
 const { postMessage } = require('./utils/message')
 const { spawnSync } = require('./spawn')
+const { debug } = require('./utils/debug')
 
 import type {
     CommandType,
@@ -143,6 +144,7 @@ function queue(list: Array<CommandType | string>): Promise<QueueReturnsType[]> {
                     try {
                         spinner.start(green(cfg.processing || '正在处理'))
                         stdout = await _execFunction(cmd.options)
+                        debug('queue-result', cmd, stdout)
                         onSuccess({} as CommandMessageType, cfg, cb)
                     } catch (err: any) {
                         // 请求出错
@@ -176,6 +178,7 @@ function queue(list: Array<CommandType | string>): Promise<QueueReturnsType[]> {
                     const program = spawnSync(client, argv, cfg)
                     const { status, stderr } = program
                     let { stdout } = program
+                    debug('queue-result', cmd, stdout)
                     try {
                         stdout = JSON.parse(stdout)
                     } catch {

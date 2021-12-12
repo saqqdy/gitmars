@@ -1,4 +1,4 @@
-const debug = require('./debug')
+const debug = require('../utils/debug')
 
 /**
  * 检查git环境变量

@@ -1,3 +1,5 @@
+const { debug } = require('../utils/debug')
+
 import type { GitLogKeysType, GitLogsType } from '../../../typings'
 
 class GitLogsFormatter {
@@ -76,6 +78,7 @@ class GitLogsFormatter {
     getFormat(keys: GitLogKeysType[]): string {
         if (keys && keys.length) this.keys = keys
         this.format = `-start-${this.keys.join(',=')}-end-`
+        debug('GitLogsFormatter-format', this.format, keys)
         return this.format
     }
     /**
@@ -100,6 +103,7 @@ class GitLogsFormatter {
                 list.push(map)
             }
         }
+        debug('GitLogsFormatter-logs', stdout)
         return list
     }
 }

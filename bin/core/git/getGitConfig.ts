@@ -1,5 +1,6 @@
 const { spawnSync } = require('../spawn')
 const slash = require('slash')
+const { debug } = require('../utils/debug')
 
 export interface GitProjectConfigType {
     gitUrl: string
@@ -22,6 +23,13 @@ function getGitConfig(cwd: string = process.cwd()): GitProjectConfigType {
         .split('\n')
         .map((s: string) => s.trim())
         .map(slash)
+    debug('getGitConfig', {
+        gitUrl,
+        appName: gitUrl
+            .split('/')
+            .reverse()[0]
+            .replace(/\.git$/, '')
+    })
     return {
         gitUrl,
         appName: gitUrl

@@ -1,6 +1,7 @@
 const sh = require('shelljs')
 const { spawnSync } = require('../spawn')
 const { yellow } = require('colors')
+const { debug } = require('../utils/debug')
 
 /**
  * 获取git版本
@@ -16,6 +17,7 @@ function getGitVersion(): string | void {
         return
     }
     version = version[0]
+    debug('getGitVersion', version)
     return version
 }
 
