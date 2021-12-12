@@ -1,6 +1,7 @@
 const sh = require('shelljs')
 const { spawnSync } = require('../spawn')
 const { yellow } = require('colors')
+const { debug } = require('../utils/debug')
 
 /**
  * 获取暂存区列表
@@ -43,6 +44,7 @@ function getStashList(key: string) {
     } catch {
         //
     }
+    debug('getStashList', arr, list)
     return arr
 }
 

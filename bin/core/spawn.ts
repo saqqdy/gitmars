@@ -1,4 +1,5 @@
 const crossSpawn = require('cross-spawn')
+const { debug } = require('./utils/debug')
 
 import type {
     SpawnOptions,
@@ -28,6 +29,7 @@ function spawn(
         shell: process.platform === 'win32',
         ...options
     })
+    debug(client, argv)
     return {
         pid: program.pid,
         stdout: program.stdout
@@ -62,6 +64,7 @@ function spawnSync(
         shell: process.platform === 'win32',
         ...options
     })
+    debug(client, argv)
     return {
         pid: program.pid,
         stdout: program.stdout

@@ -3,6 +3,7 @@ const http = require('http')
 const zlib = require('zlib')
 const { URL } = require('url')
 const qs = require('qs')
+const { debug } = require('./utils/debug')
 const { version: GITMARS_VERSION } = require('../../package.json')
 
 export type RequestHeadersType = {
@@ -128,6 +129,11 @@ class Request {
                                 data = true
                             }
                         }
+                        debug(
+                            'request-result',
+                            { method, url, postData, headers, options },
+                            data
+                        )
                         if (
                             !data ||
                             data.status === false ||

@@ -3,6 +3,7 @@ const { green, red } = require('colors')
 const request = require('../request')
 const getApolloConfig = require('./getApolloConfig')
 const mapTemplate = require('../utils/mapTemplate')
+const { debug } = require('../utils/debug')
 
 import type {
     ApolloConfigType,
@@ -28,6 +29,7 @@ async function runJenkins({
 }: RunJenkinsOptionType): Promise<void | unknown> {
     const buildConfig = (await getApolloConfig()) as ApolloConfigType
     const cfg: ApolloConfigBranchType = buildConfig[env]
+    debug('runJenkins-buildConfig', env, project, app, buildConfig)
     if (!cfg) {
         sh.echo(red('请输入正确的环境名称'))
         process.exit(1)

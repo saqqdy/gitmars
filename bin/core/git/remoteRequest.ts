@@ -2,6 +2,7 @@ const { red } = require('colors')
 const request = require('../request')
 const getConfig = require('../getConfig')
 const config = getConfig()
+const { debug } = require('../utils/debug')
 
 /**
  * 发起远程合并请求
@@ -32,6 +33,7 @@ async function mergeRequest({
         url: `${config.gitHost}/api/v4/projects/${config.gitID}/merge_requests`,
         data: params
     })
+    debug('fetchData', fetchData)
     if ('message' in fetchData) {
         const message = fetchData.message
             ? [].concat(fetchData.message).join('')

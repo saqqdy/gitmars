@@ -2,6 +2,7 @@ const fs = require('fs')
 const { cosmiconfigSync } = require('cosmiconfig')
 const getGitRevParse = require('./git/getGitRevParse')
 const { defaults } = require('./global')
+const { debug } = require('./utils/debug')
 
 import type { GitmarsConfigType } from 'typings'
 
@@ -26,6 +27,7 @@ function getConfig(
             pathName = root
         }
     }
+    debug('getConfig', pathName, info)
     const defaultSet = {
         skipCI: true
     }
@@ -34,10 +36,12 @@ function getConfig(
     if (info.isDirectory()) {
         // 传入目录
         const { config = {}, filepath = '' } = explorer.search(pathName) || {}
+        debug('getConfig-config', config, filepath)
         return Object.assign({}, defaults, defaultSet, config, { filepath })
     } else {
         // 传入文件
         const { config = {}, filepath = '' } = explorer.load(pathName) || {}
+        debug('getConfig-config', config, filepath)
         return Object.assign({}, defaults, defaultSet, config, { filepath })
     }
 }
