@@ -92,7 +92,8 @@
         "vuex",
         "outfile",
         "uuidv4",
-        "utf-8"
+        "utf-8",
+        "iid"
     ],
     "typescript.tsdk": "node_modules/typescript/lib",
     "editor.codeActionsOnSave": {
