@@ -1096,7 +1096,7 @@ gitm ug -m
 gitm clean
 ```
 
-### gitm suggest
+### gitm suggest <Badge text="开发中" type="warning"/>
 
 #### 短指令：gitm sg
 
@@ -1110,9 +1110,9 @@ git操作建议
 
 <div class="table-option">
 
-| 名称    | 简写 | 说明                      | 类型    | 可选值 | 传值必填 | 默认  |
-| ------- | ---- | ------------------------- | ------- | ------ | -------- | ----- |
-| --force | -f   | 是否清理 gitmars 执行缓存 | Boolean | -      | 否       | false |
+| 名称    | 简写 | 说明     | 类型    | 可选值 | 传值必填 | 默认  |
+| ------- | ---- | -------- | ------- | ------ | -------- | ----- |
+| --force | -f   | 是否强制 | Boolean | -      | 否       | false |
 
 </div>
 
@@ -1122,7 +1122,7 @@ git操作建议
 gitm suggest
 ```
 
-### gitm ui <Badge text="beta" type="warning"/>
+### gitm ui
 
 启动 UI 界面
 
