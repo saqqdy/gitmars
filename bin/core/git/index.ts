@@ -18,7 +18,7 @@ const getGitStatus = require('./getGitStatus')
 const getCommandMessage = require('./getCommandMessage')
 const checkGitStatus = require('./checkGitStatus')
 const getStashList = require('./getStashList')
-const { mergeRequest } = require('./remoteRequest')
+const { createMergeRequest } = require('./remoteRequest')
 
 module.exports = {
     getIsGitProject,
@@ -42,6 +42,6 @@ module.exports = {
     getCommandMessage,
     checkGitStatus,
     getStashList,
-    mergeRequest
+    createMergeRequest
 }
 export {}

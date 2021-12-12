@@ -286,6 +286,28 @@ import type { GitmarsMultiOptionType } from '../../typings'
             transformArgs: (val, opts, cb) => {
                 cb()
             }
+        },
+        approve: {
+            command: 'approve',
+            short: null,
+            args: [],
+            options: [],
+            // 校验传值
+            validatorOpts: (val, opts, cb) => {
+                cb()
+            },
+            // 校验参数
+            validatorArgs: (val, opts, cb) => {
+                cb()
+            },
+            // 清洗传值
+            transformOpts: (val, opts, cb) => {
+                cb()
+            },
+            // 清洗参数
+            transformArgs: (val, opts, cb) => {
+                cb()
+            }
         }
     }
 

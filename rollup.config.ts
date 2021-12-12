@@ -58,6 +58,9 @@ const production = !process.env.ROLLUP_WATCH
 export default cjsList.map(filePath => ({
     input: path.resolve(__dirname, filePath),
     onwarn,
+    watch: {
+        include: './bin/**'
+    },
     output: [
         {
             format: 'cjs',

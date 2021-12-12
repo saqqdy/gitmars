@@ -150,6 +150,7 @@ export interface GitmarsMultiOptionType {
     publish: GitmarsOptionType
     update: GitmarsOptionType
     clean: GitmarsOptionType
+    approve: GitmarsOptionType
 }
 
 export interface GitmarsConfigType {
@@ -251,6 +252,7 @@ export interface InitInquirerPromptType {
     default?(): string
     transformer?(val: any, answers: any, flags: any): any
     validate?(val: any): string | boolean
+    when?(val: any): string | boolean
     choices?: any
 }
 

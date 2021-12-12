@@ -254,7 +254,7 @@ program.action(
                                 {
                                     cmd: {
                                         module: remoteRequestModule,
-                                        entry: 'mergeRequest',
+                                        entry: 'createMergeRequest',
                                         options: {
                                             source_branch: `${type}/${name}`,
                                             target_branch: base,
@@ -314,7 +314,7 @@ program.action(
                                 {
                                     cmd: {
                                         module: remoteRequestModule,
-                                        entry: 'mergeRequest',
+                                        entry: 'createMergeRequest',
                                         options: {
                                             source_branch: `${type}/${name}`,
                                             target_branch: config.release,
@@ -374,7 +374,7 @@ program.action(
                                 {
                                     cmd: {
                                         module: remoteRequestModule,
-                                        entry: 'mergeRequest',
+                                        entry: 'createMergeRequest',
                                         options: {
                                             source_branch: `${type}/${name}`,
                                             target_branch: config.bugfix,

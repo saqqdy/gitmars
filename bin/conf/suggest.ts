@@ -3,10 +3,8 @@ import type { GitmarsOptionType } from '../../typings'
     const cmdConfig: GitmarsOptionType = {
         command: 'suggest',
         short: 'sg',
-        args: [
-        ],
-        options: [
-        ],
+        args: [],
+        options: [],
         // 校验传值
         validatorOpts: (val, opts, cb) => {
             cb()
