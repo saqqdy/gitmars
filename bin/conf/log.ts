@@ -47,6 +47,18 @@ import type { GitmarsOptionType } from '../../typings'
                 negate: false,
                 description: '最多查询的日志条数',
                 defaultValue: 20
+            },
+            {
+                flags: '--json',
+                required: false,
+                optional: false,
+                variadic: false,
+                mandatory: false,
+                short: '',
+                long: '--json',
+                negate: false,
+                description: '是否以json格式输出日志，默认表格方式',
+                defaultValue: false
             }
         ]
     }
