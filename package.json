@@ -50,6 +50,7 @@
     "dependencies": {
         "ci-info": "^3.3.0",
         "colors": "^1.4.0",
+        "columnify": "^1.5.4",
         "commander": "8.3.0",
         "consola": "^2.15.3",
         "cosmiconfig": "^7.0.0",
@@ -62,7 +63,6 @@
         "qs": "^6.10.2",
         "shelljs": "^0.8.4",
         "slash": "^3.0.0",
-        "text-table": "^0.2.0",
         "tracer": "1.1.5",
         "zlib": "^1.0.5"
     },

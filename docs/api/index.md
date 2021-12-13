@@ -933,10 +933,11 @@ gitm cleanbranch --target release
 
 > v1.4.0 新增<br>
 > v2.15.0 新增`--no-merges`传参
+> v2.15.3 新增`--json`传值，是否以json格式输出日志，默认表格方式
 
 查询日志
 
--   使用：`gitm log [branch] [--lastet [lastet]] [--limit [limit]] [--no-merges]`
+-   使用：`gitm log [branch] [--lastet [lastet]] [--limit [limit]] [--no-merges] [--json]`
 -   参数：
 
 <div class="table-prop">
@@ -955,6 +956,7 @@ gitm cleanbranch --target release
 | --lastet   | -    | 查询在某个时间之后的日志，填写格式：10s/2m/2h/3d/4M/5y | String  | -      | 否       | '7d'  |
 | --limit    | -    | 最多查询的日志条数                                     | Nmuber  | -      | 否       | 20    |
 | --no-merge | -    | 排除merge记录                                          | Boolean | -      | 否       | false |
+| --json     | -    | 是否以json格式输出日志，默认表格方式                   | Boolean | -      | 否       | false |
 
 </div>
 
@@ -976,6 +978,12 @@ gitm log --no-merges --limit 50
 
 ```shell
 gitm log dev
+```
+
+4. 以json格式查看日志
+
+```shell
+gitm log --json
 ```
 
 ### gitm hook
