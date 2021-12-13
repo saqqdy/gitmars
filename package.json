@@ -1,7 +1,7 @@
 {
     "name": "gitmars",
     "description": "这是一个git工作流工具",
-    "version": "2.15.2",
+    "version": "2.15.3",
     "scripts": {
         "docs:dev": "vuepress dev docs",
         "docs:build": "vuepress build docs",
@@ -50,6 +50,7 @@
     "dependencies": {
         "ci-info": "^3.3.0",
         "colors": "^1.4.0",
+        "columnify": "^1.5.4",
         "commander": "8.3.0",
         "consola": "^2.15.3",
         "cookie-parser": "^1.4.6",
@@ -73,7 +74,6 @@
         "shelljs": "^0.8.4",
         "slash": "^3.0.0",
         "socket.io": "4.4.0",
-        "text-table": "^0.2.0",
         "tracer": "1.1.5",
         "uuid": "^8.3.2",
         "zlib": "^1.0.5"
