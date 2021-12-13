@@ -245,13 +245,15 @@ async function acceptMergeRequest({
     }
     const fetchData = await request.put({
         url: `${MERGE_REQUESTS_URL}/${iid}/merge`,
-        data: params
+        data: params,
+        options: { error: true }
     })
     debug('fetchData', fetchData)
     if (fetchData && 'message' in fetchData) {
         const message = fetchData.message
             ? [].concat(fetchData.message).join('')
             : '请求报错了'
+        if (message === '500 Internal Server Error') return true
         return Promise.reject(red(message))
     }
     return fetchData
@@ -275,13 +277,15 @@ async function updateMergeRequest({
     data.private_token = token
     const fetchData = await request.put({
         url: `${MERGE_REQUESTS_URL}/${iid}`,
-        data
+        data,
+        options: { error: true }
     })
     debug('fetchData', fetchData)
     if (fetchData && 'message' in fetchData) {
         const message = fetchData.message
             ? [].concat(fetchData.message).join('')
             : '请求报错了'
+        if (message === '500 Internal Server Error') return true
         return Promise.reject(red(message))
     }
     return fetchData
@@ -305,13 +309,15 @@ async function deleteMergeRequest({
     }
     const fetchData = await request.delete({
         url: `${MERGE_REQUESTS_URL}/${iid}`,
-        data: params
+        data: params,
+        options: { error: true }
     })
     debug('fetchData', fetchData)
     if (fetchData && 'message' in fetchData) {
         const message = fetchData.message
             ? [].concat(fetchData.message).join('')
             : '请求报错了'
+        if (message === '500 Internal Server Error') return true
         return Promise.reject(red(message))
     }
     return fetchData

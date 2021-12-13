@@ -18,7 +18,7 @@ const {
     getMergeRequestList,
     getMergeRequestChanges,
     acceptMergeRequest,
-    updateMergeRequest,
+    // updateMergeRequest,
     deleteMergeRequest
 } = require('./core/git/remoteRequest')
 
@@ -31,6 +31,7 @@ import {
 interface GitmBuildOption {
     state?: string
 }
+
 /**
  * gitm approve
  */
@@ -94,7 +95,7 @@ program.action(async (opt: GitmBuildOption): Promise<void> => {
                 disabled ? red('[ 有冲突或不需要合并 ]') : ''
             } | ${yellow(author.name)} | ${blue(_time)}`,
             value: iid,
-            disabled,
+            // disabled,
             checked: false
         })
     })
@@ -107,7 +108,13 @@ program.action(async (opt: GitmBuildOption): Promise<void> => {
 
     // 开始执行操作
     iids.forEach(async (iid: string) => {
+        const mr = mrList.find((item: any) => item.iid === iid)
+        const CAN_BE_MERGED = mr.merge_status === 'can_be_merged'
         if (accept === '审核通过') {
+            if (!CAN_BE_MERGED) {
+                echo(yellow('不能合并的请求不能点审核通过'))
+                process.exit(0)
+            }
             await acceptMergeRequest({ token, iid })
             echo(green(`合并请求${iid}：已合并`))
         } else if (accept === '查看详情') {

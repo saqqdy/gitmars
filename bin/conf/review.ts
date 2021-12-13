@@ -11,7 +11,7 @@ import type { GitmarsOptionType } from '../../typings'
                 validator: (val, opts, cb) => {
                     cb()
                 },
-                description: '项目名称',
+                description: '项目名称'
             }
         ],
         options: [
