@@ -1161,6 +1161,20 @@ gitm approve
 gitm review
 ```
 
+### gitm status
+
+查看当前分支状态
+
+-   使用：`gitm status`
+-   参数：无
+-   传值：无
+
+-   示例：
+
+```shell
+gitm status
+```
+
 ### gitm ui
 
 启动 UI 界面
