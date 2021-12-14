@@ -1104,6 +1104,20 @@ gitm ug -m
 gitm clean
 ```
 
+### gitm status
+
+查看当前分支状态
+
+-   使用：`gitm status`
+-   参数：无
+-   传值：无
+
+-   示例：
+
+```shell
+gitm status
+```
+
 ### gitm ui <Badge text="beta" type="warning"/>
 
 启动 UI 界面
