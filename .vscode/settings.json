@@ -94,7 +94,8 @@
         "uuidv4",
         "utf-8",
         "iid",
-        "columnify"
+        "columnify",
+        "untracked"
     ],
     "typescript.tsdk": "node_modules/typescript/lib",
     "editor.codeActionsOnSave": {

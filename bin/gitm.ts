@@ -57,6 +57,7 @@ program
     .alias('ug')
     .command('build', '构建Jenkins')
     .alias('bd')
+    .command('status', '查看分支状态')
     .command('ui', '启动网页版gitmars')
     .command('unlink', '解除软链接')
     .command('link', '软链接')
@@ -117,6 +118,7 @@ program.on('command:*', function (types: string[], opts: string[]) {
         'ug',
         'build',
         'bd',
+        'status',
         'ui',
         'unlink',
         'link',

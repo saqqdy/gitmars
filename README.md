@@ -99,6 +99,7 @@ gitm copy --help
 -   撤销提交 [gitm revert](http://www.saqqdy.com/gitmars/api/#gitm-revert)
 -   撤回某次提交记录或者撤回谋条分支的合并记录 [gitm undo](http://www.saqqdy.com/gitmars/api/#gitm-undo)
 -   重做某次提交记录或者重做谋条分支的合并记录 [gitm redo](http://www.saqqdy.com/gitmars/api/#gitm-redo)
+-   查看当前分支状态 [gitm status](http://www.saqqdy.com/gitmars/api/#gitm-status)
 -   升级 gitmars [gitm upgrade](http://www.saqqdy.com/gitmars/api/#gitm-upgrade)
 -   构建 Jenkins [gitm build](http://www.saqqdy.com/gitmars/api/#gitm-build)
 -   解除软链接 [gitm unlink](http://www.saqqdy.com/gitmars/api/#gitm-unlink)
