@@ -76,6 +76,7 @@ title: guide
 -   撤销提交 [gitm revert](../api/#gitm-revert)
 -   撤回某次提交记录或者撤回谋条分支的合并记录 [gitm undo](../api/#gitm-undo)
 -   重做某次提交记录或者重做谋条分支的合并记录 [gitm redo](../api/#gitm-redo)
+-   查看当前分支状态 [gitm status](../api/#gitm-status)
 -   升级 gitmars [gitm upgrade](../api/#gitm-upgrade)
 -   构建 Jenkins [gitm build](../api/#gitm-build)
 -   解除软链接 [gitm unlink](../api/#gitm-unlink)
