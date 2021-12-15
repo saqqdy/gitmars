@@ -44,7 +44,12 @@ program.action(async (opt: GitmBuildOption) => {
     }
     if (cmd.length > 0) {
         // 检测是否有未提交的文件
-        if (sum.A.length > 0 || sum.D.length > 0 || sum.M.length > 0) {
+        if (
+            sum.A.length > 0 ||
+            sum.D.length > 0 ||
+            sum.M.length > 0 ||
+            sum.UU.length > 0
+        ) {
             await inquirer
                 .prompt({
                     type: 'confirm',

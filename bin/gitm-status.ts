@@ -34,13 +34,15 @@ program.action(() => {
         status['??'].length,
         status['A'].length,
         status['M'].length,
-        status['D'].length
+        status['D'].length,
+        status['UU'].length
     )
     while (num--) {
         data.unshift({
             added: yellow(status['A'][num] || ''),
             modified: green(status['M'][num] || ''),
             deleted: red(status['D'][num] || ''),
+            unmerged: red(status['UU']),
             untracked: cyan(status['??'][num] || '')
         })
     }

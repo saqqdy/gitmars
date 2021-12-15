@@ -222,7 +222,7 @@ export interface FetchDataType {
     [prop: string]: any
 }
 
-export type GitStatusListType = 'A' | 'D' | 'M' | '??'
+export type GitStatusListType = 'A' | 'D' | 'M' | 'UU' | '??'
 
 export type GitStatusInfoType = {
     [props in GitStatusListType]: string[]

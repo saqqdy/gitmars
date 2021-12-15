@@ -17,6 +17,7 @@ function getGitStatus(config: SpawnOptions = {}): GitStatusInfoType {
         A: [],
         D: [],
         M: [],
+        UU: [],
         '??': []
     }
     if (list.length === 0) return sum
