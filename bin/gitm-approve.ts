@@ -18,7 +18,7 @@ const {
     getMergeRequestList,
     getMergeRequestChanges,
     acceptMergeRequest,
-    // updateMergeRequest,
+    updateMergeRequest,
     deleteMergeRequest
 } = require('./core/git/remoteRequest')
 
@@ -71,7 +71,7 @@ program.action(async (opt: GitmBuildOption): Promise<void> => {
             type: 'list',
             message: '请选择下面的操作?',
             name: 'accept',
-            choices: ['查看详情', '审核通过', '审核不通过', '退出'],
+            choices: ['查看详情', '通过', '不通过', '不通过并删除', '退出'],
             when(answers) {
                 return answers.iids.length
             }
@@ -110,7 +110,7 @@ program.action(async (opt: GitmBuildOption): Promise<void> => {
     iids.forEach(async (iid: string) => {
         const mr = mrList.find((item: any) => item.iid === iid)
         const CAN_BE_MERGED = mr.merge_status === 'can_be_merged'
-        if (accept === '审核通过') {
+        if (accept === '通过') {
             if (!CAN_BE_MERGED) {
                 echo(yellow('不能合并的请求不能点审核通过'))
                 process.exit(0)
@@ -147,15 +147,17 @@ program.action(async (opt: GitmBuildOption): Promise<void> => {
                         )
                 )
             }
-        } else {
-            // 删除
-            // await updateMergeRequest({
-            //     token,
-            //     iid,
-            //     data: { state_event: 'close' }
-            // })
+        } else if (accept === '不通过并删除') {
             await deleteMergeRequest({ token, iid })
             echo(green(`合并请求${iid}：已删除`))
+        } else {
+            // 删除
+            await updateMergeRequest({
+                token,
+                iid,
+                data: { state_event: 'close' }
+            })
+            echo(green(`合并请求${iid}：已关闭`))
         }
     })
 })
