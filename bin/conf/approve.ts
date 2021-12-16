@@ -19,6 +19,18 @@ import type { GitmarsOptionType } from '../../typings'
                 defaultValue: 'opened',
                 options: ['opened', 'closed'],
                 value: 'opened'
+            },
+            {
+                flags: '--postmsg',
+                required: false,
+                optional: false,
+                variadic: false,
+                mandatory: false,
+                short: '',
+                long: '--postmsg',
+                negate: false,
+                description: '是否推送消息',
+                defaultValue: false
             }
         ],
         // 校验传值

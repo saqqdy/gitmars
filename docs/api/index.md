@@ -1124,17 +1124,20 @@ gitm suggest
 
 #### 短指令：gitm ap
 
+> v2.16.0 新增
+
 处理远程合并请求
 
--   使用：`gitm approve [--state [state]]`
+-   使用：`gitm approve [--state [state]] [--postmsg]`
 -   参数：无
 -   传值：
 
 <div class="table-option">
 
-| 名称    | 简写 | 说明               | 类型   | 可选值            | 传值必填 | 默认   |
-| ------- | ---- | ------------------ | ------ | ----------------- | -------- | ------ |
-| --state |      | 筛选合并请求的状态 | String | `opened` `closed` | 是       | opened |
+| 名称      | 简写 | 说明               | 类型    | 可选值            | 传值必填 | 默认   |
+| --------- | ---- | ------------------ | ------- | ----------------- | -------- | ------ |
+| --state   |      | 筛选合并请求的状态 | String  | `opened` `closed` | 否       | opened |
+| --postmsg |      | 是否推送消息       | Boolean |                   | 否       | false  |
 
 </div>
 
@@ -1142,7 +1145,7 @@ gitm suggest
 
 ```shell
 # 输入指令，按照提示操作
-gitm approve
+gitm approve --postmsg
 ```
 
 ### gitm review <Badge text="开发中" type="warning"/>

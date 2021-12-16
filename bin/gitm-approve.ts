@@ -6,12 +6,15 @@ const { green, yellow, blue, red, cyan, magenta } = require('colors')
 const { options, args } = require('./conf/approve')
 const getUserToken = require('./core/api/getUserToken')
 const getIsGitProject = require('./core/git/getIsGitProject')
+const getGitConfig = require('./core/git/getGitConfig')
+const { postMessage } = require('./core/utils/message')
 const { createArgs } = require('./core/utils/command')
 const echo = require('./core/utils/echo')
 if (!getIsGitProject()) {
     echo(red('当前目录不是git项目目录'))
     process.exit(1)
 }
+const { appName } = getGitConfig()
 const getConfig = require('./core/getConfig')
 const config = getConfig()
 const {
@@ -30,6 +33,7 @@ import {
 
 interface GitmBuildOption {
     state?: string
+    postmsg: boolean
 }
 
 /**
@@ -37,13 +41,14 @@ interface GitmBuildOption {
  */
 program
     .name('gitm approve')
-    .usage('[--state [state]]')
-    .description('构建Jenkins')
+    .usage('[--state [state]] [--postmsg]')
+    .description('审批远程合并请求')
 if (args.length > 0) program.arguments(createArgs(args))
 options.forEach((o: GitmarsOptionOptionsType) => {
     program.option(o.flags, o.description, o.defaultValue)
 })
 // .option('--state [state]', '筛选合并请求状态，共有2种：opened、closed，不传则默认全部', null)
+// .option('--postmsg', '是否推送消息', false)
 program.action(async (opt: GitmBuildOption): Promise<void> => {
     const {
         token,
@@ -116,6 +121,7 @@ program.action(async (opt: GitmBuildOption): Promise<void> => {
                 process.exit(0)
             }
             await acceptMergeRequest({ token, iid })
+            opt.postmsg && postMessage(`${appName}项目合并请求${iid}已合并`)
             echo(green(`合并请求${iid}：已合并`))
         } else if (accept === '查看详情') {
             const { changes, changes_count } = await getMergeRequestChanges({
@@ -149,6 +155,10 @@ program.action(async (opt: GitmBuildOption): Promise<void> => {
             }
         } else if (accept === '不通过并删除') {
             await deleteMergeRequest({ token, iid })
+            opt.postmsg &&
+                postMessage(
+                    `代码写的很棒了，可以稍微再优化一下，${appName}项目合并请求${iid}已删除`
+                )
             echo(green(`合并请求${iid}：已删除`))
         } else {
             // 删除
@@ -157,6 +167,10 @@ program.action(async (opt: GitmBuildOption): Promise<void> => {
                 iid,
                 data: { state_event: 'close' }
             })
+            opt.postmsg &&
+                postMessage(
+                    `代码写的很棒了，可以稍微再优化一下，${appName}项目合并请求${iid}已暂时关闭`
+                )
             echo(green(`合并请求${iid}：已关闭`))
         }
     })
