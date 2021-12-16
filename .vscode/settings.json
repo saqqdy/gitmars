@@ -93,6 +93,7 @@
         "outfile",
         "uuidv4",
         "utf-8",
+        "iids",
         "iid",
         "columnify",
         "untracked"

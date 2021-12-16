@@ -3,6 +3,7 @@ const http = require('http')
 const zlib = require('zlib')
 const { URL } = require('url')
 const qs = require('qs')
+const getType = require('js-cool/lib/getType')
 const { debug } = require('./utils/debug')
 const { version: GITMARS_VERSION } = require('../../package.json')
 
@@ -74,13 +75,21 @@ class Request {
     /**
      * 发起请求
      *
-     * @param method - 请求方法：'GET' | 'POST' | 'DELETE' | 'OPTIONS'
+     * @param method - 请求方法：'GET' | 'POST' | 'DELETE' | 'OPTIONS' | 'PUT' | 'PATCH' | 'TRACE' | 'HEAD'
      * @param url - 请求链接
      * @param postData - 序列化之后的请求参数
      * @returns Promise - 请求结果
      */
     public request(
-        method: 'GET' | 'POST' | 'DELETE' | 'OPTIONS',
+        method:
+            | 'GET'
+            | 'POST'
+            | 'DELETE'
+            | 'OPTIONS'
+            | 'PUT'
+            | 'PATCH'
+            | 'TRACE'
+            | 'HEAD',
         url: string,
         postData?: string,
         headers: RequestHeadersType = {},
@@ -123,10 +132,11 @@ class Request {
                                 }
                             )
                         } else {
+                            data = buffer.toString()
                             try {
-                                data = JSON.parse(buffer.toString())
+                                data = JSON.parse(data)
                             } catch {
-                                data = true
+                                // console.warn('data is not json', data)
                             }
                         }
                         debug(
@@ -135,9 +145,10 @@ class Request {
                             data
                         )
                         if (
-                            !data ||
-                            data.status === false ||
-                            data.success === false
+                            /<html>/.test(data) ||
+                            (getType(data) === 'object' &&
+                                (data.status === false ||
+                                    data.success === false))
                         ) {
                             if (options.error) {
                                 // 请求端自行处理error
@@ -208,6 +219,44 @@ class Request {
             })
         }
         return await this.request('POST', url, postData, headers, options)
+    }
+    /**
+     * put方法
+     *
+     * @param option - 参数
+     * @returns Promise - 请求结果
+     */
+    public async put({ url, data = {}, headers = {}, options = {} }: any) {
+        let postData
+        if (['application/json'].includes(headers['Content-Type'])) {
+            // raw json格式
+            postData = JSON.stringify(data)
+        } else {
+            postData = qs.stringify(data, {
+                arrayFormat: 'indices',
+                allowDots: true
+            })
+        }
+        return await this.request('PUT', url, postData, headers, options)
+    }
+    /**
+     * delete方法
+     *
+     * @param option - 参数
+     * @returns Promise - 请求结果
+     */
+    public async delete({ url, data = {}, headers = {}, options = {} }: any) {
+        let postData
+        if (['application/json'].includes(headers['Content-Type'])) {
+            // raw json格式
+            postData = JSON.stringify(data)
+        } else {
+            postData = qs.stringify(data, {
+                arrayFormat: 'indices',
+                allowDots: true
+            })
+        }
+        return await this.request('DELETE', url, postData, headers, options)
     }
 }
 

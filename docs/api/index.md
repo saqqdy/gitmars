@@ -16,9 +16,9 @@ sidebarDepth: 2
 
 <div class="table-prop">
 
-| 参数    | 说明     | 类型   | 可选值                                                                                                                                                                 | 必填 | 默认 |
-| ------- | -------- | ------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---- | ---- |
-| command | 指令名称 | String | combine、end、update、build、start、admin.publish、admin.update、admin.create、admin.clean、branch、copy、get、save、cleanbranch、clean、revert、link、unlink、postmsg | 否   | -    |
+| 参数    | 说明     | 类型   | 可选值                                                                                                                                                                                                                      | 必填 | 默认 |
+| ------- | -------- | ------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---- | ---- |
+| command | 指令名称 | String | combine、end、update、build、start、undo、redo、suggest、approve、review、admin.publish、admin.update、admin.create、admin.clean、admin.approve、branch、copy、get、save、cleanbranch、clean、revert、link、unlink、postmsg | 否   | -    |
 
 </div>
 
@@ -1104,6 +1104,66 @@ gitm ug -m
 gitm clean
 ```
 
+### gitm suggest <Badge text="开发中" type="warning"/>
+
+#### 短指令：gitm sg
+
+git操作建议
+
+-   使用：`gitm suggest`
+-   参数：无
+-   传值：无
+-   示例：
+
+```shell
+# 输入指令，按照提示操作
+gitm suggest
+```
+
+### gitm approve <Badge text="开发中" type="warning"/>
+
+#### 短指令：gitm ap
+
+> v2.16.0 新增
+
+处理远程合并请求
+
+-   使用：`gitm approve [--state [state]] [--postmsg]`
+-   参数：无
+-   传值：
+
+<div class="table-option">
+
+| 名称      | 简写 | 说明               | 类型    | 可选值            | 传值必填 | 默认   |
+| --------- | ---- | ------------------ | ------- | ----------------- | -------- | ------ |
+| --state   |      | 筛选合并请求的状态 | String  | `opened` `closed` | 否       | opened |
+| --postmsg |      | 是否推送消息       | Boolean |                   | 否       | false  |
+
+</div>
+
+-   示例：
+
+```shell
+# 输入指令，按照提示操作
+gitm approve --postmsg
+```
+
+### gitm review <Badge text="开发中" type="warning"/>
+
+#### 短指令：gitm rv
+
+远程review代码
+
+-   使用：`gitm review`
+-   参数：无
+-   传值：无
+-   示例：
+
+```shell
+# 输入指令，按照提示操作
+gitm review
+```
+
 ### gitm status
 
 查看当前分支状态
@@ -1118,7 +1178,7 @@ gitm clean
 gitm status
 ```
 
-### gitm ui <Badge text="beta" type="warning"/>
+### gitm ui
 
 启动 UI 界面
 
