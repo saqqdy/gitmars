@@ -3,33 +3,35 @@ import type { GitmarsOptionType } from '../../typings'
     const cmdConfig: GitmarsOptionType = {
         command: 'review',
         short: 'ap',
-        args: [
-            {
-                required: false,
-                name: 'project',
-                variadic: false,
-                validator: (val, opts, cb) => {
-                    cb()
-                },
-                description: '项目名称'
-            }
-        ],
+        args: [],
         options: [
-            // {
-            //     flags: '--state [state]',
-            //     required: false,
-            //     optional: true,
-            //     variadic: false,
-            //     mandatory: false,
-            //     short: '',
-            //     long: '--state',
-            //     negate: false,
-            //     description:
-            //         '筛选合并请求状态，共有2种：opened、closed，不传则默认全部',
-            //     defaultValue: 'opened',
-            //     options: ['opened', 'closed'],
-            //     value: 'opened'
-            // }
+            {
+                flags: '--state [state]',
+                required: false,
+                optional: true,
+                variadic: false,
+                mandatory: false,
+                short: '',
+                long: '--state',
+                negate: false,
+                description:
+                    '筛选合并请求状态，共有2种：opened、closed，不传则默认全部',
+                defaultValue: 'opened',
+                options: ['opened', 'closed', 'merged', 'all'],
+                value: 'opened'
+            },
+            {
+                flags: '--postmsg',
+                required: false,
+                optional: false,
+                variadic: false,
+                mandatory: false,
+                short: '',
+                long: '--postmsg',
+                negate: false,
+                description: '是否推送消息',
+                defaultValue: false
+            }
         ],
         // 校验传值
         validatorOpts: (val, opts, cb) => {

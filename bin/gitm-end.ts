@@ -23,9 +23,7 @@ const getUserToken = require('./core/api/getUserToken')
 const { defaults } = require('./core/global')
 const config = getConfig()
 const { appName } = getGitConfig()
-const remoteRequestModule = require.resolve(
-    __dirname + '/core/git/remoteRequest'
-)
+const mergeRequestModule = require.resolve(__dirname + '/core/api/mergeRequest')
 
 import {
     FetchDataType,
@@ -213,7 +211,7 @@ program.action(
                         },
                         {
                             cmd: {
-                                module: remoteRequestModule,
+                                module: mergeRequestModule,
                                 entry: 'createMergeRequest',
                                 options: {
                                     source_branch: `${type}/${name}`,
@@ -306,7 +304,7 @@ program.action(
                         },
                         {
                             cmd: {
-                                module: remoteRequestModule,
+                                module: mergeRequestModule,
                                 entry: 'createMergeRequest',
                                 options: {
                                     source_branch: `${type}/${name}`,

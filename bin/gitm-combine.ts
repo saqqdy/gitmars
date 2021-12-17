@@ -15,9 +15,7 @@ const searchBranches = require('./core/git/searchBranches')
 const { createArgs } = require('./core/utils/command')
 const { isNeedUpgrade, upgradeGitmars } = require('./core/versionControl')
 const { defaults } = require('./core/global')
-const remoteRequestModule = require.resolve(
-    __dirname + '/core/git/remoteRequest'
-)
+const mergeRequestModule = require.resolve(__dirname + '/core/api/mergeRequest')
 
 import {
     FetchDataType,
@@ -253,7 +251,7 @@ program.action(
                                 },
                                 {
                                     cmd: {
-                                        module: remoteRequestModule,
+                                        module: mergeRequestModule,
                                         entry: 'createMergeRequest',
                                         options: {
                                             source_branch: `${type}/${name}`,
@@ -313,7 +311,7 @@ program.action(
                                 },
                                 {
                                     cmd: {
-                                        module: remoteRequestModule,
+                                        module: mergeRequestModule,
                                         entry: 'createMergeRequest',
                                         options: {
                                             source_branch: `${type}/${name}`,
@@ -373,7 +371,7 @@ program.action(
                                 },
                                 {
                                     cmd: {
-                                        module: remoteRequestModule,
+                                        module: mergeRequestModule,
                                         entry: 'createMergeRequest',
                                         options: {
                                             source_branch: `${type}/${name}`,

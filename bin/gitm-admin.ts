@@ -20,9 +20,7 @@ if (!getIsGitProject()) {
 const getConfig = require('./core/getConfig')
 const { appName } = getGitConfig()
 const config = getConfig()
-const remoteRequestModule = require.resolve(
-    __dirname + '/core/git/remoteRequest'
-)
+const mergeRequestModule = require.resolve(__dirname + '/core/api/mergeRequest')
 
 import {
     FetchDataType,
@@ -260,7 +258,7 @@ publishProgram.action(
                     bugfix: [
                         {
                             cmd: {
-                                module: remoteRequestModule,
+                                module: mergeRequestModule,
                                 entry: 'createMergeRequest',
                                 options: {
                                     source_branch: config.bugfix,
@@ -280,7 +278,7 @@ publishProgram.action(
                     support: [
                         {
                             cmd: {
-                                module: remoteRequestModule,
+                                module: mergeRequestModule,
                                 entry: 'createMergeRequest',
                                 options: {
                                     source_branch: config.support,
@@ -298,7 +296,7 @@ publishProgram.action(
                         `gitm postmsg "${nickname}在${appName}项目提交了${config.support}分支合并到${config.release}分支的merge请求"`,
                         {
                             cmd: {
-                                module: remoteRequestModule,
+                                module: mergeRequestModule,
                                 entry: 'createMergeRequest',
                                 options: {
                                     source_branch: config.support,
@@ -318,7 +316,7 @@ publishProgram.action(
                     release: [
                         {
                             cmd: {
-                                module: remoteRequestModule,
+                                module: mergeRequestModule,
                                 entry: 'createMergeRequest',
                                 options: {
                                     source_branch: config.release,
@@ -368,7 +366,7 @@ publishProgram.action(
                     cmd[type] = cmd[type].concat([
                         {
                             cmd: {
-                                module: remoteRequestModule,
+                                module: mergeRequestModule,
                                 entry: 'createMergeRequest',
                                 options: {
                                     source_branch: config.bugfix,
@@ -479,7 +477,7 @@ publishProgram.action(
                         cmd[type] = cmd[type].concat([
                             {
                                 cmd: {
-                                    module: remoteRequestModule,
+                                    module: mergeRequestModule,
                                     entry: 'createMergeRequest',
                                     options: {
                                         source_branch: config.release,
@@ -592,7 +590,7 @@ updateProgram.action(
                 cmd = [
                     {
                         cmd: {
-                            module: remoteRequestModule,
+                            module: mergeRequestModule,
                             entry: 'createMergeRequest',
                             options: {
                                 source_branch: base,
