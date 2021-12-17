@@ -17,7 +17,7 @@ import type { GitmarsOptionType } from '../../typings'
                 description:
                     '筛选合并请求状态，共有2种：opened、closed，不传则默认全部',
                 defaultValue: 'opened',
-                options: ['opened', 'closed'],
+                options: ['opened', 'closed', 'merged', 'all'],
                 value: 'opened'
             },
             {

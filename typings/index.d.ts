@@ -130,6 +130,7 @@ export interface GitmarsOptionOptionsType {
         flags: object,
         options: GitmarsOptionOptionsType
     ): void
+    when?(answers: object): void
 }
 
 export interface GitmarsOptionType {

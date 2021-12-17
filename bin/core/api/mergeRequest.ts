@@ -15,22 +15,27 @@ const MERGE_REQUESTS_URL = `${config.gitHost}/api/v4/projects/${config.gitID}/me
 async function createMergeRequest({
     source_branch,
     target_branch,
-    token,
-    description
+    description,
+    token
 }: {
-    [prop: string]: string | undefined
+    source_branch: string
+    target_branch: string
+    description: string
+    token: string
 }) {
     const params: {
-        [prop: string]: string | undefined
+        source_branch: string
+        target_branch: string
+        title: string
+        description?: string
+        private_token: string
     } = {
         source_branch,
         target_branch,
-        private_token: token,
-        title: `Merge branch '${source_branch}' into '${target_branch}'`
+        title: `Merge branch '${source_branch}' into '${target_branch}'`,
+        private_token: token
     }
-    if (description) {
-        params.description = description
-    }
+    if (description) params.description = description
     const fetchData = await request.post({
         url: MERGE_REQUESTS_URL,
         data: params
@@ -55,11 +60,10 @@ async function getMergeRequestList({
     state = 'opened',
     token
 }: {
-    [prop: string]: string | undefined
+    state: 'merged' | 'opened' | 'closed' | 'all'
+    token: string
 }) {
-    const params: {
-        [prop: string]: string | undefined
-    } = {
+    const params = {
         state,
         private_token: token
     }
@@ -87,7 +91,7 @@ async function getMergeRequestCommits({
     iid,
     token
 }: {
-    iid: string
+    iid: number | string
     token: string
 }) {
     const params = {
@@ -117,7 +121,7 @@ async function getMergeRequestCloseIssues({
     iid,
     token
 }: {
-    iid: string
+    iid: number | string
     token: string
 }) {
     const params = {
@@ -147,7 +151,7 @@ async function getMergeRequestParticipants({
     iid,
     token
 }: {
-    iid: string
+    iid: number | string
     token: string
 }) {
     const params = {
@@ -177,7 +181,7 @@ async function getMergeRequestChanges({
     iid,
     token
 }: {
-    iid: string
+    iid: number | string
     token: string
 }) {
     const params = {
@@ -207,7 +211,7 @@ async function getMergeRequestDiffVersions({
     iid,
     token
 }: {
-    iid: string
+    iid: number | string
     token: string
 }) {
     const params = {
@@ -237,7 +241,7 @@ async function acceptMergeRequest({
     iid,
     token
 }: {
-    iid: string
+    iid: number | string
     token: string
 }) {
     const params = {
@@ -270,7 +274,7 @@ async function updateMergeRequest({
     token,
     data = {}
 }: {
-    iid: string
+    iid: number | string
     token: string
     data: any
 }) {
@@ -301,7 +305,7 @@ async function deleteMergeRequest({
     iid,
     token
 }: {
-    iid: string
+    iid: number | string
     token: string
 }) {
     const params = {

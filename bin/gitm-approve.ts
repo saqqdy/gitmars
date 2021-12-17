@@ -23,7 +23,7 @@ const {
     acceptMergeRequest,
     updateMergeRequest,
     deleteMergeRequest
-} = require('./core/git/remoteRequest')
+} = require('./core/api/mergeRequest')
 
 import {
     GitmarsOptionOptionsType,
@@ -160,7 +160,7 @@ program.action(async (opt: GitmBuildOption): Promise<void> => {
                     `代码写的很棒了，可以稍微再优化一下，${appName}项目合并请求${iid}已删除`
                 )
             echo(green(`合并请求${iid}：已删除`))
-        } else {
+        } else if (accept === '不通过') {
             // 删除
             await updateMergeRequest({
                 token,
@@ -175,5 +175,6 @@ program.action(async (opt: GitmBuildOption): Promise<void> => {
         }
     })
 })
+
 program.parse(process.argv)
 export {}

@@ -1134,10 +1134,10 @@ gitm suggest
 
 <div class="table-option">
 
-| 名称      | 简写 | 说明               | 类型    | 可选值            | 传值必填 | 默认   |
-| --------- | ---- | ------------------ | ------- | ----------------- | -------- | ------ |
-| --state   |      | 筛选合并请求的状态 | String  | `opened` `closed` | 否       | opened |
-| --postmsg |      | 是否推送消息       | Boolean |                   | 否       | false  |
+| 名称      | 简写 | 说明               | 类型    | 可选值                           | 传值必填 | 默认   |
+| --------- | ---- | ------------------ | ------- | -------------------------------- | -------- | ------ |
+| --state   |      | 筛选合并请求的状态 | String  | `opened` `closed` `merged` `all` | 否       | opened |
+| --postmsg |      | 是否推送消息       | Boolean |                                  | 否       | false  |
 
 </div>
 
@@ -1156,12 +1156,22 @@ gitm approve --postmsg
 
 -   使用：`gitm review`
 -   参数：无
--   传值：无
+-   传值：
+
+<div class="table-option">
+
+| 名称      | 简写 | 说明               | 类型    | 可选值                           | 传值必填 | 默认   |
+| --------- | ---- | ------------------ | ------- | -------------------------------- | -------- | ------ |
+| --state   |      | 筛选合并请求的状态 | String  | `opened` `closed` `merged` `all` | 否       | opened |
+| --postmsg |      | 是否推送消息       | Boolean |                                  | 否       | false  |
+
+</div>
+
 -   示例：
 
 ```shell
 # 输入指令，按照提示操作
-gitm review
+gitm review --state merged
 ```
 
 ### gitm status
