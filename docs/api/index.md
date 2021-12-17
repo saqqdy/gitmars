@@ -1120,7 +1120,7 @@ git操作建议
 gitm suggest
 ```
 
-### gitm approve <Badge text="开发中" type="warning"/>
+### gitm approve
 
 #### 短指令：gitm ap
 
@@ -1148,9 +1148,11 @@ gitm suggest
 gitm approve --postmsg
 ```
 
-### gitm review <Badge text="开发中" type="warning"/>
+### gitm review
 
 #### 短指令：gitm rv
+
+> v2.16.0 新增
 
 远程review代码
 
