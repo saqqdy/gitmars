@@ -7,7 +7,7 @@ const { options, args } = require('./conf/approve')
 const getUserToken = require('./core/api/getUserToken')
 const getIsGitProject = require('./core/git/getIsGitProject')
 const getGitConfig = require('./core/git/getGitConfig')
-const { postMessage } = require('./core/utils/message')
+const sendGroupMessage = require('./core/sendGroupMessage')
 const { createArgs } = require('./core/utils/command')
 const echo = require('./core/utils/echo')
 if (!getIsGitProject()) {
@@ -113,15 +113,20 @@ program.action(async (opt: GitmBuildOption): Promise<void> => {
 
     // 开始执行操作
     iids.forEach(async (iid: string) => {
-        const mr = mrList.find((item: any) => item.iid === iid)
-        const CAN_BE_MERGED = mr.merge_status === 'can_be_merged'
+        const { merge_status, source_branch, target_branch } = mrList.find(
+            (item: any) => item.iid === iid
+        )
+        const CAN_BE_MERGED = merge_status === 'can_be_merged'
         if (accept === '通过') {
             if (!CAN_BE_MERGED) {
                 echo(yellow('不能合并的请求不能点审核通过'))
                 process.exit(0)
             }
             await acceptMergeRequest({ token, iid })
-            opt.postmsg && postMessage(`${appName}项目合并请求${iid}已合并`)
+            opt.postmsg &&
+                sendGroupMessage(
+                    `${appName}项目${source_branch}合并到${target_branch}请求ID${iid}已合并`
+                )
             echo(green(`合并请求${iid}：已合并`))
         } else if (accept === '查看详情') {
             const { changes, changes_count } = await getMergeRequestChanges({
@@ -156,8 +161,8 @@ program.action(async (opt: GitmBuildOption): Promise<void> => {
         } else if (accept === '不通过并删除') {
             await deleteMergeRequest({ token, iid })
             opt.postmsg &&
-                postMessage(
-                    `代码写的很棒了，可以稍微再优化一下，${appName}项目合并请求${iid}已删除`
+                sendGroupMessage(
+                    `代码写的很棒了，可以稍微再优化一下，${appName}项目${source_branch}合并到${target_branch}请求ID${iid}已删除`
                 )
             echo(green(`合并请求${iid}：已删除`))
         } else if (accept === '不通过') {
@@ -168,8 +173,8 @@ program.action(async (opt: GitmBuildOption): Promise<void> => {
                 data: { state_event: 'close' }
             })
             opt.postmsg &&
-                postMessage(
-                    `代码写的很棒了，可以稍微再优化一下，${appName}项目合并请求${iid}已暂时关闭`
+                sendGroupMessage(
+                    `代码写的很棒了，可以稍微再优化一下，${appName}项目${source_branch}合并到${target_branch}请求ID${iid}已暂时关闭`
                 )
             echo(green(`合并请求${iid}：已关闭`))
         }

@@ -8,7 +8,7 @@ const { options, args } = require('./conf/review')
 const getUserToken = require('./core/api/getUserToken')
 const getIsGitProject = require('./core/git/getIsGitProject')
 const getGitConfig = require('./core/git/getGitConfig')
-const { postMessage } = require('./core/utils/message')
+const sendGroupMessage = require('./core/sendGroupMessage')
 const { createArgs } = require('./core/utils/command')
 const echo = require('./core/utils/echo')
 if (!getIsGitProject()) {
@@ -109,6 +109,9 @@ program.action(async (opt: GitmBuildOption): Promise<void> => {
 
     // 开始执行操作
     iids.forEach(async (iid: string) => {
+        const { source_branch, target_branch } = mrList.find(
+            (item: any) => item.iid === iid
+        )
         if (accept === '查看详情') {
             const { changes, changes_count } = await getMergeRequestChanges({
                 token,
@@ -168,8 +171,8 @@ program.action(async (opt: GitmBuildOption): Promise<void> => {
         } else if (accept === '删除') {
             await deleteMergeRequest({ token, iid })
             opt.postmsg &&
-                postMessage(
-                    `代码写的很棒了，可以稍微再优化一下，${appName}项目合并请求${iid}已删除`
+                sendGroupMessage(
+                    `代码写的很棒了，可以稍微再优化一下，${appName}项目${source_branch}合并到${target_branch}请求ID${iid}已删除`
                 )
             echo(green(`合并请求${iid}：已删除`))
         } else if (accept === '关闭') {
@@ -180,8 +183,8 @@ program.action(async (opt: GitmBuildOption): Promise<void> => {
                 data: { state_event: 'close' }
             })
             opt.postmsg &&
-                postMessage(
-                    `代码写的很棒了，可以稍微再优化一下，${appName}项目合并请求${iid}已暂时关闭`
+                sendGroupMessage(
+                    `代码写的很棒了，可以稍微再优化一下，${appName}项目${source_branch}合并到${target_branch}请求ID${iid}已暂时关闭`
                 )
             echo(green(`合并请求${iid}：已关闭`))
         } else if (accept === '评论') {

@@ -19,7 +19,10 @@ app.set('view engine', 'hbs');
 app.use(express_1.default.json());
 app.use(express_1.default.urlencoded({ extended: false }));
 app.use((0, cookie_parser_1.default)());
-app.use(express_1.default.static(path_1.default.join(__dirname, './www')));
+app.use(express_1.default.static(path_1.default.join(__dirname, './www'), {
+    maxAge: 0,
+    immutable: true
+}));
 app.use('/', indexRouter);
 app.use('/cmd', cmdRouter);
 app.use('/common', commonRouter);
