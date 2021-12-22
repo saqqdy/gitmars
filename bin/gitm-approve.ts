@@ -24,6 +24,7 @@ const {
     updateMergeRequest,
     deleteMergeRequest
 } = require('./core/api/mergeRequest')
+const { getMergeRequestNotesList } = require('./core/api/mergeRequestNotes')
 
 import {
     GitmarsOptionOptionsType,
@@ -82,7 +83,7 @@ program.action(async (opt: GitmBuildOption): Promise<void> => {
             }
         }
     ]
-    mrList.forEach((mr: any) => {
+    mrList.forEach(async (mr: any) => {
         const {
             iid,
             author,
@@ -91,6 +92,12 @@ program.action(async (opt: GitmBuildOption): Promise<void> => {
             merge_status,
             created_at
         } = mr
+        mr.notes = (
+            (await getMergeRequestNotesList({
+                token,
+                iid
+            })) || []
+        ).filter((note: any) => !note.system)
         const disabled = merge_status !== 'can_be_merged'
         const _time = dayjs(created_at).format('YYYY/MM/DD HH:mm')
         prompt[0].choices.push({
@@ -98,7 +105,9 @@ program.action(async (opt: GitmBuildOption): Promise<void> => {
                 source_branch
             )} 到 ${green(target_branch)} ${
                 disabled ? red('[ 有冲突或不需要合并 ]') : ''
-            } | ${yellow(author.name)} | ${blue(_time)}`,
+            } | ${yellow(author.name)} | ${green(
+                mr.notes.length + '条评论'
+            )} | ${blue(_time)}`,
             value: iid,
             // disabled,
             checked: false
@@ -162,7 +171,7 @@ program.action(async (opt: GitmBuildOption): Promise<void> => {
             await deleteMergeRequest({ token, iid })
             opt.postmsg &&
                 sendGroupMessage(
-                    `代码写的很棒了，可以稍微再优化一下，${appName}项目${source_branch}合并到${target_branch}请求ID${iid}已删除`
+                    `${appName}项目${source_branch}合并到${target_branch}请求ID${iid}已删除`
                 )
             echo(green(`合并请求${iid}：已删除`))
         } else if (accept === '不通过') {
@@ -174,7 +183,7 @@ program.action(async (opt: GitmBuildOption): Promise<void> => {
             })
             opt.postmsg &&
                 sendGroupMessage(
-                    `代码写的很棒了，可以稍微再优化一下，${appName}项目${source_branch}合并到${target_branch}请求ID${iid}已暂时关闭`
+                    `${appName}项目${source_branch}合并到${target_branch}请求ID${iid}已暂时关闭`
                 )
             echo(green(`合并请求${iid}：已关闭`))
         }
