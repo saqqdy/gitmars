@@ -121,7 +121,7 @@ program.action(async (opt: GitmBuildOption): Promise<void> => {
     }
 
     // 开始执行操作
-    iids.forEach(async (iid: string) => {
+    for (const iid of iids) {
         const { merge_status, source_branch, target_branch } = mrList.find(
             (item: any) => item.iid === iid
         )
@@ -187,7 +187,7 @@ program.action(async (opt: GitmBuildOption): Promise<void> => {
                 )
             echo(green(`合并请求${iid}：已关闭`))
         }
-    })
+    }
 })
 
 program.parse(process.argv)
