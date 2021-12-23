@@ -83,7 +83,7 @@ program.action(async (opt: GitmBuildOption): Promise<void> => {
             }
         }
     ]
-    mrList.forEach(async (mr: any) => {
+    for (const mr of mrList) {
         const {
             iid,
             author,
@@ -112,7 +112,7 @@ program.action(async (opt: GitmBuildOption): Promise<void> => {
             // disabled,
             checked: false
         })
-    })
+    }
     const { iids, accept } = await inquirer.prompt(prompt)
     // 没有选择任何记录
     if (iids.length === 0) {
