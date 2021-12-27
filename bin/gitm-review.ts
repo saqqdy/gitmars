@@ -37,7 +37,7 @@ import {
 
 interface GitmBuildOption {
     state?: string
-    postmsg: boolean
+    quiet: boolean
 }
 
 /**
@@ -45,14 +45,14 @@ interface GitmBuildOption {
  */
 program
     .name('gitm review')
-    .usage('[--state [state]] [--postmsg]')
+    .usage('[--state [state]] [--quiet]')
     .description('review远程代码')
 if (args.length > 0) program.arguments(createArgs(args))
 options.forEach((o: GitmarsOptionOptionsType) => {
     program.option(o.flags, o.description, o.defaultValue)
 })
 // .option('--state [state]', '筛选合并请求状态，共有2种：opened、closed，不传则默认全部', null)
-// .option('--postmsg', '是否推送消息', false)
+// .option('--quiet', '不要推送消息', false)
 program.action(async (opt: GitmBuildOption): Promise<void> => {
     const { token } = config.api ? await getUserToken() : ({} as FetchDataType)
     const mrList = await getMergeRequestList({ token, state: opt.state })
@@ -170,9 +170,9 @@ program.action(async (opt: GitmBuildOption): Promise<void> => {
             )
         } else if (accept === '删除') {
             await deleteMergeRequest({ token, iid })
-            opt.postmsg &&
+            !opt.quiet &&
                 sendGroupMessage(
-                    `代码写的很棒了，可以稍微再优化一下，${appName}项目${source_branch}合并到${target_branch}请求ID${iid}已删除`
+                    `${appName}项目${source_branch}合并到${target_branch}请求ID${iid}已删除`
                 )
             echo(green(`合并请求${iid}：已删除`))
         } else if (accept === '关闭') {
@@ -182,9 +182,9 @@ program.action(async (opt: GitmBuildOption): Promise<void> => {
                 iid,
                 data: { state_event: 'close' }
             })
-            opt.postmsg &&
+            !opt.quiet &&
                 sendGroupMessage(
-                    `代码写的很棒了，可以稍微再优化一下，${appName}项目${source_branch}合并到${target_branch}请求ID${iid}已暂时关闭`
+                    `${appName}项目${source_branch}合并到${target_branch}请求ID${iid}已暂时关闭`
                 )
             echo(green(`合并请求${iid}：已关闭`))
         } else if (accept === '评论') {
@@ -197,6 +197,10 @@ program.action(async (opt: GitmBuildOption): Promise<void> => {
                 transformer: (val: string) => val.trim(),
                 validate: (val: string) => (!val ? '请输入可用评论' : true)
             })
+            !opt.quiet &&
+                sendGroupMessage(
+                    `${appName}项目${source_branch}合并到${target_branch}请求ID${iid}有新评论：${note}`
+                )
             await createMergeRequestNotes({ token, iid, body: note })
             echo(green('已提交'))
         }

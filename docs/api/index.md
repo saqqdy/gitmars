@@ -1124,20 +1124,21 @@ gitm suggest
 
 #### 短指令：gitm ap
 
-> v2.16.0 新增
+> v2.16.0 新增<br>
+> v2.16.4 移除`--postmsg`，新增'--quiet'
 
 处理远程合并请求
 
--   使用：`gitm approve [--state [state]] [--postmsg]`
+-   使用：`gitm approve [--state [state]] [--quiet]`
 -   参数：无
 -   传值：
 
 <div class="table-option">
 
-| 名称      | 简写 | 说明               | 类型    | 可选值                           | 传值必填 | 默认   |
-| --------- | ---- | ------------------ | ------- | -------------------------------- | -------- | ------ |
-| --state   |      | 筛选合并请求的状态 | String  | `opened` `closed` `merged` `all` | 否       | opened |
-| --postmsg |      | 是否推送消息       | Boolean |                                  | 否       | false  |
+| 名称    | 简写 | 说明               | 类型    | 可选值                           | 传值必填 | 默认   |
+| ------- | ---- | ------------------ | ------- | -------------------------------- | -------- | ------ |
+| --state |      | 筛选合并请求的状态 | String  | `opened` `closed` `merged` `all` | 否       | opened |
+| --quiet |      | 不要推送消息       | Boolean |                                  | 否       | false  |
 
 </div>
 
@@ -1145,27 +1146,28 @@ gitm suggest
 
 ```shell
 # 输入指令，按照提示操作
-gitm approve --postmsg
+gitm approve --quiet
 ```
 
 ### gitm review
 
 #### 短指令：gitm rv
 
-> v2.16.0 新增
+> v2.16.0 新增<br>
+> v2.16.4 移除`--postmsg`，新增'--quiet'
 
 远程review代码
 
--   使用：`gitm review`
+-   使用：`gitm review [--state [state]] [--quiet]`
 -   参数：无
 -   传值：
 
 <div class="table-option">
 
-| 名称      | 简写 | 说明               | 类型    | 可选值                           | 传值必填 | 默认   |
-| --------- | ---- | ------------------ | ------- | -------------------------------- | -------- | ------ |
-| --state   |      | 筛选合并请求的状态 | String  | `opened` `closed` `merged` `all` | 否       | opened |
-| --postmsg |      | 是否推送消息       | Boolean |                                  | 否       | false  |
+| 名称    | 简写 | 说明               | 类型    | 可选值                           | 传值必填 | 默认   |
+| ------- | ---- | ------------------ | ------- | -------------------------------- | -------- | ------ |
+| --state |      | 筛选合并请求的状态 | String  | `opened` `closed` `merged` `all` | 否       | opened |
+| --quiet |      | 不要推送消息       | Boolean |                                  | 否       | false  |
 
 </div>
 

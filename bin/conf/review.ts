@@ -21,15 +21,15 @@ import type { GitmarsOptionType } from '../../typings'
                 value: 'opened'
             },
             {
-                flags: '--postmsg',
+                flags: '--quiet',
                 required: false,
                 optional: false,
                 variadic: false,
                 mandatory: false,
                 short: '',
-                long: '--postmsg',
+                long: '--quiet',
                 negate: false,
-                description: '是否推送消息',
+                description: '不要推送消息',
                 defaultValue: false
             }
         ],
