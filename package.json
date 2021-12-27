@@ -63,12 +63,7 @@
         "qs": "^6.10.2",
         "shelljs": "^0.8.4",
         "slash": "^3.0.0",
-        "tracer": "1.1.5",
-<<<<<<< HEAD
-        "zlib": "^1.0.5"
-=======
-        "uuid": "^8.3.2"
->>>>>>> dev
+        "tracer": "1.1.5"
     },
     "devDependencies": {
         "@microsoft/api-extractor": "^8.0.0",
