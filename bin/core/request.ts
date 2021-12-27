@@ -116,28 +116,18 @@ class Request {
                     res.on('end', () => {
                         const buffer = Buffer.concat(chunks)
                         const encoding = res.headers['content-encoding']
-                        let data
+                        let data: any
                         if (encoding === 'gzip') {
-                            zlib.gunzip(
-                                buffer,
-                                function (err: Error, decoded: any) {
-                                    data = decoded.toString()
-                                }
-                            )
+                            data = zlib.gunzipSync(buffer).toString()
                         } else if (encoding === 'deflate') {
-                            zlib.inflate(
-                                buffer,
-                                function (err: Error, decoded: any) {
-                                    data = decoded.toString()
-                                }
-                            )
+                            data = zlib.inflateSync(buffer).toString()
                         } else {
                             data = buffer.toString()
-                            try {
-                                data = JSON.parse(data)
-                            } catch {
-                                // console.warn('data is not json', data)
-                            }
+                        }
+                        try {
+                            data = JSON.parse(data)
+                        } catch {
+                            // console.warn('data is not json', data)
                         }
                         debug(
                             'request-result',
