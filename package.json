@@ -75,8 +75,7 @@
         "slash": "^3.0.0",
         "socket.io": "4.4.0",
         "tracer": "1.1.5",
-        "uuid": "^8.3.2",
-        "zlib": "^1.0.5"
+        "uuid": "^8.3.2"
     },
     "devDependencies": {
         "@microsoft/api-extractor": "^8.0.0",
