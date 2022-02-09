@@ -15,7 +15,6 @@
 [![NPM version][npm-image]][npm-url]
 [![build status][travis-image]][travis-url]
 [![Test coverage][codecov-image]][codecov-url]
-[![Known Vulnerabilities][snyk-image]][snyk-url]
 [![npm download][download-image]][download-url]
 [![License][license-image]][license-url]
 
@@ -173,8 +172,6 @@ gitm ui --port 3000
 [travis-url]: https://travis-ci.com/saqqdy/gitmars
 [codecov-image]: https://img.shields.io/codecov/c/github/saqqdy/gitmars.svg?style=flat-square
 [codecov-url]: https://codecov.io/github/saqqdy/gitmars?branch=master
-[snyk-image]: https://snyk.io/test/npm/gitmars/badge.svg?style=flat-square
-[snyk-url]: https://snyk.io/test/npm/gitmars
 [download-image]: https://img.shields.io/npm/dm/gitmars.svg?style=flat-square
 [download-url]: https://npmjs.com/package/gitmars
 [license-image]: https://img.shields.io/badge/License-GPL-blue.svg
