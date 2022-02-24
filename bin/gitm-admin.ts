@@ -158,7 +158,7 @@ publishProgram.action(
             let cmd: {
                 [prop in PublishOptsType]: Array<CommandType | string>
             }
-            if (!level || level < 3) {
+            if (!level || level < 4) {
                 cmd = {
                     bugfix: [
                         'git fetch',
@@ -337,7 +337,7 @@ publishProgram.action(
             }
             // 发布bug分支且同步到master
             if (type === 'bugfix' && opt.prod) {
-                if (!level || level < 3) {
+                if (!level || level < 4) {
                     cmd[type] = cmd[type].concat([
                         `git checkout ${config.master}`,
                         'git pull',
@@ -384,7 +384,7 @@ publishProgram.action(
                         `gitm postmsg "${nickname}在${appName}项目提交了${config.bugfix}分支合并到${config.master}分支的merge请求"`
                     ])
                 }
-                if (opt.build && (!level || level < 3)) {
+                if (opt.build && (!level || level < 4)) {
                     cmd[type] = cmd[type].concat([
                         {
                             cmd: `gitm build ${appName} --env bug --app ${
@@ -400,7 +400,7 @@ publishProgram.action(
                 }
             }
             // 发布release
-            if (type === 'release' && opt.build && (!level || level < 3)) {
+            if (type === 'release' && opt.build && (!level || level < 4)) {
                 cmd[type] = cmd[type].concat([
                     {
                         cmd: `gitm build ${appName} --env prod --app ${
@@ -445,7 +445,7 @@ publishProgram.action(
                         }
                     ])
                 } else {
-                    if (!level || level < 3) {
+                    if (!level || level < 4) {
                         cmd[type] = cmd[type].concat([
                             `git checkout ${config.release}`,
                             'git pull',
@@ -554,7 +554,7 @@ updateProgram.action(
         }
         if (opts.includes(type)) {
             let cmd
-            if (!level || level < 3) {
+            if (!level || level < 4) {
                 cmd = [
                     'git fetch',
                     `git checkout ${base}`,

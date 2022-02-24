@@ -227,6 +227,7 @@ apollo 构建项目配置参考
 请求权限的 api 接口地址，需要支持的接收参数形式：url?name=git_user_name
 
 > 2.0.1 新增
+> 2.17.0 新增`level=3`审核员，审核员有合并权限可以执行`admin publish`动作，但是与管理员不同的是审核员提交代码会推送到远程。原开发者调整为4
 
 -   类型：`String`
 -   默认：``
@@ -238,7 +239,7 @@ apollo 构建项目配置参考
 ```json
 {
     "token": "gitlab access_token", // gitlab上生成的access_token
-    "level": 3 // 1=超级管理员 2=管理员 3=开发者
+    "level": 4 // 1=超级管理员 2=管理员 3=审核员 4=开发者
 }
 ```
 
