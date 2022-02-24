@@ -56,7 +56,7 @@ program.action(async (opt: GitmBuildOption): Promise<void> => {
         level,
         nickname = ''
     } = config.api ? await getUserToken() : ({} as FetchDataType)
-    if (level && level > 2) {
+    if (level && level > 3) {
         echo(red(`${nickname}同学，你的权限不足`))
         process.exit(1)
     }
