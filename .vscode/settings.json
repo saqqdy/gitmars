@@ -96,8 +96,10 @@
         "iids",
         "iid",
         "columnify",
-        "untracked"
+        "untracked",
+        "axios"
     ],
+    "recommendations": ["johnsoncodehk.volar"],
     "typescript.tsdk": "node_modules/typescript/lib",
     "editor.codeActionsOnSave": {
         "source.fixAll.eslint": true
