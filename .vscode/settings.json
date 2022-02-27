@@ -97,6 +97,7 @@
         "iid",
         "columnify",
         "untracked",
+        "jssj",
         "axios"
     ],
     "recommendations": ["johnsoncodehk.volar"],

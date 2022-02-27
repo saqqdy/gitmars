@@ -48,6 +48,7 @@
         "typings": "typings"
     },
     "dependencies": {
+        "@jssj/request": "^1.0.0-alpha.1",
         "ci-info": "^3.3.0",
         "colors": "^1.4.0",
         "columnify": "^1.6.0",
