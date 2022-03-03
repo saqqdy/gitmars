@@ -1,7 +1,7 @@
 {
     "name": "gitmars",
     "description": "这是一个git工作流工具",
-    "version": "2.17.0",
+    "version": "2.17.0-beta.1",
     "scripts": {
         "docs:dev": "vuepress dev docs",
         "docs:build": "vuepress build docs",
@@ -48,7 +48,7 @@
         "typings": "typings"
     },
     "dependencies": {
-        "@jssj/request": "^1.0.0-alpha.1",
+        "@jssj/request": "^1.0.0-alpha.5",
         "ci-info": "^3.3.0",
         "colors": "^1.4.0",
         "columnify": "^1.6.0",
