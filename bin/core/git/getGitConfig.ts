@@ -26,16 +26,16 @@ function getGitConfig(cwd: string = process.cwd()): GitProjectConfigType {
     debug('getGitConfig', {
         gitUrl,
         appName: gitUrl
+            .replace(/\.git\/?$/, '')
             .split('/')
             .reverse()[0]
-            .replace(/\.git$/, '')
     })
     return {
         gitUrl,
         appName: gitUrl
+            .replace(/\.git\/?$/, '')
             .split('/')
             .reverse()[0]
-            .replace(/\.git$/, '')
     }
 }
 

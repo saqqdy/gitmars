@@ -1,7 +1,7 @@
 const sh = require('shelljs')
 const { red } = require('colors')
 const { getGitUser } = require('../git/getGitUser')
-const request = require('../request')
+const request = require('@jssj/request')
 const getConfig = require('../getConfig')
 const { debug } = require('../utils/debug')
 

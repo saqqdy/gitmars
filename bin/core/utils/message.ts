@@ -1,5 +1,5 @@
 const sh = require('shelljs')
-const request = require('../request')
+const request = require('@jssj/request')
 const { green, red } = require('colors')
 const mapTemplate = require('./mapTemplate')
 const getGitConfig = require('../git/getGitConfig')

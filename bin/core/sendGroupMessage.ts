@@ -1,6 +1,6 @@
 const sh = require('shelljs')
 const { green, red } = require('colors')
-const request = require('./request')
+const request = require('@jssj/request')
 const getApolloConfig = require('./build/getApolloConfig')
 
 import type { ApolloConfigType } from '../../typings'
