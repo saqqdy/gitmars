@@ -30,7 +30,7 @@ rsync -av --exclude=*.bak bin/conf/* lib/conf
 # npx esbuild "bin/**/*.js" --bundle --platform=node --target=node10.4 --outdir=lib
 
 
-pkg=$(node script/lib.js $*)
+pkg=$(npx tscjs scripts/lib.ts $*)
 let "errors |= $?"
 if [ $errors == 1 ]; then
     exit 0
