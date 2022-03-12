@@ -1,0 +1,1 @@
+import{a8 as r,g as a}from"./vendor/vue_3.2.31.js.e9245adf.js";function u(e){typeof e=="string"&&(e=[e]);const{appContext:n,proxy:s}=a(),o=n.config.globalProperties;let t={};return e&&e.includes("style")&&(t=r()),{globalProperties:o,proxy:s,style:t}}export{u};
