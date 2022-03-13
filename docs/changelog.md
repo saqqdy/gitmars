@@ -1,8 +1,10 @@
 # 更新日志
 
-## 2022.02.27 v2.17.1 更新日志
+## 2022.03.14 v2.18.0 更新日志
 
-1. 升级依赖包
+1. 新增`gitm shortcut`指令，初始化：`git shortcut init`，移除：`git shortcut remove`
+2. 新增别名指令使用gitmars，可使用`git mars xxx` 或 `git flow xxx`，均等价于`gitm xxx`
+3. 升级依赖包
 
 ## 2022.02.24 v2.17.0 更新日志
 
