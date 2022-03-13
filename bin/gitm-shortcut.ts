@@ -12,9 +12,7 @@ if (!getIsGitProject()) {
     process.exit(1)
 }
 
-import {
-    GitmarsOptionOptionsType
-} from '../typings'
+import { GitmarsOptionOptionsType } from '../typings'
 
 const actions = ['init', 'remove'] as const
 type Module = typeof actions[number]
@@ -27,9 +25,7 @@ interface Action {
  */
 program
     .name('gitm shortcut')
-    .usage(
-        '<action>'
-    )
+    .usage('<action>')
     .description('安装和移除快捷方式')
 if (args.length > 0) program.arguments(createArgs(args))
 options.forEach((o: GitmarsOptionOptionsType) => {
@@ -43,28 +39,28 @@ program.action((action: Module) => {
     const alias = {
         flow: '!gitm',
         mars: '!gitm',
-        unstage: '\'reset HEAD --\'',
-        last: '\'log -1 HEAD\'',
+        unstage: "'reset HEAD --'",
+        last: "'log -1 HEAD'",
         st: 'status',
         cm: 'commit',
         br: 'branch',
         bh: 'branch',
         ck: 'checkout',
-        ckb: '\'checkout -b\'',
+        ckb: "'checkout -b'",
         cp: 'cherry-pick',
         ps: 'push',
         pl: 'pull',
-        plm: '\'pull --merge\'',
-        plr: '\'pull --rebase\'',
+        plm: "'pull --merge'",
+        plr: "'pull --rebase'",
         fh: 'fetch',
         sh: 'stash',
-        shp: '\'stash pop\'',
-        sha: '\'stash apply\'',
-        mg: '\'merge\'',
-        mgn: '\'merge --no-ff\'',
-        rs: '\'reset\'',
-        rsh: '\'reset --hard\'',
-        rss: '\'reset --soft\'',
+        shp: "'stash pop'",
+        sha: "'stash apply'",
+        mg: "'merge'",
+        mgn: "'merge --no-ff'",
+        rs: "'reset'",
+        rsh: "'reset --hard'",
+        rss: "'reset --soft'",
         rb: 'rebase'
     } as const
     type Short = keyof typeof alias
@@ -72,17 +68,26 @@ program.action((action: Module) => {
     const cmd: Record<Module, Action> = {
         init: () => {
             for (const short in alias) {
-                spawnSync('git', ['config', '--global', `alias.${short}`, alias[(short as Short)]])
+                spawnSync('git', [
+                    'config',
+                    '--global',
+                    `alias.${short}`,
+                    alias[short as Short]
+                ])
             }
         },
         remove: () => {
             for (const short in alias) {
-                spawnSync('git', ['config', '--global', '--unset', `alias.${short}`])
+                spawnSync('git', [
+                    'config',
+                    '--global',
+                    '--unset',
+                    `alias.${short}`
+                ])
             }
-
-        },
+        }
     }
     cmd[action]()
 })
 program.parse(process.argv)
-export { }
+export {}

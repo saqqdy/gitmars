@@ -11,8 +11,7 @@ import type { GitmarsOptionType } from '../../typings'
                 description: '执行方法'
             }
         ],
-        options: [
-        ],
+        options: [],
         // 校验传值
         validatorOpts: (val, opts, cb) => {
             cb()
