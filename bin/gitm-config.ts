@@ -6,6 +6,7 @@ const getIsGitProject = require('./core/git/getIsGitProject')
 const getGitRevParse = require('./core/git/getGitRevParse')
 const { writeFile } = require('./core/utils/file')
 const { defaults } = require('./core/global')
+const { spawnSync } = require('./core/spawn')
 if (!getIsGitProject()) {
     sh.echo(red('当前目录不是git项目目录'))
     process.exit(1)
@@ -60,5 +61,61 @@ program
         }
         process.exit(0)
     })
+/**
+ * gitm config init
+ */
+program
+    .name('gitm config')
+    .usage('init')
+    .command('init')
+    .description('插入推荐的git配置')
+    .action((): void => {
+        const alias = {
+            mars: '!gitm',
+            unstage: '\'reset HEAD --\'',
+            last: '\'log -1 HEAD\'',
+            st: 'status',
+            cm: 'commit',
+            br: 'branch',
+            ck: 'checkout',
+            ckb: '\'checkout -b\'',
+            cp: 'cherry-pick',
+            ps: 'push',
+            pl: 'pull',
+            fh: 'fetch',
+            sh: 'stash',
+            shp: '\'stash pop\'',
+            sha: '\'stash apply\'',
+            mg: '\'merge --no-ff\'',
+            rs: '\'reset --hard\'',
+            rb: 'rebase'
+        } as const
+        type Short = keyof typeof alias
+        for (const short in alias) {
+            // console.log([
+            //     'config',
+            //     '--global',
+            //     `alias.${short}`,
+            //     alias[short as Short]
+            // ])
+            spawnSync('git', ['config', '--global', `alias.${short}`, alias[(short as Short)]])
+        }
+        // git config--global alias.last 'log -1 HEAD' &&\
+        // git config--global alias.st status &&\
+        // git config--global alias.cm commit &&\
+        // git config--global alias.br branch &&\
+        // git config--global alias.ck checkout &&\
+        // git config--global alias.ckb checkout - b &&\
+        // git config--global alias.cp cherry - pick &&\
+        // git config--global alias.ps push &&\
+        // git config--global alias.pl pull &&\
+        // git config--global alias.fh fetch &&\
+        // git config--global alias.sh stash &&\
+        // git config--global alias.shp stash pop &&\
+        // git config--global alias.mg merge--no - ff &&\
+        // git config--global alias.rs reset--hard &&\
+        // git config--global alias.rb rebase
+        process.exit(0)
+    })
 program.parse(process.argv)
-export {}
+export { }
