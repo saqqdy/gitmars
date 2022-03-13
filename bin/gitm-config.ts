@@ -100,21 +100,6 @@ program
             // ])
             spawnSync('git', ['config', '--global', `alias.${short}`, alias[(short as Short)]])
         }
-        // git config--global alias.last 'log -1 HEAD' &&\
-        // git config--global alias.st status &&\
-        // git config--global alias.cm commit &&\
-        // git config--global alias.br branch &&\
-        // git config--global alias.ck checkout &&\
-        // git config--global alias.ckb checkout - b &&\
-        // git config--global alias.cp cherry - pick &&\
-        // git config--global alias.ps push &&\
-        // git config--global alias.pl pull &&\
-        // git config--global alias.fh fetch &&\
-        // git config--global alias.sh stash &&\
-        // git config--global alias.shp stash pop &&\
-        // git config--global alias.mg merge--no - ff &&\
-        // git config--global alias.rs reset--hard &&\
-        // git config--global alias.rb rebase
         process.exit(0)
     })
 program.parse(process.argv)
