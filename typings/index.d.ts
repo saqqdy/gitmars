@@ -251,7 +251,7 @@ export interface QueueConfigType extends SpawnOptions {
 
 export interface QueueReturnsType
     extends Partial<
-    Pick<SpawnSyncReturns<string>, 'stdout' | 'stderr' | 'status'>
+        Pick<SpawnSyncReturns<string>, 'stdout' | 'stderr' | 'status'>
     > {
     cfg: QueueConfigType
     cmd: string | ModuleCommandType
@@ -270,7 +270,7 @@ export interface InitInquirerPromptType {
 
 export interface GitmarsLogType
     extends Partial<
-    Pick<SpawnSyncReturns<string>, 'stdout' | 'stderr' | 'status'>
+        Pick<SpawnSyncReturns<string>, 'stdout' | 'stderr' | 'status'>
     > {
     command: string
 }

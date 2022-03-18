@@ -57,6 +57,7 @@ options.forEach((o: GitmarsOptionOptionsType) => {
 // .option('--description [description]', '本次提交的原因描述', '')
 program.action(
     async (type: string, name: string, opt: GitmBuildOption): Promise<void> => {
+        const userInfoApi = config.apis && config.apis.userInfo || config.api
         // 检测是否需要升级版本
         const needUpgrade = await isNeedUpgrade()
         needUpgrade && upgradeGitmars()
@@ -72,7 +73,7 @@ program.action(
             token,
             level,
             nickname = ''
-        } = config.api ? await getUserToken() : ({} as FetchDataType)
+        } = userInfoApi ? await getUserToken() : ({} as FetchDataType)
         const status = checkGitStatus()
         let _nameArr: string[] = [], // 分支名称数组
             isDescriptionCorrect = true // 本次提交的原因描述是否符合规范
@@ -88,7 +89,7 @@ program.action(
         }
         if (!type) {
             // type和name都没传且当前分支是开发分支
-            ;[type, ..._nameArr] = getCurrentBranch().split('/')
+            [type, ..._nameArr] = getCurrentBranch().split('/')
             name = _nameArr.join('/')
             if (!name) {
                 deny.includes(type) &&
@@ -105,7 +106,7 @@ program.action(
             }
             const branches = searchBranches({ type })
             if (branches.length === 1) {
-                ;[type, ..._nameArr] = branches[0].split('/')
+                [type, ..._nameArr] = branches[0].split('/')
                 name = _nameArr.join('/')
             } else {
                 sh.echo(

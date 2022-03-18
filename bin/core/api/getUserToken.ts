@@ -10,7 +10,8 @@ import { FetchDataType } from '../../../typings'
 // 获取用户信息
 async function getUserToken(): Promise<FetchDataType> {
     const config = getConfig()
-    if (!config.api) {
+    const userInfoApi = config.apis && config.apis.userInfo || config.api
+    if (!userInfoApi) {
         sh.echo(
             red(
                 '请配置用于请求权限的api接口地址，接收参数形式：url?name=git_user_name，返回data=token'
@@ -26,9 +27,9 @@ async function getUserToken(): Promise<FetchDataType> {
     }
 
     const fetchData =
-        ((await request.get({ url: `${config.api}?name=${user}` }))
+        ((await request.get({ url: `${userInfoApi}?name=${user}` }))
             .data as FetchDataType) || null
-    debug('getUserToken-user', user, config.api)
+    debug('getUserToken-user', user, userInfoApi)
     debug('getUserToken-fetchData', fetchData)
     // 没有查到用户信息或者没有设置token
     if (!fetchData) {

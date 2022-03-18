@@ -8,19 +8,26 @@ const { isCacheExpired, updateCacheTime } = require('../cache/cache')
 const getConfig = require('../getConfig')
 const { debug } = require('../utils/debug')
 
-import type { ApolloConfigType, GitmarsConfigType, GitmarsConfigApisBuildConfigType } from '../../../typings'
+import type {
+    ApolloConfigType,
+    GitmarsConfigType,
+    GitmarsConfigApisBuildConfigType
+} from '../../../typings'
 
 /**
  * 获取namespace
- * 
+ *
  * @param params - GitmarsConfigApisBuildConfigType['params']
  * @returns string - namespace
-*/
-function getNamespace(params: GitmarsConfigApisBuildConfigType['params'] = {}): string {
+ */
+function getNamespace(
+    params: GitmarsConfigApisBuildConfigType['params'] = {}
+): string {
     const names = []
     const keys = Object.keys(params).sort((a, b) => a.length - b.length)
     for (const key of keys) {
-        if (params[key] && typeof params[key] === 'string') names.push(params[key])
+        if (params[key] && typeof params[key] === 'string')
+            names.push(params[key])
     }
     if (names.length) return names.join('-')
     return 'gitmars'
@@ -35,8 +42,7 @@ async function getBuildConfig(): Promise<ApolloConfigType | void> {
     const cacheDir = path.join(__dirname, '../../../cache')
     const config = getConfig() as GitmarsConfigType
     const { apis = {} } = config
-    let NS,
-        _buildConfig
+    let NS, _buildConfig
     debug('getBuildConfig', config)
 
     if (apis.buildConfig) {
@@ -63,10 +69,13 @@ async function getBuildConfig(): Promise<ApolloConfigType | void> {
     if (apis.buildConfig) {
         // 优先使用api获取配置
         const { url, method = 'get', params = {} } = apis.buildConfig
-        _buildConfig = (await request[method]({
-            url,
-            data: params
-        })).data || {}
+        _buildConfig =
+            (
+                await request[method]({
+                    url,
+                    data: params
+                })
+            ).data || {}
     } else if (config.apolloConfig) {
         let apolloConfig
         // 如果传入的是json字符串，转json
@@ -79,7 +88,8 @@ async function getBuildConfig(): Promise<ApolloConfigType | void> {
         } else {
             apolloConfig = config.apolloConfig
         }
-        _buildConfig = (await apollo.remoteConfigService(apolloConfig)).content || {}
+        _buildConfig =
+            (await apollo.remoteConfigService(apolloConfig)).content || {}
     }
 
     await updateCacheTime(BUILD_CONFIG_TIME_NAME)
@@ -88,4 +98,4 @@ async function getBuildConfig(): Promise<ApolloConfigType | void> {
 }
 
 module.exports = getBuildConfig
-export { }
+export {}

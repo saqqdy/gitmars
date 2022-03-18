@@ -54,7 +54,8 @@ options.forEach((o: GitmarsOptionOptionsType) => {
 // .option('--state [state]', '筛选合并请求状态，共有2种：opened、closed，不传则默认全部', null)
 // .option('--quiet', '不要推送消息', false)
 program.action(async (opt: GitmBuildOption): Promise<void> => {
-    const { token } = config.api ? await getUserToken() : ({} as FetchDataType)
+    const userInfoApi = config.apis && config.apis.userInfo || config.api
+    const { token } = userInfoApi ? await getUserToken() : ({} as FetchDataType)
     const mrList = await getMergeRequestList({ token, state: opt.state })
     // 没有任何记录
     if (mrList.length === 0) {
@@ -92,9 +93,8 @@ program.action(async (opt: GitmBuildOption): Promise<void> => {
         prompt[0].choices.push({
             name: `${green(iid + '：')} 请求合并 ${green(
                 source_branch
-            )} 到 ${green(target_branch)} ${
-                disabled ? red('[ 有冲突或不需要合并 ]') : ''
-            } | ${yellow(author.name)} | ${blue(_time)}`,
+            )} 到 ${green(target_branch)} ${disabled ? red('[ 有冲突或不需要合并 ]') : ''
+                } | ${yellow(author.name)} | ${blue(_time)}`,
             value: iid,
             // disabled,
             checked: false
@@ -208,4 +208,4 @@ program.action(async (opt: GitmBuildOption): Promise<void> => {
 })
 
 program.parse(process.argv)
-export {}
+export { }
