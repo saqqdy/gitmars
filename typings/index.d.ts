@@ -154,6 +154,14 @@ export interface GitmarsMultiOptionType {
     approve: GitmarsOptionType
 }
 
+export interface GitmarsConfigApisBuildConfigType {
+    url: string
+    method?: 'post' | 'get' | 'put' | 'delete'
+    params?: {
+        [key: string]: string | number | boolean | null
+    }
+}
+
 export interface GitmarsConfigType {
     master: string
     develop: string
@@ -172,6 +180,9 @@ export interface GitmarsConfigType {
         namespaceName: string[]
         apolloEnv: string
         token: string
+    }
+    apis?: {
+        [key: string]: GitmarsConfigApisBuildConfigType
     }
     api?: string
     gitHost?: string

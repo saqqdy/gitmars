@@ -24,6 +24,7 @@
         "rootDirs": ["ui", "server"],
         "paths": {
             "@/*": ["./ui/src/*"],
+            "~/*": ["./*"],
             "@/package": ["./package.json"]
         }
     },
@@ -35,6 +36,5 @@
         "src/**/*.tsx",
         "src/**/*.vue",
         "typings/*.d.ts"
-    ],
-    "exclude": ["node_modules", "**/__tests__"]
+    ]
 }

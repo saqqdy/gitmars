@@ -78,6 +78,7 @@ program
     .command('run', 'git钩子运行指令')
     .command('log', '查询日志')
     .command('go', '智能猜测你要执行的动作')
+    .command('alias', '安装和移除快捷方式')
     .command(
         'admin <command>',
         '管理员功能，包含对发版分支bugfix、release的操作'
@@ -145,6 +146,7 @@ program.on('command:*', function (types: string[], opts: string[]) {
         'run',
         'log',
         'go',
+        'alias',
         'admin'
     ]
     if (!cmd.includes(types[0])) {

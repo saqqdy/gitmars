@@ -1307,6 +1307,72 @@ gitm postmsg "测试消息"
 gitm postmsg "测试消息" --url "https://github.com/"
 ```
 
+### gitm alias
+
+#### 短指令：无
+
+> v2.18.0 新增
+
+安装和移除快捷方式
+
+-   使用：`gitm alias init` or `gitm alias remove`
+-   参数：无
+-   传值：无
+-   示例：
+
+```shell
+# 安装
+gitm alias init
+# 移除
+gitm alias remove
+```
+
+-   运用：
+
+1. `gitm` 别名使用
+
+```shell
+# 创建分支
+gitm start feature 100001
+# or
+git mars start feature 100001
+# or
+git flow start feature 100001
+```
+
+2. git快捷方式
+
+<div class="table-option">
+
+| 名称      | 指令            | 使用                   | 说明                  |
+| --------- | --------------- | ---------------------- | --------------------- |
+| `unstage` | `reset HEAD --` | `git unstage file1.js` | 移出暂存区            |
+| `last`    | `log -1 HEAD`   | `git last`             | 显示最近一条日志      |
+| `st`      | `status`        | `git st`               | git状态               |
+| `cm`      | `commit`        | `git cm -m "xxxx"`     | 提交版本              |
+| `br`      | `branch`        | `git br`               | 分支管理              |
+| `bh`      | `branch`        | `git bh`               | 分支管理              |
+| `ck`      | `checkout`      | `git ck dev`           | 切换到分支            |
+| `ckb`     | `checkout -b`   | `git ckb dev master`   | 创建分支              |
+| `cp`      | `cherry-pick`   | `git cp xxxxxx`        | 复制提交记录          |
+| `ps`      | `push`          | `git ps`               | 推送代码到远程        |
+| `pl`      | `pull`          | `git pl`               | 拉取远程代码          |
+| `plm`     | `pull --merge`  | `git plm`              | 通过merge方式拉取代码 |
+| `plr`     | `pull --rebase` | `git plr`              | 通过rebase方式拉代码  |
+| `fh`      | `fetch`         | `git fh`               | 检索远程版本          |
+| `sh`      | `stash`         | `git sh`               | 存入暂存区            |
+| `shp`     | `stash pop`     | `git shp`              | 取出暂存区文件        |
+| `sha`     | `stash apply`   | `git sha`              | 取出暂存区文件        |
+| `mg`      | `merge`         | `git mg feature/test`  | 合并分支              |
+| `mgn`     | `merge --no-ff` | `git mgn feature/test` | 通过--no-ff方式merge  |
+| `rs`      | `reset`         | `git rs xxxxxx`        | 重置                  |
+| `rsh`     | `reset --hard`  | `git rsh xxxxxx`       | 硬重置                |
+| `rss`     | `reset --soft`  | `git rss xxxxxx`       | 软重置                |
+| `rb`      | `rebase`        | `git rb`               | rebase                |
+
+</div>
+
+
 ## 管理员
 
 ### gitm admin create

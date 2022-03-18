@@ -113,6 +113,7 @@ gitm copy --help
 -   git 钩子运行指令 [gitm run](http://www.saqqdy.com/gitmars/api/#gitm-run)
 -   查询日志 [gitm log](http://www.saqqdy.com/gitmars/api/#gitm-log)
 -   智能猜测你要执行的动作 [gitm go](http://www.saqqdy.com/gitmars/api/#gitm-go)
+-   安装和移除快捷方式 [gitm alias](http://www.saqqdy.com/gitmars/api/#gitm-alias)
 -   UI 可视化操作 [gitm ui](http://www.saqqdy.com/gitmars/api/#gitm-ui)
 -   管理员创建主干分支 [gitm admin create](http://www.saqqdy.com/gitmars/api/#gitm-admin-create)
 -   发布分支 [gitm admin publish](http://www.saqqdy.com/gitmars/api/#gitm-admin-publish)

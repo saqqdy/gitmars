@@ -20,6 +20,7 @@ if (!getIsGitProject()) {
 const getConfig = require('./core/getConfig')
 const { appName } = getGitConfig()
 const config = getConfig()
+const userInfoApi = (config.apis && config.apis.userInfo) || config.api
 const mergeRequestModule = require.resolve(__dirname + '/core/api/mergeRequest')
 
 import {
@@ -133,7 +134,7 @@ publishProgram.action(
             token,
             level,
             nickname = ''
-        } = config.api ? await getUserToken() : ({} as FetchDataType)
+        } = userInfoApi ? await getUserToken() : ({} as FetchDataType)
         const opts = ['bugfix', 'release', 'support'] // 允许执行的指令
         const status = checkGitStatus()
         const curBranch = await getCurrentBranch()
@@ -531,7 +532,7 @@ updateProgram.action(
             token,
             level,
             nickname = ''
-        } = config.api ? await getUserToken() : ({} as FetchDataType)
+        } = userInfoApi ? await getUserToken() : ({} as FetchDataType)
         const opts = ['bugfix', 'release', 'support'] // 允许执行的指令
         const base = type === 'release' ? config.master : config.release
         const status = checkGitStatus()

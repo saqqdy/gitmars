@@ -1,7 +1,7 @@
 const sh = require('shelljs')
 const { green, red } = require('colors')
-const request = require('./request')
-const getApolloConfig = require('./build/getApolloConfig')
+const request = require('@jssj/request')
+const getBuildConfig = require('./build/getBuildConfig')
 
 import type { ApolloConfigType } from '../../typings'
 
@@ -12,7 +12,7 @@ import type { ApolloConfigType } from '../../typings'
  * @param cfg - 配置
  */
 async function sendGroupMessage(message: string, url = ''): Promise<void> {
-    const config = (await getApolloConfig()) as ApolloConfigType
+    const config = (await getBuildConfig()) as ApolloConfigType
     let urls: string[] = []
     if (!config.gitNotificationGroupUrl && !url) {
         sh.echo(red('没有配置群消息推送地址'))

@@ -47,7 +47,7 @@
 </template>
 
 <script lang="ts">
-import { reactive, computed, onMounted, inject } from 'vue'
+import { reactive, computed, onMounted, inject, defineComponent } from 'vue'
 import { onBeforeRouteLeave, useRoute, useRouter } from 'vue-router'
 import Xterm from '@/components/xterm'
 import { TerminalInjectionKey, SocketInjectionKey } from '@/symbols/injection'
@@ -63,7 +63,7 @@ interface DataType {
 	ready: boolean
 }
 
-export default {
+export default defineComponent({
 	name: 'ControlTasks',
 	components: { Xterm },
 	async setup() {
@@ -153,7 +153,7 @@ export default {
 			route
 		}
 	}
-}
+})
 </script>
 
 <style lang="less" scoped>
