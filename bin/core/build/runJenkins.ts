@@ -1,7 +1,7 @@
 const sh = require('shelljs')
 const { green, red } = require('colors')
 const request = require('@jssj/request')
-const getApolloConfig = require('./getApolloConfig')
+const getBuildConfig = require('./getBuildConfig')
 const mapTemplate = require('../utils/mapTemplate')
 const { debug } = require('../utils/debug')
 
@@ -27,7 +27,7 @@ async function runJenkins({
     project,
     app = 'all'
 }: RunJenkinsOptionType): Promise<void | unknown> {
-    const buildConfig = (await getApolloConfig()) as ApolloConfigType
+    const buildConfig = (await getBuildConfig()) as ApolloConfigType
     const cfg: ApolloConfigBranchType = buildConfig[env]
     debug('runJenkins-buildConfig', env, project, app, buildConfig)
     if (!cfg) {

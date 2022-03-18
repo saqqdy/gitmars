@@ -154,6 +154,14 @@ export interface GitmarsMultiOptionType {
     approve: GitmarsOptionType
 }
 
+export interface GitmarsConfigApisBuildConfigType {
+    url: string
+    method?: 'post' | 'get' | 'put' | 'delete'
+    params?: {
+        [key: string]: string | number | boolean | null
+    }
+}
+
 export interface GitmarsConfigType {
     master: string
     develop: string
@@ -172,6 +180,9 @@ export interface GitmarsConfigType {
         namespaceName: string[]
         apolloEnv: string
         token: string
+    }
+    apis?: {
+        [key: string]: GitmarsConfigApisBuildConfigType
     }
     api?: string
     gitHost?: string
@@ -240,7 +251,7 @@ export interface QueueConfigType extends SpawnOptions {
 
 export interface QueueReturnsType
     extends Partial<
-        Pick<SpawnSyncReturns<string>, 'stdout' | 'stderr' | 'status'>
+    Pick<SpawnSyncReturns<string>, 'stdout' | 'stderr' | 'status'>
     > {
     cfg: QueueConfigType
     cmd: string | ModuleCommandType
@@ -259,7 +270,7 @@ export interface InitInquirerPromptType {
 
 export interface GitmarsLogType
     extends Partial<
-        Pick<SpawnSyncReturns<string>, 'stdout' | 'stderr' | 'status'>
+    Pick<SpawnSyncReturns<string>, 'stdout' | 'stderr' | 'status'>
     > {
     command: string
 }
