@@ -10,7 +10,9 @@ import { FetchDataType } from '../../../typings'
 // 获取用户信息
 async function getUserToken(): Promise<FetchDataType> {
     const config = getConfig()
-    const userInfoApi = (config.apis && config.apis.userInfo) || config.api
+    const userInfoApi =
+        (config.apis && config.apis.userInfo && config.apis.userInfo.url) ||
+        config.api
     if (!userInfoApi) {
         sh.echo(
             red(
