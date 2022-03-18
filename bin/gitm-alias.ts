@@ -23,10 +23,7 @@ interface Action {
 /**
  * gitm alias
  */
-program
-    .name('gitm alias')
-    .usage('<action>')
-    .description('安装和移除快捷方式')
+program.name('gitm alias').usage('<action>').description('安装和移除快捷方式')
 if (args.length > 0) program.arguments(createArgs(args))
 options.forEach((o: GitmarsOptionOptionsType) => {
     program.option(o.flags, o.description, o.defaultValue)

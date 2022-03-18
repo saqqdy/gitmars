@@ -20,7 +20,7 @@ if (!getIsGitProject()) {
 const getConfig = require('./core/getConfig')
 const { appName } = getGitConfig()
 const config = getConfig()
-const userInfoApi = config.apis && config.apis.userInfo || config.api
+const userInfoApi = (config.apis && config.apis.userInfo) || config.api
 const mergeRequestModule = require.resolve(__dirname + '/core/api/mergeRequest')
 
 import {
@@ -92,8 +92,10 @@ createProgram.action((type: string): void => {
         queue(cmd).then((data: any[]) => {
             if (data[3].status === 0) {
                 echo(
-                    `${config[type]
-                    }分支创建成功，该分支基于${base}创建，您当前已经切换到${config[type]
+                    `${
+                        config[type]
+                    }分支创建成功，该分支基于${base}创建，您当前已经切换到${
+                        config[type]
                     }\n需要发版时，记得执行: ${green(
                         'gitm admin publish ' + config[type]
                     )}`
@@ -386,8 +388,9 @@ publishProgram.action(
                 if (opt.build && (!level || level < 4)) {
                     cmd[type] = cmd[type].concat([
                         {
-                            cmd: `gitm build ${appName} --env bug --app ${opt.build === true ? 'all' : opt.build
-                                }`,
+                            cmd: `gitm build ${appName} --env bug --app ${
+                                opt.build === true ? 'all' : opt.build
+                            }`,
                             config: {
                                 again: false,
                                 success: '调起构建成功',
@@ -401,8 +404,9 @@ publishProgram.action(
             if (type === 'release' && opt.build && (!level || level < 4)) {
                 cmd[type] = cmd[type].concat([
                     {
-                        cmd: `gitm build ${appName} --env prod --app ${opt.build === true ? 'all' : opt.build
-                            }`,
+                        cmd: `gitm build ${appName} --env prod --app ${
+                            opt.build === true ? 'all' : opt.build
+                        }`,
                         config: {
                             again: false,
                             success: '调起构建成功',
@@ -696,4 +700,4 @@ approveProgram.action((): void => {
 })
 
 program.parse(process.argv)
-export { }
+export {}
