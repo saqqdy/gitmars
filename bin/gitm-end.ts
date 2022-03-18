@@ -57,7 +57,9 @@ options.forEach((o: GitmarsOptionOptionsType) => {
 // .option('--description [description]', '本次提交的原因描述', '')
 program.action(
     async (type: string, name: string, opt: GitmBuildOption): Promise<void> => {
-        const userInfoApi = (config.apis && config.apis.userInfo) || config.api
+        const userInfoApi =
+            (config.apis && config.apis.userInfo && config.apis.userInfo.url) ||
+            config.api
         // 检测是否需要升级版本
         const needUpgrade = await isNeedUpgrade()
         needUpgrade && upgradeGitmars()
