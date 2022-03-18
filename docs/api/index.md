@@ -1307,7 +1307,7 @@ gitm postmsg "测试消息"
 gitm postmsg "测试消息" --url "https://github.com/"
 ```
 
-### gitm shortcut
+### gitm alias
 
 #### 短指令：无
 
@@ -1315,16 +1315,16 @@ gitm postmsg "测试消息" --url "https://github.com/"
 
 安装和移除快捷方式
 
--   使用：`gitm shortcut init` or `gitm shortcut remove`
+-   使用：`gitm alias init` or `gitm alias remove`
 -   参数：无
 -   传值：无
 -   示例：
 
 ```shell
 # 安装
-gitm shortcut init
+gitm alias init
 # 移除
-gitm shortcut remove
+gitm alias remove
 ```
 
 -   运用：

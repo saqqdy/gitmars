@@ -1,7 +1,7 @@
 import type { GitmarsOptionType } from '../../typings'
 ;(function (root) {
     const cmdConfig: GitmarsOptionType = {
-        command: 'shortcut',
+        command: 'alias',
         short: null,
         args: [
             {
@@ -37,7 +37,7 @@ import type { GitmarsOptionType } from '../../typings'
     else if (typeof exports === 'object') exports['cmdConfig'] = cmdConfig
     else {
         if (!root.gitmarsCmdConfig) root.gitmarsCmdConfig = {}
-        root.gitmarsCmdConfig['shortcut'] = cmdConfig
+        root.gitmarsCmdConfig['alias'] = cmdConfig
     }
     //@ts-ignore
 })(typeof window !== 'undefined' ? window : global)

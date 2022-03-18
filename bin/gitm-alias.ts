@@ -2,7 +2,7 @@
 const { program } = require('commander')
 const sh = require('shelljs')
 const { red } = require('colors')
-const { options, args } = require('./conf/shortcut')
+const { options, args } = require('./conf/alias')
 const getIsGitProject = require('./core/git/getIsGitProject')
 const { createArgs } = require('./core/utils/command')
 const { spawnSync } = require('./core/spawn')
@@ -21,10 +21,10 @@ interface Action {
 }
 
 /**
- * gitm shortcut
+ * gitm alias
  */
 program
-    .name('gitm shortcut')
+    .name('gitm alias')
     .usage('<action>')
     .description('安装和移除快捷方式')
 if (args.length > 0) program.arguments(createArgs(args))
