@@ -1,10 +1,12 @@
 # 更新日志
 
-## 2022.03.14 v2.18.0 更新日志
+## 2022.03.20 v2.18.0 更新日志
 
-1. 新增`gitm shortcut`指令，初始化：`git shortcut init`，移除：`git shortcut remove`
+1. 新增`gitm alias`指令，初始化：`git alias init`，移除：`git alias remove`
 2. 新增别名指令使用gitmars，可使用`git mars xxx` 或 `git flow xxx`，均等价于`gitm xxx`
-3. 升级依赖包
+3. config配置增加`apis`，原`config.api`迁移到`config.apis.userInfo`
+4. 新增`config.apis.buildConfig`接口配置，用于读取构建配置，优先级高于`config.apolloConfig`
+5. 升级依赖包
 
 ## 2022.02.24 v2.17.0 更新日志
 

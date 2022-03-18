@@ -66,6 +66,7 @@ options.forEach((o: GitmarsOptionOptionsType) => {
 // .option('--as-feature', 'bug分支合并到release')
 program.action(
     async (type: string, name: string, opt: GitmBuildOption): Promise<void> => {
+        const userInfoApi = (config.apis && config.apis.userInfo) || config.api
         // 检测是否需要升级版本
         const needUpgrade = await isNeedUpgrade()
         needUpgrade && upgradeGitmars()
@@ -81,7 +82,7 @@ program.action(
             token,
             level,
             nickname = ''
-        } = config.api ? await getUserToken() : ({} as FetchDataType)
+        } = userInfoApi ? await getUserToken() : ({} as FetchDataType)
         const status = !opt.add && opt.commit === '' ? checkGitStatus() : true
         let _nameArr: string[] = [], // 分支名称数组
             isDescriptionCorrect = true // 本次提交的原因描述是否符合规范

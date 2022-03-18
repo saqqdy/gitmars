@@ -1,8 +1,8 @@
-const getApolloConfig = require('./getApolloConfig')
+const getBuildConfig = require('./getBuildConfig')
 const runJenkins = require('./runJenkins')
 
 module.exports = {
-    getApolloConfig,
+    getBuildConfig,
     runJenkins
 }
 export {}

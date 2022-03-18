@@ -54,7 +54,8 @@ options.forEach((o: GitmarsOptionOptionsType) => {
 // .option('--state [state]', '筛选合并请求状态，共有2种：opened、closed，不传则默认全部', null)
 // .option('--quiet', '不要推送消息', false)
 program.action(async (opt: GitmBuildOption): Promise<void> => {
-    const { token } = config.api ? await getUserToken() : ({} as FetchDataType)
+    const userInfoApi = (config.apis && config.apis.userInfo) || config.api
+    const { token } = userInfoApi ? await getUserToken() : ({} as FetchDataType)
     const mrList = await getMergeRequestList({ token, state: opt.state })
     // 没有任何记录
     if (mrList.length === 0) {

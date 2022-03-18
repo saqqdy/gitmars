@@ -222,12 +222,39 @@ apollo 构建项目配置参考
 }
 ```
 
-### api
+### apis
+
+接口配置，`buildConfig`用于获取构建配置，优先级高于`apolloConfig`；`userInfo`用于获取用户权限信息，替代`api`
+
+> 2.18.0 新增
+
+-   类型：`Object`
+-   默认：``
+-   必填：是
+-   示例：
+
+```json
+{
+    "buildConfig": {
+        "url": "https://xxx.com/xxx/getBuildConfig",
+        "method": "get",
+        "params": {
+            "name": "gitmars"
+        }
+    },
+    "userInfo": {
+        "url": "https://xxx.com/xxx/getUserInfo"
+    }
+}
+```
+
+### api  <Badge text="即将弃用" type="warning"/>
 
 请求权限的 api 接口地址，需要支持的接收参数形式：url?name=git_user_name
 
-> 2.0.1 新增
-> 2.17.0 新增`level=3`审核员，审核员有合并权限可以执行`admin publish`动作，但是与管理员不同的是审核员提交代码会推送到远程。原开发者调整为4
+> 2.0.1 新增<br>
+> 2.17.0 新增`level=3`审核员，审核员有合并权限可以执行`admin publish`动作，但是与管理员不同的是审核员提交代码会推送到远程。原开发者调整为4<br>
+> 2.19.0 版本开始移除这项配置，由`apis.userInfo`替代
 
 -   类型：`String`
 -   默认：``
