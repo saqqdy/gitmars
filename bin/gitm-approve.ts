@@ -51,7 +51,9 @@ options.forEach((o: GitmarsOptionOptionsType) => {
 // .option('--state [state]', '筛选合并请求状态，共有2种：opened、closed，不传则默认全部', null)
 // .option('--quiet', '不要推送消息', false)
 program.action(async (opt: GitmBuildOption): Promise<void> => {
-    const userInfoApi = (config.apis && config.apis.userInfo && config.apis.userInfo.url) || config.api
+    const userInfoApi =
+        (config.apis && config.apis.userInfo && config.apis.userInfo.url) ||
+        config.api
     const {
         token,
         level,

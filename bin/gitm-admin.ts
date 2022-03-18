@@ -20,7 +20,9 @@ if (!getIsGitProject()) {
 const getConfig = require('./core/getConfig')
 const { appName } = getGitConfig()
 const config = getConfig()
-const userInfoApi = (config.apis && config.apis.userInfo && config.apis.userInfo.url) || config.api
+const userInfoApi =
+    (config.apis && config.apis.userInfo && config.apis.userInfo.url) ||
+    config.api
 const mergeRequestModule = require.resolve(__dirname + '/core/api/mergeRequest')
 
 import {
