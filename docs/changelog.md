@@ -1,6 +1,6 @@
 # 更新日志
 
-## 2022.03.20 v2.18.0 更新日志
+## 2022.03.24 v2.18.0 更新日志
 
 1. 新增`gitm alias`指令，初始化：`git alias init`，移除：`git alias remove`
 2. 新增别名指令使用gitmars，可使用`git mars xxx` 或 `git flow xxx`，均等价于`gitm xxx`
