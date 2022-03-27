@@ -2,22 +2,25 @@ import path from 'path'
 import fs from 'fs'
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
+import vueJsx from '@vitejs/plugin-vue-jsx'
 import legacy from '@vitejs/plugin-legacy'
-// import Components from 'unplugin-vue-components/vite'
-// import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
-import ElementPlus from 'unplugin-element-plus/vite'
-// import { esbuildCommonjs } from '@originjs/vite-plugin-commonjs'
+import AutoImport from 'unplugin-auto-import/vite'
+import Components from 'unplugin-vue-components/vite'
+import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 // const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 
 // https://vitejs.dev/config/
 export default defineConfig({
 	plugins: [
 		// tsconfigPaths(),
-		// Components({
-		// 	resolvers: [ElementPlusResolver()]
-		// }),
-		ElementPlus(),
+		AutoImport({
+			resolvers: [ElementPlusResolver()]
+		}),
+		Components({
+			resolvers: [ElementPlusResolver()]
+		}),
 		vue(),
+		vueJsx(),
 		legacy({
 			targets: ['defaults', 'not IE 10']
 		})
@@ -54,7 +57,7 @@ export default defineConfig({
 		alias: {
 			'@': path.resolve(__dirname, 'src'),
 			gitmLib: path.resolve(__dirname, '../lib'),
-			server: path.resolve(__dirname, '../app'),
+			gitmServer: path.resolve(__dirname, '../app'),
 			'socket.io-client': 'socket.io-client/dist/socket.io.js'
 		}
 	},
@@ -66,7 +69,9 @@ export default defineConfig({
 				rewrite: path => path.replace(/^\/jar\//, '/')
 			}
 		},
+		fs: { allow: ['..'] },
 		cors: true,
+		host: true,
 		port: 8888
 	},
 	// optimizeDeps: {

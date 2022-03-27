@@ -3,13 +3,7 @@
 	"include": ["../typings", "./**/*.d.ts", "./**/*.ts"],
 	"exclude": ["**/node_modules/**", "**/__tests__"],
 	"compilerOptions": {
-		// compile away optional-chaining-operator
 		"target": "es6",
-		"baseUrl": ".",
-		"paths": {
-			"@/*": ["src/*"],
-			"@/package": ["./package.json"]
-		},
 		"outDir": "../app/",
 		"rootDirs": ["bin", "db", "lib", "public", "routes", "socket", "views"],
 		"module": "commonjs",

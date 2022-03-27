@@ -21,9 +21,8 @@
         "noUnusedParameters": false,
         "typeRoots": ["node_modules/@types"],
         "baseUrl": ".",
-        "rootDirs": ["ui", "server"],
+        // "rootDirs": ["ui", "server"],
         "paths": {
-            "@/*": ["./ui/src/*"],
             "~/*": ["./*"],
             "@/package": ["./package.json"]
         }

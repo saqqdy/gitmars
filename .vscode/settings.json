@@ -98,7 +98,11 @@
         "columnify",
         "untracked",
         "jssj",
-        "axios"
+        "axios",
+        "unplugin",
+        "vite",
+        "vitest",
+        "vitejs"
     ],
     "recommendations": ["johnsoncodehk.volar"],
     "typescript.tsdk": "node_modules/typescript/lib",
