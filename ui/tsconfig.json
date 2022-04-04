@@ -6,17 +6,18 @@
 		"jsx": "preserve",
 		"importHelpers": true,
 		"moduleResolution": "node",
-		"skipLibCheck": true,
-		"esModuleInterop": true,
-		"allowSyntheticDefaultImports": true,
+		// "skipLibCheck": true,
+		// "esModuleInterop": true,
+		// "allowSyntheticDefaultImports": true,
 		"sourceMap": true,
 		"baseUrl": ".",
 		"allowJs": true,
 		// "types": ["element-plus/global"],
 		"paths": {
 			"@/*": ["./src/*"],
+			"~/*": ["../*"],
 			"@/package": ["./package.json"]
 		},
-		"lib": ["esnext", "dom", "dom.iterable", "scripthost"]
+		"lib": ["esnext", "dom", "dom.iterable"]
 	}
 }

@@ -60,10 +60,26 @@ program.action((opt: GitmBuildOption): void => {
         // 删除分支
         if (isBranchExist) cmd.push(`git branch -d ${opt.delete}`)
         if (opt.remote) cmd.push(`git push origin --delete ${opt.delete}`)
+        cmd.push({
+            cmd: 'git remote prune origin',
+            config: {
+                again: true,
+                success: '清理远程分支成功',
+                fail: '清理远程分支失败，请根据提示处理'
+            }
+        })
     } else if (opt.forcedelete) {
         // 强行删除分支
         if (isBranchExist) cmd.push(`git branch -D ${opt.forcedelete}`)
         if (opt.remote) cmd.push(`git push origin --delete ${opt.delete}`)
+        cmd.push({
+            cmd: 'git remote prune origin',
+            config: {
+                again: true,
+                success: '清理远程分支成功',
+                fail: '清理远程分支失败，请根据提示处理'
+            }
+        })
     } else if (opt.upstream) {
         if (typeof opt.upstream === 'string') {
             // 与远程分支关联

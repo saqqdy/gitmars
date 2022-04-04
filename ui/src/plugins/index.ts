@@ -21,11 +21,12 @@
 // 	return i18n
 // }
 
+import { App } from 'vue'
 import axios from './axios'
 import Box from './box'
 import { nextIndex, delay as Delay } from 'js-cool'
 
-export default function (app) {
+export default function (app: App) {
 	app.config.globalProperties.$nextIndex = nextIndex.bind(app)
 	app.config.globalProperties.$axios = axios
 	// @ts-ignore
