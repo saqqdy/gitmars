@@ -33,17 +33,18 @@
     </div>
 </template>
 
-<script lang="ts"></script>
+<script lang="ts">
+export default {
+    name: 'ProjectList'
+}
+</script>
 
 <script lang="ts" setup>
-import { getCurrentInstance, onBeforeMount, reactive } from 'vue'
+import { onBeforeMount, reactive } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import useCurrentInstance from '@/hooks/use-current-instance'
 
 import type { ProjectType } from '@/types/project'
-export default {
-    name: 'ProjectList'
-}
 
 interface DataType {
     list: ProjectType[]
@@ -53,7 +54,7 @@ const {
     globalProperties: { $axios, $confirm }
 } = useCurrentInstance()
 const router = useRouter()
-const route = useRoute()
+// const route = useRoute()
 const data: DataType = reactive({
     list: []
 })

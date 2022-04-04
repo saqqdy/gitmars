@@ -19,13 +19,14 @@
     </div>
 </template>
 
-<script lang="ts"></script>
-
-<script lang="ts" setup>
-import { useRoute, useRouter } from 'vue-router'
+<script lang="ts">
 export default {
     name: 'Project'
 }
+</script>
+
+<script lang="ts" setup>
+import { useRoute, useRouter } from 'vue-router'
 
 const router = useRouter()
 const route = useRoute()

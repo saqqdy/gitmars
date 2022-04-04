@@ -45,7 +45,7 @@ const props = defineProps({
 const emitExec = defineEmits(['exec'])
 
 const cmd: Ref<string> = ref('')
-const { command, short: commandShort } = toRaw(props.value)
+const { command /*, short: commandShort */ } = toRaw(props.value)
 // 计算属性
 const curBranch = computed(() => {
     const arr = toRaw(props.current).split('/')

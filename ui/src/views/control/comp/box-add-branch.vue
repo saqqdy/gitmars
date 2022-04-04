@@ -2,7 +2,7 @@
     <div class="box row justify-center align-center">
         <el-select
             v-model="data.type"
-      class="col-6"
+            class="col-6"
             placeholder="请选择分支类型"
             clearable
         >
@@ -13,8 +13,8 @@
         &nbsp;&nbsp;/&nbsp;&nbsp;
         <el-input
             ref="name"
-      v-model="data.name"
-      class="col-18"
+            v-model="data.name"
+            class="col-18"
             placeholder="分支名称"
         ></el-input>
     </div>

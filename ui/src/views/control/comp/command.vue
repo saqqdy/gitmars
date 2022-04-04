@@ -38,7 +38,7 @@
                         <template v-if="option.options">
                             <el-select
                                 :key="option.long + '-arg'"
-                v-model="option.value"
+                                v-model="option.value"
                                 :placeholder="option.required ? '必填' : '选填'"
                                 clearable
                             >
@@ -53,7 +53,7 @@
                         <template v-else>
                             <el-input
                                 :key="option.long + '-option'"
-                v-model="option.value"
+                                v-model="option.value"
                                 :placeholder="option.required ? '必填' : '选填'"
                                 clearable
                             />

@@ -36,11 +36,11 @@
         <!-- <v3-collapse-transition> -->
         <div
             v-show="isActive"
-      class="v3-collapse-item__wrap"
+            class="v3-collapse-item__wrap"
             role="tabpanel"
             :id="`v3-collapse-content-${id}`"
-      :aria-hidden="!isActive"
-      :aria-labelledby="`v3-collapse-head-${id}`"
+            :aria-hidden="!isActive"
+            :aria-labelledby="`v3-collapse-head-${id}`"
         >
             <div class="v3-collapse-item__content">
                 <slot />
@@ -67,8 +67,8 @@ export default {
         },
         disabled: Boolean
     },
-    setup(props, { slots, emit, attrs }) {
-        const { proxy, appContext } = getCurrentInstance()
+    setup(props) {
+        const { proxy } = getCurrentInstance()
         // const {
         // 	// $router: { getRoutes },
         // 	$root: { $http, saqqdy }

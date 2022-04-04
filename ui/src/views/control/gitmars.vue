@@ -17,15 +17,15 @@
                     <dd
                         v-for="branch in branchList.bugfix"
                         :key="branch"
-            :class="{ active: branch === data.current }"
+                        :class="{ active: branch === data.current }"
                     >
                         <span class="name">{{ branch }}</span>
                         <v3-button
                             type="primary"
                             size="mini"
                             v-if="branch !== data.current"
-              plain
-              @click="checkout(branch)"
+                            plain
+                            @click="checkout(branch)"
                         >
                             进入
                         </v3-button>
@@ -36,15 +36,15 @@
                     <dd
                         v-for="branch in branchList.feature"
                         :key="branch"
-            :class="{ active: branch === data.current }"
+                        :class="{ active: branch === data.current }"
                     >
                         <span class="name">{{ branch }}</span>
                         <v3-button
                             type="primary"
-                            size="mini"
                             v-if="branch !== data.current"
-              plain
-              @click="checkout(branch)"
+                            size="mini"
+                            plain
+                            @click="checkout(branch)"
                         >
                             进入
                         </v3-button>
@@ -55,15 +55,15 @@
                     <dd
                         v-for="branch in branchList.others"
                         :key="branch"
-            :class="{ active: branch === data.current }"
+                        :class="{ active: branch === data.current }"
                     >
                         <span class="name">{{ branch }}</span>
                         <v3-button
                             type="primary"
                             v-if="branch !== data.current"
-              size="mini"
-              plain
-              @click="checkout(branch)"
+                            size="mini"
+                            plain
+                            @click="checkout(branch)"
                         >
                             进入
                         </v3-button>
@@ -130,9 +130,7 @@
                                         @exec="exec"
                                     />
                                 </template>
-                                <Command
-                                    v-model="commandValue['continue']"
-                                ></Command>
+                                <Command v-model="commandValue['continue']" />
                             </v3-collapse-item>
                             <v3-collapse-item name="5">
                                 <template #title>
@@ -172,11 +170,9 @@
                                         :value="commandValue['redo']"
                                         :current="data.current"
                                         @exec="exec"
-                                    ></MapCommand>
+                                    />
                                 </template>
-                                <Command
-                                    v-model="commandValue['redo']"
-                                ></Command>
+                                <Command v-model="commandValue['redo']" />
                             </v3-collapse-item>
                             <v3-collapse-item name="9">
                                 <template #title>
@@ -222,9 +218,7 @@
                                         @exec="exec"
                                     ></MapCommand>
                                 </template>
-                                <Command
-                                    v-model="commandValue['get']"
-                                ></Command>
+                                <Command v-model="commandValue['get']" />
                             </v3-collapse-item>
                             <v3-collapse-item name="13">
                                 <template #title>
@@ -234,9 +228,7 @@
                                         @exec="exec"
                                     />
                                 </template>
-                                <Command
-                                    v-model="commandValue['copy']"
-                                ></Command>
+                                <Command v-model="commandValue['copy']" />
                             </v3-collapse-item>
                             <v3-collapse-item name="14">
                                 <template #title>
@@ -246,9 +238,7 @@
                                         @exec="exec"
                                     />
                                 </template>
-                                <Command
-                                    v-model="commandValue['revert']"
-                                ></Command>
+                                <Command v-model="commandValue['revert']" />
                             </v3-collapse-item>
                             <v3-collapse-item name="15">
                                 <template #title>
@@ -268,7 +258,7 @@
                                         :value="commandValue['link']"
                                         :current="data.current"
                                         @exec="exec"
-                                    ></MapCommand>
+                                    />
                                 </template>
                                 <Command v-model="commandValue['link']" />
                             </v3-collapse-item>

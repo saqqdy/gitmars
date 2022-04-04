@@ -52,23 +52,24 @@
 import { Ref, onErrorCaptured, ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 export default {
-	name: 'Control'
+    name: 'Control'
 }
 
 const router = useRouter()
 const route = useRoute()
 const error: Ref<Error | Object | null> = ref(null)
 if (route.name === 'control') {
-{ router.replace({ name: 'control_gitmars', query: route.query }) }
+    router.replace({ name: 'control_gitmars', query: route.query })
+}
 onErrorCaptured((err): boolean => {
-	error.value = err
-	// console.warn('error', err)
-	return true
+    error.value = err
+    // console.warn('error', err)
+    return true
 })
 defineExpose({
-	router,
-	route,
-	error
+    router,
+    route,
+    error
 })
 </script>
 

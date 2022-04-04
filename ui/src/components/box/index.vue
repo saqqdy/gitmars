@@ -20,7 +20,7 @@
             <div
                 ref="boxContent"
                 v-if="message && !component"
-        class="v3-box-content message"
+                class="v3-box-content message"
                 v-html="message"
                 :style="{
                     height: data.mHeight || height,
@@ -80,7 +80,7 @@
                     class="v3-box-close iconfont icon-close"
                     title="关闭"
                     v-if="showClose"
-          @click="handleClose"
+                    @click="handleClose"
                 ></span>
             </div>
         </div>
@@ -99,7 +99,7 @@ import {
     watchEffect
 } from 'vue'
 import { useMagicKeys } from '@vueuse/core'
-import { addEvent, delay, fixNumber, removeEvent } from 'js-cool'
+import { delay as Delay, addEvent, fixNumber, removeEvent } from 'js-cool'
 import { ElButton } from 'element-plus'
 
 export default {
@@ -178,8 +178,8 @@ export default {
         onCancel: Function,
         onClose: Function
     },
-    setup(props, { slots, emit, attrs }) {
-        const $delay = new delay()
+    setup(props) {
+        const delay = new Delay()
         const data = reactive({
             zIndex: 0,
             instance: null,
@@ -273,7 +273,7 @@ export default {
         // 	parent.appendChild(newNode)
         // }
         const reSize = () => {
-            $delay.register('windowReSize', calculate, 500)
+            delay.register('windowReSize', calculate, 500)
         }
         const calculate = () => {
             const c =
