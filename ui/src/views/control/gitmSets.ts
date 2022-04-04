@@ -2,14 +2,14 @@
 const commandSets = import.meta.globEager('../../../../lib/conf/*.js')
 let sets = {}
 
-for (let key in commandSets) {
-	let name = key.replace(/^.+\/(\w+)\.js$/, '$1')
-	if (Object.keys(commandSets[key]).length) {
-		sets[name] = commandSets[key]
-	} else {
-		sets = (window as any).gitmarsCmdConfig
-		break
-	}
+for (const key in commandSets) {
+    const name = key.replace(/^.+\/(\w+)\.js$/, '$1')
+    if (Object.keys(commandSets[key]).length) {
+        sets[name] = commandSets[key]
+    } else {
+        sets = (window as any).gitmarsCmdConfig
+        break
+    }
 }
 // for (const path in require.cache) {
 // 	if (path.endsWith('combine.js')) {
