@@ -25,7 +25,7 @@ export default {
 </script>
 <script lang="ts" setup>
 import { reactive, watchEffect } from 'vue'
-import { useRoute, useRouter } from 'vue-router'
+import { useRouter } from 'vue-router'
 import { useMagicKeys } from '@vueuse/core'
 import useCurrentInstance from '@/hooks/use-current-instance'
 
@@ -37,7 +37,6 @@ const {
     globalProperties: { $axios, $message }
 } = useCurrentInstance()
 const router = useRouter()
-// const route = useRoute()
 const form: DataType = reactive({
     path: '/Users/saqqdy/www/saqqdy/gitmars'
 })

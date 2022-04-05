@@ -13,7 +13,7 @@ export default {
     props: {
         msg: String
     },
-    setup(props) {
+    setup() {
         const m = ref(null)
         onMounted(() => {
             setTimeout(() => {

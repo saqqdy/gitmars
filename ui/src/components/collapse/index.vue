@@ -9,7 +9,7 @@
     </div>
 </template>
 <script>
-import { getCurrentInstance, provide, ref, watch } from 'vue'
+import { provide, ref, watch } from 'vue'
 export default {
     name: 'V3Collapse',
     componentName: 'v3Collapse',
@@ -28,7 +28,7 @@ export default {
     // 		return true
     // 	}
     // },
-    setup(props, { slots, emit }) {
+    setup(props, { emit }) {
         const activeNames = ref([])
         activeNames.value = [].concat(props.modelValue)
         watch(

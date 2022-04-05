@@ -1,6 +1,6 @@
 <script>
 import { computed, h, onMounted, reactive, ref, watch } from 'vue'
-import { addEvent, delay, fixNumber, removeEvent } from 'js-cool'
+import { delay as Delay, addEvent, fixNumber, removeEvent } from 'js-cool'
 import style from './style.module.less'
 
 export default {
@@ -29,7 +29,7 @@ export default {
         }
     },
     setup(props, { slots, emit }) {
-        const $delay = new delay()
+        const delay = new Delay()
         const data = reactive({
             size: 50,
             suffix: '%',
@@ -81,7 +81,7 @@ export default {
             () => data.size,
             val => {
                 const v = (data.suffix !== '%' ? px : val) + data.suffix
-                if (v != props.modelValue && px.value !== 0) emit('input', v)
+                if (v !== props.modelValue && px.value !== 0) emit('input', v)
             }
         )
         // methods
@@ -91,16 +91,15 @@ export default {
          * @param {Object} el 元素对象
          */
         const getTransform = el => {
-            let transformMatrix =
-                    el.style.WebkitTransform ||
-                    getComputedStyle(el, '').getPropertyValue(
-                        '-webkit-transform'
-                    ) ||
-                    el.style.transform ||
-                    getComputedStyle(el, '').getPropertyValue('transform'),
-                matrix = transformMatrix.match(/\-?[0-9]+\.?[0-9]*/g),
-                x,
-                y
+            const transformMatrix =
+                el.style.WebkitTransform ||
+                getComputedStyle(el, '').getPropertyValue(
+                    '-webkit-transform'
+                ) ||
+                el.style.transform ||
+                getComputedStyle(el, '').getPropertyValue('transform')
+            const matrix = transformMatrix.match(/\-?[0-9]+\.?[0-9]*/g)
+            let x, y
             if (matrix) {
                 x = parseInt(matrix[12] || matrix[4] || 0) // translate x
                 y = parseInt(matrix[13] || matrix[5] || 0) // translate y
@@ -186,10 +185,10 @@ export default {
          * @description 鼠标移动事件
          * @param {Object} e event
          */
-        const handleMouseMove = e => {
+        function handleMouseMove(e) {
             data.moving = true
             emit('moving', e)
-            $delay.register(
+            delay.register(
                 'v3SplitOnmouseMove',
                 () => {
                     let size
@@ -215,7 +214,7 @@ export default {
          * @description 鼠标弹起事件
          * @param {Object} e event
          */
-        const handleMouseUp = () => {
+        function handleMouseUp() {
             data.moving = false
             emit('move-end')
             removeEvent(document, 'mousemove', handleMouseMove)

@@ -272,10 +272,10 @@ export default {
         // 	}
         // 	parent.appendChild(newNode)
         // }
-        const reSize = () => {
+        function reSize() {
             delay.register('windowReSize', calculate, 500)
         }
-        const calculate = () => {
+        function calculate() {
             const c =
                 110 - (props.showBtn ? 0 : 60) - (props.showHeader ? 0 : 50) // herder=50和footer=60高度
             const p = props.showHeader ? 0 : 40
@@ -300,7 +300,7 @@ export default {
                 data.mHeight = maxH + 'px'
             }
         }
-        const handleOk = () => {
+        function handleOk() {
             if (!props.onOk || typeof props.onOk !== 'function') {
                 hide()
                 return
@@ -310,13 +310,13 @@ export default {
                 props.hide()
             })
         }
-        const handleCancel = () => {
+        function handleCancel() {
             hide()
             if (props.onCancel && typeof props.onCancel === 'function') {
                 props.onCancel()
             }
         }
-        const handleClose = () => {
+        function handleClose() {
             hide()
             if (props.onClose && typeof props.onClose === 'function') {
                 props.onClose()
@@ -326,7 +326,7 @@ export default {
          * @function handleMax
          * @description 窗口对大化
          */
-        const handleMax = () => {
+        function handleMax() {
             const c =
                 110 - (props.showBtn ? 0 : 60) - (props.showHeader ? 0 : 50) // herder=50和footer=60高度
             const p = props.showHeader ? 0 : 40
@@ -348,7 +348,7 @@ export default {
                 data.mHeight = null
             }
         }
-        const hide = () => {
+        function hide() {
             removeEvent(window, 'resize', data.reSize)
             data.instance = null
             render(null, boxContent.value)

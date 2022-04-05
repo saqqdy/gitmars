@@ -41,7 +41,7 @@ export default {
 
 <script lang="ts" setup>
 import { onBeforeMount, reactive } from 'vue'
-import { useRoute, useRouter } from 'vue-router'
+import { useRouter } from 'vue-router'
 import useCurrentInstance from '@/hooks/use-current-instance'
 
 import type { ProjectType } from '@/types/project'
@@ -54,7 +54,6 @@ const {
     globalProperties: { $axios, $confirm }
 } = useCurrentInstance()
 const router = useRouter()
-// const route = useRoute()
 const data: DataType = reactive({
     list: []
 })

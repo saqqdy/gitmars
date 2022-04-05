@@ -47,13 +47,14 @@
     </div>
 </template>
 
-<script lang="ts"></script>
-<script lang="ts" setup>
-import { Ref, onErrorCaptured, ref } from 'vue'
-import { useRoute, useRouter } from 'vue-router'
+<script lang="ts">
 export default {
     name: 'Control'
 }
+</script>
+<script lang="ts" setup>
+import { Ref, onErrorCaptured, ref } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
 
 const router = useRouter()
 const route = useRoute()

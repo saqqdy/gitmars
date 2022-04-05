@@ -20,15 +20,15 @@
     </div>
 </template>
 
-<script lang="ts"></script>
-
-<script lang="ts" setup>
-import { Ref, onMounted, reactive, ref, toRaw, watchEffect } from 'vue'
-import { ElInput, ElMessage, ElOption, ElSelect } from 'element-plus'
-import useCurrentInstance from '@/hooks/use-current-instance'
+<script lang="ts">
 export default {
     inheritAttrs: false
 }
+</script>
+
+<script lang="ts" setup>
+import { onMounted, reactive, ref, toRaw } from 'vue'
+import { ElInput, ElMessage, ElOption, ElSelect } from 'element-plus'
 
 interface DataType {
     type: string
@@ -41,9 +41,6 @@ const data: DataType = reactive({
     name: ''
 })
 
-const {
-    globalProperties: { $axios, $box }
-} = useCurrentInstance()
 const submit = (): Promise<DataType> => {
     return new Promise((resolve, reject) => {
         if (!data.type || !data.name) {
@@ -51,7 +48,7 @@ const submit = (): Promise<DataType> => {
                 message: '请填写分支类型和名称',
                 type: 'warning'
             })
-            reject()
+            reject(new Error('请填写分支类型和名称'))
             return
         }
         resolve(toRaw(data))

@@ -51,7 +51,7 @@
 </template>
 <script>
 import { computed, getCurrentInstance, inject, reactive, ref } from 'vue'
-import v3CollapseTransition from './collapse-transition'
+// import v3CollapseTransition from './collapse-transition'
 import emitter from '@/libs/emitter'
 export default {
     name: 'V3CollapseItem',

@@ -314,15 +314,12 @@
 
 <script lang="ts">
 import {
-    Ref,
     computed,
     defineComponent,
     inject,
     onErrorCaptured,
     onMounted,
-    reactive,
-    useAttrs,
-    useSlots
+    reactive
 } from 'vue'
 import { onBeforeRouteLeave, useRoute, useRouter } from 'vue-router'
 import Command from './comp/command.vue'
@@ -353,7 +350,7 @@ export default defineComponent({
     components: { Xterm, Command, MapCommand },
     async setup() {
         // data
-        const { getTerminal, fitAddon } = inject(TerminalInjectionKey, {})
+        const { getTerminal /*, fitAddon */ } = inject(TerminalInjectionKey, {})
         const { socket, socketGitmars } = inject(SocketInjectionKey, {})
         const {
             globalProperties: { $axios, $box }

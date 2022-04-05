@@ -70,24 +70,16 @@
     </div>
 </template>
 
-<script lang="ts"></script>
-<script lang="ts" setup>
-import {
-    PropType,
-    computed,
-    inject,
-    reactive,
-    ref,
-    toRaw,
-    unref,
-    watch
-} from 'vue'
-
-import type { CommandSetsType } from '@/types/command'
+<script lang="ts">
 export default {
     name: 'Command',
     inheritAttrs: false
 }
+</script>
+<script lang="ts" setup>
+import { PropType, reactive, toRaw, watch } from 'vue'
+
+import type { CommandSetsType } from '@/types/command'
 
 const props = defineProps({
     modelValue: {

@@ -10,7 +10,7 @@
 </template>
 
 <script lang="ts" setup>
-import { inject, onMounted, provide, reactive } from 'vue'
+import { onMounted, provide, reactive } from 'vue'
 import io, { Socket } from 'socket.io-client'
 import { Terminal } from 'xterm'
 import { common as xtermTheme } from 'xterm-style'

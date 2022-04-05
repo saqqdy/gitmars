@@ -1,6 +1,6 @@
 // const commandSets = require.context('gitmLib/conf', false, /(([A-Za-z]\w+)|index)\.(json|js)$/)
 const commandSets = import.meta.globEager('../../../../lib/conf/*.js')
-let sets = {}
+const sets = {}
 
 for (const key in commandSets) {
     const name = key.replace(/^.+\/(\w+)\.js$/, '$1')

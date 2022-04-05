@@ -7,15 +7,16 @@
     </div>
 </template>
 
-<script lang="ts"></script>
-<script lang="ts" setup>
-import { PropType, Ref, computed, ref, toRaw, watch } from 'vue'
-
-import type { CommandSetsType } from '@/types/command'
+<script lang="ts">
 export default {
     name: 'MapCommand',
     inheritAttrs: false
 }
+</script>
+<script lang="ts" setup>
+import { PropType, Ref, computed, ref, toRaw, watch } from 'vue'
+
+import type { CommandSetsType } from '@/types/command'
 
 // props
 const props = defineProps({

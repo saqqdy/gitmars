@@ -2,7 +2,7 @@ import axios from 'axios'
 import qs from 'qs'
 
 export default function (options) {
-    return new Promise((resolve, reject) => {
+    return new Promise(resolve => {
         // 默认配置
         const instance = axios.create()
         // const token = getCookie('token')
@@ -25,7 +25,7 @@ export default function (options) {
                     { _time: Date.now() },
                     config.data
                 )
-                if (type == 'post') {
+                if (type === 'post') {
                     config.method = 'post'
                     config.data = qs.stringify(config.data, {
                         arrayFormat: 'indices',

@@ -5,8 +5,8 @@
 </template>
 
 <script>
-import { inject, nextTick, onBeforeUnmount, onMounted, ref } from 'vue'
-import { SocketInjectionKey, TerminalInjectionKey } from '@/symbols/injection'
+import { inject, onBeforeUnmount, onMounted, ref } from 'vue'
+import { TerminalInjectionKey } from '@/symbols/injection'
 
 export default {
     name: 'Xterm',
@@ -18,7 +18,7 @@ export default {
     setup(props) {
         // data
         const termWrap = ref(null)
-        const { getTerminal, fitAddon } = inject(TerminalInjectionKey)
+        const { getTerminal /*, fitAddon */ } = inject(TerminalInjectionKey)
         // const { socket } = inject(SocketInjectionKey)
         const terminal = getTerminal(props.id, props.path)
         // methods
