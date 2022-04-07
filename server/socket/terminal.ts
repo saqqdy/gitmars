@@ -1,8 +1,8 @@
-const pty = require('node-pty')
-const sh = require('shelljs')
-const os = require('os')
 import http from 'http'
 import type { IPty } from 'node-pty'
+const os = require('os')
+const pty = require('node-pty')
+const sh = require('shelljs')
 const home = require('../lib/home')()
 const shell = os.platform() === 'win32' ? 'powershell.exe' : sh.which('zsh') ? 'zsh' : 'bash'
 const ptyContainers: Record<string, IPty> = {}
