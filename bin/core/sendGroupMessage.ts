@@ -1,9 +1,8 @@
+import type { ApolloConfigType } from '../../typings'
 const sh = require('shelljs')
 const { green, red } = require('colors')
 const request = require('@jssj/request')
 const getBuildConfig = require('./build/getBuildConfig')
-
-import type { ApolloConfigType } from '../../typings'
 
 /**
  * 发送群消息
@@ -20,9 +19,9 @@ async function sendGroupMessage(message: string, url = ''): Promise<void> {
     }
     if (url) urls = [url]
     else if (config.gitNotificationGroupUrl) {
-        if (typeof config.gitNotificationGroupUrl === 'string')
+        if (typeof config.gitNotificationGroupUrl === 'string') {
             urls = [config.gitNotificationGroupUrl]
-        else urls = config.gitNotificationGroupUrl
+        } else urls = config.gitNotificationGroupUrl
     }
     message = message.replace(/\s/g, '')
     urls.forEach(async item => {

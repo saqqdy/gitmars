@@ -1,10 +1,10 @@
 const sh = require('shelljs')
 const request = require('@jssj/request')
 const { green, red } = require('colors')
-const mapTemplate = require('./mapTemplate')
 const getGitConfig = require('../git/getGitConfig')
 const getGitRevParse = require('../git/getGitRevParse')
 const getConfig = require('../getConfig')
+const mapTemplate = require('./mapTemplate')
 
 /**
  * 解析模板数据

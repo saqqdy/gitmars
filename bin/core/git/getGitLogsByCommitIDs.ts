@@ -1,8 +1,7 @@
-const { spawnSync } = require('../spawn')
-const GitLogsFormatter = require('./gitLogsFormatter')
-const { debug } = require('../utils/debug')
-
 import type { GitLogsType } from '../../../typings'
+const { spawnSync } = require('../spawn')
+const { debug } = require('../utils/debug')
+const GitLogsFormatter = require('./gitLogsFormatter')
 
 /**
  * 获取日志

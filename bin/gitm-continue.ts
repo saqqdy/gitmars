@@ -1,4 +1,5 @@
 #!/usr/bin/env ts-node
+import { CommandType, GitmarsOptionOptionsType } from '../typings'
 const { program } = require('commander')
 const sh = require('shelljs')
 const { green, yellow, red } = require('colors')
@@ -16,9 +17,6 @@ if (!getIsGitProject()) {
     sh.echo(red('当前目录不是git项目目录'))
     process.exit(1)
 }
-
-import { GitmarsOptionOptionsType, CommandType } from '../typings'
-
 interface GitmBuildOption {
     list?: boolean
 }

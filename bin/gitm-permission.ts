@@ -36,8 +36,8 @@ program
             index > -1 &&
             !opt.noVerify &&
             stdout &&
-            stdout.indexOf('Merge:') === -1 &&
-            stdout.indexOf('Merge branch') === -1
+            !stdout.includes('Merge:') &&
+            !stdout.includes('Merge branch')
         ) {
             sh.echo(red(`${allow[index]}分支不允许直接提交`))
             process.exit(1)

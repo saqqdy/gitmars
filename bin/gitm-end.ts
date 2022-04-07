@@ -1,9 +1,15 @@
 #!/usr/bin/env ts-node
+import {
+    CommandType,
+    FetchDataType,
+    GitmarsOptionOptionsType
+} from '../typings'
+const { resolve } = require('path')
 const { program } = require('commander')
 const sh = require('shelljs')
 const { red } = require('colors')
-const { options, args } = require('./conf/end')
 const getType = require('js-cool/lib/getType')
+const { options, args } = require('./conf/end')
 const { queue } = require('./core/queue')
 const getIsGitProject = require('./core/git/getIsGitProject')
 const getCurrentBranch = require('./core/git/getCurrentBranch')
@@ -23,14 +29,9 @@ const getUserToken = require('./core/api/getUserToken')
 const { defaults } = require('./core/global')
 const config = getConfig()
 const { appName } = getGitConfig()
-const mergeRequestModule = require.resolve(__dirname + '/core/api/mergeRequest')
-
-import {
-    FetchDataType,
-    GitmarsOptionOptionsType,
-    CommandType
-} from '../typings'
-
+const mergeRequestModule = require.resolve(
+    resolve(__dirname, 'core/api/mergeRequest')
+)
 interface GitmBuildOption {
     combine?: boolean
     asFeature?: boolean

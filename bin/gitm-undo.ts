@@ -1,4 +1,11 @@
 #!/usr/bin/env ts-node
+import {
+    CommandType,
+    GitLogsType,
+    GitmarsOptionOptionsType,
+    InitInquirerPromptType,
+    RevertCacheType
+} from '../typings'
 const { program } = require('commander')
 const dayjs = require('dayjs')
 const inquirer = require('inquirer')
@@ -21,15 +28,6 @@ if (!getIsGitProject()) {
     sh.echo(red('当前目录不是git项目目录'))
     process.exit(1)
 }
-
-import {
-    GitLogsType,
-    GitmarsOptionOptionsType,
-    CommandType,
-    InitInquirerPromptType,
-    RevertCacheType
-} from '../typings'
-
 interface GitmBuildOption {
     mode: 1 | 2
     merges: boolean
@@ -233,7 +231,7 @@ program.action(async (commitid: string[], opt: GitmBuildOption) => {
     }
     // 筛选被选择的记录
     logList = logList.filter(log =>
-        commitIDs.some(id => log['%H'].indexOf(id) > -1)
+        commitIDs.some(id => log['%H'].includes(id))
     )
     cmd = logList.map(log => {
         // 判断是否有merge的记录

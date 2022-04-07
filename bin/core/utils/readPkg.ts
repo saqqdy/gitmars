@@ -10,11 +10,10 @@
 // }
 // export const readPkg = readPkg
 
-const getGitRevParse = require('../git/getGitRevParse')
+import type { AnyObject } from '../../../typings'
 const fs = require('fs')
 const path = require('path')
-
-import type { AnyObject } from '../../../typings'
+const getGitRevParse = require('../git/getGitRevParse')
 
 /**
  * 读取配置

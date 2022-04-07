@@ -1,11 +1,10 @@
-const crossSpawn = require('cross-spawn')
-const { debug } = require('./utils/debug')
-
 import type {
     SpawnOptions,
     SpawnSyncOptions,
     SpawnSyncReturns
 } from 'child_process'
+const crossSpawn = require('cross-spawn')
+const { debug } = require('./utils/debug')
 
 /**
  * 异步执行脚本

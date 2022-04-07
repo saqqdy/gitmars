@@ -1,4 +1,5 @@
 #!/usr/bin/env ts-node
+import { CommandType } from '../typings'
 const { program } = require('commander')
 const sh = require('shelljs')
 const { red } = require('colors')
@@ -8,9 +9,6 @@ if (!getIsGitProject()) {
     sh.echo(red('当前目录不是git项目目录'))
     process.exit(1)
 }
-
-import { CommandType } from '../typings'
-
 /**
  * gitm merge
  */

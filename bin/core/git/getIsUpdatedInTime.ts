@@ -1,8 +1,7 @@
+import type { GitLogsType } from '../../../typings'
+const { debug } = require('../utils/debug')
 const getCurrentBranch = require('./getCurrentBranch')
 const getGitLogs = require('./getGitLogs')
-const { debug } = require('../utils/debug')
-
-import type { GitLogsType } from '../../../typings'
 
 export interface IsUpdatedInTimeConfigType {
     lastet: string

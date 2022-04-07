@@ -1,6 +1,6 @@
 const sh = require('shelljs')
-const { spawnSync } = require('../spawn')
 const { yellow } = require('colors')
+const { spawnSync } = require('../spawn')
 const { debug } = require('../utils/debug')
 
 /**

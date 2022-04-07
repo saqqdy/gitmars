@@ -1,8 +1,6 @@
 const { spawnSync } = require('../spawn')
 const { debug } = require('../utils/debug')
 const getCurrentBranch = require('../git/getCurrentBranch')
-const getCommand = require('./getCommand')
-const cleanConfigSet = require('./cleanConfigSet')
 
 const combineConfig = require('../../conf/combine')
 const endConfig = require('../../conf/end')
@@ -27,6 +25,8 @@ const {
     update: adminUpdateConfig,
     clean: adminCleanConfig
 } = require('../../conf/admin')
+const cleanConfigSet = require('./cleanConfigSet')
+const getCommand = require('./getCommand')
 
 const current = getCurrentBranch()
 const branchPrefix = current.split('/')[0]

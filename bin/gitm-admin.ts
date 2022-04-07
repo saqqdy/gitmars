@@ -1,9 +1,15 @@
 #!/usr/bin/env ts-node
+import {
+    CommandType,
+    FetchDataType,
+    GitmarsOptionOptionsType
+} from '../typings'
+const { resolve } = require('path')
 const { Command } = require('commander')
 const { green, red } = require('colors')
+const getType = require('js-cool/lib/getType')
 const { create, publish, update, clean, approve } = require('./conf/admin')
 const getUserToken = require('./core/api/getUserToken')
-const getType = require('js-cool/lib/getType')
 const { queue } = require('./core/queue')
 const getIsBranchOrCommitExist = require('./core/git/getIsBranchOrCommitExist')
 const getIsGitProject = require('./core/git/getIsGitProject')
@@ -23,14 +29,9 @@ const config = getConfig()
 const userInfoApi =
     (config.apis && config.apis.userInfo && config.apis.userInfo.url) ||
     config.api
-const mergeRequestModule = require.resolve(__dirname + '/core/api/mergeRequest')
-
-import {
-    FetchDataType,
-    GitmarsOptionOptionsType,
-    CommandType
-} from '../typings'
-
+const mergeRequestModule = require.resolve(
+    resolve(__dirname, 'core/api/mergeRequest')
+)
 interface GitmBuildOption {
     publish: {
         combine?: boolean
@@ -680,7 +681,7 @@ cleanProgram.action((type: string): void => {
             `git checkout ${config[type]}`,
             'git pull'
         ]
-        if (type === 'master')
+        if (type === 'master') {
             cmd = [
                 'git checkout .',
                 'git clean -fd',
@@ -689,6 +690,7 @@ cleanProgram.action((type: string): void => {
                 'git fetch',
                 'git pull'
             ]
+        }
         queue(cmd)
     } else {
         echo(red('type只允许输入：' + opts.join(',')))

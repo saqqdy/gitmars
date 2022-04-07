@@ -1,18 +1,17 @@
+import type {
+    CommandMessageType,
+    CommandType,
+    QueueReturnsType
+} from '../../typings'
 const ora = require('ora')
 const extend = require('js-cool/lib/extend')
+const { green, yellow, red } = require('colors')
 const { setCommandCache } = require('./cache/commandCache')
 const getCommandMessage = require('./git/getCommandMessage')
 const { setLog } = require('./cache/log')
-const { green, yellow, red } = require('colors')
 const { postMessage } = require('./utils/message')
 const { spawnSync } = require('./spawn')
 const { debug } = require('./utils/debug')
-
-import type {
-    CommandType,
-    QueueReturnsType,
-    CommandMessageType
-} from '../../typings'
 
 export type WaitCallback = {
     (kill?: boolean): void
@@ -32,7 +31,6 @@ function wait(list: Array<CommandType | string>, fun: QueueStartFunction) {
     // 最后一条指令，执行完成之后退出递归
     if (list.length === 0) {
         fun()
-        return
     } else {
         fun(list[0], (kill = false) => {
             // 强制中断
@@ -111,7 +109,7 @@ function queue(list: Array<CommandType | string>): Promise<QueueReturnsType[]> {
     }
     return new Promise((resolve, reject) => {
         const returns: QueueReturnsType[] = []
-        if (list.length === 0) reject('指令名称不能为空')
+        if (list.length === 0) reject(new Error('指令名称不能为空'))
         list = extend(true, [], list)
         wait(
             list,
@@ -191,13 +189,14 @@ function queue(list: Array<CommandType | string>): Promise<QueueReturnsType[]> {
                         cfg,
                         cmd
                     })
-                    if (status !== 0)
+                    if (status !== 0) {
                         setLog({
                             command,
                             status,
                             stdout,
                             stderr
                         })
+                    }
                     if (status !== 0) {
                         onError(list, cmd, stderr, msg, cfg, cb)
                     } else {

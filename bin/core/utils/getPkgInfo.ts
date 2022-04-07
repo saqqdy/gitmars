@@ -1,8 +1,8 @@
 const path = require('path')
 const getProperty = require('js-cool/lib/getProperty')
-const { writeFile, isFileExist } = require('./file')
 const { isCacheExpired, updateCacheTime } = require('../cache/cache')
 const { spawnSync } = require('../spawn')
+const { writeFile, isFileExist } = require('./file')
 
 const cacheDir = path.join(__dirname, '../../../cache')
 
