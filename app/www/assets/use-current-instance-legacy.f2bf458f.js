@@ -1,0 +1,1 @@
+System.register(["./vendor/element-plus_2.1.8.js-legacy.f363497d.js"],(function(e){"use strict";var t,r;return{setters:[function(e){t=e.a5,r=e.O}],execute:function(){e("u",(function(e){"string"==typeof e&&(e=[e]);var n=r(),s=n.appContext,o=n.proxy,i=s.config.globalProperties,u={};return e&&e.includes("style")&&(u=t()),{globalProperties:i,proxy:o,style:u}}))}}}));

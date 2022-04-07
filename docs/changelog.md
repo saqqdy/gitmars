@@ -1,5 +1,10 @@
 # 更新日志
 
+## 2022.04.07 v2.18.1 更新日志
+
+1. 删除分支自动执行`git remote prune origin`清理记录
+2. 升级依赖包
+
 ## 2022.03.24 v2.18.0 更新日志
 
 1. 新增`gitm alias`指令，初始化：`git alias init`，移除：`git alias remove`

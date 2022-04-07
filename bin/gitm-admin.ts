@@ -668,14 +668,14 @@ cleanProgram.action((type: string): void => {
             'git clean -fd',
             `git checkout ${config.master}`,
             `git branch -D ${config[type]}`,
-			{
-				cmd: 'git remote prune origin',
-				config: {
-					again: true,
-					success: '清理远程分支成功',
-					fail: '清理远程分支失败，请根据提示处理'
-				}
-			},
+            {
+                cmd: 'git remote prune origin',
+                config: {
+                    again: true,
+                    success: '清理远程分支成功',
+                    fail: '清理远程分支失败，请根据提示处理'
+                }
+            },
             'git fetch',
             `git checkout ${config[type]}`,
             'git pull'
