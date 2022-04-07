@@ -1,0 +1,1 @@
+import{a5 as r,O as a}from"./vendor/element-plus_2.1.8.js.544d1606.js";function u(e){typeof e=="string"&&(e=[e]);const{appContext:n,proxy:s}=a(),o=n.config.globalProperties;let t={};return e&&e.includes("style")&&(t=r()),{globalProperties:o,proxy:s,style:t}}export{u};

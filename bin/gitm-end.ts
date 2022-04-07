@@ -237,7 +237,15 @@ program.action(
                 // 不合并代码
                 cmd = cmd.concat([
                     `git checkout ${config.develop}`,
-                    `git branch -D ${type}/${name}`
+                    `git branch -D ${type}/${name}`,
+                    {
+                        cmd: 'git remote prune origin',
+                        config: {
+                            again: true,
+                            success: '清理远程分支成功',
+                            fail: '清理远程分支失败，请根据提示处理'
+                        }
+                    }
                 ])
                 // 判断远程是否存在分支
                 if (isRemoteBranchExist) {
@@ -276,7 +284,15 @@ program.action(
                             }
                         },
                         `git checkout ${config.develop}`,
-                        `git branch -D ${type}/${name}`
+                        `git branch -D ${type}/${name}`,
+                        {
+                            cmd: 'git remote prune origin',
+                            config: {
+                                again: true,
+                                success: '清理远程分支成功',
+                                fail: '清理远程分支失败，请根据提示处理'
+                            }
+                        }
                     ])
                     // 判断远程是否存在分支
                     if (isRemoteBranchExist) {

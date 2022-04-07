@@ -1,69 +1,95 @@
-import axios from 'axios'
+import Vue from 'vue'
 import qs from 'qs'
+import axiosExtend, { type AxiosExtendConfig } from 'axios-ex'
 
-export default function (options) {
-	return new Promise((resolve, reject) => {
-		// 默认配置
-		const instance = axios.create()
-		// const token = getCookie('token')
-		instance.defaults.headers.post['Content-Type'] =
-			'application/x-www-form-urlencoded'
-		instance.defaults.headers.common['Access-Control-Allow-Origin'] = '*'
-		// if (token) {
-		// 	instance.defaults.headers.common['authorization'] = token
-		// }
-		// 拦截器
-		// 添加一个请求拦截器
-		instance.interceptors.request.use(
-			config => {
-				const type = options.type
-				if (process.env.NODE_ENV === 'development') {
-					config.url = '/jar' + config.url
-				}
-				config.data = Object.assign(
-					{},
-					{ _time: Date.now() },
-					config.data
-				)
-				if (type == 'post') {
-					config.method = 'post'
-					config.data = qs.stringify(config.data, {
-						arrayFormat: 'indices',
-						allowDots: true
-					})
-				} else {
-					config.method = 'get'
-					config.params = config.data
-				}
-				return config
-			},
-			err => {
-				return Promise.reject(err)
-			}
-		)
-		// 添加一个响应拦截器
-		instance.interceptors.response.use(
-			res => {
-				// @ts-ignore
-				if (res.data.success || options.responseType === 'text') {
-					return res.data
-				} else {
-					return Promise.reject(res.data)
-				}
-			},
-			err => {
-				return Promise.reject(err)
-			}
-		)
-		instance(options)
-			.then(res => {
-				resolve(res)
-			})
-			.catch(err => {
-				if (err instanceof Error) {
-					// 请求错误
-					console.log(err)
-				}
-			})
-	})
+let axiosEx: any = null
+
+/**
+ * @param instance
+ */
+// @ts-ignore
+function setHeaders(instance) {
+    instance.defaults.headers.post['Content-Type'] =
+        'application/x-www-form-urlencoded'
+    instance.defaults.headers.common['Access-Control-Allow-Origin'] = '*'
+}
+// 请求拦截器
+/**
+ * @param config
+ * @param options
+ */
+// @ts-ignore
+function onRequest(config, options = {}) {
+    // @ts-ignore
+    const type = options.type
+    if (process.env.NODE_ENV === 'development') {
+        config.url = '/jar' + config.url
+    }
+    config.data = Object.assign({}, { _time: Date.now() }, config.data)
+    if (type === 'post') {
+        config.method = 'post'
+        config.data = qs.stringify(config.data, {
+            arrayFormat: 'indices',
+            allowDots: true
+        })
+    } else {
+        config.method = 'get'
+        config.params = config.data
+    }
+    return config
+}
+// 响应拦截器
+/**
+ * @param res
+ * @param options
+ */
+// @ts-ignore
+function onResponse(res, options = {}) {
+    // @ts-ignore
+    if (res.data.success || options.responseType === 'text') {
+        return res.data
+    }
+    return Promise.reject(res.data)
+}
+// 请求取消
+/**
+ * @param err
+ */
+// @ts-ignore
+function onCancel(err) {
+    console.info(err.message)
+}
+
+/**
+ * @param options
+ */
+export default function (options: AxiosExtendConfig) {
+    if (!axiosEx)
+        axiosEx = new axiosExtend({
+            maxConnections: 20,
+            retries: 0,
+            unique: false,
+            orderly: true,
+            setHeaders,
+            // @ts-ignore
+            onRequest: onRequest.bind(this as any),
+            // @ts-ignore
+            onResponse: onResponse.bind(this as any),
+            onCancel
+        })
+    options.unique = options.unique ?? false
+    options.orderly = options.orderly ?? true
+    return new Promise((resolve, reject) => {
+        axiosEx
+            .create(options)
+            .then((res: any) => {
+                resolve(res)
+            })
+            .catch((err: Error) => {
+                if (err instanceof Error) {
+                    // 请求错误
+                    console.log(err)
+                }
+            })
+    })
 }
