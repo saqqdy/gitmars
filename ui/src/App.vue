@@ -13,6 +13,7 @@
 import { onMounted, provide, reactive } from 'vue'
 import io, { Socket } from 'socket.io-client'
 import { Terminal } from 'xterm'
+// @ts-ignore
 import { common as xtermTheme } from 'xterm-style'
 import 'xterm/css/xterm.css'
 // import { AttachAddon } from 'xterm-addon-attach'

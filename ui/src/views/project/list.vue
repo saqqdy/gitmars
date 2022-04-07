@@ -65,8 +65,8 @@ const getProjects = () => {
     $axios({
         url: '/common/project/list',
         data: {}
-    }).then(({ data: list }) => {
-        data.list = [].concat(list)
+    }).then(({ data: list }: { data: ProjectType[] }) => {
+        data.list = list
     })
 }
 // open

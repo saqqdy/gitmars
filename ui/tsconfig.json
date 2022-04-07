@@ -3,21 +3,28 @@
         "target": "ESNext",
         "module": "ESNext",
         "strict": true,
-        "jsx": "preserve",
+        "jsx": "react",
+        "jsxFactory": "h",
+        "jsxFragmentFactory": "Fragment",
+        "noLib": false,
+        "sourceMap": true,
+        "lib": ["ESNext", "DOM", "DOM.Iterable"],
+        "allowSyntheticDefaultImports": true,
+        "experimentalDecorators": true,
+        "forceConsistentCasingInFileNames": true,
+        "resolveJsonModule": true,
+        "skipLibCheck": true,
         "importHelpers": true,
         "moduleResolution": "node",
-        // "skipLibCheck": true,
-        // "esModuleInterop": true,
-        // "allowSyntheticDefaultImports": true,
-        "sourceMap": true,
+        "esModuleInterop": true,
         "baseUrl": ".",
         "allowJs": true,
-        // "types": ["element-plus/global"],
+        "types": ["element-plus/global"],
         "paths": {
             "@/*": ["./src/*"],
             "~/*": ["../*"],
             "@/package": ["./package.json"]
-        },
-        "lib": ["esnext", "dom", "dom.iterable"]
-    }
+        }
+    },
+    "exclude": ["**/*_bak/*", "**/*.bak"]
 }

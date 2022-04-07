@@ -369,9 +369,12 @@ export default defineComponent({
             error: {}
         })
         const terminalID = computed(() => 'gitmars-' + data.project.id)
-        const commandValue: {
-            [prop: string]: CommandSetsType
-        } = reactive(commandSets)
+        // @ts-ignore
+        const commandValue:
+            | {
+                  [prop: string]: CommandSetsType
+              }
+            | any = reactive(commandSets)
 
         // 计算属性
         const branchList = computed((): BranchListType => {

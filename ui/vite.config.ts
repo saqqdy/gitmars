@@ -32,6 +32,7 @@ export default defineConfig({
             output: {
                 manualChunks(id) {
                     if (id.includes('node_modules')) {
+                        // @ts-ignore
                         const [, module] =
                             /node_modules\/(@?[a-z0-9-]+?[a-z0-9-]+)/.exec(id)
                         const url = path.join(
@@ -40,7 +41,23 @@ export default defineConfig({
                             module,
                             'package.json'
                         )
-                        if (fs.existsSync(url)) {
+                        if (
+                            [
+                                'axios',
+                                'axios-ex',
+                                'dayjs',
+                                'lodash-es',
+                                'qs',
+                                'uuid',
+                                // 'vue',
+                                // 'vue-router',
+                                // 'vuex',
+                                // 'vue-demi',
+                                'element-plus',
+                                'xterm'
+                            ].includes(module) &&
+                            fs.existsSync(url)
+                        ) {
                             try {
                                 const { version } = require(url)
                                 return `vendor/${module}_${version}.js`
@@ -75,10 +92,10 @@ export default defineConfig({
         port: 8888
     },
     optimizeDeps: {
-        include: ['socket.io-client'],
-        esbuildOptions: {
-            plugins: [esbuildCommonjs()]
-        }
+        include: ['socket.io-client']
+        // esbuildOptions: {
+        //     plugins: [esbuildCommonjs()]
+        // }
     },
     css: {
         preprocessorOptions: {

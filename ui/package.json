@@ -11,7 +11,7 @@
     },
     "dependencies": {
         "@vueuse/core": "^8.2.0",
-        "axios": "^0.26.1",
+        "axios-ex": "^2.2.4",
         "core-js": "^3.19.1",
         "dayjs": "^1.11.0",
         "element-plus": "^2.1.5",
@@ -33,6 +33,7 @@
         "@eslint-sets/eslint-config-vue3-ts": "^2.0.0-beta.1",
         "@originjs/vite-plugin-commonjs": "^1.0.1",
         "@saqqdy/prettier-config": "^1.1.2",
+        "@types/qs": "^6.9.7",
         "@vitejs/plugin-legacy": "^1.6.3",
         "@vitejs/plugin-vue": "^2.2.4",
         "@vitejs/plugin-vue-jsx": "^1.3.8",

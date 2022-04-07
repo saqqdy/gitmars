@@ -1,3 +1,4 @@
+// @ts-nocheck
 function broadcastFun(componentName, eventName, params) {
     this.$children.forEach(child => {
         const name = child.$options.componentName
