@@ -1,5 +1,5 @@
 /**
- * 中文转unioncode
+ * 中文转unicode
  *
  * @param str - 字符串
  * @returns code - 返回字符串
@@ -13,7 +13,7 @@ function encodeUnicode(str: string): string {
 }
 
 /**
- * 中文转unioncode
+ * 中文转unicode
  *
  * @param str - 字符串
  * @returns code - 返回字符串

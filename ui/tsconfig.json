@@ -1,24 +1,30 @@
 {
-	"include": ["./**/*.ts", "typings", "./*.d.ts"],
-	"exclude": ["node_modules", "**/__tests__"],
-	"compilerOptions": {
-		"target": "ESNext",
-		"module": "ESNext",
-		"strict": false,
-		"jsx": "preserve",
-		"importHelpers": true,
-		"moduleResolution": "node",
-		"skipLibCheck": true,
-		"esModuleInterop": true,
-		"allowSyntheticDefaultImports": true,
-		"sourceMap": true,
-		"baseUrl": ".",
-		"allowJs": true,
-		// "types": ["element-plus/global"],
-		"paths": {
-			"@/*": ["./src/*"],
-			"@/package": ["./package.json"]
-		},
-		"lib": ["esnext", "dom", "dom.iterable", "scripthost"]
-	}
+    "compilerOptions": {
+        "target": "ESNext",
+        "module": "ESNext",
+        "strict": true,
+        "jsx": "react",
+        "jsxFactory": "h",
+        "jsxFragmentFactory": "Fragment",
+        "noLib": false,
+        "sourceMap": true,
+        "lib": ["ESNext", "DOM", "DOM.Iterable"],
+        "allowSyntheticDefaultImports": true,
+        "experimentalDecorators": true,
+        "forceConsistentCasingInFileNames": true,
+        "resolveJsonModule": true,
+        "skipLibCheck": true,
+        "importHelpers": true,
+        "moduleResolution": "node",
+        "esModuleInterop": true,
+        "baseUrl": ".",
+        "allowJs": true,
+        "types": ["element-plus/global"],
+        "paths": {
+            "@/*": ["./src/*"],
+            "~/*": ["../*"],
+            "@/package": ["./package.json"]
+        }
+    },
+    "exclude": ["**/*_bak/*", "**/*.bak"]
 }
