@@ -1,3 +1,8 @@
+import type {
+    ApolloConfigType,
+    GitmarsConfigApisBuildConfigType,
+    GitmarsConfigType
+} from '../../../typings'
 const path = require('path')
 const apollo = require('node-apollo')
 const sh = require('shelljs')
@@ -7,12 +12,6 @@ const { writeFile, isFileExist } = require('../utils/file')
 const { isCacheExpired, updateCacheTime } = require('../cache/cache')
 const getConfig = require('../getConfig')
 const { debug } = require('../utils/debug')
-
-import type {
-    ApolloConfigType,
-    GitmarsConfigType,
-    GitmarsConfigApisBuildConfigType
-} from '../../../typings'
 
 /**
  * 获取namespace
@@ -26,8 +25,9 @@ function getNamespace(
     const names = []
     const keys = Object.keys(params).sort((a, b) => a.length - b.length)
     for (const key of keys) {
-        if (params[key] && typeof params[key] === 'string')
+        if (params[key] && typeof params[key] === 'string') {
             names.push(params[key])
+        }
     }
     if (names.length) return names.join('-')
     return 'gitmars'

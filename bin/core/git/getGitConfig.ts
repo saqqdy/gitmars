@@ -1,5 +1,5 @@
-const { spawnSync } = require('../spawn')
 const slash = require('slash')
+const { spawnSync } = require('../spawn')
 const { debug } = require('../utils/debug')
 
 export interface GitProjectConfigType {

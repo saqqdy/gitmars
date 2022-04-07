@@ -1,6 +1,6 @@
 const sh = require('shelljs')
-const { spawnSync } = require('../spawn')
 const { yellow } = require('colors')
+const { spawnSync } = require('../spawn')
 const { debug } = require('../utils/debug')
 
 /**
@@ -22,10 +22,11 @@ function getStashList(key: string) {
         index: number
         msg: string
     }[] = []
-    if (list.length > 10)
+    if (list.length > 10) {
         sh.echo(
             yellow(`该项目下一共有${list.length}条暂存记录，建议定期清理！`)
         )
+    }
     try {
         list.forEach(item => {
             const msgArr: string[] = item.split(':')

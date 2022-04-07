@@ -1,9 +1,8 @@
-const { yellow } = require('colors')
-
 import {
     GitmarsOptionArgsType,
     GitmarsOptionOptionsType
 } from '../../../typings'
+const { yellow } = require('colors')
 
 export interface PromptConfigType {
     options: GitmarsOptionArgsType[] | GitmarsOptionOptionsType[]
@@ -47,6 +46,7 @@ export interface PromptOptionInputType {
  */
 const createPrompt = (
     command: string,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     { options, validator, transform }: PromptConfigType,
     type: string
 ) => {
@@ -108,8 +108,9 @@ const createPrompt = (
                     },
                     validate: (val): string | boolean => {
                         let msg: string | boolean = true
-                        if (!val && opts.required)
+                        if (!val && opts.required) {
                             msg = '请填写' + opts.description
+                        }
                         validator &&
                             msg === true &&
                             validator(val, opts, (err: Error) => {
@@ -118,8 +119,9 @@ const createPrompt = (
                         return msg
                     }
                 }
-                if ('defaultValue' in opts && opts.defaultValue !== '')
+                if ('defaultValue' in opts && opts.defaultValue !== '') {
                     cfg.defaultValue = opts.defaultValue
+                }
                 list.push(cfg)
             }
         )

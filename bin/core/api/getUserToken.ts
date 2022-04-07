@@ -1,11 +1,10 @@
+import { FetchDataType } from '../../../typings'
 const sh = require('shelljs')
 const { red } = require('colors')
-const { getGitUser } = require('../git/getGitUser')
 const request = require('@jssj/request')
+const { getGitUser } = require('../git/getGitUser')
 const getConfig = require('../getConfig')
 const { debug } = require('../utils/debug')
-
-import { FetchDataType } from '../../../typings'
 
 // 获取用户信息
 async function getUserToken(): Promise<FetchDataType> {

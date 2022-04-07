@@ -1,8 +1,8 @@
 #!/usr/bin/env ts-node
 const { program } = require('commander')
-const { version } = require('../package.json')
 const sh = require('shelljs')
 const { green } = require('colors')
+const { version } = require('../package.json')
 const { spawnSync } = require('./core/spawn')
 const echo = require('./core/utils/echo')
 

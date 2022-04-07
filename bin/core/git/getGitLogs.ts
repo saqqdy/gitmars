@@ -1,9 +1,8 @@
+import type { GitLogsType } from '../../../typings'
 const { spawnSync } = require('../spawn')
 const getSeconds = require('../utils/getSeconds')
-const GitLogsFormatter = require('./gitLogsFormatter')
 const { debug } = require('../utils/debug')
-
-import type { GitLogsType } from '../../../typings'
+const GitLogsFormatter = require('./gitLogsFormatter')
 
 /**
  * 获取日志
@@ -33,7 +32,7 @@ function getGitLogs(option: any = {}): GitLogsType[] {
     const formatter = new GitLogsFormatter()
     let argv = [
         'log',
-        branch ? branch : '',
+        branch || '',
         '--date-order',
         `--pretty=format:${formatter.getFormat(keys)}`
     ]

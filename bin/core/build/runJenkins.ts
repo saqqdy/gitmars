@@ -1,15 +1,14 @@
+import type {
+    ApolloBranchList,
+    ApolloConfigBranchType,
+    ApolloConfigType
+} from '../../../typings'
 const sh = require('shelljs')
 const { green, red } = require('colors')
 const request = require('@jssj/request')
-const getBuildConfig = require('./getBuildConfig')
 const mapTemplate = require('../utils/mapTemplate')
 const { debug } = require('../utils/debug')
-
-import type {
-    ApolloConfigType,
-    ApolloConfigBranchType,
-    ApolloBranchList
-} from '../../../typings'
+const getBuildConfig = require('./getBuildConfig')
 
 export interface RunJenkinsOptionType {
     env: ApolloBranchList

@@ -1,27 +1,25 @@
 #!/usr/bin/env ts-node
+import {
+    CommandType,
+    GitmarsOptionOptionsType,
+    QueueReturnsType
+} from '../typings'
 const { program } = require('commander')
 const sh = require('shelljs')
 const { green, red } = require('colors')
+const getType = require('js-cool/lib/getType')
 const { options, args } = require('./conf/start')
 const { queue } = require('./core/queue')
 const getIsGitProject = require('./core/git/getIsGitProject')
 const checkGitStatus = require('./core/git/checkGitStatus')
 const { isNeedUpgrade, upgradeGitmars } = require('./core/versionControl')
 const { createArgs } = require('./core/utils/command')
-const getType = require('js-cool/lib/getType')
 if (!getIsGitProject()) {
     sh.echo(red('当前目录不是git项目目录'))
     process.exit(1)
 }
 const getConfig = require('./core/getConfig')
 const config = getConfig()
-
-import {
-    QueueReturnsType,
-    GitmarsOptionOptionsType,
-    CommandType
-} from '../typings'
-
 interface GitmBuildOption {
     tag?: boolean
 }

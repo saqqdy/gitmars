@@ -1,6 +1,6 @@
 const { spawnSync } = require('../spawn')
-const getCurrentBranch = require('./getCurrentBranch')
 const { debug } = require('../utils/debug')
+const getCurrentBranch = require('./getCurrentBranch')
 
 /**
  * 获取当前本地分支领先远程的日志

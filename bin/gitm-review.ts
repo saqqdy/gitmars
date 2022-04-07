@@ -1,4 +1,9 @@
 #!/usr/bin/env ts-node
+import {
+    FetchDataType,
+    GitmarsOptionOptionsType,
+    InitInquirerPromptType
+} from '../typings'
 const { program } = require('commander')
 const dayjs = require('dayjs')
 const inquirer = require('inquirer')
@@ -28,13 +33,6 @@ const {
     getMergeRequestNotesList,
     createMergeRequestNotes
 } = require('./core/api/mergeRequestNotes')
-
-import {
-    GitmarsOptionOptionsType,
-    InitInquirerPromptType,
-    FetchDataType
-} from '../typings'
-
 interface GitmBuildOption {
     state?: string
     quiet: boolean
@@ -157,7 +155,7 @@ program.action(async (opt: GitmBuildOption): Promise<void> => {
                     body: green(note.body),
                     name: yellow(note.author.name),
                     date: blue(
-                        dayjs(note['updated_at']).format('YYYY/MM/DD HH:mm:ss')
+                        dayjs(note.updated_at).format('YYYY/MM/DD HH:mm:ss')
                     )
                 }))
             echo(

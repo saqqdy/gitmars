@@ -1,7 +1,7 @@
 const { spawnSync } = require('../spawn')
+const { debug } = require('../utils/debug')
 const getGitConfig = require('./getGitConfig')
 const getGitRevParse = require('./getGitRevParse')
-const { debug } = require('../utils/debug')
 
 export interface SearchBranchesMapType {
     heads: string[]
@@ -74,7 +74,7 @@ function searchBranches(opt: any = {}): string[] {
             types: for (const t of _types) {
                 if (
                     ['bugfix', 'feature', 'support'].includes(t) &&
-                    item.indexOf(t + '/') > -1
+                    item.includes(t + '/')
                 ) {
                     temp.push(item)
                     break types
@@ -95,7 +95,7 @@ function searchBranches(opt: any = {}): string[] {
     }
     // 按关键词筛选
     if (key) {
-        map.heads = map.heads.filter(el => el.indexOf(key) > -1)
+        map.heads = map.heads.filter(el => el.includes(key))
     }
     debug('searchBranches', map.heads)
     return map.heads

@@ -1,6 +1,5 @@
-const { debug } = require('../utils/debug')
-
 import type { GitLogKeysType, GitLogsType } from '../../../typings'
+const { debug } = require('../utils/debug')
 
 class GitLogsFormatter {
     keys: GitLogKeysType[] = [
@@ -63,12 +62,14 @@ class GitLogsFormatter {
         '%(trailers:key=Signed-off-by)',
         '%(trailers:key=Reviewed-by)'
     ]
+
     format = ''
     constructor(keys: GitLogKeysType[]) {
         if (keys) {
             this.keys = keys
         }
     }
+
     /**
      * 获取format
      *
@@ -81,6 +82,7 @@ class GitLogsFormatter {
         debug('GitLogsFormatter-format', this.format, keys)
         return this.format
     }
+
     /**
      * 获取日志
      *

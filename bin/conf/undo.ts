@@ -117,13 +117,12 @@ import type { GitmarsOptionType } from '../../typings'
     }
 
     /* istanbul ignore next */
-    if (typeof exports === 'object' && typeof module === 'object')
+    if (typeof exports === 'object' && typeof module === 'object') {
         module.exports = cmdConfig
-    // else if (typeof define === 'function' && define.amd) define(['cmdConfig'], () => cmdConfig)
-    else if (typeof exports === 'object') exports['cmdConfig'] = cmdConfig
+    } else if (typeof exports === 'object') exports.cmdConfig = cmdConfig
     else {
         if (!root.gitmarsCmdConfig) root.gitmarsCmdConfig = {}
-        root.gitmarsCmdConfig['undo'] = cmdConfig
+        root.gitmarsCmdConfig.undo = cmdConfig
     }
-    //@ts-ignore
+    // @ts-ignore
 })(typeof window !== 'undefined' ? window : global)

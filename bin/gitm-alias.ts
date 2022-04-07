@@ -1,4 +1,5 @@
 #!/usr/bin/env ts-node
+import { GitmarsOptionOptionsType } from '../typings'
 const { program } = require('commander')
 const sh = require('shelljs')
 const { red } = require('colors')
@@ -11,9 +12,6 @@ if (!getIsGitProject()) {
     sh.echo(red('当前目录不是git项目目录'))
     process.exit(1)
 }
-
-import { GitmarsOptionOptionsType } from '../typings'
-
 const actions = ['init', 'remove'] as const
 type Module = typeof actions[number]
 interface Action {

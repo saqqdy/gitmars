@@ -1,6 +1,7 @@
 #!/usr/bin/env ts-node
-const { program } = require('commander')
+import { InitInquirerPromptType } from '../typings'
 const fs = require('fs')
+const { program } = require('commander')
 const { green, red } = require('colors')
 const sh = require('shelljs')
 const inquirer = require('inquirer')
@@ -12,8 +13,6 @@ if (!getIsGitProject()) {
     process.exit(1)
 }
 const { root } = getGitRevParse()
-
-import { InitInquirerPromptType } from '../typings'
 
 /**
  * gitm init
@@ -113,6 +112,7 @@ program
 }`,
                     validate: val => {
                         try {
+                            // eslint-disable-next-line @typescript-eslint/no-unused-vars
                             val = JSON.parse(val)
                             return true
                         } catch (e) {
@@ -177,8 +177,9 @@ program
                 if (
                     !answers.apolloConfig.configServerUrl ||
                     !answers.apolloConfig.token
-                )
+                ) {
                     answers.apolloConfig = ''
+                }
             } catch (e) {
                 answers.apolloConfig = ''
             }

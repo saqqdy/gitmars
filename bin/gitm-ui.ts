@@ -1,11 +1,10 @@
 #!/usr/bin/env ts-node
-const { program } = require('commander')
+import { GitmarsOptionOptionsType } from '../typings'
 const path = require('path')
+const { program } = require('commander')
 const { options, args } = require('./conf/ui')
 const { spawnSync } = require('./core/spawn')
 const { createArgs } = require('./core/utils/command')
-
-import { GitmarsOptionOptionsType } from '../typings'
 
 interface GitmBuildOption {
     port?: number
