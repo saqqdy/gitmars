@@ -1,4 +1,5 @@
 #!/usr/bin/env ts-node
+import { CommandType, GitmarsOptionOptionsType } from '../typings'
 const { program } = require('commander')
 const sh = require('shelljs')
 const { red } = require('colors')
@@ -17,9 +18,6 @@ if (!getIsGitProject()) {
 const getConfig = require('./core/getConfig')
 const { defaults } = require('./core/global')
 const config = getConfig()
-
-import { GitmarsOptionOptionsType, CommandType } from '../typings'
-
 interface GitmBuildOption {
     useMerge?: boolean
     useRebase?: boolean

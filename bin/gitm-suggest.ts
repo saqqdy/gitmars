@@ -1,4 +1,6 @@
 #!/usr/bin/env ts-node
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import { GitmarsOptionOptionsType } from '../typings'
 const { program } = require('commander')
 const sh = require('shelljs')
 const { yellow, red } = require('colors')
@@ -10,9 +12,6 @@ if (!getIsGitProject()) {
     sh.echo(red('当前目录不是git项目目录'))
     process.exit(1)
 }
-
-import { GitmarsOptionOptionsType } from '../typings'
-
 interface GitmBuildOption {
     keep?: boolean
 }

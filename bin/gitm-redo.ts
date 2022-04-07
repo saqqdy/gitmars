@@ -1,4 +1,10 @@
 #!/usr/bin/env ts-node
+import {
+    CommandType,
+    GitmarsOptionOptionsType,
+    InitInquirerPromptType,
+    RevertCacheType
+} from '../typings'
 const { program } = require('commander')
 const dayjs = require('dayjs')
 const inquirer = require('inquirer')
@@ -15,14 +21,6 @@ if (!getIsGitProject()) {
     sh.echo(red('当前目录不是git项目目录'))
     process.exit(1)
 }
-
-import {
-    GitmarsOptionOptionsType,
-    CommandType,
-    InitInquirerPromptType,
-    RevertCacheType
-} from '../typings'
-
 interface GitmBuildOption {
     branch?: string
     mode?: 1 | 2
@@ -51,7 +49,7 @@ program.action(async (commitid: string[], opt: GitmBuildOption) => {
     if (commitid.length > 0) {
         // 传入了commitIDs
         revertCache = revertCache.filter(item =>
-            commitid.some(id => item.after['%H']!.indexOf(id) > -1)
+            commitid.some(id => item.after['%H']!.includes(id))
         )
     }
     // 没有查询到日志

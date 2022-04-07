@@ -1,7 +1,6 @@
+import type { GitmarsOptionType } from '../../../typings'
 const inquirer = require('inquirer')
 const createPrompt = require('./createPrompt')
-
-import type { GitmarsOptionType } from '../../../typings'
 
 export interface CommandNeedInput {
     required: boolean

@@ -1,4 +1,9 @@
 #!/usr/bin/env ts-node
+import {
+    FetchDataType,
+    GitmarsOptionOptionsType,
+    InitInquirerPromptType
+} from '../typings'
 const { program } = require('commander')
 const dayjs = require('dayjs')
 const inquirer = require('inquirer')
@@ -25,13 +30,6 @@ const {
     deleteMergeRequest
 } = require('./core/api/mergeRequest')
 const { getMergeRequestNotesList } = require('./core/api/mergeRequestNotes')
-
-import {
-    GitmarsOptionOptionsType,
-    InitInquirerPromptType,
-    FetchDataType
-} from '../typings'
-
 interface GitmBuildOption {
     state?: string
     quiet: boolean

@@ -1,4 +1,9 @@
 #!/usr/bin/env ts-node
+import {
+    GitmarsBranchType,
+    GitmarsOptionOptionsType,
+    InitInquirerPromptType
+} from '../typings'
 const { program } = require('commander')
 const { green, yellow, red } = require('colors')
 const inquirer = require('inquirer')
@@ -19,13 +24,6 @@ if (!getIsGitProject()) {
 }
 const getConfig = require('./core/getConfig')
 const config = getConfig()
-
-import {
-    GitmarsOptionOptionsType,
-    GitmarsBranchType,
-    InitInquirerPromptType
-} from '../typings'
-
 interface GitmBuildOption {
     list?: boolean
     type?: GitmarsBranchType
@@ -99,8 +97,9 @@ program.action(async (branches: string[], opt: GitmBuildOption) => {
         // 仅清理合过dev和release的分支
         if (removeLocal) {
             // 删除当前分支，需要切到其他分支去
-            if (current === branch)
+            if (current === branch) {
                 spawnSync('git', ['checkout', config.master])
+            }
             spawnSync('git', ['branch', '-D', branch])
         }
         // 清理远程分支
@@ -190,7 +189,7 @@ program.action(async (branches: string[], opt: GitmBuildOption) => {
                 name: 'selectBranches',
                 choices: []
             }
-            _willDeleteBranch.forEach((item, index) => {
+            _willDeleteBranch.forEach(item => {
                 prompt.choices.push({
                     name: green(item),
                     value: item,

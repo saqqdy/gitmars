@@ -30,7 +30,7 @@
         "xterm-style": "^1.1.0"
     },
     "devDependencies": {
-        "@eslint-sets/eslint-config-vue3-ts": "^2.0.0-beta.1",
+        "@eslint-sets/eslint-config-vue3-ts": "^2.0.0",
         "@originjs/vite-plugin-commonjs": "^1.0.1",
         "@saqqdy/prettier-config": "^1.1.2",
         "@types/qs": "^6.9.7",

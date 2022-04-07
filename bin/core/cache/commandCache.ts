@@ -1,8 +1,7 @@
+import type { CommandType } from '../../../typings'
 const sh = require('shelljs')
 const getGitRevParse = require('../git/getGitRevParse')
 const { isFileExist } = require('../utils/file')
-
-import type { CommandType } from '../../../typings'
 
 /**
  * 获取未执行脚本列表
@@ -35,7 +34,7 @@ function setCommandCache(rest: Array<CommandType | string>): void {
     sh.sed(
         '-i',
         // eslint-disable-next-line no-control-regex
-        /[\s\S\n\r\x0a\x0d]*/,
+        /[\s\S\n\r\x0A\x0D]*/,
         encodeURIComponent(JSON.stringify(rest)),
         gitDir + '/.gitmarscommands'
     )

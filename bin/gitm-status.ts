@@ -1,4 +1,5 @@
 #!/usr/bin/env ts-node
+import { GitStatusInfoType, GitmarsOptionOptionsType } from '../typings'
 const { program } = require('commander')
 const columnify = require('columnify')
 const { yellow, red, cyan, green } = require('colors')
@@ -12,9 +13,6 @@ if (!getIsGitProject()) {
     echo(red('当前目录不是git项目目录'))
     process.exit(1)
 }
-
-import { GitmarsOptionOptionsType, GitStatusInfoType } from '../typings'
-
 /**
  * gitm status
  */
@@ -32,17 +30,17 @@ program.action(() => {
     const data = []
     let num = Math.max(
         status['??'].length,
-        status['A'].length,
-        status['M'].length,
-        status['D'].length,
-        status['UU'].length
+        status.A.length,
+        status.M.length,
+        status.D.length,
+        status.UU.length
     )
     while (num--) {
         data.unshift({
-            added: yellow(status['A'][num] || ''),
-            modified: green(status['M'][num] || ''),
-            deleted: red(status['D'][num] || ''),
-            unmerged: red(status['UU']),
+            added: yellow(status.A[num] || ''),
+            modified: green(status.M[num] || ''),
+            deleted: red(status.D[num] || ''),
+            unmerged: red(status.UU),
             untracked: cyan(status['??'][num] || '')
         })
     }

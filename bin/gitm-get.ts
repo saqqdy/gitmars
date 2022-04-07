@@ -1,4 +1,5 @@
 #!/usr/bin/env ts-node
+import { GitmarsOptionOptionsType } from '../typings'
 const { program } = require('commander')
 const sh = require('shelljs')
 const { yellow, red } = require('colors')
@@ -12,9 +13,6 @@ if (!getIsGitProject()) {
     sh.echo(red('当前目录不是git项目目录'))
     process.exit(1)
 }
-
-import { GitmarsOptionOptionsType } from '../typings'
-
 interface GitmBuildOption {
     keep?: boolean
 }
@@ -38,16 +36,18 @@ program.action((message: string, index: string, opt: GitmBuildOption) => {
         sh.echo(yellow('该分支没有暂存任何文件！'))
         process.exit(0)
     }
-    if (index === undefined && list.length > 1)
+    if (index === undefined && list.length > 1) {
         sh.echo(
             yellow(`该分支下有${list.length}条暂存记录，默认恢复最近的一条记录`)
         )
-    if (list.length > 2)
+    }
+    if (list.length > 2) {
         sh.echo(
             yellow(
                 `该分支下有${list.length}条暂存记录，建议定期清理不必要的暂存记录！`
             )
         )
+    }
     queue([
         {
             cmd: `git stash ${opt.keep ? 'apply' : 'pop'} ${

@@ -1,10 +1,8 @@
-const { spawnSync } = require('../spawn')
-const checkGitDirEnv = require('./checkGitDirEnv')
-const getConfig = require('../getConfig')
-const config = getConfig()
-
 import type { ShellCode } from '../../../typings'
-
+const { spawnSync } = require('../spawn')
+const getConfig = require('../getConfig')
+const checkGitDirEnv = require('./checkGitDirEnv')
+const config = getConfig()
 function getCommand(cwd: string, hookName: string) {
     return config && config.hooks && config.hooks[hookName]
 }
@@ -50,6 +48,7 @@ function runCommand(cwd: string, hookName: string, cmd: string, env: any) {
  */
 // @ts-ignore
 function start(
+    // @ts-ignore
     [, , hookName = '', ...GITMARS_GIT_PARAMS],
     { cwd = process.cwd() } = {}
 ): ShellCode {
@@ -57,8 +56,8 @@ function start(
     // Add GITMARS_GIT_PARAMS to env
     const env = {} as any
     if (
-        GITMARS_GIT_PARAMS === null || GITMARS_GIT_PARAMS === void 0
-            ? void 0
+        GITMARS_GIT_PARAMS === null || GITMARS_GIT_PARAMS === undefined
+            ? undefined
             : GITMARS_GIT_PARAMS.length
     ) {
         env.GITMARS_GIT_PARAMS = GITMARS_GIT_PARAMS.join(' ')

@@ -1,10 +1,9 @@
+import type { GitmarsConfigType } from 'typings'
 const fs = require('fs')
 const { cosmiconfigSync } = require('cosmiconfig')
 const getGitRevParse = require('./git/getGitRevParse')
 const { defaults } = require('./global')
 const { debug } = require('./utils/debug')
-
-import type { GitmarsConfigType } from 'typings'
 
 /**
  * 读取配置

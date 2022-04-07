@@ -1,9 +1,8 @@
+import type { RevertCacheType } from '../../../typings'
 const sh = require('shelljs')
 const getGitRevParse = require('../git/getGitRevParse')
 const { writeFileSync, isFileExist } = require('../utils/file')
 const { debug } = require('../utils/debug')
-
-import type { RevertCacheType } from '../../../typings'
 
 const { gitDir } = getGitRevParse()
 const GITMARS_REVERT_CACHE_FILE = gitDir + '/gitmarsreverts.json'
@@ -75,9 +74,8 @@ function delRevertCache(commitIDs: string | string[]): void {
     const _cacheList = getRevertCache()
     let len = commitIDs.length
     while (len--) {
-        const _index = _cacheList.findIndex(
-            (item: RevertCacheType) =>
-                item.after['%H']!.indexOf((commitIDs as string[])[len]) > -1
+        const _index = _cacheList.findIndex((item: RevertCacheType) =>
+            item.after['%H']!.includes((commitIDs as string[])[len])
         )
         if (_index > -1) {
             _cacheList.splice(_index, 1)

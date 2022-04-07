@@ -1,6 +1,7 @@
 #!/usr/bin/env ts-node
-const { program } = require('commander')
+import { GitmarsOptionOptionsType } from '../typings'
 const path = require('path')
+const { program } = require('commander')
 const sh = require('shelljs')
 const { green, yellow } = require('colors')
 const inquirer = require('inquirer')
@@ -14,9 +15,6 @@ const cacheDir = path.join(__dirname, '../cache')
 const { gitDir } = getGitRevParse()
 
 sh.config.silent = true
-
-import { GitmarsOptionOptionsType } from '../typings'
-
 interface GitmBuildOption {
     force?: string
 }

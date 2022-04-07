@@ -1,4 +1,5 @@
 #!/usr/bin/env ts-node
+import { GitmarsOptionOptionsType } from '../typings'
 const { program } = require('commander')
 const sh = require('shelljs')
 const { green, red } = require('colors')
@@ -18,9 +19,6 @@ if (!getIsGitProject()) {
 }
 const getConfig = require('./core/getConfig')
 const config = getConfig()
-
-import { GitmarsOptionOptionsType } from '../typings'
-
 interface GitmBuildOption {
     noVerify?: boolean
     lastet?: string

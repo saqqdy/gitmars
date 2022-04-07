@@ -1,8 +1,7 @@
-const { spawnSync } = require('../spawn')
-const { debug } = require('../utils/debug')
-
 import type { SpawnOptions } from 'child_process'
 import type { GitStatusInfoType } from '../../../typings'
+const { spawnSync } = require('../spawn')
+const { debug } = require('../utils/debug')
 
 /**
  * 获取分支状态

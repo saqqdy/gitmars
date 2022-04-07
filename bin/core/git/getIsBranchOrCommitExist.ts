@@ -10,7 +10,7 @@ const getCurrentBranch = require('./getCurrentBranch')
  */
 function getIsBranchOrCommitExist(name: string, remote = false): boolean {
     if (!name) name = getCurrentBranch()
-    if (remote && name.indexOf('origin') === -1) name = 'origin/' + name
+    if (remote && !name.includes('origin')) name = 'origin/' + name
     const { status } = spawnSync('git', ['rev-parse', '--verify', name])
     return status === 0
 }

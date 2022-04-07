@@ -17,11 +17,12 @@ function getCurlOfMergeRequest({
     [prop: string]: string | undefined
 }): string {
     let des = ''
-    if (description)
-        des = `,\u005c"description\u005c":\u005c"${encodeUnicode(
+    if (description) {
+        des = `,\u005C"description\u005C":\u005C"${encodeUnicode(
             description
-        )}\u005c"`
-    return `curl -i -H "Content-Type: application/json" -X POST -d "{\u005c"source_branch\u005c":\u005c"${source_branch}\u005c",\u005c"target_branch\u005c":\u005c"${target_branch}\u005c",\u005c"private_token\u005c":\u005c"${token}\u005c",\u005c"title\u005c":\u005c"Merge branch '${source_branch}' into '${target_branch}'\u005c"${des}}" "${config.gitHost}/api/v4/projects/${config.gitID}/merge_requests"`
+        )}\u005C"`
+    }
+    return `curl -i -H "Content-Type: application/json" -X POST -d "{\u005C"source_branch\u005C":\u005C"${source_branch}\u005C",\u005C"target_branch\u005C":\u005C"${target_branch}\u005C",\u005C"private_token\u005C":\u005C"${token}\u005C",\u005C"title\u005C":\u005C"Merge branch '${source_branch}' into '${target_branch}'\u005C"${des}}" "${config.gitHost}/api/v4/projects/${config.gitID}/merge_requests"`
 }
 
 module.exports = getCurlOfMergeRequest

@@ -1,7 +1,7 @@
 const sh = require('shelljs')
 const { green, red } = require('colors')
-const getPkgInfo = require('./utils/getPkgInfo')
 const { version } = require('../../package.json')
+const getPkgInfo = require('./utils/getPkgInfo')
 const { debug } = require('./utils/debug')
 
 /**

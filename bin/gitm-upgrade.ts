@@ -1,12 +1,11 @@
 #!/usr/bin/env ts-node
+import { GitmarsOptionOptionsType, PackageVersionTag } from '../typings'
 const { program } = require('commander')
 const { green, red } = require('colors')
+const ora = require('ora')
 const { spawnSync } = require('./core/spawn')
 const { options, args } = require('./conf/upgrade')
 const { createArgs } = require('./core/utils/command')
-const ora = require('ora')
-
-import { GitmarsOptionOptionsType, PackageVersionTag } from '../typings'
 
 interface GitmBuildOption {
     mirror?: boolean
@@ -71,14 +70,16 @@ program.action(
                 break
         }
         // 这一行后面准备删掉
-        if (!opt.registry && opt.mirror)
+        if (!opt.registry && opt.mirror) {
             opt.registry = 'https://registry.npmmirror.com'
-        if (opt.registry)
+        }
+        if (opt.registry) {
             cmdAdd[1] = cmdAdd[1].concat(['-registry', opt.registry])
+        }
         spinner.start(green('正在卸载'))
         const uninstall = spawnSync(cmdDel[0], cmdDel[1], {
             stdio: 'ignore',
-            shell: process.platform === 'win32' /*, env: { detached: true }*/
+            shell: process.platform === 'win32' /*, env: { detached: true } */
         })
         if (uninstall.status !== 0) {
             spinner.fail(
@@ -90,14 +91,14 @@ program.action(
         spinner.start(green('正在安装'))
         const install = spawnSync(cmdAdd[0], cmdAdd[1], {
             stdio: 'ignore',
-            shell: process.platform === 'win32' /*, env: { detached: true }*/
+            shell: process.platform === 'win32' /*, env: { detached: true } */
         })
         if (install.status === 0) {
             spinner.succeed(green('安装完成'))
             spawnSync('gitm', ['-v'], {
                 stdio: 'inherit',
                 shell:
-                    process.platform === 'win32' /*, env: { detached: true }*/
+                    process.platform === 'win32' /*, env: { detached: true } */
             })
         } else {
             spinner.fail(red('安装出错了，请尝试运行：npm install -g gitmars'))

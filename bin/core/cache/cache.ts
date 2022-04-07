@@ -40,8 +40,9 @@ async function updateCacheTime(name: keyof TimestampType) {
     let timestamp: TimestampType = {}
     if (!name) throw '请传入名称'
     // 没有找到缓存文件
-    if (isFileExist(cacheDir + '/timestamp.json'))
+    if (isFileExist(cacheDir + '/timestamp.json')) {
         timestamp = require(cacheDir + '/timestamp.json')
+    }
     timestamp[name] = now
     await writeFile(cacheDir + '/timestamp.json', JSON.stringify(timestamp))
 }

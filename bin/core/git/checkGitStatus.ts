@@ -1,7 +1,7 @@
 const sh = require('shelljs')
 const { yellow, red } = require('colors')
-const getGitStatus = require('./getGitStatus')
 const { debug } = require('../utils/debug')
+const getGitStatus = require('./getGitStatus')
 
 /**
  * 检测状态，获取是否有未提交的文件

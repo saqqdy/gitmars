@@ -1,4 +1,5 @@
 #!/usr/bin/env ts-node
+import { GitLogsType, GitmarsOptionOptionsType } from '../typings'
 const { program } = require('commander')
 const dayjs = require('dayjs')
 const columnify = require('columnify')
@@ -12,9 +13,6 @@ if (!getIsGitProject()) {
     echo(red('当前目录不是git项目目录'))
     process.exit(1)
 }
-
-import { GitmarsOptionOptionsType, GitLogsType } from '../typings'
-
 interface GitmBuildOption {
     lastet?: string
     limit?: number

@@ -1,6 +1,6 @@
 const { spawnSync } = require('../spawn')
-const getCurrentBranch = require('./getCurrentBranch')
 const { debug } = require('../utils/debug')
+const getCurrentBranch = require('./getCurrentBranch')
 
 /**
  * 获取是否合并过dev
@@ -16,8 +16,9 @@ function getIsMergedTargetBranch(
     remote = false
 ): boolean {
     if (!branch) branch = getCurrentBranch()
-    if (remote && targetBranch.indexOf('origin') === -1)
+    if (remote && !targetBranch.includes('origin')) {
         targetBranch = 'origin/' + targetBranch
+    }
     const { stdout } = spawnSync('git', [
         'branch',
         '--contains',
