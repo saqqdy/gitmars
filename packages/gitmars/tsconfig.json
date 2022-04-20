@@ -1,0 +1,13 @@
+{
+    "extends": "../../tsconfig.json",
+    "exclude": ["__tests__", "../../temp"],
+    "compilerOptions": {
+        "removeComments": true,
+        "declaration": false,
+        "target": "ESNext",
+        "outDir": "dist",
+        "module": "commonjs",
+        "lib": ["ESNext"],
+        "sourceMap": true
+    }
+}

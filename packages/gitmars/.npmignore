@@ -1,0 +1,11 @@
+gitmarsconfig.json
+.gitmarsrc
+node_modules
+dist_electron
+/docs
+/cache/*
+!/cache/.gitkeep
+scripts
+*.bak
+*.bak.js
+*_bak

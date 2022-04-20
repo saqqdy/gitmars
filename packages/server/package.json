@@ -1,0 +1,83 @@
+{
+    "name": "gitmars",
+    "description": "the server of gitmars ui",
+    "version": "2.18.1",
+    "scripts": {
+        "server:start": "node app/bin/www",
+        "server:watch": "nodemon --config nodemon.json",
+        "server:watch:debug": "nodemon --config nodemon.json --inspect-brk",
+        "lib": "sh scripts/lib.sh",
+        "build:server": "rimraf app && sh scripts/build-server.sh",
+        "dist": "run-s eslint prettier build build:server circular build:ui",
+        "eslint": "eslint --fix --ext .ts,.js ./",
+        "prettier": "prettier --write \"**/*.{js,ts,json,md}\"",
+        "prettier:docs": "prettier --write \"**/*.md\""
+    },
+    "main": "app/www.js",
+    "files": [
+        "app",
+        "typings"
+    ],
+    "directories": {
+        "app": "app",
+        "typings": "typings"
+    },
+    "dependencies": {
+        "@jssj/request": "^1.0.0-alpha.6",
+        "cookie-parser": "^1.4.6",
+        "debug": "^4.3.4",
+        "express": "^4.17.3",
+        "hbs": "^4.2.0",
+        "http-errors": "^2.0.0",
+        "js-cool": "^2.3.2",
+        "logger": "^0.0.1",
+        "lowdb": "^1.0.0",
+        "node-pty": "^0.10.1",
+        "os": "^0.1.2",
+        "shelljs": "^0.8.5",
+        "socket.io": "^4.4.1",
+        "tracer": "^1.1.5",
+        "uuid": "^8.3.2"
+    },
+    "devDependencies": {
+        "@eslint-sets/eslint-config-simple-ts": "^2.0.1",
+        "@types/cookie-parser": "^1.4.2",
+        "@types/express": "^4.17.13",
+        "@types/http-errors": "^1.8.2",
+        "@types/logger": "^0.0.1",
+        "@types/node": "^17.0.23",
+        "@types/shelljs": "^0.8.11",
+        "eslint": "^8.12.0",
+        "nodemon": "^2.0.15",
+        "prettier": "^2.6.1",
+        "rimraf": "^3.0.2",
+        "ts-node": "^10.7.0",
+        "tsnd": "^1.0.2"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/saqqdy/gitmars.git",
+        "directory": "packages/server"
+    },
+    "keywords": [
+        "gitmars",
+        "server",
+        "git",
+        "tool"
+    ],
+    "author": "saqqdy <https://github.com/saqqdy>",
+    "license": "GPL-3.0",
+    "bugs": {
+        "url": "https://github.com/saqqdy/gitmars/issues"
+    },
+    "homepage": "https://github.com/saqqdy/gitmars/tree/master/packages/server#readme",
+    "peerDependencies": {
+        "eslint": ">=8.0.0",
+        "prettier": ">=2.4.0"
+    },
+    "sideEffects": false,
+    "publishConfig": {
+        "registry": "https://registry.npmjs.org",
+        "access": "public"
+    }
+}
