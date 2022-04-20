@@ -13,12 +13,12 @@ if (version.includes('rc')) command += ' --tag release'
 if (version.includes('beta')) command += ' --tag beta'
 if (version.includes('alpha')) command += ' --tag alpha'
 
-for (const { name } of packages) {
+for (const { name, pkgName } of packages) {
     execSync(command, {
         stdio: 'inherit',
         cwd: join('packages', name, 'dist')
     })
-    consola.success(`Published @gitmars/${name}`)
+    consola.success(`Published ${pkgName}`)
 }
 execSync(command, {
     stdio: 'inherit'

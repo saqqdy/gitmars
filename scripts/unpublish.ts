@@ -12,9 +12,9 @@ const command = `npm --registry=${REGISTRY_URL} unpublish`
 
 for (const { pkgName } of packages) {
     for (const version of versions) {
-        execSync(`${command} @gitmars/${pkgName}@${version}`, {
+        execSync(`${command} ${pkgName}@${version}`, {
             stdio: 'inherit'
         })
-        consola.success(`UnPublished @gitmars/${pkgName}@${version}`)
+        consola.success(`UnPublished ${pkgName}@${version}`)
     }
 }

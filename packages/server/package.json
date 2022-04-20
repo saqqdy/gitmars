@@ -1,5 +1,5 @@
 {
-    "name": "gitmars",
+    "name": "@gitmars/server",
     "description": "the server of gitmars ui",
     "version": "2.18.1",
     "scripts": {

@@ -11,7 +11,7 @@ export const packages: PackageManifest[] = [
     },
     {
         name: 'ui',
-        pkgName: 'ui',
+        pkgName: '@gitmars/ui',
         iife: false,
         mjs: false,
         dts: false,
@@ -20,7 +20,7 @@ export const packages: PackageManifest[] = [
     },
     {
         name: 'server',
-        pkgName: 'server',
+        pkgName: '@gitmars/server',
         iife: false,
         mjs: false,
         dts: false,
@@ -28,7 +28,7 @@ export const packages: PackageManifest[] = [
     },
     {
         name: 'docs',
-        pkgName: 'docs',
+        pkgName: '@gitmars/docs',
         iife: false,
         mjs: false,
         dts: false,

@@ -11,7 +11,7 @@ const command = `npm --registry=${REGISTRY_URL} view`
 
 for (const { pkgName } of packages) {
     for (const name of propNames) {
-        execSync(`${command} @gitmars/${pkgName} ${name}`, {
+        execSync(`${command} ${pkgName} ${name}`, {
             stdio: 'inherit'
         })
     }
