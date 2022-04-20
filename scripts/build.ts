@@ -44,11 +44,11 @@ async function buildMetaFiles() {
             readFileSync(path.join(packageRoot, 'package.json'), 'utf8')
         )
         for (const key of Object.keys(packageJSON.dependencies || {})) {
-            if (key.startsWith('@eslint-sets/'))
+            if (key.startsWith('@gitmars/'))
                 packageJSON.dependencies[key] = version
         }
         for (const key of Object.keys(packageJSON.devDependencies || {})) {
-            if (key.startsWith('@eslint-sets/'))
+            if (key.startsWith('@gitmars/'))
                 packageJSON.devDependencies[key] = version
         }
         writeFileSync(

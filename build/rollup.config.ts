@@ -15,7 +15,7 @@ import type { OutputOptions, RollupOptions } from 'rollup'
 // const production = !process.env.ROLLUP_WATCH
 
 const options: RollupOptions[] = []
-const externals = ['js-cool', '@eslint-sets/utils', '@eslint-sets/core']
+const externals = ['js-cool', '@gitmars/docs', '@gitmars/server', '@gitmars/ui']
 
 for (const {
     globals = {},
@@ -50,8 +50,8 @@ for (const {
     // const deps = Object.keys(pkg.dependencies || {})
     const iifeGlobals = {
         'js-cool': 'JsCool',
-        '@eslint-sets/utils': 'EslintSets',
-        '@eslint-sets/core': 'EslintSets',
+        '@gitmars/utils': 'EslintSets',
+        '@gitmars/core': 'EslintSets',
         ...globals
     }
     const iifeName = 'EslintSets'

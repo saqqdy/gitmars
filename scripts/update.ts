@@ -13,15 +13,15 @@ async function updatePackageJSON() {
         packageJSON.description = display || packageJSON.description
         packageJSON.author = author || 'saqqdy <https://github.com/saqqdy>'
         packageJSON.bugs = {
-            url: 'https://github.com/saqqdy/eslint-sets/issues'
+            url: 'https://github.com/saqqdy/gitmars/issues'
         }
         packageJSON.homepage =
             name === 'core'
-                ? 'https://github.com/saqqdy/eslint-sets#readme'
-                : `https://github.com/saqqdy/eslint-sets/tree/master/packages/${name}#readme`
+                ? 'https://github.com/saqqdy/gitmars#readme'
+                : `https://github.com/saqqdy/gitmars/tree/master/packages/${name}#readme`
         packageJSON.repository = {
             type: 'git',
-            url: 'git+https://github.com/saqqdy/eslint-sets.git',
+            url: 'git+https://github.com/saqqdy/gitmars.git',
             directory: `packages/${name}`
         }
         packageJSON.main = './index.js'

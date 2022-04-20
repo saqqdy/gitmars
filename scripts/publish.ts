@@ -18,9 +18,9 @@ for (const { name } of packages) {
         stdio: 'inherit',
         cwd: join('packages', name, 'dist')
     })
-    consola.success(`Published @eslint-sets/${name}`)
+    consola.success(`Published @gitmars/${name}`)
 }
 execSync(command, {
     stdio: 'inherit'
 })
-consola.success('Published @eslint-sets/monorepo')
+consola.success('Published @gitmars/monorepo')
