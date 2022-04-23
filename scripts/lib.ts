@@ -22,7 +22,7 @@ const readDir = entry => {
         }
     })
 }
-const getInfo = url => {
+function getInfo(url) {
     builder
         .build({
             entryPoints: [url],

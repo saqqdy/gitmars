@@ -4,7 +4,7 @@ importers:
 
   .:
     specifiers:
-      '@eslint-sets/eslint-config-vue3-ts': ^2.0.1
+      '@eslint-sets/eslint-config-simple-ts': ^2.1.3
       '@microsoft/api-extractor': ^7.19.5
       '@rollup/plugin-commonjs': ^21.0.2
       '@rollup/plugin-json': ^4.1.0
@@ -12,15 +12,14 @@ importers:
       '@saqqdy/prettier-config': ^1.1.2
       '@types/inquirer': ^8.2.0
       '@types/node': ^17.0.23
-      '@vue/theme': ^1.0.1
-      '@vuepress/plugin-back-to-top': ^1.9.7
-      '@vuepress/plugin-medium-zoom': ^1.9.7
       colors: ^1.4.0
+      consola: ^2.15.3
       cron-parser: ^4.2.1
       cross-env: ^7.0.3
       esbuild: ^0.14.28
       eslint: ^8.12.0
       eslint-plugin-tsdoc: ^0.2.14
+      fast-glob: ^3.2.11
       inquirer: ^8.2.2
       js-cool: ^2.3.2
       madge: ^5.0.1
@@ -44,7 +43,7 @@ importers:
       js-cool: 2.3.2
       morgan: 1.10.0
     devDependencies:
-      '@eslint-sets/eslint-config-vue3-ts': 2.1.3_f11458f3b5a9aac7eb7b6e83671a32b3
+      '@eslint-sets/eslint-config-simple-ts': 2.1.3_f11458f3b5a9aac7eb7b6e83671a32b3
       '@microsoft/api-extractor': 7.22.2
       '@rollup/plugin-commonjs': 21.1.0_rollup@2.70.2
       '@rollup/plugin-json': 4.1.0_rollup@2.70.2
@@ -52,14 +51,13 @@ importers:
       '@saqqdy/prettier-config': 1.1.2
       '@types/inquirer': 8.2.1
       '@types/node': 17.0.25
-      '@vue/theme': 1.0.1
-      '@vuepress/plugin-back-to-top': 1.9.7
-      '@vuepress/plugin-medium-zoom': 1.9.7
+      consola: 2.15.3
       cron-parser: 4.3.0
       cross-env: 7.0.3
       esbuild: 0.14.36
       eslint: 8.13.0
       eslint-plugin-tsdoc: 0.2.16
+      fast-glob: 3.2.11
       madge: 5.0.1
       npm-run-all: 4.1.5
       prettier: 2.6.2
@@ -77,168 +75,58 @@ importers:
 
   packages/docs:
     specifiers:
-      '@eslint-sets/eslint-config-vue3-ts': ^2.0.1
-      '@jssj/request': ^1.0.0-alpha.6
-      '@microsoft/api-extractor': ^7.19.5
-      '@rollup/plugin-commonjs': ^21.0.2
-      '@rollup/plugin-json': ^4.1.0
-      '@rollup/plugin-node-resolve': ^13.1.3
+      '@eslint-sets/eslint-config-vue3-ts': ^2.1.3
       '@saqqdy/prettier-config': ^1.1.2
-      '@types/cookie-parser': ^1.4.2
-      '@types/express': ^4.17.13
-      '@types/http-errors': ^1.8.2
-      '@types/inquirer': ^8.2.0
-      '@types/logger': ^0.0.1
       '@types/node': ^17.0.23
-      '@types/shelljs': ^0.8.11
-      '@typescript-eslint/eslint-plugin': ^5.16.0
-      '@typescript-eslint/parser': ^5.16.0
       '@vssue/api-github-v3': ^1.4.7
       '@vssue/vuepress-plugin-vssue': ^1.4.8
       '@vue/theme': ^1.0.1
       '@vuepress/plugin-back-to-top': ^1.9.7
       '@vuepress/plugin-medium-zoom': ^1.9.7
-      babel-eslint: ^10.1.0
-      ci-info: ^3.3.0
-      colors: ^1.4.0
-      columnify: ^1.6.0
-      commander: ^9.1.0
-      consola: ^2.15.3
-      cookie-parser: ^1.4.6
-      cosmiconfig: ^7.0.1
-      cron-parser: ^4.2.1
       cross-env: ^7.0.3
-      cross-spawn: ^7.0.3
-      dayjs: ^1.11.0
-      debug: ^4.3.4
-      esbuild: ^0.14.28
       eslint: ^8.12.0
-      eslint-config-prettier: ^8.5.0
-      eslint-config-sets: ^1.8.0
-      eslint-plugin-prettier: ^4.0.0
       eslint-plugin-tsdoc: ^0.2.14
-      express: ^4.17.3
-      hbs: ^4.2.0
-      http-errors: ^2.0.0
-      inquirer: ^8.2.2
       js-cool: ^2.3.2
       less: ^4.1.2
       less-loader: 7.3.0
-      logger: ^0.0.1
-      lowdb: ^1.0.0
-      madge: ^5.0.1
-      morgan: ^1.10.0
-      node-apollo: ^1.2.1
-      node-pty: ^0.10.1
-      nodemon: ^2.0.15
-      npm-run-all: ^4.1.5
-      ora: ^5.4.1
-      os: ^0.1.2
       prettier: ^2.6.1
       qs: ^6.10.3
-      rimraf: ^3.0.2
-      rollup: ^2.70.1
-      rollup-plugin-esbuild: ^4.8.2
-      rollup-plugin-replace-shebang: ^1.0.0
-      rollup-plugin-visualizer: ^5.6.0
-      shelljs: ^0.8.5
-      slash: ^3.0.0
-      socket.io: ^4.4.1
-      tracer: ^1.1.5
-      ts-node: ^10.7.0
       tsnd: ^1.0.2
       typedoc: ^0.22.13
       typedoc-plugin-markdown: ^3.11.14
       typescript: ^4.6.3
-      uglify-js: ^3.15.3
-      uuid: ^8.3.2
       vuepress: ^1.9.7
       vuepress-plugin-container: ^2.1.5
       vuepress-plugin-smooth-scroll: ^0.0.10
     dependencies:
-      '@jssj/request': 1.0.0-alpha.6
-      ci-info: 3.3.0
-      colors: 1.4.0
-      columnify: 1.6.0
-      commander: 9.2.0
-      consola: 2.15.3
-      cookie-parser: 1.4.6
-      cosmiconfig: 7.0.1
-      cross-spawn: 7.0.3
-      dayjs: 1.11.1
-      debug: 4.3.4
-      express: 4.17.3
-      hbs: 4.2.0
-      http-errors: 2.0.0
-      inquirer: 8.2.2
       js-cool: 2.3.2
-      logger: 0.0.1
-      lowdb: 1.0.0
-      morgan: 1.10.0
-      node-apollo: 1.2.1
-      node-pty: 0.10.1
-      ora: 5.4.1
-      os: 0.1.2
       qs: 6.10.3
-      shelljs: 0.8.5
-      slash: 3.0.0
-      socket.io: 4.4.1
-      tracer: 1.1.5
-      uuid: 8.3.2
     devDependencies:
       '@eslint-sets/eslint-config-vue3-ts': 2.1.3_f11458f3b5a9aac7eb7b6e83671a32b3
-      '@microsoft/api-extractor': 7.22.2
-      '@rollup/plugin-commonjs': 21.1.0_rollup@2.70.2
-      '@rollup/plugin-json': 4.1.0_rollup@2.70.2
-      '@rollup/plugin-node-resolve': 13.2.1_rollup@2.70.2
       '@saqqdy/prettier-config': 1.1.2
-      '@types/cookie-parser': 1.4.2
-      '@types/express': 4.17.13
-      '@types/http-errors': 1.8.2
-      '@types/inquirer': 8.2.1
-      '@types/logger': 0.0.1
       '@types/node': 17.0.25
-      '@types/shelljs': 0.8.11
-      '@typescript-eslint/eslint-plugin': 5.20.0_b9ac9b5656ce5dffade639fcf5e491bf
-      '@typescript-eslint/parser': 5.20.0_eslint@8.13.0+typescript@4.6.3
-      '@vssue/api-github-v3': 1.4.7_debug@4.3.4
+      '@vssue/api-github-v3': 1.4.7
       '@vssue/vuepress-plugin-vssue': 1.4.8_vuepress@1.9.7
       '@vue/theme': 1.0.1
-      '@vuepress/plugin-back-to-top': 1.9.7_debug@4.3.4
-      '@vuepress/plugin-medium-zoom': 1.9.7_debug@4.3.4
-      babel-eslint: 10.1.0_eslint@8.13.0
-      cron-parser: 4.3.0
+      '@vuepress/plugin-back-to-top': 1.9.7
+      '@vuepress/plugin-medium-zoom': 1.9.7
       cross-env: 7.0.3
-      esbuild: 0.14.36
       eslint: 8.13.0
-      eslint-config-prettier: 8.5.0_eslint@8.13.0
-      eslint-config-sets: 1.8.2
-      eslint-plugin-prettier: 4.0.0_1815ac95b7fb26c13c7d48a8eef62d0f
       eslint-plugin-tsdoc: 0.2.16
       less: 4.1.2
       less-loader: 7.3.0_less@4.1.2
-      madge: 5.0.1
-      nodemon: 2.0.15
-      npm-run-all: 4.1.5
       prettier: 2.6.2
-      rimraf: 3.0.2
-      rollup: 2.70.2
-      rollup-plugin-esbuild: 4.9.1_esbuild@0.14.36+rollup@2.70.2
-      rollup-plugin-replace-shebang: 1.0.0_rollup@2.70.2
-      rollup-plugin-visualizer: 5.6.0_rollup@2.70.2
-      ts-node: 10.7.0_de7c86b0cde507c63a0402da5b982bd3
       tsnd: 1.0.2
       typedoc: 0.22.15_typescript@4.6.3
       typedoc-plugin-markdown: 3.12.0_typedoc@0.22.15
       typescript: 4.6.3
-      uglify-js: 3.15.4
-      vuepress: 1.9.7_debug@4.3.4
+      vuepress: 1.9.7
       vuepress-plugin-container: 2.1.5
       vuepress-plugin-smooth-scroll: 0.0.10
 
   packages/gitmars:
     specifiers:
-      '@eslint-sets/eslint-config-ts': ^2.0.1
+      '@eslint-sets/eslint-config-simple-ts': ^2.1.3
       '@jssj/request': ^1.0.0-alpha.6
       '@saqqdy/prettier-config': ^1.1.2
       '@types/inquirer': ^8.2.0
@@ -280,7 +168,7 @@ importers:
       shelljs: 0.8.5
       slash: 3.0.0
     devDependencies:
-      '@eslint-sets/eslint-config-ts': 2.1.3_f11458f3b5a9aac7eb7b6e83671a32b3
+      '@eslint-sets/eslint-config-simple-ts': 2.1.3_f11458f3b5a9aac7eb7b6e83671a32b3
       '@saqqdy/prettier-config': 1.1.2
       '@types/inquirer': 8.2.1
       '@types/node': 17.0.25
@@ -293,7 +181,7 @@ importers:
 
   packages/server:
     specifiers:
-      '@eslint-sets/eslint-config-simple-ts': ^2.0.1
+      '@eslint-sets/eslint-config-simple-ts': ^2.1.3
       '@jssj/request': ^1.0.0-alpha.6
       '@types/cookie-parser': ^1.4.2
       '@types/express': ^4.17.13
@@ -354,7 +242,7 @@ importers:
 
   packages/ui:
     specifiers:
-      '@eslint-sets/eslint-config-vue3-ts': ^2.0.1
+      '@eslint-sets/eslint-config-vue3-ts': ^2.1.3
       '@gitmars/server': workspace:*
       '@originjs/vite-plugin-commonjs': ^1.0.1
       '@saqqdy/prettier-config': ^1.1.2
@@ -2119,7 +2007,7 @@ packages:
   /@eslint-sets/eslint-config-simple-ts/2.1.3_f11458f3b5a9aac7eb7b6e83671a32b3:
     resolution: {integrity: sha512-4qPqdyhowDPHLdSHH4FIe5/OE6nwqxg0PUESo3jN41ovfbG+I99Qms3x+rn4JQA3okn6b76D3F5rBnNNsOeo1g==}
     peerDependencies:
-      eslint: '>=8.0.0 || ^8.10.0'
+      eslint: '>=8.0.0 || ^8.10.0 || ^8.10.0 || ^8.10.0'
       prettier: '>=2.4.0'
     dependencies:
       '@eslint-sets/eslint-config-ts': 2.1.3_f11458f3b5a9aac7eb7b6e83671a32b3
@@ -2139,7 +2027,7 @@ packages:
   /@eslint-sets/eslint-config-ts/2.1.3_f11458f3b5a9aac7eb7b6e83671a32b3:
     resolution: {integrity: sha512-lC2wmSSFY4QJvavpZJ+nVtCiv37Y6WP+scFWhMJ/A9wQrJbzXrDg/4KzhuK9lrpTVPVBLBt/H64SHPKsO0XNNA==}
     peerDependencies:
-      eslint: '>=8.0.0 || ^8.10.0'
+      eslint: '>=8.0.0 || ^8.10.0 || ^8.10.0'
       prettier: '>=2.4.0'
       typescript: '>=4.0'
     dependencies:
@@ -2160,7 +2048,7 @@ packages:
   /@eslint-sets/eslint-config-vue3-ts/2.1.3_f11458f3b5a9aac7eb7b6e83671a32b3:
     resolution: {integrity: sha512-2edToF1XmVwXiqDQGHq9nigBOvii3g1FamCFENjw0VgSLfcy7986Lr75MVtQgAgy7xyd50qQUFxFINgVJh4s+w==}
     peerDependencies:
-      eslint: '>=8.0.0 || ^8.10.0'
+      eslint: '>=8.0.0 || ^8.10.0 || ^8.10.0'
       prettier: '>=2.4.0'
     dependencies:
       '@eslint-sets/eslint-config-ts': 2.1.3_f11458f3b5a9aac7eb7b6e83671a32b3
@@ -2738,18 +2626,6 @@ packages:
       - debug
     dev: true
 
-  /@types/webpack-dev-server/3.11.6_debug@4.3.4:
-    resolution: {integrity: sha512-XCph0RiiqFGetukCTC3KVnY1jwLcZ84illFRMbyFzCcWl90B/76ew0tSqF46oBhnLC4obNDG7dMO0JfTN0MgMQ==}
-    dependencies:
-      '@types/connect-history-api-fallback': 1.3.5
-      '@types/express': 4.17.13
-      '@types/serve-static': 1.13.10
-      '@types/webpack': 4.41.32
-      http-proxy-middleware: 1.3.1_debug@4.3.4
-    transitivePeerDependencies:
-      - debug
-    dev: true
-
   /@types/webpack-env/1.16.4:
     resolution: {integrity: sha512-llS8qveOUX3wxHnSykP5hlYFFuMfJ9p5JvIyCiBgp7WTfl6K5ZcyHj8r8JsN/J6QODkAsRRCLIcTuOCu8etkUw==}
     dev: true
@@ -2778,7 +2654,7 @@ packages:
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
     peerDependencies:
       '@typescript-eslint/parser': ^5.0.0
-      eslint: ^6.0.0 || ^7.0.0 || ^8.0.0 || ^8.10.0
+      eslint: ^6.0.0 || ^7.0.0 || ^8.0.0 || ^8.10.0 || ^8.10.0
       typescript: '*'
     peerDependenciesMeta:
       typescript:
@@ -2804,7 +2680,7 @@ packages:
     resolution: {integrity: sha512-UWKibrCZQCYvobmu3/N8TWbEeo/EPQbS41Ux1F9XqPzGuV7pfg6n50ZrFo6hryynD8qOTTfLHtHjjdQtxJ0h/w==}
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
     peerDependencies:
-      eslint: ^6.0.0 || ^7.0.0 || ^8.0.0 || ^8.10.0
+      eslint: ^6.0.0 || ^7.0.0 || ^8.0.0 || ^8.10.0 || ^8.10.0
       typescript: '*'
     peerDependenciesMeta:
       typescript:
@@ -3031,11 +2907,11 @@ packages:
       '@vue/reactivity': 3.2.33
     dev: true
 
-  /@vssue/api-github-v3/1.4.7_debug@4.3.4:
+  /@vssue/api-github-v3/1.4.7:
     resolution: {integrity: sha512-ukhOnzGQarmj606ZiYN9iCMyr3EJS3YEPdZXX+zBLVsuzjTL5ffLbbpXsEtPBh2XNt3Ig3XdzCvA9bVXhwy4mQ==}
     dependencies:
       '@vssue/utils': 1.4.7
-      axios: 0.21.4_debug@4.3.4
+      axios: 0.21.4
     transitivePeerDependencies:
       - debug
     dev: true
@@ -3053,7 +2929,7 @@ packages:
       vuepress: ^1.0.0
     dependencies:
       vssue: 1.4.8
-      vuepress: 1.9.7_debug@4.3.4
+      vuepress: 1.9.7
     dev: true
 
   /@vue/babel-helper-vue-jsx-merge-props/1.2.1:
@@ -3388,7 +3264,7 @@ packages:
       - vue
     dev: true
 
-  /@vuepress/core/1.9.7_debug@4.3.4:
+  /@vuepress/core/1.9.7:
     resolution: {integrity: sha512-u5eb1mfNLV8uG2UuxlvpB/FkrABxeMHqymTsixOnsOg2REziv9puEIbqaZ5BjLPvbCDvSj6rn+DwjENmBU+frQ==}
     engines: {node: '>=8.6'}
     dependencies:
@@ -3396,10 +3272,10 @@ packages:
       '@vue/babel-preset-app': 4.5.17_vue@2.6.14
       '@vuepress/markdown': 1.9.7
       '@vuepress/markdown-loader': 1.9.7
-      '@vuepress/plugin-last-updated': 1.9.7_debug@4.3.4
-      '@vuepress/plugin-register-components': 1.9.7_debug@4.3.4
+      '@vuepress/plugin-last-updated': 1.9.7
+      '@vuepress/plugin-register-components': 1.9.7
       '@vuepress/shared-utils': 1.9.7
-      '@vuepress/types': 1.9.7_debug@4.3.4
+      '@vuepress/types': 1.9.7
       autoprefixer: 9.8.8
       babel-loader: 8.2.5_598a497cebab8e15ee8f9e5632178e63
       bundle-require: 2.1.8_esbuild@0.14.7
@@ -3460,10 +3336,10 @@ packages:
       prismjs: 1.28.0
     dev: true
 
-  /@vuepress/plugin-active-header-links/1.9.7_debug@4.3.4:
+  /@vuepress/plugin-active-header-links/1.9.7:
     resolution: {integrity: sha512-G1M8zuV9Og3z8WBiKkWrofG44NEXsHttc1MYreDXfeWh/NLjr9q1GPCEXtiCjrjnHZHB3cSQTKnTqAHDq35PGA==}
     dependencies:
-      '@vuepress/types': 1.9.7_debug@4.3.4
+      '@vuepress/types': 1.9.7
       lodash.debounce: 4.0.8
     transitivePeerDependencies:
       - debug
@@ -3478,19 +3354,10 @@ packages:
       - debug
     dev: true
 
-  /@vuepress/plugin-back-to-top/1.9.7_debug@4.3.4:
-    resolution: {integrity: sha512-DM1S+Q8Xn/i+zhe4zThekxb1M2abfKLklg/NKtQloklHKdNdVfk+EcxWYNmNfSii+ymDWaaG8lmH0xjVhy0iXw==}
-    dependencies:
-      '@vuepress/types': 1.9.7_debug@4.3.4
-      lodash.debounce: 4.0.8
-    transitivePeerDependencies:
-      - debug
-    dev: true
-
-  /@vuepress/plugin-last-updated/1.9.7_debug@4.3.4:
+  /@vuepress/plugin-last-updated/1.9.7:
     resolution: {integrity: sha512-FiFBOl49dlFRjbLRnRAv77HDWfe+S/eCPtMQobq4/O3QWuL3Na5P4fCTTVzq1K7rWNO9EPsWNB2Jb26ndlQLKQ==}
     dependencies:
-      '@vuepress/types': 1.9.7_debug@4.3.4
+      '@vuepress/types': 1.9.7
       cross-spawn: 6.0.5
     transitivePeerDependencies:
       - debug
@@ -3505,37 +3372,28 @@ packages:
       - debug
     dev: true
 
-  /@vuepress/plugin-medium-zoom/1.9.7_debug@4.3.4:
-    resolution: {integrity: sha512-P00chXEEoFyQyDWiiSw1mUIdywS6vqM9jolM/3Gv3/TywqemWEm1MKMM7mLsjGiaXJbBQZE+U3/lHmzcaroYLQ==}
-    dependencies:
-      '@vuepress/types': 1.9.7_debug@4.3.4
-      medium-zoom: 1.0.6
-    transitivePeerDependencies:
-      - debug
-    dev: true
-
-  /@vuepress/plugin-nprogress/1.9.7_debug@4.3.4:
+  /@vuepress/plugin-nprogress/1.9.7:
     resolution: {integrity: sha512-sI148igbdRfLgyzB8PdhbF51hNyCDYXsBn8bBWiHdzcHBx974sVNFKtfwdIZcSFsNrEcg6zo8YIrQ+CO5vlUhQ==}
     dependencies:
-      '@vuepress/types': 1.9.7_debug@4.3.4
+      '@vuepress/types': 1.9.7
       nprogress: 0.2.0
     transitivePeerDependencies:
       - debug
     dev: true
 
-  /@vuepress/plugin-register-components/1.9.7_debug@4.3.4:
+  /@vuepress/plugin-register-components/1.9.7:
     resolution: {integrity: sha512-l/w1nE7Dpl+LPMb8+AHSGGFYSP/t5j6H4/Wltwc2QcdzO7yqwC1YkwwhtTXvLvHOV8O7+rDg2nzvq355SFkfKA==}
     dependencies:
       '@vuepress/shared-utils': 1.9.7
-      '@vuepress/types': 1.9.7_debug@4.3.4
+      '@vuepress/types': 1.9.7
     transitivePeerDependencies:
       - debug
     dev: true
 
-  /@vuepress/plugin-search/1.9.7_debug@4.3.4:
+  /@vuepress/plugin-search/1.9.7:
     resolution: {integrity: sha512-MLpbUVGLxaaHEwflFxvy0pF9gypFVUT3Q9Zc6maWE+0HDWAvzMxo6GBaj6mQPwjOqNQMf4QcN3hDzAZktA+DQg==}
     dependencies:
-      '@vuepress/types': 1.9.7_debug@4.3.4
+      '@vuepress/types': 1.9.7
     transitivePeerDependencies:
       - debug
     dev: true
@@ -3554,13 +3412,13 @@ packages:
       upath: 1.2.0
     dev: true
 
-  /@vuepress/theme-default/1.9.7_debug@4.3.4:
+  /@vuepress/theme-default/1.9.7:
     resolution: {integrity: sha512-NZzCLIl+bgJIibhkqVmk/NSku57XIuXugxAN3uiJrCw6Mu6sb3xOvbk0En3k+vS2BKHxAZ6Cx7dbCiyknDQnSA==}
     dependencies:
-      '@vuepress/plugin-active-header-links': 1.9.7_debug@4.3.4
-      '@vuepress/plugin-nprogress': 1.9.7_debug@4.3.4
-      '@vuepress/plugin-search': 1.9.7_debug@4.3.4
-      '@vuepress/types': 1.9.7_debug@4.3.4
+      '@vuepress/plugin-active-header-links': 1.9.7
+      '@vuepress/plugin-nprogress': 1.9.7
+      '@vuepress/plugin-search': 1.9.7
+      '@vuepress/types': 1.9.7
       docsearch.js: 2.6.3
       lodash: 4.17.21
       stylus: 0.54.8
@@ -3576,16 +3434,6 @@ packages:
     dependencies:
       '@types/markdown-it': 10.0.3
       '@types/webpack-dev-server': 3.11.6
-      webpack-chain: 6.5.1
-    transitivePeerDependencies:
-      - debug
-    dev: true
-
-  /@vuepress/types/1.9.7_debug@4.3.4:
-    resolution: {integrity: sha512-moLQzkX3ED2o18dimLemUm7UVDKxhcrJmGt5C0Ng3xxrLPaQu7UqbROtEKB3YnMRt4P/CA91J+Ck+b9LmGabog==}
-    dependencies:
-      '@types/markdown-it': 10.0.3
-      '@types/webpack-dev-server': 3.11.6_debug@4.3.4
       webpack-chain: 6.5.1
     transitivePeerDependencies:
       - debug
@@ -4223,7 +4071,7 @@ packages:
       - debug
     dev: false
 
-  /axios/0.21.4_debug@4.3.4:
+  /axios/0.21.4:
     resolution: {integrity: sha512-ut5vewkiu8jjGBdqpM44XxjuCjq9LAKeHVmoVfHVzy8eHgxxq8SbAVQNovDA8mVi05kP0Ea/n/UzcSHcTJQfNg==}
     dependencies:
       follow-redirects: 1.14.9
@@ -4245,24 +4093,6 @@ packages:
       chalk: 1.1.3
       esutils: 2.0.3
       js-tokens: 3.0.2
-    dev: true
-
-  /babel-eslint/10.1.0_eslint@8.13.0:
-    resolution: {integrity: sha512-ifWaTHQ0ce+448CYop8AdrQiBsGrnC+bMgfyKFdi6EsPLTAWG+QfyDeM6OH+FmWnKvEq5NnBMLvlBUPKQZoDSg==}
-    engines: {node: '>=6'}
-    deprecated: babel-eslint is now @babel/eslint-parser. This package will no longer receive updates.
-    peerDependencies:
-      eslint: '>= 4.12.1 || ^8.10.0'
-    dependencies:
-      '@babel/code-frame': 7.16.7
-      '@babel/parser': 7.17.9
-      '@babel/traverse': 7.17.9
-      '@babel/types': 7.17.0
-      eslint: 8.13.0
-      eslint-visitor-keys: 1.3.0
-      resolve: 1.22.0
-    transitivePeerDependencies:
-      - supports-color
     dev: true
 
   /babel-loader/8.2.5_598a497cebab8e15ee8f9e5632178e63:
@@ -5224,6 +5054,7 @@ packages:
 
   /consola/2.15.3:
     resolution: {integrity: sha512-9vAdYbHj6x2fLKC4+oPH0kFzY/orMZyG2Aj+kNylHxKGJ/Ed4dpNyAQYwJOdqO4zdM7XpVHmyejQDcQHrnuXbw==}
+    dev: true
 
   /console-browserify/1.2.0:
     resolution: {integrity: sha512-ZMkYO/LkF17QvCPqM0gxw8yUzigAOZOSWSHg91FH6orS7vcEj5dVZTidN2fQ14yBSdg97RqhSNwLUXInd52OTA==}
@@ -6877,7 +6708,7 @@ packages:
     resolution: {integrity: sha512-obmWKLUNCnhtQRKc+tmnYuQl0pFU1ibYJQ5BGhTVB08bHe9wC8qUeG7c08dj9XX+AuPj1YSGSQIHl1pnDHZR0Q==}
     hasBin: true
     peerDependencies:
-      eslint: '>=7.0.0 || ^8.10.0'
+      eslint: '>=7.0.0 || ^8.10.0 || ^8.10.0'
     dependencies:
       eslint: 8.13.0
     dev: true
@@ -6996,7 +6827,7 @@ packages:
     resolution: {integrity: sha512-98MqmCJ7vJodoQK359bqQWaxOE0CS8paAz/GgjaZLyex4TTk3g9HugoO89EqWCrFiOqn9EVvcoo7gZzONCWVwQ==}
     engines: {node: '>=6.0.0'}
     peerDependencies:
-      eslint: '>=7.28.0 || ^8.10.0'
+      eslint: '>=7.28.0 || ^8.10.0 || ^8.10.0'
       eslint-config-prettier: '*'
       prettier: '>=2.0.0'
     peerDependenciesMeta:
@@ -7648,7 +7479,7 @@ packages:
       debug:
         optional: true
     dependencies:
-      debug: 4.3.4
+      debug: 4.3.4_supports-color@6.1.0
     dev: true
 
   /for-in/1.0.2:
@@ -8407,19 +8238,6 @@ packages:
     dependencies:
       '@types/http-proxy': 1.17.8
       http-proxy: 1.18.1
-      is-glob: 4.0.3
-      is-plain-obj: 3.0.0
-      micromatch: 4.0.5
-    transitivePeerDependencies:
-      - debug
-    dev: true
-
-  /http-proxy-middleware/1.3.1_debug@4.3.4:
-    resolution: {integrity: sha512-13eVVDYS4z79w7f1+NPllJtOQFx/FdUW4btIvVRMaRlUY9VGstAbo5MOhLEuUgZFRHn3x50ufn25zkj/boZnEg==}
-    engines: {node: '>=8.0.0'}
-    dependencies:
-      '@types/http-proxy': 1.17.8
-      http-proxy: 1.18.1_debug@4.3.4
       is-glob: 4.0.3
       is-plain-obj: 3.0.0
       micromatch: 4.0.5
@@ -14398,15 +14216,15 @@ packages:
       smoothscroll-polyfill: 0.4.4
     dev: true
 
-  /vuepress/1.9.7_debug@4.3.4:
+  /vuepress/1.9.7:
     resolution: {integrity: sha512-aSXpoJBGhgjaWUsT1Zs/ZO8JdDWWsxZRlVme/E7QYpn+ZB9iunSgPMozJQNFaHzcRq4kPx5A4k9UhzLRcvtdMg==}
     engines: {node: '>=8.6'}
     hasBin: true
     requiresBuild: true
     dependencies:
-      '@vuepress/core': 1.9.7_debug@4.3.4
-      '@vuepress/theme-default': 1.9.7_debug@4.3.4
-      '@vuepress/types': 1.9.7_debug@4.3.4
+      '@vuepress/core': 1.9.7
+      '@vuepress/theme-default': 1.9.7
+      '@vuepress/types': 1.9.7
       cac: 6.7.12
       envinfo: 7.8.1
       opencollective-postinstall: 2.0.3

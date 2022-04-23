@@ -10,6 +10,14 @@ export const packages: PackageManifest[] = [
         display: '这是一个git工作流工具'
     },
     {
+        name: 'core',
+        pkgName: '@gitmars/core',
+        iife: false,
+        mjs: true,
+        submodules: true,
+        display: 'gitmars核心程序'
+    },
+    {
         name: 'ui',
         pkgName: '@gitmars/ui',
         iife: false,
