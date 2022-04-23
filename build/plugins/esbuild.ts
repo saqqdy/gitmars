@@ -1,4 +1,4 @@
-import { default as _esbuild, type Options } from 'rollup-plugin-esbuild'
+import { type Options, default as _esbuild } from 'rollup-plugin-esbuild'
 import type { Plugin } from 'rollup'
 
 export const esbuild = (options: Options = {}): Plugin =>

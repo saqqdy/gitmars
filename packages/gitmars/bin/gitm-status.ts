@@ -1,5 +1,5 @@
 #!/usr/bin/env ts-node
-import { GitStatusInfoType, GitmarsOptionOptionsType } from '../typings'
+import type { GitStatusInfoType, GitmarsOptionOptionsType } from '../typings'
 const { program } = require('commander')
 const columnify = require('columnify')
 const { yellow, red, cyan, green } = require('colors')

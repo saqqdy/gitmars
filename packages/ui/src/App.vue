@@ -11,9 +11,10 @@
 
 <script lang="ts" setup>
 import { onMounted, provide, reactive } from 'vue'
-import io, { Socket } from 'socket.io-client'
+import type { Socket } from 'socket.io-client'
+import io from 'socket.io-client'
 import { Terminal } from 'xterm'
-// @ts-ignore
+// @ts-expect-error
 import { common as xtermTheme } from 'xterm-style'
 import 'xterm/css/xterm.css'
 // import { AttachAddon } from 'xterm-addon-attach'
@@ -42,9 +43,7 @@ const socketGitmars: Socket = io(`${SOCKET_HOST}/gitmars`, {
 // const attachAddon = new AttachAddon(socket)
 const fitAddon = new FitAddon()
 const searchAddon = new SearchAddon()
-const terms: {
-    [prop: string]: TermObject
-} = reactive({})
+const terms: Record<string, TermObject> = reactive({})
 
 // function
 const getTerminal = (

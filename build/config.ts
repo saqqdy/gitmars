@@ -42,7 +42,7 @@ export const extensions = [
 
 export const alias = {
     '@': path.resolve(__dirname, '../src'),
-    'gitmars': path.resolve(__dirname, './')
+    gitmars: path.resolve(__dirname, './')
 }
 
 export const jsexclude = /node_modules/

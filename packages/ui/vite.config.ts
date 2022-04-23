@@ -32,7 +32,7 @@ export default defineConfig({
             output: {
                 manualChunks(id) {
                     if (id.includes('node_modules')) {
-                        // @ts-ignore
+                        // @ts-expect-error
                         const [, module] =
                             /node_modules\/(@?[a-z0-9-]+?[a-z0-9-]+)/.exec(id)
                         const url = path.join(

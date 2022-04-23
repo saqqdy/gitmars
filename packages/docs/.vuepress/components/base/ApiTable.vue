@@ -2,9 +2,15 @@
 <template>
     <div class="api-wrap">
         <h3>{{ title }}</h3>
-        <el-table :data="tableData" v-bind="$attrs" v-on="$listeners" style="width: 100%">
+        <el-table
+            :data="tableData"
+            v-bind="$attrs"
+            v-on="$listeners"
+            style="width: 100%"
+        >
             <template v-for="(item, index) in tableHeader">
-                <el-table-column :prop="index + ''" :label="item"> </el-table-column>
+                <el-table-column :prop="index + ''" :label="item">
+                </el-table-column>
             </template>
         </el-table>
     </div>
@@ -27,12 +33,16 @@ export default {
     },
     computed: {
         tableHeader() {
-            return this.tableHead.split('|').map(s => s.replace(/^\s*|\s*$/g, ''))
+            return this.tableHead
+                .split('|')
+                .map(s => s.replace(/^\s*|\s*$/g, ''))
         },
         tableData() {
             return this.tableBody.map(str => {
-                let data = {}
-                str.split('|').map((s, i) => (data[i] = s.replace(/^\s*|\s*$/g, '')))
+                const data = {}
+                str.split('|').map(
+                    (s, i) => (data[i] = s.replace(/^\s*|\s*$/g, ''))
+                )
                 return data
             })
         }

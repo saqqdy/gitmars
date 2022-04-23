@@ -1,4 +1,4 @@
-export type BranchListType = {
+export interface BranchListType {
     bugfix: string[]
     feature: string[]
     others: string[]

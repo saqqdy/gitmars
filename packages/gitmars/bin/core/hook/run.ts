@@ -46,9 +46,9 @@ function runCommand(cwd: string, hookName: string, cmd: string, env: any) {
  *
  * @returns status - 0|1 返回状态
  */
-// @ts-ignore
+// @ts-expect-error
 function start(
-    // @ts-ignore
+    // @ts-expect-error
     [, , hookName = '', ...GITMARS_GIT_PARAMS],
     { cwd = process.cwd() } = {}
 ): ShellCode {

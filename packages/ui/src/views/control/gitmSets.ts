@@ -5,10 +5,10 @@ let sets = {}
 for (const key in commandSets) {
     const name = key.replace(/^.+\/(\w+)\.js$/, '$1')
     if (Object.keys(commandSets[key]).length) {
-        // @ts-ignore
+        // @ts-expect-error
         sets[name] = commandSets[key]
     } else {
-        // @ts-ignore
+        // @ts-expect-error
         sets = (window as any).gitmarsCmdConfig
         break
     }

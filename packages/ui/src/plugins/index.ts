@@ -21,7 +21,7 @@
 // 	return i18n
 // }
 
-import { App } from 'vue'
+import type { App } from 'vue'
 import { delay as Delay, nextIndex } from 'js-cool'
 import axios from './axios'
 import Box from './box'
@@ -29,8 +29,8 @@ import Box from './box'
 export default function (app: App) {
     app.config.globalProperties.$nextIndex = nextIndex.bind(app)
     app.config.globalProperties.$axios = axios
-    // @ts-ignore
+    // @ts-expect-error
     app.config.globalProperties.$delay = new Delay()
-    // @ts-ignore
+    // @ts-expect-error
     app.config.globalProperties.$box = (...args) => new Box(app, ...args)
 }

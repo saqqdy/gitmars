@@ -1,6 +1,6 @@
 #!/usr/bin/env ts-node
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { GitmarsOptionOptionsType } from '../typings'
+import type { GitmarsOptionOptionsType } from '../typings'
 const { program } = require('commander')
 const sh = require('shelljs')
 const { yellow, red } = require('colors')

@@ -1,4 +1,4 @@
-export type PmFromUserAgentType = {
+export interface PmFromUserAgentType {
     name: string
     version: string
 }

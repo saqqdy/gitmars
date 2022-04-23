@@ -1,4 +1,5 @@
-import express, { Request, Response } from 'express'
+import type { Request, Response } from 'express'
+import express from 'express'
 const router = express.Router()
 const { exec } = require('child_process')
 const { promisify } = require('util')

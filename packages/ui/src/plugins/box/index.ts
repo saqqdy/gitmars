@@ -1,5 +1,6 @@
 // @ts-nocheck
-import { VNode, createVNode, render } from 'vue'
+import type { VNode } from 'vue'
+import { createVNode, render } from 'vue'
 import { v4 as uuidv4 } from 'uuid'
 import { extend, nextIndex } from 'js-cool'
 import box from '@/components/box/index.vue'

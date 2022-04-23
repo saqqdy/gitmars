@@ -1,9 +1,7 @@
 const path = require('path')
 const { writeFile, isFileExist } = require('../utils/file')
 
-type TimestampType = {
-    [prop: string]: number
-} & {
+type TimestampType = Record<string, number> & {
     packageInfoTime?: number
 }
 

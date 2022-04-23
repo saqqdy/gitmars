@@ -1,8 +1,5 @@
-import {
-    ComponentInternalInstance,
-    getCurrentInstance,
-    useCssModule
-} from 'vue'
+import type { ComponentInternalInstance } from 'vue'
+import { getCurrentInstance, useCssModule } from 'vue'
 
 export default function useCurrentInstance(props?: string | string[]) {
     if (typeof props === 'string') props = [props]

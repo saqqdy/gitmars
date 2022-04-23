@@ -16,7 +16,7 @@ export const packages: PackageManifest[] = [
         mjs: false,
         dts: false,
         submodules: true,
-        display: 'Eslint config basic sets'
+        display: 'gitmars可视化界面'
     },
     {
         name: 'server',
@@ -24,7 +24,7 @@ export const packages: PackageManifest[] = [
         iife: false,
         mjs: false,
         dts: false,
-        display: 'Eslint config basic sets for typescript'
+        display: 'gitmars可视化界面服务端'
     },
     {
         name: 'docs',
@@ -32,6 +32,6 @@ export const packages: PackageManifest[] = [
         iife: false,
         mjs: false,
         dts: false,
-        display: 'Eslint config basic sets for typescript'
+        display: 'gitmars文档库'
     }
 ]

@@ -42,7 +42,7 @@ for (let packageName in dependencies) {
 if (list.length > 0) {
     spawnSync(cmd, list, {
         stdio: 'inherit',
-        shell: process.platform === 'win32' /*, env: { detached: true }*/
+        shell: process.platform === 'win32' /*, env: { detached: true } */
     })
 } else {
     process.exit(1)

@@ -2,9 +2,7 @@
 
 import type { SpawnOptions, SpawnSyncReturns } from 'child_process'
 
-export interface AnyObject {
-    [prop: string]: any
-}
+export type AnyObject = Record<string, any>
 
 export interface AnyFunction extends AnyObject {
     (...args: any[]): any
@@ -157,9 +155,7 @@ export interface GitmarsMultiOptionType {
 export interface GitmarsConfigApisBuildConfigType {
     url: string
     method?: 'post' | 'get' | 'put' | 'delete'
-    params?: {
-        [key: string]: string | number | boolean | null
-    }
+    params?: Record<string, string | number | boolean | null>
 }
 
 export interface GitmarsConfigType {
@@ -181,15 +177,11 @@ export interface GitmarsConfigType {
         apolloEnv: string
         token: string
     }
-    apis?: {
-        [key: string]: GitmarsConfigApisBuildConfigType
-    }
+    apis?: Record<string, GitmarsConfigApisBuildConfigType>
     api?: string
     gitHost?: string
     gitID?: string
-    hooks?: {
-        [props: string]: string
-    }
+    hooks?: Record<string, string>
     filepath: string
 }
 

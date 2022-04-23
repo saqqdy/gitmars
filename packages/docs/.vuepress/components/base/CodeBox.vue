@@ -75,7 +75,8 @@ export default {
         border: 1px solid #ebebeb;
         border-bottom: none;
         border-radius: 3px;
-        box-shadow: 0 0 2px 0 rgba(232, 237, 250, 0.6), 0 1px 2px 0 rgba(232, 237, 250, 0.5);
+        box-shadow: 0 0 2px 0 rgba(232, 237, 250, 0.6),
+            0 1px 2px 0 rgba(232, 237, 250, 0.5);
         .code-content {
             display: flex;
             justify-content: center;
@@ -94,7 +95,8 @@ export default {
         line-height: 40px;
         text-align: center;
         cursor: pointer;
-        box-shadow: 0 0 8px 0 rgba(232, 237, 250, 0.6), 0 2px 4px 0 rgba(232, 237, 250, 0.5);
+        box-shadow: 0 0 8px 0 rgba(232, 237, 250, 0.6),
+            0 2px 4px 0 rgba(232, 237, 250, 0.5);
 
         .code--show {
             // flex: 3;

@@ -1,4 +1,5 @@
-import express, { NextFunction, Request, Response } from 'express'
+import type { NextFunction, Request, Response } from 'express'
+import express from 'express'
 const router = express.Router()
 const fs = require('fs')
 // const sh = require('shelljs')

@@ -16,15 +16,15 @@ async function updatePackageJSON() {
             url: 'https://github.com/saqqdy/gitmars/issues'
         }
         packageJSON.homepage =
-            name === 'core'
-                ? 'https://github.com/saqqdy/gitmars#readme'
+            name === 'gitmars'
+                ? 'https://www.saqqdy.com/gitmars'
                 : `https://github.com/saqqdy/gitmars/tree/master/packages/${name}#readme`
         packageJSON.repository = {
             type: 'git',
             url: 'git+https://github.com/saqqdy/gitmars.git',
             directory: `packages/${name}`
         }
-        packageJSON.main = './index.js'
+        packageJSON.main = './lib/index.js'
         // packageJSON.types = './index.d.ts'
         // packageJSON.module = './index.mjs'
         if (iife !== false) {

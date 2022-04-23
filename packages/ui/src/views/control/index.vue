@@ -53,7 +53,8 @@ export default {
 }
 </script>
 <script lang="ts" setup>
-import { Ref, onErrorCaptured, ref } from 'vue'
+import type { Ref } from 'vue'
+import { onErrorCaptured, ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 
 const router = useRouter()

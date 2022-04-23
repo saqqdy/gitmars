@@ -1,17 +1,17 @@
 import { getCurrentInstance, h, reactive } from 'vue'
 
-// @ts-ignore
+// @ts-expect-error
 function hasClass(elem: HTMLElement, cls) {
     elem = elem || {}
     return new RegExp('\\b' + cls + '\\b').test(elem.className)
 }
-// @ts-ignore
+// @ts-expect-error
 function addClass(elem: HTMLElement, cls) {
     elem = elem || {}
     hasClass(elem, cls) || (elem.className += ' ' + cls)
     elem.className = elem.className.trim()
 }
-// @ts-ignore
+// @ts-expect-error
 function removeClass(elem: HTMLElement, cls) {
     elem = elem || {}
     if (hasClass(elem, cls)) {
@@ -21,7 +21,7 @@ function removeClass(elem: HTMLElement, cls) {
 }
 
 class Transition {
-    // @ts-ignore
+    // @ts-expect-error
     beforeEnter(el) {
         addClass(el, 'collapse-transition')
         if (!el.dataset) el.dataset = {}
@@ -34,7 +34,7 @@ class Transition {
         el.style.paddingBottom = 0
     }
 
-    // @ts-ignore
+    // @ts-expect-error
     enter(el) {
         el.dataset.oldOverflow = el.style.overflow
         if (el.scrollHeight !== 0) {
@@ -50,7 +50,7 @@ class Transition {
         el.style.overflow = 'hidden'
     }
 
-    // @ts-ignore
+    // @ts-expect-error
     afterEnter(el) {
         // for safari: remove class then reset height is necessary
         removeClass(el, 'collapse-transition')
@@ -58,7 +58,7 @@ class Transition {
         el.style.overflow = el.dataset.oldOverflow
     }
 
-    // @ts-ignore
+    // @ts-expect-error
     beforeLeave(el) {
         if (!el.dataset) el.dataset = {}
         el.dataset.oldPaddingTop = el.style.paddingTop
@@ -69,7 +69,7 @@ class Transition {
         el.style.overflow = 'hidden'
     }
 
-    // @ts-ignore
+    // @ts-expect-error
     leave(el) {
         if (el.scrollHeight !== 0) {
             // for safari: add class after set height, or it will jump to zero height suddenly, weired
@@ -80,7 +80,7 @@ class Transition {
         }
     }
 
-    // @ts-ignore
+    // @ts-expect-error
     afterLeave(el) {
         removeClass(el, 'collapse-transition')
         el.style.height = ''
@@ -94,12 +94,12 @@ export default {
     name: 'v3CollapseTransition',
     functional: true,
     setup() {
-        // @ts-ignore
+        // @ts-expect-error
         const { proxy } = getCurrentInstance()
         const data = reactive({
             on: new Transition()
         })
-        // @ts-ignore
+        // @ts-expect-error
         return () => h('transition', data, proxy.$children)
     }
 }

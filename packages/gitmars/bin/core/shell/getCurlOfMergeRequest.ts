@@ -13,9 +13,7 @@ function getCurlOfMergeRequest({
     target_branch,
     token,
     description
-}: {
-    [prop: string]: string | undefined
-}): string {
+}: Record<string, string | undefined>): string {
     let des = ''
     if (description) {
         des = `,\u005C"description\u005C":\u005C"${encodeUnicode(

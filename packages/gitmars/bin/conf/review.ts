@@ -59,5 +59,5 @@ import type { GitmarsOptionType } from '../../typings'
         if (!root.gitmarsCmdConfig) root.gitmarsCmdConfig = {}
         root.gitmarsCmdConfig.review = cmdConfig
     }
-    // @ts-ignore
+    // @ts-expect-error
 })(typeof window !== 'undefined' ? window : global)

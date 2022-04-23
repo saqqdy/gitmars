@@ -8,6 +8,7 @@ cache/*
 *.bak
 *_bak
 *.bak.js
+pnpm-lock.yaml
 
 stats.html
 #Electron-builder output

@@ -1,7 +1,16 @@
 {
     "name": "gitmars",
     "description": "这是一个git工作流工具",
-    "version": "2.18.1",
+    "version": "3.0.0-alpha.0",
+    "bin": {
+        "gitm": "lib/gitm.js"
+    },
+    "main": "./lib/index.js",
+    "files": [
+        "cache",
+        "lib",
+        "typings"
+    ],
     "scripts": {
         "lib": "sh scripts/lib.sh",
         "build:ui": "sh scripts/build-ui.sh",
@@ -17,15 +26,6 @@
         "eslint": "eslint --fix --ext .ts,.js ./",
         "prettier": "prettier --write \"**/*.{js,ts,json,md}\""
     },
-    "main": "lib/gitm.js",
-    "bin": {
-        "gitm": "lib/gitm.js"
-    },
-    "files": [
-        "cache",
-        "lib",
-        "typings"
-    ],
     "directories": {
         "bin": "bin",
         "es": "es",
@@ -63,27 +63,24 @@
         "madge": "^5.0.1",
         "tsnd": "^1.0.2"
     },
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/saqqdy/gitmars.git",
-        "directory": "packages/gitmars"
-    },
+    "peerDependencies": {},
+    "sideEffects": false,
     "keywords": [
         "gitmars",
         "git",
         "tool"
     ],
-    "author": "saqqdy <https://github.com/saqqdy>",
     "license": "GPL-3.0",
+    "author": "saqqdy <https://github.com/saqqdy>",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/saqqdy/gitmars.git",
+        "directory": "packages/gitmars"
+    },
     "bugs": {
         "url": "https://github.com/saqqdy/gitmars/issues"
     },
     "homepage": "https://www.saqqdy.com/gitmars",
-    "peerDependencies": {
-        "eslint": ">=8.0.0",
-        "prettier": ">=2.4.0"
-    },
-    "sideEffects": false,
     "publishConfig": {
         "registry": "https://registry.npmjs.org",
         "access": "public"

@@ -1,8 +1,6 @@
 import type { Terminal } from 'xterm'
 
-export interface TermType {
-    [prop: string]: any
-}
+export type TermType = Record<string, any>
 
 export interface TerminalType {
     name: string

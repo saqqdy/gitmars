@@ -1,10 +1,8 @@
-import http from 'http'
+import type http from 'http'
 import type { ServerOptions, Socket } from 'socket.io'
 const SocketIoServer = require('socket.io')
 
-interface EventsMap {
-    [event: string]: any
-}
+type EventsMap = Record<string, any>
 interface ListenEvents extends EventsMap {
     [event: string]: (...args: any[]) => void
 }

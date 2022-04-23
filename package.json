@@ -1,7 +1,12 @@
 {
     "name": "@gitmars/monorepo",
     "description": "这是一个git工作流工具",
-    "version": "2.18.1",
+    "version": "3.0.0-alpha.0",
+    "main": "index.js",
+    "files": [
+        "static",
+        "typings"
+    ],
     "scripts": {
         "docs:dev": "vuepress dev docs",
         "docs:build": "vuepress build docs",
@@ -13,24 +18,28 @@
         "lib": "sh scripts/lib.sh",
         "build:ui": "sh scripts/build-ui.sh",
         "build:server": "rimraf app && sh scripts/build-server.sh",
-        "build": "rimraf lib es && node --max-old-space-size=8192 node_modules/.bin/rollup -c",
+        "build": "tscjs scripts/build",
+        "build1": "rimraf lib es && node --max-old-space-size=8192 node_modules/.bin/rollup -c",
         "build:types": "run-s build-temp-types roll-types",
         "build-temp-types": "tsc --emitDeclarationOnly --outDir temp/ -p bin/",
         "patch-types": "node scripts/patchTypes",
         "roll-types": "api-extractor run && rimraf temp",
         "circular": "madge lib/ -c",
         "dev": "cross-env BUILD_ENV=DEV rollup -c -w",
-        "dist": "run-s eslint prettier build build:server circular build:ui",
+        "pub": "tscjs scripts/publish",
+        "unpub": "tscjs scripts/unpublish",
+        "sync": "tscjs scripts/sync",
+        "viewInfo": "tscjs scripts/viewInfo",
+        "update": "tscjs scripts/update",
+        "clean": "rimraf dist types typings packages/*/dist",
+        "dist": "pnpm run update && pnpm build",
+        "dist1": "run-s eslint prettier build build:server circular build:ui",
         "docs": "rimraf typedoc && typedoc",
         "eslint": "eslint --fix --ext .ts,.js ./",
         "prettier": "prettier --write \"**/*.{js,ts,json,md}\"",
-        "prettier:docs": "prettier --write \"**/*.md\""
+        "prettier:docs": "prettier --write \"**/*.md\"",
+        "build:rollup": "cross-env NODE_OPTIONS=\"--max-old-space-size=6144\" rollup -c"
     },
-    "main": "index.js",
-    "files": [
-        "static",
-        "typings"
-    ],
     "directories": {
         "static": "static",
         "typings": "typings"
@@ -42,7 +51,7 @@
         "morgan": "^1.10.0"
     },
     "devDependencies": {
-        "@eslint-sets/eslint-config-vue3-ts": "^2.0.1",
+        "@eslint-sets/eslint-config-simple-ts": "^2.0.1",
         "@microsoft/api-extractor": "^7.19.5",
         "@rollup/plugin-commonjs": "^21.0.2",
         "@rollup/plugin-json": "^4.1.0",
@@ -73,26 +82,26 @@
         "typescript": "^4.6.3",
         "uglify-js": "^3.15.3"
     },
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/saqqdy/gitmars.git"
-    },
-    "keywords": [
-        "gitmars",
-        "git",
-        "tool"
-    ],
-    "author": "saqqdy <https://github.com/saqqdy>",
-    "license": "GPL-3.0",
-    "bugs": {
-        "url": "https://github.com/saqqdy/gitmars/issues"
-    },
-    "homepage": "https://www.saqqdy.com/gitmars",
     "peerDependencies": {
         "eslint": ">=8.0.0",
         "prettier": ">=2.4.0"
     },
     "sideEffects": false,
+    "keywords": [
+        "gitmars",
+        "git",
+        "tool"
+    ],
+    "license": "GPL-3.0",
+    "author": "saqqdy <https://github.com/saqqdy>",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/saqqdy/gitmars.git"
+    },
+    "bugs": {
+        "url": "https://github.com/saqqdy/gitmars/issues"
+    },
+    "homepage": "https://www.saqqdy.com/gitmars",
     "pnpm": {
         "peerDependencyRules": {
             "ignoreMissing": [

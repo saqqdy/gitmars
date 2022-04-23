@@ -13,11 +13,11 @@ const { postMessage } = require('./utils/message')
 const { spawnSync } = require('./spawn')
 const { debug } = require('./utils/debug')
 
-export type WaitCallback = {
+export interface WaitCallback {
     (kill?: boolean): void
 }
 
-export type QueueStartFunction = {
+export interface QueueStartFunction {
     (command?: CommandType | string, cb?: WaitCallback): void
 }
 

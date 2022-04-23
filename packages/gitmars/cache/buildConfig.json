@@ -35,14 +35,7 @@
             {
                 "name": "wj",
                 "project": "git_wjweb",
-                "apps": [
-                    "all",
-                    "wj",
-                    "web",
-                    "park",
-                    "yzj",
-                    "desk"
-                ]
+                "apps": ["all", "wj", "web", "park", "yzj", "desk"]
             },
             {
                 "name": "www",
@@ -51,13 +44,7 @@
             {
                 "name": "wyweb",
                 "project": "git_wyweb",
-                "apps": [
-                    "all",
-                    "app",
-                    "cloud-ui",
-                    "common",
-                    "node"
-                ]
+                "apps": ["all", "app", "cloud-ui", "common", "node"]
             },
             {
                 "name": "egg-socket",
@@ -100,14 +87,7 @@
             {
                 "name": "wj",
                 "project": "git_wjweb_bug",
-                "apps": [
-                    "all",
-                    "wj",
-                    "web",
-                    "park",
-                    "yzj",
-                    "desk"
-                ]
+                "apps": ["all", "wj", "web", "park", "yzj", "desk"]
             },
             {
                 "name": "www",
@@ -116,13 +96,7 @@
             {
                 "name": "wyweb",
                 "project": "git_wyweb_bug",
-                "apps": [
-                    "all",
-                    "app",
-                    "cloud-ui",
-                    "common",
-                    "node"
-                ]
+                "apps": ["all", "app", "cloud-ui", "common", "node"]
             },
             {
                 "name": "egg-socket",
@@ -165,14 +139,7 @@
             {
                 "name": "wj",
                 "project": "git_wjweb_prod",
-                "apps": [
-                    "all",
-                    "wj",
-                    "web",
-                    "park",
-                    "yzj",
-                    "desk"
-                ]
+                "apps": ["all", "wj", "web", "park", "yzj", "desk"]
             },
             {
                 "name": "www",
@@ -181,13 +148,7 @@
             {
                 "name": "wyweb",
                 "project": "git_wyweb_prod",
-                "apps": [
-                    "all",
-                    "app",
-                    "cloud-ui",
-                    "common",
-                    "node"
-                ]
+                "apps": ["all", "app", "cloud-ui", "common", "node"]
             },
             {
                 "name": "egg-socket",

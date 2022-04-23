@@ -1,6 +1,7 @@
 import path from 'path'
 import createError from 'http-errors'
-import express, { NextFunction, Request, Response } from 'express'
+import type { NextFunction, Request, Response } from 'express'
+import express from 'express'
 import cookieParser from 'cookie-parser'
 // import logger from 'logger'
 

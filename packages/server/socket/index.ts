@@ -1,4 +1,4 @@
-import http from 'http'
+import type http from 'http'
 const SocketServer = require('./socket')
 const terminal = require('./terminal')
 const gitmars = require('./gitmars')

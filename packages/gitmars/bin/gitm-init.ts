@@ -1,5 +1,5 @@
 #!/usr/bin/env ts-node
-import { InitInquirerPromptType } from '../typings'
+import type { InitInquirerPromptType } from '../typings'
 const fs = require('fs')
 const { program } = require('commander')
 const { green, red } = require('colors')

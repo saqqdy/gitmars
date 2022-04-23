@@ -1,16 +1,15 @@
 import { resolve } from 'path'
 import fg from 'fast-glob'
+import type { OutputOptions, RollupOptions } from 'rollup'
 import { packages } from './packages'
 import {
-    esbuild,
-    dts as dtsPlugin,
-    filesize,
-    nodeResolve,
     banner as bannerPlugin,
-    minify
+    dts as dtsPlugin,
+    esbuild,
+    filesize,
+    minify,
+    nodeResolve
 } from './plugins'
-
-import type { OutputOptions, RollupOptions } from 'rollup'
 
 // const production = !process.env.ROLLUP_WATCH
 

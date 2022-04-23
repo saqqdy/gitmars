@@ -1,7 +1,9 @@
 {
     "name": "@gitmars/ui",
-    "version": "0.1.0",
+    "description": "gitmars可视化界面",
+    "version": "3.0.0-alpha.0",
     "private": true,
+    "main": "./lib/index.js",
     "scripts": {
         "dev": "vite",
         "build": "vue-tsc --noEmit && vite build",
@@ -58,11 +60,8 @@
         "vue-tsc": "^0.33.9",
         "webpack-bundle-analyzer": "^4.5.0"
     },
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/saqqdy/gitmars.git",
-        "directory": "packages/ui"
-    },
+    "peerDependencies": {},
+    "sideEffects": false,
     "keywords": [
         "gitmars",
         "ui",
@@ -70,17 +69,17 @@
         "git",
         "tool"
     ],
-    "author": "saqqdy <https://github.com/saqqdy>",
     "license": "GPL-3.0",
+    "author": "saqqdy <https://github.com/saqqdy>",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/saqqdy/gitmars.git",
+        "directory": "packages/ui"
+    },
     "bugs": {
         "url": "https://github.com/saqqdy/gitmars/issues"
     },
-    "homepage": "https://www.saqqdy.com/gitmars",
-    "peerDependencies": {
-        "eslint": ">=8.0.0",
-        "prettier": ">=2.4.0"
-    },
-    "sideEffects": false,
+    "homepage": "https://github.com/saqqdy/gitmars/tree/master/packages/ui#readme",
     "publishConfig": {
         "registry": "https://registry.npmjs.org",
         "access": "public"

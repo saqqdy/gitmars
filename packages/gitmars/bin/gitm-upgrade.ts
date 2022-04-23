@@ -1,5 +1,5 @@
 #!/usr/bin/env ts-node
-import { GitmarsOptionOptionsType, PackageVersionTag } from '../typings'
+import type { GitmarsOptionOptionsType, PackageVersionTag } from '../typings'
 const { program } = require('commander')
 const { green, red } = require('colors')
 const ora = require('ora')

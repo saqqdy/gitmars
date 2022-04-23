@@ -3,23 +3,23 @@
 // Read more: https://github.com/vuejs/vue-next/pull/3399
 
 declare module 'vue' {
-  export interface GlobalComponents {
-    Box: typeof import('./src/components/box/index.vue')['default']
-    Button: typeof import('./src/components/button/index.vue')['default']
-    Cell: typeof import('./src/components/cell_bak/cell.vue')['default']
-    Checkbox_bak: typeof import('./src/components/checkbox_bak/index.vue')['default']
-    Collapse: typeof import('./src/components/collapse/index.vue')['default']
-    CollapseItem: typeof import('./src/components/collapse-item/index.vue')['default']
-    ElButton: typeof import('element-plus/es')['ElButton']
-    ElCheckbox: typeof import('element-plus/es')['ElCheckbox']
-    ElInput: typeof import('element-plus/es')['ElInput']
-    ElOption: typeof import('element-plus/es')['ElOption']
-    ElSelect: typeof import('element-plus/es')['ElSelect']
-    Group: typeof import('./src/components/group_bak/group.vue')['default']
-    Nav: typeof import('./src/components/nav.vue')['default']
-    Split: typeof import('./src/components/split/index.vue')['default']
-    Xterm: typeof import('./src/components/xterm/index.vue')['default']
-  }
+    export interface GlobalComponents {
+        Box: typeof import('./src/components/box/index.vue')['default']
+        Button: typeof import('./src/components/button/index.vue')['default']
+        Cell: typeof import('./src/components/cell_bak/cell.vue')['default']
+        Checkbox_bak: typeof import('./src/components/checkbox_bak/index.vue')['default']
+        Collapse: typeof import('./src/components/collapse/index.vue')['default']
+        CollapseItem: typeof import('./src/components/collapse-item/index.vue')['default']
+        ElButton: typeof import('element-plus/es')['ElButton']
+        ElCheckbox: typeof import('element-plus/es')['ElCheckbox']
+        ElInput: typeof import('element-plus/es')['ElInput']
+        ElOption: typeof import('element-plus/es')['ElOption']
+        ElSelect: typeof import('element-plus/es')['ElSelect']
+        Group: typeof import('./src/components/group_bak/group.vue')['default']
+        Nav: typeof import('./src/components/nav.vue')['default']
+        Split: typeof import('./src/components/split/index.vue')['default']
+        Xterm: typeof import('./src/components/xterm/index.vue')['default']
+    }
 }
 
-export { }
+export {}

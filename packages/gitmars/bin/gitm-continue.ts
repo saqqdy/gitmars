@@ -1,5 +1,5 @@
 #!/usr/bin/env ts-node
-import { CommandType, GitmarsOptionOptionsType } from '../typings'
+import type { CommandType, GitmarsOptionOptionsType } from '../typings'
 const { program } = require('commander')
 const sh = require('shelljs')
 const { green, yellow, red } = require('colors')

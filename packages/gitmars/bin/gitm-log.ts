@@ -1,5 +1,5 @@
 #!/usr/bin/env ts-node
-import { GitLogsType, GitmarsOptionOptionsType } from '../typings'
+import type { GitLogsType, GitmarsOptionOptionsType } from '../typings'
 const { program } = require('commander')
 const dayjs = require('dayjs')
 const columnify = require('columnify')

@@ -1,5 +1,5 @@
 #!/usr/bin/env ts-node
-import { GitmarsOptionOptionsType } from '../typings'
+import type { GitmarsOptionOptionsType } from '../typings'
 const { program } = require('commander')
 const { options, args } = require('./conf/build')
 const { createArgs } = require('./core/utils/command')

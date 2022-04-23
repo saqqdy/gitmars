@@ -5,7 +5,7 @@ module.exports = {
     dest: './docs/.vuepress/dist',
     theme: '@vuepress/default',
     themeConfig: {
-		prefersTheme: 'dark',
+        prefersTheme: 'dark',
         nav: [
             { text: '首页', link: '/' },
             { text: '指南', link: '/guide/' },
@@ -43,7 +43,9 @@ module.exports = {
                     },
                     {
                         text: '作者',
-                        items: [{ text: 'saqqdy', link: 'http://www.saqqdy.com' }]
+                        items: [
+                            { text: 'saqqdy', link: 'http://www.saqqdy.com' }
+                        ]
                     }
                 ]
             }
@@ -154,7 +156,7 @@ module.exports = {
     plugins: [
         // 官方回到顶部插件
         '@vuepress/back-to-top',
-        //官方图片放大组件 目前是所有img都可以点击放大。具体配置见https://v1.vuepress.vuejs.org/zh/plugin/official/plugin-medium-zoom.html
+        // 官方图片放大组件 目前是所有img都可以点击放大。具体配置见https://v1.vuepress.vuejs.org/zh/plugin/official/plugin-medium-zoom.html
         ['@vuepress/medium-zoom', { selector: 'img' }],
         // vssue 一个借助issue的评论插件 具体配置见https://vssue.js.org/zh/
         [
@@ -169,8 +171,8 @@ module.exports = {
                 // 填写自己的OAuth App 信息。详见https://vssue.js.org/zh/options/#repo
                 clientId: 'f1b676f79b587ad9dced',
                 clientSecret: 'd34199eee81d1bb5f4b386ef45b0816d636a1e66',
-                locale: 'zh', //使用的语言  这里是简体中文
-                baseURL: 'https://github.com' //平台的 base URL
+                locale: 'zh', // 使用的语言  这里是简体中文
+                baseURL: 'https://github.com' // 平台的 base URL
             }
         ]
     ],

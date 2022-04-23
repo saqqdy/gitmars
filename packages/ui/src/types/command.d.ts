@@ -1,4 +1,4 @@
-export type CommandSetsType = {
+export interface CommandSetsType {
     command: string
     short?: string | null
     args: any[]

@@ -2,7 +2,7 @@ const path = require('path')
 const fs = require('fs')
 const pkg = require('./package.json')
 // const nodeExternals = require('webpack-node-externals')
-let externals = {}
+const externals = {}
 
 // externals = [Object.assign({}, externals), nodeExternals() /*, /^core-js\/.+$/, /^js-cool\/.+$/*/]
 

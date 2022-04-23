@@ -1,4 +1,4 @@
-import { FetchDataType } from '../../../typings'
+import type { FetchDataType } from '../../../typings'
 const sh = require('shelljs')
 const { red } = require('colors')
 const request = require('@jssj/request')

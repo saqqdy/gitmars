@@ -1,6 +1,6 @@
-import { default as _banner, type Options } from 'rollup-plugin-add-banner'
-import { banner as content } from '../config'
+import { type Options, default as _banner } from 'rollup-plugin-add-banner'
 import type { Plugin } from 'rollup'
+import { banner as content } from '../config'
 
 const banner = (options: Options): Plugin =>
     _banner(

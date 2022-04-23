@@ -7,7 +7,7 @@ let axiosEx: any = null
 /**
  * @param instance
  */
-// @ts-ignore
+// @ts-expect-error
 function setHeaders(instance) {
     instance.defaults.headers.post['Content-Type'] =
         'application/x-www-form-urlencoded'
@@ -18,9 +18,9 @@ function setHeaders(instance) {
  * @param config
  * @param options
  */
-// @ts-ignore
+// @ts-expect-error
 function onRequest(config, options = {}) {
-    // @ts-ignore
+    // @ts-expect-error
     const type = options.type
     if (process.env.NODE_ENV === 'development') {
         config.url = '/jar' + config.url
@@ -43,9 +43,9 @@ function onRequest(config, options = {}) {
  * @param res
  * @param options
  */
-// @ts-ignore
+// @ts-expect-error
 function onResponse(res, options = {}) {
-    // @ts-ignore
+    // @ts-expect-error
     if (res.data.success || options.responseType === 'text') {
         return res.data
     }
@@ -55,7 +55,7 @@ function onResponse(res, options = {}) {
 /**
  * @param err
  */
-// @ts-ignore
+// @ts-expect-error
 function onCancel(err) {
     console.info(err.message)
 }
@@ -71,9 +71,9 @@ export default function (options: AxiosExtendConfig) {
             unique: false,
             orderly: true,
             setHeaders,
-            // @ts-ignore
+            // @ts-expect-error
             onRequest: onRequest.bind(this as any),
-            // @ts-ignore
+            // @ts-expect-error
             onResponse: onResponse.bind(this as any),
             onCancel
         })

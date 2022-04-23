@@ -1,5 +1,5 @@
 #!/usr/bin/env ts-node
-import { CommandType } from '../typings'
+import type { CommandType } from '../typings'
 const { program } = require('commander')
 const sh = require('shelljs')
 const { red } = require('colors')

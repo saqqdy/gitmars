@@ -77,7 +77,8 @@ export default {
 }
 </script>
 <script lang="ts" setup>
-import { PropType, reactive, toRaw, watch } from 'vue'
+import type { PropType } from 'vue'
+import { reactive, toRaw, watch } from 'vue'
 
 import type { CommandSetsType } from '@/types/command'
 

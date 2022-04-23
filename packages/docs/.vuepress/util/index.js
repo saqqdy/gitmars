@@ -70,7 +70,9 @@ export function resolvePage(pages, rawPath, base) {
             })
         }
     }
-    console.error(`[vuepress] No matching page found for sidebar item "${rawPath}"`)
+    console.error(
+        `[vuepress] No matching page found for sidebar item "${rawPath}"`
+    )
     return {}
 }
 
@@ -122,9 +124,13 @@ function resolvePath(relative, base, append) {
 export function resolveSidebarItems(page, regularPath, site, localePath) {
     const { pages, themeConfig } = site
 
-    const localeConfig = localePath && themeConfig.locales ? themeConfig.locales[localePath] || themeConfig : themeConfig
+    const localeConfig =
+        localePath && themeConfig.locales
+            ? themeConfig.locales[localePath] || themeConfig
+            : themeConfig
 
-    const pageSidebarConfig = page.frontmatter.sidebar || localeConfig.sidebar || themeConfig.sidebar
+    const pageSidebarConfig =
+        page.frontmatter.sidebar || localeConfig.sidebar || themeConfig.sidebar
     if (pageSidebarConfig === 'auto') {
         return resolveHeaders(page)
     }
@@ -133,7 +139,10 @@ export function resolveSidebarItems(page, regularPath, site, localePath) {
     if (!sidebarConfig) {
         return []
     } else {
-        const { base, config } = resolveMatchingConfig(regularPath, sidebarConfig)
+        const { base, config } = resolveMatchingConfig(
+            regularPath,
+            sidebarConfig
+        )
         if (config === 'auto') {
             return resolveHeaders(page)
         }
@@ -193,7 +202,7 @@ export function resolveMatchingConfig(regularPath, config) {
     if (Array.isArray(config)) {
         return {
             base: '/',
-            config: config
+            config
         }
     }
     for (const base in config) {
@@ -230,7 +239,9 @@ function resolveItem(item, pages, base, groupDepth = 1) {
             path: item.path,
             title: item.title,
             sidebarDepth: item.sidebarDepth,
-            children: children.map(child => resolveItem(child, pages, base, groupDepth + 1)),
+            children: children.map(child =>
+                resolveItem(child, pages, base, groupDepth + 1)
+            ),
             collapsable: item.collapsable !== false
         }
     }

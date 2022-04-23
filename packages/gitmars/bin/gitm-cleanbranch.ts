@@ -1,5 +1,5 @@
 #!/usr/bin/env ts-node
-import {
+import type {
     GitmarsBranchType,
     GitmarsOptionOptionsType,
     InitInquirerPromptType

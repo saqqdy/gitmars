@@ -71,7 +71,7 @@ support 分支实际名称
 
 ```json
 {
-    nameValidator: "[a-z]{3,}_\w+", // 检验：saqqdy_xxxxxx
+    "nameValidator": "[a-z]{3,}_w+" // 检验：saqqdy_xxxxxx
 }
 ```
 
@@ -79,7 +79,7 @@ support 分支实际名称
 
 ```json
 {
-    nameValidator: /[a-z]{3,}_\w+/, // 检验：saqqdy_xxxxxx
+    "nameValidator": /[a-z]{3,}_\w+/, // 检验：saqqdy_xxxxxx
 }
 ```
 
@@ -98,7 +98,7 @@ support 分支实际名称
 
 ```json
 {
-    descriptionValidator: "【修改原因】.+【修改内容】.+", // 检验：【修改原因】10010某个功能有BUG【修改内容】改了某个方法
+    "descriptionValidator": "【修改原因】.+【修改内容】.+" // 检验：【修改原因】10010某个功能有BUG【修改内容】改了某个方法
 }
 ```
 
@@ -106,7 +106,7 @@ support 分支实际名称
 
 ```json
 {
-    descriptionValidator: /【修改原因】.+【修改内容】.+/, // 检验：【修改原因】10010某个功能有BUG【修改内容】改了某个方法
+    "descriptionValidator": /【修改原因】.+【修改内容】.+/, // 检验：【修改原因】10010某个功能有BUG【修改内容】改了某个方法
 }
 ```
 
