@@ -1,6 +1,4 @@
-import { default as _commonjs } from '@rollup/plugin-commonjs'
+import commonjs from '@rollup/plugin-commonjs'
 import type { Plugin } from 'rollup'
 
-const commonjs: Plugin = _commonjs()
-
-export default commonjs
+export default commonjs() as Plugin
