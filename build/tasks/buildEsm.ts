@@ -4,7 +4,7 @@ import { run } from '../utils/exec'
 import { OUTPUT_CJS_PATH } from '../utils/paths'
 
 export async function buildEsm() {
-    await run('pnpm build:esm-types')
+    await run(`npx tsc -b --force ${join(ROOT_PATH, 'tsconfig.esm.json')}`)
 }
 
 export async function cleanEsm() {

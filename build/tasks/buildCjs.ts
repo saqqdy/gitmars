@@ -5,7 +5,7 @@ import { wrapDisplayName } from '../utils/gulp'
 
 export async function buildCjs() {
     console.log(100)
-    // await run('pnpm build:cjs-types')
+    // await run(`npx tsc -b --force ${join(ROOT_PATH, 'tsconfig.cjs.json')}`)
 }
 
 export async function cleanCjs() {
