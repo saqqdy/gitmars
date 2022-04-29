@@ -1,7 +1,10 @@
+import type * as tasks from './gulpfile'
+
 export interface PackageManifest {
     name: string
     pkgName: string
     display: string
+    buildTask: Exclude<keyof typeof tasks, 'default'>
     addon?: boolean
     author?: string
     description?: string

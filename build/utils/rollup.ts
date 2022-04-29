@@ -1,22 +1,23 @@
-import chalk from 'chalk'
+import { bold, cyan, green, yellow } from 'colors'
 // import pkg from '../../package.json'
 // const deps = Object.keys(pkg.dependencies || {})
 const noWlPrefixFile =
     /(utils|styles|style|directives|plugins|filters|images|hooks|locale|directives)/
 
-export function external(id: string) {
+export function external(id) {
     return (
-        /^vue/.test(id) || /^@gitmars\/utils\//.test(id)
+        /^vue/.test(id) || /^kdesign-vue\//.test(id)
         //  || deps.some(k => new RegExp('^' + k).test(id))
     )
 }
 
-export function pathRewriter(bundlePath: string) {
+export function pathRewriter(bundlePath) {
     return id => {
-        if (/^@gitmars\/utils\/packages/.test(id)) {
-            if (noWlPrefixFile.test(id))
-                return id.replace('@gitmars/utils/packages/', bundlePath)
-            return id.replace('@gitmars/utils/packages/', bundlePath)
+        if (/^kdesign-vue\/packages/.test(id)) {
+            if (noWlPrefixFile.test(id)) {
+                return id.replace('kdesign-vue/packages/', bundlePath)
+            }
+            return id.replace('kdesign-vue/packages/', bundlePath)
         }
         if (/^@\//.test(id)) {
             return id.replace(/^@/, bundlePath)
@@ -25,12 +26,12 @@ export function pathRewriter(bundlePath: string) {
 }
 
 export const reporter = (opt, outputOptions, info) =>
-    `${chalk.cyan(
-        chalk.bold(
+    `${cyan(
+        bold(
             (info.fileName &&
                 `${outputOptions.file?.split('packages/').pop()}`) ||
                 ''
         )
-    )}: bundle size ${chalk.yellow(info.bundleSize)} -> minified ${chalk.green(
+    )}: bundle size ${yellow(info.bundleSize)} -> minified ${green(
         (info.minSize && `${info.minSize}`) || ''
     )}`

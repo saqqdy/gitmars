@@ -62,7 +62,7 @@ async function build() {
     consola.info('Clean up')
     execSync('pnpm run clean', { stdio: 'inherit' })
 
-    consola.info('Rollup')
+    consola.info('Run Build Task')
     execSync(`pnpm run build:rollup${watch ? ' -- --watch' : ''}`, {
         stdio: 'inherit'
     })

@@ -1,5 +1,5 @@
 import { format } from 'util'
-import chalk from 'chalk'
+import { green, red, yellow } from 'colors'
 
 /**
  * 输出日志
@@ -8,20 +8,20 @@ import chalk from 'chalk'
  * @param message - 需要输出的内容
  * @param type - 输出的类型
  */
-export function echo(
+function echo(
     message: string,
     type?: 'warning' | 'info' | 'error' | 'success'
 ): void {
     let output = format(message)
     switch (type) {
         case 'warning':
-            output = chalk.yellow(output)
+            output = yellow(output)
             break
         case 'error':
-            output = chalk.red(output)
+            output = red(output)
             break
         case 'success':
-            output = chalk.green(output)
+            output = green(output)
             break
         default:
             break
