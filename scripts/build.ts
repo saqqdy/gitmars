@@ -7,6 +7,7 @@ import consola from 'consola'
 import { packages } from '../build/packages'
 import { version } from '../package.json'
 // import { updateImport } from "./utils";
+import { PACKAGE } from '../build/utils/paths'
 
 const rootDir = path.resolve(__dirname, '..')
 const watch = process.argv.includes('--watch')
@@ -58,18 +59,31 @@ async function buildMetaFiles() {
     }
 }
 
+async function buildEachPackage() {
+    for (const { name, output } of packages) {
+        const packageRoot = path.resolve(PACKAGE, name)
+        const packageDist = path.resolve(PACKAGE, output || 'dist')
+
+        execSync(`pnpm build cjs`, {
+            cwd: packageRoot,
+            stdio: 'inherit'
+        })
+    }
+}
+
 async function build() {
     consola.info('Clean up')
     execSync('pnpm run clean', { stdio: 'inherit' })
 
     consola.info('Run Build Task')
-    execSync(`pnpm run build:rollup${watch ? ' -- --watch' : ''}`, {
-        stdio: 'inherit'
-    })
+    // execSync(`pnpm run build:rollup${watch ? ' -- --watch' : ''}`, {
+    //     stdio: 'inherit'
+    // })
 
     // consola.info("Fix types");
     // execSync("pnpm run types:fix", { stdio: "inherit" });
 
+    await buildEachPackage()
     await buildMetaFiles()
 }
 

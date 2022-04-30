@@ -8,6 +8,7 @@ export const packages: PackageManifest[] = [
         iife: false,
         mjs: true,
         submodules: true,
+        output: 'lib',
         display: '这是一个git工作流工具'
     }
     // {
@@ -17,6 +18,7 @@ export const packages: PackageManifest[] = [
     //     iife: false,
     //     mjs: true,
     //     submodules: true,
+    // output: 'lib',
     //     display: 'gitmars核心程序'
     // },
     // {
@@ -27,6 +29,7 @@ export const packages: PackageManifest[] = [
     //     mjs: false,
     //     dts: false,
     //     submodules: true,
+    // output: 'dist',
     //     display: 'gitmars可视化界面'
     // },
     // {
@@ -36,6 +39,7 @@ export const packages: PackageManifest[] = [
     //     iife: false,
     //     mjs: false,
     //     dts: false,
+    // output: 'app',
     //     display: 'gitmars可视化界面服务端'
     // },
     // {
@@ -45,6 +49,7 @@ export const packages: PackageManifest[] = [
     //     iife: false,
     //     mjs: false,
     //     dts: false,
+    // output: 'dist',
     //     display: 'gitmars文档库'
     // }
 ]

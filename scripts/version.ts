@@ -8,7 +8,7 @@ import {
 import { Separator, prompt } from 'inquirer'
 import pkg from '../package.json'
 import { writeJSON } from '../build/utils/fs'
-import { PACKAGE_PATH, ROOT_PATH } from '../build/utils/paths'
+import { ROOT } from '../build/utils/paths'
 
 export interface VersionObject {
     patch: string
@@ -121,8 +121,7 @@ prompt([
         process.exit(0)
     }
 
-    const PACKAGE_JSON_URL = resolve(ROOT_PATH, 'package.json')
-    const VERSION_URL = resolve(PACKAGE_PATH, 'version.json')
+    const PACKAGE_JSON_URL = resolve(ROOT, 'package.json')
     const [id] = (data.pre || data.recommend).split(')')
     const { command, version } = searchVerTarget(id)
 
@@ -134,7 +133,6 @@ prompt([
             version
         })
     }
-    writeJSON(VERSION_URL, { version })
     spawnSync('npx', ['prettier', '--write', './package.json'], spawnOption)
 })
 
