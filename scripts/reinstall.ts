@@ -1,17 +1,24 @@
-/* 1eslint-disable no-console */
 const os = require('os')
 const fs = require('fs')
-const path = require('path')
+const { join } = require('path')
 const { spawnSync, execSync } = require('child_process')
-const cwd = process.cwd()
+
+let [, , cwd = ''] = process.argv,
+    pkg: any,
+    list
+const ROOT = join(__dirname, '..')
+cwd = join(ROOT, cwd.replace(/"/g, ''))
+
+if (!cwd) cwd = process.cwd()
 
 type TypeManagers = 'npm' | 'pnpm' | 'yarn' | string
 
-const PACKAGE_NEXT = ['vue', 'vuex', 'vue-router']
-const PACKAGE_MANAGERS: TypeManagers[] = ['yarn', 'pnpm', 'npm']
+const PACKAGE_NEXT = []
+const PACKAGE_EXCLUDE = []
+const PACKAGE_MANAGERS: TypeManagers[] = ['pnpm', 'yarn', 'npm']
 
-let pkg = fs.readFileSync(path.join(cwd, 'package.json')),
-    list = ['--registry', 'https://registry.npmmirror.com']
+pkg = fs.readFileSync(join(cwd, 'package.json'))
+list = ['--registry', 'https://registry.npmmirror.com']
 
 pkg = JSON.parse(pkg)
 const dependencies = { ...pkg.devDependencies, ...pkg.dependencies }
@@ -19,30 +26,34 @@ const cmd = getPackageManager()
 
 switch (cmd) {
     case 'pnpm':
-        list = list.concat(['i', '-WD'])
+        list = list.concat(['i', '-D'])
         break
     case 'yarn':
-        list = list.concat(['add', '-WD'])
+        list = list.concat(['add', '-D'])
         break
     case 'npm':
         list = list.concat(['i', '-D'])
         break
     default:
-        list = list.concat(['i', '-WD'])
+        list = list.concat(['i', '-D'])
         break
 }
 
 // @next
 for (let packageName in dependencies) {
+    const isWorkspacePkg = dependencies[packageName] === 'workspace:*'
+    const isExcludePkg = PACKAGE_EXCLUDE.includes(packageName)
     if (PACKAGE_NEXT.includes(packageName)) packageName += '@next'
-    list.push(packageName)
+    else packageName += '@latest'
+    !isWorkspacePkg && !isExcludePkg && list.push(packageName)
 }
 
 // run install
 if (list.length > 0) {
     spawnSync(cmd, list, {
+        cwd,
         stdio: 'inherit',
-        shell: process.platform === 'win32' /*, env: { detached: true } */
+        shell: process.platform === 'win32'
     })
 } else {
     process.exit(1)
