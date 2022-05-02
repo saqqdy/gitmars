@@ -5,6 +5,7 @@ packages/gitmars/es
 packages/gitmars/lib
 packages/server/app
 yarn.lock
+pnpm-lock.yaml
 /.pnp
 .pnp.js
 gitmarsconfig.json

@@ -84,7 +84,7 @@
         "rollup-plugin-dts": "^4.2.1",
         "rollup-plugin-esbuild": "^4.9.1",
         "rollup-plugin-filesize": "^9.1.2",
-        "rollup-plugin-replace-shebang": "^1.0.0",
+        "rollup-plugin-replace-shebang": "^1.1.0",
         "rollup-plugin-visualizer": "^5.6.0",
         "ts-node": "^10.7.0",
         "tsnd": "^1.0.2",

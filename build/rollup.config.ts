@@ -1,5 +1,5 @@
 import { resolve } from 'path'
-import fg from 'fast-glob'
+import glob from 'fast-glob'
 import type { OutputOptions, RollupOptions } from 'rollup'
 import { packages } from './packages'
 import {
@@ -59,7 +59,7 @@ for (const {
     // submodules
     if (submodules)
         functionNames.push(
-            ...fg
+            ...glob
                 .sync('*/index.ts', { cwd: resolve(`packages/${name}`) })
                 .map(i => i.split('/')[0])
         )

@@ -33,16 +33,16 @@ import { buildCjs } from './tasks/buildCjs'
 //     await run(`rimraf ${dirs.join(' ')}`)
 //     await run(`mkdir -p ${dirs.join(' ')}`)
 // }
-export async function cjs() {
-    console.log(80, process.cwd())
-    await run(`pwd`)
-}
+// export async function cjs() {
+//     console.log(80, process.cwd())
+//     await run(`pwd`)
+// }
 // export { default as version } from './tasks/genVersion'
 // export { default as file } from './tasks/buildFile'
 // export { default as full } from './tasks/buildFull'
 // export { default as locale } from './tasks/buildLocale'
 // export { default as esm } from './tasks/buildEsm'
-// export { default as cjs } from './tasks/buildCjs'
+export { default as cjs } from './tasks/buildCjs'
 // export { default as style } from './tasks/buildStyle'
 export default series(
     // wrapDisplayName('clean:dist,es,lib', clean),

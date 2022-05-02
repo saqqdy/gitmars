@@ -6,8 +6,9 @@ export const packages: PackageManifest[] = [
         pkgName: 'gitmars',
         buildTask: 'cjs',
         iife: false,
-        mjs: true,
-        submodules: true,
+        cjs: true,
+        mjs: false,
+        dts: false,
         output: 'lib',
         display: '这是一个git工作流工具'
     }
