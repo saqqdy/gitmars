@@ -3,8 +3,8 @@ import type { CommandType } from '../typings'
 const { program } = require('commander')
 const sh = require('shelljs')
 const { red } = require('colors')
-const { queue } = require('./core/queue')
-const getIsGitProject = require('./core/git/getIsGitProject')
+const { queue } = require('@gitmars/core/queue')
+const getIsGitProject = require('@gitmars/core/git/getIsGitProject')
 if (!getIsGitProject()) {
     sh.echo(red('当前目录不是git项目目录'))
     process.exit(1)

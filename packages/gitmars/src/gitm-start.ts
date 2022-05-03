@@ -8,17 +8,20 @@ const { program } = require('commander')
 const sh = require('shelljs')
 const { green, red } = require('colors')
 const getType = require('js-cool/lib/getType')
-const { options, args } = require('./conf/start')
-const { queue } = require('./core/queue')
-const getIsGitProject = require('./core/git/getIsGitProject')
-const checkGitStatus = require('./core/git/checkGitStatus')
-const { isNeedUpgrade, upgradeGitmars } = require('./core/versionControl')
-const { createArgs } = require('./core/utils/command')
+const { queue } = require('@gitmars/core/queue')
+const getIsGitProject = require('@gitmars/core/git/getIsGitProject')
+const checkGitStatus = require('@gitmars/core/git/checkGitStatus')
+const {
+    isNeedUpgrade,
+    upgradeGitmars
+} = require('@gitmars/core/versionControl')
+const { createArgs } = require('@gitmars/core/utils/command')
 if (!getIsGitProject()) {
     sh.echo(red('当前目录不是git项目目录'))
     process.exit(1)
 }
-const getConfig = require('./core/getConfig')
+const getConfig = require('@gitmars/core/getConfig')
+const { options, args } = require('./conf/start')
 const config = getConfig()
 interface GitmBuildOption {
     tag?: boolean

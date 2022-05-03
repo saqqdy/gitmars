@@ -11,19 +11,19 @@ const dayjs = require('dayjs')
 const inquirer = require('inquirer')
 const sh = require('shelljs')
 const { yellow, blue, green, red } = require('colors')
-const { options, args } = require('./conf/undo')
-const { queue } = require('./core/queue')
-const getIsGitProject = require('./core/git/getIsGitProject')
-const getGitLogs = require('./core/git/getGitLogs')
-const getGitLogsByCommitIDs = require('./core/git/getGitLogsByCommitIDs')
-const getCurrentBranch = require('./core/git/getCurrentBranch')
+const { queue } = require('@gitmars/core/queue')
+const getIsGitProject = require('@gitmars/core/git/getIsGitProject')
+const getGitLogs = require('@gitmars/core/git/getGitLogs')
+const getGitLogsByCommitIDs = require('@gitmars/core/git/getGitLogsByCommitIDs')
+const getCurrentBranch = require('@gitmars/core/git/getCurrentBranch')
 const {
     getRevertCache,
     addRevertCache,
     setRevertCache
-} = require('./core/cache/revertCache')
-const { createArgs } = require('./core/utils/command')
-const echo = require('./core/utils/echo')
+} = require('@gitmars/core/cache/revertCache')
+const { createArgs } = require('@gitmars/core/utils/command')
+const echo = require('@gitmars/core/utils/echo')
+const { options, args } = require('./conf/undo')
 if (!getIsGitProject()) {
     sh.echo(red('当前目录不是git项目目录'))
     process.exit(1)

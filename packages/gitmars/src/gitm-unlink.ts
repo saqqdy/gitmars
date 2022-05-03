@@ -2,9 +2,9 @@
 import type { GitmarsOptionOptionsType } from '../typings'
 const { program } = require('commander')
 const sh = require('shelljs')
+const { createArgs } = require('@gitmars/core/utils/command')
+const { spawnSync } = require('@gitmars/core/spawn')
 const { options, args } = require('./conf/unlink')
-const { createArgs } = require('./core/utils/command')
-const { spawnSync } = require('./core/spawn')
 
 /**
  * gitm unlink

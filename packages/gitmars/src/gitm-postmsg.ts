@@ -1,9 +1,9 @@
 #!/usr/bin/env ts-node
 import type { GitmarsOptionOptionsType } from '../typings'
 const { program } = require('commander')
+const sendGroupMessage = require('@gitmars/core/sendGroupMessage')
+const { createArgs } = require('@gitmars/core/utils/command')
 const { options, args } = require('./conf/postmsg')
-const sendGroupMessage = require('./core/sendGroupMessage')
-const { createArgs } = require('./core/utils/command')
 
 interface GitmBuildOption {
     url?: string

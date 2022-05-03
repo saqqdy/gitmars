@@ -2,9 +2,9 @@
 const { program } = require('commander')
 const sh = require('shelljs')
 const { red } = require('colors')
-const getCurrentBranch = require('./core/git/getCurrentBranch')
-const getConfig = require('./core/getConfig')
-const { spawnSync } = require('./core/spawn')
+const getCurrentBranch = require('@gitmars/core/git/getCurrentBranch')
+const getConfig = require('@gitmars/core/getConfig')
+const { spawnSync } = require('@gitmars/core/spawn')
 const config = getConfig()
 
 interface GitmBuildOption {

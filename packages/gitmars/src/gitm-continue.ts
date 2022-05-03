@@ -4,15 +4,15 @@ const { program } = require('commander')
 const sh = require('shelljs')
 const { green, yellow, red } = require('colors')
 const inquirer = require('inquirer')
-const { options, args } = require('./conf/continue')
-const { queue } = require('./core/queue')
+const { queue } = require('@gitmars/core/queue')
 const {
     getCommandCache,
     cleanCommandCache
-} = require('./core/cache/commandCache')
-const getIsGitProject = require('./core/git/getIsGitProject')
-const getGitStatus = require('./core/git/getGitStatus')
-const { createArgs } = require('./core/utils/command')
+} = require('@gitmars/core/cache/commandCache')
+const getIsGitProject = require('@gitmars/core/git/getIsGitProject')
+const getGitStatus = require('@gitmars/core/git/getGitStatus')
+const { createArgs } = require('@gitmars/core/utils/command')
+const { options, args } = require('./conf/continue')
 if (!getIsGitProject()) {
     sh.echo(red('当前目录不是git项目目录'))
     process.exit(1)

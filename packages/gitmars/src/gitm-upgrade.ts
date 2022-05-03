@@ -3,9 +3,9 @@ import type { GitmarsOptionOptionsType, PackageVersionTag } from '../typings'
 const { program } = require('commander')
 const { green, red } = require('colors')
 const ora = require('ora')
-const { spawnSync } = require('./core/spawn')
+const { spawnSync } = require('@gitmars/core/spawn')
+const { createArgs } = require('@gitmars/core/utils/command')
 const { options, args } = require('./conf/upgrade')
-const { createArgs } = require('./core/utils/command')
 
 interface GitmBuildOption {
     mirror?: boolean

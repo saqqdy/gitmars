@@ -2,15 +2,15 @@
 const { program } = require('commander')
 const sh = require('shelljs')
 const { green, red } = require('colors')
-const getIsGitProject = require('./core/git/getIsGitProject')
-const getGitRevParse = require('./core/git/getGitRevParse')
-const { writeFile } = require('./core/utils/file')
-const { defaults } = require('./core/global')
+const getIsGitProject = require('@gitmars/core/git/getIsGitProject')
+const getGitRevParse = require('@gitmars/core/git/getGitRevParse')
+const { writeFile } = require('@gitmars/core/utils/file')
+const { defaults } = require('@gitmars/core/global')
 if (!getIsGitProject()) {
     sh.echo(red('当前目录不是git项目目录'))
     process.exit(1)
 }
-const getConfig = require('./core/getConfig')
+const getConfig = require('@gitmars/core/getConfig')
 const config = getConfig()
 
 /**

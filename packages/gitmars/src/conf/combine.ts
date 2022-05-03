@@ -160,5 +160,6 @@ import type { GitmarsOptionType } from '../../typings'
         if (!root.gitmarsCmdConfig) root.gitmarsCmdConfig = {}
         root.gitmarsCmdConfig.combine = cmdConfig
     }
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-expect-error
 })(typeof window !== 'undefined' ? window : global)

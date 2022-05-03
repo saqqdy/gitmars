@@ -2,9 +2,9 @@
 const { program } = require('commander')
 const sh = require('shelljs')
 const { green } = require('colors')
+const { spawnSync } = require('@gitmars/core/spawn')
+const echo = require('@gitmars/core/utils/echo')
 const { version } = require('../package.json')
-const { spawnSync } = require('./core/spawn')
-const echo = require('./core/utils/echo')
 
 if (!sh.which('git')) {
     echo('Gitmars只能在git环境下执行，请先安装git')

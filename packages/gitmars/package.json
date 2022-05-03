@@ -6,17 +6,16 @@
         "gitm": "lib/gitm.js"
     },
     "main": "./lib/index.js",
-    "module": "./es/index.mjs",
     "exports": {
         ".": {
-            "require": "./lib/index.js",
-            "import": "./es/index.mjs"
+            "require": "./lib/index.js"
         },
-        "./es": "./es/index.js",
         "./lib": "./lib/index.js",
-        "./es/*": "./es/*.js",
+        "./lib/*.js": "./lib/*.js",
         "./lib/*": "./lib/*.js",
-        "./*": "./*"
+        "./*": {
+            "require": "./lib/*.js"
+        }
     },
     "files": [
         "cache",
@@ -48,7 +47,7 @@
     },
     "dependencies": {
         "@gitmars/core": "workspace:*",
-        "@jssj/request": "^1.0.0-alpha.6",
+        "@jssj/request": "^1.0.0-alpha.7",
         "ci-info": "^3.3.0",
         "colors": "^1.4.0",
         "columnify": "^1.6.0",
@@ -65,10 +64,11 @@
         "slash": "^3.0.0"
     },
     "devDependencies": {
-        "@eslint-sets/eslint-config-simple-ts": "^2.1.4",
+        "@eslint-sets/eslint-config-simple-ts": "^2.1.5",
         "@gitmars/core": "workspace:*",
         "@saqqdy/prettier-config": "^1.1.2",
         "@types/inquirer": "^8.2.0",
+        "@types/cross-spawn": "^6.0.2",
         "@types/node": "^17.0.23",
         "@types/shelljs": "^0.8.11",
         "cron-parser": "^4.2.1",
@@ -77,7 +77,6 @@
         "madge": "^5.0.1",
         "tsnd": "^1.0.2"
     },
-    "peerDependencies": {},
     "sideEffects": false,
     "keywords": [
         "gitmars",

@@ -1,9 +1,9 @@
 #!/usr/bin/env ts-node
 import type { GitmarsOptionOptionsType } from '../typings'
 const { program } = require('commander')
+const { createArgs } = require('@gitmars/core/utils/command')
+const run = require('@gitmars/core/hook/run')
 const { options, args } = require('./conf/run')
-const { createArgs } = require('./core/utils/command')
-const run = require('./core/hook/run')
 
 type GitmBuildOption = Record<string, string>
 
