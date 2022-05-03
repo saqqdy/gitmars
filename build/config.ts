@@ -29,15 +29,16 @@ export const bannerText =
     'Released under the MIT License.'
 
 export const extensions = [
+    '.mjs',
     '.js',
     '.jsx',
     '.ts',
     '.tsx',
     '.es6',
     '.es',
-    '.mjs',
-    '.ts',
-    '.json'
+    '.json',
+    '.less',
+    '.css'
 ]
 
 export const alias = {

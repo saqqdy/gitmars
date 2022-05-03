@@ -1,4 +1,4 @@
-import type { GitmarsConfigType } from 'typings'
+import type { GitmarsConfigType } from '../../typings'
 const fs = require('fs')
 const { cosmiconfigSync } = require('cosmiconfig')
 const getGitRevParse = require('./git/getGitRevParse')

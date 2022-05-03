@@ -6,6 +6,18 @@
         "gitm": "lib/gitm.js"
     },
     "main": "./lib/index.js",
+    "module": "./es/index.mjs",
+    "exports": {
+        ".": {
+            "require": "./lib/index.js",
+            "import": "./es/index.mjs"
+        },
+        "./es": "./es/index.js",
+        "./lib": "./lib/index.js",
+        "./es/*": "./es/*.js",
+        "./lib/*": "./lib/*.js",
+        "./*": "./*"
+    },
     "files": [
         "cache",
         "lib",
@@ -35,6 +47,7 @@
         "typings": "typings"
     },
     "dependencies": {
+        "@gitmars/core": "workspace:*",
         "@jssj/request": "^1.0.0-alpha.6",
         "ci-info": "^3.3.0",
         "colors": "^1.4.0",
