@@ -3,7 +3,7 @@ import getCurrentBranch from '@gitmars/core/git/getCurrentBranch'
 import searchBranches from '@gitmars/core/git/searchBranches'
 import glob from '@gitmars/core/global'
 
-function getCurrentBranch({ path, key, type, remote }) {
+function getBranchList({ path, key, type, remote }) {
     return new Promise((resolve, reject) => {
         let list = []
         try {
@@ -15,7 +15,7 @@ function getCurrentBranch({ path, key, type, remote }) {
     })
 }
 
-function getBranchList() {
+function getCurrent() {
     return new Promise((resolve, reject) => {
         let branch
         try {
@@ -48,7 +48,7 @@ function readFile({ path }) {
 }
 
 export default {
-    getCurrentBranch,
+    getCurrent,
     getBranchList,
     getStatus,
     readFile

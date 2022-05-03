@@ -1,5 +1,3 @@
-import { sep } from 'path'
-import { execSync } from 'child_process'
 import type { Request, Response } from 'express'
 import error503 from '../helper/503'
 import success from '../helper/200'
@@ -17,11 +15,11 @@ export async function enterDir(req: Request, res: Response) {
 
 export async function getBranchList(req: Request, res: Response) {
     const { path, key, type, remote } = req.query
-    let data = await cmd.getBranchList({ path, key, type, remote })
+    const data = await cmd.getBranchList({ path, key, type, remote })
     success(req, res, { data })
 }
-export async function getCurrentBranch(req: Request, res: Response) {
-    const data = await cmd.getCurrentBranch()
+export async function getCurrent(req: Request, res: Response) {
+    const data = await cmd.getCurrent()
     success(req, res, { data })
 }
 
@@ -38,6 +36,7 @@ export async function readFile(req: Request, res: Response) {
 
 export default {
     enterDir,
+    getCurrent,
     getBranchList,
     getStatus,
     readFile
