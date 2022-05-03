@@ -2,11 +2,16 @@
     "extends": "../../tsconfig.json",
     "exclude": ["__tests__", "../../temp"],
     "compilerOptions": {
+        // "allowSyntheticDefaultImports": true,
+        // "moduleResolution": "Node",
+        // "resolveJsonModule": true,
+        // "allowUmdGlobalAccess":true,
         "removeComments": true,
+        "declaration": false,
         "target": "ESNext",
-        "outDir": "dist",
-        "module": "commonjs",
+        // "outDir": "dist",
+        "module": "ESNext",
         "lib": ["ESNext"],
-        "sourceMap": true
+        "sourceMap": false,
     }
 }
