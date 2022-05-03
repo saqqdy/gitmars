@@ -3,10 +3,13 @@
     "include": ["../typings", "./**/*.d.ts", "./**/*.ts"],
     "exclude": ["**/node_modules/**", "**/__tests__"],
     "compilerOptions": {
+        "allowSyntheticDefaultImports": true,
+        "moduleResolution": "Node",
+        "resolveJsonModule": true,
         "target": "es6",
         "outDir": "../app/",
         "rootDirs": ["bin", "db", "lib", "public", "routes", "socket", "views"],
-        "module": "commonjs",
+        "module": "esnext",
         "declaration": false,
         "lib": [
             "es5",

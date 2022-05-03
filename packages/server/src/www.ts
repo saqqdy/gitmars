@@ -1,11 +1,13 @@
 #!/usr/bin/env node
 
-const { exec } = require('child_process')
-const http = require('http')
-const debug = require('debug')('server:server')
-const app = require('./app')
+import { exec } from 'child_process'
+import http from 'http'
+import debug from 'debug'
+import app from './app'
 const port = normalizePort(process.env.PORT || '3000') // Get port from environment and store in Express.
-const createSocketServer = require('./socket/index')
+import createSocketServer from './socket/index'
+
+const debugHandle = debug('server:server')
 
 app.set('port', port)
 
@@ -66,5 +68,5 @@ function onListening() {
     // mac系统使用 一下命令打开url在浏览器
     else if (process.platform === 'darwin') exec(`open ${url}`)
     else exec(`open ${url}`)
-    debug('Listening on ' + bind)
+    debugHandle('Listening on ' + bind)
 }

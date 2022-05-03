@@ -4,10 +4,11 @@ import type { NextFunction, Request, Response } from 'express'
 import express from 'express'
 import cookieParser from 'cookie-parser'
 // import logger from 'logger'
+import indexRouter from './routes/index'
+import cmdRouter from './routes/cmd'
+import commonRouter from './routes/common'
+import fallbackRouter from './routes/fallback'
 
-const indexRouter = require('./routes/index')
-const cmdRouter = require('./routes/cmd')
-const commonRouter = require('./routes/common')
 const app = express()
 
 // view engine setup
@@ -18,16 +19,17 @@ app.set('view engine', 'hbs')
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 app.use(cookieParser())
-app.use(
-    express.static(path.join(__dirname, './www'), {
-        maxAge: 0,
-        immutable: true
-    })
-)
+// app.use(
+//     express.static(path.join(__dirname, './www'), {
+//         maxAge: 0,
+//         immutable: true
+//     })
+// )
 
 app.use('/', indexRouter)
 app.use('/cmd', cmdRouter)
 app.use('/common', commonRouter)
+app.use('/fallback', fallbackRouter)
 
 // catch 404 and forward to error handler
 app.use(function (req: Request, res: Response, next: NextFunction) {
@@ -45,4 +47,4 @@ app.use(function (err: any, req: Request, res: Response) {
     res.render('error')
 })
 
-module.exports = app
+export default app
