@@ -9,7 +9,7 @@ import { debug } from '../utils/debug'
 export function getGitUser(): string {
     const { stdout } = spawnSync('git', ['config', 'user.name'])
     debug('git.user', stdout)
-    return stdout
+    return stdout!
 }
 
 /**
@@ -20,7 +20,7 @@ export function getGitUser(): string {
 export function getGitEmail(): string {
     const { stdout } = spawnSync('git', ['config', 'user.email'])
     debug('git.email', stdout)
-    return stdout
+    return stdout!
 }
 
 export default {

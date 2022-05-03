@@ -32,7 +32,7 @@ export function getMessage(type: string): string {
             str = appName
             break
         case 'user':
-            str = config.user
+            str = config.user!
             break
 
         default:

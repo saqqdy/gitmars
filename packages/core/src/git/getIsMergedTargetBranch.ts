@@ -15,7 +15,7 @@ export function getIsMergedTargetBranch(
     targetBranch = 'dev',
     remote = false
 ): boolean {
-    if (!branch) branch = getCurrentBranch()
+    if (!branch) branch = getCurrentBranch() || ''
     if (remote && !targetBranch.includes('origin')) {
         targetBranch = 'origin/' + targetBranch
     }
@@ -28,7 +28,7 @@ export function getIsMergedTargetBranch(
         remote ? '--remote' : ''
     ])
     debug('getIsMergedTargetBranch', stdout)
-    return stdout.split('\n').includes(targetBranch)
+    return stdout!.split('\n').includes(targetBranch)
 }
 
 export default getIsMergedTargetBranch

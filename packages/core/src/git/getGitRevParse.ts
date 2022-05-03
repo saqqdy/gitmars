@@ -32,7 +32,7 @@ export function getGitRevParse(
         ],
         { cwd }
     )
-    const [root, prefix, gitCommonDir, gitDir, cdup = ''] = stdout
+    const [root, prefix, gitCommonDir, gitDir, cdup = ''] = stdout!
         .split('\n')
         .map((s: string) => s.trim())
         .map(slash)

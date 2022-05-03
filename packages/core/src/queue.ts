@@ -79,7 +79,9 @@ export function queue(
         if (cfg.kill) {
             // 当前指令执行错误且设置该条指令需要中断，则中断递归
             cb && cb(true) // 回调并中断执行
-            const rest = extend(true, [], list) as unknown as Array<CommandType | string>
+            const rest = extend(true, [], list) as unknown as Array<
+                CommandType | string
+            >
             if (!cfg.again) {
                 rest.shift()
             } else if (cfg.again !== true) {

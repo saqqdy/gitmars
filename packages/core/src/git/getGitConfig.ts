@@ -21,7 +21,7 @@ export function getGitConfig(
         ['config', '--local', '--get', 'remote.origin.url'],
         { cwd }
     )
-    const [gitUrl] = stdout
+    const [gitUrl] = stdout!
         .split('\n')
         .map((s: string) => s.trim())
         .map(slash)

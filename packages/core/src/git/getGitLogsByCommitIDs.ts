@@ -27,7 +27,7 @@ export function getGitLogsByCommitIDs({
         ...params.split(' ')
     ])
     debug('getGitLogsByCommitIDs', stdout)
-    return formatter.getLogs(stdout)
+    return formatter.getLogs(stdout!)
 }
 
 export default getGitLogsByCommitIDs

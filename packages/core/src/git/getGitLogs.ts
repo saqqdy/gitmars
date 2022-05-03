@@ -44,7 +44,7 @@ export function getGitLogs(option: any = {}): GitLogsType[] {
     if (params) argv = argv.concat(params.split(' '))
     const { stdout } = spawnSync('git', argv)
     debug('getGitLogs', stdout)
-    return formatter.getLogs(stdout)
+    return formatter.getLogs(stdout!)
 }
 
 export default getGitLogs

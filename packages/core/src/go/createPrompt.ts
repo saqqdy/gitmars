@@ -1,4 +1,5 @@
 import { yellow } from 'colors'
+import type { InputQuestionOptions, QuestionCollection } from 'inquirer'
 import type {
     GitmarsOptionArgsType,
     GitmarsOptionOptionsType
@@ -75,7 +76,7 @@ export const createPrompt = (
                 checked: option.recommend || false
             })
         })
-        return promptOpt
+        return promptOpt as any
     } else if (type === 'input') {
         const list: PromptOptionInputType[] = []
         ;(options as GitmarsOptionArgsType[]).forEach(
@@ -125,7 +126,7 @@ export const createPrompt = (
                 list.push(cfg)
             }
         )
-        return list
+        return list as any
     }
 }
 

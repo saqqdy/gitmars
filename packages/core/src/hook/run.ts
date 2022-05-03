@@ -46,8 +46,8 @@ function runCommand(cwd: string, hookName: string, cmd: string, env: any) {
  *
  * @returns status - 0|1 返回状态
  */
-// @ts-expect-error
 function start(
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-expect-error
     [, , hookName = '', ...GITMARS_GIT_PARAMS],
     { cwd = process.cwd() } = {}
@@ -63,6 +63,8 @@ function start(
         env.GITMARS_GIT_PARAMS = GITMARS_GIT_PARAMS.join(' ')
     }
     if (command) {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-expect-error
         return runCommand(cwd, hookName, command, env)
     }
     return 0

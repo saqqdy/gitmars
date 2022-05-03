@@ -19,6 +19,7 @@ import {
     filesize,
     json,
     minify,
+    nodeExternals,
     nodeResolve,
     shebang
     // visual,
@@ -206,7 +207,7 @@ export async function buildCjs() {
                     if (dts !== false) {
                         const rollupDtsConfig = {
                             input,
-                            plugins: [dtsPlugin],
+                            plugins: [nodeExternals(), dtsPlugin],
                             external: [...externals, ...external]
                         }
                         const writeEsmDtsOptions: OutputOptions[] = [

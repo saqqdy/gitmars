@@ -8,8 +8,8 @@ import { debug } from '../utils/debug'
  */
 export function getIsGitProject(): boolean {
     const { stdout } = spawnSync('git', ['rev-parse', '--is-inside-work-tree'])
-    debug('getIsGitProject', stdout, stdout.includes('true'))
-    return stdout.includes('true')
+    debug('getIsGitProject', stdout, stdout!.includes('true'))
+    return stdout!.includes('true')
 }
 
 export default getIsGitProject

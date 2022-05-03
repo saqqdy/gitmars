@@ -47,7 +47,7 @@
     },
     "dependencies": {
         "@gitmars/core": "workspace:*",
-        "@jssj/request": "^1.0.0-alpha.7",
+        "@jssj/request": "^1.0.0-alpha.8",
         "ci-info": "^3.3.0",
         "colors": "^1.4.0",
         "columnify": "^1.6.0",

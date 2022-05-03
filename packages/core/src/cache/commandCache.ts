@@ -10,15 +10,15 @@ import { isFileExist } from '../utils/file'
  */
 export function getCommandCache() {
     const { gitDir } = getGitRevParse()
-    let arr = []
+    let arr: string[] = []
     if (isFileExist(gitDir + '/.gitmarscommands')) {
-        arr = sh
+        const result = sh
             .cat(gitDir + '/.gitmarscommands')
             .stdout.split('\n')[0]
             .replace(/(^\n*)|(\n*$)/g, '')
             .replace(/\n{2,}/g, '\n')
             .replace(/\r/g, '')
-        arr = JSON.parse(decodeURIComponent(arr))
+        arr = JSON.parse(decodeURIComponent(result))
     }
     return arr
 }

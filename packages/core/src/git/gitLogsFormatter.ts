@@ -64,7 +64,7 @@ class GitLogsFormatter {
     ]
 
     format = ''
-    constructor(keys: GitLogKeysType[]) {
+    constructor(keys?: GitLogKeysType[]) {
         if (keys) {
             this.keys = keys
         }

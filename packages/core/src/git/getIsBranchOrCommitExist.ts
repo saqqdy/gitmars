@@ -12,7 +12,7 @@ export function getIsBranchOrCommitExist(
     name: string,
     remote = false
 ): boolean {
-    if (!name) name = getCurrentBranch()
+    if (!name) name = getCurrentBranch() || ''
     if (remote && !name.includes('origin')) name = 'origin/' + name
     const { status } = spawnSync('git', ['rev-parse', '--verify', name])
     return status === 0
