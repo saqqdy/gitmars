@@ -5,7 +5,7 @@
         "moduleResolution": "node",
         "noLib": false,
         "lib": ["esnext"],
-        "sourceMap": true,
+        "sourceMap": false,
 		"module": "commonjs",
         "jsx": "preserve",
         "strict": true,
@@ -27,13 +27,14 @@
             "@/package": ["./package.json"]
         }
     },
-    "include": [
-        "bin/**/*.ts",
-        "bin/**/*.d.ts",
-        "src/**/*.ts",
-        "src/**/*.d.ts",
-        "src/**/*.tsx",
-        "src/**/*.vue",
-        "typings/*.d.ts"
-    ]
+	"include": ["packages", "typings"]
+    // "include": [
+    //     "bin/**/*.ts",
+    //     "bin/**/*.d.ts",
+    //     "src/**/*.ts",
+    //     "src/**/*.d.ts",
+    //     "src/**/*.tsx",
+    //     "src/**/*.vue",
+    //     "typings/*.d.ts"
+    // ]
 }

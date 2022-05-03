@@ -3,10 +3,9 @@ import type { Plugin } from 'rollup'
 
 export default (options: Options = {}): Plugin =>
     esbuild({
-        exclude: [],
         minify: false, // 避免\u005c被转码
         sourceMap: options.minify || false,
-        target: 'es2017',
+        target: 'es2020',
         loaders: {
             '.vue': 'ts'
         },

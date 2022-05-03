@@ -9,14 +9,16 @@ export default (options: RollupNodeResolveOptions = {}): Plugin =>
                 extensions: [
                     '.mjs',
                     '.js',
+                    '.jsx',
                     '.ts',
                     '.tsx',
-                    '.jsx',
+                    '.es6',
+                    '.es',
                     '.json',
                     '.less',
                     '.css'
                 ]
-                // preferBuiltins: true
+                // preferBuiltins: false
             },
             options
         )

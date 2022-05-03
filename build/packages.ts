@@ -11,17 +11,19 @@ export const packages: PackageManifest[] = [
         dts: false,
         output: 'lib',
         display: '这是一个git工作流工具'
+    },
+    {
+        name: 'core',
+        pkgName: '@gitmars/core',
+        buildTask: 'cjs',
+        iife: false,
+        cjs: true,
+        mjs: true,
+        dts: true,
+        output: 'lib',
+        exportType: 'named',
+        display: 'gitmars核心程序'
     }
-    // {
-    //     name: 'core',
-    //     pkgName: '@gitmars/core',
-    //     buildTask: 'cjs',
-    //     iife: false,
-    //     mjs: true,
-    //     submodules: true,
-    // output: 'lib',
-    //     display: 'gitmars核心程序'
-    // },
     // {
     //     name: 'ui',
     //     pkgName: '@gitmars/ui',

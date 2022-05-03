@@ -17,6 +17,7 @@
         "core-js": "^3.19.1",
         "dayjs": "^1.11.0",
         "element-plus": "^2.1.5",
+        "gitmars": "workspace:*",
         "js-cool": "^2.3.0",
         "qs": "^6.10.1",
         "socket.io-client": "^4.4.0",
@@ -32,7 +33,7 @@
         "xterm-style": "^1.1.0"
     },
     "devDependencies": {
-        "@eslint-sets/eslint-config-vue3-ts": "^2.1.4",
+        "@eslint-sets/eslint-config-vue3-ts": "^2.1.5",
         "@gitmars/server": "workspace:*",
         "@originjs/vite-plugin-commonjs": "^1.0.1",
         "@saqqdy/prettier-config": "^1.1.2",

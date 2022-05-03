@@ -5,11 +5,14 @@ const { spawnSync, execSync } = require('child_process')
 
 let [, , cwd = ''] = process.argv,
     pkg: any,
-    list
+    list = ['--registry', 'https://registry.npmmirror.com']
 const ROOT = join(__dirname, '..')
 cwd = join(ROOT, cwd.replace(/"/g, ''))
 
-if (!cwd) cwd = process.cwd()
+if (!cwd) {
+    list.push('-w')
+    cwd = process.cwd()
+}
 
 type TypeManagers = 'npm' | 'pnpm' | 'yarn' | string
 
@@ -18,7 +21,6 @@ const PACKAGE_EXCLUDE = []
 const PACKAGE_MANAGERS: TypeManagers[] = ['pnpm', 'yarn', 'npm']
 
 pkg = fs.readFileSync(join(cwd, 'package.json'))
-list = ['--registry', 'https://registry.npmmirror.com']
 
 pkg = JSON.parse(pkg)
 const dependencies = { ...pkg.devDependencies, ...pkg.dependencies }
@@ -26,16 +28,16 @@ const cmd = getPackageManager()
 
 switch (cmd) {
     case 'pnpm':
-        list = list.concat(['i', '-D'])
+        list = list.concat(['i'])
         break
     case 'yarn':
-        list = list.concat(['add', '-D'])
+        list = list.concat(['add'])
         break
     case 'npm':
-        list = list.concat(['i', '-D'])
+        list = list.concat(['i'])
         break
     default:
-        list = list.concat(['i', '-D'])
+        list = list.concat(['i'])
         break
 }
 

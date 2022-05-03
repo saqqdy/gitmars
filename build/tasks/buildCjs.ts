@@ -15,15 +15,12 @@ import {
     banner as bannerPlugin,
     commonjs,
     dts as dtsPlugin,
-    // cssOnly,
     esbuild,
     filesize,
     json,
     minify,
     nodeResolve,
-    shebang,
-    vue,
-    vueJsx
+    shebang
     // visual,
 } from '../plugins/index'
 import { run } from '../utils/exec'
@@ -35,7 +32,9 @@ import { packages } from '../packages'
 
 export async function buildCjs() {
     const externals = [
+        /node_modules/,
         'js-cool',
+        '@gitmars/core',
         '@gitmars/docs',
         '@gitmars/server',
         '@gitmars/ui'
@@ -210,12 +209,26 @@ export async function buildCjs() {
                             plugins: [dtsPlugin],
                             external: [...externals, ...external]
                         }
-                        const writeDtsOptions: OutputOptions[] = [
+                        const writeEsmDtsOptions: OutputOptions[] = [
                             {
                                 file: resolve(
                                     PACKAGE,
                                     name,
-                                    'dist',
+                                    'es',
+                                    fn.replace(/\.ts$/, '.d.ts')
+                                ),
+                                // exports: 'auto',
+                                // exports: exportType,
+                                // banner,
+                                format: 'es'
+                            }
+                        ]
+                        const writeCjsDtsOptions: OutputOptions[] = [
+                            {
+                                file: resolve(
+                                    PACKAGE,
+                                    name,
+                                    'lib',
                                     fn.replace(/\.ts$/, '.d.ts')
                                 ),
                                 // exports: 'auto',
@@ -225,11 +238,14 @@ export async function buildCjs() {
                             }
                         ]
                         const dtsBundle = await rollup(rollupDtsConfig)
-                        await Promise.all(
-                            writeDtsOptions.map(option =>
+                        await Promise.all([
+                            writeEsmDtsOptions.map(option =>
+                                dtsBundle.write(option)
+                            ),
+                            writeCjsDtsOptions.map(option =>
                                 dtsBundle.write(option)
                             )
-                        )
+                        ])
                     }
                 }
             }
@@ -243,7 +259,7 @@ export async function genVersion() {
 
 export default series(
     // wrapDisplayName('gen:version', genVersion),
-    parallel(wrapDisplayName('build:full:bundle', buildCjs))
+    parallel(wrapDisplayName('build:cjs', buildCjs))
 )
 
 // export async function buildCjs() {
