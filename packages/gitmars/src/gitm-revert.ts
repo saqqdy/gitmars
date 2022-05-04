@@ -3,9 +3,9 @@ import type { CommandType, GitmarsOptionOptionsType } from '../typings'
 const { program } = require('commander')
 const sh = require('shelljs')
 const { yellow, red } = require('colors')
-const { queue } = require('@gitmars/core/queue')
-const getIsGitProject = require('@gitmars/core/git/getIsGitProject')
-const { createArgs } = require('@gitmars/core/utils/command')
+const { queue } = require('@gitmars/core/es/queue')
+const getIsGitProject = require('@gitmars/core/es/git/getIsGitProject')
+const { createArgs } = require('@gitmars/core/es/utils/command')
 const { options, args } = require('./conf/revert')
 if (!getIsGitProject()) {
     sh.echo(red('当前目录不是git项目目录'))

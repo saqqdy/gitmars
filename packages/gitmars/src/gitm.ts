@@ -2,8 +2,8 @@
 const { program } = require('commander')
 const sh = require('shelljs')
 const { green } = require('colors')
-const { spawnSync } = require('@gitmars/core/spawn')
-const echo = require('@gitmars/core/utils/echo')
+const { spawnSync } = require('@gitmars/core/es/spawn')
+const echo = require('@gitmars/core/es/utils/echo')
 const { version } = require('../package.json')
 
 if (!sh.which('git')) {
