@@ -7,7 +7,7 @@
         "moduleResolution": "Node",
         "resolveJsonModule": true,
         "target": "es6",
-        "outDir": "../app/",
+        "outDir": "lib",
         "rootDirs": ["bin", "db", "lib", "public", "routes", "socket", "views"],
         "module": "esnext",
         "declaration": false,

@@ -1,5 +1,5 @@
 module.exports = function (path = '/app') {
-	return function (req, res) {
-		res.redirect(path)
-	}
+    return function (req, res) {
+        res.redirect(path)
+    }
 }

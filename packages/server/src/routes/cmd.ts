@@ -4,8 +4,8 @@ const router = express.Router()
 // import fs from 'fs'
 import {
     enterDir,
-    getCurrentBranch,
     getBranchList,
+    getCurrent,
     getStatus,
     readFile
 } from '../controller/cmd'
@@ -17,9 +17,9 @@ import {
 // const error503 = (res: Response) => {
 // 	res.status(503).send({ data: null, success: false, code: 0, msg: 'fail' })
 // }
-const success = (res: Response, { data, msg = 'success' }: any) => {
-    res.status(200).send({ data, success: true, code: 1, msg })
-}
+// const success = (res: Response, { data, msg = 'success' }: any) => {
+//     res.status(200).send({ data, success: true, code: 1, msg })
+// }
 
 // 开启跨域访问
 router.all('*', (req: Request, res: Response, next: NextFunction) => {
@@ -67,7 +67,7 @@ router.get('/branch/list', getBranchList)
 //     const data = getCurrentBranch()
 //     success(res, { data })
 // })
-router.get('/branch/current', getCurrentBranch)
+router.get('/branch/current', getCurrent)
 
 // 读取文件
 // router.get('/fs/read', (req: Request, res: Response) => {
