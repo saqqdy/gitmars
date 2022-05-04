@@ -6,7 +6,8 @@
     "main": "./lib/index.js",
     "scripts": {
         "dev": "vite",
-        "build": "vue-tsc --noEmit && vite build",
+        "build": "vite build",
+        "type": "vue-tsc --noEmit",
         "serve": "vite preview",
         "eslint": "eslint --fix --ext .vue,.js,.jsx,.ts,.tsx ./",
         "prettier": "prettier --write \"**/*.{js,jsx,ts,tsx,vue,json,md}\""

@@ -1,5 +1,5 @@
-import path from 'path'
-import fs from 'fs'
+import { resolve, join } from 'path'
+import { existsSync } from 'fs'
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
@@ -22,12 +22,12 @@ export default defineConfig({
         vue(),
         vueJsx(),
         legacy({
-            targets: ['defaults', 'not IE 10']
+            targets: ['defaults', 'not IE 11', 'not op_mini all']
         })
     ],
     base: process.env.ELECTRON === 'true' ? './' : '/',
     build: {
-        outDir: '../app/www',
+        outDir: './dist',
         rollupOptions: {
             output: {
                 manualChunks(id) {
@@ -35,7 +35,7 @@ export default defineConfig({
                         // @ts-expect-error
                         const [, module] =
                             /node_modules\/(@?[a-z0-9-]+?[a-z0-9-]+)/.exec(id)
-                        const url = path.join(
+                        const url = join(
                             process.cwd(),
                             'node_modules',
                             module,
@@ -56,7 +56,7 @@ export default defineConfig({
                                 'element-plus',
                                 'xterm'
                             ].includes(module) &&
-                            fs.existsSync(url)
+                            existsSync(url)
                         ) {
                             try {
                                 const { version } = require(url)
@@ -72,9 +72,8 @@ export default defineConfig({
     },
     resolve: {
         alias: {
-            '@': path.resolve(__dirname, 'src'),
-            gitmLib: path.resolve(__dirname, '../lib'),
-            gitmServer: path.resolve(__dirname, '../app'),
+            '@': resolve(__dirname, 'src'),
+            gitmars: resolve(__dirname, 'node_modules/gitmars'),
             'socket.io-client': 'socket.io-client/dist/socket.io.js'
         }
     },
@@ -83,7 +82,7 @@ export default defineConfig({
             '/jar/': {
                 target: 'http://127.0.0.1:3000',
                 changeOrigin: true,
-                rewrite: path => path.replace(/^\/jar\//, '/')
+                rewrite: url => url.replace(/^\/jar\//, '/')
             }
         },
         fs: { allow: ['..'] },

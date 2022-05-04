@@ -1,5 +1,5 @@
-// const commandSets = require.context('gitmLib/conf', false, /(([A-Za-z]\w+)|index)\.(json|js)$/)
-const commandSets = import.meta.globEager('../../../../lib/conf/*.js')
+// const commandSets = require.context('gitmars/lib/conf', false, /(([A-Za-z]\w+)|index)\.(json|js)$/)
+const commandSets = import.meta.globEager('gitmars/lib/conf/*.js')
 let sets = {}
 
 for (const key in commandSets) {
@@ -8,7 +8,6 @@ for (const key in commandSets) {
         // @ts-expect-error
         sets[name] = commandSets[key]
     } else {
-        // @ts-expect-error
         sets = (window as any).gitmarsCmdConfig
         break
     }
@@ -21,6 +20,6 @@ for (const key in commandSets) {
 // 	}
 // }
 // const requireAll = context => context.keys().map(context)
-// const commandSets = requireAll(require.context('gitmLib/conf', false, /(([A-Za-z]\w+)|index)\.(json|js)$/))
+// const commandSets = requireAll(require.context('gitmars/lib/conf', false, /(([A-Za-z]\w+)|index)\.(json|js)$/))
 
 export default sets

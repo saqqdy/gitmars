@@ -23,6 +23,7 @@
         "paths": {
             "@/*": ["./src/*"],
             "~/*": ["../*"],
+            "gitmars": ["./node_modules/gitmars"],
             "@/package": ["./package.json"]
         }
     },
