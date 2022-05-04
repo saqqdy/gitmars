@@ -2,6 +2,7 @@
     "name": "gitmars",
     "description": "这是一个git工作流工具",
     "version": "3.0.0-alpha.0",
+    "private": false,
     "bin": {
         "gitm": "lib/gitm.js"
     },

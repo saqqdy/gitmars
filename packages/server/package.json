@@ -2,6 +2,7 @@
     "name": "@gitmars/server",
     "description": "gitmars可视化界面服务端",
     "version": "3.0.0-alpha.0",
+    "private": false,
     "files": [
         "lib",
         "typings",

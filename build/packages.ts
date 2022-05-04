@@ -2,17 +2,6 @@ import type { PackageManifest } from './types'
 
 export const packages: PackageManifest[] = [
     {
-        name: 'gitmars',
-        pkgName: 'gitmars',
-        buildTask: 'cjs',
-        iife: false,
-        cjs: true,
-        mjs: false,
-        dts: false,
-        output: 'lib',
-        display: '这是一个git工作流工具'
-    },
-    {
         name: 'core',
         pkgName: '@gitmars/core',
         buildTask: 'cjs',
@@ -25,15 +14,15 @@ export const packages: PackageManifest[] = [
         display: 'gitmars核心程序'
     },
     {
-        name: 'ui',
-        pkgName: '@gitmars/ui',
-        buildTask: 'app',
+        name: 'gitmars',
+        pkgName: 'gitmars',
+        buildTask: 'cjs',
         iife: false,
+        cjs: true,
         mjs: false,
         dts: false,
-        submodules: false,
-        output: 'dist',
-        display: 'gitmars可视化界面'
+        output: 'lib',
+        display: '这是一个git工作流工具'
     },
     {
         name: 'server',
@@ -45,6 +34,17 @@ export const packages: PackageManifest[] = [
         output: 'lib',
         exportType: 'named',
         display: 'gitmars可视化界面服务端'
+    },
+    {
+        name: 'ui',
+        pkgName: '@gitmars/ui',
+        buildTask: 'app',
+        iife: false,
+        mjs: false,
+        dts: false,
+        submodules: false,
+        output: 'dist',
+        display: 'gitmars可视化界面'
     },
     {
         name: 'docs',
