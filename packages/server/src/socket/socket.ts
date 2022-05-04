@@ -3,13 +3,15 @@ import type { ServerOptions, Socket } from 'socket.io'
 const SocketIoServer = require('socket.io')
 
 type EventsMap = Record<string, any>
-interface ListenEvents extends EventsMap {
-    [event: string]: (...args: any[]) => void
-}
+interface ListenEvents
+    extends Record<string, (...args: any[]) => void>,
+        EventsMap {}
+
 type EmitEvents = EventsMap
-interface ServerSideEvents extends EventsMap {
-    [event: string]: (...args: any[]) => void
-}
+
+interface ServerSideEvents
+    extends Record<string, (...args: any[]) => void>,
+        EventsMap {}
 
 // interface SocketFn {
 // 	fn?: (socket: Socket<ListenEvents, EmitEvents, ServerSideEvents>) => void
@@ -39,4 +41,4 @@ class SocketServer {
     }
 }
 
-module.exports = SocketServer
+export default SocketServer

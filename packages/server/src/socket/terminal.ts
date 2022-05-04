@@ -1,9 +1,12 @@
 import type http from 'http'
+import os from 'os'
 import type { IPty } from 'node-pty'
-const os = require('os')
-const pty = require('node-pty')
-const sh = require('shelljs')
-const home = require('../lib/home')()
+import pty from 'node-pty'
+import sh from 'shelljs'
+import home from '../utils/home'
+
+const homeDir = home()
+
 const shell =
     os.platform() === 'win32'
         ? 'powershell.exe'
@@ -12,13 +15,13 @@ const shell =
         : 'bash'
 const ptyContainers: Record<string, IPty> = {}
 
-module.exports = (socket: http.Server) => {
+export default (socket: http.Server) => {
     socket.on('create', option => {
         const ptyProcess = pty.spawn(shell, [], {
             name: 'xterm-color',
             cols: option.cols || 80,
             rows: option.rows || 24,
-            cwd: option.cwd || home,
+            cwd: option.cwd || homeDir,
             env: process.env
         })
         ptyProcess.onData((data: string) =>
@@ -39,6 +42,7 @@ module.exports = (socket: http.Server) => {
         socket.removeAllListeners(name + '-resize')
         socket.removeAllListeners(name + '-exit')
         if (name && ptyContainers[name] && ptyContainers[name].pid) {
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
             // @ts-expect-error
             ptyContainers[name].destroy()
             delete ptyContainers[name]

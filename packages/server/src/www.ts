@@ -5,7 +5,7 @@ import http from 'http'
 import debug from 'debug'
 import app from './app'
 const port = normalizePort(process.env.PORT || '3000') // Get port from environment and store in Express.
-import createSocketServer from './socket/index'
+import createSocketServer from './socket'
 
 const debugHandle = debug('server:server')
 

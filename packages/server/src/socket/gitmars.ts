@@ -1,7 +1,10 @@
 import type { Socket } from 'socket.io'
-const home = require('../lib/home')()
-const getCurrentBranch = require('../../lib/core/git/getCurrentBranch')
-const searchBranches = require('../../lib/core/git/searchBranches')
+import getCurrentBranch from '@gitmars/core/es/git/getCurrentBranch'
+import searchBranches from '@gitmars/core/es/git/searchBranches'
+import home from '../utils/home'
+
+const homeDir = home()
+
 export interface SocketOption {
     name: string
     cwd: string
@@ -20,12 +23,12 @@ let glob = {},
  * @param {*} option 参数
  */
 const getData = (socket: Socket, option: SocketOption) => {
-    delete require.cache[require.resolve('../../lib/core/global')]
-    delete require.cache[require.resolve('../../lib/core/getConfig')]
-    const g = require('../../lib/core/global')
-    const c = require('../../lib/core/getConfig')()
-    const bh = searchBranches({ path: option.cwd || home })
-    const cur = getCurrentBranch({ path: option.cwd || home })
+    delete require.cache[require.resolve('@gitmars/core/es/global')]
+    delete require.cache[require.resolve('@gitmars/core/es/getConfig')]
+    const g = require('@gitmars/core/es/global')
+    const c = require('@gitmars/core/es/getConfig')()
+    const bh = searchBranches({ path: option.cwd || homeDir })
+    const cur = getCurrentBranch()
     if (!glob || JSON.stringify(glob) !== JSON.stringify(g)) {
         glob = g
         socket.emit(option.name + '-global', g)
@@ -44,9 +47,9 @@ const getData = (socket: Socket, option: SocketOption) => {
     }
 }
 
-module.exports = (socket: Socket) => {
+export default (socket: Socket) => {
     socket.on('create', option => {
-        process.chdir(option.cwd || home)
+        process.chdir(option.cwd || homeDir)
         getData(socket, option)
 
         if (!interval) {
@@ -67,4 +70,3 @@ module.exports = (socket: Socket) => {
         socket.removeAllListeners(name + '-current')
     })
 }
-export {}

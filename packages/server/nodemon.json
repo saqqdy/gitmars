@@ -1,7 +1,7 @@
 {
     "restartable": "rs",
-    "ignore": [".git", "node_modules/", "dist/", "coverage/"],
-    "watch": ["server"],
+    "ignore": [".git", "node_modules/", "dist/", "lib", "coverage/"],
+    "watch": ["src"],
     "execMap": {
         "ts": "node -r ts-node/register",
         "js": "node --harmony"
@@ -12,7 +12,7 @@
         "exit": "",
         "restart": ""
     },
-    "exec": "ts-node server/bin/www.ts",
+    "exec": "ts-node src/www.ts",
     "env": {
         "NODE_ENV": "development"
     },

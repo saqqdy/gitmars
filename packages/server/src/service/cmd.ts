@@ -1,7 +1,7 @@
 import { readFileSync } from 'fs'
-import getCurrentBranch from '@gitmars/core/git/getCurrentBranch'
-import searchBranches from '@gitmars/core/git/searchBranches'
-import glob from '@gitmars/core/global'
+import getCurrentBranch from '@gitmars/core/es/git/getCurrentBranch'
+import searchBranches from '@gitmars/core/es/git/searchBranches'
+import glob from '@gitmars/core/es/global'
 
 function getBranchList({ path, key, type, remote }) {
     return new Promise((resolve, reject) => {
