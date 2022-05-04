@@ -16,7 +16,7 @@ if (version.includes('alpha')) command += ' --tag alpha'
 for (const { name, pkgName } of packages) {
     execSync(command, {
         stdio: 'inherit',
-        cwd: join('packages', name, 'dist')
+        cwd: join('packages', name)
     })
     consola.success(`Published ${pkgName}`)
 }
