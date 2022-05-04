@@ -5,22 +5,22 @@
     "bin": {
         "gitm": "lib/gitm.js"
     },
-    "main": "./lib/index.js",
     "exports": {
         ".": {
-            "require": "./lib/index.js"
+            "require": "./lib/index.js",
+            "types": "./lib/index.d.ts"
         },
         "./lib": "./lib/index.js",
         "./lib/*.js": "./lib/*.js",
+        "./lib/*.d.ts": "./lib/*.d.ts",
         "./lib/*": "./lib/*.js",
-        "./*": {
-            "require": "./lib/*.js"
-        }
+        "./*": "./*"
     },
     "files": [
-        "cache",
+        "cache/.gitkeep",
         "lib",
-        "typings"
+        "typings",
+        "*.d.ts"
     ],
     "scripts": {
         "lib": "sh scripts/lib.sh",
@@ -51,12 +51,12 @@
         "ci-info": "^3.3.0",
         "colors": "^1.4.0",
         "columnify": "^1.6.0",
-        "commander": "^9.1.0",
+        "commander": "^9.2.0",
         "cosmiconfig": "^7.0.1",
         "cross-spawn": "^7.0.3",
-        "dayjs": "^1.11.0",
+        "dayjs": "^1.11.1",
         "debug": "^4.3.4",
-        "inquirer": "^8.2.2",
+        "inquirer": "^8.2.4",
         "js-cool": "^2.3.2",
         "node-apollo": "^1.2.1",
         "ora": "^5.4.1",
@@ -67,14 +67,15 @@
         "@eslint-sets/eslint-config-simple-ts": "^2.1.5",
         "@gitmars/core": "workspace:*",
         "@saqqdy/prettier-config": "^1.1.2",
-        "@types/inquirer": "^8.2.0",
         "@types/cross-spawn": "^6.0.2",
-        "@types/node": "^17.0.23",
+        "@types/inquirer": "^8.2.1",
+        "@types/node": "^17.0.31",
         "@types/shelljs": "^0.8.11",
-        "cron-parser": "^4.2.1",
+        "cron-parser": "^4.4.0",
         "cross-env": "^7.0.3",
-        "eslint": "^8.12.0",
+        "eslint": "^8.14.0",
         "madge": "^5.0.1",
+        "prettier": "^2.6.2",
         "tsnd": "^1.0.2"
     },
     "sideEffects": false,

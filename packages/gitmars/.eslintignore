@@ -1,8 +1,6 @@
 lib
+es
 dist
-docs
-app
-ui
 cache/*
 
 *.bak
