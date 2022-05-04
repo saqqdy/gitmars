@@ -22,7 +22,7 @@ export default defineConfig({
         vue(),
         vueJsx(),
         legacy({
-            targets: ['defaults', 'not IE 11', 'not op_mini all']
+            targets: ['> 1%', 'not IE 11', 'not op_mini all']
         })
     ],
     base: process.env.ELECTRON === 'true' ? './' : '/',
