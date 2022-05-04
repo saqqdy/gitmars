@@ -183,7 +183,7 @@ export async function buildCjs() {
                                 entries: [
                                     {
                                         find: /^@\//,
-                                        replacement: ROOT + '/packages/'
+                                        replacement: resolve(PACKAGE, name, 'src')
                                     }
                                 ],
                                 customResolver: nodeResolve() as ResolverObject
