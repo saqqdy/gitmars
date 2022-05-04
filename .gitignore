@@ -27,6 +27,7 @@ selenium-debug.log
 *.bak
 *_bak
 *.bak.js
+*.bak.mjs
 
 # testing
 /coverage

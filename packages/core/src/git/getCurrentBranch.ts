@@ -5,14 +5,14 @@ import { spawnSync } from '../spawn'
  *
  * @returns {String} 返回名称
  */
-export function getCurrentBranch(): string | void {
+export function getCurrentBranch(): string {
     const { stdout } = spawnSync('git', [
         'symbolic-ref',
         '--short',
         '-q',
         'HEAD'
     ])
-    return stdout
+    return stdout || ''
 }
 
 export default getCurrentBranch
