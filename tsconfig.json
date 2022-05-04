@@ -6,7 +6,7 @@
         "noLib": false,
         "lib": ["esnext"],
         "sourceMap": false,
-		"module": "commonjs",
+        "module": "commonjs",
         "jsx": "preserve",
         "strict": true,
         "declaration": true,
@@ -27,7 +27,7 @@
             "@/package": ["./package.json"]
         }
     },
-	"include": ["packages", "typings"]
+    "include": ["packages", "typings"]
     // "include": [
     //     "bin/**/*.ts",
     //     "bin/**/*.d.ts",

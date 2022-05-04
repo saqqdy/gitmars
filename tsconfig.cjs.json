@@ -1,8 +1,8 @@
 {
-	"files": [],
-	"references": [
-		{
-			"path": "./packages/tsconfig.cjs.json"
-		}
-	]
+    "files": [],
+    "references": [
+        {
+            "path": "./packages/tsconfig.cjs.json"
+        }
+    ]
 }
