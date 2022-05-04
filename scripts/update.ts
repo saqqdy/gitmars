@@ -24,7 +24,7 @@ async function updatePackageJSON() {
             url: 'git+https://github.com/saqqdy/gitmars.git',
             directory: `packages/${name}`
         }
-        packageJSON.main = './lib/index.js'
+        // packageJSON.main = './lib/index.js'
         // packageJSON.types = './index.d.ts'
         // packageJSON.module = './index.mjs'
         if (iife !== false) {
