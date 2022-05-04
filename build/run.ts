@@ -6,7 +6,7 @@ import {
     spawnSync
 } from 'child_process'
 import * as tasks from './gulpfile'
-import { ROOT_PATH } from './utils/paths'
+import { ROOT } from './utils/paths'
 
 let [, , type, ...argv] = process.argv
 
@@ -27,12 +27,12 @@ if (!type) {
     spawnSync('pnpm', ['build', type], spawnOption)
 } else if (type === 'create') {
     execSync(
-        `sh ${join(ROOT_PATH, 'scripts', 'create-component.sh')} ${argv}`,
+        `sh ${join(ROOT, 'scripts', 'create-component.sh')} ${argv}`,
         execOption
     )
 } else if (type === 'remove') {
     execSync(
-        `npx zx ${join(ROOT_PATH, 'scripts', 'remove-component.mjs')} ${argv}`,
+        `npx zx ${join(ROOT, 'scripts', 'remove-component.mjs')} ${argv}`,
         execOption
     )
 } else {
