@@ -3,22 +3,22 @@ import type { CommandType, GitmarsOptionOptionsType } from '../typings'
 const { program } = require('commander')
 const sh = require('shelljs')
 const { red } = require('colors')
-const { queue } = require('@gitmars/core/es/queue')
-const getIsGitProject = require('@gitmars/core/es/git/getIsGitProject')
-const getCurrentBranch = require('@gitmars/core/es/git/getCurrentBranch')
-const checkGitStatus = require('@gitmars/core/es/git/checkGitStatus')
-const searchBranches = require('@gitmars/core/es/git/searchBranches')
+const { queue } = require('@gitmars/core/lib/queue')
+const getIsGitProject = require('@gitmars/core/lib/git/getIsGitProject')
+const getCurrentBranch = require('@gitmars/core/lib/git/getCurrentBranch')
+const checkGitStatus = require('@gitmars/core/lib/git/checkGitStatus')
+const searchBranches = require('@gitmars/core/lib/git/searchBranches')
 const {
     isNeedUpgrade,
     upgradeGitmars
-} = require('@gitmars/core/es/versionControl')
-const { createArgs } = require('@gitmars/core/es/utils/command')
+} = require('@gitmars/core/lib/versionControl')
+const { createArgs } = require('@gitmars/core/lib/utils/command')
 if (!getIsGitProject()) {
     sh.echo(red('当前目录不是git项目目录'))
     process.exit(1)
 }
-const getConfig = require('@gitmars/core/es/getConfig')
-const { defaults } = require('@gitmars/core/es/global')
+const getConfig = require('@gitmars/core/lib/getConfig')
+const { defaults } = require('@gitmars/core/lib/global')
 const { options, args } = require('./conf/update')
 const config = getConfig()
 interface GitmBuildOption {

@@ -4,12 +4,12 @@ import type { GitmarsOptionOptionsType } from '../typings'
 const { program } = require('commander')
 const sh = require('shelljs')
 const { yellow, red } = require('colors')
-const { queue } = require('@gitmars/core/es/queue')
+const { queue } = require('@gitmars/core/lib/queue')
 const {
     getIsGitProject,
     getCurrentBranch
-} = require('@gitmars/core/es/git/index')
-const { createArgs } = require('@gitmars/core/es/utils/index')
+} = require('@gitmars/core/lib/git/index')
+const { createArgs } = require('@gitmars/core/lib/utils/index')
 const { options, args } = require('./conf/suggest')
 if (!getIsGitProject()) {
     sh.echo(red('当前目录不是git项目目录'))

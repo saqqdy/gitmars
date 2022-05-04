@@ -10,15 +10,15 @@ const dayjs = require('dayjs')
 const inquirer = require('inquirer')
 const sh = require('shelljs')
 const { yellow, blue, green, red } = require('colors')
-const { queue } = require('@gitmars/core/es/queue')
-const getIsGitProject = require('@gitmars/core/es/git/getIsGitProject')
-const getCurrentBranch = require('@gitmars/core/es/git/getCurrentBranch')
+const { queue } = require('@gitmars/core/lib/queue')
+const getIsGitProject = require('@gitmars/core/lib/git/getIsGitProject')
+const getCurrentBranch = require('@gitmars/core/lib/git/getCurrentBranch')
 const {
     getRevertCache,
     delRevertCache
-} = require('@gitmars/core/es/cache/revertCache')
-const { createArgs } = require('@gitmars/core/es/utils/command')
-const echo = require('@gitmars/core/es/utils/echo')
+} = require('@gitmars/core/lib/cache/revertCache')
+const { createArgs } = require('@gitmars/core/lib/utils/command')
+const echo = require('@gitmars/core/lib/utils/echo')
 const { options, args } = require('./conf/redo')
 if (!getIsGitProject()) {
     sh.echo(red('当前目录不是git项目目录'))

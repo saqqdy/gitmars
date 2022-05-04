@@ -5,7 +5,7 @@
         "removeComments": true,
         "declaration": false,
         "target": "ESNext",
-        "outDir": "dist",
+        "outDir": "lib",
         "module": "commonjs",
         "lib": ["ESNext"],
         "sourceMap": true

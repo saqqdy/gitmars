@@ -9,29 +9,29 @@ const dayjs = require('dayjs')
 const inquirer = require('inquirer')
 const columnify = require('columnify')
 const { green, yellow, blue, red, cyan, magenta } = require('colors')
-const getUserToken = require('@gitmars/core/es/api/getUserToken')
-const getIsGitProject = require('@gitmars/core/es/git/getIsGitProject')
-const getGitConfig = require('@gitmars/core/es/git/getGitConfig')
-const sendGroupMessage = require('@gitmars/core/es/sendGroupMessage')
-const { createArgs } = require('@gitmars/core/es/utils/command')
-const echo = require('@gitmars/core/es/utils/echo')
+const getUserToken = require('@gitmars/core/lib/api/getUserToken')
+const getIsGitProject = require('@gitmars/core/lib/git/getIsGitProject')
+const getGitConfig = require('@gitmars/core/lib/git/getGitConfig')
+const sendGroupMessage = require('@gitmars/core/lib/sendGroupMessage')
+const { createArgs } = require('@gitmars/core/lib/utils/command')
+const echo = require('@gitmars/core/lib/utils/echo')
 if (!getIsGitProject()) {
     echo(red('当前目录不是git项目目录'))
     process.exit(1)
 }
 const { appName } = getGitConfig()
-const getConfig = require('@gitmars/core/es/getConfig')
+const getConfig = require('@gitmars/core/lib/getConfig')
 const config = getConfig()
 const {
     getMergeRequestList,
     getMergeRequestChanges,
     updateMergeRequest,
     deleteMergeRequest
-} = require('@gitmars/core/es/api/mergeRequest')
+} = require('@gitmars/core/lib/api/mergeRequest')
 const {
     getMergeRequestNotesList,
     createMergeRequestNotes
-} = require('@gitmars/core/es/api/mergeRequestNotes')
+} = require('@gitmars/core/lib/api/mergeRequestNotes')
 const { options, args } = require('./conf/review')
 interface GitmBuildOption {
     state?: string

@@ -5,9 +5,9 @@ const sh = require('shelljs')
 const { green, red } = require('colors')
 const inquirer = require('inquirer')
 const getProperty = require('js-cool/lib/getProperty')
-const commands = require('@gitmars/core/es/go/index')
-const getCurrentBranch = require('@gitmars/core/es/git/getCurrentBranch')
-const { createArgs } = require('@gitmars/core/es/utils/command')
+const getCurrentBranch = require('@gitmars/core/lib/git/getCurrentBranch')
+const { createArgs } = require('@gitmars/core/lib/utils/command')
+const commands = require('./go/index')
 const { options, args } = require('./conf/go')
 
 /**
