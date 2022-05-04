@@ -5,6 +5,7 @@
         "appenders",
         "applypatch",
         "argv",
+        "asynciterable",
         "axios",
         "bak",
         "btns",
