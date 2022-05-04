@@ -23,7 +23,7 @@ export const packages: PackageManifest[] = [
         output: 'lib',
         exportType: 'named',
         display: 'gitmars核心程序'
-    }
+    },
     // {
     //     name: 'ui',
     //     pkgName: '@gitmars/ui',
@@ -35,16 +35,16 @@ export const packages: PackageManifest[] = [
     // output: 'dist',
     //     display: 'gitmars可视化界面'
     // },
-    // {
-    //     name: 'server',
-    //     pkgName: '@gitmars/server',
-    //     buildTask: 'cjs',
-    //     iife: false,
-    //     mjs: false,
-    //     dts: false,
-    // output: 'app',
-    //     display: 'gitmars可视化界面服务端'
-    // },
+    {
+        name: 'server',
+        pkgName: '@gitmars/server',
+        buildTask: 'cjs',
+        iife: false,
+        mjs: false,
+        dts: false,
+        output: 'lib',
+        display: 'gitmars可视化界面服务端'
+    }
     // {
     //     name: 'docs',
     //     pkgName: '@gitmars/docs',
