@@ -39,7 +39,6 @@
     },
     "devDependencies": {
         "@eslint-sets/eslint-config-vue3-ts": "^2.1.5",
-        "@gitmars/server": "workspace:*",
         "@originjs/vite-plugin-commonjs": "^1.0.3",
         "@saqqdy/prettier-config": "^1.1.2",
         "@types/qs": "^6.9.7",
