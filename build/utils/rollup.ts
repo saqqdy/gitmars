@@ -20,7 +20,7 @@ export function generateExternal(
         peerDependencies = {}
     } = require(resolve(PACKAGE, name, 'package.json'))
     return (id: string) => {
-        let pkgs: string[] = Object.keys(peerDependencies)
+        const pkgs: string[] = Object.keys(peerDependencies)
         if (!isFull) {
             pkgs.push(
                 ...Object.keys(dependencies),
