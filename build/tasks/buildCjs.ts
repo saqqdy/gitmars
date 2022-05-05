@@ -6,6 +6,8 @@ import type { OutputOptions } from 'rollup'
 import type { ResolverObject } from '@rollup/plugin-alias'
 import glob from 'fast-glob'
 import { wrapDisplayName } from '../utils/gulp'
+import { excludeFiles, generateExternal } from '../utils/rollup'
+
 import {
     banner as bannerPlugin,
     commonjs,
@@ -25,7 +27,6 @@ import { packages } from '../packages'
 
 export async function buildCjs() {
     const externals = [
-        /node_modules/,
         'js-cool',
         '@gitmars/core',
         '@gitmars/docs',
@@ -73,10 +74,14 @@ export async function buildCjs() {
                     ...globals
                 }
                 const iifeName = 'Gitmars'
-                const fileList = glob.sync('**/*.ts', {
-                    cwd: resolve(PACKAGE, name, 'src'),
-                    ignore: ['node_modules']
-                })
+                const fileList = excludeFiles(
+                    glob.sync('**/*.ts', {
+                        cwd: resolve(PACKAGE, name, 'src'),
+                        ignore: ['node_modules'],
+                        // absolute: true,
+                        onlyFiles: true
+                    })
+                )
 
                 // submodules
                 // if (submodules) {
@@ -173,7 +178,11 @@ export async function buildCjs() {
                                 entries: [
                                     {
                                         find: /^@\//,
-                                        replacement: resolve(PACKAGE, name, 'src')
+                                        replacement: resolve(
+                                            PACKAGE,
+                                            name,
+                                            'src'
+                                        )
                                     }
                                 ],
                                 customResolver: nodeResolve() as ResolverObject
@@ -186,7 +195,10 @@ export async function buildCjs() {
                             // target ? esbuild({ target }) : esbuild(),
                             filesize
                         ],
-                        external: [...externals, ...external]
+                        external: generateExternal({ name }, [
+                            ...externals,
+                            ...external
+                        ])
                     }
                     const bundle = await rollup(rollupConfig)
                     await Promise.all(

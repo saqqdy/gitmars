@@ -1,14 +1,37 @@
+import { resolve } from 'path'
 import { bold, cyan, green, yellow } from 'colors'
-// import pkg from '../../package.json'
-// const deps = Object.keys(pkg.dependencies || {})
+// import findWorkspacePackages from '@pnpm/find-workspace-packages'
+import { PACKAGE } from './paths'
+
 const noWlPrefixFile =
     /(utils|styles|style|directives|plugins|filters|images|hooks|locale|directives)/
 
-export function external(id: string) {
-    return (
-        /^vue/.test(id) || /^kdesign-vue\//.test(id)
-        //  || deps.some(k => new RegExp('^' + k).test(id))
-    )
+export function generateExternal(
+    { name, isFull = false }: { name: string; isFull?: boolean },
+    externals: string[] = []
+) {
+    const {
+        dependencies = {},
+        devDependencies = {},
+        peerDependencies = {}
+    } = require(resolve(PACKAGE, name, 'package.json'))
+    return (id: string) => {
+        let pkgs: string[] = Object.keys(peerDependencies)
+        if (!isFull) {
+            pkgs.push(
+                ...Object.keys(dependencies),
+                ...Object.keys(devDependencies)
+            )
+        }
+        return [...new Set(pkgs)].some(
+            pkg =>
+                id === pkg || id.startsWith(`${pkg}/`) || externals.includes(id)
+        )
+        // return (
+        //     id.includes('node_modules') ||
+        //     (id.includes('gitmars') && id !== input)
+        // )
+    }
 }
 
 export function pathRewriter(bundlePath: string) {
@@ -35,3 +58,10 @@ export const reporter = (opt: any, outputOptions: any, info: any) =>
     )}: bundle size ${yellow(info.bundleSize)} -> minified ${green(
         (info.minSize && `${info.minSize}`) || ''
     )}`
+
+export const excludeFiles = (files: string[]) => {
+    const excludes = ['node_modules', 'test', 'mock', 'gulpfile', 'dist']
+    return files.filter(
+        path => !excludes.some(exclude => path.includes(exclude))
+    )
+}
