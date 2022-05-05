@@ -195,7 +195,7 @@ export async function buildCjs() {
                             // target ? esbuild({ target }) : esbuild(),
                             filesize
                         ],
-                        external: generateExternal({ name }, [
+                        external: generateExternal({ name, input }, [
                             ...externals,
                             ...external
                         ])

@@ -7,7 +7,11 @@ const noWlPrefixFile =
     /(utils|styles|style|directives|plugins|filters|images|hooks|locale|directives)/
 
 export function generateExternal(
-    { name, isFull = false }: { name: string; isFull?: boolean },
+    {
+        name,
+        input,
+        isFull = false
+    }: { name: string; input: string; isFull?: boolean },
     externals: string[] = []
 ) {
     const {
@@ -25,7 +29,10 @@ export function generateExternal(
         }
         return [...new Set(pkgs)].some(
             pkg =>
-                id === pkg || id.startsWith(`${pkg}/`) || externals.includes(id)
+                id === pkg ||
+                id.startsWith(`${pkg}/`) ||
+                (id !== input && id.includes(`packages/${name}`)) ||
+                externals.includes(id)
         )
         // return (
         //     id.includes('node_modules') ||
