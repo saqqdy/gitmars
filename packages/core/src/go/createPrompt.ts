@@ -45,12 +45,12 @@ export interface PromptOptionInputType {
  * @param type - 类型checkbox/input/list
  * @returns prompt - 返回prompt
  */
-export const createPrompt = (
+function createPrompt(
     command: string,
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     { options, validator, transform }: PromptConfigType,
     type: string
-) => {
+) {
     if (type === 'checkbox') {
         if (!options.length) return null
         const promptOpt: PromptOptionCheckboxType = {

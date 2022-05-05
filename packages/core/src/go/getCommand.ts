@@ -24,7 +24,7 @@ export interface CommandNeedInput {
  * @param config.transformArgs - 传参值转换
  * @returns result - 返回指令结果Promise
  */
-export const getCommand = async ({
+async function getCommand({
     command,
     args,
     options,
@@ -32,7 +32,7 @@ export const getCommand = async ({
     validatorArgs,
     transformOpts,
     transformArgs
-}: GitmarsOptionType) => {
+}: GitmarsOptionType) {
     let params: string[] = [],
         needInput: CommandNeedInput[] = [] // 需要输入参数值的列表
     // 第一步：args参数

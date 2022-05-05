@@ -19,10 +19,10 @@ export interface GoCleanConfigType {
  * @param {array} sets.requiredArgs 必填参数
  * @returns {object} result 返回config
  */
-export const cleanConfig = (
+function cleanConfig(
     config: GitmarsOptionType,
     sets: GoCleanConfigType = {}
-): GitmarsOptionType => {
+): GitmarsOptionType {
     const {
         delOptions = [],
         requiredOptions = [],
