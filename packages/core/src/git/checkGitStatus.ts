@@ -8,7 +8,7 @@ import getGitStatus from './getGitStatus'
  *
  * @returns isOK - 返回true/false
  */
-export function checkGitStatus(): boolean {
+function checkGitStatus(): boolean {
     const sum = getGitStatus({ stdio: 'inherit' })
     debug('checkGitStatus', sum)
     if (

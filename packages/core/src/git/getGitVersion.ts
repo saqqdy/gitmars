@@ -8,7 +8,7 @@ import { debug } from '../utils/debug'
  *
  * @returns version - 返回版本号
  */
-export function getGitVersion(): string | void {
+function getGitVersion(): string | void {
     const { stdout } = spawnSync('git', ['--version'])
     let version: string | string[] | null = stdout!.match(
         /[\d.?]+/g

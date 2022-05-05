@@ -1,8 +1,3 @@
-// import { parallel, series } from 'gulp'
-// import { wrapDisplayName } from '../utils/gulp'
-// import { run } from '../utils/exec'
-// import { OUTPUT_CJS, PACKAGE } from '../utils/paths';
-
 import { resolve } from 'path'
 import { parallel, series } from 'gulp'
 import { rollup } from 'rollup'
@@ -25,9 +20,6 @@ import {
     // visual,
 } from '../plugins/index'
 import { run } from '../utils/exec'
-// import { external, pathRewriter } from '../utils/rollup'
-// import { bundleConfig } from '../buildConfig'
-// import config from '../config'
 import { PACKAGE, ROOT } from '../utils/paths'
 import { packages } from '../packages'
 
@@ -109,7 +101,6 @@ export async function buildCjs() {
                                 'es',
                                 fn.replace(/\.ts$/, '.mjs')
                             ),
-                            // exports: 'auto',
                             exports: exportType,
                             banner,
                             format: 'es'
@@ -124,7 +115,6 @@ export async function buildCjs() {
                                 'lib',
                                 fn.replace(/\.ts$/, '.js')
                             ),
-                            // exports: 'auto',
                             exports: exportType,
                             banner,
                             format: 'cjs'
@@ -262,20 +252,3 @@ export default series(
     // wrapDisplayName('gen:version', genVersion),
     parallel(wrapDisplayName('build:cjs', buildCjs))
 )
-
-// export async function buildCjs() {
-//     console.log(100)
-//     // await run(`npx tsc -b --force ${join(ROOT, 'tsconfig.cjs.json')}`)
-// }
-
-// export async function cleanCjs() {
-//     console.log(101)
-//     // const dirs: string[] = [OUTPUT_CJS]
-//     // await run(`rimraf ${dirs.join(' ')}`)
-//     // await run(`mkdir -p ${dirs.join(' ')}`)
-// }
-
-// export default series(
-//     wrapDisplayName('clean:cjs', cleanCjs),
-//     parallel(wrapDisplayName('build:cjs:bundle', buildCjs))
-// )

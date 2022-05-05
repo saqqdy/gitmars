@@ -10,7 +10,6 @@ export const packages: PackageManifest[] = [
         mjs: true,
         dts: true,
         output: 'lib',
-        exportType: 'named',
         display: 'gitmars核心程序'
     },
     {
@@ -32,7 +31,6 @@ export const packages: PackageManifest[] = [
         mjs: false,
         dts: false,
         output: 'lib',
-        exportType: 'named',
         display: 'gitmars可视化界面服务端'
     },
     {

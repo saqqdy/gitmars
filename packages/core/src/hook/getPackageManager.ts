@@ -7,7 +7,7 @@ export interface PmFromUserAgentType {
  *
  * @returns userAgent - 返回PmFromUserAgent
  */
-export function getPackageManager(): PmFromUserAgentType | undefined {
+function getPackageManager(): PmFromUserAgentType | undefined {
     if (!process.env.npm_config_user_agent) {
         return undefined
     }
@@ -20,7 +20,7 @@ export function getPackageManager(): PmFromUserAgentType | undefined {
  * @param userAgent - userAgent
  * @returns userAgent - PmFromUserAgentType
  */
-export function pmFromUserAgent(userAgent: string): PmFromUserAgentType {
+function pmFromUserAgent(userAgent: string): PmFromUserAgentType {
     const pmSpec = userAgent.split(' ')[0]
     const position = pmSpec.lastIndexOf('/')
     return {

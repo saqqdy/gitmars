@@ -9,7 +9,7 @@ import { debug } from '../utils/debug'
  * @param config - spawn配置
  * @returns gitStatus - git状态
  */
-export function getGitStatus(config: SpawnOptions = {}): GitStatusInfoType {
+function getGitStatus(config: SpawnOptions = {}): GitStatusInfoType {
     const { stdout } = spawnSync('git', ['status', '-s', '--no-column'], config)
     const list = stdout ? stdout.replace(/\n(\s+)/g, '\n').split('\n') : []
     const sum: GitStatusInfoType = {

@@ -12,7 +12,7 @@ import GitLogsFormatter from './gitLogsFormatter'
  * @param option.keys - 需要返回的字段
  * @returns logsList - 返回列表
  */
-export function getGitLogsByCommitIDs({
+function getGitLogsByCommitIDs({
     commitIDs,
     params,
     keys

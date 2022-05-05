@@ -13,9 +13,7 @@ export interface GitProjectConfigType {
  * @param cwd - 当前工作目录
  * @returns config - GitProjectConfigType
  */
-export function getGitConfig(
-    cwd: string = process.cwd()
-): GitProjectConfigType {
+function getGitConfig(cwd: string = process.cwd()): GitProjectConfigType {
     const { stdout } = spawnSync(
         'git',
         ['config', '--local', '--get', 'remote.origin.url'],

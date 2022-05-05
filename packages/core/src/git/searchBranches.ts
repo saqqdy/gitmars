@@ -15,7 +15,7 @@ export interface SearchBranchesMapType {
  * @param opt - 筛选参数
  * @returns branches - 返回列表数组
  */
-export function searchBranches(opt: any = {}): string[] {
+function searchBranches(opt: any = {}): string[] {
     const { key, type, remote = false, exclude, include } = opt
     let { path } = opt
     if (!path) {

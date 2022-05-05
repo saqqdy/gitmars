@@ -120,7 +120,11 @@
         "peerDependencyRules": {
             "ignoreMissing": [
                 "@babel/core",
-                "webpack"
+                "webpack",
+                "vite",
+                "vue",
+                "react",
+                "react-dom"
             ],
             "allowedVersions": {
                 "eslint": ">= 8.0.0"

@@ -17,9 +17,7 @@ export interface GitProjectRevParseType {
  * @param cwd - 当前工作目录
  * @returns gitRevParse - 返回对象GitProjectRevParseType
  */
-export function getGitRevParse(
-    cwd: string = process.cwd()
-): GitProjectRevParseType {
+function getGitRevParse(cwd: string = process.cwd()): GitProjectRevParseType {
     const { stdout } = spawnSync(
         'git',
         [

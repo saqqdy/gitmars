@@ -7,7 +7,7 @@ import getCurrentBranch from './getCurrentBranch'
  *
  * @returns aheadLogs - 日志
  */
-export function getAheadLogs(): string[] {
+function getAheadLogs(): string[] {
     const current = getCurrentBranch()
     spawnSync('git', ['fetch'])
     const { stdout } = spawnSync('git', [

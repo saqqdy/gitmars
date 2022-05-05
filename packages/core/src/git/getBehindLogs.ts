@@ -9,7 +9,7 @@ import getCurrentBranch from './getCurrentBranch'
  * @param targetBranch - 目标分支
  * @returns behindLogs - 是否
  */
-export function getBehindLogs(): string[] {
+function getBehindLogs(): string[] {
     const current = getCurrentBranch()
     spawnSync('git', ['fetch'])
     const { stdout } = spawnSync('git', [

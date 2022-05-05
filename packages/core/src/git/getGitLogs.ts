@@ -18,7 +18,7 @@ import GitLogsFormatter from './gitLogsFormatter'
  * @param option.branch - 要查询的分支
  * @returns logsList - 返回列表
  */
-export function getGitLogs(option: any = {}): GitLogsType[] {
+function getGitLogs(option: any = {}): GitLogsType[] {
     const {
         lastet,
         limit,

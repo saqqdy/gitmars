@@ -21,7 +21,7 @@ export interface RunJenkinsOptionType {
  *
  * @param option - 配置
  */
-export async function runJenkins({
+async function runJenkins({
     env,
     project,
     app = 'all'

@@ -8,7 +8,7 @@ import { debug } from '../utils/debug'
  * @param remote - 是否检测远程
  * @returns branches - 返回分支列表
  */
-export function getBranchesFromID(commitID: string, remote = false): string[] {
+function getBranchesFromID(commitID: string, remote = false): string[] {
     const { stdout } = spawnSync('git', [
         'branch',
         remote ? '-r' : '',

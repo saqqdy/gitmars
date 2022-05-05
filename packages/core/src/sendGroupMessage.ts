@@ -10,10 +10,7 @@ import getBuildConfig from './build/getBuildConfig'
  * @param message - 消息
  * @param cfg - 配置
  */
-export async function sendGroupMessage(
-    message: string,
-    url = ''
-): Promise<void> {
+async function sendGroupMessage(message: string, url = ''): Promise<void> {
     const config = (await getBuildConfig()) as ApolloConfigType
     let urls: string[] = []
     if (!config.gitNotificationGroupUrl && !url) {

@@ -9,7 +9,7 @@ const { root } = getGitRevParse()
  *
  * @returns comment - 返回注释
  */
-export function getHookComment(): string {
+function getHookComment(): string {
     // const pkgHomepage = process.env.npm_package_homepage
     const {
         author,

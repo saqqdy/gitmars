@@ -7,7 +7,7 @@ import getConfig from '../getConfig'
 import { debug } from '../utils/debug'
 
 // 获取用户信息
-export async function getUserToken(): Promise<FetchDataType> {
+async function getUserToken(): Promise<FetchDataType> {
     const config = getConfig()
     const userInfoApi =
         (config.apis && config.apis.userInfo && config.apis.userInfo.url) ||

@@ -10,7 +10,7 @@ import getCurrentBranch from './getCurrentBranch'
  * @param remote - 是否查询远程，默认：false
  * @returns isMergedTargetBranch - 是否合并过
  */
-export function getIsMergedTargetBranch(
+function getIsMergedTargetBranch(
     branch: string,
     targetBranch = 'dev',
     remote = false

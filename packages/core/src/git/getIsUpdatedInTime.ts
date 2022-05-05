@@ -18,7 +18,7 @@ export interface IsUpdatedInTimeConfigType {
  * @param option.branch - 目标分支
  * @returns isMergedTargetBranch - 是否合并过
  */
-export function getIsUpdatedInTime({
+function getIsUpdatedInTime({
     lastet,
     limit,
     branch

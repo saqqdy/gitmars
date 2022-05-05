@@ -8,10 +8,7 @@ const hookComment = getHookComment()
  * @param relativeUserPkgDir - relativeUserPkgDir
  * @returns shell - 脚本
  */
-export function getLocalShell(
-    pmName: string,
-    relativeUserPkgDir: string
-): string {
+function getLocalShell(pmName: string, relativeUserPkgDir: string): string {
     return `${hookComment}
 
 packageManager=${pmName}

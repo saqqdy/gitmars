@@ -8,7 +8,7 @@ const config = getConfig()
  * @param option - options
  * @returns command
  */
-export function getCurlOfMergeRequest({
+function getCurlOfMergeRequest({
     source_branch,
     target_branch,
     token,

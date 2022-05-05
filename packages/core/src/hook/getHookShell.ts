@@ -8,7 +8,7 @@ import getHookComment from './getHookComment'
  *
  * @returns arr 返回对象
  */
-export function getHookShell(): string {
+function getHookShell(): string {
     const pkg = readPkg()
     const hookShell = fs
         .readFileSync(path.join(__dirname, '../../sh/gitmars.sh'), 'utf-8')

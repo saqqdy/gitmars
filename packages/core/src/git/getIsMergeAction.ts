@@ -5,7 +5,7 @@ import getGitLogs from './getGitLogs'
  *
  * @returns isMergeAction - 是否merge
  */
-export function getIsMergeAction(): boolean {
+function getIsMergeAction(): boolean {
     const currentLogs = getGitLogs({
         limit: 1
     })

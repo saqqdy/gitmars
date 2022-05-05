@@ -9,7 +9,7 @@ import { debug } from '../utils/debug'
  * @param key - 名称
  * @returns stashList - 返回stashList
  */
-export function getStashList(key: string) {
+function getStashList(key: string) {
     const { stdout } = spawnSync('git', [
         'stash',
         'list'
