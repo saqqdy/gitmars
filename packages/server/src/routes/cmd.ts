@@ -10,9 +10,9 @@ import {
     readFile
 } from '../controller/cmd'
 // import sh from 'shelljs'
-// import glob from '@gitmars/core/es/global'
-// import getCurrentBranch from '@gitmars/core/es/git/getCurrentBranch'
-// import searchBranches from '@gitmars/core/es/git/searchBranches'
+// import glob from '@gitmars/core/lib/global'
+// import getCurrentBranch from '@gitmars/core/lib/git/getCurrentBranch'
+// import searchBranches from '@gitmars/core/lib/git/searchBranches'
 
 // const error503 = (res: Response) => {
 // 	res.status(503).send({ data: null, success: false, code: 0, msg: 'fail' })

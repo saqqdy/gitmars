@@ -1,4 +1,3 @@
-import path from 'path'
 import apollo from 'node-apollo'
 import sh from 'shelljs'
 import request from '@jssj/request'

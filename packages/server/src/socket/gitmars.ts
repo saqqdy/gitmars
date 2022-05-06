@@ -1,6 +1,6 @@
 import type { Socket } from 'socket.io'
-import getCurrentBranch from '@gitmars/core/es/git/getCurrentBranch'
-import searchBranches from '@gitmars/core/es/git/searchBranches'
+import getCurrentBranch from '@gitmars/core/lib/git/getCurrentBranch'
+import searchBranches from '@gitmars/core/lib/git/searchBranches'
 import home from '../utils/home'
 
 const homeDir = home()
@@ -23,10 +23,10 @@ let glob = {},
  * @param {*} option 参数
  */
 const getData = (socket: Socket, option: SocketOption) => {
-    delete require.cache[require.resolve('@gitmars/core/es/global')]
-    delete require.cache[require.resolve('@gitmars/core/es/getConfig')]
-    const g = require('@gitmars/core/es/global')
-    const c = require('@gitmars/core/es/getConfig')()
+    delete require.cache[require.resolve('@gitmars/core/lib/global')]
+    delete require.cache[require.resolve('@gitmars/core/lib/getConfig')]
+    const g = require('@gitmars/core/lib/global')
+    const c = require('@gitmars/core/lib/getConfig')()
     const bh = searchBranches({ path: option.cwd || homeDir })
     const cur = getCurrentBranch()
     if (!glob || JSON.stringify(glob) !== JSON.stringify(g)) {

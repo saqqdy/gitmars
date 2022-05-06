@@ -4,7 +4,6 @@ import type {
     FetchDataType,
     GitmarsOptionOptionsType
 } from '../typings'
-const { resolve } = require('path')
 const { program } = require('commander')
 const sh = require('shelljs')
 const { red } = require('colors')
@@ -32,9 +31,8 @@ const { defaults } = require('@gitmars/core/lib/global')
 const { options, args } = require('./conf/end')
 const config = getConfig()
 const { appName } = getGitConfig()
-const mergeRequestModule = require.resolve(
-    resolve('@gitmars/core/lib/api/mergeRequest')
-)
+const mergeRequestModule = require.resolve('@gitmars/core/lib/api/mergeRequest')
+
 interface GitmBuildOption {
     combine?: boolean
     asFeature?: boolean

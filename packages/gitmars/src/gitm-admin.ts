@@ -4,7 +4,6 @@ import type {
     FetchDataType,
     GitmarsOptionOptionsType
 } from '../typings'
-const { resolve } = require('path')
 const { Command } = require('commander')
 const { green, red } = require('colors')
 const getType = require('js-cool/lib/getType')
@@ -29,9 +28,7 @@ const config = getConfig()
 const userInfoApi =
     (config.apis && config.apis.userInfo && config.apis.userInfo.url) ||
     config.api
-const mergeRequestModule = require.resolve(
-    resolve('@gitmars/core/lib/api/mergeRequest')
-)
+const mergeRequestModule = require.resolve('@gitmars/core/lib/api/mergeRequest')
 interface GitmBuildOption {
     publish: {
         combine?: boolean
