@@ -12,8 +12,7 @@ import { isFileExist, writeFile, removeFile } from '../utils/file'
 import { isCacheExpired, updateCacheTime } from '../cache/cache'
 import getConfig from '../getConfig'
 import { debug } from '../utils/debug'
-
-const cacheDir = path.join(__dirname, '../../cache')
+import { CACHE_PATH } from '../utils/paths'
 
 /**
  * 获取namespace
@@ -58,7 +57,7 @@ export async function getBuildConfig(): Promise<ApolloConfigType | void> {
     }
 
     const BUILD_CONFIG_TIME_NAME = `buildConfigTime-${NS}`
-    const BUILD_CONFIG_PATH = `${cacheDir}/buildConfig-${NS}.json`
+    const BUILD_CONFIG_PATH = `${CACHE_PATH}/buildConfig-${NS}.json`
     // 有配置文件且没有过期，返回配置
     if (
         !isCacheExpired(BUILD_CONFIG_TIME_NAME) &&
@@ -102,10 +101,10 @@ export function cleanBuildConfig() {
     removeFile([
         {
             name: 'Jenkins构建配置缓存文件',
-            url: cacheDir + '/buildConfig*.json'
+            url: CACHE_PATH + '/buildConfig*.json'
         },
         {
-            url: cacheDir + '/buildConfig.txt'
+            url: CACHE_PATH + '/buildConfig.txt'
         }
     ])
 }

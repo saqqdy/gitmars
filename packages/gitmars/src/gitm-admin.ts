@@ -30,7 +30,7 @@ const userInfoApi =
     (config.apis && config.apis.userInfo && config.apis.userInfo.url) ||
     config.api
 const mergeRequestModule = require.resolve(
-    resolve(__dirname, 'core/api/mergeRequest')
+    resolve('@gitmars/core/lib/api/mergeRequest')
 )
 interface GitmBuildOption {
     publish: {

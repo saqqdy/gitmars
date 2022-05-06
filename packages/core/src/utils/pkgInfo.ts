@@ -1,10 +1,9 @@
-import path from 'path'
+import { resolve } from 'path'
 import getProperty from 'js-cool/lib/getProperty'
 import { isCacheExpired, updateCacheTime } from '../cache/cache'
 import { spawnSync } from '../spawn'
 import { isFileExist, writeFile, removeFile } from './file'
-
-const cacheDir = path.join(__dirname, '../../cache')
+import { CACHE_PATH } from './paths'
 
 /**
  * 读取gitmars在线版本列表
@@ -17,9 +16,9 @@ export async function getPkgInfo(name?: string): Promise<any | void> {
     // 有配置文件且没有过期，返回配置
     if (
         !isCacheExpired('packageInfoTime') &&
-        isFileExist(cacheDir + '/packageInfo.json')
+        isFileExist(resolve(CACHE_PATH + 'packageInfo.json'))
     ) {
-        packageInfo = require(cacheDir + '/packageInfo.json')
+        packageInfo = require(resolve(CACHE_PATH + 'packageInfo.json'))
         return name ? getProperty(packageInfo, name) : packageInfo
     }
     const { stdout } = spawnSync('npm', ['view', 'gitmars', '--json'])
@@ -29,7 +28,10 @@ export async function getPkgInfo(name?: string): Promise<any | void> {
         throw '出错了'
     }
     await updateCacheTime('packageInfoTime')
-    await writeFile(cacheDir + '/packageInfo.json', JSON.stringify(packageInfo))
+    await writeFile(
+        resolve(CACHE_PATH + 'packageInfo.json'),
+        JSON.stringify(packageInfo)
+    )
     return name ? getProperty(packageInfo, name) : packageInfo
 }
 
@@ -39,7 +41,7 @@ export async function getPkgInfo(name?: string): Promise<any | void> {
 export function cleanPkgInfo() {
     removeFile({
         name: 'Gitmars包缓存文件',
-        url: cacheDir + '/packageInfo.json'
+        url: resolve(CACHE_PATH + 'packageInfo.json')
     })
 }
 

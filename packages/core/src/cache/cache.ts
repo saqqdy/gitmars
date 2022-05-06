@@ -1,11 +1,10 @@
-import path from 'path'
+import { resolve } from 'path'
 import { isFileExist, writeFile, removeFile } from '../utils/file'
+import { CACHE_PATH } from '../utils/paths'
 
 type TimestampType = Record<string, number> & {
     packageInfoTime?: number
 }
-
-const cacheDir = path.join(__dirname, '../../cache')
 
 /**
  * 获取缓存是否过期
@@ -22,9 +21,9 @@ export function isCacheExpired(
     let timestamp: TimestampType = {}
     if (!name) throw '请传入名称'
     // 没有找到缓存文件
-    if (!isFileExist(cacheDir + '/timestamp.json')) return true
+    if (!isFileExist(resolve(CACHE_PATH + 'timestamp.json'))) return true
     // 从文件读取时间戳
-    timestamp = require(cacheDir + '/timestamp.json')
+    timestamp = require(resolve(CACHE_PATH + 'timestamp.json'))
     return !timestamp[name] || now - timestamp[name]! >= time
 }
 
@@ -38,17 +37,20 @@ export async function updateCacheTime(name: keyof TimestampType) {
     let timestamp: TimestampType = {}
     if (!name) throw '请传入名称'
     // 没有找到缓存文件
-    if (isFileExist(cacheDir + '/timestamp.json')) {
-        timestamp = require(cacheDir + '/timestamp.json')
+    if (isFileExist(resolve(CACHE_PATH + 'timestamp.json'))) {
+        timestamp = require(resolve(CACHE_PATH + 'timestamp.json'))
     }
     timestamp[name] = now
-    await writeFile(cacheDir + '/timestamp.json', JSON.stringify(timestamp))
+    await writeFile(
+        resolve(CACHE_PATH + 'timestamp.json'),
+        JSON.stringify(timestamp)
+    )
 }
 
 export async function cleanCache() {
     removeFile({
         name: '缓存时间Map文件',
-        url: cacheDir + '/timestamp.json'
+        url: resolve(CACHE_PATH + 'timestamp.json')
     })
 }
 

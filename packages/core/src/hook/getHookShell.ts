@@ -1,7 +1,8 @@
 import fs from 'fs'
-import path from 'path'
+import { resolve } from 'path'
 import readPkg from '../utils/readPkg'
 import getHookComment from './getHookComment'
+import { SH_PATH } from '../utils/paths'
 
 /**
  * 生成hook主程序
@@ -11,7 +12,7 @@ import getHookComment from './getHookComment'
 function getHookShell(): string {
     const pkg = readPkg()
     const hookShell = fs
-        .readFileSync(path.join(__dirname, '../../sh/gitmars.sh'), 'utf-8')
+        .readFileSync(resolve(SH_PATH, 'gitmars.sh'), 'utf-8')
         .replace('gitmarsVersion="0.0.0"', `gitmarsVersion="${pkg.version}"`)
     return [getHookComment(), '', hookShell].join('\n')
 }

@@ -24,7 +24,7 @@ const {
 } = require('@gitmars/core/lib/versionControl')
 const { defaults } = require('@gitmars/core/lib/global')
 const mergeRequestModule = require.resolve(
-    resolve(__dirname, 'core/api/mergeRequest')
+    resolve('@gitmars/core/lib/api/mergeRequest')
 )
 interface GitmBuildOption {
     dev?: boolean

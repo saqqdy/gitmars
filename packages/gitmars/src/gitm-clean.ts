@@ -1,48 +1,22 @@
 #!/usr/bin/env ts-node
 import type { GitmarsOptionOptionsType } from '../typings'
-const path = require('path')
 const { program } = require('commander')
 const sh = require('shelljs')
 const { green, yellow } = require('colors')
 const inquirer = require('inquirer')
-const ora = require('ora')
 const getGitRevParse = require('@gitmars/core/lib/git/getGitRevParse')
 const getIsGitProject = require('@gitmars/core/lib/git/getIsGitProject')
-const { isFileExist } = require('@gitmars/core/lib/utils/file')
+const { removeFile } = require('@gitmars/core/lib/utils/file')
 const { createArgs } = require('@gitmars/core/lib/utils/command')
+const { cleanCache } = require('@gitmars/core/lib/cache/cache')
+const { cleanPkgInfo } = require('@gitmars/core/lib/utils/pkgInfo')
+const { cleanBuildConfig } = require('@gitmars/core/lib/build/buildConfig')
 const { options, args } = require('./conf/clean')
-const cacheDir = path.join(__dirname, '../cache')
 const { gitDir } = getGitRevParse()
 
 sh.config.silent = true
 interface GitmBuildOption {
     force?: string
-}
-
-interface GitmarsCacheFileDescriptionType {
-    name?: string
-    url?: string
-}
-
-/**
- * 移除文件
- *
- * @param files - 需要清理的文件数组，类型GitmarsCacheFileDescriptionType
- */
-function removeFile(files: GitmarsCacheFileDescriptionType[]) {
-    const spinner = ora()
-    for (const file of files) {
-        file.name && spinner.start(green(`正在处理${file.name}`))
-        const fileExist = isFileExist(file.url)
-        if (fileExist) {
-            sh.rm(file.url)
-            file.name && spinner.succeed(green(`${file.name}已删除`))
-        } else {
-            file.name && spinner.warn(green(`${file.name}未找到`))
-        }
-    }
-    spinner.stop()
-    sh.echo(green('清理完毕'))
 }
 
 /**
@@ -85,23 +59,12 @@ program.action(async (opt: GitmBuildOption) => {
     } else {
         sh.echo(yellow('当前目录不是git项目目录'))
     }
-    removeFile([
-        {
-            name: 'Jenkins构建配置缓存文件',
-            url: cacheDir + '/buildConfig*.json'
-        },
-        {
-            url: cacheDir + '/buildConfig.txt'
-        },
-        {
-            name: 'Gitmars包缓存文件',
-            url: cacheDir + '/packageInfo.json'
-        },
-        {
-            name: '缓存时间Map文件',
-            url: cacheDir + '/timestamp.json'
-        }
-    ])
+    // 移除 cache/buildConfig*.json cache/buildConfig.txt
+    cleanBuildConfig()
+    // 移除 cache/packageInfo.json
+    cleanPkgInfo()
+    // 移除 cache/timestamp.json
+    cleanCache()
 })
 program.parse(process.argv)
 export {}

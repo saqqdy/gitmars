@@ -33,7 +33,7 @@ const { options, args } = require('./conf/end')
 const config = getConfig()
 const { appName } = getGitConfig()
 const mergeRequestModule = require.resolve(
-    resolve(__dirname, 'core/api/mergeRequest')
+    resolve('@gitmars/core/lib/api/mergeRequest')
 )
 interface GitmBuildOption {
     combine?: boolean
