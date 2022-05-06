@@ -1,8 +1,8 @@
 import fs from 'fs'
 import { resolve } from 'path'
 import readPkg from '../utils/readPkg'
-import getHookComment from './getHookComment'
 import { SH_PATH } from '../utils/paths'
+import getHookComment from './getHookComment'
 
 /**
  * 生成hook主程序

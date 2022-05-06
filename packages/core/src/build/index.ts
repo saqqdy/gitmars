@@ -1,4 +1,4 @@
-import { getBuildConfig, cleanBuildConfig } from './buildConfig'
+import { cleanBuildConfig, getBuildConfig } from './buildConfig'
 import runJenkins from './runJenkins'
 
 export default {

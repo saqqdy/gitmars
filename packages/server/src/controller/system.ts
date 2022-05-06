@@ -1,8 +1,7 @@
 import { sep } from 'path'
-import { execSync } from 'child_process'
-import type { Request, Response } from 'express'
-import { exec } from 'child_process'
+import { exec, execSync } from 'child_process'
 import { promisify } from 'util'
+import type { Request, Response } from 'express'
 // import error503 from '../helper/503'
 import success from '../helper/200'
 

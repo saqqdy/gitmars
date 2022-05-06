@@ -1,5 +1,5 @@
 import { resolve } from 'path'
-import { isFileExist, writeFile, removeFile } from '../utils/file'
+import { isFileExist, removeFile, writeFile } from '../utils/file'
 import { CACHE_PATH } from '../utils/paths'
 
 type TimestampType = Record<string, number> & {

@@ -2,7 +2,7 @@ import { resolve } from 'path'
 import getProperty from 'js-cool/lib/getProperty'
 import { isCacheExpired, updateCacheTime } from '../cache/cache'
 import { spawnSync } from '../spawn'
-import { isFileExist, writeFile, removeFile } from './file'
+import { isFileExist, removeFile, writeFile } from './file'
 import { CACHE_PATH } from './paths'
 
 /**

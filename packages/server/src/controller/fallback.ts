@@ -1,17 +1,22 @@
+import type { Request, Response, NextFunction } from 'express'
 import log4js from '../log/logger'
 const logger = log4js.getLogger('website')
+
+export interface ErrorType extends Error {
+    status: number
+}
 
 export default function () {
     return [
         // 404 not found
-        (req, res, next) => {
+        (req: Request, res: Response, next: NextFunction) => {
             // logger.error(404);
-            const err = new Error('Not Found')
+            const err = new Error('Not Found') as ErrorType
             err.status = 404
             next(err)
         },
         // error handler
-        (err, req, res) => {
+        (err: ErrorType, req: Request, res: Response, next: NextFunction) => {
             res.locals.message = err.message
             res.locals.error = err
             // 如果是404，则不打印错误

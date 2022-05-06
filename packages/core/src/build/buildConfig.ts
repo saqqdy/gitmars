@@ -7,7 +7,7 @@ import type {
     GitmarsConfigApisBuildConfigType,
     GitmarsConfigType
 } from '../../typings'
-import { isFileExist, writeFile, removeFile } from '../utils/file'
+import { isFileExist, removeFile, writeFile } from '../utils/file'
 import { isCacheExpired, updateCacheTime } from '../cache/cache'
 import getConfig from '../getConfig'
 import { debug } from '../utils/debug'
