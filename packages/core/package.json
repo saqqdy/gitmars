@@ -24,6 +24,7 @@
         }
     },
     "files": [
+        "cache/.gitkeep",
         "es",
         "lib",
         "typings",
@@ -35,6 +36,7 @@
         "es": "es",
         "lib": "lib",
         "src": "src",
+        "cache": "cache",
         "typings": "typings"
     },
     "dependencies": {

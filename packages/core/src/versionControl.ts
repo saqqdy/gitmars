@@ -1,7 +1,7 @@
 import sh from 'shelljs'
 import { green, red } from 'colors'
 import { version } from '../package.json'
-import getPkgInfo from './utils/getPkgInfo'
+import { getPkgInfo } from './utils/pkgInfo'
 import { debug } from './utils/debug'
 
 /**

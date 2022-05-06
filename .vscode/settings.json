@@ -110,6 +110,7 @@
         "unpub",
         "unpublish",
         "unref",
+        "unstage",
         "untarget",
         "untargets",
         "untracked",

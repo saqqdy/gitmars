@@ -8,7 +8,7 @@ import type {
 } from '../../typings'
 import mapTemplate from '../utils/mapTemplate'
 import { debug } from '../utils/debug'
-import getBuildConfig from './getBuildConfig'
+import { getBuildConfig } from './buildConfig'
 
 export interface RunJenkinsOptionType {
     env: ApolloBranchList

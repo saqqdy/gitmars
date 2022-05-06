@@ -1,11 +1,11 @@
 import path from 'path'
-import { isFileExist, writeFile } from '../utils/file'
+import { isFileExist, writeFile, removeFile } from '../utils/file'
 
 type TimestampType = Record<string, number> & {
     packageInfoTime?: number
 }
 
-const cacheDir = path.join(__dirname, '../../../cache')
+const cacheDir = path.join(__dirname, '../../cache')
 
 /**
  * 获取缓存是否过期
@@ -45,7 +45,15 @@ export async function updateCacheTime(name: keyof TimestampType) {
     await writeFile(cacheDir + '/timestamp.json', JSON.stringify(timestamp))
 }
 
+export async function cleanCache() {
+    removeFile({
+        name: '缓存时间Map文件',
+        url: cacheDir + '/timestamp.json'
+    })
+}
+
 export default {
     isCacheExpired,
-    updateCacheTime
+    updateCacheTime,
+    cleanCache
 }

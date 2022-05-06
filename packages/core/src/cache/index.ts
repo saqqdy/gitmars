@@ -1,5 +1,5 @@
-export { isCacheExpired, updateCacheTime } from './cache'
-export { setLog } from './log'
+export { isCacheExpired, updateCacheTime, cleanCache } from './cache'
+export { setLog, cleanLog } from './log'
 export {
     getCommandCache,
     setCommandCache,

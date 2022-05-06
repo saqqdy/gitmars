@@ -2,7 +2,7 @@ import sh from 'shelljs'
 import { green, red } from 'colors'
 import request from '@jssj/request'
 import type { ApolloConfigType } from '../typings'
-import getBuildConfig from './build/getBuildConfig'
+import { getBuildConfig } from './build/buildConfig'
 
 /**
  * 发送群消息

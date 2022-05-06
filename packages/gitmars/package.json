@@ -18,7 +18,6 @@
         "./*": "./*"
     },
     "files": [
-        "cache/.gitkeep",
         "lib",
         "typings",
         "*.d.ts"
@@ -43,7 +42,6 @@
         "es": "es",
         "lib": "lib",
         "src": "src",
-        "cache": "cache",
         "typings": "typings"
     },
     "dependencies": {

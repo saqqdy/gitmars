@@ -1,7 +1,14 @@
 import fs from 'fs'
 import sh from 'shelljs'
+import ora from 'ora'
+import { green } from 'colors'
 
 sh.config.silent = true
+
+export interface GitmarsCacheFileDescriptionType {
+    name?: string
+    url: string
+}
 
 /**
  * 写文件
@@ -39,8 +46,33 @@ export function isFileExist(filePath: string): boolean {
     return sh.test('-f', filePath) || sh.find(filePath).stdout !== ''
 }
 
+/**
+ * 移除文件
+ *
+ * @param files - 需要清理的文件数组，类型GitmarsCacheFileDescriptionType
+ */
+export function removeFile(
+    files: GitmarsCacheFileDescriptionType | GitmarsCacheFileDescriptionType[]
+) {
+    const spinner = ora()
+    if (!Array.isArray(files)) files = [files]
+    for (const file of files) {
+        file.name && spinner.start(green(`正在处理${file.name}`))
+        const fileExist = isFileExist(file.url)
+        if (fileExist) {
+            sh.rm(file.url)
+            file.name && spinner.succeed(green(`${file.name}已删除`))
+        } else {
+            file.name && spinner.warn(green(`${file.name}未找到`))
+        }
+    }
+    spinner.stop()
+    sh.echo(green('清理完毕'))
+}
+
 export default {
     writeFile,
     writeFileSync,
-    isFileExist
+    isFileExist,
+    removeFile
 }

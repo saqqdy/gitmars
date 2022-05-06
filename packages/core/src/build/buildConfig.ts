@@ -8,10 +8,12 @@ import type {
     GitmarsConfigApisBuildConfigType,
     GitmarsConfigType
 } from '../../typings'
-import { isFileExist, writeFile } from '../utils/file'
+import { isFileExist, writeFile, removeFile } from '../utils/file'
 import { isCacheExpired, updateCacheTime } from '../cache/cache'
 import getConfig from '../getConfig'
 import { debug } from '../utils/debug'
+
+const cacheDir = path.join(__dirname, '../../cache')
 
 /**
  * 获取namespace
@@ -38,8 +40,7 @@ function getNamespace(
  *
  * @returns buildConfig - 返回配置对象
  */
-async function getBuildConfig(): Promise<ApolloConfigType | void> {
-    const cacheDir = path.join(__dirname, '../../../cache')
+export async function getBuildConfig(): Promise<ApolloConfigType | void> {
     const config = getConfig() as GitmarsConfigType
     const { apis = {} } = config
     let NS, _buildConfig
@@ -97,4 +98,19 @@ async function getBuildConfig(): Promise<ApolloConfigType | void> {
     return _buildConfig
 }
 
-export default getBuildConfig
+export function cleanBuildConfig() {
+    removeFile([
+        {
+            name: 'Jenkins构建配置缓存文件',
+            url: cacheDir + '/buildConfig*.json'
+        },
+        {
+            url: cacheDir + '/buildConfig.txt'
+        }
+    ])
+}
+
+export default {
+    getBuildConfig,
+    cleanBuildConfig
+}
