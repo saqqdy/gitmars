@@ -4,6 +4,7 @@ import type { GitmarsConfigType } from '../typings'
 import getGitRevParse from './git/getGitRevParse'
 import { defaults } from './global'
 import { debug } from './utils/debug'
+import echo from './utils/echo'
 
 /**
  * 读取配置
@@ -19,6 +20,10 @@ function getConfig(
     let info
     if (!pathName) {
         const { root } = getGitRevParse()
+        if (!root) {
+            echo('当前目录不是git项目目录')
+            process.exit(1)
+        }
         try {
             pathName = root + '/gitmarsconfig.json'
             info = statSync(pathName)
