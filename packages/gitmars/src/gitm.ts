@@ -79,6 +79,8 @@ program
     .command('log', '查询日志')
     .command('go', '智能猜测你要执行的动作')
     .command('alias', '安装和移除快捷方式')
+    .command('install', '安装插件')
+    .alias('i')
     .command(
         'admin <command>',
         '管理员功能，包含对发版分支bugfix、release的操作'
@@ -147,6 +149,8 @@ program.on('command:*', function (types: string[], opts: string[]) {
         'log',
         'go',
         'alias',
+        'install',
+        'i',
         'admin'
     ]
     if (!cmd.includes(types[0])) {
