@@ -1,5 +1,11 @@
 # 更新日志
 
+## 2022.05.10 v3.0.0 更新日志
+
+1. monorepo改造，拆分成`core` `gitmars` `server` `ui` `docs`五个子项目
+2. 放开`alias` 指令只能在git项目下面执行的限制
+3. 升级依赖包版本
+
 ## 2022.04.07 v2.18.1 更新日志
 
 1. 删除分支自动执行`git remote prune origin`清理记录

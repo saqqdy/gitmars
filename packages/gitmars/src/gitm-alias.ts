@@ -1,17 +1,12 @@
 #!/usr/bin/env ts-node
 import type { GitmarsOptionOptionsType } from '../typings'
 const { program } = require('commander')
-const sh = require('shelljs')
 const { red } = require('colors')
-const getIsGitProject = require('@gitmars/core/lib/git/getIsGitProject')
 const { createArgs } = require('@gitmars/core/lib/utils/command')
 const { spawnSync } = require('@gitmars/core/lib/spawn')
 const echo = require('@gitmars/core/lib/utils/echo')
 const { options, args } = require('./conf/alias')
-if (!getIsGitProject()) {
-    sh.echo(red('当前目录不是git项目目录'))
-    process.exit(1)
-}
+
 const actions = ['init', 'remove'] as const
 type Module = typeof actions[number]
 interface Action {
