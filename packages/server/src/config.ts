@@ -1,9 +1,9 @@
-import { resolve } from 'path'
+const { resolve } = require('path')
 
 const baseDir = resolve(__dirname, '.')
 const root = resolve(baseDir, '..')
 
-export default {
+module.exports = {
     path: {
         root,
         controller: resolve(baseDir, 'controller'),
@@ -35,3 +35,4 @@ export default {
     mysql: null, // 连接mysql用到的配置
     redis: null // 连接redis用到的配置
 }
+export {}

@@ -3,3 +3,4 @@ module.exports = function (path = '/app') {
         res.redirect(path)
     }
 }
+export {}

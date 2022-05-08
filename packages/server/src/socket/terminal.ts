@@ -1,9 +1,9 @@
 import type http from 'http'
-import os from 'os'
 import type { IPty } from 'node-pty'
-import pty from 'node-pty'
-import sh from 'shelljs'
-import home from '../utils/home'
+const os = require('os')
+const pty = require('node-pty')
+const sh = require('shelljs')
+const home = require('../utils/home')
 
 const homeDir = home()
 
@@ -15,7 +15,7 @@ const shell =
         : 'bash'
 const ptyContainers: Record<string, IPty> = {}
 
-export default (socket: http.Server) => {
+module.exports = (socket: http.Server) => {
     socket.on('create', option => {
         const ptyProcess = pty.spawn(shell, [], {
             name: 'xterm-color',
@@ -49,3 +49,4 @@ export default (socket: http.Server) => {
         }
     })
 }
+export {}

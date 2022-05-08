@@ -1,6 +1,6 @@
-import path from 'path'
-import log4js from 'log4js'
-import config from '../config'
+const path = require('path')
+const log4js = require('log4js')
+const config = require('../config')
 
 log4js.configure({
     appenders: {
@@ -38,4 +38,5 @@ log4js.configure({
     // pm2: true
 })
 
-export default log4js
+module.exports = log4js
+export {}

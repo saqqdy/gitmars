@@ -1,11 +1,11 @@
 import type { Request, Response } from 'express'
 
-export interface ResponseData {
+interface ResponseData {
     data?: any
     msg?: 'success' | 'fail'
 }
 
-export default function (
+module.exports = function (
     req: Request,
     res: Response,
     { data = true, msg = 'success' }: ResponseData
@@ -17,3 +17,4 @@ export default function (
         msg
     })
 }
+export {}

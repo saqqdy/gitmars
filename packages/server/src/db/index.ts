@@ -1,10 +1,10 @@
-import path from 'path'
-import fs from 'fs'
-import sh from 'shelljs'
-import low from 'lowdb'
-import FileSync from 'lowdb/adapters/FileSync'
-import home from '../utils/home'
-import dbTmp from './db.json'
+const path = require('path')
+const fs = require('fs')
+const sh = require('shelljs')
+const low = require('lowdb')
+const FileSync = require('lowdb/adapters/FileSync')
+const home = require('../utils/home')
+const dbTmp = require('./db.json')
 
 const dbPath = path.join(home(), '.gitmarsdb')
 
@@ -16,4 +16,5 @@ if (!sh.test('-f', dbPath)) {
 const adapter = new FileSync(dbPath)
 const db = low(adapter)
 
-export default db
+module.exports = db
+export {}

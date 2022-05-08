@@ -1,9 +1,9 @@
-import { readFileSync } from 'fs'
-import getCurrentBranch from '@gitmars/core/lib/git/getCurrentBranch'
-import searchBranches from '@gitmars/core/lib/git/searchBranches'
-import glob from '@gitmars/core/lib/global'
+const { readFileSync } = require('fs')
+const getCurrentBranch = require('@gitmars/core/lib/git/getCurrentBranch')
+const searchBranches = require('@gitmars/core/lib/git/searchBranches')
+const glob = require('@gitmars/core/lib/global')
 
-function getBranchList({ path, key, type, remote }) {
+function getBranchList({ path, key, type, remote }: any) {
     return new Promise((resolve, reject) => {
         let list = []
         try {
@@ -33,7 +33,7 @@ function getStatus() {
     })
 }
 
-function readFile({ path }) {
+function readFile({ path }: any) {
     return new Promise((resolve, reject) => {
         const type = (path as string).replace(/[\s\S]*\.([a-z]+)$/, '$1')
         let data
@@ -47,9 +47,10 @@ function readFile({ path }) {
     })
 }
 
-export default {
+module.exports = {
     getCurrent,
     getBranchList,
     getStatus,
     readFile
 }
+export {}

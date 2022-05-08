@@ -1,11 +1,12 @@
 #!/usr/bin/env node
 
-import { exec } from 'child_process'
-import http from 'http'
-import debug from 'debug'
-import app from './app'
+import { type AddressInfo } from 'net'
+const { exec } = require('child_process')
+const http = require('http')
+const debug = require('debug')
+const app = require('./app')
 const port = normalizePort(process.env.PORT || '3000') // Get port from environment and store in Express.
-import createSocketServer from './socket'
+const createSocketServer = require('./socket')
 
 const debugHandle = debug('server:server')
 
@@ -59,7 +60,7 @@ function onError(error: any): void {
  * Event listener for HTTP server "listening" event.
  */
 function onListening() {
-    const addr = server.address()
+    const addr = server.address() as AddressInfo
     const bind = typeof addr === 'string' ? 'pipe ' + addr : 'port ' + addr.port
     const url = 'http://127.0.0.1:' + addr.port
     console.info(`server started on ${url}`)

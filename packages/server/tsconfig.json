@@ -9,7 +9,7 @@
         "target": "es6",
         "outDir": "lib",
         "rootDirs": ["bin", "db", "lib", "public", "routes", "socket", "views"],
-        "module": "esnext",
+        "module": "commonjs",
         "declaration": false,
         "lib": [
             "es5",

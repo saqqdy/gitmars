@@ -1,10 +1,8 @@
-import { join } from 'path'
-import express from 'express'
-import config from '../config'
+const express = require('express')
 const router = express.Router()
 
-const { index } = require(join(config.path.controller, 'index'))
+const { index } = require('../controller')
 
 router.use('/', index())
 
-export default router
+module.exports = router

@@ -10,3 +10,4 @@ module.exports = function (path) {
         notFind
     ]
 }
+export {}

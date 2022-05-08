@@ -1,12 +1,12 @@
 import type { NextFunction, Request, Response } from 'express'
-import express from 'express'
-import {
+const express = require('express')
+const {
     addProject,
     checkProject,
     delProject,
     getProjectList,
     updateProject
-} from '../controller/common'
+} = require('../controller/common')
 // const path = require('path')
 // const sh = require('shelljs')
 // const { v4: uuidv4 } = require('uuid')
@@ -121,4 +121,5 @@ router.get('/project/update', updateProject)
 // })
 router.get('/project/check', checkProject)
 
-export default router
+module.exports = router
+export {}

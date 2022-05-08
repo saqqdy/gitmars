@@ -1,11 +1,11 @@
-import { sep } from 'path'
-import { execSync } from 'child_process'
 import type { Request, Response } from 'express'
-import error503 from '../helper/503'
-import success from '../helper/200'
-import common from '../service/common'
+const { sep } = require('path')
+const { execSync } = require('child_process')
+const error503 = require('../helper/503')
+const success = require('../helper/200')
+const common = require('../service/common')
 
-export async function addProject(req: Request, res: Response) {
+async function addProject(req: Request, res: Response) {
     // const cwd = process.cwd()
     let { path: dir = null } = req.body
     if (!dir) {
@@ -26,7 +26,7 @@ export async function addProject(req: Request, res: Response) {
     success(req, res, { data })
 }
 
-export async function checkProject(req: Request, res: Response) {
+async function checkProject(req: Request, res: Response) {
     const { path } = req.query
     if (!path) {
         error503(req, res)
@@ -55,7 +55,7 @@ export async function checkProject(req: Request, res: Response) {
     })
 }
 
-export async function delProject(req: Request, res: Response) {
+async function delProject(req: Request, res: Response) {
     const { id } = req.body
     if (!id) {
         error503(req, res)
@@ -65,14 +65,14 @@ export async function delProject(req: Request, res: Response) {
     success(req, res, { data })
 }
 
-export async function getProjectList(req: Request, res: Response) {
+async function getProjectList(req: Request, res: Response) {
     const { id } = req.query
     let data = await common.getProjectList({ id })
     if (id) data = data?.[0] || null
     success(req, res, { data })
 }
 
-export async function updateProject(req: Request, res: Response) {
+async function updateProject(req: Request, res: Response) {
     const { id, name, path } = req.body
     if (!id) {
         error503(req, res)
@@ -82,10 +82,11 @@ export async function updateProject(req: Request, res: Response) {
     success(req, res, { data })
 }
 
-export default {
+module.exports = {
     addProject,
     checkProject,
     delProject,
     getProjectList,
     updateProject
 }
+export {}

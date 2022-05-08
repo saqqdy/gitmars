@@ -1,18 +1,18 @@
 import type { NextFunction, Request, Response } from 'express'
-import express from 'express'
+const express = require('express')
 const router = express.Router()
-// import fs from 'fs'
-import {
+// const fs = require('fs')
+const {
     enterDir,
     getBranchList,
     getCurrent,
     getStatus,
     readFile
-} from '../controller/cmd'
-// import sh from 'shelljs'
-// import glob from '@gitmars/core/lib/global'
-// import getCurrentBranch from '@gitmars/core/lib/git/getCurrentBranch'
-// import searchBranches from '@gitmars/core/lib/git/searchBranches'
+} = require('../controller/cmd')
+// const sh = require('shelljs')
+// const glob = require('@gitmars/core/lib/global')
+// const getCurrentBranch = require('@gitmars/core/lib/git/getCurrentBranch')
+// const searchBranches = require('@gitmars/core/lib/git/searchBranches')
 
 // const error503 = (res: Response) => {
 // 	res.status(503).send({ data: null, success: false, code: 0, msg: 'fail' })
@@ -81,4 +81,5 @@ router.get('/branch/current', getCurrent)
 // })
 router.get('/fs/read', readFile)
 
-export default router
+module.exports = router
+export {}

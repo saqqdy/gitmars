@@ -1,13 +1,13 @@
-import { sep } from 'path'
-import { exec, execSync } from 'child_process'
-import { promisify } from 'util'
 import type { Request, Response } from 'express'
-// import error503 from '../helper/503'
-import success from '../helper/200'
+const { sep } = require('path')
+const { exec, execSync } = require('child_process')
+const { promisify } = require('util')
+// const error503 = require('../helper/503')
+const success = require('../helper/200')
 
 const promiseExec = promisify(exec)
 
-export async function getCwd(req: Request, res: Response) {
+async function getCwd(req: Request, res: Response) {
     const { pid } = req.query
     promiseExec(`lsof -a -p ${pid} -d cwd -Fn | tail -1 | sed 's/.//'`).then(
         (newCwd: any) => {
@@ -19,7 +19,7 @@ export async function getCwd(req: Request, res: Response) {
         }
     )
 }
-export async function getUpdate(req: Request, res: Response) {
+async function getUpdate(req: Request, res: Response) {
     const { pid } = req.query
     promiseExec(`lsof -a -p ${pid} -d cwd -Fn | tail -1 | sed 's/.//'`).then(
         (newCwd: any) => {
@@ -32,7 +32,8 @@ export async function getUpdate(req: Request, res: Response) {
     )
 }
 
-export default {
+module.exports = {
     getCwd,
     getUpdate
 }
+export {}

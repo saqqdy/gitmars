@@ -1,6 +1,6 @@
 import type { Request, Response } from 'express'
 
-export default function (req: Request, res: Response) {
+module.exports = function (req: Request, res: Response) {
     res.status(503).send({
         data: null,
         success: false,
@@ -8,3 +8,4 @@ export default function (req: Request, res: Response) {
         msg: 'fail'
     })
 }
+export {}

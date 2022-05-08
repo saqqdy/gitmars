@@ -1,9 +1,9 @@
 import type { Request, Response } from 'express'
-import express from 'express'
+const express = require('express')
 const router = express.Router()
-import { getCwd, getUpdate } from '../controller/system'
-// import { exec } from 'child_process'
-// import { promisify } from 'util'
+const { getCwd, getUpdate } = require('../controller/system')
+// const { exec } = require('child_process')
+// const { promisify } = require('util')
 
 // const promiseExec = promisify(exec)
 
@@ -36,4 +36,5 @@ router.get('/cwd', getCwd)
 // })
 router.get('/update', getUpdate)
 
-export default router
+module.exports = router
+export {}
