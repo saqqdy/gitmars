@@ -1,1 +1,3 @@
-module.exports = require('@gitmars/server')
+#!/usr/bin/env node
+
+require('@gitmars/server')

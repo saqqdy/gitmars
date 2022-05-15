@@ -1,11 +1,12 @@
 {
     "name": "@gitmars/server",
     "description": "gitmars可视化界面服务端",
-    "version": "3.0.0-alpha.10",
+    "version": "3.0.0-alpha.11",
     "private": false,
     "bin": {
         "gitm-server": "./lib/www.js"
     },
+    "main": "./lib/www.js",
     "files": [
         "lib",
         "typings",
