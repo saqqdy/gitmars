@@ -1,10 +1,10 @@
 import type { Request, Response } from 'express'
 const { join } = require('path')
-const config = require('../config')
+// const config = require('../config')
 const staticAssets = require('../helper/static-assets')
 
 function index(path = '/dist') {
-    console.log(process.cwd(), path)
+    console.log(100, process.cwd(), path)
     return [
         staticAssets(join(process.cwd(), path)),
         (req: Request, res: Response) => {
