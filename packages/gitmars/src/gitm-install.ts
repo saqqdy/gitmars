@@ -2,7 +2,8 @@
 import type { GitmarsOptionOptionsType } from '../typings'
 const { program } = require('commander')
 const sh = require('shelljs')
-const { red } = require('colors')
+const ora = require('ora')
+const { red, green } = require('colors')
 const getIsGitProject = require('@gitmars/core/lib/git/getIsGitProject')
 const { createArgs } = require('@gitmars/core/lib/utils/command')
 const { spawnSync } = require('@gitmars/core/lib/spawn')
@@ -18,12 +19,17 @@ if (!getIsGitProject()) {
  */
 program
     .name('gitm install')
-    .usage('<pluginName>')
+    .usage(
+        '<pluginName> [version] [-m --mirror] [-c --client [client]] [-r --registry <registry>]'
+    )
     .description('安装插件，例如：@gitmars/ui')
 if (args.length > 0) program.arguments(createArgs(args))
 options.forEach((o: GitmarsOptionOptionsType) => {
     program.option(o.flags, o.description, o.defaultValue)
 })
+// .option('-m, --mirror', '是否使用淘宝镜像', false)
+// .option('-c, --client [client]', '用于装包的客户端名称', 'npm')
+// .option('-r, --registry <registry]>', '使用镜像地址', '')
 program.action((pluginName: string) => {
     if (!pluginName) {
         echo(red('请输入插件名称'))
@@ -31,7 +37,7 @@ program.action((pluginName: string) => {
     }
     const spinner = ora()
     spinner.start(green('正在安装'))
-    const install = spawnSync(cmdAdd[0], cmdAdd[1], {
+    const install = spawnSync('yarn', cmdAdd[1], {
         stdio: 'ignore',
         shell: process.platform === 'win32'
     })
