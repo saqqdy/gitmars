@@ -37,7 +37,7 @@ program.action((pluginName: string) => {
     }
     const spinner = ora()
     spinner.start(green('正在安装'))
-    const install = spawnSync('yarn', cmdAdd[1], {
+    const install = spawnSync('npm', ['install', '-g'], {
         stdio: 'ignore',
         shell: process.platform === 'win32'
     })
