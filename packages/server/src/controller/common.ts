@@ -67,8 +67,7 @@ async function delProject(req: Request, res: Response) {
 
 async function getProjectList(req: Request, res: Response) {
     const { id } = req.query
-    let data = await common.getProjectList({ id })
-    if (id) data = data?.[0] || null
+    const data = await common.getProjectList({ id })
     success(req, res, { data })
 }
 
