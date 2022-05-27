@@ -142,32 +142,6 @@ gitm go build
 
 ![gitmars-go.gif](https://raw.githubusercontent.com/saqqdy/gitmars/master/static/img/gitmars-go.gif)
 
-## UI 界面
-
-> 3.0.0版本开始，UI界面从原gitmars项目中抽离成了独立项目`@gitmars/ui`
-
-### gitm ui
-
-如果你厌倦了敲指令，gitmars 提供了懒人 UI 界面
-
--   安装：`gitm install @gitmars/ui`
--   使用：`gitm ui [-p --port [port]]`
--   传值：
-
-| 名称   | 简写 | 说明       | 类型   | 可选值 | 传值必填 | 默认 |
-| ------ | ---- | ---------- | ------ | ------ | -------- | ---- |
-| --port | -p   | 启动端口号 | Number | -      | 否       | 3000 |
-
--   示例：
-
-```shell
-gitm ui --port 3000
-```
-
--   演示：
-
-![gitmars-ui.gif](https://raw.githubusercontent.com/saqqdy/gitmars/master/static/img/gitmars-ui.gif)
-
 [npm-image]: https://img.shields.io/npm/v/gitmars.svg?style=flat-square
 [npm-url]: https://npmjs.com/package/gitmars
 [travis-image]: https://travis-ci.com/saqqdy/gitmars.svg?branch=master

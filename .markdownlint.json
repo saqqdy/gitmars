@@ -1,0 +1,15 @@
+{
+    "MD033": false,
+    "MD013": false,
+    "MD007": {
+        "indent": 4
+    },
+    "MD030": {
+        "ol_multi": 3,
+        "ul_single": 3
+    },
+    "MD010": {
+        "code_blocks": false
+    },
+    "MD041": false
+}

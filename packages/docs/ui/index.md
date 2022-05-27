@@ -2,10 +2,13 @@
 sidebar: null
 ---
 
-## gitm ui
+## gitm ui介绍
+
+> 3.0.0版本开始，UI界面从原gitmars项目中抽离成了独立项目`@gitmars/ui`
 
 如果你厌倦了敲指令，gitmars提供了懒人UI界面
 
+-   安装：`gitm install @gitmars/ui`
 -   使用：`gitm ui [-p --port [port]]`
 -   传值：
 

@@ -30,10 +30,9 @@ $ pnpm install @gitmars/core
 ## Usage
 
 ```js
-// .eslintrc.js
-const { extend } = require('@gitmars/core')
+const getConfig = require('@gitmars/core/lib/getConfig')
 
-module.exports = extend(true, {}, {})
+getConfig()
 ```
 
 ## Issues & Support
