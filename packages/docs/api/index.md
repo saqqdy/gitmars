@@ -1194,8 +1194,11 @@ gitm status
 
 ### gitm ui
 
+> 3.0.0版本开始，UI界面从原gitmars项目中抽离成了独立项目`@gitmars/ui`，使用ui界面前需要在全局安装`@gitmars/ui`插件
+
 启动 UI 界面
 
+-   安装：`gitm install @gitmars/ui`
 -   使用：`gitm ui [-p --port [port]]`
 -   参数：无
 -   传值：
