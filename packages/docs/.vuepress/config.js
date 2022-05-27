@@ -2,7 +2,7 @@ module.exports = {
     title: 'Gitmars',
     description: '移动端UI组件库',
     base: '/gitmars/',
-    dest: './docs/.vuepress/dist',
+    dest: 'dist',
     theme: '@vuepress/default',
     themeConfig: {
         prefersTheme: 'dark',
