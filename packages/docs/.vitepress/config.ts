@@ -1,11 +1,15 @@
-module.exports = {
+import { defineConfigWithTheme } from 'vitepress'
+const isProduction = process.env.NODE_ENV === 'production'
+
+
+module.exports = defineConfigWithTheme({
     title: 'Gitmars',
     description: '移动端UI组件库',
     base: '/gitmars/',
-    dest: 'dist',
-    theme: '@vuepress/default',
+    // dest: 'dist',
+    // theme: '@vuepress/default',
     themeConfig: {
-        prefersTheme: 'dark',
+        // prefersTheme: 'dark',
         nav: [
             { text: '首页', link: '/' },
             { text: '指南', link: '/guide/' },
@@ -53,40 +57,40 @@ module.exports = {
         sidebar: {
             '/guide/': [
                 {
-                    title: '指南',
+                    text: '指南',
                     collapsable: false,
-                    sidebarDepth: 1,
+                    // sidebarDepth: 1,
                     children: [
                         {
-                            title: '介绍',
-                            path: '/guide/',
+                            text: '介绍',
+                            link: '/guide/',
                             collapsable: false
                         },
                         {
-                            title: '快速上手',
-                            path: 'getting-start',
+                            text: '快速上手',
+                            link: 'getting-start',
                             collapsable: false
                         },
                         {
-                            title: '基本配置',
-                            path: 'basic-config',
+                            text: '基本配置',
+                            link: 'basic-config',
                             collapsable: false
                         }
                         // {
-                        //     title: '兼容性',
-                        //     path: 'compatibility',
+                        //     text: '兼容性',
+                        //     link: 'compatibility',
                         //     collapsable: false
                         // }
                     ]
                 }
                 // {
-                //     title: '深入',
+                //     text: '深入',
                 //     collapsable: false,
                 //     sidebarDepth: 1,
                 //     children: [
                 //         {
-                //             title: '钩子',
-                //             path: 'hooks',
+                //             text: '钩子',
+                //             link: 'hooks',
                 //             collapsable: false
                 //         }
                 //     ]
@@ -94,40 +98,40 @@ module.exports = {
             ],
             '/hook/': [
                 {
-                    title: '开始使用',
+                    text: '开始使用',
                     collapsable: false,
-                    sidebarDepth: 1,
+                    // sidebarDepth: 1,
                     children: [
                         {
-                            title: '安装',
-                            path: '/hook/',
+                            text: '安装',
+                            link: '/hook/',
                             collapsable: false
                         },
                         {
-                            title: '快速上手',
-                            path: 'getting-start',
+                            text: '快速上手',
+                            link: 'getting-start',
                             collapsable: false
                         },
                         {
-                            title: '基本配置',
-                            path: 'basic-config',
+                            text: '基本配置',
+                            link: 'basic-config',
                             collapsable: false
                         },
                         {
-                            title: '兼容性',
-                            path: 'compatibility',
+                            text: '兼容性',
+                            link: 'compatibility',
                             collapsable: false
                         }
                     ]
                 },
                 {
-                    title: '其他',
+                    text: '其他',
                     collapsable: false,
-                    sidebarDepth: 1,
+                    // sidebarDepth: 1,
                     children: [
                         {
-                            title: '特性',
-                            path: 'features',
+                            text: '特性',
+                            link: 'features',
                             collapsable: false
                         }
                     ]
@@ -153,29 +157,29 @@ module.exports = {
         editLinkText: '帮助我们改善此页面！'
     },
 
-    plugins: [
-        // 官方回到顶部插件
-        '@vuepress/back-to-top',
-        // 官方图片放大组件 目前是所有img都可以点击放大。具体配置见https://v1.vuepress.vuejs.org/zh/plugin/official/plugin-medium-zoom.html
-        ['@vuepress/medium-zoom', { selector: 'img' }],
-        // vssue 一个借助issue的评论插件 具体配置见https://vssue.js.org/zh/
-        [
-            '@vssue/vuepress-plugin-vssue',
-            {
-                // 设置 `platform` 而不是 `api` 我这里是在github平台
-                platform: 'github',
-                // owner与repo配置 https://github.com/${owner}/${repo}
-                // 例如我的仓库地址为https://github.com/saqqdy/gitmars 则owner为saqqdy，repo为gitmars
-                owner: 'saqqdy',
-                repo: 'gitmars',
-                // 填写自己的OAuth App 信息。详见https://vssue.js.org/zh/options/#repo
-                clientId: 'f1b676f79b587ad9dced',
-                clientSecret: 'd34199eee81d1bb5f4b386ef45b0816d636a1e66',
-                locale: 'zh', // 使用的语言  这里是简体中文
-                baseURL: 'https://github.com' // 平台的 base URL
-            }
-        ]
-    ],
+    // plugins: [
+    //     // 官方回到顶部插件
+    //     '@vuepress/back-to-top',
+    //     // 官方图片放大组件 目前是所有img都可以点击放大。具体配置见https://v1.vuepress.vuejs.org/zh/plugin/official/plugin-medium-zoom.html
+    //     ['@vuepress/medium-zoom', { selector: 'img' }],
+    //     // vssue 一个借助issue的评论插件 具体配置见https://vssue.js.org/zh/
+    //     [
+    //         '@vssue/vuepress-plugin-vssue',
+    //         {
+    //             // 设置 `platform` 而不是 `api` 我这里是在github平台
+    //             platform: 'github',
+    //             // owner与repo配置 https://github.com/${owner}/${repo}
+    //             // 例如我的仓库地址为https://github.com/saqqdy/gitmars 则owner为saqqdy，repo为gitmars
+    //             owner: 'saqqdy',
+    //             repo: 'gitmars',
+    //             // 填写自己的OAuth App 信息。详见https://vssue.js.org/zh/options/#repo
+    //             clientId: 'f1b676f79b587ad9dced',
+    //             clientSecret: 'd34199eee81d1bb5f4b386ef45b0816d636a1e66',
+    //             locale: 'zh', // 使用的语言  这里是简体中文
+    //             baseURL: 'https://github.com' // 平台的 base URL
+    //         }
+    //     ]
+    // ],
     markdown: {
         lineNumbers: false,
         toc: { includeLevel: [2, 3] }
@@ -188,4 +192,4 @@ module.exports = {
             }
         }
     }
-}
+})

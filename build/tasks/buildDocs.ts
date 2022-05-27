@@ -10,17 +10,17 @@ export async function buildDocs() {
         .filter(({ buildTask }) => buildTask === 'docs')
         .map(async ({ name }) => {
             // 替换图片资源
-            await runExecSync(
-                `find ./ -type f -path "*.md" | xargs sed -i '' "s/https:\/\/raw.githubusercontent.com\/saqqdy\/gitmars/https:\/\/gitee.com\/saqqdy\/gitmars\/raw/g"`,
-                resolve(PACKAGE, name)
-            )
+            // await runExecSync(
+            //     `find ./ -type f -path "*.md" | xargs sed -i "" "s/https:\u005c\u005craw.githubusercontent.com\u005csaqqdy\u005cgitmars/https:\u005c\u005cgitee.com\u005csaqqdy\u005cgitmars\u005craw/g"`,
+            //     resolve(PACKAGE, name)
+            // )
             // 生成静态文件
-            await runExecSync(`pnpm docs:build`, resolve(PACKAGE, name))
+            await runExecSync(`pnpm run -C ${resolve(PACKAGE, name)} docs:build`, resolve(PACKAGE, name))
             // 重置图片资源
-            await runExecSync(
-                `find ./ -type f -path "*.md" | xargs sed -i '' "s/https:\/\/gitee.com\/saqqdy\/gitmars\/raw/https:\/\/raw.githubusercontent.com\/saqqdy\/gitmars/g"`,
-                resolve(PACKAGE, name)
-            )
+            // await runExecSync(
+            //     `find ./ -type f -path "*.md" | xargs sed -i '' "s/https:\u005c\u005cgitee.com\u005csaqqdy\u005cgitmars\u005craw/https:\u005c\u005craw.githubusercontent.com\u005csaqqdy\u005cgitmars/g"`,
+            //     resolve(PACKAGE, name)
+            // )
         })
     await Promise.all(builds)
 }

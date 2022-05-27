@@ -239,7 +239,7 @@ gitm cb -pd --no-bugfix
 
 #### 短指令：gitm ed
 
-> v2.9.6版本开始，`end`指令智能判断是否需要合并代码，不传`--no-combine`时，不需要合并的时候不会发起合并操作</br>
+> v2.9.6版本开始，`end`指令智能判断是否需要合并代码，不传`--no-combine`时，不需要合并的时候不会发起合并操作<br/>
 > v2.11.0新增`--description`传参
 
 任务完成，合并并删除分支，这个操作会把 20001 这个分支代码合并到 bug 分支并删除 20001 分支(远程的 20001 分支也会同步删除)
@@ -847,10 +847,10 @@ gitm get "test login"
 
 #### 短指令：gitm clb
 
-> v2.13.0 新增</br>
-> v2.13.1 新增--list参数</br>
-> v2.13.4 新增--confirm参数</br>
-> v2.13.6 新增branches，新增--target</br>
+> v2.13.0 新增<br/>
+> v2.13.1 新增--list参数<br/>
+> v2.13.4 新增--confirm参数<br/>
+> v2.13.6 新增branches，新增--target<br/>
 > v2.13.9 --except改成--exclude，用法不变；新增--include传参；新增--key传参
 
 清理合并过的功能分支
