@@ -9,11 +9,9 @@
         "*.d.ts"
     ],
     "scripts": {
-        "docs:dev": "vuepress dev docs",
-        "docs:build": "vuepress build docs",
-        "docs:deploy": "GH=1 sh scripts/deploy-docs.sh",
-        "dist": "run-s eslint prettier build build:server circular build:ui",
-        "docs": "rimraf typedoc && typedoc",
+        "docs:dev": "vitepress dev .",
+        "docs:build": "vitepress build .",
+        "docs:serve": "vitepress serve .",
         "eslint": "eslint --fix --ext .ts,.js ./",
         "prettier": "prettier --write \"**/*.{js,ts,json,md}\"",
         "prettier:docs": "prettier --write \"**/*.md\""
@@ -31,24 +29,18 @@
         "@eslint-sets/eslint-config-vue3-ts": "^2.1.5",
         "@saqqdy/prettier-config": "^1.1.2",
         "@types/node": "^17.0.31",
-        "@vssue/api-github-v3": "^1.4.7",
-        "@vssue/vuepress-plugin-vssue": "^1.4.8",
         "@vue/theme": "^1.0.2",
-        "@vuepress/plugin-back-to-top": "^1.9.7",
-        "@vuepress/plugin-medium-zoom": "^1.9.7",
         "cross-env": "^7.0.3",
         "eslint": "^8.14.0",
         "eslint-plugin-tsdoc": "^0.2.16",
         "less": "^4.1.2",
-        "less-loader": "10.2.0",
+        "less-loader": "^7.3.0",
         "prettier": "^2.6.2",
         "tsnd": "^1.0.2",
         "typedoc": "^0.22.15",
         "typedoc-plugin-markdown": "^3.12.1",
         "typescript": "^4.6.4",
-        "vuepress": "^1.9.7",
-        "vuepress-plugin-container": "^2.1.5",
-        "vuepress-plugin-smooth-scroll": "^0.0.10"
+        "vitepress": "^0.22.4"
     },
     "sideEffects": false,
     "keywords": [

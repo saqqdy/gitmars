@@ -5,7 +5,7 @@ import alias from '@rollup/plugin-alias'
 import type { OutputOptions } from 'rollup'
 import type { ResolverObject } from '@rollup/plugin-alias'
 import glob from 'fast-glob'
-import { run, runExec } from '../utils/exec'
+import { runSpawnSync, runExec } from '../utils/exec'
 import { wrapDisplayName } from '../utils/gulp'
 import { excludeFiles, generateExternal } from '../utils/rollup'
 
@@ -266,12 +266,12 @@ export async function copyFile() {
 
 export async function cleanDirs() {
     for (const { name } of pkgs) {
-        await run(`rimraf lib es dist`, resolve(PACKAGE, name))
+        await runSpawnSync(`rimraf lib es dist`, resolve(PACKAGE, name))
     }
 }
 
 export async function genVersion() {
-    await run(`pnpm gen:version`)
+    await runSpawnSync(`pnpm gen:version`)
 }
 
 export default series(

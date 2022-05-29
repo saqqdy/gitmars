@@ -121,7 +121,9 @@
     "pnpm": {
         "peerDependencyRules": {
             "ignoreMissing": [
+                "@algolia/client-search",
                 "@babel/core",
+                "@types/react",
                 "webpack",
                 "vite",
                 "vue",
