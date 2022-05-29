@@ -53,4 +53,4 @@ gitm copy -h
 
 ## UI 界面
 
-[gitm ui](../ui)
+[gitm ui](../ui/index)
