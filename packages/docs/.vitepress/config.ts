@@ -1,7 +1,6 @@
 import { defineConfigWithTheme } from 'vitepress'
 const isProduction = process.env.NODE_ENV === 'production'
 
-
 module.exports = defineConfigWithTheme({
     title: 'Gitmars',
     description: '移动端UI组件库',
@@ -59,8 +58,8 @@ module.exports = defineConfigWithTheme({
                 {
                     text: '指南',
                     collapsable: false,
-                    // sidebarDepth: 1,
-                    children: [
+                    sidebarDepth: 2,
+                    items: [
                         {
                             text: '介绍',
                             link: '/guide/',
@@ -68,12 +67,12 @@ module.exports = defineConfigWithTheme({
                         },
                         {
                             text: '快速上手',
-                            link: 'getting-start',
+                            link: '/guide/getting-start',
                             collapsable: false
                         },
                         {
                             text: '基本配置',
-                            link: 'basic-config',
+                            link: '/guide/basic-config',
                             collapsable: false
                         }
                         // {
@@ -87,7 +86,7 @@ module.exports = defineConfigWithTheme({
                 //     text: '深入',
                 //     collapsable: false,
                 //     sidebarDepth: 1,
-                //     children: [
+                //     items: [
                 //         {
                 //             text: '钩子',
                 //             link: 'hooks',
@@ -96,47 +95,47 @@ module.exports = defineConfigWithTheme({
                 //     ]
                 // }
             ],
-            '/hook/': [
-                {
-                    text: '开始使用',
-                    collapsable: false,
-                    // sidebarDepth: 1,
-                    children: [
-                        {
-                            text: '安装',
-                            link: '/hook/',
-                            collapsable: false
-                        },
-                        {
-                            text: '快速上手',
-                            link: 'getting-start',
-                            collapsable: false
-                        },
-                        {
-                            text: '基本配置',
-                            link: 'basic-config',
-                            collapsable: false
-                        },
-                        {
-                            text: '兼容性',
-                            link: 'compatibility',
-                            collapsable: false
-                        }
-                    ]
-                },
-                {
-                    text: '其他',
-                    collapsable: false,
-                    // sidebarDepth: 1,
-                    children: [
-                        {
-                            text: '特性',
-                            link: 'features',
-                            collapsable: false
-                        }
-                    ]
-                }
-            ]
+            // '/hook/': [
+            //     {
+            //         text: '开始使用',
+            //         collapsable: false,
+            //         // sidebarDepth: 1,
+            //         children: [
+            //             {
+            //                 text: '安装',
+            //                 link: '/hook/',
+            //                 collapsable: false
+            //             },
+            //             {
+            //                 text: '快速上手',
+            //                 link: '/hook/getting-start',
+            //                 collapsable: false
+            //             },
+            //             {
+            //                 text: '基本配置',
+            //                 link: '/hook/basic-config',
+            //                 collapsable: false
+            //             },
+            //             {
+            //                 text: '兼容性',
+            //                 link: '/hook/compatibility',
+            //                 collapsable: false
+            //             }
+            //         ]
+            //     },
+            //     {
+            //         text: '其他',
+            //         collapsable: false,
+            //         // sidebarDepth: 1,
+            //         children: [
+            //             {
+            //                 text: '特性',
+            //                 link: 'features',
+            //                 collapsable: false
+            //             }
+            //         ]
+            //     }
+            // ]
         },
         lastUpdated: '最近更新',
         // 假定是 GitHub. 同时也可以是一个完整的 GitLab URL
@@ -155,8 +154,7 @@ module.exports = defineConfigWithTheme({
         editLinks: true,
         // 默认为 "Edit this page"
         editLinkText: '帮助我们改善此页面！'
-    },
-
+    }
     // plugins: [
     //     // 官方回到顶部插件
     //     '@vuepress/back-to-top',
@@ -180,16 +178,16 @@ module.exports = defineConfigWithTheme({
     //         }
     //     ]
     // ],
-    markdown: {
-        lineNumbers: false,
-        toc: { includeLevel: [2, 3] }
-    },
-    sidebarDepth: 1,
-    configureWebpack: {
-        resolve: {
-            alias: {
-                '@assets': require('path').join(__dirname, '../assets')
-            }
-        }
-    }
+    // markdown: {
+    //     lineNumbers: false,
+    //     toc: { includeLevel: [2, 3] }
+    // },
+    // sidebarDepth: 1,
+    // configureWebpack: {
+    //     resolve: {
+    //         alias: {
+    //             '@assets': require('path').join(__dirname, '../assets')
+    //         }
+    //     }
+    // }
 })

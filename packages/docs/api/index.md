@@ -931,7 +931,7 @@ gitm cleanbranch --target release
 
 ### gitm log
 
-> v1.4.0 新增<br>
+> v1.4.0 新增<br/>
 > v2.15.0 新增`--no-merges`传参
 > v2.15.3 新增`--json`传值，是否以json格式输出日志，默认表格方式
 
@@ -1104,7 +1104,7 @@ gitm ug -m
 gitm clean
 ```
 
-### gitm suggest <Badge text="开发中" type="warning"/>
+<!-- ### gitm suggest <Badge text="开发中" type="warning"/>
 
 #### 短指令：gitm sg
 
@@ -1118,13 +1118,13 @@ git操作建议
 ```shell
 # 输入指令，按照提示操作
 gitm suggest
-```
+``` -->
 
 ### gitm approve
 
 #### 短指令：gitm ap
 
-> v2.16.0 新增<br>
+> v2.16.0 新增<br/>
 > v2.16.4 移除`--postmsg`，新增'--quiet'
 
 处理远程合并请求
@@ -1153,7 +1153,7 @@ gitm approve --quiet
 
 #### 短指令：gitm rv
 
-> v2.16.0 新增<br>
+> v2.16.0 新增<br/>
 > v2.16.4 移除`--postmsg`，新增'--quiet'
 
 远程review代码

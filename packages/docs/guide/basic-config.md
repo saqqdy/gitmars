@@ -32,7 +32,7 @@ bugfix 分支实际名称
 -   默认：`bug`
 -   必填：是
 
-### support <Badge text="已弃用" type="error"/>
+### support <!-- <Badge text="已弃用" type="error"/> -->
 
 support 分支实际名称
 
@@ -40,7 +40,7 @@ support 分支实际名称
 -   默认：`support`
 -   必填：是
 
-### user <Badge text="已弃用" type="error"/>
+### user <!-- <Badge text="已弃用" type="error"/> -->
 
 用户名称
 
@@ -48,7 +48,7 @@ support 分支实际名称
 -   默认：``
 -   必填：否
 
-### email <Badge text="已弃用" type="error"/>
+### email <!-- <Badge text="已弃用" type="error"/> -->
 
 用户邮箱
 
@@ -58,7 +58,7 @@ support 分支实际名称
 
 ### nameValidator
 
-> v2.9.4新增
+> v2.9.4 新增
 
 校验分支命名规范的正则表达式，可输入字符串或者正则
 
@@ -77,15 +77,15 @@ support 分支实际名称
 
 2. 设置正则
 
-```json
+```js
 {
-    "nameValidator": /[a-z]{3,}_\w+/, // 检验：saqqdy_xxxxxx
+    nameValidator: /[a-z]{3,}_\w+/, // 检验：saqqdy_xxxxxx
 }
 ```
 
 ### descriptionValidator
 
-> v2.11.0新增
+> v2.11.0 新增
 
 校验本次提交的原因描述，可输入字符串或者正则，如果不需要校验，请保持参数为：''
 
@@ -104,9 +104,9 @@ support 分支实际名称
 
 2. 设置正则
 
-```json
+```js
 {
-    "descriptionValidator": /【修改原因】.+【修改内容】.+/, // 检验：【修改原因】10010某个功能有BUG【修改内容】改了某个方法
+    descriptionValidator: /【修改原因】.+【修改内容】.+/, // 检验：【修改原因】10010某个功能有BUG【修改内容】改了某个方法
 }
 ```
 
@@ -248,12 +248,12 @@ apollo 构建项目配置参考
 }
 ```
 
-### api  <Badge text="即将弃用" type="warning"/>
+### api <!-- <Badge text="即将弃用" type="warning"/> -->
 
 请求权限的 api 接口地址，需要支持的接收参数形式：url?name=git_user_name
 
 > 2.0.1 新增<br>
-> 2.17.0 新增`level=3`审核员，审核员有合并权限可以执行`admin publish`动作，但是与管理员不同的是审核员提交代码会推送到远程。原开发者调整为4<br>
+> 2.17.0 新增`level=3`审核员，审核员有合并权限可以执行`admin publish`动作，但是与管理员不同的是审核员提交代码会推送到远程。原开发者调整为 4<br>
 > 2.19.0 版本开始移除这项配置，由`apis.userInfo`替代
 
 -   类型：`String`
