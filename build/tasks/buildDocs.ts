@@ -1,7 +1,7 @@
 import { resolve } from 'path'
 import { parallel, series } from 'gulp'
 import { wrapDisplayName } from '../utils/gulp'
-import { runSpawnSync, runExecSync } from '../utils/exec'
+import { runExecSync, runSpawnSync } from '../utils/exec'
 import { PACKAGE } from '../utils/paths'
 import { packages } from '../packages'
 
@@ -15,7 +15,10 @@ export async function buildDocs() {
             //     resolve(PACKAGE, name)
             // )
             // 生成静态文件
-            await runExecSync(`pnpm run -C ${resolve(PACKAGE, name)} docs:build`, resolve(PACKAGE, name))
+            await runExecSync(
+                `pnpm run -C ${resolve(PACKAGE, name)} docs:build`,
+                resolve(PACKAGE, name)
+            )
             // 重置图片资源
             // await runExecSync(
             //     `find ./ -type f -path "*.md" | xargs sed -i '' "s/https:\u005c\u005cgitee.com\u005csaqqdy\u005cgitmars\u005craw/https:\u005c\u005craw.githubusercontent.com\u005csaqqdy\u005cgitmars/g"`,

@@ -3,9 +3,9 @@ const isProduction = process.env.NODE_ENV === 'production'
 
 module.exports = defineConfigWithTheme({
     title: 'Gitmars',
-    description: '移动端UI组件库',
+    description:'可视化UI界面',
     base: '/gitmars/',
-    // dest: 'dist',
+    outDir: 'dist',
     // theme: '@vuepress/default',
     themeConfig: {
         // prefersTheme: 'dark',
@@ -75,11 +75,6 @@ module.exports = defineConfigWithTheme({
                             link: '/guide/basic-config',
                             collapsable: false
                         }
-                        // {
-                        //     text: '兼容性',
-                        //     link: 'compatibility',
-                        //     collapsable: false
-                        // }
                     ]
                 }
                 // {

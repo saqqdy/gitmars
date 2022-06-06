@@ -1,4 +1,4 @@
-import { exec, spawn, spawnSync, execSync } from 'child_process'
+import { exec, execSync, spawn, spawnSync } from 'child_process'
 import { ROOT } from '../utils/paths'
 import { wrapDisplayName } from './gulp'
 import echo from './echo'
@@ -67,7 +67,6 @@ export function runExec(command: string, cwd: string = ROOT) {
 }
 
 export function runExecSync(command: string, cwd: string = ROOT) {
-    console.log(command)
     return new Promise((resolve, reject) => {
         try {
             execSync(command, {
