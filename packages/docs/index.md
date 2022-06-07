@@ -1,10 +1,20 @@
 ---
-home: true
-heroImage: null # /images/logo.png
-heroText: Gitmars
-tagline: 一个高度定制化的git工作流
-actionText: 开始 →
-actionLink: /guide/
+layout: home
+title: Gitmars
+titleTemplate: 这是一个git工作流工具
+
+hero: 
+    name: Gitmars
+    text: 这是一个git工作流工具
+    tagline: 上手简单，功能强大，性能优异。封装了大量高级技巧，让你解放双手，提升工作效率
+    actions:
+        - theme: brand
+          text: 开始 →
+          link: /guide/
+        - theme: alt
+          text: 去GitHub看源码
+          link: https://github.com/saqqdy/gitmars
+
 features:
     - title: 高效
       details: 执行动作之后自动切分支、自动拉代码等等
