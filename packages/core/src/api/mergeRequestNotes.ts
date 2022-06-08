@@ -1,4 +1,4 @@
-import { red } from 'colors'
+import chalk from 'chalk'
 import request from '@jssj/request'
 import getConfig from '../getConfig'
 import { debug } from '../utils/debug'
@@ -37,7 +37,7 @@ export async function createMergeRequestNotes({
         const message = fetchData.message
             ? [].concat(fetchData.message).join('')
             : '请求报错了'
-        return Promise.reject(red(message))
+        return Promise.reject(chalk.red(message))
     }
     return fetchData
 }
@@ -73,7 +73,7 @@ export async function getMergeRequestNotesList({
         const message = fetchData.message
             ? [].concat(fetchData.message).join('')
             : '请求报错了'
-        return Promise.reject(red(message))
+        return Promise.reject(chalk.red(message))
     }
     return fetchData
 }
@@ -105,7 +105,7 @@ export async function getMergeRequestNotesDetail({
         const message = fetchData.message
             ? [].concat(fetchData.message).join('')
             : '请求报错了'
-        return Promise.reject(red(message))
+        return Promise.reject(chalk.red(message))
     }
     return fetchData
 }
@@ -140,7 +140,7 @@ export async function updateMergeRequestNotes({
         const message = fetchData.message
             ? [].concat(fetchData.message).join('')
             : '请求报错了'
-        return Promise.reject(red(message))
+        return Promise.reject(chalk.red(message))
     }
     return fetchData
 }
@@ -173,7 +173,7 @@ export async function deleteMergeRequestNotes({
         const message = fetchData.message
             ? [].concat(fetchData.message).join('')
             : '请求报错了'
-        return Promise.reject(red(message))
+        return Promise.reject(chalk.red(message))
     }
     return fetchData
 }

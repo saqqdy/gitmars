@@ -2,7 +2,7 @@
 import type { CommandType, GitmarsOptionOptionsType } from '../typings'
 const { program } = require('commander')
 const sh = require('shelljs')
-const { green, yellow, red } = require('colors')
+const { green, yellow, red } = require('chalk')
 const inquirer = require('inquirer')
 const { queue } = require('@gitmars/core/lib/queue')
 const {

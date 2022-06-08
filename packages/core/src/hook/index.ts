@@ -1,7 +1,7 @@
 import fs from 'fs'
 import path from 'path'
 import sh from 'shelljs'
-import { yellow } from 'colors'
+import chalk from 'chalk'
 import ciInfo from 'ci-info'
 import compareVersion from '../utils/compareVersion'
 import { hookList } from '../global'
@@ -154,13 +154,13 @@ export function init(): void {
         fs.mkdirSync(gitHookDir)
     }
     if (['1', 'true'].includes(process.env.GITMARS_SKIP_HOOKS || '')) {
-        sh.echo(yellow('已存在环境变量GITMARS_SKIP_HOOKS，跳过安装'))
+        sh.echo(chalk.yellow('已存在环境变量GITMARS_SKIP_HOOKS，跳过安装'))
         process.exit(0)
     }
     // git版本过旧
     if (!gitVersionIsNew) {
         sh.echo(
-            yellow(
+            chalk.yellow(
                 'Gitmars需要使用2.13.0以上版本的Git，当前版本：' + gitVersion
             )
         )

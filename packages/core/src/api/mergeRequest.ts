@@ -1,4 +1,4 @@
-import { red } from 'colors'
+import chalk from 'chalk'
 import request from '@jssj/request'
 import getConfig from '../getConfig'
 import { debug } from '../utils/debug'
@@ -45,7 +45,7 @@ export async function createMergeRequest({
         const message = fetchData.message
             ? [].concat(fetchData.message).join('')
             : '请求报错了'
-        return Promise.reject(red(message))
+        return Promise.reject(chalk.red(message))
     }
     return fetchData
 }
@@ -76,7 +76,7 @@ export async function getMergeRequestList({
         const message = fetchData.message
             ? [].concat(fetchData.message).join('')
             : '请求报错了'
-        return Promise.reject(red(message))
+        return Promise.reject(chalk.red(message))
     }
     return fetchData
 }
@@ -106,7 +106,7 @@ export async function getMergeRequestCommits({
         const message = fetchData.message
             ? [].concat(fetchData.message).join('')
             : '请求报错了'
-        return Promise.reject(red(message))
+        return Promise.reject(chalk.red(message))
     }
     return fetchData
 }
@@ -136,7 +136,7 @@ export async function getMergeRequestCloseIssues({
         const message = fetchData.message
             ? [].concat(fetchData.message).join('')
             : '请求报错了'
-        return Promise.reject(red(message))
+        return Promise.reject(chalk.red(message))
     }
     return fetchData
 }
@@ -166,7 +166,7 @@ export async function getMergeRequestParticipants({
         const message = fetchData.message
             ? [].concat(fetchData.message).join('')
             : '请求报错了'
-        return Promise.reject(red(message))
+        return Promise.reject(chalk.red(message))
     }
     return fetchData
 }
@@ -196,7 +196,7 @@ export async function getMergeRequestChanges({
         const message = fetchData.message
             ? [].concat(fetchData.message).join('')
             : '请求报错了'
-        return Promise.reject(red(message))
+        return Promise.reject(chalk.red(message))
     }
     return fetchData
 }
@@ -226,7 +226,7 @@ export async function getMergeRequestDiffVersions({
         const message = fetchData.message
             ? [].concat(fetchData.message).join('')
             : '请求报错了'
-        return Promise.reject(red(message))
+        return Promise.reject(chalk.red(message))
     }
     return fetchData
 }
@@ -258,7 +258,7 @@ export async function acceptMergeRequest({
             ? [].concat(fetchData.message).join('')
             : '请求报错了'
         if (message === '500 Internal Server Error') return true
-        return Promise.reject(red(message))
+        return Promise.reject(chalk.red(message))
     }
     return fetchData
 }
@@ -290,7 +290,7 @@ export async function updateMergeRequest({
             ? [].concat(fetchData.message).join('')
             : '请求报错了'
         if (message === '500 Internal Server Error') return true
-        return Promise.reject(red(message))
+        return Promise.reject(chalk.red(message))
     }
     return fetchData
 }
@@ -322,7 +322,7 @@ export async function deleteMergeRequest({
             ? [].concat(fetchData.message).join('')
             : '请求报错了'
         if (message === '500 Internal Server Error') return true
-        return Promise.reject(red(message))
+        return Promise.reject(chalk.red(message))
     }
     return fetchData
 }

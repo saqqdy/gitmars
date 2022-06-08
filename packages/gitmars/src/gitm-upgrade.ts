@@ -1,7 +1,7 @@
 #!/usr/bin/env ts-node
 import type { GitmarsOptionOptionsType, PackageVersionTag } from '../typings'
 const { program } = require('commander')
-const { green, red } = require('colors')
+const { green, red } = require('chalk')
 const ora = require('ora')
 const { spawnSync } = require('@gitmars/core/lib/spawn')
 const { createArgs } = require('@gitmars/core/lib/utils/command')

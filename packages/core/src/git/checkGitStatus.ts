@@ -1,5 +1,5 @@
 import sh from 'shelljs'
-import { red, yellow } from 'colors'
+import chalk from 'chalk'
 import { debug } from '../utils/debug'
 import getGitStatus from './getGitStatus'
 
@@ -18,14 +18,14 @@ function checkGitStatus(): boolean {
         sum.UU.length > 0
     ) {
         sh.echo(
-            red('您还有未提交的文件，请处理后再继续') +
+            chalk.red('您还有未提交的文件，请处理后再继续') +
                 '\n如果需要暂存文件请执行: gitm save\n恢复时执行：gitm get'
         )
         process.exit(1)
         return false
     } else if (sum['??'].length > 0) {
         sh.echo(
-            yellow('您有未加入版本的文件,') +
+            chalk.yellow('您有未加入版本的文件,') +
                 '\n如果需要暂存文件请执行: gitm save --force\n恢复时执行：gitm get'
         )
     }

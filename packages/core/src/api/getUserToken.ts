@@ -1,5 +1,5 @@
 import sh from 'shelljs'
-import { red } from 'colors'
+import chalk from 'chalk'
 import request from '@jssj/request'
 import type { FetchDataType } from '../../typings'
 import { getGitUser } from '../git/getGitUser'
@@ -14,7 +14,7 @@ async function getUserToken(): Promise<FetchDataType> {
         config.api
     if (!userInfoApi) {
         sh.echo(
-            red(
+            chalk.red(
                 '请配置用于请求权限的api接口地址，接收参数形式：url?name=git_user_name，返回data=token'
             )
         )
@@ -23,7 +23,7 @@ async function getUserToken(): Promise<FetchDataType> {
 
     const user = getGitUser()
     if (!user) {
-        sh.echo(red('请设置本地git用户名'))
+        sh.echo(chalk.red('请设置本地git用户名'))
         process.exit(1)
     }
 
@@ -34,10 +34,10 @@ async function getUserToken(): Promise<FetchDataType> {
     debug('getUserToken-fetchData', fetchData)
     // 没有查到用户信息或者没有设置token
     if (!fetchData) {
-        sh.echo(red('没有找到用户，请联系管理员'))
+        sh.echo(chalk.red('没有找到用户，请联系管理员'))
         process.exit(1)
     } else if (!fetchData.token) {
-        sh.echo(red('请设置access_token'))
+        sh.echo(chalk.red('请设置access_token'))
         process.exit(1)
     }
     return fetchData

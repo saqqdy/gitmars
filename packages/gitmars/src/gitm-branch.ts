@@ -6,7 +6,7 @@ import type {
 } from '../typings'
 const { program } = require('commander')
 const sh = require('shelljs')
-const { green, red } = require('colors')
+const { green, red } = require('chalk')
 const { queue } = require('@gitmars/core/lib/queue')
 const searchBranches = require('@gitmars/core/lib/git/searchBranches')
 const getIsGitProject = require('@gitmars/core/lib/git/getIsGitProject')

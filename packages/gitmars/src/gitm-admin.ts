@@ -5,7 +5,7 @@ import type {
     GitmarsOptionOptionsType
 } from '../typings'
 const { Command } = require('commander')
-const { green, red } = require('colors')
+const { green, red } = require('chalk')
 const getType = require('js-cool/lib/getType')
 const getUserToken = require('@gitmars/core/lib/api/getUserToken')
 const { queue } = require('@gitmars/core/lib/queue')

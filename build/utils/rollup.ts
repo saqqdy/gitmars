@@ -1,5 +1,5 @@
 import { resolve } from 'path'
-import { bold, cyan, green, yellow } from 'colors'
+import chalk from 'chalk'
 // import findWorkspacePackages from '@pnpm/find-workspace-packages'
 import { PACKAGE } from './paths'
 
@@ -56,13 +56,13 @@ export function pathRewriter(bundlePath: string) {
 }
 
 export const reporter = (opt: any, outputOptions: any, info: any) =>
-    `${cyan(
-        bold(
+    `${chalk.cyan(
+        chalk.bold(
             (info.fileName &&
                 `${outputOptions.file?.split('packages/').pop()}`) ||
                 ''
         )
-    )}: bundle size ${yellow(info.bundleSize)} -> minified ${green(
+    )}: bundle size ${chalk.yellow(info.bundleSize)} -> minified ${chalk.green(
         (info.minSize && `${info.minSize}`) || ''
     )}`
 

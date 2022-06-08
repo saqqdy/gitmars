@@ -2,7 +2,7 @@
 import type { GitmarsOptionOptionsType } from '../typings'
 const { program } = require('commander')
 const sh = require('shelljs')
-const { green, red } = require('colors')
+const { green, red } = require('chalk')
 const inquirer = require('inquirer')
 const getProperty = require('js-cool/lib/getProperty')
 const getCurrentBranch = require('@gitmars/core/lib/git/getCurrentBranch')

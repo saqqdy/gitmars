@@ -3,7 +3,7 @@ import type { GitLogsType, GitmarsOptionOptionsType } from '../typings'
 const { program } = require('commander')
 const dayjs = require('dayjs')
 const columnify = require('columnify')
-const { red, green, cyan, blue, yellow } = require('colors')
+const { red, green, cyan, blue, yellow } = require('chalk')
 const getIsGitProject = require('@gitmars/core/lib/git/getIsGitProject')
 const getGitLogs = require('@gitmars/core/lib/git/getGitLogs')
 const { createArgs } = require('@gitmars/core/lib/utils/command')

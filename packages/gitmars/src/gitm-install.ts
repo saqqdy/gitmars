@@ -2,7 +2,7 @@
 import type { GitmarsOptionOptionsType, PackageVersionTag } from '../typings'
 const { program } = require('commander')
 const ora = require('ora')
-const { red, green } = require('colors')
+const { red, green } = require('chalk')
 const { createArgs } = require('@gitmars/core/lib/utils/command')
 const { spawnSync } = require('@gitmars/core/lib/spawn')
 const echo = require('@gitmars/core/lib/utils/echo')

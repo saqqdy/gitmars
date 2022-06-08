@@ -2,7 +2,7 @@
 import type { InitInquirerPromptType } from '../typings'
 const fs = require('fs')
 const { program } = require('commander')
-const { green, red } = require('colors')
+const { green, red } = require('chalk')
 const sh = require('shelljs')
 const inquirer = require('inquirer')
 const getIsGitProject = require('@gitmars/core/lib/git/getIsGitProject')

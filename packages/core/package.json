@@ -43,8 +43,8 @@
     },
     "dependencies": {
         "@jssj/request": "^1.0.0-alpha.8",
+        "chalk": "^5.0.1",
         "ci-info": "^3.3.0",
-        "colors": "^1.4.0",
         "columnify": "^1.6.0",
         "commander": "^9.2.0",
         "cosmiconfig": "^7.0.1",

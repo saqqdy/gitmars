@@ -1,5 +1,5 @@
 import sh from 'shelljs'
-import { green, red } from 'colors'
+import chalk from 'chalk'
 import request from '@jssj/request'
 import type { ApolloConfigType } from '../typings'
 import { getBuildConfig } from './build/buildConfig'
@@ -14,7 +14,7 @@ async function sendGroupMessage(message: string, url = ''): Promise<void> {
     const config = (await getBuildConfig()) as ApolloConfigType
     let urls: string[] = []
     if (!config.gitNotificationGroupUrl && !url) {
-        sh.echo(red('没有配置群消息推送地址'))
+        sh.echo(chalk.red('没有配置群消息推送地址'))
         return
     }
     if (url) urls = [url]
@@ -34,7 +34,7 @@ async function sendGroupMessage(message: string, url = ''): Promise<void> {
                 headers: { 'Content-Type': 'application/json' }
             })
             .then(() => {
-                sh.echo(green('发送消息成功'))
+                sh.echo(chalk.green('发送消息成功'))
             })
     })
 }

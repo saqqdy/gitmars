@@ -1,5 +1,5 @@
 import sh from 'shelljs'
-import { yellow } from 'colors'
+import chalk from 'chalk'
 import { spawnSync } from '../spawn'
 import { debug } from '../utils/debug'
 
@@ -14,7 +14,7 @@ function getGitVersion(): string | void {
         /[\d.?]+/g
     ) as string[]
     if (!version) {
-        sh.echo(yellow('没有找到git'))
+        sh.echo(chalk.yellow('没有找到git'))
         process.exit(1)
         return
     }
