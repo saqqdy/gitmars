@@ -26,18 +26,27 @@ export function runSpawn(command: string, cwd: string = ROOT) {
     })
 }
 
-export function runSpawnSync(command: string, cwd: string = ROOT) {
+export function runSpawnSync(
+    command: string,
+    cwd: string = ROOT,
+    option: Parameters<typeof spawnSync>[2] = {}
+) {
     const [cmd, ...args] = command.split(' ')
     return new Promise((resolve, reject) => {
         const child = spawnSync(cmd, args, {
             cwd,
             stdio: 'inherit',
-            shell: process.platform === 'win32'
+            shell: process.platform === 'win32',
+            ...option
         })
         if (child.status !== 0) {
             reject(child.error)
         } else {
-            resolve(true)
+            try {
+                resolve(child.stdout.toString())
+            } catch {
+                resolve(child.stdout)
+            }
         }
     })
 }
@@ -54,7 +63,11 @@ export function runExec(command: string, cwd: string = ROOT) {
                     echo(`exec "${command}" error`, 'error')
                     reject(stderr)
                 } else {
-                    resolve(stdout)
+                    try {
+                        resolve(stdout.toString())
+                    } catch {
+                        resolve(stdout)
+                    }
                 }
             }
         )
@@ -66,14 +79,23 @@ export function runExec(command: string, cwd: string = ROOT) {
     })
 }
 
-export function runExecSync(command: string, cwd: string = ROOT) {
+export function runExecSync(
+    command: string,
+    cwd: string = ROOT,
+    option: Parameters<typeof execSync>[1] = {}
+) {
     return new Promise((resolve, reject) => {
         try {
-            execSync(command, {
+            const stdout = execSync(command, {
                 cwd,
-                stdio: 'inherit'
+                stdio: 'inherit',
+                ...option
             })
-            resolve(true)
+            try {
+                resolve(stdout.toString())
+            } catch {
+                resolve(stdout)
+            }
         } catch (error) {
             reject(error)
         }
