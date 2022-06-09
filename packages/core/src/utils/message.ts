@@ -1,6 +1,6 @@
 import sh from 'shelljs'
 import request from '@jssj/request'
-import { green, red } from 'colors'
+import chalk from 'chalk'
 import getGitConfig from '../git/getGitConfig'
 import getGitRevParse from '../git/getGitRevParse'
 import getConfig from '../getConfig'
@@ -49,7 +49,7 @@ export function getMessage(type: string): string {
 export async function postMessage(msg = ''): Promise<void> {
     const config = getConfig()
     if (!config.msgTemplate) {
-        sh.echo(red('请配置消息发送api模板地址'))
+        sh.echo(chalk.red('请配置消息发送api模板地址'))
         return
     }
     const message = mapTemplate(config.msgTemplate, (key: string) => {
@@ -68,7 +68,7 @@ export async function postMessage(msg = ''): Promise<void> {
 export async function sendMessage(message = ''): Promise<void> {
     const config = getConfig()
     if (!config.msgUrl) {
-        sh.echo(red('请配置消息推送地址'))
+        sh.echo(chalk.red('请配置消息推送地址'))
         return
     }
     message = message.replace(/\s/g, '')
@@ -87,7 +87,7 @@ export async function sendMessage(message = ''): Promise<void> {
                 }
             })
             .then(() => {
-                sh.echo(green('发送消息成功'))
+                sh.echo(chalk.green('发送消息成功'))
             })
     }
 }

@@ -1,4 +1,4 @@
-import { yellow } from 'colors'
+import chalk from 'chalk'
 import type { InputQuestionOptions, QuestionCollection } from 'inquirer'
 import type {
     GitmarsOptionArgsType,
@@ -90,7 +90,7 @@ function createPrompt(
                         opts.description || '请输入参数' + opts.name + '的值'
                     }${
                         !opts.required
-                            ? yellow(
+                            ? chalk.yellow(
                                   '(可不填' +
                                       ('defaultValue' in opts &&
                                       opts.defaultValue !== ''

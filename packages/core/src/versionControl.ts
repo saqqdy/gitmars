@@ -1,5 +1,5 @@
 import sh from 'shelljs'
-import { green, red } from 'colors'
+import chalk from 'chalk'
 import { version } from '../package.json'
 import { getPkgInfo } from './utils/pkgInfo'
 import { debug } from './utils/debug'
@@ -34,8 +34,10 @@ export async function isNeedUpgrade(): Promise<boolean> {
  */
 export function upgradeGitmars() {
     sh.echo(
-        red('检测到你的版本比较古老，为避免版本碎片化问题，请升级之后再使用!') +
-            green(
+        chalk.red(
+            '检测到你的版本比较古老，为避免版本碎片化问题，请升级之后再使用!'
+        ) +
+            chalk.green(
                 '\nMac用户升级方法：sudo gitm upgrade latest -m -c npm\nWindows用户使用PowerShell或CMD：gitm upgrade lite -m -c npm.cmd'
             )
     )

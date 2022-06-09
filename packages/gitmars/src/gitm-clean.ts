@@ -2,7 +2,7 @@
 import type { GitmarsOptionOptionsType } from '../typings'
 const { program } = require('commander')
 const sh = require('shelljs')
-const { green, yellow } = require('colors')
+const { green, yellow } = require('chalk')
 const inquirer = require('inquirer')
 const getGitRevParse = require('@gitmars/core/lib/git/getGitRevParse')
 const getIsGitProject = require('@gitmars/core/lib/git/getIsGitProject')

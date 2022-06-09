@@ -1,7 +1,7 @@
 import apollo from 'node-apollo'
 import sh from 'shelljs'
 import request from '@jssj/request'
-import { red } from 'colors'
+import chalk from 'chalk'
 import type {
     ApolloConfigType,
     GitmarsConfigApisBuildConfigType,
@@ -50,7 +50,7 @@ export async function getBuildConfig(): Promise<ApolloConfigType | void> {
         const { appId, clusterName } = config.apolloConfig
         NS = getNamespace({ appId, clusterName })
     } else {
-        sh.echo(red('请配置apollo或buildConfigApi'))
+        sh.echo(chalk.red('请配置apollo或buildConfigApi'))
         process.exit(0)
         return
     }

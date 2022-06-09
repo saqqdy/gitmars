@@ -2,7 +2,7 @@
 import type { GitStatusInfoType, GitmarsOptionOptionsType } from '../typings'
 const { program } = require('commander')
 const columnify = require('columnify')
-const { yellow, red, cyan, green } = require('colors')
+const { yellow, red, cyan, green } = require('chalk')
 const getIsGitProject = require('@gitmars/core/lib/git/getIsGitProject')
 const getCurrentBranch = require('@gitmars/core/lib/git/getCurrentBranch')
 const getGitStatus = require('@gitmars/core/lib/git/getGitStatus')

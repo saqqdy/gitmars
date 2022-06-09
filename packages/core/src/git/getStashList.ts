@@ -1,5 +1,5 @@
 import sh from 'shelljs'
-import { yellow } from 'colors'
+import chalk from 'chalk'
 import { spawnSync } from '../spawn'
 import { debug } from '../utils/debug'
 
@@ -24,7 +24,9 @@ function getStashList(key: string) {
     }[] = []
     if (list.length > 10) {
         sh.echo(
-            yellow(`该项目下一共有${list.length}条暂存记录，建议定期清理！`)
+            chalk.yellow(
+                `该项目下一共有${list.length}条暂存记录，建议定期清理！`
+            )
         )
     }
     try {

@@ -1,5 +1,5 @@
 import sh from 'shelljs'
-import { green, red } from 'colors'
+import chalk from 'chalk'
 import request from '@jssj/request'
 import type {
     ApolloBranchList,
@@ -30,13 +30,13 @@ async function runJenkins({
     const cfg: ApolloConfigBranchType = buildConfig[env]
     debug('runJenkins-buildConfig', env, project, app, buildConfig)
     if (!cfg) {
-        sh.echo(red('请输入正确的环境名称'))
+        sh.echo(chalk.red('请输入正确的环境名称'))
         process.exit(1)
         return
     }
     const p = cfg.list.find(el => el.name === project)
     if (!p) {
-        sh.echo(red('请输入正确的项目名称'))
+        sh.echo(chalk.red('请输入正确的项目名称'))
         process.exit(1)
         return
     }
@@ -44,14 +44,14 @@ async function runJenkins({
         const appList = app.split(',')
         for (const item of appList) {
             if (!p.apps.includes(item)) {
-                sh.echo(red('请输入正确的应用名称'))
+                sh.echo(chalk.red('请输入正确的应用名称'))
                 process.exit(1)
                 return
             }
         }
     }
     if (!buildConfig.template) {
-        sh.echo(red('请配置Jenkins构建地址模板'))
+        sh.echo(chalk.red('请配置Jenkins构建地址模板'))
         process.exit(1)
         return
     }
@@ -75,7 +75,7 @@ async function runJenkins({
             headers: { Authorization: auth }
         })
         .then(() => {
-            sh.echo(green('成功调起Jenkins构建'))
+            sh.echo(chalk.green('成功调起Jenkins构建'))
         })
 }
 

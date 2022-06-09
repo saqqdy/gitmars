@@ -1,7 +1,7 @@
 #!/usr/bin/env ts-node
 const { program } = require('commander')
 const sh = require('shelljs')
-const { red } = require('colors')
+const { red } = require('chalk')
 const getCurrentBranch = require('@gitmars/core/lib/git/getCurrentBranch')
 const getConfig = require('@gitmars/core/lib/getConfig')
 const { spawnSync } = require('@gitmars/core/lib/spawn')

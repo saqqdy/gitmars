@@ -1,7 +1,7 @@
 #!/usr/bin/env ts-node
 const { program } = require('commander')
 const sh = require('shelljs')
-const { green, red } = require('colors')
+const { green, red } = require('chalk')
 const getIsGitProject = require('@gitmars/core/lib/git/getIsGitProject')
 const getGitRevParse = require('@gitmars/core/lib/git/getGitRevParse')
 const { writeFile } = require('@gitmars/core/lib/utils/file')

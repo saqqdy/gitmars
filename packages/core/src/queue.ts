@@ -1,6 +1,6 @@
 import ora from 'ora'
 import extend from 'js-cool/lib/extend'
-import { green, red, yellow } from 'colors'
+import chalk from 'chalk'
 import type {
     CommandMessageType,
     CommandType,
@@ -62,7 +62,7 @@ export function queue(
     ) {
         const _message = cfg.success || msg.success || '处理完成'
         if (_message) {
-            spinner.succeed(green(_message))
+            spinner.succeed(chalk.green(_message))
             cfg.postmsg && postMessage(_message)
         }
         cb && cb() // 回调，继续执行下一条
@@ -94,10 +94,10 @@ export function queue(
                 (typeof cfg.stdio === 'string' &&
                     ['ignore'].includes(cfg.stdio))
             ) {
-                spinner.fail(red(err))
+                spinner.fail(chalk.red(err))
             }
             spinner.fail(
-                red(
+                chalk.red(
                     cfg.fail ||
                         msg.fail ||
                         '出错了！指令 ' + cmd + ' 执行失败，中断了进程'
@@ -106,11 +106,13 @@ export function queue(
             cfg.postmsg &&
                 postMessage('出错了！指令 ' + cmd + ' 执行失败，中断了进程')
             rest.length > 0 &&
-                spinner.fail(red('请处理相关问题之后输入gitm continue继续'))
+                spinner.fail(
+                    chalk.red('请处理相关问题之后输入gitm continue继续')
+                )
             process.exit(1)
         } else {
             const _message = cfg.fail || msg.fail || '指令 ' + cmd + ' 执行失败'
-            _message && spinner.warn(yellow(_message))
+            _message && spinner.warn(chalk.yellow(_message))
             cb && cb() // 回调，继续执行下一条
         }
     }
@@ -147,7 +149,7 @@ export function queue(
                         _execFunction = require(cmd.module)
                     if (cmd.entry) _execFunction = _execFunction[cmd.entry]
                     try {
-                        spinner.start(green(cfg.processing || '正在处理'))
+                        spinner.start(chalk.green(cfg.processing || '正在处理'))
                         stdout = await _execFunction(cmd.options)
                         debug('queue-result', cmd, stdout)
                         onSuccess({} as CommandMessageType, cfg, cb)
@@ -178,7 +180,9 @@ export function queue(
                     // cmd是字符串
                     const msg = getCommandMessage(cmd)
                     spinner.start(
-                        green(cfg.processing || msg.processing || '正在处理')
+                        chalk.green(
+                            cfg.processing || msg.processing || '正在处理'
+                        )
                     )
                     const program = spawnSync(client, argv, cfg)
                     const { status, stderr } = program

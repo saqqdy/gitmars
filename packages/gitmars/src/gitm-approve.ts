@@ -7,7 +7,7 @@ import type {
 const { program } = require('commander')
 const dayjs = require('dayjs')
 const inquirer = require('inquirer')
-const { green, yellow, blue, red, cyan, magenta } = require('colors')
+const { green, yellow, blue, red, cyan, magenta } = require('chalk')
 const getUserToken = require('@gitmars/core/lib/api/getUserToken')
 const getIsGitProject = require('@gitmars/core/lib/git/getIsGitProject')
 const getGitConfig = require('@gitmars/core/lib/git/getGitConfig')

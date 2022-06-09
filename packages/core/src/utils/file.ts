@@ -1,7 +1,7 @@
 import fs from 'fs'
 import sh from 'shelljs'
 import ora from 'ora'
-import { green } from 'colors'
+import chalk from 'chalk'
 
 sh.config.silent = true
 
@@ -57,17 +57,17 @@ export function removeFile(
     const spinner = ora()
     if (!Array.isArray(files)) files = [files]
     for (const file of files) {
-        file.name && spinner.start(green(`正在处理${file.name}`))
+        file.name && spinner.start(chalk.green(`正在处理${file.name}`))
         const fileExist = isFileExist(file.url)
         if (fileExist) {
             sh.rm(file.url)
-            file.name && spinner.succeed(green(`${file.name}已删除`))
+            file.name && spinner.succeed(chalk.green(`${file.name}已删除`))
         } else {
-            file.name && spinner.warn(green(`${file.name}未找到`))
+            file.name && spinner.warn(chalk.green(`${file.name}未找到`))
         }
     }
     spinner.stop()
-    sh.echo(green('清理完毕'))
+    sh.echo(chalk.green('清理完毕'))
 }
 
 export default {
