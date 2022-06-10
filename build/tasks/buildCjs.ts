@@ -5,7 +5,7 @@ import alias from '@rollup/plugin-alias'
 import type { OutputOptions } from 'rollup'
 import type { ResolverObject } from '@rollup/plugin-alias'
 import glob from 'fast-glob'
-import { runSpawnSync, runExec } from '../utils/exec'
+import { runExec, runSpawnSync } from '../utils/exec'
 import { wrapDisplayName } from '../utils/gulp'
 import { excludeFiles, generateExternal } from '../utils/rollup'
 
@@ -22,7 +22,7 @@ import {
     shebang
     // visual,
 } from '../plugins/index'
-import { PACKAGE, ROOT } from '../utils/paths'
+import { PACKAGE } from '../utils/paths'
 import { packages } from '../packages'
 
 const pkgs = packages.filter(({ buildTask }) => buildTask === 'cjs')
@@ -252,6 +252,12 @@ export async function buildCjs() {
     await Promise.all(builds)
 }
 
+export async function madgeLib() {
+    for (const { name, output = 'lib' } of pkgs) {
+        await runExec(`npx madge ${output}/ -c`, resolve(PACKAGE, name))
+    }
+}
+
 export async function copyFile() {
     for (const { name } of pkgs) {
         await runExec(
@@ -278,5 +284,6 @@ export default series(
     wrapDisplayName('clean:dirs', cleanDirs),
     // wrapDisplayName('gen:version', genVersion),
     parallel(wrapDisplayName('build:cjs', buildCjs)),
+    parallel(wrapDisplayName('madge:lib', madgeLib)),
     parallel(wrapDisplayName('copy:json,sh', copyFile))
 )
