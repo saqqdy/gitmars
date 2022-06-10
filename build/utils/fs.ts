@@ -16,7 +16,7 @@ import { readFileSync, writeFileSync } from 'fs'
  */
 export function readJSON(
     ...args: Parameters<typeof readFileSync>
-): object | null {
+): Record<string, unknown> | null {
     const data = readFileSync(...args).toString()
     try {
         return JSON.parse(data)

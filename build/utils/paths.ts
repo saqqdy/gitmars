@@ -1,6 +1,7 @@
 import { resolve } from 'path'
 
 export const ROOT = resolve(__dirname, '..', '..')
+export const BUILD = resolve(ROOT, 'build')
 export const PACKAGE = resolve(ROOT, 'packages')
 export const CORE = resolve(PACKAGE, 'core')
 export const GITMARS = resolve(PACKAGE, 'gitmars')
