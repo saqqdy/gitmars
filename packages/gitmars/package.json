@@ -23,17 +23,8 @@
         "*.d.ts"
     ],
     "scripts": {
-        "lib": "sh scripts/lib.sh",
-        "build:ui": "sh scripts/build-ui.sh",
-        "build:server": "rimraf app && sh scripts/build-server.sh",
         "build": "rimraf lib es && node --max-old-space-size=8192 node_modules/.bin/rollup -c",
-        "build:types": "run-s build-temp-types roll-types",
-        "build-temp-types": "tsc --emitDeclarationOnly --outDir temp/ -p bin/",
-        "patch-types": "node scripts/patchTypes",
-        "roll-types": "api-extractor run && rimraf temp",
-        "circular": "madge lib/ -c",
         "dev": "cross-env BUILD_ENV=DEV rollup -c -w",
-        "dist": "run-s eslint prettier build build:server circular build:ui",
         "eslint": "eslint --fix --ext .ts,.js ./",
         "prettier": "prettier --write \"**/*.{js,ts,json,md}\""
     },
@@ -72,7 +63,6 @@
         "cron-parser": "^4.4.0",
         "cross-env": "^7.0.3",
         "eslint": "^8.14.0",
-        "madge": "^5.0.1",
         "prettier": "^2.6.2",
         "tsnd": "^1.0.2",
         "typescript": "^4.6.4"
