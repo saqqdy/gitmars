@@ -43,11 +43,11 @@ export function generateExternal(
 
 export function pathRewriter(bundlePath: string) {
     return (id: string) => {
-        if (/^kdesign-vue\/packages/.test(id)) {
+        if (/^gitmars\/packages/.test(id)) {
             if (noWlPrefixFile.test(id)) {
-                return id.replace('kdesign-vue/packages/', bundlePath)
+                return id.replace('gitmars/packages/', bundlePath)
             }
-            return id.replace('kdesign-vue/packages/', bundlePath)
+            return id.replace('gitmars/packages/', bundlePath)
         }
         if (/^@\//.test(id)) {
             return id.replace(/^@/, bundlePath)

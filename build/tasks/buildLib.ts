@@ -25,9 +25,9 @@ import {
 import { PACKAGE } from '../utils/paths'
 import { packages } from '../packages'
 
-const pkgs = packages.filter(({ buildTask }) => buildTask === 'cjs')
+const pkgs = packages.filter(({ buildTask }) => buildTask === 'lib')
 
-export async function buildCjs() {
+export async function buildLib() {
     const externals = [
         'js-cool',
         '@gitmars/core',
@@ -40,16 +40,14 @@ export async function buildCjs() {
             globals = {},
             name,
             external = [],
-            submodules,
             iife,
             build,
             cjs,
             mjs,
             dts,
-            target,
             exportType = 'auto'
         }) => {
-            // if (build === false) return
+            if (build === false) return
             const pkg = require(resolve(PACKAGE, name, 'package.json'))
             const banner =
                 '/*!\n' +
@@ -83,16 +81,6 @@ export async function buildCjs() {
                 })
             )
 
-            // submodules
-            // if (submodules) {
-            //     functionNames.push(
-            //         ...glob
-            //             .sync('*/index.ts', {
-            //                 cwd: resolve(`packages/${name}`)
-            //             })
-            //             .map(i => i.split('/')[0])
-            //     )
-            // }
             for (const fn of fileList) {
                 const input = resolve(PACKAGE, name, 'src', fn)
 
@@ -103,7 +91,7 @@ export async function buildCjs() {
                         file: resolve(
                             PACKAGE,
                             name,
-                            'es',
+                            'lib',
                             fn.replace(/\.ts$/, '.mjs')
                         ),
                         exports: exportType,
@@ -136,8 +124,7 @@ export async function buildCjs() {
                                 fn.replace(/\.ts$/, 'iife.js')
                             ),
                             format: 'iife',
-                            // exports: 'named',
-                            // exports: exportType,
+                            exports: exportType,
                             name: iifeName,
                             extend: true,
                             globals: iifeGlobals,
@@ -154,8 +141,7 @@ export async function buildCjs() {
                                 fn.replace(/\.ts$/, 'iife.min.js')
                             ),
                             format: 'iife',
-                            // exports: 'named',
-                            // exports: exportType,
+                            exports: exportType,
                             name: iifeName,
                             extend: true,
                             globals: iifeGlobals,
@@ -208,21 +194,7 @@ export async function buildCjs() {
                         plugins: [nodeExternals(), dtsPlugin],
                         external: [...externals, ...external]
                     }
-                    const writeEsmDtsOptions: OutputOptions[] = [
-                        {
-                            file: resolve(
-                                PACKAGE,
-                                name,
-                                'es',
-                                fn.replace(/\.ts$/, '.d.ts')
-                            ),
-                            // exports: 'auto',
-                            // exports: exportType,
-                            // banner,
-                            format: 'es'
-                        }
-                    ]
-                    const writeCjsDtsOptions: OutputOptions[] = [
+                    const writeDtsOptions: OutputOptions[] = [
                         {
                             file: resolve(
                                 PACKAGE,
@@ -230,20 +202,12 @@ export async function buildCjs() {
                                 'lib',
                                 fn.replace(/\.ts$/, '.d.ts')
                             ),
-                            // exports: 'auto',
-                            // exports: exportType,
-                            // banner,
                             format: 'es'
                         }
                     ]
                     const dtsBundle = await rollup(rollupDtsConfig)
                     await Promise.all([
-                        writeEsmDtsOptions.map(option =>
-                            dtsBundle.write(option)
-                        ),
-                        writeCjsDtsOptions.map(option =>
-                            dtsBundle.write(option)
-                        )
+                        writeDtsOptions.map(option => dtsBundle.write(option))
                     ])
                 }
             }
@@ -272,7 +236,7 @@ export async function copyFile() {
 
 export async function cleanDirs() {
     for (const { name } of pkgs) {
-        await runSpawnSync(`rimraf lib es dist`, resolve(PACKAGE, name))
+        await runSpawnSync(`rimraf lib dist`, resolve(PACKAGE, name))
     }
 }
 
@@ -283,7 +247,7 @@ export async function genVersion() {
 export default series(
     wrapDisplayName('clean:dirs', cleanDirs),
     // wrapDisplayName('gen:version', genVersion),
-    parallel(wrapDisplayName('build:cjs', buildCjs)),
+    parallel(wrapDisplayName('build:lib', buildLib)),
     parallel(wrapDisplayName('madge:lib', madgeLib)),
     parallel(wrapDisplayName('copy:json,sh', copyFile))
 )

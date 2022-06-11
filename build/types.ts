@@ -18,7 +18,6 @@ export interface PackageManifest {
     cjs?: boolean
     mjs?: boolean
     dts?: boolean
-    target?: string
     output?: 'dist' | 'lib' | 'app' | 'es'
     exportType?: 'auto' | 'default' | 'named' | 'none'
 }
