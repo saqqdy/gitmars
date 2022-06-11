@@ -1,31 +1,29 @@
 {
     "name": "@gitmars/core",
     "description": "gitmars核心程序",
-    "version": "3.0.0-beta.4",
+    "version": "3.0.0-beta.5",
     "private": false,
     "main": "./lib/index.js",
-    "module": "./es/index.js",
+    "module": "./lib/index.mjs",
     "exports": {
         ".": {
             "require": "./lib/index.js",
-            "import": "./es/index.mjs",
-            "types": "./es/index.d.ts"
+            "import": "./lib/index.mjs",
+            "types": "./lib/index.d.ts"
         },
-        "./es": "./es/index.mjs",
-        "./lib": "./lib/index.js",
-        "./es/*.mjs": "./es/*.mjs",
-        "./es/*": "./es/*.mjs",
-        "./lib/*.js": "./lib/*.js",
-        "./lib/*": "./lib/*.js",
         "./*": {
             "require": "./lib/*.js",
-            "import": "./es/*.mjs",
-            "types": "./es/*.d.ts"
+            "import": "./lib/*.mjs",
+            "types": "./lib/*.d.ts"
+        },
+        "./lib/*": {
+            "require": "./lib/*.js",
+            "import": "./lib/*.mjs",
+            "types": "./lib/*.d.ts"
         }
     },
     "files": [
         "cache/.gitkeep",
-        "es",
         "lib",
         "sh",
         "typings",
@@ -34,7 +32,6 @@
     "scripts": {},
     "directories": {
         "bin": "bin",
-        "es": "es",
         "lib": "lib",
         "src": "src",
         "cache": "cache",
