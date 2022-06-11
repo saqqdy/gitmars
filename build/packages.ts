@@ -4,7 +4,7 @@ export const packages: PackageManifest[] = [
     {
         name: 'core',
         pkgName: '@gitmars/core',
-        buildTask: 'cjs',
+        buildTask: 'lib',
         iife: false,
         cjs: true,
         mjs: true,
@@ -12,27 +12,27 @@ export const packages: PackageManifest[] = [
         output: 'lib',
         display: 'gitmars核心程序'
     },
-    {
-        name: 'gitmars',
-        pkgName: 'gitmars',
-        buildTask: 'cjs',
-        iife: false,
-        cjs: true,
-        mjs: false,
-        dts: false,
-        output: 'lib',
-        display: '这是一个git工作流工具'
-    },
-    {
-        name: 'server',
-        pkgName: '@gitmars/server',
-        buildTask: 'cjs',
-        iife: false,
-        mjs: false,
-        dts: false,
-        output: 'lib',
-        display: 'gitmars可视化界面服务端'
-    },
+    // {
+    //     name: 'gitmars',
+    //     pkgName: 'gitmars',
+    //     buildTask: 'lib',
+    //     iife: false,
+    //     cjs: true,
+    //     mjs: false,
+    //     dts: false,
+    //     output: 'lib',
+    //     display: '这是一个git工作流工具'
+    // },
+    // {
+    //     name: 'server',
+    //     pkgName: '@gitmars/server',
+    //     buildTask: 'lib',
+    //     iife: false,
+    //     mjs: false,
+    //     dts: false,
+    //     output: 'lib',
+    //     display: 'gitmars可视化界面服务端'
+    // },
     {
         name: 'ui',
         pkgName: '@gitmars/ui',
