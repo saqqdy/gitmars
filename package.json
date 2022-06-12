@@ -1,7 +1,7 @@
 {
     "name": "@gitmars/monorepo",
     "description": "这是一个git工作流工具",
-    "version": "3.0.0-beta.5",
+    "version": "3.0.0",
     "main": "index.js",
     "files": [
         "static",
@@ -16,6 +16,7 @@
         "server:watch": "nodemon --config nodemon.json",
         "server:watch:debug": "nodemon --config nodemon.json --inspect-brk",
         "server:super": "supervisor app/bin/www",
+        "gen:version": "tscjs scripts/version",
         "lib": "sh scripts/lib.sh",
         "build": "gulp -f build/gulpfile.ts",
         "build1": "rimraf lib es && node --max-old-space-size=8192 node_modules/.bin/rollup -c",
