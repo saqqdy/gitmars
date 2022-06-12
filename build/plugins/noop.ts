@@ -2,7 +2,10 @@ import type { Plugin } from 'rollup'
 
 function noop() {
     return {
-        name: 'noop'
+        name: 'noop',
+        renderChunk(code: string) {
+            return { code }
+        }
     }
 }
 
