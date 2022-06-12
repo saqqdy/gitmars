@@ -1,7 +1,7 @@
 import { execSync } from 'child_process'
 import { join } from 'path'
 import consola from 'consola'
-import { PACKAGE } from '../build/utils/paths'
+import { PACKAGE, ROOT } from '../build/utils/paths'
 import { readJSON, writeJSON } from '../build/utils/fs'
 import { version } from '../package.json'
 import { packages } from '../build/packages'
@@ -16,7 +16,8 @@ if (version.includes('beta')) command += ' --tag beta'
 if (version.includes('alpha')) command += ' --tag alpha'
 
 for (const { name, pkgName } of packages) {
-    const pkgJson = readJSON(join(PACKAGE, name, 'package.json'))
+    const PKG_FILE = join(PACKAGE, name, 'package.json')
+    const pkgJson = readJSON(PKG_FILE)
     const newPkgJson = JSON.parse(JSON.stringify(pkgJson))
     for (const { pkgName: pkg } of packages) {
         if (
@@ -37,15 +38,19 @@ for (const { name, pkgName } of packages) {
             newPkgJson.peerDependencies[pkg] = version
         }
     }
-    writeJSON(join(PACKAGE, name, 'package.json'), newPkgJson, {
+    writeJSON(PKG_FILE, newPkgJson, {
         encoding: 'utf8'
     })
     execSync(command, {
         stdio: 'inherit',
         cwd: join('packages', name)
     })
-    writeJSON(join(PACKAGE, name, 'package.json'), pkgJson, {
+    writeJSON(PKG_FILE, pkgJson, {
         encoding: 'utf8'
+    })
+    execSync(`npx prettier --write ${PKG_FILE}`, {
+        stdio: 'inherit',
+        cwd: ROOT
     })
     consola.success(`Published ${pkgName}`)
 }

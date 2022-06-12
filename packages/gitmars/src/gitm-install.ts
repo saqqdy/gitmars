@@ -29,7 +29,7 @@ options.forEach((o: GitmarsOptionOptionsType) => {
 })
 // .option('-m, --mirror', '是否使用淘宝镜像', false)
 // .option('-c, --client [client]', '用于装包的客户端名称', 'npm')
-// .option('-r, --registry <registry]>', '使用镜像地址', '')
+// .option('-r, --registry <registry>', '使用镜像地址', '')
 program.action(
     (
         pluginName: string,
