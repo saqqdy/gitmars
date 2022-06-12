@@ -182,45 +182,34 @@ export async function buildLib() {
                         ...external
                     ])
                 }
-
-                // dts
-                if (dts !== false) {
-                    rollupConfig.plugins.push(nodeExternals(), dtsPlugin)
-                    writeOptions.push({
-                        file: resolve(
-                            PACKAGE,
-                            name,
-                            'lib',
-                            fn.replace(/\.ts$/, '.d.ts')
-                        ),
-                        format: 'es'
-                    })
-                    // const rollupDtsConfig = {
-                    //     input,
-                    //     plugins: [nodeExternals(), dtsPlugin],
-                    //     external: [...externals, ...external]
-                    // }
-                    // const writeDtsOptions: OutputOptions[] = [
-                    //     {
-                    //         file: resolve(
-                    //             PACKAGE,
-                    //             name,
-                    //             'lib',
-                    //             fn.replace(/\.ts$/, '.d.ts')
-                    //         ),
-                    //         format: 'es'
-                    //     }
-                    // ]
-                    // const dtsBundle = await rollup(rollupDtsConfig)
-                    // await Promise.all([
-                    //     writeDtsOptions.map(option => dtsBundle.write(option))
-                    // ])
-                }
-
                 const bundle = await rollup(rollupConfig)
                 await Promise.all(
                     writeOptions.map(option => bundle.write(option))
                 )
+
+                // dts
+                if (dts !== false) {
+                    const rollupDtsConfig = {
+                        input,
+                        plugins: [nodeExternals(), dtsPlugin],
+                        external: [...externals, ...external]
+                    }
+                    const writeDtsOptions: OutputOptions[] = [
+                        {
+                            file: resolve(
+                                PACKAGE,
+                                name,
+                                'lib',
+                                fn.replace(/\.ts$/, '.d.ts')
+                            ),
+                            format: 'es'
+                        }
+                    ]
+                    const dtsBundle = await rollup(rollupDtsConfig)
+                    await Promise.all([
+                        writeDtsOptions.map(option => dtsBundle.write(option))
+                    ])
+                }
             }
         }
     )
