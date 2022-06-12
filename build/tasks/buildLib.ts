@@ -19,6 +19,7 @@ import {
     minify,
     nodeExternals,
     nodeResolve,
+    noop,
     shebang
     // visual,
 } from '../plugins/index'
@@ -156,6 +157,18 @@ export async function buildLib() {
                         }
                     )
                 }
+                // dts
+                if (dts !== false) {
+                    writeOptions.push({
+                        file: resolve(
+                            PACKAGE,
+                            name,
+                            'lib',
+                            fn.replace(/\.ts$/, '.d.ts')
+                        ),
+                        format: 'es'
+                    })
+                }
 
                 const rollupConfig = {
                     input,
@@ -170,6 +183,8 @@ export async function buildLib() {
                             customResolver: nodeResolve() as ResolverObject
                         }),
                         nodeResolve(),
+                        dts !== false ? nodeExternals() : noop,
+                        dts !== false ? dtsPlugin : noop,
                         json,
                         commonjs,
                         shebang(),
@@ -181,40 +196,6 @@ export async function buildLib() {
                         ...externals,
                         ...external
                     ])
-                }
-
-                // dts
-                if (dts !== false) {
-                    rollupConfig.plugins.push(nodeExternals(), dtsPlugin)
-                    writeOptions.push({
-                        file: resolve(
-                            PACKAGE,
-                            name,
-                            'lib',
-                            fn.replace(/\.ts$/, '.d.ts')
-                        ),
-                        format: 'es'
-                    })
-                    // const rollupDtsConfig = {
-                    //     input,
-                    //     plugins: [nodeExternals(), dtsPlugin],
-                    //     external: [...externals, ...external]
-                    // }
-                    // const writeDtsOptions: OutputOptions[] = [
-                    //     {
-                    //         file: resolve(
-                    //             PACKAGE,
-                    //             name,
-                    //             'lib',
-                    //             fn.replace(/\.ts$/, '.d.ts')
-                    //         ),
-                    //         format: 'es'
-                    //     }
-                    // ]
-                    // const dtsBundle = await rollup(rollupDtsConfig)
-                    // await Promise.all([
-                    //     writeDtsOptions.map(option => dtsBundle.write(option))
-                    // ])
                 }
 
                 const bundle = await rollup(rollupConfig)
