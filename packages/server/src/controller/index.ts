@@ -4,7 +4,6 @@ const { join } = require('path')
 const staticAssets = require('../helper/static-assets')
 
 function index(path: string) {
-    console.log(101, process.cwd(), path, process.argv)
     if (!path) path = join(process.cwd(), 'dist')
     return [
         staticAssets(path),
