@@ -10,7 +10,7 @@ hero:
     actions:
         - theme: brand
           text: 开始 →
-          link: /gitmars/guide/
+          link: /guide
         - theme: alt
           text: 去GitHub看源码
           link: https://github.com/saqqdy/gitmars
