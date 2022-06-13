@@ -337,7 +337,7 @@ module.exports = defineConfigWithTheme({
                             },
                             {
                                 text: '更新日志',
-                                link: '/changelog/'
+                                link: '/changelog'
                             }
                         ]
                     },

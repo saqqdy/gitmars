@@ -55,6 +55,10 @@ export async function deployDocs() {
 
 export async function copyFile() {
     for (const { name } of pkgs) {
+        await runSpawnSync(
+            `rimraf ${resolve(PACKAGE, name)}/changelog.md`,
+            ROOT
+        )
         await runExec(
             `rsync -av ${resolve(ROOT, 'CHANGELOG.md')} ${resolve(
                 PACKAGE,

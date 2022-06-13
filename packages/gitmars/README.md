@@ -48,7 +48,7 @@ gitm config list [option]
 
 # 版本升级[-m --mirror]使用淘宝镜像升级
 Mac用户：sudo gitm upgrade -m -c npm
-Windows用户：npm i -g gitmars@lite
+Windows用户使用PowerShell或CMD：gitm upgrade latest -m -c npm.cmd
 
 # 查看版本
 gitm -v

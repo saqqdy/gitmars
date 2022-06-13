@@ -12,16 +12,16 @@ import { readFileSync, writeFileSync } from 'fs'
  * @param args - Parameters<typeof readFileSync>
  * @param args.path - Path to file
  * @param args.options - options
- * @returns result - json | null
+ * @returns result - json | {}
  */
 export function readJSON(
     ...args: Parameters<typeof readFileSync>
-): Record<string, unknown> | null {
+): Record<string, unknown> {
     const data = readFileSync(...args).toString()
     try {
         return JSON.parse(data)
     } catch {
-        return null
+        return {}
     }
 }
 
