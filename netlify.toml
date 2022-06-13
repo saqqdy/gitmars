@@ -1,9 +1,10 @@
 [build.environment]
   NODE_VERSION = "14"
+  NPM_FLAGS="--prefix=/dev/null"
 
 [build]
   publish = "packages/docs/dist"
-  command = "find ./packages/docs -type f -path \"*.md\" | xargs sed -i \"s/https:\/\/raw.githubusercontent.com\/saqqdy\/gitmars/https:\/\/gitee.com\/saqqdy\/gitmars\/raw/g\" && sed -i \"s/base: '\/gitmars\/'/base: '\/'/g\" packages/docs/.vitepress/config.ts && pnpm run docs:build && git checkout . && git clean -fd"
+  command = "find ./packages/docs -type f -path \"*.md\" | xargs sed -i \"s/https:\/\/raw.githubusercontent.com\/saqqdy\/gitmars/https:\/\/gitee.com\/saqqdy\/gitmars\/raw/g\" && sed -i \"s/base: '\/gitmars\/'/base: '\/'/g\" packages/docs/.vitepress/config.ts && npm run docs:build && git checkout . && git clean -fd"
 
 [[redirects]]
   from = "/*"
