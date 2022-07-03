@@ -53,7 +53,7 @@ export async function deployDocs() {
     await Promise.all(builds)
 }
 
-export async function copyFile() {
+export async function copyMdFile() {
     for (const { name } of pkgs) {
         await runSpawnSync(
             `rimraf ${resolve(PACKAGE, name)}/changelog.md`,
@@ -69,7 +69,7 @@ export async function copyFile() {
 }
 
 export default series(
-    parallel(wrapDisplayName('copy:md', copyFile)),
+    parallel(wrapDisplayName('copy:md', copyMdFile)),
     parallel(wrapDisplayName('build:docs', buildDocs)),
     parallel(wrapDisplayName('deploy:docs', deployDocs))
 )
