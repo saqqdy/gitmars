@@ -30,6 +30,7 @@ options.forEach((o: GitmarsOptionOptionsType) => {
 // .option('-f, --force', '没有版本的文件也暂存，这会执行git add .', false)
 program.action((message: string, opt: GitmBuildOption) => {
     if (!message) message = getCurrentBranch()
+    message = `${message}_cache_by_gitmars`
     let cmd: Array<CommandType | string> = [
         {
             cmd: `git stash save "${message}"`,

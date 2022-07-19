@@ -1,7 +1,7 @@
 {
     "name": "@gitmars/server",
     "description": "gitmars可视化界面服务端",
-    "version": "3.1.0",
+    "version": "3.2.0",
     "private": false,
     "bin": {
         "gitm-server": "./lib/www.js"

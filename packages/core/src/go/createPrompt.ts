@@ -1,5 +1,4 @@
 import chalk from 'chalk'
-import type { InputQuestionOptions, QuestionCollection } from 'inquirer'
 import type {
     GitmarsOptionArgsType,
     GitmarsOptionOptionsType

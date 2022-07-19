@@ -1,7 +1,13 @@
-import type { GitLogsType } from '../../typings'
+import type { GitLogKeysType, GitLogsType } from '../../typings'
 import { spawnSync } from '../spawn'
 import { debug } from '../utils/debug'
 import GitLogsFormatter from './gitLogsFormatter'
+
+export interface GetGitLogsByCommitIDsOptions {
+    commitIDs: string | string[]
+    params?: string
+    keys: GitLogKeysType[]
+}
 
 /**
  * 获取日志
@@ -14,9 +20,9 @@ import GitLogsFormatter from './gitLogsFormatter'
  */
 function getGitLogsByCommitIDs({
     commitIDs,
-    params,
+    params = '',
     keys
-}: any): GitLogsType[] {
+}: GitLogsByCommitIDsOptions): GitLogsType[] {
     if (typeof commitIDs === 'string') commitIDs = [commitIDs]
     const formatter = new GitLogsFormatter()
     const { stdout } = spawnSync('git', [
