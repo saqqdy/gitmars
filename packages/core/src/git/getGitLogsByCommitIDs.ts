@@ -22,7 +22,7 @@ function getGitLogsByCommitIDs({
     commitIDs,
     params = '',
     keys
-}: GitLogsByCommitIDsOptions): GitLogsType[] {
+}: GetGitLogsByCommitIDsOptions): GitLogsType[] {
     if (typeof commitIDs === 'string') commitIDs = [commitIDs]
     const formatter = new GitLogsFormatter()
     const { stdout } = spawnSync('git', [
