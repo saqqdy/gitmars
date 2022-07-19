@@ -2,7 +2,7 @@
 
 ## 2022.07.03 v3.1.0 更新日志
 
-1. 更新versionControl策略,正式弃用lite通道
+1. 更新 versionControl 策略,正式弃用 lite 通道
 
 ## 2022.06.12 v3.0.1 更新日志
 
@@ -11,8 +11,8 @@
 
 ## 2022.06.10 v3.0.0 更新日志
 
-1. monorepo改造，拆分成`core` `gitmars` `server` `ui` `docs`五个子项目
-2. 放开`alias` 指令只能在git项目下面执行的限制
+1. monorepo 改造，拆分成`core` `gitmars` `server` `ui` `docs`五个子项目
+2. 放开`alias` 指令只能在 git 项目下面执行的限制
 3. 升级依赖包版本
 
 ## 2022.04.07 v2.18.1 更新日志
@@ -23,14 +23,14 @@
 ## 2022.03.24 v2.18.0 更新日志
 
 1. 新增`gitm alias`指令，初始化：`git alias init`，移除：`git alias remove`
-2. 新增别名指令使用gitmars，可使用`git mars xxx` 或 `git flow xxx`，均等价于`gitm xxx`
-3. config配置增加`apis`，原`config.api`迁移到`config.apis.userInfo`
+2. 新增别名指令使用 gitmars，可使用`git mars xxx` 或 `git flow xxx`，均等价于`gitm xxx`
+3. config 配置增加`apis`，原`config.api`迁移到`config.apis.userInfo`
 4. 新增`config.apis.buildConfig`接口配置，用于读取构建配置，优先级高于`config.apolloConfig`
 5. 升级依赖包
 
 ## 2022.02.24 v2.17.0 更新日志
 
-1. 新增`level=3`审核员权限，审核员有合并权限可以执行`admin publish`动作，但是与管理员不同的是审核员提交代码会推送到远程。原开发者权限调整为4
+1. 新增`level=3`审核员权限，审核员有合并权限可以执行`admin publish`动作，但是与管理员不同的是审核员提交代码会推送到远程。原开发者权限调整为 4
 
 ## 2022.02.24 v2.16.6 更新日志
 
@@ -42,7 +42,7 @@
 
 ## 2021.12.27 v2.16.4 更新日志
 
-1. 扩展`request`方法支持gzip
+1. 扩展`request`方法支持 gzip
 
 ## 2021.12.23 v2.16.3 更新日志
 
@@ -58,7 +58,7 @@
 ### 功能
 
 1. 新增`approve`指令用于审批远程合并请求，支持差异预览，新增`gitm admin approve`指令，引用`approve`指令
-2. 新增`review`指令用于review代码，提交review记录
+2. 新增`review`指令用于 review 代码，提交 review 记录
 3. 扩展`request`方法支持`PUT` `DELETE`
 
 ### 优化
@@ -72,11 +72,11 @@
 
 ## 2021.12.13 v2.15.3 更新日志
 
-1. `log`指令增加`--json`传值，是否以json格式输出日志，默认表格方式
+1. `log`指令增加`--json`传值，是否以 json 格式输出日志，默认表格方式
 
 ## 2021.12.12 v2.15.2 更新日志
 
-1. 新增`debug`方法，开启debug功能
+1. 新增`debug`方法，开启 debug 功能
 
 ## 2021.12.11 v2.15.1 更新日志
 
@@ -87,12 +87,12 @@
 
 ### 功能
 
-1. 改用性能更好的原生脚本执行器，替代shelljs的`sh.exec`
+1. 改用性能更好的原生脚本执行器，替代 shelljs 的`sh.exec`
 2. 新增`undo`指令，用于撤回代码
 3. 新增`redo`指令，用于恢复撤销的代码
 4. `cleanbranch`指令流程优化，预览之后可选择分支进行清理
 5. `undo`指令新增`--no-merges` `--limit` `--lastet` `--calc` `--calcAll`传参
-6. `log`指令增加`--no-merges`传参，用于排除merge记录
+6. `log`指令增加`--no-merges`传参，用于排除 merge 记录
 7. `process.exit`替换`sh.exit`
 
 ### 优化
@@ -104,18 +104,18 @@
 
 ## 2021.12.02 v2.14.6 更新日志
 
-1. 替换调起构建和推送群消息的`curl`脚本，处理win7不能执行curl的兼容问题
+1. 替换调起构建和推送群消息的`curl`脚本，处理 win7 不能执行 curl 的兼容问题
 
 ## 2021.12.02 v2.14.5 更新日志
 
-1. `queue`方法扩展支持promise函数
-2. 替换创建远程合并请求的`curl`脚本，处理win7不能执行curl的兼容问题
+1. `queue`方法扩展支持 promise 函数
+2. 替换创建远程合并请求的`curl`脚本，处理 win7 不能执行 curl 的兼容问题
 3. 解决脚本队列`continue`缓存保存失败的问题
 4. 解决`circular dependency`问题
 
 ## 2021.11.30 v2.14.4 更新日志
 
-1. 替换`curl`脚本，处理win7不能执行curl的兼容问题
+1. 替换`curl`脚本，处理 win7 不能执行 curl 的兼容问题
 2. 封装`request`方法
 
 ## 2021.11.28 v2.14.3 更新日志
@@ -147,7 +147,7 @@
 ## 2021.11.21 v2.13.8 更新日志
 
 1. 优化脚本执行提示，增加`processing`状态提示
-2. `clean`指令不再清理gitmars配置，`--force`传参改为是否要删除执行缓存
+2. `clean`指令不再清理 gitmars 配置，`--force`传参改为是否要删除执行缓存
 3. 优化`upgrade`指令流程
 4. 优化`clean`指令体验
 
@@ -159,22 +159,22 @@
 
 ## 2021.11.20 v2.13.6 更新日志
 
-1. `cleanbranch`指令兼容旧版本git
+1. `cleanbranch`指令兼容旧版本 git
 
 ## 2021.11.19 v2.13.5 更新日志
 
-1. `cleanbranch`指令增加`--confirm`参数，为true时不显示确认框
+1. `cleanbranch`指令增加`--confirm`参数，为 true 时不显示确认框
 2. 修复判断不准确的问题
 
 ## 2021.11.19 v2.13.3 更新日志
 
 1. `cleanbranch`指令放开权限控制
-2. `go`指令支持cleanbranch
+2. `go`指令支持 cleanbranch
 
 ## 2021.11.19 v2.13.2 更新日志
 
 1. `searchBranches`方法改进，删除`local`参数
-2. 纠正branchs单词错误
+2. 纠正 branchs 单词错误
 
 ## 2021.11.19 v2.13.1 更新日志
 
@@ -191,12 +191,12 @@
 
 ## 2021.11.18 v2.12.8 更新日志
 
-1. `go`指令支持clean方法
+1. `go`指令支持 clean 方法
 2. `clean`指令流程优化
 
 ## 2021.11.17 v2.12.7 更新日志
 
-1. 修复`start`指令从tag创建分支报code不存在的问题
+1. 修复`start`指令从 tag 创建分支报 code 不存在的问题
 
 ## 2021.11.16 v2.12.6 更新日志
 
@@ -205,11 +205,11 @@
 
 ## 2021.11.14 v2.12.5 更新日志
 
-1. `continue`指令执行前检测是否遗忘了commit代码
+1. `continue`指令执行前检测是否遗忘了 commit 代码
 
 ## 2021.11.12 v2.12.3 更新日志
 
-1. 解决Windows环境`UI`界面的`xterm`运行报错问题
+1. 解决 Windows 环境`UI`界面的`xterm`运行报错问题
 
 ## 2021.11.11 v2.12.2 更新日志
 
@@ -229,7 +229,7 @@
 
 ### 优化
 
-1. typescript类型完善
+1. typescript 类型完善
 2. `apollo`读配置方案优化
 
 ## 2021.11.08 v2.11.1 更新日志
@@ -245,7 +245,7 @@
 
 ### 优化
 
-1. 抽离出生成shell脚本的方法
+1. 抽离出生成 shell 脚本的方法
 
 ## 2021.11.06 v2.10.2 更新日志
 
@@ -257,14 +257,14 @@
 
 ### 优化
 
-1. `combine`和`end`指令判断是否合并过dev默认使用远程分支
+1. `combine`和`end`指令判断是否合并过 dev 默认使用远程分支
 
 ## 2021.11.02 v2.10.0 更新日志
 
 ### 功能
 
-1. `copy`指令使用方式调整，from参数改成`--source`传参。使用：`gitm copy [commitid...]` 或者 `gitm copy [-s --source [source]] [-k --key [keyword]] [-a --author [author]]`
-2. `copy`指令在使用模糊查询批量copy时，`--key`参数必传，且不能少于3个字
+1. `copy`指令使用方式调整，from 参数改成`--source`传参。使用：`gitm copy [commitid...]` 或者 `gitm copy [-s --source [source]] [-k --key [keyword]] [-a --author [author]]`
+2. `copy`指令在使用模糊查询批量 copy 时，`--key`参数必传，且不能少于 3 个字
 
 ### 优化
 
@@ -279,7 +279,7 @@
 
 1. `end`指令智能判断是否需要合并代码，不传`--no-combine`时，不需要合并的时候不会发起合并操作
 2. `getIsMergedDevBranch`改为`getIsMergedTargetBranch`，新增`remote`参数
-3. 抽象`getIsBranchOrCommitExist`方法的判断分支或commit是否存在
+3. 抽象`getIsBranchOrCommitExist`方法的判断分支或 commit 是否存在
 
 ## 2021.10.29 v2.9.5 更新日志
 
@@ -306,12 +306,12 @@
 ## 2021.10.23 v2.9.0 更新日志
 
 1. `go`指令增加`command`参数，直接进入对应的指令
-2. 完善每个指令的help提示信息
-3. 完善type类型
+2. 完善每个指令的 help 提示信息
+3. 完善 type 类型
 
 ## 2021.10.22 v2.8.9 更新日志
 
-1. 完善UI界面创建分支的功能
+1. 完善 UI 界面创建分支的功能
 2. 优化用户体验
 
 ## 2021.10.22 v2.8.8 更新日志
@@ -328,24 +328,24 @@
 
 ## 2021.10.20 v2.8.3 更新日志
 
-1. 解决判断是否合过dev的BUG
+1. 解决判断是否合过 dev 的 BUG
 2. 解决方法导出方式错误
 
 ## 2021.10.20 v2.8.0 更新日志
 
-1. `start`指令支持从tag创建bugfix分支
+1. `start`指令支持从 tag 创建 bugfix 分支
 
 ## 2021.10.19 v2.7.0 更新日志
 
 1. 纠正`log`和`hook`指令参数错误：`latest`改成`lastet`
-2. `combine`指令新增是否同步过dev分支判断，没有同步过的不允许合prod
-3. `combine`指令新增是否超过1周没有同步过主干代码判断
+2. `combine`指令新增是否同步过 dev 分支判断，没有同步过的不允许合 prod
+3. `combine`指令新增是否超过 1 周没有同步过主干代码判断
 
 ## 2021.10.18 v2.6.5 更新日志
 
 1. 优化`ui`用户体验
 2. `end`指令删除分支时加上了判断
-3. 修复几个配置BUG
+3. 修复几个配置 BUG
 
 ## 2021.10.18 v2.6.4 更新日志
 
@@ -353,12 +353,12 @@
 
 ## 2021.10.17 v2.6.3 更新日志
 
-1. `ui`界面优化，task和工作流分拆成2个Terminal，互不干扰
+1. `ui`界面优化，task 和工作流分拆成 2 个 Terminal，互不干扰
 2. 体验和样式优化
 
 ## 2021.10.16 v2.6.2 更新日志
 
-1. 修复`ui`的几个bug
+1. 修复`ui`的几个 bug
 
 ## 2021.10.15 v2.6.1 更新日志
 

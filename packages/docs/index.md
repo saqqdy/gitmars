@@ -3,7 +3,7 @@ layout: home
 title: Gitmars
 titleTemplate: 这是一个git工作流工具
 
-hero: 
+hero:
     name: Gitmars
     text: 这是一个git工作流工具
     tagline: 上手简单，功能强大，性能优异。封装了大量高级技巧，让你解放双手，提升工作效率

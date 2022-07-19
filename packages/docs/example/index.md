@@ -41,7 +41,7 @@ feature 分支用来开发新需求，一般用于相对较大的功能
     10088分支创建成功，该分支基于release创建，您当前已经切换到feature/10088
     如果需要提测，请执行gitm combine feature 10088
     开发完成后，记得执行: gitm end feature 10088
-    ➜  gitmars git:(feature/10088) 
+    ➜  gitmars git:(feature/10088)
 ```
 
 ::: warning
@@ -78,7 +78,7 @@ feature 分支用来开发新需求，一般用于相对较大的功能
     feature/10088合并到dev成功
     推送成功
     切换分支成功
-    ➜  gitmars git:(feature/10088) 
+    ➜  gitmars git:(feature/10088)
 ```
 
 #### 合并分支到 release(prod 环境)
@@ -105,7 +105,7 @@ feature 分支用来开发新需求，一般用于相对较大的功能
     feature/10088合并到release成功
     推送成功
     切换分支成功
-    ➜  gitmars git:(feature/10088) 
+    ➜  gitmars git:(feature/10088)
 ```
 
 #### 发版之后结束 feature 分支
@@ -136,7 +136,7 @@ feature 分支用来开发新需求，一般用于相对较大的功能
     feature/10088合并到release成功
     推送成功
     切换分支成功
-    ➜  gitmars git:(dev) 
+    ➜  gitmars git:(dev)
 ```
 
 ### bugfix
@@ -171,7 +171,7 @@ bugfix 分支用来日常修复 bug，必要时可作为 feature 分支合并到
     10088分支创建成功，该分支基于bug创建，您当前已经切换到bugfix/10088
     如果需要提测，请执行gitm combine bugfix 10088
     开发完成后，记得执行: gitm end bugfix 10088
-    ➜  gitmars git:(bugfix/10088) 
+    ➜  gitmars git:(bugfix/10088)
 ```
 
 ::: warning
@@ -208,7 +208,7 @@ bugfix 分支用来日常修复 bug，必要时可作为 feature 分支合并到
     bugfix/10088合并到dev成功
     推送成功
     切换分支成功
-    ➜  gitmars git:(bugfix/10088) 
+    ➜  gitmars git:(bugfix/10088)
 ```
 
 #### 合并分支到 bug(prod 环境)
@@ -235,7 +235,7 @@ bugfix 分支用来日常修复 bug，必要时可作为 feature 分支合并到
     bugfix/10088合并到bug成功
     推送成功
     切换分支成功
-    ➜  gitmars git:(bugfix/10088) 
+    ➜  gitmars git:(bugfix/10088)
 ```
 
 #### 发版之后结束 bugfix 分支
@@ -266,7 +266,7 @@ bugfix 分支用来日常修复 bug，必要时可作为 feature 分支合并到
     bugfix/10088合并到bug成功
     推送成功
     切换分支成功
-    ➜  gitmars git:(dev) 
+    ➜  gitmars git:(dev)
 ```
 
 ### support
@@ -301,7 +301,7 @@ support 分支用来做框架或者公共代码调整，从 master 拉取，合�
     graphql分支创建成功，该分支基于master创建，您当前已经切换到support/graphql
     如果需要提测，请执行gitm combine support graphql
     开发完成后，记得执行: gitm end support graphql
-    ➜  gitmars git:(support/graphql) 
+    ➜  gitmars git:(support/graphql)
 ```
 
 ::: warning
@@ -338,7 +338,7 @@ support 分支用来做框架或者公共代码调整，从 master 拉取，合�
     support/graphql合并到dev成功
     推送成功
     切换分支成功
-    ➜  gitmars git:(support/graphql) 
+    ➜  gitmars git:(support/graphql)
 ```
 
 #### 合并分支到 bug 和 release(prod 环境)
@@ -369,7 +369,7 @@ support 分支用来做框架或者公共代码调整，从 master 拉取，合�
     support/graphql合并到release成功
     推送成功
     切换分支成功
-    ➜  gitmars git:(support/graphql) 
+    ➜  gitmars git:(support/graphql)
 ```
 
 #### 发版之后结束 support 分支
@@ -404,7 +404,7 @@ support 分支用来做框架或者公共代码调整，从 master 拉取，合�
     support/graphql合并到release成功
     推送成功
     切换分支成功
-    ➜  gitmars git:(dev) 
+    ➜  gitmars git:(dev)
 ```
 
 ### publish
@@ -432,7 +432,7 @@ feature 分支基于 release 创建，所以发布的时候会吧 release 合并
     release合并到master成功
     推送成功
     切换分支成功
-    ➜  gitmars git:(feature/10088) 
+    ➜  gitmars git:(feature/10088)
 ```
 
 #### 发布 bugfix
@@ -458,7 +458,7 @@ bugfix 分支基于 bug 创建，所以发布的时候会吧 bug 合并到 maste
     bug合并到master成功
     推送成功
     切换分支成功
-    ➜  gitmars git:(bugfix/10088) 
+    ➜  gitmars git:(bugfix/10088)
 ```
 
 #### 发布 support
@@ -482,7 +482,7 @@ bugfix 分支基于 bug 创建，所以发布的时候会吧 bug 合并到 maste
     support/graphql合并到master成功
     推送成功
     切换分支成功
-    ➜  gitmars git:(support/graphql) 
+    ➜  gitmars git:(support/graphql)
 ```
 
 ## 效率
@@ -505,7 +505,7 @@ bugfix 分支基于 bug 创建，所以发布的时候会吧 bug 合并到 maste
 ```shell
     ➜  gitmars git:(support/graphql) gitm merge feature/10088
     ...
-    ➜  gitmars git:(support/graphql) 
+    ➜  gitmars git:(support/graphql)
 ```
 
 ### copy

@@ -144,7 +144,7 @@ gitm go build
 
 ## UI 界面
 
-> 3.0.0版本开始，UI界面从原gitmars项目中抽离成了独立项目`@gitmars/ui`
+> 3.0.0 版本开始，UI 界面从原 gitmars 项目中抽离成了独立项目`@gitmars/ui`
 
 ### gitm ui
 
