@@ -6,7 +6,7 @@ import GitLogsFormatter from './gitLogsFormatter'
 
 export interface GetGitLogsOption {
     lastet?: string
-    limit?: string
+    limit?: number
     params?: string
     keys?: GitLogKeysType[]
     noMerges?: boolean
