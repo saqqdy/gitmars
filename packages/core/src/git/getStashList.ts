@@ -31,9 +31,9 @@ function getStashList(key: string) {
     }
     try {
         list.forEach(item => {
-            const msgArr: string[] = item.split(':')
+            const msgArr: string[] = item.replace(/\s?:\s?/g, ':').split(':')
             const first = msgArr.shift() as string
-            if (!key || (key && key === msgArr[msgArr.length - 1].trim())) {
+            if (!key || (key && msgArr[msgArr.length - 1].includes(key))) {
                 const m = first.match(/^stash@\{(\d+)\}$/)
                 // 去除不必要的消息
                 if (msgArr.length > 1) msgArr.shift()

@@ -276,7 +276,9 @@ export async function updateMergeRequest({
 }: {
     iid: number | string
     token: string
-    data: any
+    data: unknown & {
+        private_token?: string
+    }
 }) {
     data.private_token = token
     const fetchData = await request.put({

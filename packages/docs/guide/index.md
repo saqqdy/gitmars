@@ -15,6 +15,7 @@ title: guide
 [![Test coverage][codecov-image]][codecov-url]
 [![Known Vulnerabilities][snyk-image]][snyk-url]
 [![npm download][download-image]][download-url]
+
 <!-- [![License][license-image]][license-url] -->
 
 [![Sonar][sonar-image]][sonar-url]
@@ -29,8 +30,10 @@ title: guide
 [snyk-url]: https://snyk.io/test/npm/gitmars
 [download-image]: https://img.shields.io/npm/dm/gitmars.svg?style=flat-square
 [download-url]: https://npmjs.org/package/gitmars
+
 <!-- [license-image]: https://img.shields.io/badge/License-GPL-blue.svg
 [license-url]: ../../../LICENSE -->
+
 [sonar-image]: https://sonarcloud.io/api/project_badges/quality_gate?project=saqqdy_gitmars
 [sonar-url]: https://sonarcloud.io/dashboard?id=saqqdy_gitmars
 
@@ -66,9 +69,9 @@ title: guide
 -   分支操作 [gitm branch](../api/#gitm-branch)
 -   暂存当前分支文件 [gitm save](../api/#gitm-save)
 -   恢复暂存区最近一次暂存的文件 [gitm get](../api/#gitm-get)
--   git操作建议 [gitm suggest](../api/#gitm-suggest)
+-   git 操作建议 [gitm suggest](../api/#gitm-suggest)
 -   处理远程合并请求 [gitm approve](../api/#gitm-approve)
--   远程review代码 [gitm review](../api/#gitm-review)
+-   远程 review 代码 [gitm review](../api/#gitm-review)
 -   清理合并过的功能分支 [gitm cleanbranch](../api/#gitm-cleanbranch)
 -   简化 git 的 cherry-pick 操作 [gitm copy](../api/#gitm-copy)
 -   合并代码 [gitm merge](../api/#gitm-merge)

@@ -1,8 +1,19 @@
-import type { GitLogsType } from '../../typings'
+import type { GitLogKeysType, GitLogsType } from '../../typings'
 import { spawnSync } from '../spawn'
 import getSeconds from '../utils/getSeconds'
 import { debug } from '../utils/debug'
 import GitLogsFormatter from './gitLogsFormatter'
+
+export interface GetGitLogsOption {
+    lastet?: string
+    limit?: number
+    params?: string
+    keys?: GitLogKeysType[]
+    noMerges?: boolean
+    grep?: string
+    author?: string
+    branch?: string
+}
 
 /**
  * 获取日志
@@ -18,12 +29,12 @@ import GitLogsFormatter from './gitLogsFormatter'
  * @param option.branch - 要查询的分支
  * @returns logsList - 返回列表
  */
-function getGitLogs(option: any = {}): GitLogsType[] {
+function getGitLogs(option: GetGitLogsOption = {}): GitLogsType[] {
     const {
         lastet,
         limit,
         params = '',
-        keys,
+        keys = [],
         noMerges = false,
         grep,
         author,
@@ -37,7 +48,8 @@ function getGitLogs(option: any = {}): GitLogsType[] {
         `--pretty=format:${formatter.getFormat(keys)}`
     ]
     if (limit) argv.push('-' + limit)
-    if (lastet) argv = argv.concat(['--since', getSeconds(lastet)])
+    if (lastet)
+        argv = argv.concat(['--since', String(getSeconds(lastet) || '')])
     if (grep) argv = argv.concat(['--grep', grep])
     if (author) argv = argv.concat(['--author', author])
     if (noMerges) argv.push('--no-merges')

@@ -1,7 +1,7 @@
 {
     "name": "gitmars",
     "description": "这是一个git工作流工具",
-    "version": "3.1.0",
+    "version": "3.2.0",
     "private": false,
     "bin": {
         "gitm": "lib/gitm.js"
@@ -65,7 +65,7 @@
         "eslint": "^8.14.0",
         "prettier": "^2.6.2",
         "tsnd": "^1.0.2",
-        "typescript": "^4.6.4"
+        "typescript": "^4.7.4"
     },
     "sideEffects": false,
     "keywords": [
