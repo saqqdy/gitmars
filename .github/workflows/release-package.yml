@@ -35,12 +35,12 @@ jobs:
             #   env:
             #     NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
 
+            - run: git config --global user.email "saqqdy@qq.com"
+            - run: git config --global user.name "saqqdy"
+
             - run: pnpm run build docs
               env:
                   NODE_OPTIONS: --max-old-space-size=6144
-
-            - run: git config --global user.email "saqqdy@qq.com"
-            - run: git config --global user.name "saqqdy"
 
             # - name: Gen .npmrc
             #   run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" >> ./.npmrc
