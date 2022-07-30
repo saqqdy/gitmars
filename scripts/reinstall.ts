@@ -15,8 +15,8 @@ cwd = join(ROOT, cwd.replace(/"/g, ''))
 pkg = fs.readFileSync(join(cwd, 'package.json'))
 pkg = JSON.parse(pkg)
 
-const PACKAGE_NEXT = []
-const PACKAGE_EXCLUDE = []
+const PACKAGE_NEXT: string[] = []
+const PACKAGE_EXCLUDE: string[] = []
 const PACKAGE_MANAGERS: TypeManagers[] = ['pnpm', 'yarn', 'npm']
 const cmd = getPackageManager()
 
@@ -60,7 +60,7 @@ if (pkgList.length > 0 || devPkgList.length > 0) {
     process.exit(1)
 }
 
-function genInstallName(dependencies) {
+function genInstallName(dependencies: Record<string, string>) {
     const pkgList: string[] = []
     for (let packageName in dependencies) {
         const isWorkspacePkg = dependencies[packageName] === 'workspace:*'
