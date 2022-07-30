@@ -35,7 +35,7 @@ jobs:
             #   env:
             #     NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
 
-            - run: pnpm run dist
+            - run: pnpm run build docs
               env:
                   NODE_OPTIONS: --max-old-space-size=6144
 
