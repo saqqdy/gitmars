@@ -15,9 +15,10 @@ cwd = join(ROOT, cwd.replace(/"/g, ''))
 pkg = fs.readFileSync(join(cwd, 'package.json'))
 pkg = JSON.parse(pkg)
 
-const PACKAGE_NEXT: string[] = []
-const PACKAGE_EXCLUDE: string[] = []
-const PACKAGE_MANAGERS: TypeManagers[] = ['pnpm', 'yarn', 'npm']
+const useWorkspace = true // 是否启用了workspace模式
+const PACKAGE_NEXT: string[] = [] // 需要安装next版本的包
+const PACKAGE_EXCLUDE: string[] = [] // 忽略的包
+const PACKAGE_MANAGERS: TypeManagers[] = ['pnpm', 'yarn', 'npm'] // 包管理工具优先级
 const cmd = getPackageManager()
 
 switch (cmd) {
@@ -34,7 +35,7 @@ switch (cmd) {
         argv = argv.concat(['i'])
         break
 }
-if (isRoot) {
+if (isRoot && useWorkspace) {
     argv.push('-w')
 }
 
@@ -64,8 +65,10 @@ function genInstallName(dependencies: Record<string, string>) {
     const pkgList: string[] = []
     for (let packageName in dependencies) {
         const isWorkspacePkg = dependencies[packageName] === 'workspace:*'
+        const isCustomize = /^npm:/.test(dependencies[packageName])
         const isExcludePkg = PACKAGE_EXCLUDE.includes(packageName)
-        if (PACKAGE_NEXT.includes(packageName)) packageName += '@next'
+        if (isCustomize) packageName += `@${dependencies[packageName]}`
+        else if (PACKAGE_NEXT.includes(packageName)) packageName += '@next'
         else packageName += '@latest'
         if (!isWorkspacePkg && !isExcludePkg) {
             pkgList.push(packageName)

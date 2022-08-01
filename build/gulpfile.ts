@@ -25,6 +25,6 @@ export default series(
     wrapDisplayName('clean:dist,es,lib', clean),
     parallel(copyMdFile),
     parallel(buildLib),
-    parallel(buildApp, buildDocs),
-    parallel(deployDocs)
+    parallel(buildApp, buildDocs)
+    // parallel(deployDocs)
 )

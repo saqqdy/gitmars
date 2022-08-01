@@ -1,4 +1,5 @@
 import { resolve } from 'path'
+import { platform } from 'os'
 import { parallel, series } from 'gulp'
 import { wrapDisplayName } from '../utils/gulp'
 import { runExec, runExecSync, runSpawnSync } from '../utils/exec'
@@ -6,20 +7,25 @@ import { PACKAGE, ROOT } from '../utils/paths'
 import { packages } from '../packages'
 
 const pkgs = packages.filter(({ buildTask }) => buildTask === 'docs')
+const os = platform()
 
 export async function buildDocs() {
     const builds = pkgs.map(async ({ name }) => {
         const RUN_PATH = resolve(PACKAGE, name)
         // 替换图片资源
         await runExecSync(
-            `find ./ -type f -path "*.md" | xargs sed -i "" "s/https:\u005C\u005Craw.githubusercontent.com\u005Csaqqdy\u005Cgitmars/https:\u005C\u005Cgitee.com\u005Csaqqdy\u005Cgitmars\u005Craw/g"`,
+            `find ./ -type f -path "*.md" | xargs sed -i ${
+                os === 'darwin' ? '""' : ''
+            } "s/https:\u005C\u005Craw.githubusercontent.com\u005Csaqqdy\u005Cgitmars/https:\u005C\u005Cgitee.com\u005Csaqqdy\u005Cgitmars\u005Craw/g"`,
             RUN_PATH
         )
         // 生成静态文件
         await runExecSync(`pnpm run -C ${RUN_PATH} docs:build`, RUN_PATH)
         // 重置图片资源
         await runExecSync(
-            `find ./ -type f -path "*.md" | xargs sed -i '' "s/https:\u005C\u005Cgitee.com\u005Csaqqdy\u005Cgitmars\u005Craw/https:\u005C\u005Craw.githubusercontent.com\u005Csaqqdy\u005Cgitmars/g"`,
+            `find ./ -type f -path "*.md" | xargs sed -i ${
+                os === 'darwin' ? '""' : ''
+            } "s/https:\u005C\u005Cgitee.com\u005Csaqqdy\u005Cgitmars\u005Craw/https:\u005C\u005Craw.githubusercontent.com\u005Csaqqdy\u005Cgitmars/g"`,
             RUN_PATH
         )
     })

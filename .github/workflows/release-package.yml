@@ -1,0 +1,57 @@
+name: Npm publish
+
+on:
+    release:
+        types: [created]
+        # push:
+        #     branches: [master, dev]
+
+jobs:
+    publish-gpr:
+        runs-on: ubuntu-latest
+        permissions:
+            packages: write
+            contents: read
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v3
+              with:
+                  fetch-depth: 0
+
+            - name: Install pnpm
+              uses: pnpm/action-setup@v2
+
+            - name: Use Node.js ${{ matrix.node-version }}
+              uses: actions/setup-node@v3
+              with:
+                  node-version: ${{ matrix.node-version }}
+                  registry-url: https://registry.npmmirror.com
+                  cache: pnpm
+
+            - run: pnpm install
+
+            # - run: npx changelogithub --no-group
+            #   continue-on-error: true
+            #   env:
+            #     NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
+
+            # - run: git config --global user.email "saqqdy@qq.com"
+            # - run: git config --global user.name "saqqdy"
+
+            - run: pnpm build
+              env:
+                  NODE_OPTIONS: --max-old-space-size=6144
+
+            - name: Gen .npmrc
+              run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" >> ./.npmrc
+
+            - run: pnpm pub
+              env:
+                  NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
+
+            - run: curl -X PUT -d "sync_upstream=true" "https://registry-direct.npmmirror.com/@gitmars/monorepo/sync"
+            - run: curl -X PUT -d "sync_upstream=true" "https://registry-direct.npmmirror.com/@gitmars/core/sync"
+            - run: curl -X PUT -d "sync_upstream=true" "https://registry-direct.npmmirror.com/gitmars/sync"
+            - run: curl -X PUT -d "sync_upstream=true" "https://registry-direct.npmmirror.com/@gitmars/server/sync"
+            - run: curl -X PUT -d "sync_upstream=true" "https://registry-direct.npmmirror.com/@gitmars/ui/sync"
+            - run: curl -X PUT -d "sync_upstream=true" "https://registry-direct.npmmirror.com/@gitmars/docs/sync"
