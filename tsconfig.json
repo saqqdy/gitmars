@@ -27,5 +27,10 @@
             "@/package": ["./package.json"]
         }
     },
+    "ts-node": {
+        "compilerOptions": {
+            "module": "commonjs"
+        }
+    },
     "include": ["packages", "typings"]
 }
