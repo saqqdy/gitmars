@@ -20,7 +20,7 @@
         "server:super": "supervisor app/bin/www",
         "gen:version": "tscjs scripts/version",
         "lib": "sh scripts/lib.sh",
-        "build": "cross-env NODE_OPTIONS=\"--max-old-space-size=8192\" gulp -f build/gulpfile.ts",
+        "build": "cross-env NODE_OPTIONS=\"--max-old-space-size=8192\" gulp --require @esbuild-kit/cjs-loader -f build/gulpfile.ts",
         "build:types": "run-s build-temp-types roll-types",
         "build-temp-types": "tsc --emitDeclarationOnly --outDir temp/ -p bin/",
         "patch-types": "node scripts/patchTypes",
@@ -52,6 +52,7 @@
         "morgan": "^1.10.0"
     },
     "devDependencies": {
+        "@esbuild-kit/cjs-loader": "^2.3.2",
         "@eslint-sets/eslint-config-simple-ts": "^3.0.4",
         "@microsoft/api-extractor": "^7.29.0",
         "@pnpm/find-workspace-packages": "^4.0.26",
@@ -89,7 +90,6 @@
         "rollup-plugin-node-externals": "^4.1.1",
         "rollup-plugin-replace-shebang": "^1.1.1",
         "rollup-plugin-visualizer": "^5.7.1",
-        "ts-node": "^10.9.1",
         "tsnd": "^1.1.0",
         "typedoc": "^0.23.10",
         "typedoc-plugin-markdown": "^3.13.4",

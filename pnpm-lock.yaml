@@ -4,6 +4,7 @@ importers:
 
   .:
     specifiers:
+      '@esbuild-kit/cjs-loader': ^2.3.2
       '@eslint-sets/eslint-config-simple-ts': ^3.0.4
       '@microsoft/api-extractor': ^7.29.0
       '@pnpm/find-workspace-packages': ^4.0.26
@@ -45,7 +46,6 @@ importers:
       rollup-plugin-node-externals: ^4.1.1
       rollup-plugin-replace-shebang: ^1.1.1
       rollup-plugin-visualizer: ^5.7.1
-      ts-node: ^10.9.1
       tsnd: ^1.1.0
       typedoc: ^0.23.10
       typedoc-plugin-markdown: ^3.13.4
@@ -59,6 +59,7 @@ importers:
       js-cool: 2.3.2
       morgan: 1.10.0
     devDependencies:
+      '@esbuild-kit/cjs-loader': 2.3.2
       '@eslint-sets/eslint-config-simple-ts': 3.0.4_swk2g7ygmfleszo5c33j4vooni
       '@microsoft/api-extractor': 7.29.0
       '@pnpm/find-workspace-packages': 4.0.26_@pnpm+logger@4.0.0
@@ -96,7 +97,6 @@ importers:
       rollup-plugin-node-externals: 4.1.1_rollup@2.77.2
       rollup-plugin-replace-shebang: 1.1.1_rollup@2.77.2
       rollup-plugin-visualizer: 5.7.1_rollup@2.77.2
-      ts-node: 10.9.1_hn66opzbaneygq52jmwjxha6su
       tsnd: 1.1.0
       typedoc: 0.23.10_typescript@4.7.4
       typedoc-plugin-markdown: 3.13.4_typedoc@0.23.10
@@ -949,6 +949,20 @@ packages:
       vue: 3.2.37
     dev: false
 
+  /@esbuild-kit/cjs-loader/2.3.2:
+    resolution: {integrity: sha512-3UIFKrGfq2d2R2A/SpJaeHTP5z3nrOnVMxE+cNpOuuW+Lotm0Sfbc9lVHCjcxaxgcx0MKI7g2FvxvWlylzDRKg==}
+    dependencies:
+      '@esbuild-kit/core-utils': 2.1.0
+      get-tsconfig: 4.2.0
+    dev: true
+
+  /@esbuild-kit/core-utils/2.1.0:
+    resolution: {integrity: sha512-fZirrc2KjeTumVjE4bpleWOk2gD83b7WuGeQqOceKFQL+heNKKkNB5G5pekOUTLzfSBc0hP7hCSBoD9TuR0hLw==}
+    dependencies:
+      esbuild: 0.14.53
+      source-map-support: 0.5.21
+    dev: true
+
   /@esbuild/linux-loong64/0.14.53:
     resolution: {integrity: sha512-W2dAL6Bnyn4xa/QRSU3ilIK4EzD5wgYXKXJiS1HDF5vU3675qc2bvFyLwbUcdmssDveyndy7FbitrCoiV/eMLg==}
     engines: {node: '>=12'}
@@ -1014,7 +1028,7 @@ packages:
   /@eslint-sets/eslint-config-ts/3.0.4_swk2g7ygmfleszo5c33j4vooni:
     resolution: {integrity: sha512-vyWu6UxP6HGnC4SntXnyVpgzBqBHBR+X/Dm6TVaMjvR7xI+Cl21EFxqVNQzvykRTqsTd9Wb6AplfBbieGp/Zqg==}
     peerDependencies:
-      eslint: '>=8.0.0 || ^8.10.0 || >= 8.0.0'
+      eslint: '>=8.0.0 || >= 8.0.0'
       prettier: '>=2.4.0'
       typescript: ^4.7.4
     dependencies:
@@ -5638,6 +5652,10 @@ packages:
     dependencies:
       call-bind: 1.0.2
       get-intrinsic: 1.1.2
+    dev: true
+
+  /get-tsconfig/4.2.0:
+    resolution: {integrity: sha512-X8u8fREiYOE6S8hLbq99PeykTDoLVnxvF4DjWKJmz9xy2nNRdUcV8ZN9tniJFeKyTU3qnC9lL8n4Chd6LmVKHg==}
     dev: true
 
   /get-uri/3.0.2:
