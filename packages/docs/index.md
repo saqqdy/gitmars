@@ -25,7 +25,7 @@ features:
 footer: GPL-3.0 Licensed | Copyright © 2020-present saqqdy
 ---
 
-```shell
+<!-- ```shell
 # 安装
 # 注意：Windows 用户需要先安装Python
 yarn global add gitmars # 或者：npm install -g gitmars
@@ -43,4 +43,4 @@ gitm combine -d
 
 # 开发完成结束分支
 gitm end
-```
+``` -->

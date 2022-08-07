@@ -3,6 +3,8 @@
 // Read more: https://github.com/vuejs/core/pull/3399
 import '@vue/runtime-core'
 
+export {}
+
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
     Box: typeof import('./src/components/box/index.vue')['default']
@@ -14,6 +16,7 @@ declare module '@vue/runtime-core' {
     ElInput: typeof import('element-plus/es')['ElInput']
     ElOption: typeof import('element-plus/es')['ElOption']
     ElSelect: typeof import('element-plus/es')['ElSelect']
+    Group: typeof import('./src/components/group_bak/group.vue')['default']
     Nav: typeof import('./src/components/nav.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
@@ -21,5 +24,3 @@ declare module '@vue/runtime-core' {
     Xterm: typeof import('./src/components/xterm/index.vue')['default']
   }
 }
-
-export {}
