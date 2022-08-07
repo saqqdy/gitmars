@@ -1,5 +1,5 @@
 // const commandSets = require.context('gitmars/lib/conf', false, /(([A-Za-z]\w+)|index)\.(json|js)$/)
-const commandSets = import.meta.globEager('gitmars/lib/conf/*.js')
+const commandSets = import.meta.glob('gitmars/lib/conf/*.js', { eager: true })
 let sets = {}
 
 for (const key in commandSets) {
