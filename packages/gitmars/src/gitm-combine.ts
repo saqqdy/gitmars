@@ -158,29 +158,40 @@ program.action(
             if (opt.commit) {
                 cmd = cmd.concat([`git commit -m "${opt.commit}"`])
             }
+            // 合并到dev分支
             if (opt.dev) {
-                cmd = cmd.concat([
-                    'git fetch',
-                    `git checkout ${config.develop}`,
-                    'git pull',
-                    {
-                        cmd: `git merge --no-ff ${type}/${name}`,
-                        config: {
-                            again: false,
-                            success: `${type}/${name}合并到${config.develop}成功`,
-                            fail: `${type}/${name}合并到${config.develop}出错了，请根据提示处理`
-                        }
-                    },
-                    {
-                        cmd: 'git push',
-                        config: {
-                            again: true,
-                            success: '推送成功',
-                            fail: '推送失败，请根据提示处理'
-                        }
-                    },
-                    `git checkout ${type}/${name}`
-                ])
+                // 是否需要合并dev
+                const isNeedCombineDevelop = !getIsMergedTargetBranch(
+                    `${type}/${name}`,
+                    config.develop,
+                    true
+                )
+                cmd = cmd.concat(
+                    isNeedCombineDevelop
+                        ? [
+                              'git fetch',
+                              `git checkout ${config.develop}`,
+                              'git pull',
+                              {
+                                  cmd: `git merge --no-ff ${type}/${name}`,
+                                  config: {
+                                      again: false,
+                                      success: `${type}/${name}合并到${config.develop}成功`,
+                                      fail: `${type}/${name}合并到${config.develop}出错了，请根据提示处理`
+                                  }
+                              },
+                              {
+                                  cmd: 'git push',
+                                  config: {
+                                      again: true,
+                                      success: '推送成功',
+                                      fail: '推送失败，请根据提示处理'
+                                  }
+                              },
+                              `git checkout ${type}/${name}`
+                          ]
+                        : []
+                )
                 if (opt.build) {
                     cmd = cmd.concat([
                         {
@@ -218,28 +229,38 @@ program.action(
                     if (!opt.noBugfix && !opt.asFeature) {
                         // 传入noBugfix不合bug,
                         if (!level || level < 3) {
-                            cmd = cmd.concat([
-                                'git fetch',
-                                `git checkout ${base}`,
-                                'git pull',
-                                {
-                                    cmd: `git merge --no-ff ${type}/${name}`,
-                                    config: {
-                                        again: false,
-                                        success: `${type}/${name}合并到${base}成功`,
-                                        fail: `${type}/${name}合并到${base}出错了，请根据提示处理`
-                                    }
-                                },
-                                {
-                                    cmd: 'git push',
-                                    config: {
-                                        again: true,
-                                        success: '推送成功',
-                                        fail: '推送失败，请根据提示处理'
-                                    }
-                                },
-                                `git checkout ${type}/${name}`
-                            ])
+                            // 是否需要合并prod
+                            const isNeedCombineProd = !getIsMergedTargetBranch(
+                                `${type}/${name}`,
+                                base,
+                                true
+                            )
+                            cmd = cmd.concat(
+                                isNeedCombineProd
+                                    ? [
+                                          'git fetch',
+                                          `git checkout ${base}`,
+                                          'git pull',
+                                          {
+                                              cmd: `git merge --no-ff ${type}/${name}`,
+                                              config: {
+                                                  again: false,
+                                                  success: `${type}/${name}合并到${base}成功`,
+                                                  fail: `${type}/${name}合并到${base}出错了，请根据提示处理`
+                                              }
+                                          },
+                                          {
+                                              cmd: 'git push',
+                                              config: {
+                                                  again: true,
+                                                  success: '推送成功',
+                                                  fail: '推送失败，请根据提示处理'
+                                              }
+                                          },
+                                          `git checkout ${type}/${name}`
+                                      ]
+                                    : []
+                            )
                         } else {
                             if (!isDescriptionCorrect) {
                                 sh.echo(red('提交的原因描述不符合规范'))
@@ -278,28 +299,38 @@ program.action(
                     // bugfix分支走release发布
                     if (type === 'bugfix' && opt.asFeature) {
                         if (!level || level < 3) {
-                            cmd = cmd.concat([
-                                'git fetch',
-                                `git checkout ${config.release}`,
-                                'git pull',
-                                {
-                                    cmd: `git merge --no-ff ${type}/${name}`,
-                                    config: {
-                                        again: false,
-                                        success: `${type}/${name}合并到${config.release}成功`,
-                                        fail: `${type}/${name}合并到${config.release}出错了，请根据提示处理`
-                                    }
-                                },
-                                {
-                                    cmd: 'git push',
-                                    config: {
-                                        again: true,
-                                        success: '推送成功',
-                                        fail: '推送失败，请根据提示处理'
-                                    }
-                                },
-                                `git checkout ${type}/${name}`
-                            ])
+                            // 是否需要合并prod
+                            const isNeedCombineProd = !getIsMergedTargetBranch(
+                                `${type}/${name}`,
+                                config.release,
+                                true
+                            )
+                            cmd = cmd.concat(
+                                isNeedCombineProd
+                                    ? [
+                                          'git fetch',
+                                          `git checkout ${config.release}`,
+                                          'git pull',
+                                          {
+                                              cmd: `git merge --no-ff ${type}/${name}`,
+                                              config: {
+                                                  again: false,
+                                                  success: `${type}/${name}合并到${config.release}成功`,
+                                                  fail: `${type}/${name}合并到${config.release}出错了，请根据提示处理`
+                                              }
+                                          },
+                                          {
+                                              cmd: 'git push',
+                                              config: {
+                                                  again: true,
+                                                  success: '推送成功',
+                                                  fail: '推送失败，请根据提示处理'
+                                              }
+                                          },
+                                          `git checkout ${type}/${name}`
+                                      ]
+                                    : []
+                            )
                         } else {
                             if (!isDescriptionCorrect) {
                                 sh.echo(red('提交的原因描述不符合规范'))
@@ -338,28 +369,38 @@ program.action(
                     // support分支需要合到bugfix
                     if (type === 'support' && opt.noBugfix) {
                         if (!level || level < 3) {
-                            cmd = cmd.concat([
-                                'git fetch',
-                                `git checkout ${config.bugfix}`,
-                                'git pull',
-                                {
-                                    cmd: `git merge --no-ff ${type}/${name}`,
-                                    config: {
-                                        again: false,
-                                        success: `${type}/${name}合并到${config.bugfix}成功`,
-                                        fail: `${type}/${name}合并到${config.bugfix}出错了，请根据提示处理`
-                                    }
-                                },
-                                {
-                                    cmd: 'git push',
-                                    config: {
-                                        again: true,
-                                        success: '推送成功',
-                                        fail: '推送失败，请根据提示处理'
-                                    }
-                                },
-                                `git checkout ${type}/${name}`
-                            ])
+                            // 是否需要合并prod
+                            const isNeedCombineProd = !getIsMergedTargetBranch(
+                                `${type}/${name}`,
+                                config.bugfix,
+                                true
+                            )
+                            cmd = cmd.concat(
+                                isNeedCombineProd
+                                    ? [
+                                          'git fetch',
+                                          `git checkout ${config.bugfix}`,
+                                          'git pull',
+                                          {
+                                              cmd: `git merge --no-ff ${type}/${name}`,
+                                              config: {
+                                                  again: false,
+                                                  success: `${type}/${name}合并到${config.bugfix}成功`,
+                                                  fail: `${type}/${name}合并到${config.bugfix}出错了，请根据提示处理`
+                                              }
+                                          },
+                                          {
+                                              cmd: 'git push',
+                                              config: {
+                                                  again: true,
+                                                  success: '推送成功',
+                                                  fail: '推送失败，请根据提示处理'
+                                              }
+                                          },
+                                          `git checkout ${type}/${name}`
+                                      ]
+                                    : []
+                            )
                         } else {
                             if (!isDescriptionCorrect) {
                                 sh.echo(red('提交的原因描述不符合规范'))
