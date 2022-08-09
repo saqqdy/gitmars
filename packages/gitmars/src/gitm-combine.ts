@@ -190,7 +190,11 @@ program.action(
                               },
                               `git checkout ${type}/${name}`
                           ]
-                        : []
+                        : [
+                              {
+                                  message: `${type}/${name}已经合并过${config.develop}`
+                              }
+                          ]
                 )
                 if (opt.build) {
                     cmd = cmd.concat([
@@ -259,7 +263,11 @@ program.action(
                                           },
                                           `git checkout ${type}/${name}`
                                       ]
-                                    : []
+                                    : [
+                                          {
+                                              message: `${type}/${name}已经合并过${base}`
+                                          }
+                                      ]
                             )
                         } else {
                             if (!isDescriptionCorrect) {
@@ -329,7 +337,11 @@ program.action(
                                           },
                                           `git checkout ${type}/${name}`
                                       ]
-                                    : []
+                                    : [
+                                          {
+                                              message: `${type}/${name}已经合并过${config.release}`
+                                          }
+                                      ]
                             )
                         } else {
                             if (!isDescriptionCorrect) {
@@ -399,7 +411,11 @@ program.action(
                                           },
                                           `git checkout ${type}/${name}`
                                       ]
-                                    : []
+                                    : [
+                                          {
+                                              message: `${type}/${name}已经合并过${config.bugfix}`
+                                          }
+                                      ]
                             )
                         } else {
                             if (!isDescriptionCorrect) {

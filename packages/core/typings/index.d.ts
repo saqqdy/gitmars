@@ -17,14 +17,6 @@ export type GitmarsBranchType = 'feature' | 'bugfix' | 'support'
 // 127和128是git个别场景的执行结果值
 export type ShellCode = 0 | 1 | 127 | 128
 
-export type PackageVersionTag =
-    | 'alpha'
-    | 'lite'
-    | 'beta'
-    | 'release'
-    | 'latest'
-    | 'next'
-
 export type GitLogKeysType =
     | '%H'
     | '%h'
@@ -215,10 +207,16 @@ export interface ModuleCommandType {
     options?: unknown
 }
 
-export interface CommandType {
+export interface CommandTypeCmd {
     cmd: string | ModuleCommandType
     config: QueueConfigType
 }
+
+export interface CommandTypeMessage {
+    message: string
+}
+
+export type CommandType = CommandTypeCmd | CommandTypeMessage
 
 export interface FetchDataType {
     token: string // gitlab上生成的access_token
@@ -249,17 +247,6 @@ export interface QueueReturnsType
     cmd: string | ModuleCommandType
 }
 
-export interface InitInquirerPromptType {
-    type: string
-    name: string
-    message: string
-    default?(): string
-    transformer?(val: any, answers: any, flags: any): any
-    validate?(val: any): string | boolean
-    when?(val: any): string | boolean
-    choices?: any
-}
-
 export interface GitmarsLogType
     extends Partial<
         Pick<SpawnSyncReturns<string>, 'stdout' | 'stderr' | 'status'>
@@ -268,9 +255,9 @@ export interface GitmarsLogType
 }
 
 export interface CommandMessageType {
-    processing: string
-    success: string
-    fail: string
+    processing?: string
+    success?: string
+    fail?: string
 }
 
 export interface RevertCacheType {
