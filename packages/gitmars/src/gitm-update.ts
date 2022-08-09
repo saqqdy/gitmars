@@ -6,6 +6,7 @@ const { red } = require('chalk')
 const { queue } = require('@gitmars/core/lib/queue')
 const getIsGitProject = require('@gitmars/core/lib/git/getIsGitProject')
 const getCurrentBranch = require('@gitmars/core/lib/git/getCurrentBranch')
+const getIsMergedTargetBranch = require('@gitmars/core/lib/git/getIsMergedTargetBranch')
 const checkGitStatus = require('@gitmars/core/lib/git/checkGitStatus')
 const searchBranches = require('@gitmars/core/lib/git/searchBranches')
 const {
@@ -101,31 +102,46 @@ program.action(
                     : type === 'support'
                     ? config.master
                     : config.release
-            const cmd: Array<CommandType | string> = [
-                'git fetch',
-                `git checkout ${base}`,
-                'git pull',
-                `git checkout ${type}/${name}`
-            ]
-            if (opt.useRebase) {
-                cmd.push({
-                    cmd: `git rebase ${base}`,
-                    config: {
-                        again: false,
-                        success: `${base}更新到${type}/${name}成功`,
-                        fail: `${base}更新到${type}/${name}出错了，请根据提示处理`
-                    }
-                })
+            const isNeedCombine = !getIsMergedTargetBranch(
+                base,
+                `${type}/${name}`,
+                true
+            )
+            let cmd: Array<CommandType | string> = []
+            if (isNeedCombine) {
+                cmd = cmd.concat([
+                    'git fetch',
+                    `git checkout ${base}`,
+                    'git pull',
+                    `git checkout ${type}/${name}`
+                ])
+                if (opt.useRebase) {
+                    cmd.push({
+                        cmd: `git rebase ${base}`,
+                        config: {
+                            again: false,
+                            success: `${base}更新到${type}/${name}成功`,
+                            fail: `${base}更新到${type}/${name}出错了，请根据提示处理`
+                        }
+                    })
+                } else {
+                    cmd.push({
+                        cmd: `git merge --no-ff ${base}`,
+                        config: {
+                            again: false,
+                            success: `${base}同步到${type}/${name}成功`,
+                            fail: `${base}同步到${type}/${name}出错了，请根据提示处理`
+                        }
+                    })
+                }
             } else {
-                cmd.push({
-                    cmd: `git merge --no-ff ${base}`,
-                    config: {
-                        again: false,
-                        success: `${base}同步到${type}/${name}成功`,
-                        fail: `${base}同步到${type}/${name}出错了，请根据提示处理`
+                cmd = [
+                    {
+                        message: `${base}已经合并过${type}/${name}`
                     }
-                })
+                ]
             }
+
             cmds = cmds.concat(cmd)
         })
         queue(cmds)
