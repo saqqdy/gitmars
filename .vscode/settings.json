@@ -69,6 +69,8 @@
         "minify",
         "msg",
         "namespace",
+        "npmjs",
+        "npmrc",
         "num",
         "nvm",
         "onwarn",

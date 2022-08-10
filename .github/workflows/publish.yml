@@ -3,8 +3,8 @@ name: Npm publish
 on:
     release:
         types: [created]
-        # push:
-        #     branches: [master, dev]
+    # push:
+    #     branches: [master]
 
 jobs:
     publish-gpr:
@@ -38,12 +38,18 @@ jobs:
             # - run: git config --global user.email "saqqdy@qq.com"
             # - run: git config --global user.name "saqqdy"
 
-            - run: pnpm build
+            - run: pnpm dist
               env:
                   NODE_OPTIONS: --max-old-space-size=6144
 
             - name: Gen .npmrc
               run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" >> ./.npmrc
+
+            - run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" >> ./packages/core/.npmrc
+            - run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" >> ./packages/gitmars/.npmrc
+            - run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" >> ./packages/server/.npmrc
+            - run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" >> ./packages/ui/.npmrc
+            - run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" >> ./packages/docs/.npmrc
 
             - run: pnpm pub
               env:

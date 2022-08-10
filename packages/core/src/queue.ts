@@ -4,6 +4,7 @@ import chalk from 'chalk'
 import type {
     CommandMessageType,
     CommandType,
+    CommandTypeCmd,
     QueueReturnsType
 } from '../typings'
 import { setCommandCache } from './cache/commandCache'
@@ -57,7 +58,7 @@ export function queue(
     // 处理脚本执行成功
     function onSuccess(
         msg: CommandMessageType,
-        cfg: CommandType['config'],
+        cfg: CommandTypeCmd['config'],
         cb?: WaitCallback
     ) {
         const _message = cfg.success || msg.success || '处理完成'
@@ -70,10 +71,10 @@ export function queue(
     // 处理脚本执行错误
     function onError(
         list: Array<CommandType | string>,
-        cmd: CommandType['cmd'],
+        cmd: CommandTypeCmd['cmd'],
         err: any,
         msg: CommandMessageType,
-        cfg: CommandType['config'],
+        cfg: CommandTypeCmd['config'],
         cb?: WaitCallback
     ) {
         if (cfg.kill) {
@@ -123,21 +124,50 @@ export function queue(
         wait(
             list,
             async (command?: CommandType | string, cb?: WaitCallback) => {
-                let cfg = {
+                let cfg: CommandTypeCmd['config'] = {
                         stdio: 'ignore',
                         postmsg: false,
                         kill: true,
                         again: false // 指令执行中断之后是否需要重新执行，类似冲突解决之后的指令，不再需要重复执行
-                    } as CommandType['config'],
-                    cmd: CommandType['cmd']
+                    },
+                    cmd,
+                    message
                 // 传入对象形式：{ cmd: '', config: {} }
                 if (command instanceof Object) {
-                    cfg = Object.assign(cfg, command.config || {})
-                    cmd = command.cmd
+                    if ('message' in command) {
+                        // message优先，输出消息
+                        message = command.message
+                    } else {
+                        cfg = Object.assign(cfg, command.config || {})
+                        cmd = command.cmd
+                    }
                 } else {
                     cmd = command!
                 }
-                if (!cmd) {
+                /**
+                 * 三种场景
+                 *
+                 * 1. { message: '消息' }
+                 * 2. { cmd: 'git status', config: {} }
+                 * 3. { cmd: { module: '', entry: '', options: {} }, config: {} }
+                 */
+                if (message) {
+                    spinner.start(chalk.green(message))
+                    returns.push({
+                        status: 0,
+                        stdout: '',
+                        stderr: '',
+                        cfg,
+                        cmd: ''
+                    })
+                    onSuccess(
+                        {
+                            success: message
+                        },
+                        cfg,
+                        cb
+                    )
+                } else if (!cmd) {
                     spinner.stop()
                     // 只有一条指令，不需返回数组形式
                     resolve(returns)
