@@ -1,10 +1,10 @@
 name: Npm publish
 
 on:
-    # release:
-    #     types: [created]
-    push:
-        branches: [dev]
+    release:
+        types: [created]
+    # push:
+    #     branches: [master]
 
 jobs:
     publish-gpr:
