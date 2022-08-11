@@ -151,22 +151,22 @@ publishProgram.action(
             isDescriptionCorrect = opt.description && reg.test(opt.description)
         }
         const isNeedCombineBugfixToRelease = !getIsMergedTargetBranch(
-            config.bugfix,
+            `origin/${config.bugfix}`,
             config.release,
             true
         )
         const isNeedCombineSupportToRelease = !getIsMergedTargetBranch(
-            config.support,
+            `origin/${config.support}`,
             config.release,
             true
         )
         const isNeedCombineSupportToBugfix = !getIsMergedTargetBranch(
-            config.support,
+            `origin/${config.support}`,
             config.bugfix,
             true
         )
         const isNeedCombineReleaseToMaster = !getIsMergedTargetBranch(
-            config.release,
+            `origin/${config.release}`,
             config.master,
             true
         )
