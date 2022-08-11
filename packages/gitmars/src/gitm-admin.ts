@@ -423,7 +423,7 @@ publishProgram.action(
             if (type === 'bugfix' && opt.prod) {
                 // 是否需要合并master
                 const isNeedCombine = !getIsMergedTargetBranch(
-                    config.bugfix,
+                    `origin/${config.bugfix}`,
                     config.master,
                     true
                 )
@@ -524,7 +524,7 @@ publishProgram.action(
             if (type === 'release' && opt.combine) {
                 // 是否需要合并bug
                 const isNeedCombine = !getIsMergedTargetBranch(
-                    config.release,
+                    `origin/${config.release}`,
                     config.bugfix,
                     true
                 )
@@ -683,7 +683,7 @@ updateProgram.action(
         if (opts.includes(type)) {
             // 是否需要合并
             const isNeedCombine = !getIsMergedTargetBranch(
-                base,
+                `origin/${base}`,
                 config[type],
                 true
             )
