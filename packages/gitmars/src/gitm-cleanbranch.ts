@@ -13,6 +13,7 @@ const searchBranches = require('@gitmars/core/lib/git/searchBranches')
 const getCurrentBranch = require('@gitmars/core/lib/git/getCurrentBranch')
 const getIsMergedTargetBranch = require('@gitmars/core/lib/git/getIsMergedTargetBranch')
 const getIsBranchOrCommitExist = require('@gitmars/core/lib/git/getIsBranchOrCommitExist')
+const fetch = require('@gitmars/core/lib/git/fetch')
 const { createArgs } = require('@gitmars/core/lib/utils/command')
 const delay = require('@gitmars/core/lib/utils/delay')
 const echo = require('@gitmars/core/lib/utils/echo')
@@ -111,7 +112,7 @@ program.action(async (branches: string[], opt: GitmBuildOption) => {
     const targets = opt.target
         ? opt.target.split(',')
         : [config.develop, config.release]
-    spawnSync('git', ['fetch'])
+    fetch()
     // 没有传入指定分支，进行查询
     if (branches.length === 0) {
         branches = searchBranches({

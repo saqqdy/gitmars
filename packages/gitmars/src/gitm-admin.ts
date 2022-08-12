@@ -15,6 +15,7 @@ const getCurrentBranch = require('@gitmars/core/lib/git/getCurrentBranch')
 const getGitConfig = require('@gitmars/core/lib/git/getGitConfig')
 const getIsMergedTargetBranch = require('@gitmars/core/lib/git/getIsMergedTargetBranch')
 const checkGitStatus = require('@gitmars/core/lib/git/checkGitStatus')
+const fetch = require('@gitmars/core/lib/git/fetch')
 const { createArgs } = require('@gitmars/core/lib/utils/command')
 const { spawnSync } = require('@gitmars/core/lib/spawn')
 const echo = require('@gitmars/core/lib/utils/echo')
@@ -141,6 +142,7 @@ publishProgram.action(
         const curBranch = await getCurrentBranch()
         let isDescriptionCorrect = true // 本次提交的原因描述是否符合规范
         if (!status) process.exit(1)
+        fetch()
         // 有配置descriptionValidator时需要校验描述信息
         if (config.descriptionValidator) {
             // 校验本次提交的原因描述

@@ -1,5 +1,6 @@
 import { spawnSync } from '../spawn'
 import { debug } from '../utils/debug'
+import fetch from './fetch'
 import getCurrentBranch from './getCurrentBranch'
 
 /**
@@ -9,7 +10,7 @@ import getCurrentBranch from './getCurrentBranch'
  */
 function getAheadLogs(): string[] {
     const current = getCurrentBranch()
-    spawnSync('git', ['fetch'])
+    fetch()
     const { stdout } = spawnSync('git', [
         'log',
         `origin/${current}..${current}`,

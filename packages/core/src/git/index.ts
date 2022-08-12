@@ -18,6 +18,7 @@ import getGitStatus from './getGitStatus'
 import getCommandMessage from './getCommandMessage'
 import checkGitStatus from './checkGitStatus'
 import getStashList from './getStashList'
+import fetch from './fetch'
 
 export default {
     getIsGitProject,
@@ -40,5 +41,6 @@ export default {
     getGitStatus,
     getCommandMessage,
     checkGitStatus,
-    getStashList
+    getStashList,
+    fetch
 }
