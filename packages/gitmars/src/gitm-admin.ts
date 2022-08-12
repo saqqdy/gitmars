@@ -682,6 +682,7 @@ updateProgram.action(
         } else if (opt.mode === 2) {
             mode = ' --strategy-option theirs'
         }
+        fetch()
         if (opts.includes(type)) {
             // 是否需要合并
             const isNeedCombine = !getIsMergedTargetBranch(
