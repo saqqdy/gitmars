@@ -222,7 +222,7 @@ export async function madgeLib() {
     }
 }
 
-export async function copyFile() {
+export async function copyLibFile() {
     for (const { name } of pkgs) {
         await runExec(
             `rsync -av --exclude="*.ts" ${resolve(
@@ -249,5 +249,5 @@ export default series(
     // wrapDisplayName('gen:version', genVersion),
     parallel(wrapDisplayName('build:lib', buildLib)),
     parallel(wrapDisplayName('madge:lib', madgeLib)),
-    parallel(wrapDisplayName('copy:json,sh', copyFile))
+    parallel(wrapDisplayName('copy:json,sh', copyLibFile))
 )

@@ -2,9 +2,9 @@ import { join } from 'path'
 import { parallel, series } from 'gulp'
 import { wrapDisplayName } from './utils/gulp'
 import { runExecSync } from './utils/exec'
-import { buildLib } from './tasks/buildLib'
+import { buildLib, copyLibFile, madgeLib } from './tasks/buildLib'
 import { buildApp } from './tasks/buildApp'
-import { buildDocs, copyMdFile, deployDocs } from './tasks/buildDocs'
+import { buildDocs, copyMdFile } from './tasks/buildDocs'
 import { packages } from './packages'
 
 export async function clean() {
@@ -23,8 +23,14 @@ export { default as app } from './tasks/buildApp'
 export { default as docs } from './tasks/buildDocs'
 export default series(
     wrapDisplayName('clean:dist,es,lib', clean),
-    parallel(copyMdFile),
-    parallel(buildLib),
-    parallel(buildApp, buildDocs)
-    // parallel(deployDocs)
+    parallel(
+        wrapDisplayName('copy:md', copyMdFile),
+        wrapDisplayName('copy-lib:json,sh', copyLibFile)
+    ),
+    parallel(
+        wrapDisplayName('build:lib', buildLib),
+        wrapDisplayName('build:app', buildApp),
+        wrapDisplayName('build:docs', buildDocs)
+    ),
+    parallel(wrapDisplayName('madge:lib', madgeLib))
 )
