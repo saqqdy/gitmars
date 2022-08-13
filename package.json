@@ -70,7 +70,7 @@
         "consola": "^2.15.3",
         "cron-parser": "^4.6.0",
         "cross-env": "^7.0.3",
-        "esbuild": "^0.14.53",
+        "esbuild": "^0.15.1",
         "eslint": "^8.21.0",
         "eslint-plugin-tsdoc": "^0.2.16",
         "fast-glob": "^3.2.11",
