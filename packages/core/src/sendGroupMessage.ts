@@ -11,23 +11,25 @@ import { getBuildConfig } from './build/buildConfig'
  * @param cfg - 配置
  */
 async function sendGroupMessage(message: string, url = ''): Promise<void> {
-    const config = (await getBuildConfig()) as ApolloConfigType
-    let urls: string[] = []
-    if (!config.gitNotificationGroupUrl && !url) {
+    let urls: string[] = [],
+        config: ApolloConfigType
+    if (url) urls = url.split(',')
+    else {
+        // 没有传入url，从配置中取
+        config = (await getBuildConfig()) as ApolloConfigType
+        if (config.gitNotificationGroupUrl) {
+            urls = urls.concat(config.gitNotificationGroupUrl)
+        }
+    }
+    if (urls.length === 0) {
         sh.echo(chalk.red('没有配置群消息推送地址'))
         return
-    }
-    if (url) urls = [url]
-    else if (config.gitNotificationGroupUrl) {
-        if (typeof config.gitNotificationGroupUrl === 'string') {
-            urls = [config.gitNotificationGroupUrl]
-        } else urls = config.gitNotificationGroupUrl
     }
     message = message.replace(/\s/g, '')
     urls.forEach(async item => {
         await request
             .post({
-                url: item || config.gitNotificationGroupUrl,
+                url: item,
                 data: {
                     content: message
                 },
