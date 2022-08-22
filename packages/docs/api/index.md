@@ -160,7 +160,7 @@ gitm start bugfix 1001 --tag 20211010
 
 bugfix 分支和 feature 分支需要提交到 dev 或者预发布环境时使用 combine 指令来自动执行合并
 
--   使用：`gitm combine [type] [name] [-a --add] [-m --commit [message]] [-d --dev] [-p --prod] [-b --build [build]] [--description [description]] [--no-bugfix] [--as-feature]`
+-   使用：`gitm combine [type] [name] [-a --add] [-m --commit [message]] [-d --dev] [-p --prod] [-b --build [build]] [--description [description]] [--no-bugfix] [--as-feature] [-f --force]`
 -   参数：
 
 <div class="table-prop">
@@ -186,6 +186,7 @@ bugfix 分支和 feature 分支需要提交到 dev 或者预发布环境时使�
 | --build       | -b   | 需要构建的应用                                             | String  | all/... | 否       | all   |
 | --no-bugfix   |      | 是否不同步到 bug 分支，这个参数仅对 support 分支有效       | Boolean | -       | -        | false |
 | --as-feature  |      | bugfix 分支需要合并到 release 时使用，仅对 bugfix 分支有效 | Boolean | -       | -        | false |
+| --force       | -f   | 是否强制发起合并请求                                       | Boolean | -       | -        | false |
 
 </div>
 
@@ -296,7 +297,7 @@ gitm end --as-feature
 
 把 bug 分支的最新代码同步到 20001 分支上（--use-rebase 使用 rebase 方法合并，默认 false）
 
--   使用：`gitm update [type] [name] [--use-merge] [--use-rebase] [-a --all]`
+-   使用：`gitm update [type] [name] [--use-merge] [--use-rebase] [-a --all] [-f --force]`
 -   参数：
 
 <div class="table-prop">
@@ -317,6 +318,7 @@ gitm end --as-feature
 | --use-merge  |      | 是否使用 merge 方式更新代码(准备弃用) | Boolean | -      | -        | true  |
 | --use-rebase |      | 是否使用 rebase 方式更新代码          | Boolean | -      | -        | false |
 | --all        | -a   | 是否更新本地所有开发分支              | Boolean | -      | -        | false |
+| --force      | -f   | 是否强制发起合并请求                  | Boolean | -      | -        | false |
 
 </div>
 
@@ -1404,7 +1406,7 @@ gitm admin create release
 
 发布操作
 
--   使用：`gitm admin publish <type> [--description [description]] [-c --combine] [--use-rebase] [-p --prod] [-b --build [build]] [-p --postmsg]`
+-   使用：`gitm admin publish <type> [--description [description]] [-c --combine] [--use-rebase] [-p --prod] [-b --build [build]] [-p --postmsg] [-f --force]`
 -   参数：
 
 <div class="table-prop">
@@ -1427,6 +1429,7 @@ gitm admin create release
 | --use-rebase  |      | 是否使用 rebase 执行合并                                                     | Boolean | -      | 否       | false |
 | --postmsg     | -p   | 是否需要发送群消息                                                           | Boolean | -      | 否       | false |
 | --description |      | 本次提交的原因描述                                                           | String  | -      | 否       | ''    |
+| --force       | -f   | 是否强制发起合并请求                                                         | Boolean | -      | -        | false |
 
 </div>
 
@@ -1457,7 +1460,7 @@ gitm admin publish release -b app
 
 更新 release、bugfix、support 分支代码，默认走 merge 方法
 
--   使用：`gitm admin update <type> [--description [description]] [--use-rebase] [-m --mode [mode]] [-p --postmsg]`
+-   使用：`gitm admin update <type> [--description [description]] [--use-rebase] [-m --mode [mode]] [-p --postmsg] [-f --force]`
 -   参数：
 
 <div class="table-prop">
@@ -1478,6 +1481,7 @@ gitm admin publish release -b app
 | --use-rebase  |      | 是否使用 rebase 执行同步                                                                                              | Boolean | -      | 否       | false |
 | --postmsg     | -p   | 是否需要发送群消息                                                                                                    | Boolean | -      | 否       | false |
 | --description |      | 本次提交的原因描述                                                                                                    | String  | -      | 否       | ''    |
+| --force       | -f   | 是否强制发起合并请求                                                                                                  | Boolean | -      | -        | false |
 
 </div>
 
