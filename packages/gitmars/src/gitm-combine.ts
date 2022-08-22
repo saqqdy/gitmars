@@ -33,6 +33,7 @@ interface GitmBuildOption {
     add?: boolean
     noBugfix?: boolean
     asFeature?: boolean
+    force?: boolean
 }
 
 if (!getIsGitProject()) {
@@ -51,7 +52,7 @@ const config = getConfig()
 program
     .name('gitm combine')
     .usage(
-        '[type] [name] [-d --dev] [-p --prod] [-b --build [app]] [-a --add] [-m --commit <commit>] [--description [description]] [--as-feature] [--no-bugfix]'
+        '[type] [name] [-d --dev] [-p --prod] [-b --build [app]] [-a --add] [-m --commit <commit>] [--description [description]] [--as-feature] [--no-bugfix] [-f --force]'
     )
     .description('合并bugfix任务分支、合并feature功能开发分支、合并support分支')
 if (args.length > 0) program.arguments(createArgs(args))
@@ -66,6 +67,7 @@ options.forEach((o: GitmarsOptionOptionsType) => {
 // .option('-a, --add', '需要add', false)
 // .option('--no-bugfix', '不同步到bug分支')
 // .option('--as-feature', 'bug分支合并到release')
+// .option('-f, --force', '是否强制发起合并请求', false)
 program.action(
     async (type: string, name: string, opt: GitmBuildOption): Promise<void> => {
         const userInfoApi =
@@ -167,7 +169,7 @@ program.action(
                     true
                 )
                 cmd = cmd.concat(
-                    isNeedCombineDevelop
+                    isNeedCombineDevelop || opt.force
                         ? [
                               'git fetch',
                               `git checkout ${config.develop}`,
@@ -240,7 +242,7 @@ program.action(
                                 true
                             )
                             cmd = cmd.concat(
-                                isNeedCombineProd
+                                isNeedCombineProd || opt.force
                                     ? [
                                           'git fetch',
                                           `git checkout ${base}`,
@@ -314,7 +316,7 @@ program.action(
                                 true
                             )
                             cmd = cmd.concat(
-                                isNeedCombineProd
+                                isNeedCombineProd || opt.force
                                     ? [
                                           'git fetch',
                                           `git checkout ${config.release}`,
@@ -388,7 +390,7 @@ program.action(
                                 true
                             )
                             cmd = cmd.concat(
-                                isNeedCombineProd
+                                isNeedCombineProd || opt.force
                                     ? [
                                           'git fetch',
                                           `git checkout ${config.bugfix}`,

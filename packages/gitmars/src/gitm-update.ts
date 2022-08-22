@@ -26,6 +26,7 @@ interface GitmBuildOption {
     useMerge?: boolean
     useRebase?: boolean
     all?: boolean
+    force?: boolean
 }
 
 /**
@@ -33,7 +34,7 @@ interface GitmBuildOption {
  */
 program
     .name('gitm update')
-    .usage('[type] [name] [--use-merge] [--use-rebase] [-a --all]')
+    .usage('[type] [name] [--use-merge] [--use-rebase] [-a --all] [-f --force]')
     .description(
         '更新bug任务分支、更新feature功能开发分支、框架调整分支support'
     )
@@ -44,6 +45,7 @@ options.forEach((o: GitmarsOptionOptionsType) => {
 // .option('--use-merge', '是否使用merge方式更新，默认merge方式', true)
 // .option('--use-rebase', '是否使用rebase方式更新，默认merge方式', false)
 // .option('-a --all', '更新本地所有bugfix、feature、support分支', false)
+// .option('-f, --force', '是否强制发起合并请求', false)
 program.action(
     async (type: string | string[], name: string, opt: GitmBuildOption) => {
         // 检测是否需要升级版本
@@ -108,7 +110,7 @@ program.action(
                 true
             )
             let cmd: Array<CommandType | string> = []
-            if (isNeedCombine) {
+            if (isNeedCombine || opt.force) {
                 cmd = cmd.concat([
                     'git fetch',
                     `git checkout ${base}`,

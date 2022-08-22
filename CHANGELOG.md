@@ -1,5 +1,9 @@
 # 更新日志
 
+## 2022.08.22 v3.3.5 更新日志
+
+1. `combine` `update` `admin publish` `admin update`指增加`--force`，强制发起合并请求
+
 ## 2022.08.14 v3.3.4 更新日志
 
 1. `postmsg`指令支持脱离 git 目录使用

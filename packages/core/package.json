@@ -1,7 +1,7 @@
 {
     "name": "@gitmars/core",
     "description": "gitmars核心程序",
-    "version": "3.3.4",
+    "version": "3.3.5",
     "private": false,
     "main": "./lib/index.js",
     "module": "./lib/index.mjs",
