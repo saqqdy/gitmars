@@ -39,12 +39,14 @@ interface GitmBuildOption {
         build?: boolean | string
         description?: string
         postmsg?: boolean
+        force?: boolean
     }
     update: {
         useRebase?: boolean
         mode?: 0 | 1 | 2
         description?: string
         postmsg?: boolean
+        force?: boolean
     }
 }
 
@@ -113,7 +115,7 @@ createProgram.action((type: string): void => {
 const publishProgram = program
     .name('gitm admin')
     .usage(
-        '<command> <type> [--description [description]] [-c --combine] [--use-rebase] [-p --prod] [-b --build [app]] [--postmsg]'
+        '<command> <type> [--description [description]] [-c --combine] [--use-rebase] [-p --prod] [-b --build [app]] [--postmsg] [-f --force]'
     )
     .description('发布bugfix、release、support分支')
     .command('publish ' + createArgs(publish.args))
@@ -127,6 +129,7 @@ publish.options.forEach((o: GitmarsOptionOptionsType) => {
 // .option('-b, --build [build]', '需要构建的应用')
 // .option('--postmsg', '发送消息', false)
 // .option('--description [description]', '本次提交的原因描述', '')
+// .option('-f, --force', '是否强制发起合并请求', false)
 publishProgram.action(
     async (
         type: PublishOptsType,
@@ -184,39 +187,40 @@ publishProgram.action(
             }
             if (!level || level < 4) {
                 cmd = {
-                    bugfix: isNeedCombineBugfixToRelease
-                        ? [
-                              'git fetch',
-                              `git checkout ${config.bugfix}`,
-                              'git pull',
-                              `git checkout ${config.release}`,
-                              'git pull',
-                              {
-                                  cmd: `git merge --no-ff ${config.bugfix}`,
-                                  config: {
-                                      again: false,
-                                      postmsg: opt.postmsg,
-                                      success: `${config.bugfix}合并到${config.release}成功`,
-                                      fail: `${config.bugfix}合并到${config.release}出错了，请根据提示处理`
+                    bugfix:
+                        isNeedCombineBugfixToRelease || opt.force
+                            ? [
+                                  'git fetch',
+                                  `git checkout ${config.bugfix}`,
+                                  'git pull',
+                                  `git checkout ${config.release}`,
+                                  'git pull',
+                                  {
+                                      cmd: `git merge --no-ff ${config.bugfix}`,
+                                      config: {
+                                          again: false,
+                                          postmsg: opt.postmsg,
+                                          success: `${config.bugfix}合并到${config.release}成功`,
+                                          fail: `${config.bugfix}合并到${config.release}出错了，请根据提示处理`
+                                      }
+                                  },
+                                  {
+                                      cmd: 'git push',
+                                      config: {
+                                          again: true,
+                                          success: '推送成功',
+                                          fail: '推送失败，请根据提示处理'
+                                      }
                                   }
-                              },
-                              {
-                                  cmd: 'git push',
-                                  config: {
-                                      again: true,
-                                      success: '推送成功',
-                                      fail: '推送失败，请根据提示处理'
+                              ]
+                            : [
+                                  {
+                                      message: `${config.bugfix}已经合并过${config.release}`
                                   }
-                              }
-                          ]
-                        : [
-                              {
-                                  message: `${config.bugfix}已经合并过${config.release}`
-                              }
-                          ],
+                              ],
                     support: ([] as Array<CommandType | string>)
                         .concat(
-                            isNeedCombineSupportToRelease
+                            isNeedCombineSupportToRelease || opt.force
                                 ? [
                                       'git fetch',
                                       `git checkout ${config.support}`,
@@ -247,7 +251,7 @@ publishProgram.action(
                                   ]
                         )
                         .concat(
-                            isNeedCombineSupportToBugfix
+                            isNeedCombineSupportToBugfix || opt.force
                                 ? [
                                       `git checkout ${config.bugfix}`,
                                       'git pull',
@@ -274,35 +278,36 @@ publishProgram.action(
                                       }
                                   ]
                         ),
-                    release: isNeedCombineReleaseToMaster
-                        ? [
-                              'git fetch',
-                              `git checkout ${config.release}`,
-                              'git pull',
-                              `git checkout ${config.master}`,
-                              'git pull',
-                              {
-                                  cmd: `git merge --no-ff ${config.release}`,
-                                  config: {
-                                      again: false,
-                                      success: `${config.release}合并到${config.master}成功`,
-                                      fail: `${config.release}合并到${config.master}出错了，请根据提示处理`
+                    release:
+                        isNeedCombineReleaseToMaster || opt.force
+                            ? [
+                                  'git fetch',
+                                  `git checkout ${config.release}`,
+                                  'git pull',
+                                  `git checkout ${config.master}`,
+                                  'git pull',
+                                  {
+                                      cmd: `git merge --no-ff ${config.release}`,
+                                      config: {
+                                          again: false,
+                                          success: `${config.release}合并到${config.master}成功`,
+                                          fail: `${config.release}合并到${config.master}出错了，请根据提示处理`
+                                      }
+                                  },
+                                  {
+                                      cmd: 'git push',
+                                      config: {
+                                          again: true,
+                                          success: '推送成功',
+                                          fail: '推送失败，请根据提示处理'
+                                      }
                                   }
-                              },
-                              {
-                                  cmd: 'git push',
-                                  config: {
-                                      again: true,
-                                      success: '推送成功',
-                                      fail: '推送失败，请根据提示处理'
+                              ]
+                            : [
+                                  {
+                                      message: `${config.release}已经合并过${config.master}`
                                   }
-                              }
-                          ]
-                        : [
-                              {
-                                  message: `${config.release}已经合并过${config.master}`
-                              }
-                          ]
+                              ]
                 }
             } else {
                 if (!isDescriptionCorrect) {
@@ -310,35 +315,36 @@ publishProgram.action(
                     process.exit(1)
                 }
                 cmd = {
-                    bugfix: isNeedCombineBugfixToRelease
-                        ? [
-                              {
-                                  cmd: {
-                                      module: mergeRequestModule,
-                                      entry: 'createMergeRequest',
-                                      options: {
-                                          source_branch: config.bugfix,
-                                          target_branch: config.release,
-                                          token,
-                                          description: opt.description
+                    bugfix:
+                        isNeedCombineBugfixToRelease || opt.force
+                            ? [
+                                  {
+                                      cmd: {
+                                          module: mergeRequestModule,
+                                          entry: 'createMergeRequest',
+                                          options: {
+                                              source_branch: config.bugfix,
+                                              target_branch: config.release,
+                                              token,
+                                              description: opt.description
+                                          }
+                                      },
+                                      config: {
+                                          again: true,
+                                          success: '成功创建合并请求',
+                                          fail: '创建合并请求出错了，请根据提示处理'
                                       }
                                   },
-                                  config: {
-                                      again: true,
-                                      success: '成功创建合并请求',
-                                      fail: '创建合并请求出错了，请根据提示处理'
+                                  `gitm postmsg "${nickname}在${appName}项目提交了${config.bugfix}分支合并到${config.release}分支的merge请求"`
+                              ]
+                            : [
+                                  {
+                                      message: `${config.bugfix}已经合并过${config.release}`
                                   }
-                              },
-                              `gitm postmsg "${nickname}在${appName}项目提交了${config.bugfix}分支合并到${config.release}分支的merge请求"`
-                          ]
-                        : [
-                              {
-                                  message: `${config.bugfix}已经合并过${config.release}`
-                              }
-                          ],
+                              ],
                     support: ([] as Array<CommandType | string>)
                         .concat(
-                            isNeedCombineSupportToRelease
+                            isNeedCombineSupportToRelease || opt.force
                                 ? [
                                       {
                                           cmd: {
@@ -366,7 +372,7 @@ publishProgram.action(
                                   ]
                         )
                         .concat(
-                            isNeedCombineSupportToBugfix
+                            isNeedCombineSupportToBugfix || opt.force
                                 ? [
                                       {
                                           cmd: {
@@ -393,32 +399,33 @@ publishProgram.action(
                                       }
                                   ]
                         ),
-                    release: isNeedCombineReleaseToMaster
-                        ? [
-                              {
-                                  cmd: {
-                                      module: mergeRequestModule,
-                                      entry: 'createMergeRequest',
-                                      options: {
-                                          source_branch: config.release,
-                                          target_branch: config.master,
-                                          token,
-                                          description: opt.description
+                    release:
+                        isNeedCombineReleaseToMaster || opt.force
+                            ? [
+                                  {
+                                      cmd: {
+                                          module: mergeRequestModule,
+                                          entry: 'createMergeRequest',
+                                          options: {
+                                              source_branch: config.release,
+                                              target_branch: config.master,
+                                              token,
+                                              description: opt.description
+                                          }
+                                      },
+                                      config: {
+                                          again: true,
+                                          success: '成功创建合并请求',
+                                          fail: '创建合并请求出错了，请根据提示处理'
                                       }
                                   },
-                                  config: {
-                                      again: true,
-                                      success: '成功创建合并请求',
-                                      fail: '创建合并请求出错了，请根据提示处理'
+                                  `gitm postmsg "${nickname}在${appName}项目提交了${config.release}分支合并到${config.master}分支的merge请求"`
+                              ]
+                            : [
+                                  {
+                                      message: `${config.release}已经合并过${config.master}`
                                   }
-                              },
-                              `gitm postmsg "${nickname}在${appName}项目提交了${config.release}分支合并到${config.master}分支的merge请求"`
-                          ]
-                        : [
-                              {
-                                  message: `${config.release}已经合并过${config.master}`
-                              }
-                          ]
+                              ]
                 }
             }
             // 发布bug分支且同步到master
@@ -431,7 +438,7 @@ publishProgram.action(
                 )
                 if (!level || level < 4) {
                     cmd[type] = cmd[type].concat(
-                        isNeedCombine
+                        isNeedCombine || opt.force
                             ? [
                                   `git checkout ${config.master}`,
                                   'git pull',
@@ -464,7 +471,7 @@ publishProgram.action(
                         process.exit(1)
                     }
                     cmd[type] = cmd[type].concat(
-                        isNeedCombine
+                        isNeedCombine || opt.force
                             ? [
                                   {
                                       cmd: {
@@ -533,7 +540,7 @@ publishProgram.action(
                 // 使用rebase
                 if (opt.useRebase) {
                     cmd[type] = cmd[type].concat(
-                        isNeedCombine
+                        isNeedCombine || opt.force
                             ? [
                                   `git checkout ${config.release}`,
                                   'git pull',
@@ -569,7 +576,7 @@ publishProgram.action(
                 } else {
                     if (!level || level < 4) {
                         cmd[type] = cmd[type].concat(
-                            isNeedCombine
+                            isNeedCombine || opt.force
                                 ? [
                                       `git checkout ${config.release}`,
                                       'git pull',
@@ -643,7 +650,7 @@ publishProgram.action(
 const updateProgram = program
     .name('gitm admin')
     .usage(
-        '<command> <type> [-m --mode [mode]] [--description [description]] [--use-rebase] [--postmsg]'
+        '<command> <type> [-m --mode [mode]] [--description [description]] [--use-rebase] [--postmsg] [-f --force]'
     )
     .description('更新bugfix、release、support分支代码')
     .command('update ' + createArgs(update.args))
@@ -655,6 +662,7 @@ update.options.forEach((o: GitmarsOptionOptionsType) => {
 // .option('-m, --mode [mode]', '出现冲突时，保留传入代码还是保留当前代码；1=采用当前 2=采用传入；默认为 0=手动处理。本参数不可与--use-rebase同时使用', 0)
 // .option('--postmsg', '发送消息', false)
 // .option('--description [description]', '本次提交的原因描述', '')
+// .option('-f, --force', '是否强制发起合并请求', false)
 updateProgram.action(
     async (type: string, opt: GitmBuildOption['update']): Promise<void> => {
         const {
@@ -691,7 +699,7 @@ updateProgram.action(
                 true
             )
             let cmd
-            if (isNeedCombine) {
+            if (isNeedCombine || opt.force) {
                 if (!level || level < 4) {
                     cmd = [
                         'git fetch',

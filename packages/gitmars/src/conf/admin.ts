@@ -135,6 +135,18 @@ import type { GitmarsMultiOptionType } from '../../typings'
                     description: '本次提交的原因描述',
                     defaultValue: '',
                     recommend: false
+                },
+                {
+                    flags: '-f, --force',
+                    required: false,
+                    optional: false,
+                    variadic: false,
+                    mandatory: false,
+                    short: '-f',
+                    long: '--force',
+                    negate: false,
+                    description: '是否强制发起合并请求',
+                    recommend: false
                 }
             ],
             // 校验传值
@@ -230,6 +242,18 @@ import type { GitmarsMultiOptionType } from '../../typings'
                     negate: false,
                     description: '本次提交的原因描述',
                     defaultValue: '',
+                    recommend: false
+                },
+                {
+                    flags: '-f, --force',
+                    required: false,
+                    optional: false,
+                    variadic: false,
+                    mandatory: false,
+                    short: '-f',
+                    long: '--force',
+                    negate: false,
+                    description: '是否强制发起合并请求',
                     recommend: false
                 }
             ],

@@ -121,6 +121,18 @@ import type { GitmarsOptionType } from '../../typings'
                 negate: false,
                 description: 'bug分支合并到release',
                 recommend: false
+            },
+            {
+                flags: '-f, --force',
+                required: false,
+                optional: false,
+                variadic: false,
+                mandatory: false,
+                short: '-f',
+                long: '--force',
+                negate: false,
+                description: '是否强制发起合并请求',
+                recommend: false
             }
         ],
         // 校验传值

@@ -57,6 +57,18 @@ import type { GitmarsOptionType } from '../../typings'
                 description: '更新本地所有bugfix、feature、support分支',
                 defaultValue: false,
                 recommend: false
+            },
+            {
+                flags: '-f, --force',
+                required: false,
+                optional: false,
+                variadic: false,
+                mandatory: false,
+                short: '-f',
+                long: '--force',
+                negate: false,
+                description: '是否强制发起合并请求',
+                recommend: false
             }
         ]
     }
