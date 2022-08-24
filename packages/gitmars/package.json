@@ -46,7 +46,7 @@
         "cross-spawn": "^7.0.3",
         "dayjs": "^1.11.4",
         "debug": "^4.3.4",
-        "inquirer": "^8.2.4",
+        "inquirer": "^9.1.0",
         "js-cool": "^2.3.2",
         "node-apollo": "^1.2.1",
         "ora": "^5.4.1",
