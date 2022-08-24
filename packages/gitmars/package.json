@@ -51,7 +51,7 @@
         "node-apollo": "^1.2.1",
         "ora": "^5.4.1",
         "shelljs": "^0.8.5",
-        "slash": "^3.0.0"
+        "slash": "^4.0.0"
     },
     "devDependencies": {
         "@eslint-sets/eslint-config-simple-ts": "^3.0.4",
