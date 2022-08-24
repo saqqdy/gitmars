@@ -65,7 +65,7 @@
         "unplugin-vue-components": "^0.22.0",
         "vite": "^3.0.4",
         "vite-tsconfig-paths": "^3.5.0",
-        "vue-tsc": "^0.39.5",
+        "vue-tsc": "^0.40.1",
         "webpack-bundle-analyzer": "^4.5.0"
     },
     "sideEffects": false,
