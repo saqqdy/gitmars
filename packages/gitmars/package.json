@@ -57,7 +57,7 @@
         "@eslint-sets/eslint-config-simple-ts": "^3.0.4",
         "@saqqdy/prettier-config": "^1.1.2",
         "@types/cross-spawn": "^6.0.2",
-        "@types/inquirer": "^8.2.2",
+        "@types/inquirer": "^9.0.1",
         "@types/node": "^18.6.4",
         "@types/shelljs": "^0.8.11",
         "cron-parser": "^4.6.0",
