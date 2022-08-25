@@ -17,7 +17,16 @@ pkg = JSON.parse(pkg)
 
 const useWorkspace = true // 是否启用了workspace模式
 const PACKAGE_NEXT: string[] = [] // 需要安装next版本的包
-const PACKAGE_EXCLUDE: string[] = [] // 忽略的包
+const PACKAGE_EXCLUDE: string[] = [
+    'chalk',
+    'inquirer',
+    '@types/inquirer',
+    'ora',
+    'slash',
+    '@jssj/request',
+    'lowdb',
+    'axios-ex'
+] // 忽略的包
 const PACKAGE_MANAGERS: TypeManagers[] = ['pnpm', 'yarn', 'npm'] // 包管理工具优先级
 const cmd = getPackageManager()
 
