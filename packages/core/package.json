@@ -48,10 +48,12 @@
         "cross-spawn": "^7.0.3",
         "dayjs": "^1.11.5",
         "debug": "^4.3.4",
+        "i18n": "^0.15.0",
         "inquirer": "^8.2.4",
         "js-cool": "^2.4.0",
         "node-apollo": "^1.2.1",
         "ora": "^5.4.1",
+        "os-locale": "^6.0.2",
         "shelljs": "^0.8.5",
         "slash": "^3.0.0"
     },
