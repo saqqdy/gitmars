@@ -1,22 +1,18 @@
 #!/usr/bin/env ts-node
-const { join } = require('path')
 const { program } = require('commander')
 const sh = require('shelljs')
-const { I18n } = require('i18n')
 const { green } = require('chalk')
 const { spawnSync } = require('@gitmars/core/lib/spawn')
 const echo = require('@gitmars/core/lib/utils/echo')
 const { version } = require('../package.json')
-
-const i18n = new I18n({
-    locales: ['en', 'zh'],
-    directory: join(__dirname, 'locales')
-})
-
-console.log(i18n.__('Hello'))
+const i18n = require('./locales')
 
 if (!sh.which('git')) {
-    echo('Gitmars只能在git环境下执行，请先安装git')
+    echo(
+        i18n.__(
+            'gitm:Gitmars can only be executed in a git environment, so please install git first'
+        )
+    )
     process.exit(1)
 }
 program.version(
@@ -30,7 +26,7 @@ program.version(
         '                                                          \n' +
         `v${version}, powered by saqqdy\n`,
     '-v, --version',
-    '查看gitmars版本'
+    i18n.__('gitm:View gitmars version number')
 )
 
 program
