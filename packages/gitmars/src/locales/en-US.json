@@ -1,6 +1,6 @@
 
 
 {
-	"Hello World": "Hello World",
-    "Hello": "Hello"
+	"gitm:Gitmars can only be executed in a git environment, so please install git first": "Gitmars can only be executed in a git environment, so please install git first",
+    "gitm:View gitmars version number": "View gitmars version number"
 }
