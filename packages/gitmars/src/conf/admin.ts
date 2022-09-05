@@ -1,4 +1,5 @@
 import type { GitmarsMultiOptionType } from '../../typings'
+const i18n = require('../locales')
 ;(function (root) {
     const cmdConfig: GitmarsMultiOptionType = {
         command: 'admin',

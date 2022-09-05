@@ -5,6 +5,7 @@ const sh = require('shelljs')
 const { createArgs } = require('@gitmars/core/lib/utils/command')
 const { spawnSync } = require('@gitmars/core/lib/spawn')
 const { options, args } = require('./conf/link')
+const i18n = require('./locales')
 
 /**
  * gitm link

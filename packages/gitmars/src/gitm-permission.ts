@@ -5,6 +5,7 @@ const { red } = require('chalk')
 const getCurrentBranch = require('@gitmars/core/lib/git/getCurrentBranch')
 const getConfig = require('@gitmars/core/lib/getConfig')
 const { spawnSync } = require('@gitmars/core/lib/spawn')
+const i18n = require('./locales')
 const config = getConfig()
 
 interface GitmBuildOption {

@@ -6,6 +6,7 @@ const { createArgs } = require('@gitmars/core/lib/utils/command')
 const { spawnSync } = require('@gitmars/core/lib/spawn')
 const echo = require('@gitmars/core/lib/utils/echo')
 const { options, args } = require('./conf/alias')
+const i18n = require('./locales')
 
 const actions = ['init', 'remove'] as const
 type Module = typeof actions[number]
@@ -16,7 +17,10 @@ interface Action {
 /**
  * gitm alias
  */
-program.name('gitm alias').usage('<action>').description('安装和移除快捷方式')
+program
+    .name('gitm alias')
+    .usage('<action>')
+    .description(i18n.__('gitm:Install and remove shortcuts'))
 if (args.length > 0) program.arguments(createArgs(args))
 options.forEach((o: GitmarsOptionOptionsType) => {
     program.option(o.flags, o.description, o.defaultValue)

@@ -4,6 +4,7 @@ const { program } = require('commander')
 const { createArgs } = require('@gitmars/core/lib/utils/command')
 const run = require('@gitmars/core/lib/hook/run')
 const { options, args } = require('./conf/run')
+const i18n = require('./locales')
 
 type GitmBuildOption = Record<string, string>
 
@@ -13,7 +14,7 @@ type GitmBuildOption = Record<string, string>
 program
     .name('gitm run')
     .usage('[command] [args...]')
-    .description('git钩子运行指令')
+    .description(i18n.__('gitm:git hook run command'))
 if (args.length > 0) program.arguments(createArgs(args))
 options.forEach((o: GitmarsOptionOptionsType) => {
     program.option(o.flags, o.description, o.defaultValue)

@@ -4,6 +4,7 @@ const { program } = require('commander')
 const sendGroupMessage = require('@gitmars/core/lib/sendGroupMessage')
 const { createArgs } = require('@gitmars/core/lib/utils/command')
 const { options, args } = require('./conf/postmsg')
+const i18n = require('./locales')
 
 interface GitmBuildOption {
     url?: string

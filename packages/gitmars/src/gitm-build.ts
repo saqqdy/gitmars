@@ -4,6 +4,7 @@ const { program } = require('commander')
 const { createArgs } = require('@gitmars/core/lib/utils/command')
 const runJenkins = require('@gitmars/core/lib/build/runJenkins')
 const { options, args } = require('./conf/build')
+const i18n = require('./locales')
 
 interface GitmBuildOption {
     env?: string
@@ -15,7 +16,7 @@ interface GitmBuildOption {
 program
     .name('gitm build')
     .usage('<project> [-e --env [env]] [-a --app [app]]')
-    .description('构建Jenkins')
+    .description(i18n.__('gitm:buildJenkins'))
 if (args.length > 0) program.arguments(createArgs(args))
 options.forEach((o: GitmarsOptionOptionsType) => {
     program.option(o.flags, o.description, o.defaultValue)

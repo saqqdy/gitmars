@@ -6,6 +6,7 @@ const ora = require('ora')
 const { spawnSync } = require('@gitmars/core/lib/spawn')
 const { createArgs } = require('@gitmars/core/lib/utils/command')
 const { options, args } = require('./conf/upgrade')
+const i18n = require('./locales')
 
 interface GitmBuildOption {
     mirror?: boolean
@@ -21,7 +22,7 @@ program
     .usage(
         '[version] [-m --mirror] [-c --client [client]] [-r --registry <registry>]'
     )
-    .description('升级gitmars')
+    .description(i18n.__('gitm:Upgrade gitmars'))
 if (args.length > 0) program.arguments(createArgs(args))
 options.forEach((o: GitmarsOptionOptionsType) => {
     program.option(o.flags, o.description, o.defaultValue)
@@ -76,32 +77,32 @@ program.action(
         if (opt.registry) {
             cmdAdd[1] = cmdAdd[1].concat(['-registry', opt.registry])
         }
-        spinner.start(green('正在卸载'))
+        spinner.start(green(i18n.__('Uninstalling')))
         const uninstall = spawnSync(cmdDel[0], cmdDel[1], {
             stdio: 'ignore',
             shell: process.platform === 'win32' /*, env: { detached: true } */
         })
         if (uninstall.status !== 0) {
             spinner.fail(
-                red('卸载出错了，请尝试手动删除后运行：npm install -g gitmars')
+                red(i18n.__('There was an error uninstalling, please try running after manually removing: npm install -g gitmars'))
             )
             process.exit(0)
         }
-        spinner.succeed(green('卸载完成'))
-        spinner.start(green('正在安装'))
+        spinner.succeed(green(i18n.__('Uninstallation complete')))
+        spinner.start(green(i18n.__('Installing')))
         const install = spawnSync(cmdAdd[0], cmdAdd[1], {
             stdio: 'ignore',
             shell: process.platform === 'win32' /*, env: { detached: true } */
         })
         if (install.status === 0) {
-            spinner.succeed(green('安装完成'))
+            spinner.succeed(green(i18n.__('Installation complete')))
             spawnSync('gitm', ['-v'], {
                 stdio: 'inherit',
                 shell:
                     process.platform === 'win32' /*, env: { detached: true } */
             })
         } else {
-            spinner.fail(red('安装出错了，请尝试运行：npm install -g gitmars'))
+            spinner.fail(red(i18n.__('There was an error installing, please try running: npm install -g gitmars')))
         }
         spinner.stop()
         process.exit(0)

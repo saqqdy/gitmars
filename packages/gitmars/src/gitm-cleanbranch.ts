@@ -18,8 +18,9 @@ const { createArgs } = require('@gitmars/core/lib/utils/command')
 const delay = require('@gitmars/core/lib/utils/delay')
 const echo = require('@gitmars/core/lib/utils/echo')
 const { spawnSync } = require('@gitmars/core/lib/spawn')
+const i18n = require('./locales')
 if (!getIsGitProject()) {
-    echo(red('当前目录不是git项目目录'))
+    echo(red(i18n.__('The current directory is not a git project directory')))
     process.exit(1)
 }
 const getConfig = require('@gitmars/core/lib/getConfig')
@@ -66,7 +67,7 @@ program
     .usage(
         '[branches...] [-l --list [list]] [-k --key [keyword]] [--exclude [exclude]] [--include [include]] [-t --type [type]] [--target [target]] [-r --remote]'
     )
-    .description('清理合并过的功能分支')
+    .description(i18n.__('gitm:Clean up merged feature branches'))
 if (args.length > 0) program.arguments(createArgs(args))
 options.forEach((o: GitmarsOptionOptionsType) => {
     program.option(o.flags, o.description, o.defaultValue)

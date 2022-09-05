@@ -7,6 +7,7 @@ const { createArgs } = require('@gitmars/core/lib/utils/command')
 const { spawnSync } = require('@gitmars/core/lib/spawn')
 const echo = require('@gitmars/core/lib/utils/echo')
 const { options, args } = require('./conf/install')
+const i18n = require('./locales')
 
 interface GitmBuildOption {
     mirror?: boolean
@@ -88,13 +89,13 @@ program.action(
         if (opt.registry) {
             cmdAdd[1] = cmdAdd[1].concat(['-registry', opt.registry])
         }
-        spinner.start(green('正在安装'))
+        spinner.start(green(i18n.__('Installing')))
         const install = spawnSync(...cmdAdd, {
             stdio: 'ignore',
             shell: process.platform === 'win32'
         })
         if (install.status === 0) {
-            spinner.succeed(green('安装完成'))
+            spinner.succeed(green(i18n.__('Installation complete')))
         } else {
             spinner.fail(red('安装出错了，请联系管理员'))
         }

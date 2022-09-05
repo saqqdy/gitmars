@@ -12,8 +12,11 @@ const getIsMergeAction = require('@gitmars/core/lib/git/getIsMergeAction')
 const getBehindLogs = require('@gitmars/core/lib/git/getBehindLogs')
 const { createArgs } = require('@gitmars/core/lib/utils/command')
 const { init, remove } = require('@gitmars/core/lib/hook/index')
+const i18n = require('./locales')
 if (!getIsGitProject()) {
-    sh.echo(red('当前目录不是git项目目录'))
+    sh.echo(
+        red(i18n.__('The current directory is not a git project directory'))
+    )
     process.exit(1)
 }
 const getConfig = require('@gitmars/core/lib/getConfig')

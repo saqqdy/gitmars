@@ -13,8 +13,11 @@ const getIsGitProject = require('@gitmars/core/lib/git/getIsGitProject')
 const getGitStatus = require('@gitmars/core/lib/git/getGitStatus')
 const { createArgs } = require('@gitmars/core/lib/utils/command')
 const { options, args } = require('./conf/continue')
+const i18n = require('./locales')
 if (!getIsGitProject()) {
-    sh.echo(red('当前目录不是git项目目录'))
+    sh.echo(
+        red(i18n.__('The current directory is not a git project directory'))
+    )
     process.exit(1)
 }
 interface GitmBuildOption {
@@ -27,7 +30,7 @@ interface GitmBuildOption {
 program
     .name('gitm continue')
     .usage('[-l --list]')
-    .description('继续未完成的操作')
+    .description(i18n.__('gitm:Continue unfinished operations'))
 if (args.length > 0) program.arguments(createArgs(args))
 options.forEach((o: GitmarsOptionOptionsType) => {
     program.option(o.flags, o.description, o.defaultValue)

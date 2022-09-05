@@ -7,8 +7,11 @@ const { queue } = require('@gitmars/core/lib/queue')
 const getIsGitProject = require('@gitmars/core/lib/git/getIsGitProject')
 const { createArgs } = require('@gitmars/core/lib/utils/command')
 const { options, args } = require('./conf/revert')
+const i18n = require('./locales')
 if (!getIsGitProject()) {
-    sh.echo(red('当前目录不是git项目目录'))
+    sh.echo(
+        red(i18n.__('The current directory is not a git project directory'))
+    )
     process.exit(1)
 }
 interface GitmBuildOption {
@@ -42,8 +45,10 @@ program.action((commitid: string, opt: GitmBuildOption) => {
             cmd: `git revert ${n}${m}`,
             config: {
                 again: true,
-                success: '撤销成功',
-                fail: '出错了，请根据提示处理'
+                success: i18n.__('Successfully reverted'),
+                fail: i18n.__(
+                    'An error has occurred, please follow the instructions'
+                )
             }
         })
     } else if (commitid) {
@@ -51,12 +56,14 @@ program.action((commitid: string, opt: GitmBuildOption) => {
             cmd: `git revert ${commitid}${m}`,
             config: {
                 again: true,
-                success: '撤销成功',
-                fail: '出错了，请根据提示处理'
+                success: i18n.__('Successfully reverted'),
+                fail: i18n.__(
+                    'An error has occurred, please follow the instructions'
+                )
             }
         })
     } else {
-        sh.echo(yellow('指令不合法'))
+        sh.echo(yellow(i18n.__('Commands do not meet the specifications')))
         process.exit(1)
     }
     queue(cmd)
