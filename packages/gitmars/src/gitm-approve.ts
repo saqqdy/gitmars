@@ -14,8 +14,9 @@ const getGitConfig = require('@gitmars/core/lib/git/getGitConfig')
 const sendGroupMessage = require('@gitmars/core/lib/sendGroupMessage')
 const { createArgs } = require('@gitmars/core/lib/utils/command')
 const echo = require('@gitmars/core/lib/utils/echo')
+const i18n = require('./locales')
 if (!getIsGitProject()) {
-    echo(red('当前目录不是git项目目录'))
+    echo(red(i18n.__('The current directory is not a git project directory')))
     process.exit(1)
 }
 const { appName } = getGitConfig()
@@ -80,7 +81,13 @@ program.action(async (opt: GitmBuildOption): Promise<void> => {
             type: 'list',
             message: '请选择下面的操作?',
             name: 'accept',
-            choices: ['查看详情', '通过', '不通过', '不通过并删除', '退出'],
+            choices: [
+                i18n.__('View Details'),
+                i18n.__('Passed'),
+                i18n.__('Not passed'),
+                i18n.__('Failed and deleted'),
+                i18n.__('Exit')
+            ],
             when(answers) {
                 return answers.iids.length
             }
@@ -119,7 +126,11 @@ program.action(async (opt: GitmBuildOption): Promise<void> => {
     const { iids, accept } = await inquirer.prompt(prompt)
     // 没有选择任何记录
     if (iids.length === 0) {
-        echo(yellow('没有选择合并请求记录，进程已退出'))
+        echo(
+            yellow(
+                i18n.__('No merge request record selected, process has exited')
+            )
+        )
         process.exit(0)
     }
 
@@ -129,7 +140,7 @@ program.action(async (opt: GitmBuildOption): Promise<void> => {
             (item: any) => item.iid === iid
         )
         const CAN_BE_MERGED = merge_status === 'can_be_merged'
-        if (accept === '通过') {
+        if (accept === i18n.__('Passed')) {
             if (!CAN_BE_MERGED) {
                 echo(yellow('不能合并的请求不能点审核通过'))
                 process.exit(0)
@@ -140,7 +151,7 @@ program.action(async (opt: GitmBuildOption): Promise<void> => {
                     `${appName}项目${source_branch}合并到${target_branch}请求ID${iid}已合并`
                 )
             echo(green(`合并请求${iid}：已合并`))
-        } else if (accept === '查看详情') {
+        } else if (accept === i18n.__('View Details')) {
             const { changes, changes_count } = await getMergeRequestChanges({
                 token,
                 iid
@@ -170,14 +181,14 @@ program.action(async (opt: GitmBuildOption): Promise<void> => {
                         )
                 )
             }
-        } else if (accept === '不通过并删除') {
+        } else if (accept === i18n.__('Failed and deleted')) {
             await deleteMergeRequest({ token, iid })
             !opt.quiet &&
                 sendGroupMessage(
                     `${appName}项目${source_branch}合并到${target_branch}请求ID${iid}已删除`
                 )
             echo(green(`合并请求${iid}：已删除`))
-        } else if (accept === '不通过') {
+        } else if (accept === i18n.__('Not passed')) {
             // 删除
             await updateMergeRequest({
                 token,

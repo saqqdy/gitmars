@@ -32,68 +32,87 @@ program.version(
 program
     .name('gitm')
     .usage('[command] options')
-    .command('init', '初始化gitmars配置')
-    .command('config [options]', '查看/设置gitmars的配置项')
-    .command('combine', '分支阶段提测')
+    .command('init', i18n.__('gitm:Initialize gitmars configuration'))
+    .command(
+        'config [options]',
+        i18n.__('gitm:View/Set configuration items for gitmars')
+    )
+    .command('combine', i18n.__('gitm:Branch phase mention test'))
     .alias('cb')
-    .command('start <type> <name>', '创建bugfix分支、创建/合并release分支')
+    .command(
+        'start <type> <name>',
+        i18n.__('gitm:Create bugfix branches, create/merge release branches')
+    )
     .alias('st')
-    .command('end <type> <name>', '完成开发某项功能')
+    .command('end <type> <name>', i18n.__('gitm:Finish developing a feature'))
     .alias('ed')
-    .command('update <type> <name>', '更新bug任务分支、更新feature功能开发分支')
+    .command(
+        'update <type> <name>',
+        i18n.__('gitm:Update bugfix branch, update feature development branch')
+    )
     .alias('up')
-    .command('branch', '列出分支列表')
+    .command('branch', i18n.__('gitm:List branches'))
     .alias('bh')
-    .command('save', '暂存当前分支文件')
+    .command('save', i18n.__('gitm:Staging current branch files'))
     .alias('sv')
-    .command('get', '恢复暂存区最近一次暂存的文件')
+    .command(
+        'get',
+        i18n.__(
+            'gitm:Restore the most recently staged file in the staging area'
+        )
+    )
     .alias('gt')
-    .command('cleanbranch', '清理合并过的功能分支')
+    .command('cleanbranch', i18n.__('gitm:Clean up merged feature branches'))
     .alias('clb')
-    .command('copy <id>', '简化git的cherry-pick操作')
+    .command('copy <id>', i18n.__("gitm:Simplify git's cherry-pick operation"))
     .alias('cp')
-    .command('merge <name>', '合并代码')
+    .command('merge <name>', i18n.__('gitm:Merge code'))
     .alias('mg')
-    .command('continue', '继续未完成的操作')
+    .command('continue', i18n.__('gitm:Continue unfinished operations'))
     .alias('ct')
-    .command('revert', '撤销提交')
+    .command('revert', i18n.__('gitm:Undo commit'))
     .alias('rt')
-    .command('upgrade', '升级gitmars')
+    .command('upgrade', i18n.__('gitm:Upgrade gitmars'))
     .alias('ug')
-    .command('build', '构建Jenkins')
+    .command('build', i18n.__('gitm:buildJenkins'))
     .alias('bd')
-    .command('suggest', '操作建议')
+    .command('suggest', i18n.__('gitm:Action Tips'))
     .alias('sg')
-    .command('approve', '处理远程合并请求')
+    .command('approve', i18n.__('gitm:Handling remote merge requests'))
     .alias('ap')
-    .command('review', 'review远程代码')
+    .command('review', i18n.__('gitm:review remote code'))
     .alias('rv')
-    .command('status', '查看分支状态')
-    .command('ui', '启动网页版gitmars')
-    .command('unlink', '解除软链接')
-    .command('link', '软链接')
-    .command('clean', '清除缓存')
-    .command('postmsg', '推送消息')
-    .command('permission', '提交权限')
-    .command('hook', 'git钩子指令')
-    .command('undo', '撤回主干分支上的提交')
+    .command('status', i18n.__('gitm:view branch status'))
+    .command('ui', i18n.__('gitm:Launch web version of gitmars'))
+    .command('unlink', i18n.__('gitm:Unlink softlinks'))
+    .command('link', i18n.__('gitm:Create soft links'))
+    .command('clean', i18n.__('gitm:Clear cache'))
+    .command('postmsg', i18n.__('gitm:Push Message'))
+    .command('permission', i18n.__('gitm:Commit Permissions'))
+    .command('hook', i18n.__('gitm:git hook directive'))
+    .command('undo', i18n.__('gitm:Withdraw commits on master branches'))
     .alias('ud')
-    .command('redo', '恢复撤回的代码重新上线')
+    .command('redo', i18n.__('gitm:Resume withdrawn code back online'))
     .alias('rd')
-    .command('run', 'git钩子运行指令')
-    .command('log', '查询日志')
-    .command('go', '智能猜测你要执行的动作')
-    .command('alias', '安装和移除快捷方式')
-    .command('install', '安装插件')
+    .command('run', i18n.__('gitm:git hook run command'))
+    .command('log', i18n.__('gitm:Query log'))
+    .command(
+        'go',
+        i18n.__('gitm:Intelligent guessing of the action you want to perform')
+    )
+    .command('alias', i18n.__('gitm:Install and remove shortcuts'))
+    .command('install', i18n.__('gitm:Install plugins'))
     .alias('i')
     .command(
         'admin <command>',
-        '管理员功能，包含对发版分支bugfix、release的操作'
+        i18n.__(
+            'gitm:Administrator functions, including actions for bugfixing and releasing release branches'
+        )
     )
 
 // 自定义帮助
 program.on('--help', function () {
-    echo('使用案例:')
+    echo(i18n.__('gitm:Use Case'))
     echo('  $ gitm init')
     echo('  $ gitm --help')
     echo('  $ gitm -h')
@@ -167,7 +186,10 @@ program.on('command:*', function (types: string[], opts: string[]) {
         const arr = types.concat(opts)
         echo(
             green(
-                `Gitmars没有提供“gitm ${types[0]}”这个指令，已透传到git执行，下面是执行结果：`
+                i18n.__mf(
+                    'gitm:Gitmars does not provide the command "gitm {command}", it has been passed through to git for execution, here are the results',
+                    { command: types[0] }
+                )
             )
         )
         spawnSync('git', arr, { stdio: 'inherit' })

@@ -24,8 +24,11 @@ const {
 const { createArgs } = require('@gitmars/core/lib/utils/command')
 const echo = require('@gitmars/core/lib/utils/echo')
 const { options, args } = require('./conf/undo')
+const i18n = require('./locales')
 if (!getIsGitProject()) {
-    sh.echo(red('当前目录不是git项目目录'))
+    sh.echo(
+        red(i18n.__('The current directory is not a git project directory'))
+    )
     process.exit(1)
 }
 interface GitmBuildOption {
@@ -241,7 +244,9 @@ program.action(async (commitid: string[], opt: GitmBuildOption) => {
             config: {
                 again: false,
                 success: `撤销成功：${log['%s']}`,
-                fail: '出错了，请根据提示处理'
+                fail: i18n.__(
+                    'An error has occurred, please follow the instructions'
+                )
             }
         }
     })

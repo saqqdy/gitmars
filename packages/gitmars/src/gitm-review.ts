@@ -15,8 +15,9 @@ const getGitConfig = require('@gitmars/core/lib/git/getGitConfig')
 const sendGroupMessage = require('@gitmars/core/lib/sendGroupMessage')
 const { createArgs } = require('@gitmars/core/lib/utils/command')
 const echo = require('@gitmars/core/lib/utils/echo')
+const i18n = require('./locales')
 if (!getIsGitProject()) {
-    echo(red('当前目录不是git项目目录'))
+    echo(red(i18n.__('The current directory is not a git project directory')))
     process.exit(1)
 }
 const { appName } = getGitConfig()
@@ -44,7 +45,7 @@ interface GitmBuildOption {
 program
     .name('gitm review')
     .usage('[--state [state]] [--quiet]')
-    .description('review远程代码')
+    .description(i18n.__('gitm:review remote code'))
 if (args.length > 0) program.arguments(createArgs(args))
 options.forEach((o: GitmarsOptionOptionsType) => {
     program.option(o.flags, o.description, o.defaultValue)
@@ -73,7 +74,13 @@ program.action(async (opt: GitmBuildOption): Promise<void> => {
             type: 'list',
             message: '请选择下面的操作?',
             name: 'accept',
-            choices: ['查看详情', '评论', '关闭', '删除', '退出'],
+            choices: [
+                i18n.__('View Details'),
+                '评论',
+                '关闭',
+                '删除',
+                i18n.__('Exit')
+            ],
             when(answers) {
                 return answers.iids.length
             }
@@ -104,7 +111,11 @@ program.action(async (opt: GitmBuildOption): Promise<void> => {
     const { iids, accept } = await inquirer.prompt(prompt)
     // 没有选择任何记录
     if (iids.length === 0) {
-        echo(yellow('没有选择合并请求记录，进程已退出'))
+        echo(
+            yellow(
+                i18n.__('No merge request record selected, process has exited')
+            )
+        )
         process.exit(0)
     }
 
@@ -113,7 +124,7 @@ program.action(async (opt: GitmBuildOption): Promise<void> => {
         const { source_branch, target_branch } = mrList.find(
             (item: any) => item.iid === iid
         )
-        if (accept === '查看详情') {
+        if (accept === i18n.__('View Details')) {
             const { changes, changes_count } = await getMergeRequestChanges({
                 token,
                 iid

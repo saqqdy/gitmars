@@ -5,8 +5,11 @@ const sh = require('shelljs')
 const { red } = require('chalk')
 const { queue } = require('@gitmars/core/lib/queue')
 const getIsGitProject = require('@gitmars/core/lib/git/getIsGitProject')
+const i18n = require('./locales')
 if (!getIsGitProject()) {
-    sh.echo(red('当前目录不是git项目目录'))
+    sh.echo(
+        red(i18n.__('The current directory is not a git project directory'))
+    )
     process.exit(1)
 }
 /**
@@ -31,8 +34,8 @@ program
                 cmd: 'git push',
                 config: {
                     again: true,
-                    success: '推送成功',
-                    fail: '推送失败，请根据提示处理'
+                    success: i18n.__('Successful Pushed'),
+                    fail: i18n.__('Push failed, please follow the prompts')
                 }
             }
         ]

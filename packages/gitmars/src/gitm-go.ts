@@ -9,11 +9,17 @@ const getCurrentBranch = require('@gitmars/core/lib/git/getCurrentBranch')
 const { createArgs } = require('@gitmars/core/lib/utils/command')
 const commands = require('./go/index')
 const { options, args } = require('./conf/go')
+const i18n = require('./locales')
 
 /**
  * gitm go
  */
-program.name('gitm go').usage('[command]').description('智能猜测你要执行的动作')
+program
+    .name('gitm go')
+    .usage('[command]')
+    .description(
+        i18n.__('gitm:Intelligent guessing of the action you want to perform')
+    )
 if (args.length > 0) program.arguments(createArgs(args))
 options.forEach((o: GitmarsOptionOptionsType) => {
     program.option(o.flags, o.description, o.defaultValue)

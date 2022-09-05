@@ -1,4 +1,5 @@
 import type { GitmarsOptionType } from '../../typings'
+const i18n = require('../locales')
 ;(function (root) {
     const cmdConfig: GitmarsOptionType = {
         command: 'log',

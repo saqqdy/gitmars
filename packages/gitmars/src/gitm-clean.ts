@@ -13,6 +13,7 @@ const { cleanPkgInfo } = require('@gitmars/core/lib/utils/pkgInfo')
 const { cleanBuildConfig } = require('@gitmars/core/lib/build/buildConfig')
 const { options, args } = require('./conf/clean')
 const { gitDir } = getGitRevParse()
+const i18n = require('./locales')
 
 sh.config.silent = true
 interface GitmBuildOption {
@@ -57,7 +58,11 @@ program.action(async (opt: GitmBuildOption) => {
             ])
         }
     } else {
-        sh.echo(yellow('当前目录不是git项目目录'))
+        sh.echo(
+            yellow(
+                i18n.__('The current directory is not a git project directory')
+            )
+        )
     }
     // 移除 cache/buildConfig*.json cache/buildConfig.txt
     cleanBuildConfig()

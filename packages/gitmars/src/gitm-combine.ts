@@ -23,6 +23,7 @@ const {
 } = require('@gitmars/core/lib/versionControl')
 const { defaults } = require('@gitmars/core/lib/global')
 const mergeRequestModule = require.resolve('@gitmars/core/lib/api/mergeRequest')
+const i18n = require('./locales')
 
 interface GitmBuildOption {
     dev?: boolean
@@ -37,7 +38,9 @@ interface GitmBuildOption {
 }
 
 if (!getIsGitProject()) {
-    sh.echo(red('当前目录不是git项目目录'))
+    sh.echo(
+        red(i18n.__('The current directory is not a git project directory'))
+    )
     process.exit(1)
 }
 const getUserToken = require('@gitmars/core/lib/api/getUserToken')
@@ -124,7 +127,7 @@ program.action(
         } else if (!name) {
             // 传了type没传name
             if (allow.includes(type)) {
-                sh.echo('请输入分支名称')
+                sh.echo(i18n.__('Please enter branch name'))
                 process.exit(1)
             }
             const branches = searchBranches({ type })
@@ -186,8 +189,10 @@ program.action(
                                   cmd: 'git push',
                                   config: {
                                       again: true,
-                                      success: '推送成功',
-                                      fail: '推送失败，请根据提示处理'
+                                      success: i18n.__('Successful Pushed'),
+                                      fail: i18n.__(
+                                          'Push failed, please follow the prompts'
+                                      )
                                   }
                               },
                               `git checkout ${type}/${name}`
@@ -206,8 +211,10 @@ program.action(
                             }`,
                             config: {
                                 again: false,
-                                success: '调起构建成功',
-                                fail: '调起构建失败'
+                                success: i18n.__(
+                                    'Pulling up the build was successful'
+                                ),
+                                fail: i18n.__('Failed to pull up the build')
                             }
                         }
                     ])
@@ -259,8 +266,13 @@ program.action(
                                               cmd: 'git push',
                                               config: {
                                                   again: true,
-                                                  success: '推送成功',
-                                                  fail: '推送失败，请根据提示处理'
+                                                  success:
+                                                      i18n.__(
+                                                          'Successful Pushed'
+                                                      ),
+                                                  fail: i18n.__(
+                                                      'Push failed, please follow the prompts'
+                                                  )
                                               }
                                           },
                                           `git checkout ${type}/${name}`
@@ -273,7 +285,13 @@ program.action(
                             )
                         } else {
                             if (!isDescriptionCorrect) {
-                                sh.echo(red('提交的原因描述不符合规范'))
+                                sh.echo(
+                                    red(
+                                        i18n.__(
+                                            'The description of the reason for submission does not meet the specification'
+                                        )
+                                    )
+                                )
                                 process.exit(1)
                             }
                             cmd = cmd.concat([
@@ -281,8 +299,12 @@ program.action(
                                     cmd: `git push --set-upstream origin ${type}/${name}`,
                                     config: {
                                         again: true,
-                                        success: '推送远程并关联远程分支成功',
-                                        fail: '推送远程失败，请根据提示处理'
+                                        success: i18n.__(
+                                            'Push remote and associate remote branch successfully'
+                                        ),
+                                        fail: i18n.__(
+                                            'Push remote failed, please follow the prompts'
+                                        )
                                     }
                                 },
                                 {
@@ -298,8 +320,12 @@ program.action(
                                     },
                                     config: {
                                         again: true,
-                                        success: '成功创建合并请求',
-                                        fail: '创建合并请求出错了，请根据提示处理'
+                                        success: i18n.__(
+                                            'Successfully created merge request'
+                                        ),
+                                        fail: i18n.__(
+                                            'There was an error creating the merge request, please follow the instructions'
+                                        )
                                     }
                                 },
                                 `gitm postmsg "${nickname}在${appName}项目提交了${type}/${name}分支合并到${base}分支的merge请求"`
@@ -333,8 +359,13 @@ program.action(
                                               cmd: 'git push',
                                               config: {
                                                   again: true,
-                                                  success: '推送成功',
-                                                  fail: '推送失败，请根据提示处理'
+                                                  success:
+                                                      i18n.__(
+                                                          'Successful Pushed'
+                                                      ),
+                                                  fail: i18n.__(
+                                                      'Push failed, please follow the prompts'
+                                                  )
                                               }
                                           },
                                           `git checkout ${type}/${name}`
@@ -347,7 +378,13 @@ program.action(
                             )
                         } else {
                             if (!isDescriptionCorrect) {
-                                sh.echo(red('提交的原因描述不符合规范'))
+                                sh.echo(
+                                    red(
+                                        i18n.__(
+                                            'The description of the reason for submission does not meet the specification'
+                                        )
+                                    )
+                                )
                                 process.exit(1)
                             }
                             cmd = cmd.concat([
@@ -355,8 +392,12 @@ program.action(
                                     cmd: `git push --set-upstream origin ${type}/${name}`,
                                     config: {
                                         again: true,
-                                        success: '推送远程并关联远程分支成功',
-                                        fail: '推送远程失败，请根据提示处理'
+                                        success: i18n.__(
+                                            'Push remote and associate remote branch successfully'
+                                        ),
+                                        fail: i18n.__(
+                                            'Push remote failed, please follow the prompts'
+                                        )
                                     }
                                 },
                                 {
@@ -372,8 +413,12 @@ program.action(
                                     },
                                     config: {
                                         again: true,
-                                        success: '成功创建合并请求',
-                                        fail: '创建合并请求出错了，请根据提示处理'
+                                        success: i18n.__(
+                                            'Successfully created merge request'
+                                        ),
+                                        fail: i18n.__(
+                                            'There was an error creating the merge request, please follow the instructions'
+                                        )
                                     }
                                 },
                                 `gitm postmsg "${nickname}在${appName}项目提交了${type}/${name}分支合并到${config.release}分支的merge请求"`
@@ -407,8 +452,13 @@ program.action(
                                               cmd: 'git push',
                                               config: {
                                                   again: true,
-                                                  success: '推送成功',
-                                                  fail: '推送失败，请根据提示处理'
+                                                  success:
+                                                      i18n.__(
+                                                          'Successful Pushed'
+                                                      ),
+                                                  fail: i18n.__(
+                                                      'Push failed, please follow the prompts'
+                                                  )
                                               }
                                           },
                                           `git checkout ${type}/${name}`
@@ -421,7 +471,13 @@ program.action(
                             )
                         } else {
                             if (!isDescriptionCorrect) {
-                                sh.echo(red('提交的原因描述不符合规范'))
+                                sh.echo(
+                                    red(
+                                        i18n.__(
+                                            'The description of the reason for submission does not meet the specification'
+                                        )
+                                    )
+                                )
                                 process.exit(1)
                             }
                             cmd = cmd.concat([
@@ -429,8 +485,12 @@ program.action(
                                     cmd: `git push --set-upstream origin ${type}/${name}`,
                                     config: {
                                         again: true,
-                                        success: '推送远程并关联远程分支成功',
-                                        fail: '推送远程失败，请根据提示处理'
+                                        success: i18n.__(
+                                            'Push remote and associate remote branch successfully'
+                                        ),
+                                        fail: i18n.__(
+                                            'Push remote failed, please follow the prompts'
+                                        )
                                     }
                                 },
                                 {
@@ -446,8 +506,12 @@ program.action(
                                     },
                                     config: {
                                         again: true,
-                                        success: '成功创建合并请求',
-                                        fail: '创建合并请求出错了，请根据提示处理'
+                                        success: i18n.__(
+                                            'Successfully created merge request'
+                                        ),
+                                        fail: i18n.__(
+                                            'There was an error creating the merge request, please follow the instructions'
+                                        )
                                     }
                                 },
                                 `gitm postmsg "${nickname}在${appName}项目提交了${type}/${name}分支合并到${config.bugfix}分支的merge请求"`
@@ -464,8 +528,12 @@ program.action(
                                     }`,
                                     config: {
                                         again: false,
-                                        success: '调起构建成功',
-                                        fail: '调起构建失败'
+                                        success: i18n.__(
+                                            'Pulling up the build was successful'
+                                        ),
+                                        fail: i18n.__(
+                                            'Failed to pull up the build'
+                                        )
                                     }
                                 }
                             ])
@@ -479,8 +547,12 @@ program.action(
                                     }`,
                                     config: {
                                         again: false,
-                                        success: '调起构建成功',
-                                        fail: '调起构建失败'
+                                        success: i18n.__(
+                                            'Pulling up the build was successful'
+                                        ),
+                                        fail: i18n.__(
+                                            'Failed to pull up the build'
+                                        )
                                     }
                                 }
                             ])

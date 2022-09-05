@@ -13,8 +13,11 @@ const getCurrentBranch = require('@gitmars/core/lib/git/getCurrentBranch')
 const checkGitStatus = require('@gitmars/core/lib/git/checkGitStatus')
 const { createArgs } = require('@gitmars/core/lib/utils/command')
 const { options, args } = require('./conf/copy')
+const i18n = require('./locales')
 if (!getIsGitProject()) {
-    sh.echo(red('当前目录不是git项目目录'))
+    sh.echo(
+        red(i18n.__('The current directory is not a git project directory'))
+    )
     process.exit(1)
 }
 interface GitmBuildOption {

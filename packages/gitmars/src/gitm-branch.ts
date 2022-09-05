@@ -13,8 +13,11 @@ const getIsGitProject = require('@gitmars/core/lib/git/getIsGitProject')
 const getIsBranchOrCommitExist = require('@gitmars/core/lib/git/getIsBranchOrCommitExist')
 const { createArgs } = require('@gitmars/core/lib/utils/command')
 const { options, args } = require('./conf/branch')
+const i18n = require('./locales')
 if (!getIsGitProject()) {
-    sh.echo(red('当前目录不是git项目目录'))
+    sh.echo(
+        red(i18n.__('The current directory is not a git project directory'))
+    )
     process.exit(1)
 }
 interface GitmBuildOption {
@@ -62,8 +65,10 @@ program.action((opt: GitmBuildOption): void => {
             cmd: 'git remote prune origin',
             config: {
                 again: true,
-                success: '清理远程分支成功',
-                fail: '清理远程分支失败，请根据提示处理'
+                success: i18n.__('Cleanup of remote branch was successful'),
+                fail: i18n.__(
+                    'Failed to clean up remote branch, please follow the prompts'
+                )
             }
         })
     } else if (opt.forcedelete) {
@@ -74,8 +79,10 @@ program.action((opt: GitmBuildOption): void => {
             cmd: 'git remote prune origin',
             config: {
                 again: true,
-                success: '清理远程分支成功',
-                fail: '清理远程分支失败，请根据提示处理'
+                success: i18n.__('Cleanup of remote branch was successful'),
+                fail: i18n.__(
+                    'Failed to clean up remote branch, please follow the prompts'
+                )
             }
         })
     } else if (opt.upstream) {

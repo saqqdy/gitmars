@@ -9,8 +9,9 @@ const getGitStatus = require('@gitmars/core/lib/git/getGitStatus')
 const { createArgs } = require('@gitmars/core/lib/utils/command')
 const echo = require('@gitmars/core/lib/utils/echo')
 const { options, args } = require('./conf/status')
+const i18n = require('./locales')
 if (!getIsGitProject()) {
-    echo(red('当前目录不是git项目目录'))
+    echo(red(i18n.__('The current directory is not a git project directory')))
     process.exit(1)
 }
 /**

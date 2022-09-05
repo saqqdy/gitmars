@@ -8,6 +8,7 @@ const { spawnSync } = require('@gitmars/core/lib/spawn')
 const { createArgs } = require('@gitmars/core/lib/utils/command')
 const echo = require('@gitmars/core/lib/utils/echo')
 const { options, args } = require('./conf/ui')
+const i18n = require('./locales')
 
 interface GitmBuildOption {
     port?: number
