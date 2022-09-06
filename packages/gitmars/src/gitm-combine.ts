@@ -21,8 +21,10 @@ const {
     isNeedUpgrade,
     upgradeGitmars
 } = require('@gitmars/core/lib/versionControl')
-const { defaults } = require('@gitmars/core/lib/global')
 const mergeRequestModule = require.resolve('@gitmars/core/lib/api/mergeRequest')
+const getConfig = require('@gitmars/core/lib/getConfig')
+const getUserToken = require('@gitmars/core/lib/api/getUserToken')
+const { defaults } = require('./common/global')
 const i18n = require('./locales')
 
 interface GitmBuildOption {
@@ -43,8 +45,6 @@ if (!getIsGitProject()) {
     )
     process.exit(1)
 }
-const getUserToken = require('@gitmars/core/lib/api/getUserToken')
-const getConfig = require('@gitmars/core/lib/getConfig')
 const { options, args } = require('./conf/combine')
 const { appName } = getGitConfig()
 const config = getConfig()

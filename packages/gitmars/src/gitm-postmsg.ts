@@ -16,7 +16,7 @@ interface GitmBuildOption {
 program
     .name('gitm postmsg')
     .usage('<message> [-u --url [url]]')
-    .description('发送群消息')
+    .description(i18n.__('Send group message'))
 if (args.length > 0) program.arguments(createArgs(args))
 options.forEach((o: GitmarsOptionOptionsType) => {
     program.option(o.flags, o.description, o.defaultValue)

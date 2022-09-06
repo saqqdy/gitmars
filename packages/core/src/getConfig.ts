@@ -2,9 +2,27 @@ import { statSync } from 'fs'
 import { cosmiconfigSync } from 'cosmiconfig'
 import type { GitmarsConfigType } from '../typings'
 import getGitRevParse from './git/getGitRevParse'
-import { defaults } from './global'
 import { debug } from './utils/debug'
 import echo from './utils/echo'
+
+const defaults = {
+    master: 'master',
+    develop: 'dev',
+    release: 'release',
+    bugfix: 'bug',
+    support: 'support',
+    user: '',
+    email: '',
+    nameValidator: '',
+    descriptionValidator: '',
+    msgTemplate: '${message}；项目：${project}；路径：${pwd}',
+    msgUrl: '',
+    apolloConfig: '',
+    hooks: '',
+    api: '',
+    gitHost: '',
+    gitID: ''
+}
 
 /**
  * 读取配置

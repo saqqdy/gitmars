@@ -21,6 +21,8 @@ const {
     isNeedUpgrade,
     upgradeGitmars
 } = require('@gitmars/core/lib/versionControl')
+const getConfig = require('@gitmars/core/lib/getConfig')
+const getUserToken = require('@gitmars/core/lib/api/getUserToken')
 const i18n = require('./locales')
 if (!getIsGitProject()) {
     sh.echo(
@@ -28,9 +30,7 @@ if (!getIsGitProject()) {
     )
     process.exit(1)
 }
-const getConfig = require('@gitmars/core/lib/getConfig')
-const getUserToken = require('@gitmars/core/lib/api/getUserToken')
-const { defaults } = require('@gitmars/core/lib/global')
+const { defaults } = require('./common/global')
 const { options, args } = require('./conf/end')
 const config = getConfig()
 const { appName } = getGitConfig()

@@ -18,12 +18,12 @@ const { createArgs } = require('@gitmars/core/lib/utils/command')
 const delay = require('@gitmars/core/lib/utils/delay')
 const echo = require('@gitmars/core/lib/utils/echo')
 const { spawnSync } = require('@gitmars/core/lib/spawn')
+const getConfig = require('@gitmars/core/lib/getConfig')
 const i18n = require('./locales')
 if (!getIsGitProject()) {
     echo(red(i18n.__('The current directory is not a git project directory')))
     process.exit(1)
 }
-const getConfig = require('@gitmars/core/lib/getConfig')
 const { options, args } = require('./conf/cleanbranch')
 const config = getConfig()
 interface GitmBuildOption {

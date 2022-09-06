@@ -5,7 +5,8 @@ const { green, red } = require('chalk')
 const getIsGitProject = require('@gitmars/core/lib/git/getIsGitProject')
 const getGitRevParse = require('@gitmars/core/lib/git/getGitRevParse')
 const { writeFile } = require('@gitmars/core/lib/utils/file')
-const { defaults } = require('@gitmars/core/lib/global')
+const getConfig = require('@gitmars/core/lib/getConfig')
+const { defaults } = require('./common/global')
 const i18n = require('./locales')
 if (!getIsGitProject()) {
     sh.echo(
@@ -13,7 +14,6 @@ if (!getIsGitProject()) {
     )
     process.exit(1)
 }
-const getConfig = require('@gitmars/core/lib/getConfig')
 const config = getConfig()
 
 /**

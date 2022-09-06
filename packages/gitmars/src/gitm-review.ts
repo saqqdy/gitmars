@@ -15,14 +15,7 @@ const getGitConfig = require('@gitmars/core/lib/git/getGitConfig')
 const sendGroupMessage = require('@gitmars/core/lib/sendGroupMessage')
 const { createArgs } = require('@gitmars/core/lib/utils/command')
 const echo = require('@gitmars/core/lib/utils/echo')
-const i18n = require('./locales')
-if (!getIsGitProject()) {
-    echo(red(i18n.__('The current directory is not a git project directory')))
-    process.exit(1)
-}
-const { appName } = getGitConfig()
 const getConfig = require('@gitmars/core/lib/getConfig')
-const config = getConfig()
 const {
     getMergeRequestList,
     getMergeRequestChanges,
@@ -33,6 +26,13 @@ const {
     getMergeRequestNotesList,
     createMergeRequestNotes
 } = require('@gitmars/core/lib/api/mergeRequestNotes')
+const i18n = require('./locales')
+if (!getIsGitProject()) {
+    echo(red(i18n.__('The current directory is not a git project directory')))
+    process.exit(1)
+}
+const { appName } = getGitConfig()
+const config = getConfig()
 const { options, args } = require('./conf/review')
 interface GitmBuildOption {
     state?: string

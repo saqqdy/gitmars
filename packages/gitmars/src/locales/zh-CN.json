@@ -236,5 +236,6 @@
     "Install plugins": "安装插件",
     "Administrator functions, including actions for bugfixing and releasing release branches": "管理员功能，包含对发版分支bugfix、release的操作",
     "Use Case": "使用案例",
-    "Gitmars does not provide the command \"gitm {command}\", it has been passed through to git for execution, here are the results": "Gitmars没有提供“gitm {command}”这个指令，已透传到git执行，下面是执行结果："
+    "Gitmars does not provide the command \"gitm {command}\", it has been passed through to git for execution, here are the results": "Gitmars没有提供“gitm {command}”这个指令，已透传到git执行，下面是执行结果：",
+    "Send group message": "发送群消息"
 }
