@@ -9,7 +9,7 @@ const i18n = require('../locales')
                 required: false,
                 name: 'type',
                 variadic: false,
-                description: '分支类型',
+                description: i18n.__('Branch Type'),
                 options: ['feature', 'bugfix', 'support'],
                 value: ''
             },
@@ -17,7 +17,9 @@ const i18n = require('../locales')
                 required: false,
                 name: 'name',
                 variadic: false,
-                description: '分支名称(不带feature/bugfix前缀)'
+                description: i18n.__(
+                    'Branch name (without feature/bugfix prefix)'
+                )
             }
         ],
         options: [
@@ -30,7 +32,7 @@ const i18n = require('../locales')
                 short: '-d',
                 long: '--dev',
                 negate: false,
-                description: '同步到dev环境',
+                description: i18n.__('Sync to dev environment'),
                 defaultValue: false,
                 value: true,
                 recommend: true // 自定义值：是否默认选中
@@ -44,7 +46,7 @@ const i18n = require('../locales')
                 short: '-p',
                 long: '--prod',
                 negate: false,
-                description: '同步到prod环境',
+                description: i18n.__('Sync to prod environment'),
                 defaultValue: false,
                 value: false,
                 recommend: false
@@ -58,7 +60,7 @@ const i18n = require('../locales')
                 short: '-b',
                 long: '--build',
                 negate: false,
-                description: '构建应用',
+                description: i18n.__('Build application'),
                 value: 'all',
                 recommend: true
             },
@@ -71,7 +73,7 @@ const i18n = require('../locales')
                 short: '-m',
                 long: '--commit',
                 negate: false,
-                description: '执行commit，需填写信息',
+                description: i18n.__('Execute commit, information required'),
                 defaultValue: '',
                 recommend: false
             },
@@ -83,7 +85,9 @@ const i18n = require('../locales')
                 mandatory: false,
                 long: '--description',
                 negate: false,
-                description: '本次提交的原因描述',
+                description: i18n.__(
+                    'Description of the reason for this commit'
+                ),
                 defaultValue: '',
                 recommend: false
             },
@@ -96,7 +100,7 @@ const i18n = require('../locales')
                 short: '-a',
                 long: '--add',
                 negate: false,
-                description: '执行add',
+                description: i18n.__('Execute add'),
                 defaultValue: false,
                 recommend: false
             },
@@ -108,7 +112,9 @@ const i18n = require('../locales')
                 mandatory: false,
                 long: '--no-bugfix',
                 negate: true,
-                description: 'bug分支合并到release时不合并到bug分支',
+                description: i18n.__(
+                    'bug branch merge to release without merging to bug branch'
+                ),
                 defaultValue: true,
                 recommend: false
             },
@@ -120,7 +126,7 @@ const i18n = require('../locales')
                 mandatory: false,
                 long: '--as-feature',
                 negate: false,
-                description: 'bug分支合并到release',
+                description: i18n.__('bug branch merge to release'),
                 recommend: false
             },
             {
@@ -132,26 +138,36 @@ const i18n = require('../locales')
                 short: '-f',
                 long: '--force',
                 negate: false,
-                description: '是否强制发起合并请求',
+                description: i18n.__('Whether to force a merge request'),
                 recommend: false
             }
         ],
         // 校验传值
         validatorOpts: (val, opts, cb) => {
             if (!val.includes('--dev') && !val.includes('--prod')) {
-                cb(new Error('合并dev或者prod必须至少选一个'))
+                cb(
+                    new Error(
+                        i18n.__('Merge dev or prod must choose at least one')
+                    )
+                )
                 return
             }
             if (
                 (val.includes('--add') && !val.includes('--commit')) ||
                 (!val.includes('--add') && val.includes('--commit'))
             ) {
-                cb(new Error('add和commit需要同时选择'))
+                cb(
+                    new Error(
+                        i18n.__(
+                            'add and commit need to be selected at the same time'
+                        )
+                    )
+                )
                 return
             }
             cb()
         },
-        // 校验参数
+        // validator args
         validatorArgs: (val, opts, cb) => {
             cb()
         },
@@ -159,7 +175,7 @@ const i18n = require('../locales')
         transformOpts: (val, opts, cb) => {
             cb()
         },
-        // 清洗参数
+        // transform args
         transformArgs: (val, opts, cb) => {
             cb()
         }

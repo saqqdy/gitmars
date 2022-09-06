@@ -14,7 +14,7 @@ type GitmBuildOption = Record<string, string>
 program
     .name('gitm run')
     .usage('[command] [args...]')
-    .description(i18n.__('gitm:git hook run command'))
+    .description(i18n.__('git hook run command'))
 if (args.length > 0) program.arguments(createArgs(args))
 options.forEach((o: GitmarsOptionOptionsType) => {
     program.option(o.flags, o.description, o.defaultValue)

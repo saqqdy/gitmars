@@ -67,19 +67,19 @@ program
     .usage(
         '[branches...] [-l --list [list]] [-k --key [keyword]] [--exclude [exclude]] [--include [include]] [-t --type [type]] [--target [target]] [-r --remote]'
     )
-    .description(i18n.__('gitm:Clean up merged feature branches'))
+    .description(i18n.__('Clean up merged feature branches'))
 if (args.length > 0) program.arguments(createArgs(args))
 options.forEach((o: GitmarsOptionOptionsType) => {
     program.option(o.flags, o.description, o.defaultValue)
 })
-// .option('-l, --list', '显示符合条件的分支列表', false)
-// .option('-t, --type [type]', '分支的类型，共有3种：feature、bugfix、support，不传则默认全部', null)
-// .option('--target [target]', '需要检测是否合过的目标分支名，不传默认是develop和release', null)
-// .option('-k, --key [keyword]', '查询分支的关键词', null)
-// .option('--exclude [exclude]', '排除关键词', '')
-// .option('--include [include]', '包含关键词', '')
-// .option('-r, --remote', '是否清理远程分支，默认清理本地分支', false)
-// .option('-c, --confirm', '确认开始，为true时不显示确认框', false)
+// .option('-l, --list', i18n.__('Show a list of branches that match the criteria'), false)
+// .option('-t, --type [type]', i18n.__('The type of branch, there are 3 types: feature, bugfix, support, default all if not passed'), null)
+// .option('--target [target]', i18n.__('The name of the target branch that needs to be tested for merging, default is develop and release if not passed'), null)
+// .option('-k, --key [keyword]', i18n.__('Query branch for keywords'), null)
+// .option('--exclude [exclude]', i18n.__('Exclude keywords'), '')
+// .option('--include [include]', i18n.__('Include keywords'), '')
+// .option('-r, --remote', i18n.__('Whether to clean up remote branches, default is clean up local branches'), false)
+// .option('-c, --confirm', i18n.__('Confirm start, do not show confirmation box when true'), false)
 // .option('--deadline [deadline]', '删除固定时长之前的分支，填写格式：10s/2m/2h/3d/4M/5y', '15d') -----------------------
 program.action(async (branches: string[], opt: GitmBuildOption) => {
     const spinner = ora()
@@ -131,7 +131,9 @@ program.action(async (branches: string[], opt: GitmBuildOption) => {
                 .prompt({
                     type: 'confirm',
                     name: 'value',
-                    message: '即将开始批量删除分支，是否继续？',
+                    message: i18n.__(
+                        'About to start batch deleting branches, do you want to continue?'
+                    ),
                     default: false
                 })
                 .then((answers: any) => {
@@ -142,7 +144,7 @@ program.action(async (branches: string[], opt: GitmBuildOption) => {
                 })
         }
     } else {
-        echo(green('没有查询到任何分支'))
+        echo(green(i18n.__('No branches were queried.')))
         process.exit(0)
     }
     for (const branch of branches) {
@@ -200,7 +202,13 @@ program.action(async (branches: string[], opt: GitmBuildOption) => {
             })
             inquirer.prompt(prompt).then(({ selectBranches }: any) => {
                 if (selectBranches.length === 0) {
-                    echo(yellow('没有选择任何分支，进程已退出'))
+                    echo(
+                        yellow(
+                            i18n.__(
+                                'No branches were selected and the process has exited.'
+                            )
+                        )
+                    )
                     process.exit(0)
                 }
                 selectBranches.forEach(async (branch: string) => {
@@ -209,11 +217,17 @@ program.action(async (branches: string[], opt: GitmBuildOption) => {
                 })
             })
         } else {
-            echo(green('分析完成，没有分支需要清理'))
+            echo(green(i18n.__('Analysis complete, no branches to clean up')))
         }
     } else {
         echo(
-            green('删除完成，这些分支已被清理：' + _willDeleteBranch.join(' '))
+            green(
+                i18n.__(
+                    'Deletion complete, these branches have been cleaned up'
+                ) +
+                    '：' +
+                    _willDeleteBranch.join(' ')
+            )
         )
     }
 })

@@ -9,7 +9,7 @@ const i18n = require('../locales')
                 required: true,
                 name: 'pluginName',
                 variadic: false,
-                description: '插件名称'
+                description: i18n.__('Plugin Name')
             },
             {
                 required: false,
@@ -17,13 +17,13 @@ const i18n = require('../locales')
                 variadic: false,
                 validator: (val, opts, cb) => {
                     if (/\s+/.test(val)) {
-                        cb(new Error('请不要输入空格'))
+                        cb(new Error(i18n.__('Please do not enter spaces')))
                         return
                     }
                     cb()
                 },
                 // transformer: null,
-                description: '版本号'
+                description: i18n.__('Version number')
             }
         ],
         options: [
@@ -36,7 +36,7 @@ const i18n = require('../locales')
                 short: '-m',
                 long: '--mirror',
                 negate: false,
-                description: '是否使用淘宝镜像',
+                description: i18n.__('Whether to use Taobao Mirror'),
                 defaultValue: false
             },
             {
@@ -48,7 +48,9 @@ const i18n = require('../locales')
                 short: '-c',
                 long: '--client',
                 negate: false,
-                description: '用于装包的客户端名称',
+                description: i18n.__(
+                    'The name of the client used to load the package'
+                ),
                 defaultValue: 'npm',
                 recommend: true,
                 value: 'npm'
@@ -62,7 +64,7 @@ const i18n = require('../locales')
                 short: '-r',
                 long: '--registry',
                 negate: false,
-                description: '使用镜像地址',
+                description: i18n.__('Use mirror address'),
                 defaultValue: '',
                 recommend: true,
                 value: 'https://registry.npmmirror.com'
@@ -72,7 +74,7 @@ const i18n = require('../locales')
         validatorOpts: (val, opts, cb) => {
             cb()
         },
-        // 校验参数
+        // validator args
         validatorArgs: (val, opts, cb) => {
             cb()
         },
@@ -80,7 +82,7 @@ const i18n = require('../locales')
         transformOpts: (val, opts, cb) => {
             cb()
         },
-        // 清洗参数
+        // transform args
         transformArgs: (val, opts, cb) => {
             cb()
         }

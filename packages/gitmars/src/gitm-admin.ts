@@ -124,13 +124,13 @@ publish.options.forEach((o: GitmarsOptionOptionsType) => {
     publishProgram.option(o.flags, o.description, o.defaultValue)
 })
 // .command('publish <type>')
-// .option('-c, --combine', '是否把release代码同步到bug', false)
-// .option('--use-rebase', '是否使用rebase方式更新，默认merge', false)
-// .option('-p, --prod', '发布bug分支时，是否合并bug到master', false)
+// .option('-c, --combine', i18n.__('Whether to sync the release code to the bug'), false)
+// .option('--use-rebase', i18n.__('Whether to update using rebase method, default merge'), false)
+// .option('-p, --prod', i18n.__('Whether to merge bugs to master when publishing bug branches'), false)
 // .option('-b, --build [build]', '需要构建的应用')
-// .option('--postmsg', '发送消息', false)
-// .option('--description [description]', '本次提交的原因描述', '')
-// .option('-f, --force', '是否强制发起合并请求', false)
+// .option('--postmsg', i18n.__('Send Message'), false)
+// .option('--description [description]', i18n.__('Description of the reason for this commit'), '')
+// .option('-f, --force', i18n.__('Whether to force a merge request'), false)
 publishProgram.action(
     async (
         type: PublishOptsType,
@@ -722,11 +722,11 @@ update.options.forEach((o: GitmarsOptionOptionsType) => {
     updateProgram.option(o.flags, o.description, o.defaultValue)
 })
 // .command('update <type>')
-// .option('--use-rebase', '是否使用rebase方式更新，默认merge', false)
-// .option('-m, --mode [mode]', '出现冲突时，保留传入代码还是保留当前代码；1=采用当前 2=采用传入；默认为 0=手动处理。本参数不可与--use-rebase同时使用', 0)
-// .option('--postmsg', '发送消息', false)
-// .option('--description [description]', '本次提交的原因描述', '')
-// .option('-f, --force', '是否强制发起合并请求', false)
+// .option('--use-rebase', i18n.__('Whether to update using rebase method, default merge'), false)
+// .option('-m, --mode [mode]', i18n.__('In case of a conflict, whether to keep the incoming code or the current code; 1=use current 2=use incoming; default is 0=handle manually. This parameter must not be used with --use-rebase'), 0)
+// .option('--postmsg', i18n.__('Send Message'), false)
+// .option('--description [description]', i18n.__('Description of the reason for this commit'), '')
+// .option('-f, --force', i18n.__('Whether to force a merge request'), false)
 updateProgram.action(
     async (type: string, opt: GitmBuildOption['update']): Promise<void> => {
         const {

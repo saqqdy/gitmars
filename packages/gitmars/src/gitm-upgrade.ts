@@ -22,14 +22,14 @@ program
     .usage(
         '[version] [-m --mirror] [-c --client [client]] [-r --registry <registry>]'
     )
-    .description(i18n.__('gitm:Upgrade gitmars'))
+    .description(i18n.__('Upgrade gitmars'))
 if (args.length > 0) program.arguments(createArgs(args))
 options.forEach((o: GitmarsOptionOptionsType) => {
     program.option(o.flags, o.description, o.defaultValue)
 })
-// .option('-m, --mirror', '是否使用淘宝镜像', false)
-// .option('-c, --client [client]', '用于装包的客户端名称', 'npm')
-// .option('-r, --registry <registry]>', '使用镜像地址', '')
+// .option('-m, --mirror', i18n.__('Whether to use Taobao Mirror'), false)
+// .option('-c, --client [client]', i18n.__('The name of the client used to load the package'), 'npm')
+// .option('-r, --registry <registry]>', i18n.__('Use mirror address'), '')
 program.action(
     async (version: PackageVersionTag | string, opt: GitmBuildOption) => {
         const spinner = ora()
@@ -47,7 +47,9 @@ program.action(
                 ].includes(version)
             ) {
                 console.error(
-                    '输入的版本号不正确，仅支持：alpha、lite、beta、release、latest、next'
+                    i18n.__(
+                        'Incorrect version number entered, only supported: alpha, lite, beta, release, latest, next'
+                    )
                 )
                 process.exit(0)
             }
@@ -84,7 +86,11 @@ program.action(
         })
         if (uninstall.status !== 0) {
             spinner.fail(
-                red(i18n.__('There was an error uninstalling, please try running after manually removing: npm install -g gitmars'))
+                red(
+                    i18n.__(
+                        'There was an error uninstalling, please try running after manually removing: npm install -g gitmars'
+                    )
+                )
             )
             process.exit(0)
         }
@@ -102,7 +108,13 @@ program.action(
                     process.platform === 'win32' /*, env: { detached: true } */
             })
         } else {
-            spinner.fail(red(i18n.__('There was an error installing, please try running: npm install -g gitmars')))
+            spinner.fail(
+                red(
+                    i18n.__(
+                        'There was an error installing, please try running: npm install -g gitmars'
+                    )
+                )
+            )
         }
         spinner.stop()
         process.exit(0)

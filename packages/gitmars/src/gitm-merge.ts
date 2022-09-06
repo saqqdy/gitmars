@@ -19,7 +19,7 @@ program
     .name('gitm merge')
     .usage('<name>')
     .arguments('<name>')
-    .description('合并分支代码')
+    .description(i18n.__('Merge branch code'))
     .action((name: string) => {
         const cmd: Array<CommandType | string> = [
             {

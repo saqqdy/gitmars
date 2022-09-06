@@ -11,13 +11,13 @@ const i18n = require('../locales')
                 variadic: false,
                 validator: (val, opts, cb) => {
                     if (/\s+/.test(val)) {
-                        cb(new Error('请不要输入空格'))
+                        cb(new Error(i18n.__('Please do not enter spaces')))
                         return
                     }
                     cb()
                 },
                 // transformer: null,
-                description: '包的名称'
+                description: i18n.__('Name of the package')
             }
             // {
             //     required: true,
@@ -25,7 +25,7 @@ const i18n = require('../locales')
             //     variadic: false,
             //     validator: (val, opts, cb) => {
             //         if (/\s+/.test(val)) {
-            //             cb(new Error('请不要输入空格'))
+            //             cb(new Error(i18n.__('Please do not enter spaces')))
             //             return
             //         }
             //         cb()

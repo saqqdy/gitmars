@@ -18,7 +18,7 @@ program
     .name('gitm go')
     .usage('[command]')
     .description(
-        i18n.__('gitm:Intelligent guessing of the action you want to perform')
+        i18n.__('Intelligent guessing of the action you want to perform')
     )
 if (args.length > 0) program.arguments(createArgs(args))
 options.forEach((o: GitmarsOptionOptionsType) => {
@@ -31,7 +31,13 @@ program.action(async (command: string): Promise<void> => {
         // 执行对应指令
         const cmd = getProperty(commands, command)
         if (!cmd) {
-            sh.echo(red('您输入的指令没有找到，可能暂不支持'))
+            sh.echo(
+                red(
+                    i18n.__(
+                        'The command you entered was not found and may not be supported at this time'
+                    )
+                )
+            )
             process.exit(1)
         }
         cmd()
@@ -41,10 +47,12 @@ program.action(async (command: string): Promise<void> => {
             .prompt({
                 type: 'list',
                 name: 'command',
-                message: '请选择你想要的操作?',
+                message: i18n.__('Please select the operation you want?'),
                 default: 'combine',
                 choices: [
-                    new inquirer.Separator(' === 1. Gitmars工作流 === '),
+                    new inquirer.Separator(
+                        ' === 1. ' + i18n.__('Gitmars Workflow') + ' === '
+                    ),
                     'combine',
                     'end',
                     'update',
@@ -56,7 +64,9 @@ program.action(async (command: string): Promise<void> => {
                     'admin.update',
                     'admin.create',
                     'admin.clean',
-                    new inquirer.Separator(' === 2. 高级工具 === '),
+                    new inquirer.Separator(
+                        ' === 2. ' + i18n.__('Advanced Tools') + ' === '
+                    ),
                     'branch',
                     'copy',
                     'get',
@@ -67,7 +77,7 @@ program.action(async (command: string): Promise<void> => {
                     'link',
                     'unlink',
                     'postmsg',
-                    new inquirer.Separator(' === 退出 === '),
+                    new inquirer.Separator(' === ' + i18n.__('Exit') + ' === '),
                     'exit',
                     new inquirer.Separator()
                 ],

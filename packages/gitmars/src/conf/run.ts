@@ -14,7 +14,7 @@ const i18n = require('../locales')
                 required: false,
                 name: 'args',
                 variadic: true,
-                description: '参数列表'
+                description: i18n.__('Parameter list')
             }
         ],
         options: []

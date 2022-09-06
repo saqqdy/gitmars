@@ -9,7 +9,7 @@ const i18n = require('../locales')
                 required: false,
                 name: 'type',
                 variadic: false,
-                description: '分支类型',
+                description: i18n.__('Branch Type'),
                 options: ['feature', 'bugfix', 'support'],
                 value: ''
             },
@@ -17,7 +17,9 @@ const i18n = require('../locales')
                 required: false,
                 name: 'name',
                 variadic: false,
-                description: '分支名称(不带feature/bugfix前缀)'
+                description: i18n.__(
+                    'Branch name (without feature/bugfix prefix)'
+                )
             }
         ],
         options: [
@@ -29,7 +31,9 @@ const i18n = require('../locales')
                 mandatory: false,
                 long: '--no-combine',
                 negate: true,
-                description: '不合并主干分支（请确保分支已经上线）',
+                description: i18n.__(
+                    'Do not merge trunk branches (make sure the branch is live)'
+                ),
                 defaultValue: true,
                 recommend: false
             },
@@ -41,7 +45,7 @@ const i18n = require('../locales')
                 mandatory: false,
                 long: '--as-feature',
                 negate: false,
-                description: 'bug分支合并到release',
+                description: i18n.__('bug branch merge to release'),
                 recommend: false
             },
             {
@@ -52,7 +56,9 @@ const i18n = require('../locales')
                 mandatory: false,
                 long: '--description',
                 negate: false,
-                description: '本次提交的原因描述',
+                description: i18n.__(
+                    'Description of the reason for this commit'
+                ),
                 defaultValue: '',
                 recommend: false
             }
@@ -61,7 +67,7 @@ const i18n = require('../locales')
         validatorOpts: (val, opts, cb) => {
             cb()
         },
-        // 校验参数
+        // validator args
         validatorArgs: (val, opts, cb) => {
             cb()
         },
@@ -69,7 +75,7 @@ const i18n = require('../locales')
         transformOpts: (val, opts, cb) => {
             cb()
         },
-        // 清洗参数
+        // transform args
         transformArgs: (val, opts, cb) => {
             cb()
         }

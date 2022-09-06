@@ -9,7 +9,7 @@ const i18n = require('../locales')
                 required: true,
                 name: 'project',
                 variadic: false,
-                description: '项目名称'
+                description: i18n.__('Project name')
             }
         ],
         options: [
@@ -22,7 +22,9 @@ const i18n = require('../locales')
                 short: '-e',
                 long: '--env',
                 negate: false,
-                description: '构建环境，可选dev、prod、bug、all',
+                description: i18n.__(
+                    'Build environment, optionally dev, prod, bug, all'
+                ),
                 defaultValue: 'dev',
                 recommend: true,
                 options: ['dev', 'prod', 'bug', 'all'],
@@ -37,7 +39,7 @@ const i18n = require('../locales')
                 short: '-a',
                 long: '--app',
                 negate: false,
-                description: '构建应用',
+                description: i18n.__('Build application'),
                 defaultValue: 'all',
                 recommend: true,
                 value: 'all'

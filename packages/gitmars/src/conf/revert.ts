@@ -13,7 +13,7 @@ const i18n = require('../locales')
                     cb()
                 },
                 // transformer: null,
-                description: '需要撤销的ID'
+                description: i18n.__('ID of the undo needed')
             }
         ],
         options: [
@@ -26,7 +26,9 @@ const i18n = require('../locales')
                 short: '-n',
                 long: '--number',
                 negate: false,
-                description: '撤销最后一次提交（或者撤销倒数第n次提交）',
+                description: i18n.__(
+                    'Undo the last commit (or undo the penultimate nth commit)'
+                ),
                 defaultValue: ''
             },
             {
@@ -38,8 +40,9 @@ const i18n = require('../locales')
                 short: '-m',
                 long: '--mode',
                 negate: false,
-                description:
-                    '针对撤销一次merge记录，需要传入类型：1 = 保留当前分支代码，2 = 保留传入代码',
+                description: i18n.__(
+                    'For undoing a merge record, the type to be passed in: 1 = keep current branch code, 2 = keep incoming code'
+                ),
                 defaultValue: '',
                 options: ['1', '2'],
                 value: '1'
@@ -49,7 +52,7 @@ const i18n = require('../locales')
         validatorOpts: (val, opts, cb) => {
             cb()
         },
-        // 校验参数
+        // validator args
         validatorArgs: (val, opts, cb) => {
             cb()
         },
@@ -57,7 +60,7 @@ const i18n = require('../locales')
         transformOpts: (val, opts, cb) => {
             cb()
         },
-        // 清洗参数
+        // transform args
         transformArgs: (val, opts, cb) => {
             cb()
         }

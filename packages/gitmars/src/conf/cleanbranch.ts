@@ -12,7 +12,7 @@ const i18n = require('../locales')
                 validator: (val, opts, cb) => {
                     cb()
                 },
-                description: '指定要清理的分支'
+                description: i18n.__('Specify the branch to clean up')
             }
         ],
         options: [
@@ -25,7 +25,9 @@ const i18n = require('../locales')
                 short: '-l',
                 long: '--list',
                 negate: false,
-                description: '显示符合条件的分支列表',
+                description: i18n.__(
+                    'Show a list of branches that match the criteria'
+                ),
                 defaultValue: false,
                 value: true
             },
@@ -38,8 +40,9 @@ const i18n = require('../locales')
                 short: '-t',
                 long: '--type',
                 negate: false,
-                description:
-                    '分支的类型，共有3种：feature、bugfix、support，不传则默认全部',
+                description: i18n.__(
+                    'The type of branch, there are 3 types: feature, bugfix, support, default all if not passed'
+                ),
                 defaultValue: null,
                 options: ['feature', 'bugfix', 'support'],
                 value: ''
@@ -53,8 +56,9 @@ const i18n = require('../locales')
                 short: '',
                 long: '--target',
                 negate: false,
-                description:
-                    '需要检测是否合过的目标分支名，不传默认是develop和release',
+                description: i18n.__(
+                    'The name of the target branch that needs to be tested for merging, default is develop and release if not passed'
+                ),
                 defaultValue: null,
                 value: 'dev,release'
             },
@@ -67,7 +71,7 @@ const i18n = require('../locales')
                 short: '-k',
                 long: '--key',
                 negate: false,
-                description: '查询分支的关键词',
+                description: i18n.__('Query branch for keywords'),
                 defaultValue: null
             },
             {
@@ -79,7 +83,7 @@ const i18n = require('../locales')
                 short: '',
                 long: '--exclude',
                 negate: false,
-                description: '排除关键词',
+                description: i18n.__('Exclude keywords'),
                 defaultValue: '',
                 value: ''
             },
@@ -92,7 +96,7 @@ const i18n = require('../locales')
                 short: '',
                 long: '--include',
                 negate: false,
-                description: '包含关键词',
+                description: i18n.__('Include keywords'),
                 defaultValue: '',
                 value: ''
             },
@@ -118,7 +122,9 @@ const i18n = require('../locales')
                 short: '-r',
                 long: '--remote',
                 negate: false,
-                description: '是否清理远程分支，默认清理本地分支',
+                description: i18n.__(
+                    'Whether to clean up remote branches, default is clean up local branches'
+                ),
                 defaultValue: false
             },
             {
@@ -130,7 +136,9 @@ const i18n = require('../locales')
                 short: '-c',
                 long: '--confirm',
                 negate: false,
-                description: '确认开始，为true时不显示确认框',
+                description: i18n.__(
+                    'Confirm start, do not show confirmation box when true'
+                ),
                 defaultValue: false
             }
         ],
@@ -138,7 +146,7 @@ const i18n = require('../locales')
         validatorOpts: (val, opts, cb) => {
             cb()
         },
-        // 校验参数
+        // validator args
         validatorArgs: (val, opts, cb) => {
             cb()
         },
@@ -146,7 +154,7 @@ const i18n = require('../locales')
         transformOpts: (val, opts, cb) => {
             cb()
         },
-        // 清洗参数
+        // transform args
         transformArgs: (val, opts, cb) => {
             cb()
         }

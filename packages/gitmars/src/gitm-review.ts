@@ -45,13 +45,13 @@ interface GitmBuildOption {
 program
     .name('gitm review')
     .usage('[--state [state]] [--quiet]')
-    .description(i18n.__('gitm:review remote code'))
+    .description(i18n.__('review remote code'))
 if (args.length > 0) program.arguments(createArgs(args))
 options.forEach((o: GitmarsOptionOptionsType) => {
     program.option(o.flags, o.description, o.defaultValue)
 })
-// .option('--state [state]', '筛选合并请求状态，共有2种：opened、closed，不传则默认全部', null)
-// .option('--quiet', '不要推送消息', false)
+// .option('--state [state]', i18n.__('Filter merge request status, there are 2 types: opened, closed, not passed then default all'), null)
+// .option('--quiet', i18n.__('Do not push the message'), false)
 program.action(async (opt: GitmBuildOption): Promise<void> => {
     const userInfoApi =
         (config.apis && config.apis.userInfo && config.apis.userInfo.url) ||
@@ -60,13 +60,15 @@ program.action(async (opt: GitmBuildOption): Promise<void> => {
     const mrList = await getMergeRequestList({ token, state: opt.state })
     // 没有任何记录
     if (mrList.length === 0) {
-        echo(yellow('没有发现合并请求记录，进程已退出'))
+        echo(
+            yellow(i18n.__('No merge request record found, process has exited'))
+        )
         process.exit(0)
     }
     const prompt: InitInquirerPromptType[] = [
         {
             type: 'checkbox',
-            message: '请选择要操作的合并请求',
+            message: i18n.__('Please select the merge request to be operated'),
             name: 'iids',
             choices: []
         },
@@ -76,7 +78,7 @@ program.action(async (opt: GitmBuildOption): Promise<void> => {
             name: 'accept',
             choices: [
                 i18n.__('View Details'),
-                '评论',
+                i18n.__('Comments'),
                 '关闭',
                 '删除',
                 i18n.__('Exit')
@@ -101,7 +103,9 @@ program.action(async (opt: GitmBuildOption): Promise<void> => {
             name: `${green(iid + '：')} 请求合并 ${green(
                 source_branch
             )} 到 ${green(target_branch)} ${
-                disabled ? red('[ 有冲突或不需要合并 ]') : ''
+                disabled
+                    ? red(`[ ${i18n.__('Conflict or no need to merge')} ]`)
+                    : ''
             } | ${yellow(author.name)} | ${blue(_time)}`,
             value: iid,
             // disabled,
@@ -174,7 +178,7 @@ program.action(async (opt: GitmBuildOption): Promise<void> => {
                     '\n++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++'
                 )
             )
-            echo(magenta('评论列表'))
+            echo(magenta(i18n.__('Comment List')))
             echo(
                 columnify(notes, {
                     columns: ['body', 'name', 'date']
@@ -199,7 +203,7 @@ program.action(async (opt: GitmBuildOption): Promise<void> => {
                     `${appName}项目${source_branch}合并到${target_branch}请求ID${iid}已暂时关闭`
                 )
             echo(green(`合并请求${iid}：已关闭`))
-        } else if (accept === '评论') {
+        } else if (accept === i18n.__('Comments')) {
             // 评论
             const { note } = await inquirer.prompt({
                 type: 'input',

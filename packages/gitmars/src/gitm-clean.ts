@@ -28,7 +28,7 @@ if (args.length > 0) program.arguments(createArgs(args))
 options.forEach((o: GitmarsOptionOptionsType) => {
     program.option(o.flags, o.description, o.defaultValue)
 })
-// .option('-f, --force', '强制清理', false)
+// .option('-f, --force', i18n.__('Force cleanup'), false)
 program.action(async (opt: GitmBuildOption) => {
     if (getIsGitProject()) {
         if (opt.force) {
@@ -36,8 +36,9 @@ program.action(async (opt: GitmBuildOption) => {
                 .prompt({
                     type: 'confirm',
                     name: 'value',
-                    message:
-                        '您输入了--force，将同时清理gitmars执行缓存。是否继续？',
+                    message: i18n.__(
+                        'You have entered --force, which will also clear the gitmars execution cache. Should I continue?'
+                    ),
                     default: false
                 })
                 .then((answers: any) => {
@@ -48,11 +49,11 @@ program.action(async (opt: GitmBuildOption) => {
                 })
             removeFile([
                 {
-                    name: 'gitmars指令队列缓存文件',
+                    name: i18n.__('gitmars command queue cache file'),
                     url: gitDir + '/.gitmarscommands'
                 },
                 {
-                    name: 'gitmars执行日志文件',
+                    name: i18n.__('gitmars execution log file'),
                     url: gitDir + '/.gitmarslog'
                 }
             ])

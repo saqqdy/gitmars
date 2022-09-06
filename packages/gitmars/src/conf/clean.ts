@@ -15,7 +15,7 @@ const i18n = require('../locales')
                 short: '-f',
                 long: '--force',
                 negate: false,
-                description: '强制清理',
+                description: i18n.__('Force cleanup'),
                 defaultValue: false
             }
         ],
@@ -23,7 +23,7 @@ const i18n = require('../locales')
         validatorOpts: (val, opts, cb) => {
             cb()
         },
-        // 校验参数
+        // validator args
         validatorArgs: (val, opts, cb) => {
             cb()
         },
@@ -31,7 +31,7 @@ const i18n = require('../locales')
         transformOpts: (val, opts, cb) => {
             cb()
         },
-        // 清洗参数
+        // transform args
         transformArgs: (val, opts, cb) => {
             cb()
         }

@@ -23,14 +23,14 @@ program
     .usage(
         '<pluginName> [version] [-m --mirror] [-c --client [client]] [-r --registry <registry>]'
     )
-    .description('安装插件，例如：@gitmars/ui')
+    .description(i18n.__('Installing plugins, e.g. @gitmars/ui'))
 if (args.length > 0) program.arguments(createArgs(args))
 options.forEach((o: GitmarsOptionOptionsType) => {
     program.option(o.flags, o.description, o.defaultValue)
 })
-// .option('-m, --mirror', '是否使用淘宝镜像', false)
-// .option('-c, --client [client]', '用于装包的客户端名称', 'npm')
-// .option('-r, --registry <registry>', '使用镜像地址', '')
+// .option('-m, --mirror', i18n.__('Whether to use Taobao Mirror'), false)
+// .option('-c, --client [client]', i18n.__('The name of the client used to load the package'), 'npm')
+// .option('-r, --registry <registry>', i18n.__('Use mirror address'), '')
 program.action(
     (
         pluginName: string,
@@ -38,7 +38,7 @@ program.action(
         opt: GitmBuildOption
     ) => {
         if (!pluginName) {
-            echo(red('请输入插件名称'))
+            echo(red(i18n.__('Please enter the plugin name')))
             process.exit(1)
         }
         const spinner = ora()
@@ -56,7 +56,9 @@ program.action(
                 ].includes(version)
             ) {
                 console.error(
-                    '输入的版本号不正确，仅支持：alpha、lite、beta、release、latest、next'
+                    i18n.__(
+                        'Incorrect version number entered, only supported: alpha, lite, beta, release, latest, next'
+                    )
                 )
                 process.exit(0)
             }

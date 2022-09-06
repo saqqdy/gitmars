@@ -11,13 +11,13 @@ const i18n = require('../locales')
                 variadic: false,
                 validator: (val, opts, cb) => {
                     if (/\s+/.test(val)) {
-                        cb(new Error('请不要输入空格'))
+                        cb(new Error(i18n.__('Please do not enter spaces')))
                         return
                     }
                     cb()
                 },
                 // transformer: null,
-                description: '存取关键字'
+                description: i18n.__('AccessKeyword')
             },
             {
                 required: false,
@@ -25,7 +25,7 @@ const i18n = require('../locales')
                 variadic: false,
                 // validator: null,
                 // transformer: null,
-                description: '序号'
+                description: i18n.__('Serial Number')
             }
         ],
         options: [
@@ -38,7 +38,7 @@ const i18n = require('../locales')
                 short: '-k',
                 long: '--keep',
                 negate: false,
-                description: '保留暂存区不删除',
+                description: i18n.__('Keep staging area not deleted'),
                 defaultValue: false
             }
         ],
@@ -46,7 +46,7 @@ const i18n = require('../locales')
         validatorOpts: (val, opts, cb) => {
             cb()
         },
-        // 校验参数
+        // validator args
         validatorArgs: (val, opts, cb) => {
             cb()
         },
@@ -54,7 +54,7 @@ const i18n = require('../locales')
         transformOpts: (val, opts, cb) => {
             cb()
         },
-        // 清洗参数
+        // transform args
         transformArgs: (val, opts, cb) => {
             cb()
         }

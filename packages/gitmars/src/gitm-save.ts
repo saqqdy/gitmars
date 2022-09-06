@@ -25,19 +25,22 @@ interface GitmBuildOption {
 program
     .name('gitm save')
     .usage('[message] [-f --force]')
-    .description(i18n.__('gitm:Staging current branch files'))
+    .description(i18n.__('Staging current branch files'))
 if (args.length > 0) program.arguments(createArgs(args))
 options.forEach((o: GitmarsOptionOptionsType) => {
     program.option(o.flags, o.description, o.defaultValue)
 })
-// .option('-f, --force', '没有版本的文件也暂存，这会执行git add .', false)
+// .option('-f, --force', i18n.__('No version of the file is also staged, which will perform a git add .'), false)
 program.action((message: string, opt: GitmBuildOption) => {
     if (!message) message = getCurrentBranch()
     message = `${message}_cache_by_gitmars`
     let cmd: Array<CommandType | string> = [
         {
             cmd: `git stash save "${message}"`,
-            config: { success: '文件暂存成功', fail: '出错了，请联系管理员' }
+            config: {
+                success: i18n.__('File staging successful'),
+                fail: '出错了，请联系管理员'
+            }
         }
     ]
     if (opt.force) {
@@ -46,7 +49,7 @@ program.action((message: string, opt: GitmBuildOption) => {
             {
                 cmd: `git stash save "${message}"`,
                 config: {
-                    success: '文件暂存成功',
+                    success: i18n.__('File staging successful'),
                     fail: '出错了，请联系管理员'
                 }
             }

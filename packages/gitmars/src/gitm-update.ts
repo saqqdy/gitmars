@@ -39,7 +39,9 @@ program
     .name('gitm update')
     .usage('[type] [name] [--use-merge] [--use-rebase] [-a --all] [-f --force]')
     .description(
-        '更新bug任务分支、更新feature功能开发分支、框架调整分支support'
+        i18n.__(
+            'Update bug task branch, update feature function development branch, framework adjustment branch support'
+        )
     )
 if (args.length > 0) program.arguments(createArgs(args))
 options.forEach((o: GitmarsOptionOptionsType) => {
@@ -47,8 +49,8 @@ options.forEach((o: GitmarsOptionOptionsType) => {
 })
 // .option('--use-merge', '是否使用merge方式更新，默认merge方式', true)
 // .option('--use-rebase', '是否使用rebase方式更新，默认merge方式', false)
-// .option('-a --all', '更新本地所有bugfix、feature、support分支', false)
-// .option('-f, --force', '是否强制发起合并请求', false)
+// .option('-a --all', i18n.__('Update all local bugfix, feature, support branches'), false)
+// .option('-f, --force', i18n.__('Whether to force a merge request'), false)
 program.action(
     async (type: string | string[], name: string, opt: GitmBuildOption) => {
         // 检测是否需要升级版本

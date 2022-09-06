@@ -24,7 +24,7 @@ const { root } = getGitRevParse()
 program
     .name('gitm init')
     .usage('')
-    .description('设置gitmars的配置项')
+    .description(i18n.__('Set configuration items for gitmars'))
     .action(() => {
         const prompts: InitInquirerPromptType[] = []
         Object.keys(defaults).forEach(key => {
@@ -40,24 +40,26 @@ program
                     default: () => key,
                     transformer: val => val.trim(),
                     validate: val =>
-                        /^\w+$/.test(val) ? true : '请输入可用名称'
+                        /^\w+$/.test(val)
+                            ? true
+                            : i18n.__('Please enter the available names')
                 })
             } else if (key === 'user') {
                 prompts.push({
                     type: 'input',
                     name: key,
-                    message: '请输入Git用户名',
+                    message: i18n.__('Please enter the Git username'),
                     transformer: val => val.trim(),
                     validate: val =>
                         val === '' || /^\w+$/.test(val)
                             ? true
-                            : '请输入可用名称'
+                            : i18n.__('Please enter the available names')
                 })
             } else if (key === 'email') {
                 prompts.push({
                     type: 'input',
                     name: key,
-                    message: '请输入Git邮箱',
+                    message: i18n.__('Please enter the Git email address'),
                     transformer: val => val.trim(),
                     validate: val =>
                         val === '' ||
@@ -65,27 +67,29 @@ program
                             val
                         )
                             ? true
-                            : '请输入正确的邮箱'
+                            : i18n.__('Please enter the correct email')
                 })
             } else if (key === 'nameValidator') {
                 prompts.push({
                     type: 'input',
                     name: key,
-                    message: '请输入分支名称命名规则',
+                    message: i18n.__(
+                        'Please enter the branch name naming convention'
+                    ),
                     transformer: val => val.trim()
                 })
             } else if (key === 'descriptionValidator') {
                 prompts.push({
                     type: 'input',
                     name: key,
-                    message: '请输入commit信息规则',
+                    message: i18n.__('Please enter commit message rules'),
                     transformer: val => val.trim()
                 })
             } else if (key === 'msgTemplate') {
                 prompts.push({
                     type: 'input',
                     name: key,
-                    message: '请输入消息模板',
+                    message: i18n.__('Please enter the message template'),
                     default: () => '${message}；项目：${project}；路径：${pwd}',
                     transformer: val => val.trim()
                 })
@@ -93,18 +97,18 @@ program
                 prompts.push({
                     type: 'input',
                     name: key,
-                    message: '请输入消息推送地址',
+                    message: i18n.__('Please enter the message push address'),
                     transformer: val => val.trim(),
                     validate: val =>
                         val === '' || /^https?:\/\/[\S]*$/.test(val)
                             ? true
-                            : '请输入网址'
+                            : i18n.__('Please enter the URL')
                 })
             } else if (key === 'apolloConfig') {
                 prompts.push({
                     type: 'editor',
                     name: key,
-                    message: '请输入apollo配置',
+                    message: i18n.__('Please enter apollo configuration'),
                     default: () => `{
     "configServerUrl": "",
     "appId": "",
@@ -119,7 +123,7 @@ program
                             val = JSON.parse(val)
                             return true
                         } catch (e) {
-                            return '请输入json'
+                            return i18n.__('Please enter json')
                         }
                     }
                 })
@@ -127,7 +131,7 @@ program
                 prompts.push({
                     type: 'editor',
                     name: key,
-                    message: '请输入hooks配置',
+                    message: i18n.__('Please enter hooks configuration'),
                     default: () => `{
     "pre-commit": "",
     "pre-push": ""
@@ -137,7 +141,7 @@ program
                             val = JSON.parse(val)
                             return !!val
                         } catch (e) {
-                            return '请输入json'
+                            return i18n.__('Please enter json')
                         }
                     }
                 })
@@ -145,32 +149,36 @@ program
                 prompts.push({
                     type: 'input',
                     name: key,
-                    message: '请输入查询用户权限接口',
+                    message: i18n.__(
+                        'Please enter the query user permission interface'
+                    ),
                     transformer: val => val.trim(),
                     validate: val =>
                         val === '' || /^https?:\/\/[\S]*$/.test(val)
                             ? true
-                            : '请输入网址'
+                            : i18n.__('Please enter the URL')
                 })
             } else if (key === 'gitHost') {
                 prompts.push({
                     type: 'input',
                     name: key,
-                    message: '请输入git网址',
+                    message: i18n.__('Please enter the git URL'),
                     transformer: val => val.trim(),
                     validate: val =>
                         val === '' || /^https?:\/\/[\S]*$/.test(val)
                             ? true
-                            : '请输入网址'
+                            : i18n.__('Please enter the URL')
                 })
             } else if (key === 'gitID') {
                 prompts.push({
                     type: 'input',
                     name: key,
-                    message: '请输入git项目ID，目前仅支持gitlab',
+                    message: i18n.__(
+                        'Please enter the git project ID, currently only gitlab is supported'
+                    ),
                     transformer: val => val.trim(),
                     validate: val =>
-                        val === '' || /^\d+$/.test(val) ? true : '请输入网址'
+                        val === '' || /^\d+$/.test(val) ? true : i18n.__('Please enter the URL')
                 })
             }
         })
@@ -199,7 +207,7 @@ program
             } catch (e) {
                 answers.hooks = ''
             }
-            sh.echo(green('gitmars配置成功'))
+            sh.echo(green(i18n.__('gitmars configured successfully')))
             fs.writeFileSync(
                 root + '/.gitmarsrc',
                 JSON.stringify(answers, null, 4),

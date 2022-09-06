@@ -20,14 +20,20 @@ interface Action {
 program
     .name('gitm alias')
     .usage('<action>')
-    .description(i18n.__('gitm:Install and remove shortcuts'))
+    .description(i18n.__('Install and remove shortcuts'))
 if (args.length > 0) program.arguments(createArgs(args))
 options.forEach((o: GitmarsOptionOptionsType) => {
     program.option(o.flags, o.description, o.defaultValue)
 })
 program.action((action: Module) => {
     if (!actions.includes(action)) {
-        echo(red('您输入的方法不对，仅支持：init, remove'))
+        echo(
+            red(
+                i18n.__(
+                    'The method you entered is incorrect, only support: init, remove'
+                )
+            )
+        )
         process.exit(1)
     }
     const alias = {

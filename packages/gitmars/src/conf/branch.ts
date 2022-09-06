@@ -15,7 +15,7 @@ const i18n = require('../locales')
                 short: '-k',
                 long: '--key',
                 negate: false,
-                description: '查询分支的关键词',
+                description: i18n.__('Query branch for keywords'),
                 defaultValue: null
             },
             {
@@ -27,7 +27,7 @@ const i18n = require('../locales')
                 short: '',
                 long: '--exclude',
                 negate: false,
-                description: '排除关键词',
+                description: i18n.__('Exclude keywords'),
                 defaultValue: '',
                 value: ''
             },
@@ -40,7 +40,7 @@ const i18n = require('../locales')
                 short: '',
                 long: '--include',
                 negate: false,
-                description: '包含关键词',
+                description: i18n.__('Include keywords'),
                 defaultValue: '',
                 value: ''
             },
@@ -53,8 +53,9 @@ const i18n = require('../locales')
                 short: '-r',
                 long: '--remote',
                 negate: false,
-                description:
-                    '是否查询远程分支（deletes模式下改用于删除远程分支）默认只查询本地',
+                description: i18n.__(
+                    'Whether to query remote branches (change to delete remote branches in deletes mode) Default is local only'
+                ),
                 defaultValue: false
             },
             {
@@ -66,8 +67,9 @@ const i18n = require('../locales')
                 short: '-t',
                 long: '--type',
                 negate: false,
-                description:
-                    '查询分支的类型，共有3种：feature、bugfix、support，不传则查询全部',
+                description: i18n.__(
+                    'The type of branch to query, there are 3 types: feature, bugfix, support, if not pass then query all'
+                ),
                 defaultValue: null,
                 options: ['feature', 'bugfix', 'support'],
                 value: ''
@@ -81,7 +83,7 @@ const i18n = require('../locales')
                 short: '-d',
                 long: '--delete',
                 negate: false,
-                description: '删除分支',
+                description: i18n.__('Delete branch'),
                 defaultValue: null
             },
             {
@@ -93,7 +95,7 @@ const i18n = require('../locales')
                 short: '-D',
                 long: '--forcedelete',
                 negate: false,
-                description: '强行删除分支',
+                description: i18n.__('Force branch deletion'),
                 defaultValue: null
             },
             {
@@ -105,7 +107,7 @@ const i18n = require('../locales')
                 short: '-u',
                 long: '--upstream',
                 negate: false,
-                description: '设置与远程分支关联'
+                description: i18n.__('Set association with remote branches')
             }
         ],
         // 校验传值
@@ -120,7 +122,9 @@ const i18n = require('../locales')
             ) {
                 cb(
                     new Error(
-                        '使用绑定/取消绑定远程分支功能时，不能与其他功能混用'
+                        i18n.__(
+                            'When using the bind/unbind remote branch function, it cannot be mixed with other functions.'
+                        )
                     )
                 )
                 return
@@ -129,12 +133,18 @@ const i18n = require('../locales')
                 (val.includes('--delete') || val.includes('--forcedelete')) &&
                 (val.includes('--key') || val.includes('--type'))
             ) {
-                cb(new Error('使用删除分支功能时，不能与查询分支功能混用'))
+                cb(
+                    new Error(
+                        i18n.__(
+                            'When using the delete branch function, it cannot be mixed with the query branch function.'
+                        )
+                    )
+                )
                 return
             }
             cb()
         },
-        // 校验参数
+        // validator args
         validatorArgs: (val, opts, cb) => {
             cb()
         },
@@ -142,7 +152,7 @@ const i18n = require('../locales')
         transformOpts: (val, opts, cb) => {
             cb()
         },
-        // 清洗参数
+        // transform args
         transformArgs: (val, opts, cb) => {
             cb()
         }

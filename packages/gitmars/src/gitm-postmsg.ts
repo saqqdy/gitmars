@@ -21,7 +21,7 @@ if (args.length > 0) program.arguments(createArgs(args))
 options.forEach((o: GitmarsOptionOptionsType) => {
     program.option(o.flags, o.description, o.defaultValue)
 })
-// .option('-u, --url [url]', '推送消息的api地址', '')
+// .option('-u, --url [url]', i18n.__('The api address of the push message'), '')
 program.action((message: string, opt: GitmBuildOption) => {
     sendGroupMessage(message, opt.url || '')
 })

@@ -147,18 +147,18 @@ program
     .usage(
         '[commitid...] [--lastet [lastet]] [--limit [limit]] [-m --mode [mode]] [--no-merges]'
     )
-    .description('撤销一次提交记录')
+    .description(i18n.__('Undo a commit record'))
 if (args.length > 0) program.arguments(createArgs(args))
 options.forEach((o: GitmarsOptionOptionsType) => {
     program.option(o.flags, o.description, o.defaultValue)
 })
 // .arguments('[commitid...]')
-// .option('--calc', '清理当前分支撤销失败的记录')
+// .option('--calc', i18n.__('Clean up the current branch undo failure log'))
 // .option('--calcAll', '清理所有撤销失败的记录')
 // .option('--no-merges', '是否排除merge的日志')
-// .option('-m, --mode [mode]', '针对撤销一次merge记录，需要传入类型：1 = 保留当前分支代码，2 = 保留传入代码', null)
-// .option('--lastet [lastet]', '查询在某个时间之后的日志，填写格式：10s/2m/2h/3d/4M/5y', '7d')
-// .option('--limit [limit]', '最多查询的日志条数', 20)
+// .option('-m, --mode [mode]', i18n.__('For undoing a merge record, the type to be passed in: 1 = keep current branch code, 2 = keep incoming code'), null)
+// .option('--lastet [lastet]', i18n.__('Query logs after a certain time, fill in the format: 10s/2m/2h/3d/4M/5y'), '7d')
+// .option('--limit [limit]', i18n.__('The maximum number of logs to be queried'), 20)
 program.action(async (commitid: string[], opt: GitmBuildOption) => {
     const keys = ['%H', '%T', '%P', '%aI', '%an', '%s', '%b'] as const
     const current = getCurrentBranch()
@@ -204,7 +204,7 @@ program.action(async (commitid: string[], opt: GitmBuildOption) => {
             // 多条记录
             const prompt: InitInquirerPromptType = {
                 type: 'checkbox',
-                message: '请选择要撤销的commit记录',
+                message: i18n.__('Please select the commit record to undo.'),
                 name: 'commitIDs',
                 choices: []
             }
@@ -223,7 +223,7 @@ program.action(async (commitid: string[], opt: GitmBuildOption) => {
     }
     // 没有选择任何记录
     if (commitIDs.length === 0) {
-        echo(yellow('没有选择commit记录，进程已退出'))
+        echo(yellow(i18n.__('No commit record selected, process has exited')))
         process.exit(0)
     }
     // 获取没有被undo过的记录
@@ -271,7 +271,13 @@ program.action(async (commitid: string[], opt: GitmBuildOption) => {
             calculate(false, opt)
         })
         .catch(() => {
-            echo(yellow('处理冲突之后，执行：gitm undo --calc'))
+            echo(
+                yellow(
+                    i18n.__(
+                        'After handling conflicts, execute: gitm undo --calc'
+                    )
+                )
+            )
         })
 })
 

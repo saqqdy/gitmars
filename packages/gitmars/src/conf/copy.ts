@@ -13,7 +13,7 @@ const i18n = require('../locales')
                     cb()
                 },
                 // transformer: null,
-                description: '提交记录ID'
+                description: i18n.__('Commit record ID')
             }
         ],
         options: [
@@ -26,7 +26,7 @@ const i18n = require('../locales')
                 short: '-s',
                 long: '--source',
                 negate: false,
-                description: '拷贝记录的来源分支',
+                description: i18n.__('Copy the source branch of the record'),
                 defaultValue: ''
             },
             {
@@ -38,7 +38,9 @@ const i18n = require('../locales')
                 short: '-k',
                 long: '--key',
                 negate: false,
-                description: '模糊搜索commit信息关键词',
+                description: i18n.__(
+                    'Fuzzy search for commit message keywords'
+                ),
                 defaultValue: ''
             },
             {
@@ -50,7 +52,7 @@ const i18n = require('../locales')
                 short: '-a',
                 long: '--author',
                 negate: false,
-                description: '提交者',
+                description: i18n.__('Submitter'),
                 defaultValue: ''
             }
         ],
@@ -58,7 +60,7 @@ const i18n = require('../locales')
         validatorOpts: (val, opts, cb) => {
             cb()
         },
-        // 校验参数
+        // validator args
         validatorArgs: (val, opts, cb) => {
             cb()
         },
@@ -66,7 +68,7 @@ const i18n = require('../locales')
         transformOpts: (val, opts, cb) => {
             cb()
         },
-        // 清洗参数
+        // transform args
         transformArgs: (val, opts, cb) => {
             cb()
         }

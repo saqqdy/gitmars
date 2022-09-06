@@ -21,8 +21,12 @@ program
     .name('gitm permission')
     .usage('[message] [--no-verify] [--dev] [--release]')
     .arguments('[message]')
-    .description('校验提交权限')
-    .option('--no-verify', '是否需要跳过校验权限', false)
+    .description(i18n.__('Verify commit permissions'))
+    .option(
+        '--no-verify',
+        i18n.__('Do you want to skip the check permission'),
+        false
+    )
     .option('--dev', '是否限制dev提交', false)
     .option('--release', '是否限制release提交', false)
     .action((message: string, opt: GitmBuildOption) => {
