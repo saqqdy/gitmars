@@ -13,7 +13,7 @@ const i18n = require('../locales')
                     cb()
                 },
                 // transformer: null,
-                description: '需要恢复的撤销记录'
+                description: i18n.__('The undo log to be restored')
             }
         ],
         options: [
@@ -26,8 +26,9 @@ const i18n = require('../locales')
                 short: '-m',
                 long: '--mode',
                 negate: false,
-                description:
-                    '针对撤销一次merge记录，需要传入类型：1 = 保留当前分支代码，2 = 保留传入代码',
+                description: i18n.__(
+                    'For undoing a merge record, the type to be passed in: 1 = keep current branch code, 2 = keep incoming code'
+                ),
                 defaultValue: null,
                 options: [1, 2],
                 value: null
@@ -37,7 +38,7 @@ const i18n = require('../locales')
         validatorOpts: (val, opts, cb) => {
             cb()
         },
-        // 校验参数
+        // validator args
         validatorArgs: (val, opts, cb) => {
             cb()
         },
@@ -45,7 +46,7 @@ const i18n = require('../locales')
         transformOpts: (val, opts, cb) => {
             cb()
         },
-        // 清洗参数
+        // transform args
         transformArgs: (val, opts, cb) => {
             cb()
         }

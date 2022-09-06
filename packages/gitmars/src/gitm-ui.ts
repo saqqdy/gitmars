@@ -17,7 +17,10 @@ interface GitmBuildOption {
 /**
  * gitm ui
  */
-program.name('gitm ui').usage('[-p --port <port>]').description('链接本地包')
+program
+    .name('gitm ui')
+    .usage('[-p --port <port>]')
+    .description(i18n.__('Link local package'))
 if (args.length > 0) program.arguments(createArgs(args))
 options.forEach((o: GitmarsOptionOptionsType) => {
     program.option(o.flags, o.description, o.defaultValue)

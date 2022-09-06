@@ -11,13 +11,13 @@ const i18n = require('../locales')
                 variadic: false,
                 validator: (val, opts, cb) => {
                     if (/\s+/.test(val)) {
-                        cb(new Error('请不要输入空格'))
+                        cb(new Error(i18n.__('Please do not enter spaces')))
                         return
                     }
                     cb()
                 },
                 // transformer: null,
-                description: '存取关键字'
+                description: i18n.__('AccessKeyword')
             }
         ],
         options: [
@@ -30,7 +30,9 @@ const i18n = require('../locales')
                 short: '-f',
                 long: '--force',
                 negate: false,
-                description: '没有版本的文件也暂存，这会执行git add .',
+                description: i18n.__(
+                    'No version of the file is also staged, which will perform a git add .'
+                ),
                 defaultValue: false
             }
         ],
@@ -38,7 +40,7 @@ const i18n = require('../locales')
         validatorOpts: (val, opts, cb) => {
             cb()
         },
-        // 校验参数
+        // validator args
         validatorArgs: (val, opts, cb) => {
             cb()
         },
@@ -46,7 +48,7 @@ const i18n = require('../locales')
         transformOpts: (val, opts, cb) => {
             cb()
         },
-        // 清洗参数
+        // transform args
         transformArgs: (val, opts, cb) => {
             cb()
         }

@@ -44,13 +44,13 @@ interface GitmBuildOption {
 program
     .name('gitm approve')
     .usage('[--state [state]] [--quiet]')
-    .description('审批远程合并请求')
+    .description(i18n.__('Approve remote merge request'))
 if (args.length > 0) program.arguments(createArgs(args))
 options.forEach((o: GitmarsOptionOptionsType) => {
     program.option(o.flags, o.description, o.defaultValue)
 })
-// .option('--state [state]', '筛选合并请求状态，共有2种：opened、closed，不传则默认全部', null)
-// .option('--quiet', '不要推送消息', false)
+// .option('--state [state]', i18n.__('Filter merge request status, there are 2 types: opened, closed, not passed then default all'), null)
+// .option('--quiet', i18n.__('Do not push the message'), false)
 program.action(async (opt: GitmBuildOption): Promise<void> => {
     const userInfoApi =
         (config.apis && config.apis.userInfo && config.apis.userInfo.url) ||
@@ -67,13 +67,13 @@ program.action(async (opt: GitmBuildOption): Promise<void> => {
     const mrList = await getMergeRequestList({ token, state: opt.state })
     // 没有任何记录
     if (mrList.length === 0) {
-        echo(yellow('没有发现合并请求记录，进程已退出'))
+        echo(yellow(i18n.__('No merge request record found, process has exited')))
         process.exit(0)
     }
     const prompt: InitInquirerPromptType[] = [
         {
             type: 'checkbox',
-            message: '请选择要操作的合并请求',
+            message: i18n.__('Please select the merge request to be operated'),
             name: 'iids',
             choices: []
         },
@@ -114,7 +114,7 @@ program.action(async (opt: GitmBuildOption): Promise<void> => {
             name: `${green(iid + '：')} 请求合并 ${green(
                 source_branch
             )} 到 ${green(target_branch)} ${
-                disabled ? red('[ 有冲突或不需要合并 ]') : ''
+                disabled ? red(`[ ${i18n.__('Conflict or no need to merge')} ]) : ''
             } | ${yellow(author.name)} | ${green(
                 mr.notes.length + '条评论'
             )} | ${blue(_time)}`,
@@ -142,7 +142,7 @@ program.action(async (opt: GitmBuildOption): Promise<void> => {
         const CAN_BE_MERGED = merge_status === 'can_be_merged'
         if (accept === i18n.__('Passed')) {
             if (!CAN_BE_MERGED) {
-                echo(yellow('不能合并的请求不能点审核通过'))
+                echo(yellow(i18n.__('Requests that can't be merged can't be clicked for review and approval')))
                 process.exit(0)
             }
             await acceptMergeRequest({ token, iid })

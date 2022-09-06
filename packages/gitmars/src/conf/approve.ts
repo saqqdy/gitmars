@@ -15,8 +15,9 @@ const i18n = require('../locales')
                 short: '',
                 long: '--state',
                 negate: false,
-                description:
-                    '筛选合并请求状态，共有2种：opened、closed，不传则默认全部',
+                description: i18n.__(
+                    'Filter merge request status, there are 2 types: opened, closed, not passed then default all'
+                ),
                 defaultValue: 'opened',
                 options: ['opened', 'closed', 'merged', 'all'],
                 value: 'opened'
@@ -30,7 +31,7 @@ const i18n = require('../locales')
                 short: '',
                 long: '--quiet',
                 negate: false,
-                description: '不要推送消息',
+                description: i18n.__('Do not push the message'),
                 defaultValue: false
             }
         ],
@@ -38,7 +39,7 @@ const i18n = require('../locales')
         validatorOpts: (val, opts, cb) => {
             cb()
         },
-        // 校验参数
+        // validator args
         validatorArgs: (val, opts, cb) => {
             cb()
         },
@@ -46,7 +47,7 @@ const i18n = require('../locales')
         transformOpts: (val, opts, cb) => {
             cb()
         },
-        // 清洗参数
+        // transform args
         transformArgs: (val, opts, cb) => {
             cb()
         }

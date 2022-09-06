@@ -14,29 +14,29 @@ const i18n = require('../locales')
                     variadic: false,
                     validator: (val, opts, cb) => {
                         if (/\s+/.test(val)) {
-                            cb(new Error('请不要输入空格'))
+                            cb(new Error(i18n.__('Please do not enter spaces')))
                             return
                         }
                         cb()
                     },
                     // transformer: null,
-                    description: '分支类型'
+                    description: i18n.__('Branch Type')
                 }
             ],
             options: [],
-            // 校验传值
+            // validator opts
             validatorOpts: (val, opts, cb) => {
                 cb()
             },
-            // 校验参数
+            // validator args
             validatorArgs: (val, opts, cb) => {
                 cb()
             },
-            // 清洗传值
+            // transform opts
             transformOpts: (val, opts, cb) => {
                 cb()
             },
-            // 清洗参数
+            // transform args
             transformArgs: (val, opts, cb) => {
                 cb()
             }
@@ -51,13 +51,13 @@ const i18n = require('../locales')
                     variadic: false,
                     validator: (val, opts, cb) => {
                         if (/\s+/.test(val)) {
-                            cb(new Error('请不要输入空格'))
+                            cb(new Error(i18n.__('Please do not enter spaces')))
                             return
                         }
                         cb()
                     },
                     // transformer: null,
-                    description: '分支类型',
+                    description: i18n.__('Branch Type'),
                     options: ['release', 'bugfix'],
                     value: ''
                 }
@@ -72,7 +72,9 @@ const i18n = require('../locales')
                     short: '-c',
                     long: '--combine',
                     negate: false,
-                    description: '是否把release代码同步到bug',
+                    description: i18n.__(
+                        'Whether to sync the release code to the bug'
+                    ),
                     defaultValue: false,
                     recommend: false
                 },
@@ -84,7 +86,9 @@ const i18n = require('../locales')
                     mandatory: false,
                     long: '--use-rebase',
                     negate: false,
-                    description: '是否使用rebase方式更新，默认merge',
+                    description: i18n.__(
+                        'Whether to update using rebase method, default merge'
+                    ),
                     defaultValue: false,
                     recommend: false
                 },
@@ -97,7 +101,9 @@ const i18n = require('../locales')
                     short: '-p',
                     long: '--prod',
                     negate: false,
-                    description: '发布bug分支时，是否合并bug到master',
+                    description: i18n.__(
+                        'Whether to merge bugs to master when publishing bug branches'
+                    ),
                     defaultValue: false,
                     recommend: false
                 },
@@ -110,7 +116,7 @@ const i18n = require('../locales')
                     short: '-b',
                     long: '--build',
                     negate: false,
-                    description: '构建应用',
+                    description: i18n.__('Build application'),
                     recommend: true
                 },
                 {
@@ -121,7 +127,7 @@ const i18n = require('../locales')
                     mandatory: false,
                     long: '--postmsg',
                     negate: false,
-                    description: '发送消息',
+                    description: i18n.__('Send Message'),
                     defaultValue: false,
                     recommend: false
                 },
@@ -133,7 +139,9 @@ const i18n = require('../locales')
                     mandatory: false,
                     long: '--description',
                     negate: false,
-                    description: '本次提交的原因描述',
+                    description: i18n.__(
+                        'Description of the reason for this commit'
+                    ),
                     defaultValue: '',
                     recommend: false
                 },
@@ -146,31 +154,33 @@ const i18n = require('../locales')
                     short: '-f',
                     long: '--force',
                     negate: false,
-                    description: '是否强制发起合并请求',
+                    description: i18n.__('Whether to force a merge request'),
                     recommend: false
                 }
             ],
-            // 校验传值
+            // validator opts
             validatorOpts: (val, opts, cb) => {
                 if (val.includes('--combine') && val.includes('--prod')) {
                     cb(
                         new Error(
-                            '不能同时选择“把release合并到bug”和“合并bug到master”'
+                            i18n.__(
+                                'You cannot select both "Merge release to bug" and "Merge bug to master"'
+                            )
                         )
                     )
                     return
                 }
                 cb()
             },
-            // 校验参数
+            // validator args
             validatorArgs: (val, opts, cb) => {
                 cb()
             },
-            // 清洗传值
+            // transform opts
             transformOpts: (val, opts, cb) => {
                 cb()
             },
-            // 清洗参数
+            // transform args
             transformArgs: (val, opts, cb) => {
                 cb()
             }
@@ -185,13 +195,13 @@ const i18n = require('../locales')
                     variadic: false,
                     validator: (val, opts, cb) => {
                         if (/\s+/.test(val)) {
-                            cb(new Error('请不要输入空格'))
+                            cb(new Error(i18n.__('Please do not enter spaces')))
                             return
                         }
                         cb()
                     },
                     // transformer: null,
-                    description: '分支类型'
+                    description: i18n.__('Branch Type')
                 }
             ],
             options: [
@@ -203,7 +213,9 @@ const i18n = require('../locales')
                     mandatory: false,
                     long: '--use-rebase',
                     negate: false,
-                    description: '是否使用rebase方式更新，默认merge',
+                    description: i18n.__(
+                        'Whether to update using rebase method, default merge'
+                    ),
                     defaultValue: false,
                     recommend: false
                 },
@@ -216,8 +228,9 @@ const i18n = require('../locales')
                     short: '-m',
                     long: '--mode',
                     negate: false,
-                    description:
-                        '出现冲突时，保留传入代码还是保留当前代码；1=采用当前 2=采用传入；默认为 0=手动处理。本参数不可与--use-rebase同时使用',
+                    description: i18n.__(
+                        'In case of a conflict, whether to keep the incoming code or the current code; 1=use current 2=use incoming; default is 0=handle manually. This parameter must not be used with --use-rebase'
+                    ),
                     defaultValue: 0,
                     recommend: false
                 },
@@ -229,7 +242,7 @@ const i18n = require('../locales')
                     mandatory: false,
                     long: '--postmsg',
                     negate: false,
-                    description: '发送消息',
+                    description: i18n.__('Send Message'),
                     defaultValue: false,
                     recommend: false
                 },
@@ -241,7 +254,9 @@ const i18n = require('../locales')
                     mandatory: false,
                     long: '--description',
                     negate: false,
-                    description: '本次提交的原因描述',
+                    description: i18n.__(
+                        'Description of the reason for this commit'
+                    ),
                     defaultValue: '',
                     recommend: false
                 },
@@ -254,23 +269,23 @@ const i18n = require('../locales')
                     short: '-f',
                     long: '--force',
                     negate: false,
-                    description: '是否强制发起合并请求',
+                    description: i18n.__('Whether to force a merge request'),
                     recommend: false
                 }
             ],
-            // 校验传值
+            // validator opts
             validatorOpts: (val, opts, cb) => {
                 cb()
             },
-            // 校验参数
+            // validator args
             validatorArgs: (val, opts, cb) => {
                 cb()
             },
-            // 清洗传值
+            // transform opts
             transformOpts: (val, opts, cb) => {
                 cb()
             },
-            // 清洗参数
+            // transform args
             transformArgs: (val, opts, cb) => {
                 cb()
             }
@@ -285,29 +300,29 @@ const i18n = require('../locales')
                     variadic: false,
                     validator: (val, opts, cb) => {
                         if (/\s+/.test(val)) {
-                            cb(new Error('请不要输入空格'))
+                            cb(new Error(i18n.__('Please do not enter spaces')))
                             return
                         }
                         cb()
                     },
                     // transformer: null,
-                    description: '分支类型'
+                    description: i18n.__('Branch Type')
                 }
             ],
             options: [],
-            // 校验传值
+            // validator opts
             validatorOpts: (val, opts, cb) => {
                 cb()
             },
-            // 校验参数
+            // validator args
             validatorArgs: (val, opts, cb) => {
                 cb()
             },
-            // 清洗传值
+            // transform opts
             transformOpts: (val, opts, cb) => {
                 cb()
             },
-            // 清洗参数
+            // transform args
             transformArgs: (val, opts, cb) => {
                 cb()
             }
@@ -317,19 +332,19 @@ const i18n = require('../locales')
             short: null,
             args: [],
             options: [],
-            // 校验传值
+            // validator opts
             validatorOpts: (val, opts, cb) => {
                 cb()
             },
-            // 校验参数
+            // validator args
             validatorArgs: (val, opts, cb) => {
                 cb()
             },
-            // 清洗传值
+            // transform opts
             transformOpts: (val, opts, cb) => {
                 cb()
             },
-            // 清洗参数
+            // transform args
             transformArgs: (val, opts, cb) => {
                 cb()
             }

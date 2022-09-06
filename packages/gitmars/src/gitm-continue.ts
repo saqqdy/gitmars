@@ -30,12 +30,12 @@ interface GitmBuildOption {
 program
     .name('gitm continue')
     .usage('[-l --list]')
-    .description(i18n.__('gitm:Continue unfinished operations'))
+    .description(i18n.__('Continue unfinished operations'))
 if (args.length > 0) program.arguments(createArgs(args))
 options.forEach((o: GitmarsOptionOptionsType) => {
     program.option(o.flags, o.description, o.defaultValue)
 })
-// .option('-l, --list', '显示指令队列', false)
+// .option('-l, --list', i18n.__('Show command queue'), false)
 program.action(async (opt: GitmBuildOption) => {
     const sum = getGitStatus()
     const cmd: Array<CommandType | string> = getCommandCache()
@@ -55,8 +55,9 @@ program.action(async (opt: GitmBuildOption) => {
                 .prompt({
                     type: 'confirm',
                     name: 'value',
-                    message:
-                        '检测到有未提交的文件，在合并分支的过程遇到冲突，需要在处理冲突后执行一下 git add . 和 git commit ,然后再执行 gitm continue。是否要强制继续执行脚本？',
+                    message: i18n.__(
+                        'A conflict has been detected in the merge branch and you need to run git add . Do you want to force the script to continue?'
+                    ),
                     default: false
                 })
                 .then((answers: any) => {
@@ -66,13 +67,19 @@ program.action(async (opt: GitmBuildOption) => {
                     }
                 })
         } else if (sum['??'].length > 0) {
-            sh.echo(yellow('检测到有未加入版本的文件，请留意！'))
+            sh.echo(
+                yellow(
+                    i18n.__(
+                        'An uncommitted file was detected, please be aware!'
+                    )
+                )
+            )
         }
         queue(cmd).then(() => {
             cleanCommandCache()
         })
     } else {
-        sh.echo(red('队列里面没有未执行的指令'))
+        sh.echo(red(i18n.__('There are no unexecuted commands in the queue')))
     }
 })
 program.parse(process.argv)

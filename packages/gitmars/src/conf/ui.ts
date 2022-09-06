@@ -15,7 +15,7 @@ const i18n = require('../locales')
                 short: '-p',
                 long: '--port',
                 negate: false,
-                description: '指定端口号',
+                description: i18n.__('Specify the port number'),
                 defaultValue: 3000,
                 recommend: false
             }

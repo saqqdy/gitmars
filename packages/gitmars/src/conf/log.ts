@@ -21,8 +21,9 @@ const i18n = require('../locales')
                 short: '',
                 long: '--lastet',
                 negate: false,
-                description:
-                    '查询在某个时间之后的日志，填写格式：10s/2m/2h/3d/4M/5y',
+                description: i18n.__(
+                    'Query logs after a certain time, fill in the format: 10s/2m/2h/3d/4M/5y'
+                ),
                 defaultValue: '7d'
             },
             {
@@ -33,7 +34,7 @@ const i18n = require('../locales')
                 mandatory: false,
                 long: '--no-merges',
                 negate: true,
-                description: '是否排除merge记录',
+                description: i18n.__('Whether to exclude merge records'),
                 defaultValue: true,
                 recommend: false
             },
@@ -46,7 +47,9 @@ const i18n = require('../locales')
                 short: '',
                 long: '--limit',
                 negate: false,
-                description: '最多查询的日志条数',
+                description: i18n.__(
+                    'The maximum number of logs to be queried'
+                ),
                 defaultValue: 20
             },
             {
@@ -58,7 +61,9 @@ const i18n = require('../locales')
                 short: '',
                 long: '--json',
                 negate: false,
-                description: '是否以json格式输出日志，默认表格方式',
+                description: i18n.__(
+                    'Whether to output logs in json format, default form'
+                ),
                 defaultValue: false
             }
         ]

@@ -23,7 +23,7 @@ program
     .name('gitm config')
     .usage('<option> [value]')
     .command('set <option> [value]')
-    .description('设置gitmars的配置项')
+    .description(i18n.__('Set configuration items for gitmars'))
     .action(async (option: string, value: string): Promise<void> => {
         let { filepath } = config
         if (!filepath) {
@@ -43,7 +43,7 @@ program
                 process.exit(1)
             }
         } else {
-            sh.echo('请输入要配置的项')
+            sh.echo(i18n.__('Please enter the items to be configured'))
             process.exit(1)
         }
     })
@@ -54,7 +54,7 @@ program
     .name('gitm config')
     .usage('list [option]')
     .command('list [option]')
-    .description('查询单个或全部gitmars的配置项')
+    .description(i18n.__('Query single or all gitmars for configuration items'))
     .action((option: string): void => {
         if (option) {
             sh.echo(green(config[option]))

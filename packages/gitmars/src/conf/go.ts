@@ -9,7 +9,7 @@ const i18n = require('../locales')
                 required: false,
                 name: 'command',
                 variadic: false,
-                description: '指令名称',
+                description: i18n.__('Command Name'),
                 options: [
                     'combine',
                     'end',

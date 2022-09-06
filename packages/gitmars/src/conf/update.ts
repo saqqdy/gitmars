@@ -9,7 +9,7 @@ const i18n = require('../locales')
                 required: false,
                 name: 'type',
                 variadic: false,
-                description: '分支类型',
+                description: i18n.__('Branch Type'),
                 options: ['feature', 'bugfix', 'support'],
                 value: ''
             },
@@ -17,7 +17,9 @@ const i18n = require('../locales')
                 required: false,
                 name: 'name',
                 variadic: false,
-                description: '分支名称(不带feature/bugfix前缀)'
+                description: i18n.__(
+                    'Branch name (without feature/bugfix prefix)'
+                )
             }
         ],
         options: [
@@ -29,7 +31,7 @@ const i18n = require('../locales')
                 mandatory: false,
                 long: '--use-merge',
                 negate: false,
-                description: '使用merge方式更新(默认merge)',
+                description: i18n.__('Use merge to update (default merge)'),
                 defaultValue: true,
                 value: true,
                 recommend: true
@@ -42,7 +44,7 @@ const i18n = require('../locales')
                 mandatory: false,
                 long: '--use-rebase',
                 negate: false,
-                description: '使用rebase方式更新(默认merge)',
+                description: i18n.__('Update with rebase (default merge)'),
                 defaultValue: false,
                 recommend: true
             },
@@ -55,7 +57,9 @@ const i18n = require('../locales')
                 short: '-a',
                 long: '--all',
                 negate: false,
-                description: '更新本地所有bugfix、feature、support分支',
+                description: i18n.__(
+                    'Update all local bugfix, feature, support branches'
+                ),
                 defaultValue: false,
                 recommend: false
             },
@@ -68,7 +72,7 @@ const i18n = require('../locales')
                 short: '-f',
                 long: '--force',
                 negate: false,
-                description: '是否强制发起合并请求',
+                description: i18n.__('Whether to force a merge request'),
                 recommend: false
             }
         ]

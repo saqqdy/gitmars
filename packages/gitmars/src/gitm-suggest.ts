@@ -28,12 +28,12 @@ interface GitmBuildOption {
 program
     .name('gitm suggest')
     .usage('[message] [index] [-k --keep [keep]]')
-    .description('恢复暂存区文件')
+    .description(i18n.__('Suggestions for operation'))
 if (args.length > 0) program.arguments(createArgs(args))
 options.forEach((o: GitmarsOptionOptionsType) => {
     program.option(o.flags, o.description, o.defaultValue)
 })
-// .option('-k, --keep [keep]', '保留暂存区不删除', false)
+// .option('-k, --keep [keep]', i18n.__('Keep staging area not deleted'), false)
 program.action((message: string, index: string, opt: GitmBuildOption) => {})
 program.parse(process.argv)
 export {}

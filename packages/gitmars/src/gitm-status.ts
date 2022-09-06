@@ -20,7 +20,7 @@ if (!getIsGitProject()) {
 program
     .name('gitm status')
     .usage('[-k --keep [keep]]')
-    .description('恢复暂存区文件')
+    .description(i18n.__('Restore staging area file'))
 if (args.length > 0) program.arguments(createArgs(args))
 options.forEach((o: GitmarsOptionOptionsType) => {
     program.option(o.flags, o.description, o.defaultValue)

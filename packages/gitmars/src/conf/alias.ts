@@ -9,7 +9,7 @@ const i18n = require('../locales')
                 required: true,
                 name: 'action',
                 variadic: false,
-                description: '执行方法'
+                description: i18n.__('Execute method')
             }
         ],
         options: [],
@@ -17,7 +17,7 @@ const i18n = require('../locales')
         validatorOpts: (val, opts, cb) => {
             cb()
         },
-        // 校验参数
+        // validator args
         validatorArgs: (val, opts, cb) => {
             cb()
         },
@@ -25,7 +25,7 @@ const i18n = require('../locales')
         transformOpts: (val, opts, cb) => {
             cb()
         },
-        // 清洗参数
+        // transform args
         transformArgs: (val, opts, cb) => {
             cb()
         }

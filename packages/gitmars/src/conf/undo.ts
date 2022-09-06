@@ -13,7 +13,7 @@ const i18n = require('../locales')
                     cb()
                 },
                 // transformer: null,
-                description: '需要撤销的ID'
+                description: i18n.__('ID of the undo needed')
             }
         ],
         options: [
@@ -26,8 +26,9 @@ const i18n = require('../locales')
                 short: '',
                 long: '--lastet',
                 negate: false,
-                description:
-                    '查询在某个时间之后的日志，填写格式：10s/2m/2h/3d/4M/5y',
+                description: i18n.__(
+                    'Query logs after a certain time, fill in the format: 10s/2m/2h/3d/4M/5y'
+                ),
                 defaultValue: '7d'
             },
             {
@@ -38,7 +39,7 @@ const i18n = require('../locales')
                 mandatory: false,
                 long: '--no-merges',
                 negate: true,
-                description: '是否排除merge记录',
+                description: i18n.__('Whether to exclude merge records'),
                 defaultValue: true,
                 recommend: false
             },
@@ -51,8 +52,9 @@ const i18n = require('../locales')
                 short: '-m',
                 long: '--mode',
                 negate: false,
-                description:
-                    '针对撤销一次merge记录，需要传入类型：1 = 保留当前分支代码，2 = 保留传入代码',
+                description: i18n.__(
+                    'For undoing a merge record, the type to be passed in: 1 = keep current branch code, 2 = keep incoming code'
+                ),
                 defaultValue: null,
                 options: [1, 2],
                 value: null
@@ -66,7 +68,9 @@ const i18n = require('../locales')
                 short: '',
                 long: '--limit',
                 negate: false,
-                description: '最多查询的日志条数',
+                description: i18n.__(
+                    'The maximum number of logs to be queried'
+                ),
                 defaultValue: 20
             },
             {
@@ -77,7 +81,9 @@ const i18n = require('../locales')
                 mandatory: false,
                 long: '--calc',
                 negate: false,
-                description: '清理当前分支撤销失败的记录',
+                description: i18n.__(
+                    'Clean up the current branch undo failure log'
+                ),
                 recommend: false
             },
             {
@@ -88,7 +94,7 @@ const i18n = require('../locales')
                 mandatory: false,
                 long: '--calcAll',
                 negate: false,
-                description: '清理所有分支撤销失败的记录',
+                description: i18n.__('Clean up all branch undo failures'),
                 recommend: false
             }
         ],
@@ -98,12 +104,18 @@ const i18n = require('../locales')
                 (val.includes('--calc') || val.includes('--calcAll')) &&
                 val.length > 1
             ) {
-                cb(new Error('--calc和--calcAll只能单独使用'))
+                cb(
+                    new Error(
+                        i18n.__(
+                            '--calc and --calcAll can only be used individually'
+                        )
+                    )
+                )
                 return
             }
             cb()
         },
-        // 校验参数
+        // validator args
         validatorArgs: (val, opts, cb) => {
             cb()
         },
@@ -111,7 +123,7 @@ const i18n = require('../locales')
         transformOpts: (val, opts, cb) => {
             cb()
         },
-        // 清洗参数
+        // transform args
         transformArgs: (val, opts, cb) => {
             cb()
         }

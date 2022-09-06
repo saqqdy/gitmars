@@ -40,20 +40,22 @@ program
         '[-k --key [keyword]] [-t --type [type]] [-d --delete [branch]] [--exclude [exclude]] [--include [include]] [-r --remote [remote]] [-D --forcedelete [branch]] [-u --upstream [upstream]]'
     )
     .description(
-        '分支查询、删除（注意该指令不用于创建分支，如需创建分支请走start流程）'
+        i18n.__(
+            'Branch query, delete (note that this command is not used to create a branch, if you want to create a branch please go through the start process)'
+        )
     )
 if (args.length > 0) program.arguments(createArgs(args))
 options.forEach((o: GitmarsOptionOptionsType) => {
     program.option(o.flags, o.description, o.defaultValue)
 })
-// .option('-k, --key [keyword]', '查询分支的关键词', null)
-// .option('--exclude [exclude]', '排除关键词', '')
-// .option('--include [include]', '包含关键词', '')
-// .option('-r, --remote', '是否查询远程分支（deletes模式下改用于删除远程分支）默认只查询本地', false)
-// .option('-t, --type [type]', '查询分支的类型，共有3种：feature、bugfix、support，不传则查询全部', null)
-// .option('-d, --delete [branch]', '删除分支', null)
-// .option('-D, --forcedelete [branch]', '强行删除分支', null)
-// .option('-u, --upstream [upstream]', '设置与远程分支关联')
+// .option('-k, --key [keyword]', i18n.__('Query branch for keywords'), null)
+// .option('--exclude [exclude]', i18n.__('Exclude keywords'), '')
+// .option('--include [include]', i18n.__('Include keywords'), '')
+// .option('-r, --remote', i18n.__('Whether to query remote branches (change to delete remote branches in deletes mode) Default is local only'), false)
+// .option('-t, --type [type]', i18n.__('The type of branch to query, there are 3 types: feature, bugfix, support, if not pass then query all'), null)
+// .option('-d, --delete [branch]', i18n.__('Delete branch'), null)
+// .option('-D, --forcedelete [branch]', i18n.__('Force branch deletion'), null)
+// .option('-u, --upstream [upstream]', i18n.__('Set association with remote branches'))
 program.action((opt: GitmBuildOption): void => {
     const cmd: Array<CommandType | string> = []
     const isBranchExist = getIsBranchOrCommitExist(opt.delete)

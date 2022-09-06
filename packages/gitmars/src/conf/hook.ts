@@ -25,7 +25,9 @@ const i18n = require('../locales')
                 mandatory: false,
                 long: '--no-verify',
                 negate: true,
-                description: '是否需要跳过校验权限',
+                description: i18n.__(
+                    'Do you want to skip the check permission'
+                ),
                 defaultValue: false
             },
             {
@@ -37,8 +39,9 @@ const i18n = require('../locales')
                 short: '',
                 long: '--lastet',
                 negate: false,
-                description:
-                    '查询在某个时间之后的日志，填写格式：10s/2m/2h/3d/4M/5y',
+                description: i18n.__(
+                    'Query logs after a certain time, fill in the format: 10s/2m/2h/3d/4M/5y'
+                ),
                 defaultValue: '7d'
             },
             {
@@ -50,7 +53,9 @@ const i18n = require('../locales')
                 short: '',
                 long: '--limit',
                 negate: false,
-                description: '最多查询的日志条数',
+                description: i18n.__(
+                    'The maximum number of logs to be queried'
+                ),
                 defaultValue: 20
             },
             {
@@ -62,7 +67,7 @@ const i18n = require('../locales')
                 short: '-t',
                 long: '--type',
                 negate: false,
-                description: '检测类型',
+                description: i18n.__('Detection type'),
                 defaultValue: ''
             },
             {
@@ -74,7 +79,7 @@ const i18n = require('../locales')
                 short: '',
                 long: '--branch',
                 negate: false,
-                description: '要查询的分支',
+                description: i18n.__('Branch to query'),
                 defaultValue: ''
             }
         ]

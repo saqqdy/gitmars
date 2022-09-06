@@ -15,7 +15,7 @@ const i18n = require('../locales')
                 short: '-l',
                 long: '--list',
                 negate: false,
-                description: '显示指令队列',
+                description: i18n.__('Show command queue'),
                 defaultValue: false
             }
         ]

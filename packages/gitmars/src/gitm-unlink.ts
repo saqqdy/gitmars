@@ -28,7 +28,11 @@ program.action((name: string) => {
         // sh.rm('-rf', `./node_modules/${name}`)
         spawnSync(npmClient, ['unlink', name])
     } else {
-        sh.echo('没有找到软链，请确认输入正确名称')
+        sh.echo(
+            i18n.__(
+                'No softlink found, please confirm entering the correct name'
+            )
+        )
     }
     if (isExist) {
         sh.mv(`./node_modules/${name}_bak`, `./node_modules/${name}`)

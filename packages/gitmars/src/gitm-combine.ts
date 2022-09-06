@@ -57,7 +57,11 @@ program
     .usage(
         '[type] [name] [-d --dev] [-p --prod] [-b --build [app]] [-a --add] [-m --commit <commit>] [--description [description]] [--as-feature] [--no-bugfix] [-f --force]'
     )
-    .description('合并bugfix任务分支、合并feature功能开发分支、合并support分支')
+    .description(
+        i18n.__(
+            'Merge bugfix task branch, merge feature development branch, merge support branch'
+        )
+    )
 if (args.length > 0) program.arguments(createArgs(args))
 options.forEach((o: GitmarsOptionOptionsType) => {
     program.option(o.flags, o.description, o.defaultValue)
@@ -66,11 +70,11 @@ options.forEach((o: GitmarsOptionOptionsType) => {
 // .option('-p, --prod', '是否同步到预发布环境', false)
 // .option('-b, --build [build]', '需要构建的应用')
 // .option('-m, --commit <commit>', 'commit信息', '')
-// .option('--description [description]', '本次提交的原因描述', '')
+// .option('--description [description]', i18n.__('Description of the reason for this commit'), '')
 // .option('-a, --add', '需要add', false)
 // .option('--no-bugfix', '不同步到bug分支')
-// .option('--as-feature', 'bug分支合并到release')
-// .option('-f, --force', '是否强制发起合并请求', false)
+// .option('--as-feature', i18n.__('bug branch merge to release'))
+// .option('-f, --force', i18n.__('Whether to force a merge request'), false)
 program.action(
     async (type: string, name: string, opt: GitmBuildOption): Promise<void> => {
         const userInfoApi =
@@ -96,12 +100,12 @@ program.action(
         let _nameArr: string[] = [], // 分支名称数组
             isDescriptionCorrect = true // 本次提交的原因描述是否符合规范
         if (!opt.dev && !opt.prod) {
-            sh.echo('请输入需要同步到的环境')
+            sh.echo(i18n.__('Please enter the environment to sync to.'))
             process.exit(1)
         }
         if (!status) process.exit(1)
         if (opt.commit === true) {
-            sh.echo(red('请输入要提交的message'))
+            sh.echo(red(i18n.__('Please enter the message to be submitted')))
             process.exit(1)
         }
         // 有配置descriptionValidator时需要校验描述信息
@@ -138,7 +142,11 @@ program.action(
                 sh.echo(
                     branches.length > 1
                         ? `查询到多条名称包含${type}的分支，请输入分支类型`
-                        : red('分支不存在，请正确输入')
+                        : red(
+                              i18n.__(
+                                  'Branch does not exist, please enter it correctly'
+                              )
+                          )
                 )
                 process.exit(1)
             }
@@ -153,7 +161,9 @@ program.action(
             ) {
                 sh.echo(
                     yellow(
-                        '检测到该分支已经超过1周没有同步过主干代码了，请每周至少同步一次，执行：gitm update'
+                        i18n.__(
+                            'This branch has not been synced for more than 1 week, please sync it at least once a week, execute: gitm update'
+                        )
                     )
                 )
             }

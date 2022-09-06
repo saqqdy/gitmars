@@ -10,7 +10,7 @@ const i18n = require('./locales')
 if (!sh.which('git')) {
     echo(
         i18n.__(
-            'gitm:Gitmars can only be executed in a git environment, so please install git first'
+            'Gitmars can only be executed in a git environment, so please install git first'
         )
     )
     process.exit(1)
@@ -26,93 +26,91 @@ program.version(
         '                                                          \n' +
         `v${version}, powered by saqqdy\n`,
     '-v, --version',
-    i18n.__('gitm:View gitmars version number')
+    i18n.__('View gitmars version number')
 )
 
 program
     .name('gitm')
     .usage('[command] options')
-    .command('init', i18n.__('gitm:Initialize gitmars configuration'))
+    .command('init', i18n.__('Initialize gitmars configuration'))
     .command(
         'config [options]',
-        i18n.__('gitm:View/Set configuration items for gitmars')
+        i18n.__('View/Set configuration items for gitmars')
     )
-    .command('combine', i18n.__('gitm:Branch phase mention test'))
+    .command('combine', i18n.__('Branch phase mention test'))
     .alias('cb')
     .command(
         'start <type> <name>',
-        i18n.__('gitm:Create bugfix branches, create/merge release branches')
+        i18n.__('Create bugfix branches, create/merge release branches')
     )
     .alias('st')
-    .command('end <type> <name>', i18n.__('gitm:Finish developing a feature'))
+    .command('end <type> <name>', i18n.__('Finish developing a feature'))
     .alias('ed')
     .command(
         'update <type> <name>',
-        i18n.__('gitm:Update bugfix branch, update feature development branch')
+        i18n.__('Update bugfix branch, update feature development branch')
     )
     .alias('up')
-    .command('branch', i18n.__('gitm:List branches'))
+    .command('branch', i18n.__('List branches'))
     .alias('bh')
-    .command('save', i18n.__('gitm:Staging current branch files'))
+    .command('save', i18n.__('Staging current branch files'))
     .alias('sv')
     .command(
         'get',
-        i18n.__(
-            'gitm:Restore the most recently staged file in the staging area'
-        )
+        i18n.__('Restore the most recently staged file in the staging area')
     )
     .alias('gt')
-    .command('cleanbranch', i18n.__('gitm:Clean up merged feature branches'))
+    .command('cleanbranch', i18n.__('Clean up merged feature branches'))
     .alias('clb')
-    .command('copy <id>', i18n.__("gitm:Simplify git's cherry-pick operation"))
+    .command('copy <id>', i18n.__("Simplify git's cherry-pick operation"))
     .alias('cp')
-    .command('merge <name>', i18n.__('gitm:Merge code'))
+    .command('merge <name>', i18n.__('Merge code'))
     .alias('mg')
-    .command('continue', i18n.__('gitm:Continue unfinished operations'))
+    .command('continue', i18n.__('Continue unfinished operations'))
     .alias('ct')
-    .command('revert', i18n.__('gitm:Undo commit'))
+    .command('revert', i18n.__('Undo commit'))
     .alias('rt')
-    .command('upgrade', i18n.__('gitm:Upgrade gitmars'))
+    .command('upgrade', i18n.__('Upgrade gitmars'))
     .alias('ug')
-    .command('build', i18n.__('gitm:buildJenkins'))
+    .command('build', i18n.__('buildJenkins'))
     .alias('bd')
-    .command('suggest', i18n.__('gitm:Action Tips'))
+    .command('suggest', i18n.__('Action Tips'))
     .alias('sg')
-    .command('approve', i18n.__('gitm:Handling remote merge requests'))
+    .command('approve', i18n.__('Handling remote merge requests'))
     .alias('ap')
-    .command('review', i18n.__('gitm:review remote code'))
+    .command('review', i18n.__('review remote code'))
     .alias('rv')
-    .command('status', i18n.__('gitm:view branch status'))
-    .command('ui', i18n.__('gitm:Launch web version of gitmars'))
-    .command('unlink', i18n.__('gitm:Unlink softlinks'))
-    .command('link', i18n.__('gitm:Create soft links'))
-    .command('clean', i18n.__('gitm:Clear cache'))
-    .command('postmsg', i18n.__('gitm:Push Message'))
-    .command('permission', i18n.__('gitm:Commit Permissions'))
-    .command('hook', i18n.__('gitm:git hook directive'))
-    .command('undo', i18n.__('gitm:Withdraw commits on master branches'))
+    .command('status', i18n.__('view branch status'))
+    .command('ui', i18n.__('Launch web version of gitmars'))
+    .command('unlink', i18n.__('Unlink softlinks'))
+    .command('link', i18n.__('Create soft links'))
+    .command('clean', i18n.__('Clear cache'))
+    .command('postmsg', i18n.__('Push Message'))
+    .command('permission', i18n.__('Commit Permissions'))
+    .command('hook', i18n.__('git hook directive'))
+    .command('undo', i18n.__('Withdraw commits on master branches'))
     .alias('ud')
-    .command('redo', i18n.__('gitm:Resume withdrawn code back online'))
+    .command('redo', i18n.__('Resume withdrawn code back online'))
     .alias('rd')
-    .command('run', i18n.__('gitm:git hook run command'))
-    .command('log', i18n.__('gitm:Query log'))
+    .command('run', i18n.__('git hook run command'))
+    .command('log', i18n.__('Query log'))
     .command(
         'go',
-        i18n.__('gitm:Intelligent guessing of the action you want to perform')
+        i18n.__('Intelligent guessing of the action you want to perform')
     )
-    .command('alias', i18n.__('gitm:Install and remove shortcuts'))
-    .command('install', i18n.__('gitm:Install plugins'))
+    .command('alias', i18n.__('Install and remove shortcuts'))
+    .command('install', i18n.__('Install plugins'))
     .alias('i')
     .command(
         'admin <command>',
         i18n.__(
-            'gitm:Administrator functions, including actions for bugfixing and releasing release branches'
+            'Administrator functions, including actions for bugfixing and releasing release branches'
         )
     )
 
 // 自定义帮助
 program.on('--help', function () {
-    echo(i18n.__('gitm:Use Case'))
+    echo(i18n.__('Use Case'))
     echo('  $ gitm init')
     echo('  $ gitm --help')
     echo('  $ gitm -h')
@@ -187,7 +185,7 @@ program.on('command:*', function (types: string[], opts: string[]) {
         echo(
             green(
                 i18n.__mf(
-                    'gitm:Gitmars does not provide the command "gitm {command}", it has been passed through to git for execution, here are the results',
+                    'Gitmars does not provide the command "gitm {command}", it has been passed through to git for execution, here are the results',
                     { command: types[0] }
                 )
             )

@@ -29,15 +29,15 @@ program
     .usage(
         '[branch] [--lastet [lastet]] [--limit [limit]] [--no-merges] [--json]'
     )
-    .description('日志查询')
+    .description(i18n.__('Log query'))
 if (args.length > 0) program.arguments(createArgs(args))
 options.forEach((o: GitmarsOptionOptionsType) => {
     program.option(o.flags, o.description, o.defaultValue)
 })
-// .option('--lastet [lastet]', '查询在某个时间之后的日志，填写格式：10s/2m/2h/3d/4M/5y', '7d')
+// .option('--lastet [lastet]', i18n.__('Query logs after a certain time, fill in the format: 10s/2m/2h/3d/4M/5y'), '7d')
 // .option('--no-merges', '是否排除merge的日志')
-// .option('--limit [limit]', '最多查询的日志条数', 20)
-// .option('--json', '是否以json格式输出日志，默认表格方式', false)
+// .option('--limit [limit]', i18n.__('The maximum number of logs to be queried'), 20)
+// .option('--json', i18n.__('Whether to output logs in json format, default form'), false)
 program.action(async (branch: string, opt: GitmBuildOption) => {
     const logs = getGitLogs({
         lastet: opt.lastet,

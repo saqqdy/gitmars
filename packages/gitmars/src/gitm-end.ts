@@ -51,15 +51,17 @@ program
         '[type] [name] [--description [description]] [--as-feature] [--no-combine]'
     )
     .description(
-        '合并bugfix任务分支、合并feature功能开发分支，合并完成后将删除对应分支'
+        i18n.__(
+            'Merge bugfix task branch, merge feature function development branch, the corresponding branch will be deleted after the merge is completed'
+        )
     )
 if (args.length > 0) program.arguments(createArgs(args))
 options.forEach((o: GitmarsOptionOptionsType) => {
     program.option(o.flags, o.description, o.defaultValue)
 })
-// .option('--no-combine', '不合并主干分支（请确保分支已经上线）')
-// .option('--as-feature', 'bug分支合并到release')
-// .option('--description [description]', '本次提交的原因描述', '')
+// .option('--no-combine', i18n.__('Do not merge trunk branches (make sure the branch is live)'))
+// .option('--as-feature', i18n.__('bug branch merge to release'))
+// .option('--description [description]', i18n.__('Description of the reason for this commit'), '')
 program.action(
     async (type: string, name: string, opt: GitmBuildOption): Promise<void> => {
         const userInfoApi =
@@ -119,7 +121,11 @@ program.action(
                 sh.echo(
                     branches.length > 1
                         ? `查询到多条名称包含${type}的分支，请输入分支类型`
-                        : red('分支不存在，请正确输入')
+                        : red(
+                              i18n.__(
+                                  'Branch does not exist, please enter it correctly'
+                              )
+                          )
                 )
                 process.exit(1)
             }

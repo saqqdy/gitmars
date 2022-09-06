@@ -38,13 +38,13 @@ interface GitmBuildOption {
 program
     .name('gitm redo')
     .usage('[commitid...] [-m --mode [mode]]')
-    .description('撤销一次提交记录')
+    .description(i18n.__('Undo a commit record'))
 if (args.length > 0) program.arguments(createArgs(args))
 options.forEach((o: GitmarsOptionOptionsType) => {
     program.option(o.flags, o.description, o.defaultValue)
 })
 // .arguments('[commitid...]')
-// .option('-m, --mode [mode]', '针对撤销一次merge记录，需要传入类型：1 = 保留当前分支代码，2 = 保留传入代码', null)
+// .option('-m, --mode [mode]', i18n.__('For undoing a merge record, the type to be passed in: 1 = keep current branch code, 2 = keep incoming code'), null)
 program.action(async (commitid: string[], opt: GitmBuildOption) => {
     const current = getCurrentBranch()
     let revertCache: RevertCacheType[] = getRevertCache(current),
@@ -67,7 +67,7 @@ program.action(async (commitid: string[], opt: GitmBuildOption) => {
     // 多条记录
     const prompt: InitInquirerPromptType = {
         type: 'checkbox',
-        message: '请选择要恢复的撤销记录',
+        message: i18n.__('Please select the undo record to restore'),
         name: 'commitIDs',
         choices: []
     }

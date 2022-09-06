@@ -34,14 +34,18 @@ program
     .usage(
         '[commitid...] [-t --target [target]] [-k --key [keyword]] [-a --author [author]]'
     )
-    .description('cherry-pick批量版本，从某个分支拷贝某条记录合并到当前分支')
+    .description(
+        i18n.__(
+            'cherry-pick batch version, copy a record from a branch and merge it into the current branch'
+        )
+    )
 if (args.length > 0) program.arguments(createArgs(args))
 options.forEach((o: GitmarsOptionOptionsType) => {
     program.option(o.flags, o.description, o.defaultValue)
 })
-// .option('-s, --source [source]', '拷贝记录的来源分支', '')
-// .option('-k, --key [keyword]', '模糊搜索commit信息关键词', '')
-// .option('-a, --author [author]', '提交者', '')
+// .option('-s, --source [source]', i18n.__('Copy the source branch of the record'), '')
+// .option('-k, --key [keyword]', i18n.__('Fuzzy search for commit message keywords'), '')
+// .option('-a, --author [author]', i18n.__('Submitter'), '')
 program.action((commitid: string[], opts: GitmBuildOption) => {
     const status = checkGitStatus()
     const cur = getCurrentBranch()
@@ -52,23 +56,27 @@ program.action((commitid: string[], opts: GitmBuildOption) => {
                 cmd: `git cherry-pick ${commitid.join(' ')}`,
                 config: {
                     again: false,
-                    success: '记录合并成功',
-                    fail: '合并失败，请根据提示处理'
+                    success: i18n.__('Record merge successful'),
+                    fail: i18n.__(
+                        'Merge failed, please follow the instructions'
+                    )
                 }
             }
         ]
         queue(cmd)
     } else if (!opts.key) {
-        sh.echo('请填写关键词')
+        sh.echo(i18n.__('Please fill in the keyword'))
         process.exit(1)
     } else if (!opts.source) {
-        sh.echo('请填写源分支')
+        sh.echo(i18n.__('Please fill in the source branch'))
         process.exit(1)
     } else {
         if (opts.key.length < 3) {
             sh.echo(
                 yellow(
-                    '为确保copy准确，关键词不能少于4个字，请尽量完整填写关键词'
+                    i18n.__(
+                        'To make sure the copy is accurate, the keywords cannot be less than 4 words, please try to fill in the keywords completely'
+                    )
                 )
             )
             process.exit(1)
@@ -97,13 +105,15 @@ program.action((commitid: string[], opts: GitmBuildOption) => {
                             cmd: `git cherry-pick ${commits.join(' ')}`,
                             config: {
                                 again: false,
-                                success: '记录合并成功',
-                                fail: '合并失败，请根据提示处理'
+                                success: i18n.__('Record merge successful'),
+                                fail: i18n.__(
+                                    'Merge failed, please follow the instructions'
+                                )
                             }
                         }
                     ])
                 } else {
-                    sh.echo('没有找到任何记录')
+                    sh.echo(i18n.__('No records found'))
                 }
                 queue(cmds)
             } else {

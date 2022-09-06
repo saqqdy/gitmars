@@ -10,7 +10,10 @@ const i18n = require('./locales')
 /**
  * gitm link
  */
-program.name('gitm link').usage('[name]').description('链接本地包')
+program
+    .name('gitm link')
+    .usage('[name]')
+    .description(i18n.__('Link local package'))
 if (args.length > 0) program.arguments(createArgs(args))
 options.forEach((o: GitmarsOptionOptionsType) => {
     program.option(o.flags, o.description, o.defaultValue)

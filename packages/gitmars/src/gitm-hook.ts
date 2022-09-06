@@ -41,17 +41,17 @@ program
     .usage(
         '[command] [args...] [--no-verify] [--lastet [lastet]] [--limit [limit]] [-t --type <type>] [--branch [branch]]'
     )
-    .description('git hook钩子')
+    .description('git hooks')
 if (args.length > 0) program.arguments(createArgs(args))
 options.forEach((o: GitmarsOptionOptionsType) => {
     program.option(o.flags, o.description, o.defaultValue)
 })
 // .arguments('[command] [args...]')
-// .option('--no-verify', '是否需要跳过校验权限', false)
-// .option('--lastet [lastet]', '查询在某个时间之后的日志，填写格式：10s/2m/2h/3d/4M/5y', '7d')
-// .option('--limit [limit]', '最多查询的日志条数')
-// .option('-t, --type <type>', '检测类型')
-// .option('--branch [branch]', '要查询的分支')
+// .option('--no-verify', i18n.__('Do you want to skip the check permission'), false)
+// .option('--lastet [lastet]', i18n.__('Query logs after a certain time, fill in the format: 10s/2m/2h/3d/4M/5y'), '7d')
+// .option('--limit [limit]', i18n.__('The maximum number of logs to be queried'))
+// .option('-t, --type <type>', i18n.__('Detection type'))
+// .option('--branch [branch]', i18n.__('Branch to query'))
 program.action(
     async (
         command: string,
@@ -384,10 +384,18 @@ program.action(
                 // 在主干分支执行push推送时，检测最后一次提交是否为merge记录，如果不是，提示不允许直接在主干分支做修改
                 const isMergeAction = getIsMergeAction()
                 if (!isMergeAction) {
-                    console.info(red('检测到你直接在主干分支修改代码'))
+                    console.info(
+                        red(
+                            i18n.__(
+                                'Detects that you are modifying code directly in the master branch'
+                            )
+                        )
+                    )
                     process.exit(0)
                 } else {
-                    console.info(green('最后一条记录是merge记录'))
+                    console.info(
+                        green(i18n.__('The last record was a merge record'))
+                    )
                 }
                 // const behindLogs = getBehindLogs()
                 // const aheadLogs = getAheadLogs()
@@ -395,7 +403,7 @@ program.action(
                 // aheadLog: for (let logStr of aheadLogs) {
                 // 	let logs = logStr.split(' ')
                 // 	if (logs.length < 2) {
-                // 		console.info(yellow('检测到你直接在主干分支修改代码'))
+                // 		console.info(yellow(i18n.__('Detects that you are modifying code directly in the master branch')))
                 // 		isMerge = false
                 // 		break aheadLog
                 // 	}
@@ -413,10 +421,20 @@ program.action(
                 // 在主干分支执行push推送时，检测是否需要先执行pull
                 const behindLogs = getBehindLogs()
                 if (!behindLogs.length) {
-                    console.info('你本地分支版本落后于远程分支，请先执行pull')
+                    console.info(
+                        i18n.__(
+                            'Your local branch version is lagging behind the remote branch, please perform a pull first.'
+                        )
+                    )
                     process.exit(0)
                 } else {
-                    console.info(green('本地版本没有落后远程，可直接push'))
+                    console.info(
+                        green(
+                            i18n.__(
+                                'The local version is not behind the remote, you can push it directly'
+                            )
+                        )
+                    )
                 }
             }
         }

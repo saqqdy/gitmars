@@ -37,13 +37,15 @@ program
     .name('gitm start')
     .usage('<type> <name> [-t --tag <tag>]')
     .description(
-        '创建bugfix任务分支、创建feature功能开发分支、support框架支持分支'
+        i18n.__(
+            'Create bugfix task branch, create feature development branch, support framework support branch'
+        )
     )
 if (args.length > 0) program.arguments(createArgs(args))
 options.forEach((o: GitmarsOptionOptionsType) => {
     program.option(o.flags, o.description, o.defaultValue)
 })
-// .option('-t, --tag <tag>', '从tag创建分支', '')
+// .option('-t, --tag <tag>', i18n.__('Create branch from tag'), '')
 program.action(async (type: string, name: string, opt: GitmBuildOption) => {
     // 检测是否需要升级版本
     const needUpgrade = await isNeedUpgrade()
@@ -54,7 +56,13 @@ program.action(async (type: string, name: string, opt: GitmBuildOption) => {
     if (opts.includes(type)) {
         // 指定从tag拉取分支时，仅支持创建bugfix分支
         if (opt.tag && type !== 'bugfix') {
-            sh.echo(red('指定从tag拉取分支时仅支持创建bugfix分支'))
+            sh.echo(
+                red(
+                    i18n.__(
+                        'Specify that only bugfix branch creation is supported when pulling branches from tag'
+                    )
+                )
+            )
             process.exit(1)
         }
         // 校验分支名称规范
@@ -64,7 +72,11 @@ program.action(async (type: string, name: string, opt: GitmBuildOption) => {
                     ? config.nameValidator
                     : new RegExp(config.nameValidator)
             if (!reg.test(name)) {
-                sh.echo(red('分支名称不符合规范'))
+                sh.echo(
+                    red(
+                        i18n.__('Branch name does not conform to specification')
+                    )
+                )
                 process.exit(1)
             }
         }
@@ -101,7 +113,7 @@ program.action(async (type: string, name: string, opt: GitmBuildOption) => {
             }
         })
     } else {
-        sh.echo(red('type只允许输入：' + JSON.stringify(opts)))
+        sh.echo(red('type只允许输入' + '：' + JSON.stringify(opts)))
         process.exit(1)
     }
 })

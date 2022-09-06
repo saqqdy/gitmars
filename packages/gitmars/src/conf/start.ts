@@ -9,7 +9,7 @@ const i18n = require('../locales')
                 required: true,
                 name: 'type',
                 variadic: false,
-                description: '分支类型',
+                description: i18n.__('Branch Type'),
                 options: ['feature', 'bugfix', 'support'],
                 value: ''
             },
@@ -17,7 +17,9 @@ const i18n = require('../locales')
                 required: true,
                 name: 'name',
                 variadic: false,
-                description: '分支名称(不带feature/bugfix前缀)'
+                description: i18n.__(
+                    'Branch name (without feature/bugfix prefix)'
+                )
             }
         ],
         options: [
@@ -30,7 +32,7 @@ const i18n = require('../locales')
                 short: '-t',
                 long: '--tag',
                 negate: false,
-                description: '从tag创建分支',
+                description: i18n.__('Create branch from tag'),
                 defaultValue: '',
                 recommend: false
             }
