@@ -7,7 +7,7 @@ const sh = require('shelljs')
 const inquirer = require('inquirer')
 const getIsGitProject = require('@gitmars/core/lib/git/getIsGitProject')
 const getGitRevParse = require('@gitmars/core/lib/git/getGitRevParse')
-const { defaults } = require('@gitmars/core/lib/global')
+const { defaults } = require('./common/global')
 const i18n = require('./locales')
 if (!getIsGitProject()) {
     sh.echo(
@@ -178,7 +178,9 @@ program
                     ),
                     transformer: val => val.trim(),
                     validate: val =>
-                        val === '' || /^\d+$/.test(val) ? true : i18n.__('Please enter the URL')
+                        val === '' || /^\d+$/.test(val)
+                            ? true
+                            : i18n.__('Please enter the URL')
                 })
             }
         })

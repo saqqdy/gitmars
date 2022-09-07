@@ -19,12 +19,12 @@ const fetch = require('@gitmars/core/lib/git/fetch')
 const { createArgs } = require('@gitmars/core/lib/utils/command')
 const { spawnSync } = require('@gitmars/core/lib/spawn')
 const echo = require('@gitmars/core/lib/utils/echo')
+const getConfig = require('@gitmars/core/lib/getConfig')
 const i18n = require('./locales')
 if (!getIsGitProject()) {
     echo(red(i18n.__('The current directory is not a git project directory')))
     process.exit(1)
 }
-const getConfig = require('@gitmars/core/lib/getConfig')
 const { create, publish, update, clean, approve } = require('./conf/admin')
 const { appName } = getGitConfig()
 const config = getConfig()

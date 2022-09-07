@@ -14,14 +14,7 @@ const getGitConfig = require('@gitmars/core/lib/git/getGitConfig')
 const sendGroupMessage = require('@gitmars/core/lib/sendGroupMessage')
 const { createArgs } = require('@gitmars/core/lib/utils/command')
 const echo = require('@gitmars/core/lib/utils/echo')
-const i18n = require('./locales')
-if (!getIsGitProject()) {
-    echo(red(i18n.__('The current directory is not a git project directory')))
-    process.exit(1)
-}
-const { appName } = getGitConfig()
 const getConfig = require('@gitmars/core/lib/getConfig')
-const config = getConfig()
 const {
     getMergeRequestList,
     getMergeRequestChanges,
@@ -32,6 +25,13 @@ const {
 const {
     getMergeRequestNotesList
 } = require('@gitmars/core/lib/api/mergeRequestNotes')
+const i18n = require('./locales')
+if (!getIsGitProject()) {
+    echo(red(i18n.__('The current directory is not a git project directory')))
+    process.exit(1)
+}
+const { appName } = getGitConfig()
+const config = getConfig()
 const { options, args } = require('./conf/approve')
 interface GitmBuildOption {
     state?: string
@@ -67,7 +67,9 @@ program.action(async (opt: GitmBuildOption): Promise<void> => {
     const mrList = await getMergeRequestList({ token, state: opt.state })
     // 没有任何记录
     if (mrList.length === 0) {
-        echo(yellow(i18n.__('No merge request record found, process has exited')))
+        echo(
+            yellow(i18n.__('No merge request record found, process has exited'))
+        )
         process.exit(0)
     }
     const prompt: InitInquirerPromptType[] = [
@@ -114,7 +116,9 @@ program.action(async (opt: GitmBuildOption): Promise<void> => {
             name: `${green(iid + '：')} 请求合并 ${green(
                 source_branch
             )} 到 ${green(target_branch)} ${
-                disabled ? red(`[ ${i18n.__('Conflict or no need to merge')} ]) : ''
+                disabled
+                    ? red(`[ ${i18n.__('Conflict or no need to merge')} ]`)
+                    : ''
             } | ${yellow(author.name)} | ${green(
                 mr.notes.length + '条评论'
             )} | ${blue(_time)}`,
@@ -142,7 +146,13 @@ program.action(async (opt: GitmBuildOption): Promise<void> => {
         const CAN_BE_MERGED = merge_status === 'can_be_merged'
         if (accept === i18n.__('Passed')) {
             if (!CAN_BE_MERGED) {
-                echo(yellow(i18n.__('Requests that can't be merged can't be clicked for review and approval')))
+                echo(
+                    yellow(
+                        i18n.__(
+                            "Requests that can't be merged can't be clicked for review and approval"
+                        )
+                    )
+                )
                 process.exit(0)
             }
             await acceptMergeRequest({ token, iid })

@@ -34,7 +34,6 @@
     "Installation complete": "Installation complete",
     "There was an error uninstalling, please try running after manually removing: npm install -g gitmars": "There was an error uninstalling, please try running after manually removing: npm install -g gitmars",
     "There was an error installing, please try running: npm install -g gitmars": "There was an error installing, please try running: npm install -g gitmars",
-
     "Branch Type": "Branch Type",
     "Please do not enter spaces": "Please do not enter spaces",
     "Send Message": "Send Message",
@@ -237,5 +236,6 @@
     "Install plugins": "Install plugins",
     "Administrator functions, including actions for bugfixing and releasing release branches": "Administrator functions, including actions for bugfixing and releasing release branches",
     "Use Case": "Use Case",
-    "Gitmars does not provide the command \"gitm {command}\", it has been passed through to git for execution, here are the results": "Gitmars does not provide the command \"gitm {command}\", it has been passed through to git for execution, here are the results"
+    "Gitmars does not provide the command \"gitm {command}\", it has been passed through to git for execution, here are the results": "Gitmars does not provide the command \"gitm {command}\", it has been passed through to git for execution, here are the results",
+    "Send group message": "Send group message"
 }

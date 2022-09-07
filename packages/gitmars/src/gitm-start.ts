@@ -16,6 +16,7 @@ const {
     upgradeGitmars
 } = require('@gitmars/core/lib/versionControl')
 const { createArgs } = require('@gitmars/core/lib/utils/command')
+const getConfig = require('@gitmars/core/lib/getConfig')
 const i18n = require('./locales')
 if (!getIsGitProject()) {
     sh.echo(
@@ -23,7 +24,6 @@ if (!getIsGitProject()) {
     )
     process.exit(1)
 }
-const getConfig = require('@gitmars/core/lib/getConfig')
 const { options, args } = require('./conf/start')
 const config = getConfig()
 interface GitmBuildOption {

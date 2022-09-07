@@ -4,7 +4,6 @@ import sh from 'shelljs'
 import chalk from 'chalk'
 import ciInfo from 'ci-info'
 import compareVersion from '../utils/compareVersion'
-import { hookList } from '../global'
 import getGitVersion from '../git/getGitVersion'
 import getGitRevParse from '../git/getGitRevParse'
 import getConfig from '../getConfig'
@@ -12,6 +11,26 @@ import getHookComment from './getHookComment'
 import getHookType from './getHookType'
 import getHookShell from './getHookShell'
 import getLocalShell from './getLocalShell'
+
+const hookList = [
+    'applypatch-msg',
+    'pre-applypatch',
+    'post-applypatch',
+    'pre-commit',
+    'pre-merge-commit',
+    'prepare-commit-msg',
+    'commit-msg',
+    'post-commit',
+    'pre-rebase',
+    'post-checkout',
+    'post-merge',
+    'pre-push',
+    'post-update',
+    'push-to-checkout',
+    'pre-auto-gc',
+    'post-rewrite',
+    'sendemail-validate'
+]
 const { gitHookDir, prefix } = getGitRevParse()
 const gitVersion = getGitVersion()
 const config = getConfig()

@@ -56,7 +56,7 @@ const i18n = require('../locales')
                 defaultValue: ''
             }
         ],
-        // 校验传值
+        // validator opts
         validatorOpts: (val, opts, cb) => {
             cb()
         },
@@ -64,7 +64,7 @@ const i18n = require('../locales')
         validatorArgs: (val, opts, cb) => {
             cb()
         },
-        // 清洗传值
+        // transform opts
         transformOpts: (val, opts, cb) => {
             cb()
         },
