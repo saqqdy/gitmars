@@ -1,13 +1,14 @@
 #!/usr/bin/env ts-node
+import { program } from 'commander'
+import { red } from 'chalk'
+import { createArgs } from '@gitmars/core/lib/utils/command'
+import { spawnSync } from '@gitmars/core/lib/spawn'
+import echo from '@gitmars/core/lib/utils/echo'
 import type { GitmarsOptionOptionsType } from '../typings'
-const { program } = require('commander')
-const { red } = require('chalk')
-const { createArgs } = require('@gitmars/core/lib/utils/command')
-const { spawnSync } = require('@gitmars/core/lib/spawn')
-const echo = require('@gitmars/core/lib/utils/echo')
-const { options, args } = require('./conf/alias')
-const i18n = require('./locales')
+import aliasConfig from './conf/alias'
+import i18n from './locales'
 
+const { args, options } = aliasConfig
 const actions = ['init', 'remove'] as const
 type Module = typeof actions[number]
 interface Action {

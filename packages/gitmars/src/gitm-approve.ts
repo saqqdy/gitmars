@@ -1,38 +1,39 @@
 #!/usr/bin/env ts-node
+import { program } from 'commander'
+import dayjs from 'dayjs'
+import inquirer from 'inquirer'
+import { blue, cyan, green, magenta, red, yellow } from 'chalk'
+import getUserToken from '@gitmars/core/lib/api/getUserToken'
+import getIsGitProject from '@gitmars/core/lib/git/getIsGitProject'
+import getGitConfig from '@gitmars/core/lib/git/getGitConfig'
+import sendGroupMessage from '@gitmars/core/lib/sendGroupMessage'
+import { createArgs } from '@gitmars/core/lib/utils/command'
+import echo from '@gitmars/core/lib/utils/echo'
+import getConfig from '@gitmars/core/lib/getConfig'
+import {
+    acceptMergeRequest,
+    deleteMergeRequest,
+    getMergeRequestChanges,
+    getMergeRequestList,
+    updateMergeRequest
+} from '@gitmars/core/lib/api/mergeRequest'
+import { getMergeRequestNotesList } from '@gitmars/core/lib/api/mergeRequestNotes'
 import type {
     FetchDataType,
     GitmarsOptionOptionsType,
     InitInquirerPromptType
 } from '../typings'
-const { program } = require('commander')
-const dayjs = require('dayjs')
-const inquirer = require('inquirer')
-const { green, yellow, blue, red, cyan, magenta } = require('chalk')
-const getUserToken = require('@gitmars/core/lib/api/getUserToken')
-const getIsGitProject = require('@gitmars/core/lib/git/getIsGitProject')
-const getGitConfig = require('@gitmars/core/lib/git/getGitConfig')
-const sendGroupMessage = require('@gitmars/core/lib/sendGroupMessage')
-const { createArgs } = require('@gitmars/core/lib/utils/command')
-const echo = require('@gitmars/core/lib/utils/echo')
-const getConfig = require('@gitmars/core/lib/getConfig')
-const {
-    getMergeRequestList,
-    getMergeRequestChanges,
-    acceptMergeRequest,
-    updateMergeRequest,
-    deleteMergeRequest
-} = require('@gitmars/core/lib/api/mergeRequest')
-const {
-    getMergeRequestNotesList
-} = require('@gitmars/core/lib/api/mergeRequestNotes')
-const i18n = require('./locales')
+import i18n from './locales'
+import approveConfig from './conf/approve'
+
 if (!getIsGitProject()) {
     echo(red(i18n.__('The current directory is not a git project directory')))
     process.exit(1)
 }
+
+const { args, options } = approveConfig
 const { appName } = getGitConfig()
 const config = getConfig()
-const { options, args } = require('./conf/approve')
 interface GitmBuildOption {
     state?: string
     quiet: boolean

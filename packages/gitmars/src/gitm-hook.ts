@@ -1,26 +1,30 @@
 #!/usr/bin/env ts-node
+import { program } from 'commander'
+import sh from 'shelljs'
+import { green, red } from 'chalk'
+import getBranchesFromID from '@gitmars/core/lib/git/getBranchesFromID'
+import getIsGitProject from '@gitmars/core/lib/git/getIsGitProject'
+import getCurrentBranch from '@gitmars/core/lib/git/getCurrentBranch'
+import getIsMergedTargetBranch from '@gitmars/core/lib/git/getIsMergedTargetBranch'
+import getIsUpdatedInTime from '@gitmars/core/lib/git/getIsUpdatedInTime'
+import getIsMergeAction from '@gitmars/core/lib/git/getIsMergeAction'
+import getBehindLogs from '@gitmars/core/lib/git/getBehindLogs'
+import { createArgs } from '@gitmars/core/lib/utils/command'
+import { init, remove } from '@gitmars/core/lib/hook/index'
+import getConfig from '@gitmars/core/lib/getConfig'
 import type { GitmarsOptionOptionsType } from '../typings'
-const { program } = require('commander')
-const sh = require('shelljs')
-const { green, red } = require('chalk')
-const getBranchesFromID = require('@gitmars/core/lib/git/getBranchesFromID')
-const getIsGitProject = require('@gitmars/core/lib/git/getIsGitProject')
-const getCurrentBranch = require('@gitmars/core/lib/git/getCurrentBranch')
-const getIsMergedTargetBranch = require('@gitmars/core/lib/git/getIsMergedTargetBranch')
-const getIsUpdatedInTime = require('@gitmars/core/lib/git/getIsUpdatedInTime')
-const getIsMergeAction = require('@gitmars/core/lib/git/getIsMergeAction')
-const getBehindLogs = require('@gitmars/core/lib/git/getBehindLogs')
-const { createArgs } = require('@gitmars/core/lib/utils/command')
-const { init, remove } = require('@gitmars/core/lib/hook/index')
-const getConfig = require('@gitmars/core/lib/getConfig')
-const i18n = require('./locales')
+import i18n from './locales'
+import hookConfig from './conf/hook'
+
 if (!getIsGitProject()) {
     sh.echo(
         red(i18n.__('The current directory is not a git project directory'))
     )
     process.exit(1)
 }
-const { options, args } = require('./conf/hook')
+
+const { args, options } = hookConfig
+
 const config = getConfig()
 interface GitmBuildOption {
     noVerify?: boolean

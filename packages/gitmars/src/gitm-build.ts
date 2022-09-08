@@ -1,10 +1,12 @@
 #!/usr/bin/env ts-node
+import { program } from 'commander'
+import { createArgs } from '@gitmars/core/lib/utils/command'
+import runJenkins from '@gitmars/core/lib/build/runJenkins'
 import type { GitmarsOptionOptionsType } from '../typings'
-const { program } = require('commander')
-const { createArgs } = require('@gitmars/core/lib/utils/command')
-const runJenkins = require('@gitmars/core/lib/build/runJenkins')
-const { options, args } = require('./conf/build')
-const i18n = require('./locales')
+import buildConfig from './conf/build'
+import i18n from './locales'
+
+const { args, options } = buildConfig
 
 interface GitmBuildOption {
     env?: string

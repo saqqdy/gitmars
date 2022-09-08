@@ -8,6 +8,7 @@
         "outDir": "lib",
         "module": "commonjs",
         "lib": ["ESNext"],
+        "types": ["./typings/global"],
         "sourceMap": true
     }
 }

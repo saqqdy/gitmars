@@ -1,25 +1,29 @@
 #!/usr/bin/env ts-node
+import { program } from 'commander'
+import sh from 'shelljs'
+import { green, red, yellow } from 'chalk'
+import inquirer from 'inquirer'
+import { queue } from '@gitmars/core/lib/queue'
+import getIsGitProject from '@gitmars/core/lib/git/getIsGitProject'
+import getGitStatus from '@gitmars/core/lib/git/getGitStatus'
+import { createArgs } from '@gitmars/core/lib/utils/command'
+import {
+    cleanCommandCache,
+    getCommandCache
+} from '@gitmars/core/lib/cache/commandCache'
 import type { CommandType, GitmarsOptionOptionsType } from '../typings'
-const { program } = require('commander')
-const sh = require('shelljs')
-const { green, yellow, red } = require('chalk')
-const inquirer = require('inquirer')
-const { queue } = require('@gitmars/core/lib/queue')
-const {
-    getCommandCache,
-    cleanCommandCache
-} = require('@gitmars/core/lib/cache/commandCache')
-const getIsGitProject = require('@gitmars/core/lib/git/getIsGitProject')
-const getGitStatus = require('@gitmars/core/lib/git/getGitStatus')
-const { createArgs } = require('@gitmars/core/lib/utils/command')
-const { options, args } = require('./conf/continue')
-const i18n = require('./locales')
+import continueConfig from './conf/continue'
+import i18n from './locales'
+
 if (!getIsGitProject()) {
     sh.echo(
         red(i18n.__('The current directory is not a git project directory'))
     )
     process.exit(1)
 }
+
+const { args, options } = continueConfig
+
 interface GitmBuildOption {
     list?: boolean
 }

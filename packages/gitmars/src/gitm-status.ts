@@ -1,19 +1,23 @@
 #!/usr/bin/env ts-node
+import { program } from 'commander'
+import columnify from 'columnify'
+import { cyan, green, red, yellow } from 'chalk'
+import getIsGitProject from '@gitmars/core/lib/git/getIsGitProject'
+import getCurrentBranch from '@gitmars/core/lib/git/getCurrentBranch'
+import getGitStatus from '@gitmars/core/lib/git/getGitStatus'
+import { createArgs } from '@gitmars/core/lib/utils/command'
+import echo from '@gitmars/core/lib/utils/echo'
 import type { GitStatusInfoType, GitmarsOptionOptionsType } from '../typings'
-const { program } = require('commander')
-const columnify = require('columnify')
-const { yellow, red, cyan, green } = require('chalk')
-const getIsGitProject = require('@gitmars/core/lib/git/getIsGitProject')
-const getCurrentBranch = require('@gitmars/core/lib/git/getCurrentBranch')
-const getGitStatus = require('@gitmars/core/lib/git/getGitStatus')
-const { createArgs } = require('@gitmars/core/lib/utils/command')
-const echo = require('@gitmars/core/lib/utils/echo')
-const { options, args } = require('./conf/status')
-const i18n = require('./locales')
+import statusConfig from './conf/status'
+import i18n from './locales'
+
 if (!getIsGitProject()) {
     echo(red(i18n.__('The current directory is not a git project directory')))
     process.exit(1)
 }
+
+const { args, options } = statusConfig
+
 /**
  * gitm status
  */

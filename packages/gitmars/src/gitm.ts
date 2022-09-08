@@ -1,11 +1,11 @@
 #!/usr/bin/env ts-node
-const { program } = require('commander')
-const sh = require('shelljs')
-const { green } = require('chalk')
-const { spawnSync } = require('@gitmars/core/lib/spawn')
-const echo = require('@gitmars/core/lib/utils/echo')
-const { version } = require('../package.json')
-const i18n = require('./locales')
+import { program } from 'commander'
+import sh from 'shelljs'
+import { green } from 'chalk'
+import { spawnSync } from '@gitmars/core/lib/spawn'
+import echo from '@gitmars/core/lib/utils/echo'
+import { version } from '../package.json'
+import i18n from './locales'
 
 if (!sh.which('git')) {
     echo(

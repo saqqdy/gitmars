@@ -1,4 +1,4 @@
-import { join, dirname } from 'path'
+import { dirname, join } from 'path'
 import { fileURLToPath } from 'url'
 import chalk from 'chalk'
 import { I18n } from 'i18n'

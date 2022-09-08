@@ -1,19 +1,23 @@
 #!/usr/bin/env ts-node
+import { program } from 'commander'
+import dayjs from 'dayjs'
+import columnify from 'columnify'
+import { blue, cyan, green, red, yellow } from 'chalk'
+import getIsGitProject from '@gitmars/core/lib/git/getIsGitProject'
+import getGitLogs from '@gitmars/core/lib/git/getGitLogs'
+import { createArgs } from '@gitmars/core/lib/utils/command'
+import echo from '@gitmars/core/lib/utils/echo'
 import type { GitLogsType, GitmarsOptionOptionsType } from '../typings'
-const { program } = require('commander')
-const dayjs = require('dayjs')
-const columnify = require('columnify')
-const { red, green, cyan, blue, yellow } = require('chalk')
-const getIsGitProject = require('@gitmars/core/lib/git/getIsGitProject')
-const getGitLogs = require('@gitmars/core/lib/git/getGitLogs')
-const { createArgs } = require('@gitmars/core/lib/utils/command')
-const echo = require('@gitmars/core/lib/utils/echo')
-const { options, args } = require('./conf/log')
-const i18n = require('./locales')
+import logConfig from './conf/log'
+import i18n from './locales'
+
 if (!getIsGitProject()) {
     echo(red(i18n.__('The current directory is not a git project directory')))
     process.exit(1)
 }
+
+const { args, options } = logConfig
+
 interface GitmBuildOption {
     lastet?: string
     limit?: number

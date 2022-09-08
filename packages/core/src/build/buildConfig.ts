@@ -1,3 +1,4 @@
+import { createRequire } from 'node:module'
 import apollo from 'node-apollo'
 import sh from 'shelljs'
 import request from '@jssj/request'
@@ -12,6 +13,8 @@ import { isCacheExpired, updateCacheTime } from '../cache/cache'
 import getConfig from '../getConfig'
 import { debug } from '../utils/debug'
 import { CACHE_PATH } from '../utils/paths'
+
+const require = createRequire(import.meta.url)
 
 /**
  * 获取namespace

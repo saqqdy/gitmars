@@ -1,15 +1,17 @@
 #!/usr/bin/env ts-node
+import { program } from 'commander'
+import sh from 'shelljs'
+import { green, red } from 'chalk'
+import inquirer from 'inquirer'
+import getProperty from 'js-cool/lib/getProperty'
+import getCurrentBranch from '@gitmars/core/lib/git/getCurrentBranch'
+import { createArgs } from '@gitmars/core/lib/utils/command'
 import type { GitmarsOptionOptionsType } from '../typings'
-const { program } = require('commander')
-const sh = require('shelljs')
-const { green, red } = require('chalk')
-const inquirer = require('inquirer')
-const getProperty = require('js-cool/lib/getProperty')
-const getCurrentBranch = require('@gitmars/core/lib/git/getCurrentBranch')
-const { createArgs } = require('@gitmars/core/lib/utils/command')
-const commands = require('./go/index')
-const { options, args } = require('./conf/go')
-const i18n = require('./locales')
+import commands from './go/index'
+import goConfig from './conf/go'
+import i18n from './locales'
+
+const { args, options } = goConfig
 
 /**
  * gitm go

@@ -1,3 +1,4 @@
+import { createRequire } from 'node:module'
 import ora from 'ora'
 import extend from 'js-cool/lib/extend'
 import chalk from 'chalk'
@@ -13,6 +14,8 @@ import { setLog } from './cache/log'
 import { postMessage } from './utils/message'
 import { spawnSync } from './spawn'
 import { debug } from './utils/debug'
+
+const require = createRequire(import.meta.url)
 
 export interface WaitCallback {
     (kill?: boolean): void

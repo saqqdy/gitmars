@@ -1,30 +1,31 @@
 #!/usr/bin/env ts-node
+import { program } from 'commander'
+import sh from 'shelljs'
+import { red } from 'chalk'
+import { queue } from '@gitmars/core/lib/queue'
+import getIsGitProject from '@gitmars/core/lib/git/getIsGitProject'
+import getCurrentBranch from '@gitmars/core/lib/git/getCurrentBranch'
+import getIsMergedTargetBranch from '@gitmars/core/lib/git/getIsMergedTargetBranch'
+import checkGitStatus from '@gitmars/core/lib/git/checkGitStatus'
+import searchBranches from '@gitmars/core/lib/git/searchBranches'
+import { createArgs } from '@gitmars/core/lib/utils/command'
+import getConfig from '@gitmars/core/lib/getConfig'
+import { isNeedUpgrade, upgradeGitmars } from '@gitmars/core/lib/versionControl'
 import type { CommandType, GitmarsOptionOptionsType } from '../typings'
-const { program } = require('commander')
-const sh = require('shelljs')
-const { red } = require('chalk')
-const { queue } = require('@gitmars/core/lib/queue')
-const getIsGitProject = require('@gitmars/core/lib/git/getIsGitProject')
-const getCurrentBranch = require('@gitmars/core/lib/git/getCurrentBranch')
-const getIsMergedTargetBranch = require('@gitmars/core/lib/git/getIsMergedTargetBranch')
-const checkGitStatus = require('@gitmars/core/lib/git/checkGitStatus')
-const searchBranches = require('@gitmars/core/lib/git/searchBranches')
-const {
-    isNeedUpgrade,
-    upgradeGitmars
-} = require('@gitmars/core/lib/versionControl')
-const { createArgs } = require('@gitmars/core/lib/utils/command')
-const getConfig = require('@gitmars/core/lib/getConfig')
-const i18n = require('./locales')
+import i18n from './locales'
+import { defaults } from './common/global'
+import updateConfig from './conf/update'
+
 if (!getIsGitProject()) {
     sh.echo(
         red(i18n.__('The current directory is not a git project directory'))
     )
     process.exit(1)
 }
-const { defaults } = require('./common/global')
-const { options, args } = require('./conf/update')
+
+const { args, options } = updateConfig
 const config = getConfig()
+
 interface GitmBuildOption {
     useMerge?: boolean
     useRebase?: boolean

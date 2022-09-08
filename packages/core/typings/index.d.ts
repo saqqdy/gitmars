@@ -175,6 +175,7 @@ export interface GitmarsConfigType {
     gitID?: string
     hooks?: Record<string, string>
     filepath: string
+    descriptionValidator?: string | regExp
 }
 
 export type ApolloBranchList = 'dev' | 'bug' | 'prod'

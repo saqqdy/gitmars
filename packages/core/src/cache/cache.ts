@@ -1,6 +1,9 @@
 import { resolve } from 'path'
+import { createRequire } from 'node:module'
 import { isFileExist, removeFile, writeFile } from '../utils/file'
 import { CACHE_PATH } from '../utils/paths'
+
+const require = createRequire(import.meta.url)
 
 type TimestampType = Record<string, number> & {
     packageInfoTime?: number

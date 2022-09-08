@@ -1,37 +1,43 @@
 #!/usr/bin/env ts-node
+import { createRequire } from 'node:module'
+import { Command } from 'commander'
+import { green, red } from 'chalk'
+import getType from 'js-cool/lib/getType'
+import getUserToken from '@gitmars/core/lib/api/getUserToken'
+import { queue } from '@gitmars/core/lib/queue'
+import getIsBranchOrCommitExist from '@gitmars/core/lib/git/getIsBranchOrCommitExist'
+import getIsGitProject from '@gitmars/core/lib/git/getIsGitProject'
+import getCurrentBranch from '@gitmars/core/lib/git/getCurrentBranch'
+import getGitConfig from '@gitmars/core/lib/git/getGitConfig'
+import getIsMergedTargetBranch from '@gitmars/core/lib/git/getIsMergedTargetBranch'
+import checkGitStatus from '@gitmars/core/lib/git/checkGitStatus'
+import fetch from '@gitmars/core/lib/git/fetch'
+import { createArgs } from '@gitmars/core/lib/utils/command'
+import { spawnSync } from '@gitmars/core/lib/spawn'
+import echo from '@gitmars/core/lib/utils/echo'
+import getConfig from '@gitmars/core/lib/getConfig'
 import type {
     CommandType,
     FetchDataType,
+    GitmarsMainBranchType,
     GitmarsOptionOptionsType
 } from '../typings'
-const { Command } = require('commander')
-const { green, red } = require('chalk')
-const getType = require('js-cool/lib/getType')
-const getUserToken = require('@gitmars/core/lib/api/getUserToken')
-const { queue } = require('@gitmars/core/lib/queue')
-const getIsBranchOrCommitExist = require('@gitmars/core/lib/git/getIsBranchOrCommitExist')
-const getIsGitProject = require('@gitmars/core/lib/git/getIsGitProject')
-const getCurrentBranch = require('@gitmars/core/lib/git/getCurrentBranch')
-const getGitConfig = require('@gitmars/core/lib/git/getGitConfig')
-const getIsMergedTargetBranch = require('@gitmars/core/lib/git/getIsMergedTargetBranch')
-const checkGitStatus = require('@gitmars/core/lib/git/checkGitStatus')
-const fetch = require('@gitmars/core/lib/git/fetch')
-const { createArgs } = require('@gitmars/core/lib/utils/command')
-const { spawnSync } = require('@gitmars/core/lib/spawn')
-const echo = require('@gitmars/core/lib/utils/echo')
-const getConfig = require('@gitmars/core/lib/getConfig')
-const i18n = require('./locales')
+import i18n from './locales'
+import adminConfig from './conf/admin'
+
 if (!getIsGitProject()) {
     echo(red(i18n.__('The current directory is not a git project directory')))
     process.exit(1)
 }
-const { create, publish, update, clean, approve } = require('./conf/admin')
+
+const require = createRequire(import.meta.url)
 const { appName } = getGitConfig()
 const config = getConfig()
 const userInfoApi =
     (config.apis && config.apis.userInfo && config.apis.userInfo.url) ||
     config.api
 const mergeRequestModule = require.resolve('@gitmars/core/lib/api/mergeRequest')
+const { approve, clean, create, publish, update } = adminConfig
 interface GitmBuildOption {
     publish: {
         combine?: boolean
@@ -71,7 +77,7 @@ create.options.forEach((o: GitmarsOptionOptionsType) => {
     createProgram.option(o.flags, o.description, o.defaultValue)
 })
 // .command('create <type>')
-createProgram.action((type: string): void => {
+createProgram.action((type: GitmarsMainBranchType): void => {
     const opts = ['bugfix', 'release', 'develop', 'support'] // 允许执行的指令
     const base: string = type === 'release' ? config.master : config.release
     const status = checkGitStatus()
@@ -728,7 +734,10 @@ update.options.forEach((o: GitmarsOptionOptionsType) => {
 // .option('--description [description]', i18n.__('Description of the reason for this commit'), '')
 // .option('-f, --force', i18n.__('Whether to force a merge request'), false)
 updateProgram.action(
-    async (type: string, opt: GitmBuildOption['update']): Promise<void> => {
+    async (
+        type: GitmarsMainBranchType,
+        opt: GitmBuildOption['update']
+    ): Promise<void> => {
         const {
             token,
             level,
@@ -885,7 +894,7 @@ clean.options.forEach((o: GitmarsOptionOptionsType) => {
     cleanProgram.option(o.flags, o.description, o.defaultValue)
 })
 // .command('clean <type>')
-cleanProgram.action((type: string): void => {
+cleanProgram.action((type: GitmarsMainBranchType): void => {
     const opts = ['bugfix', 'release', 'develop', 'master'] // 允许执行的指令
     const status = checkGitStatus()
     if (!status) process.exit(1)

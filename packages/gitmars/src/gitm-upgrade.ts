@@ -1,12 +1,14 @@
 #!/usr/bin/env ts-node
+import { program } from 'commander'
+import { green, red } from 'chalk'
+import ora from 'ora'
+import { spawnSync } from '@gitmars/core/lib/spawn'
+import { createArgs } from '@gitmars/core/lib/utils/command'
 import type { GitmarsOptionOptionsType, PackageVersionTag } from '../typings'
-const { program } = require('commander')
-const { green, red } = require('chalk')
-const ora = require('ora')
-const { spawnSync } = require('@gitmars/core/lib/spawn')
-const { createArgs } = require('@gitmars/core/lib/utils/command')
-const { options, args } = require('./conf/upgrade')
-const i18n = require('./locales')
+import upgradeConfig from './conf/upgrade'
+import i18n from './locales'
+
+const { args, options } = upgradeConfig
 
 interface GitmBuildOption {
     mirror?: boolean

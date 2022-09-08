@@ -1,3 +1,5 @@
+// import { dirname, resolve } from 'path'
+// import { fileURLToPath } from 'url'
 import type { NextFunction, Request, Response } from 'express'
 const { join } = require('path')
 const createError = require('http-errors')
@@ -9,6 +11,8 @@ const cmdRouter = require('./routes/cmd')
 const commonRouter = require('./routes/common')
 const fallbackRouter = require('./routes/fallback')
 
+// const __filename = fileURLToPath(import.meta.url)
+// const __dirname = dirname(__filename)
 const app = express()
 
 // view engine setup
