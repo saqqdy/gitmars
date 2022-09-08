@@ -1,33 +1,34 @@
-const { spawnSync } = require('@gitmars/core/lib/spawn')
-const { debug } = require('@gitmars/core/lib/utils/debug')
-const getCurrentBranch = require('@gitmars/core/lib/git/getCurrentBranch')
-const cleanConfigSet = require('@gitmars/core/lib/go/cleanConfigSet')
-const getCommand = require('@gitmars/core/lib/go/getCommand')
+import { spawnSync } from '@gitmars/core/lib/spawn'
+import { debug } from '@gitmars/core/lib/utils/debug'
+import getCurrentBranch from '@gitmars/core/lib/git/getCurrentBranch'
+import cleanConfigSet from '@gitmars/core/lib/go/cleanConfigSet'
+import getCommand from '@gitmars/core/lib/go/getCommand'
 
-const combineConfig = require('../conf/combine')
-const endConfig = require('../conf/end')
-const updateConfig = require('../conf/update')
-const undoConfig = require('../conf/undo')
-const redoConfig = require('../conf/redo')
-const branchConfig = require('../conf/branch')
-const buildConfig = require('../conf/build')
-const startConfig = require('../conf/start')
-const copyConfig = require('../conf/copy')
-const getConfig = require('../conf/get')
-const saveConfig = require('../conf/save')
-const cleanbranchConfig = require('../conf/cleanbranch')
-const cleanConfig = require('../conf/clean')
-const revertConfig = require('../conf/revert')
-const linkConfig = require('../conf/link')
-const unlinkConfig = require('../conf/unlink')
-const postmsgConfig = require('../conf/postmsg')
+import combineConfig from '../conf/combine'
+import endConfig from '../conf/end'
+import updateConfig from '../conf/update'
+import undoConfig from '../conf/undo'
+import redoConfig from '../conf/redo'
+import branchConfig from '../conf/branch'
+import buildConfig from '../conf/build'
+import startConfig from '../conf/start'
+import copyConfig from '../conf/copy'
+import getConfig from '../conf/get'
+import saveConfig from '../conf/save'
+import cleanbranchConfig from '../conf/cleanbranch'
+import cleanConfig from '../conf/clean'
+import revertConfig from '../conf/revert'
+import linkConfig from '../conf/link'
+import unlinkConfig from '../conf/unlink'
+import postmsgConfig from '../conf/postmsg'
+import adminConfig from '../conf/admin'
+
 const {
     create: adminCreateConfig,
     publish: adminPublishConfig,
     update: adminUpdateConfig,
     clean: adminCleanConfig
-} = require('../conf/admin')
-
+} = adminConfig
 const current = getCurrentBranch()
 const branchPrefix = current.split('/')[0]
 const functionBranches = ['feature', 'bugfix', 'support']

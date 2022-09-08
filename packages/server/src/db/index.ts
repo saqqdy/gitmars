@@ -1,3 +1,5 @@
+// import { dirname, resolve } from 'path'
+// import { fileURLToPath } from 'url'
 const path = require('path')
 const fs = require('fs')
 const sh = require('shelljs')
@@ -6,6 +8,8 @@ const FileSync = require('lowdb/adapters/FileSync')
 const home = require('../utils/home')
 const dbTmp = require('./db.json')
 
+// const __filename = fileURLToPath(import.meta.url)
+// const __dirname = dirname(__filename)
 const dbPath = path.join(home(), '.gitmarsdb')
 
 if (!sh.test('-f', dbPath)) {

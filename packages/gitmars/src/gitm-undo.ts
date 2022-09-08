@@ -1,4 +1,21 @@
 #!/usr/bin/env ts-node
+import { program } from 'commander'
+import dayjs from 'dayjs'
+import inquirer from 'inquirer'
+import sh from 'shelljs'
+import { blue, green, red, yellow } from 'chalk'
+import { queue } from '@gitmars/core/lib/queue'
+import getIsGitProject from '@gitmars/core/lib/git/getIsGitProject'
+import getGitLogs from '@gitmars/core/lib/git/getGitLogs'
+import getGitLogsByCommitIDs from '@gitmars/core/lib/git/getGitLogsByCommitIDs'
+import getCurrentBranch from '@gitmars/core/lib/git/getCurrentBranch'
+import { createArgs } from '@gitmars/core/lib/utils/command'
+import echo from '@gitmars/core/lib/utils/echo'
+import {
+    addRevertCache,
+    getRevertCache,
+    setRevertCache
+} from '@gitmars/core/lib/cache/revertCache'
 import type {
     CommandType,
     GitLogsType,
@@ -6,31 +23,18 @@ import type {
     InitInquirerPromptType,
     RevertCacheType
 } from '../typings'
-const { program } = require('commander')
-const dayjs = require('dayjs')
-const inquirer = require('inquirer')
-const sh = require('shelljs')
-const { yellow, blue, green, red } = require('chalk')
-const { queue } = require('@gitmars/core/lib/queue')
-const getIsGitProject = require('@gitmars/core/lib/git/getIsGitProject')
-const getGitLogs = require('@gitmars/core/lib/git/getGitLogs')
-const getGitLogsByCommitIDs = require('@gitmars/core/lib/git/getGitLogsByCommitIDs')
-const getCurrentBranch = require('@gitmars/core/lib/git/getCurrentBranch')
-const {
-    getRevertCache,
-    addRevertCache,
-    setRevertCache
-} = require('@gitmars/core/lib/cache/revertCache')
-const { createArgs } = require('@gitmars/core/lib/utils/command')
-const echo = require('@gitmars/core/lib/utils/echo')
-const { options, args } = require('./conf/undo')
-const i18n = require('./locales')
+import i18n from './locales'
+import undoConfig from './conf/undo'
+
 if (!getIsGitProject()) {
     sh.echo(
         red(i18n.__('The current directory is not a git project directory'))
     )
     process.exit(1)
 }
+
+const { args, options } = undoConfig
+
 interface GitmBuildOption {
     mode: 1 | 2
     merges: boolean

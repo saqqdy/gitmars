@@ -1,11 +1,13 @@
 #!/usr/bin/env ts-node
+import { program } from 'commander'
+import sh from 'shelljs'
+import { createArgs } from '@gitmars/core/lib/utils/command'
+import { spawnSync } from '@gitmars/core/lib/spawn'
 import type { GitmarsOptionOptionsType } from '../typings'
-const { program } = require('commander')
-const sh = require('shelljs')
-const { createArgs } = require('@gitmars/core/lib/utils/command')
-const { spawnSync } = require('@gitmars/core/lib/spawn')
-const { options, args } = require('./conf/link')
-const i18n = require('./locales')
+import linkConfig from './conf/link'
+import i18n from './locales'
+
+const { args, options } = linkConfig
 
 /**
  * gitm link

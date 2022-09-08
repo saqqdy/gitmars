@@ -1,25 +1,29 @@
 #!/usr/bin/env ts-node
+import { program } from 'commander'
+import sh from 'shelljs'
+import { green, red } from 'chalk'
+import { queue } from '@gitmars/core/lib/queue'
+import searchBranches from '@gitmars/core/lib/git/searchBranches'
+import getIsGitProject from '@gitmars/core/lib/git/getIsGitProject'
+import getIsBranchOrCommitExist from '@gitmars/core/lib/git/getIsBranchOrCommitExist'
+import { createArgs } from '@gitmars/core/lib/utils/command'
 import type {
     CommandType,
     GitmarsBranchType,
     GitmarsOptionOptionsType
 } from '../typings'
-const { program } = require('commander')
-const sh = require('shelljs')
-const { green, red } = require('chalk')
-const { queue } = require('@gitmars/core/lib/queue')
-const searchBranches = require('@gitmars/core/lib/git/searchBranches')
-const getIsGitProject = require('@gitmars/core/lib/git/getIsGitProject')
-const getIsBranchOrCommitExist = require('@gitmars/core/lib/git/getIsBranchOrCommitExist')
-const { createArgs } = require('@gitmars/core/lib/utils/command')
-const { options, args } = require('./conf/branch')
-const i18n = require('./locales')
+import branchConfig from './conf/branch'
+import i18n from './locales'
+
 if (!getIsGitProject()) {
     sh.echo(
         red(i18n.__('The current directory is not a git project directory'))
     )
     process.exit(1)
 }
+
+const { args, options } = branchConfig
+
 interface GitmBuildOption {
     key?: string
     exclude?: string

@@ -1,5 +1,9 @@
+// import { dirname, resolve } from 'path'
+// import { fileURLToPath } from 'url'
 const { resolve } = require('path')
 
+// const __filename = fileURLToPath(import.meta.url)
+// const __dirname = dirname(__filename)
 const baseDir = resolve(__dirname, '.')
 const root = resolve(baseDir, '..')
 

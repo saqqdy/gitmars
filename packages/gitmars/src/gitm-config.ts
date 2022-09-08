@@ -1,13 +1,13 @@
 #!/usr/bin/env ts-node
-const { program } = require('commander')
-const sh = require('shelljs')
-const { green, red } = require('chalk')
-const getIsGitProject = require('@gitmars/core/lib/git/getIsGitProject')
-const getGitRevParse = require('@gitmars/core/lib/git/getGitRevParse')
-const { writeFile } = require('@gitmars/core/lib/utils/file')
-const getConfig = require('@gitmars/core/lib/getConfig')
-const { defaults } = require('./common/global')
-const i18n = require('./locales')
+import { program } from 'commander'
+import sh from 'shelljs'
+import { green, red } from 'chalk'
+import getIsGitProject from '@gitmars/core/lib/git/getIsGitProject'
+import getGitRevParse from '@gitmars/core/lib/git/getGitRevParse'
+import { writeFile } from '@gitmars/core/lib/utils/file'
+import getConfig from '@gitmars/core/lib/getConfig'
+import { defaults } from './common/global'
+import i18n from './locales'
 if (!getIsGitProject()) {
     sh.echo(
         red(i18n.__('The current directory is not a git project directory'))

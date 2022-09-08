@@ -1,10 +1,12 @@
 #!/usr/bin/env ts-node
+import { program } from 'commander'
+import sendGroupMessage from '@gitmars/core/lib/sendGroupMessage'
+import { createArgs } from '@gitmars/core/lib/utils/command'
 import type { GitmarsOptionOptionsType } from '../typings'
-const { program } = require('commander')
-const sendGroupMessage = require('@gitmars/core/lib/sendGroupMessage')
-const { createArgs } = require('@gitmars/core/lib/utils/command')
-const { options, args } = require('./conf/postmsg')
-const i18n = require('./locales')
+import postmsgConfig from './conf/postmsg'
+import i18n from './locales'
+
+const { args, options } = postmsgConfig
 
 interface GitmBuildOption {
     url?: string

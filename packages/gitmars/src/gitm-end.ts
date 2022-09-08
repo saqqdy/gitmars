@@ -1,37 +1,39 @@
 #!/usr/bin/env ts-node
+import { createRequire } from 'node:module'
+import { program } from 'commander'
+import sh from 'shelljs'
+import { red } from 'chalk'
+import getType from 'js-cool/lib/getType'
+import { queue } from '@gitmars/core/lib/queue'
+import getIsGitProject from '@gitmars/core/lib/git/getIsGitProject'
+import getCurrentBranch from '@gitmars/core/lib/git/getCurrentBranch'
+import getGitConfig from '@gitmars/core/lib/git/getGitConfig'
+import getIsMergedTargetBranch from '@gitmars/core/lib/git/getIsMergedTargetBranch'
+import getIsBranchOrCommitExist from '@gitmars/core/lib/git/getIsBranchOrCommitExist'
+import checkGitStatus from '@gitmars/core/lib/git/checkGitStatus'
+import searchBranches from '@gitmars/core/lib/git/searchBranches'
+import { createArgs } from '@gitmars/core/lib/utils/command'
+import { isNeedUpgrade, upgradeGitmars } from '@gitmars/core/lib/versionControl'
+import getConfig from '@gitmars/core/lib/getConfig'
+import getUserToken from '@gitmars/core/lib/api/getUserToken'
 import type {
     CommandType,
     FetchDataType,
     GitmarsOptionOptionsType
 } from '../typings'
-const { program } = require('commander')
-const sh = require('shelljs')
-const { red } = require('chalk')
-const getType = require('js-cool/lib/getType')
-const { queue } = require('@gitmars/core/lib/queue')
-const getIsGitProject = require('@gitmars/core/lib/git/getIsGitProject')
-const getCurrentBranch = require('@gitmars/core/lib/git/getCurrentBranch')
-const getGitConfig = require('@gitmars/core/lib/git/getGitConfig')
-const getIsMergedTargetBranch = require('@gitmars/core/lib/git/getIsMergedTargetBranch')
-const getIsBranchOrCommitExist = require('@gitmars/core/lib/git/getIsBranchOrCommitExist')
-const checkGitStatus = require('@gitmars/core/lib/git/checkGitStatus')
-const searchBranches = require('@gitmars/core/lib/git/searchBranches')
-const { createArgs } = require('@gitmars/core/lib/utils/command')
-const {
-    isNeedUpgrade,
-    upgradeGitmars
-} = require('@gitmars/core/lib/versionControl')
-const getConfig = require('@gitmars/core/lib/getConfig')
-const getUserToken = require('@gitmars/core/lib/api/getUserToken')
-const i18n = require('./locales')
+import i18n from './locales'
+import { defaults } from './common/global'
+import endConfig from './conf/end'
+
 if (!getIsGitProject()) {
     sh.echo(
         red(i18n.__('The current directory is not a git project directory'))
     )
     process.exit(1)
 }
-const { defaults } = require('./common/global')
-const { options, args } = require('./conf/end')
+
+const require = createRequire(import.meta.url)
+const { args, options } = endConfig
 const config = getConfig()
 const { appName } = getGitConfig()
 const mergeRequestModule = require.resolve('@gitmars/core/lib/api/mergeRequest')

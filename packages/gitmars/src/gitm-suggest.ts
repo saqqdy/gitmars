@@ -1,23 +1,24 @@
 #!/usr/bin/env ts-node
 /* eslint-disable @typescript-eslint/no-unused-vars */
+import { program } from 'commander'
+import sh from 'shelljs'
+import { red, yellow } from 'chalk'
+import { queue } from '@gitmars/core/lib/queue'
+import { createArgs } from '@gitmars/core/lib/utils/index'
+import { getCurrentBranch, getIsGitProject } from '@gitmars/core/lib/git/index'
 import type { GitmarsOptionOptionsType } from '../typings'
-const { program } = require('commander')
-const sh = require('shelljs')
-const { yellow, red } = require('chalk')
-const { queue } = require('@gitmars/core/lib/queue')
-const {
-    getIsGitProject,
-    getCurrentBranch
-} = require('@gitmars/core/lib/git/index')
-const { createArgs } = require('@gitmars/core/lib/utils/index')
-const { options, args } = require('./conf/suggest')
-const i18n = require('./locales')
+import suggestConfig from './conf/suggest'
+import i18n from './locales'
+
 if (!getIsGitProject()) {
     sh.echo(
         red(i18n.__('The current directory is not a git project directory'))
     )
     process.exit(1)
 }
+
+const { args, options } = suggestConfig
+
 interface GitmBuildOption {
     keep?: boolean
 }

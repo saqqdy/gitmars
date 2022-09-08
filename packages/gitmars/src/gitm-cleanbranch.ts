@@ -1,31 +1,35 @@
 #!/usr/bin/env ts-node
+import { program } from 'commander'
+import { green, red, yellow } from 'chalk'
+import inquirer from 'inquirer'
+import ora from 'ora'
+import getIsGitProject from '@gitmars/core/lib/git/getIsGitProject'
+import searchBranches from '@gitmars/core/lib/git/searchBranches'
+import getCurrentBranch from '@gitmars/core/lib/git/getCurrentBranch'
+import getIsMergedTargetBranch from '@gitmars/core/lib/git/getIsMergedTargetBranch'
+import getIsBranchOrCommitExist from '@gitmars/core/lib/git/getIsBranchOrCommitExist'
+import fetch from '@gitmars/core/lib/git/fetch'
+import { createArgs } from '@gitmars/core/lib/utils/command'
+import delay from '@gitmars/core/lib/utils/delay'
+import echo from '@gitmars/core/lib/utils/echo'
+import { spawnSync } from '@gitmars/core/lib/spawn'
+import getConfig from '@gitmars/core/lib/getConfig'
 import type {
     GitmarsBranchType,
     GitmarsOptionOptionsType,
     InitInquirerPromptType
 } from '../typings'
-const { program } = require('commander')
-const { green, yellow, red } = require('chalk')
-const inquirer = require('inquirer')
-const ora = require('ora')
-const getIsGitProject = require('@gitmars/core/lib/git/getIsGitProject')
-const searchBranches = require('@gitmars/core/lib/git/searchBranches')
-const getCurrentBranch = require('@gitmars/core/lib/git/getCurrentBranch')
-const getIsMergedTargetBranch = require('@gitmars/core/lib/git/getIsMergedTargetBranch')
-const getIsBranchOrCommitExist = require('@gitmars/core/lib/git/getIsBranchOrCommitExist')
-const fetch = require('@gitmars/core/lib/git/fetch')
-const { createArgs } = require('@gitmars/core/lib/utils/command')
-const delay = require('@gitmars/core/lib/utils/delay')
-const echo = require('@gitmars/core/lib/utils/echo')
-const { spawnSync } = require('@gitmars/core/lib/spawn')
-const getConfig = require('@gitmars/core/lib/getConfig')
-const i18n = require('./locales')
+import i18n from './locales'
+import cleanbranchConfig from './conf/cleanbranch'
+
 if (!getIsGitProject()) {
     echo(red(i18n.__('The current directory is not a git project directory')))
     process.exit(1)
 }
-const { options, args } = require('./conf/cleanbranch')
+
+const { args, options } = cleanbranchConfig
 const config = getConfig()
+
 interface GitmBuildOption {
     list?: boolean
     type?: GitmarsBranchType

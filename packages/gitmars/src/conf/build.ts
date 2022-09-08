@@ -1,60 +1,50 @@
 import type { GitmarsOptionType } from '../../typings'
-const i18n = require('../locales')
-;(function (root) {
-    const cmdConfig: GitmarsOptionType = {
-        command: 'build',
-        short: 'bd',
-        args: [
-            {
-                required: true,
-                name: 'project',
-                variadic: false,
-                description: i18n.__('Project name')
-            }
-        ],
-        options: [
-            {
-                flags: '-e, --env [env]',
-                required: false,
-                optional: true,
-                variadic: false,
-                mandatory: false,
-                short: '-e',
-                long: '--env',
-                negate: false,
-                description: i18n.__(
-                    'Build environment, optionally dev, prod, bug, all'
-                ),
-                defaultValue: 'dev',
-                recommend: true,
-                options: ['dev', 'prod', 'bug', 'all'],
-                value: 'dev'
-            },
-            {
-                flags: '-a, --app [app]',
-                required: false,
-                optional: true,
-                variadic: false,
-                mandatory: false,
-                short: '-a',
-                long: '--app',
-                negate: false,
-                description: i18n.__('Build application'),
-                defaultValue: 'all',
-                recommend: true,
-                value: 'all'
-            }
-        ]
-    }
+import i18n from '../locales'
 
-    /* istanbul ignore next */
-    if (typeof exports === 'object' && typeof module === 'object') {
-        module.exports = cmdConfig
-    } else if (typeof exports === 'object') exports.cmdConfig = cmdConfig
-    else {
-        if (!root.gitmarsCmdConfig) root.gitmarsCmdConfig = {}
-        root.gitmarsCmdConfig.build = cmdConfig
-    }
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-expect-error
-})(typeof window !== 'undefined' ? window : global)
+const cmdConfig: GitmarsOptionType = {
+    command: 'build',
+    short: 'bd',
+    args: [
+        {
+            required: true,
+            name: 'project',
+            variadic: false,
+            description: i18n.__('Project name')
+        }
+    ],
+    options: [
+        {
+            flags: '-e, --env [env]',
+            required: false,
+            optional: true,
+            variadic: false,
+            mandatory: false,
+            short: '-e',
+            long: '--env',
+            negate: false,
+            description: i18n.__(
+                'Build environment, optionally dev, prod, bug, all'
+            ),
+            defaultValue: 'dev',
+            recommend: true,
+            options: ['dev', 'prod', 'bug', 'all'],
+            value: 'dev'
+        },
+        {
+            flags: '-a, --app [app]',
+            required: false,
+            optional: true,
+            variadic: false,
+            mandatory: false,
+            short: '-a',
+            long: '--app',
+            negate: false,
+            description: i18n.__('Build application'),
+            defaultValue: 'all',
+            recommend: true,
+            value: 'all'
+        }
+    ]
+}
+
+export default cmdConfig

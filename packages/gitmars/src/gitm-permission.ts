@@ -1,11 +1,11 @@
 #!/usr/bin/env ts-node
-const { program } = require('commander')
-const sh = require('shelljs')
-const { red } = require('chalk')
-const getCurrentBranch = require('@gitmars/core/lib/git/getCurrentBranch')
-const { spawnSync } = require('@gitmars/core/lib/spawn')
-const getConfig = require('@gitmars/core/lib/getConfig')
-const i18n = require('./locales')
+import { program } from 'commander'
+import sh from 'shelljs'
+import { red } from 'chalk'
+import getCurrentBranch from '@gitmars/core/lib/git/getCurrentBranch'
+import { spawnSync } from '@gitmars/core/lib/spawn'
+import getConfig from '@gitmars/core/lib/getConfig'
+import i18n from './locales'
 const config = getConfig()
 
 interface GitmBuildOption {

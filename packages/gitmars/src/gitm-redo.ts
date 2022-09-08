@@ -1,32 +1,36 @@
 #!/usr/bin/env ts-node
+import { program } from 'commander'
+import dayjs from 'dayjs'
+import inquirer from 'inquirer'
+import sh from 'shelljs'
+import { blue, green, red, yellow } from 'chalk'
+import { queue } from '@gitmars/core/lib/queue'
+import getIsGitProject from '@gitmars/core/lib/git/getIsGitProject'
+import getCurrentBranch from '@gitmars/core/lib/git/getCurrentBranch'
+import { createArgs } from '@gitmars/core/lib/utils/command'
+import echo from '@gitmars/core/lib/utils/echo'
+import {
+    delRevertCache,
+    getRevertCache
+} from '@gitmars/core/lib/cache/revertCache'
 import type {
     CommandType,
     GitmarsOptionOptionsType,
     InitInquirerPromptType,
     RevertCacheType
 } from '../typings'
-const { program } = require('commander')
-const dayjs = require('dayjs')
-const inquirer = require('inquirer')
-const sh = require('shelljs')
-const { yellow, blue, green, red } = require('chalk')
-const { queue } = require('@gitmars/core/lib/queue')
-const getIsGitProject = require('@gitmars/core/lib/git/getIsGitProject')
-const getCurrentBranch = require('@gitmars/core/lib/git/getCurrentBranch')
-const {
-    getRevertCache,
-    delRevertCache
-} = require('@gitmars/core/lib/cache/revertCache')
-const { createArgs } = require('@gitmars/core/lib/utils/command')
-const echo = require('@gitmars/core/lib/utils/echo')
-const { options, args } = require('./conf/redo')
-const i18n = require('./locales')
+import redoConfig from './conf/redo'
+import i18n from './locales'
+
 if (!getIsGitProject()) {
     sh.echo(
         red(i18n.__('The current directory is not a git project directory'))
     )
     process.exit(1)
 }
+
+const { args, options } = redoConfig
+
 interface GitmBuildOption {
     branch?: string
     mode?: 1 | 2

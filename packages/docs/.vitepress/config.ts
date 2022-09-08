@@ -1,5 +1,10 @@
+// import { dirname, resolve } from 'path'
+// import { fileURLToPath } from 'url'
 import { defineConfigWithTheme } from 'vitepress'
 import anchor from 'markdown-it-anchor'
+
+// const __filename = fileURLToPath(import.meta.url)
+// const __dirname = dirname(__filename)
 const isProduction = process.env.NODE_ENV === 'production'
 
 const sidebar = {

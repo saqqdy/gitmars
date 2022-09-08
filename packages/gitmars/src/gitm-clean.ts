@@ -1,21 +1,24 @@
 #!/usr/bin/env ts-node
+import { program } from 'commander'
+import sh from 'shelljs'
+import { green, yellow } from 'chalk'
+import inquirer from 'inquirer'
+import getGitRevParse from '@gitmars/core/lib/git/getGitRevParse'
+import getIsGitProject from '@gitmars/core/lib/git/getIsGitProject'
+import { removeFile } from '@gitmars/core/lib/utils/file'
+import { createArgs } from '@gitmars/core/lib/utils/command'
+import { cleanCache } from '@gitmars/core/lib/cache/cache'
+import { cleanPkgInfo } from '@gitmars/core/lib/utils/pkgInfo'
+import { cleanBuildConfig } from '@gitmars/core/lib/build/buildConfig'
 import type { GitmarsOptionOptionsType } from '../typings'
-const { program } = require('commander')
-const sh = require('shelljs')
-const { green, yellow } = require('chalk')
-const inquirer = require('inquirer')
-const getGitRevParse = require('@gitmars/core/lib/git/getGitRevParse')
-const getIsGitProject = require('@gitmars/core/lib/git/getIsGitProject')
-const { removeFile } = require('@gitmars/core/lib/utils/file')
-const { createArgs } = require('@gitmars/core/lib/utils/command')
-const { cleanCache } = require('@gitmars/core/lib/cache/cache')
-const { cleanPkgInfo } = require('@gitmars/core/lib/utils/pkgInfo')
-const { cleanBuildConfig } = require('@gitmars/core/lib/build/buildConfig')
-const { options, args } = require('./conf/clean')
-const { gitDir } = getGitRevParse()
-const i18n = require('./locales')
+import cleanConfig from './conf/clean'
+import i18n from './locales'
 
 sh.config.silent = true
+
+const { args, options } = cleanConfig
+const { gitDir } = getGitRevParse()
+
 interface GitmBuildOption {
     force?: string
 }

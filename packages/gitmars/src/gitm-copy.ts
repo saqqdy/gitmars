@@ -1,25 +1,29 @@
 #!/usr/bin/env ts-node
+import { program } from 'commander'
+import sh from 'shelljs'
+import { red, yellow } from 'chalk'
+import { queue } from '@gitmars/core/lib/queue'
+import getIsGitProject from '@gitmars/core/lib/git/getIsGitProject'
+import getCurrentBranch from '@gitmars/core/lib/git/getCurrentBranch'
+import checkGitStatus from '@gitmars/core/lib/git/checkGitStatus'
+import { createArgs } from '@gitmars/core/lib/utils/command'
 import type {
     CommandType,
     GitmarsOptionOptionsType,
     QueueReturnsType
 } from '../typings'
-const { program } = require('commander')
-const sh = require('shelljs')
-const { yellow, red } = require('chalk')
-const { queue } = require('@gitmars/core/lib/queue')
-const getIsGitProject = require('@gitmars/core/lib/git/getIsGitProject')
-const getCurrentBranch = require('@gitmars/core/lib/git/getCurrentBranch')
-const checkGitStatus = require('@gitmars/core/lib/git/checkGitStatus')
-const { createArgs } = require('@gitmars/core/lib/utils/command')
-const { options, args } = require('./conf/copy')
-const i18n = require('./locales')
+import copyConfig from './conf/copy'
+import i18n from './locales'
+
 if (!getIsGitProject()) {
     sh.echo(
         red(i18n.__('The current directory is not a git project directory'))
     )
     process.exit(1)
 }
+
+const { args, options } = copyConfig
+
 interface GitmBuildOption {
     source?: string
     key?: string

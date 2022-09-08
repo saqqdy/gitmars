@@ -1,14 +1,14 @@
 #!/usr/bin/env ts-node
+import fs from 'fs'
+import { program } from 'commander'
+import { green, red } from 'chalk'
+import sh from 'shelljs'
+import inquirer from 'inquirer'
+import getIsGitProject from '@gitmars/core/lib/git/getIsGitProject'
+import getGitRevParse from '@gitmars/core/lib/git/getGitRevParse'
 import type { InitInquirerPromptType } from '../typings'
-const fs = require('fs')
-const { program } = require('commander')
-const { green, red } = require('chalk')
-const sh = require('shelljs')
-const inquirer = require('inquirer')
-const getIsGitProject = require('@gitmars/core/lib/git/getIsGitProject')
-const getGitRevParse = require('@gitmars/core/lib/git/getGitRevParse')
-const { defaults } = require('./common/global')
-const i18n = require('./locales')
+import { defaults } from './common/global'
+import i18n from './locales'
 if (!getIsGitProject()) {
     sh.echo(
         red(i18n.__('The current directory is not a git project directory'))
