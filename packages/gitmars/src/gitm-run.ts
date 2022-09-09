@@ -3,8 +3,8 @@ import { program } from 'commander'
 import { createArgs } from '@gitmars/core/lib/utils/command'
 import run from '@gitmars/core/lib/hook/run'
 import type { GitmarsOptionOptionsType } from '../typings'
-import runConfig from './conf/run'
-import i18n from './locales'
+import runConfig from '#lib/conf/run'
+import i18n from '#lib/locales/index'
 
 const { args, options } = runConfig
 

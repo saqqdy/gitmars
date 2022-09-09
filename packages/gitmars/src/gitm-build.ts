@@ -3,8 +3,8 @@ import { program } from 'commander'
 import { createArgs } from '@gitmars/core/lib/utils/command'
 import runJenkins from '@gitmars/core/lib/build/runJenkins'
 import type { GitmarsOptionOptionsType } from '../typings'
-import buildConfig from './conf/build'
-import i18n from './locales'
+import buildConfig from '#lib/conf/build'
+import i18n from '#lib/locales/index'
 
 const { args, options } = buildConfig
 

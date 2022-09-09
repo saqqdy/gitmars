@@ -22,8 +22,8 @@ import type {
     GitmarsMainBranchType,
     GitmarsOptionOptionsType
 } from '../typings'
-import i18n from './locales'
-import adminConfig from './conf/admin'
+import adminConfig from '#lib/conf/admin'
+import i18n from '#lib/locales/index'
 
 if (!getIsGitProject()) {
     echo(red(i18n.__('The current directory is not a git project directory')))

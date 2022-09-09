@@ -23,8 +23,8 @@ import type {
     InitInquirerPromptType,
     RevertCacheType
 } from '../typings'
-import i18n from './locales'
-import undoConfig from './conf/undo'
+import undoConfig from '#lib/conf/undo'
+import i18n from '#lib/locales/index'
 
 if (!getIsGitProject()) {
     sh.echo(

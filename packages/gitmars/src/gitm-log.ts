@@ -8,8 +8,8 @@ import getGitLogs from '@gitmars/core/lib/git/getGitLogs'
 import { createArgs } from '@gitmars/core/lib/utils/command'
 import echo from '@gitmars/core/lib/utils/echo'
 import type { GitLogsType, GitmarsOptionOptionsType } from '../typings'
-import logConfig from './conf/log'
-import i18n from './locales'
+import logConfig from '#lib/conf/log'
+import i18n from '#lib/locales/index'
 
 if (!getIsGitProject()) {
     echo(red(i18n.__('The current directory is not a git project directory')))

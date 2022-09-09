@@ -8,8 +8,8 @@ import getCurrentBranch from '@gitmars/core/lib/git/getCurrentBranch'
 import getStashList from '@gitmars/core/lib/git/getStashList'
 import { createArgs } from '@gitmars/core/lib/utils/command'
 import type { GitmarsOptionOptionsType } from '../typings'
-import getConfig from './conf/get'
-import i18n from './locales'
+import getConfig from '#lib/conf/get'
+import i18n from '#lib/locales/index'
 
 if (!getIsGitProject()) {
     sh.echo(

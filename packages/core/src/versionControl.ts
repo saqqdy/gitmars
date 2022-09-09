@@ -1,8 +1,12 @@
+import { createRequire } from 'node:module'
 import sh from 'shelljs'
 import chalk from 'chalk'
-import { version } from '../package.json'
+// import { version } from '../package.json' assert { type: 'json' }
 import { getPkgInfo } from './utils/pkgInfo'
 import { debug } from './utils/debug'
+
+const require = createRequire(import.meta.url)
+const { version } = require('../package.json')
 
 /**
  * 判断是否需要升级版本

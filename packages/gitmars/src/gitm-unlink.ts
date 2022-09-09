@@ -4,8 +4,8 @@ import sh from 'shelljs'
 import { createArgs } from '@gitmars/core/lib/utils/command'
 import { spawnSync } from '@gitmars/core/lib/spawn'
 import type { GitmarsOptionOptionsType } from '../typings'
-import unlinkConfig from './conf/unlink'
-import i18n from './locales'
+import unlinkConfig from '#lib/conf/unlink'
+import i18n from '#lib/locales/index'
 
 const { args, options } = unlinkConfig
 

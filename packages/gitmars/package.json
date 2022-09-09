@@ -12,10 +12,15 @@
             "types": "./typings/index.d.ts"
         },
         "./lib": "./lib/index.mjs",
-        "./lib/*.js": "./lib/*.mjs",
-        "./lib/*.d.ts": "./lib/*.d.ts",
         "./lib/*": "./lib/*.mjs",
-        "./*": "./*"
+        "./*": {
+            "import": "./*.mjs"
+        }
+    },
+    "imports": {
+        "#lib/*": {
+            "import": "./lib/*.mjs"
+        }
     },
     "files": [
         "lib",

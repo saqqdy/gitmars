@@ -7,9 +7,9 @@ import getProperty from 'js-cool/lib/getProperty'
 import getCurrentBranch from '@gitmars/core/lib/git/getCurrentBranch'
 import { createArgs } from '@gitmars/core/lib/utils/command'
 import type { GitmarsOptionOptionsType } from '../typings'
-import commands from './go/index'
-import goConfig from './conf/go'
-import i18n from './locales'
+import commands from '#lib/go/index'
+import goConfig from '#lib/conf/go'
+import i18n from '#lib/locales/index'
 
 const { args, options } = goConfig
 

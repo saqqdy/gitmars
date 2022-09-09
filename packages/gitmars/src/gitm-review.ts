@@ -26,8 +26,8 @@ import type {
     GitmarsOptionOptionsType,
     InitInquirerPromptType
 } from '../typings'
-import i18n from './locales'
-import reviewConfig from './conf/review'
+import i18n from '#lib/locales/index'
+import reviewConfig from '#lib/conf/review'
 
 if (!getIsGitProject()) {
     echo(red(i18n.__('The current directory is not a git project directory')))

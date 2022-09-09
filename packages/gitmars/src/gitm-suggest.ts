@@ -7,8 +7,8 @@ import { queue } from '@gitmars/core/lib/queue'
 import { createArgs } from '@gitmars/core/lib/utils/index'
 import { getCurrentBranch, getIsGitProject } from '@gitmars/core/lib/git/index'
 import type { GitmarsOptionOptionsType } from '../typings'
-import suggestConfig from './conf/suggest'
-import i18n from './locales'
+import suggestConfig from '#lib/conf/suggest'
+import i18n from '#lib/locales/index'
 
 if (!getIsGitProject()) {
     sh.echo(

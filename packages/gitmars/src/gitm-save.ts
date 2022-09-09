@@ -7,8 +7,8 @@ import getIsGitProject from '@gitmars/core/lib/git/getIsGitProject'
 import getCurrentBranch from '@gitmars/core/lib/git/getCurrentBranch'
 import { createArgs } from '@gitmars/core/lib/utils/command'
 import type { CommandType, GitmarsOptionOptionsType } from '../typings'
-import saveConfig from './conf/save'
-import i18n from './locales'
+import saveConfig from '#lib/conf/save'
+import i18n from '#lib/locales/index'
 
 if (!getIsGitProject()) {
     sh.echo(

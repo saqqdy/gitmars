@@ -12,8 +12,8 @@ import {
     getCommandCache
 } from '@gitmars/core/lib/cache/commandCache'
 import type { CommandType, GitmarsOptionOptionsType } from '../typings'
-import continueConfig from './conf/continue'
-import i18n from './locales'
+import continueConfig from '#lib/conf/continue'
+import i18n from '#lib/locales/index'
 
 if (!getIsGitProject()) {
     sh.echo(
