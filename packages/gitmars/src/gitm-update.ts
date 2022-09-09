@@ -1,7 +1,7 @@
 #!/usr/bin/env ts-node
 import { program } from 'commander'
 import sh from 'shelljs'
-import { red } from 'chalk'
+import chalk from 'chalk'
 import { queue } from '@gitmars/core/lib/queue'
 import getIsGitProject from '@gitmars/core/lib/git/getIsGitProject'
 import getCurrentBranch from '@gitmars/core/lib/git/getCurrentBranch'
@@ -16,6 +16,9 @@ import { defaults } from '#lib/common/global'
 import updateConfig from '#lib/conf/update'
 import i18n from '#lib/locales/index'
 
+const { red } = chalk
+const { args, options } = updateConfig
+
 if (!getIsGitProject()) {
     sh.echo(
         red(i18n.__('The current directory is not a git project directory'))
@@ -23,7 +26,6 @@ if (!getIsGitProject()) {
     process.exit(1)
 }
 
-const { args, options } = updateConfig
 const config = getConfig()
 
 interface GitmBuildOption {

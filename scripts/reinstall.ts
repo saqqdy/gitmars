@@ -18,10 +18,6 @@ pkg = JSON.parse(pkg)
 const useWorkspace = true // 是否启用了workspace模式
 const PACKAGE_NEXT: string[] = [] // 需要安装next版本的包
 const PACKAGE_EXCLUDE: string[] = [
-    'chalk',
-    'inquirer',
-    '@types/inquirer',
-    'ora',
     'slash',
     '@jssj/request',
     'lowdb',

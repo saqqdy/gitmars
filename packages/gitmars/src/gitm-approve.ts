@@ -2,7 +2,7 @@
 import { program } from 'commander'
 import dayjs from 'dayjs'
 import inquirer from 'inquirer'
-import { blue, cyan, green, magenta, red, yellow } from 'chalk'
+import chalk from 'chalk'
 import getUserToken from '@gitmars/core/lib/api/getUserToken'
 import getIsGitProject from '@gitmars/core/lib/git/getIsGitProject'
 import getGitConfig from '@gitmars/core/lib/git/getGitConfig'
@@ -26,12 +26,14 @@ import type {
 import i18n from '#lib/locales/index'
 import approveConfig from '#lib/conf/approve'
 
+const { blue, cyan, green, magenta, red, yellow } = chalk
+const { args, options } = approveConfig
+
 if (!getIsGitProject()) {
     echo(red(i18n.__('The current directory is not a git project directory')))
     process.exit(1)
 }
 
-const { args, options } = approveConfig
 const { appName } = getGitConfig()
 const config = getConfig()
 interface GitmBuildOption {

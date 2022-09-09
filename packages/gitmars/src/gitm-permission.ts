@@ -1,11 +1,13 @@
 #!/usr/bin/env ts-node
 import { program } from 'commander'
 import sh from 'shelljs'
-import { red } from 'chalk'
+import chalk from 'chalk'
 import getCurrentBranch from '@gitmars/core/lib/git/getCurrentBranch'
 import { spawnSync } from '@gitmars/core/lib/spawn'
 import getConfig from '@gitmars/core/lib/getConfig'
 import i18n from '#lib/locales/index'
+
+const { red } = chalk
 const config = getConfig()
 
 interface GitmBuildOption {

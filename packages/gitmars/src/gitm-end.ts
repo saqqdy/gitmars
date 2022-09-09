@@ -2,7 +2,7 @@
 import { createRequire } from 'node:module'
 import { program } from 'commander'
 import sh from 'shelljs'
-import { red } from 'chalk'
+import chalk from 'chalk'
 import getType from 'js-cool/lib/getType'
 import { queue } from '@gitmars/core/lib/queue'
 import getIsGitProject from '@gitmars/core/lib/git/getIsGitProject'
@@ -25,6 +25,10 @@ import { defaults } from '#lib/common/global'
 import endConfig from '#lib/conf/end'
 import i18n from '#lib/locales/index'
 
+const require = createRequire(import.meta.url)
+const { args, options } = endConfig
+const { red } = chalk
+
 if (!getIsGitProject()) {
     sh.echo(
         red(i18n.__('The current directory is not a git project directory'))
@@ -32,8 +36,6 @@ if (!getIsGitProject()) {
     process.exit(1)
 }
 
-const require = createRequire(import.meta.url)
-const { args, options } = endConfig
 const config = getConfig()
 const { appName } = getGitConfig()
 const mergeRequestModule = require.resolve('@gitmars/core/lib/api/mergeRequest')

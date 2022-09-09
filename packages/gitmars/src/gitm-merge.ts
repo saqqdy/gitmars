@@ -1,17 +1,21 @@
 #!/usr/bin/env ts-node
 import { program } from 'commander'
 import sh from 'shelljs'
-import { red } from 'chalk'
+import chalk from 'chalk'
 import { queue } from '@gitmars/core/lib/queue'
 import getIsGitProject from '@gitmars/core/lib/git/getIsGitProject'
 import type { CommandType } from '../typings'
 import i18n from '#lib/locales/index'
+
+const { red } = chalk
+
 if (!getIsGitProject()) {
     sh.echo(
         red(i18n.__('The current directory is not a git project directory'))
     )
     process.exit(1)
 }
+
 /**
  * gitm merge
  */

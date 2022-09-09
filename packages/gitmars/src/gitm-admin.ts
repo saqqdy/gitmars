@@ -1,7 +1,7 @@
 #!/usr/bin/env ts-node
 import { createRequire } from 'node:module'
 import { Command } from 'commander'
-import { green, red } from 'chalk'
+import chalk from 'chalk'
 import getType from 'js-cool/lib/getType'
 import getUserToken from '@gitmars/core/lib/api/getUserToken'
 import { queue } from '@gitmars/core/lib/queue'
@@ -25,12 +25,14 @@ import type {
 import adminConfig from '#lib/conf/admin'
 import i18n from '#lib/locales/index'
 
+const require = createRequire(import.meta.url)
+const { green, red } = chalk
+
 if (!getIsGitProject()) {
     echo(red(i18n.__('The current directory is not a git project directory')))
     process.exit(1)
 }
 
-const require = createRequire(import.meta.url)
 const { appName } = getGitConfig()
 const config = getConfig()
 const userInfoApi =

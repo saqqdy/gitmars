@@ -1,7 +1,7 @@
 #!/usr/bin/env ts-node
 import { program } from 'commander'
 import sh from 'shelljs'
-import { red, yellow } from 'chalk'
+import chalk from 'chalk'
 import { queue } from '@gitmars/core/lib/queue'
 import getIsGitProject from '@gitmars/core/lib/git/getIsGitProject'
 import { createArgs } from '@gitmars/core/lib/utils/command'
@@ -9,14 +9,15 @@ import type { CommandType, GitmarsOptionOptionsType } from '../typings'
 import revertConfig from '#lib/conf/revert'
 import i18n from '#lib/locales/index'
 
+const { red, yellow } = chalk
+const { args, options } = revertConfig
+
 if (!getIsGitProject()) {
     sh.echo(
         red(i18n.__('The current directory is not a git project directory'))
     )
     process.exit(1)
 }
-
-const { args, options } = revertConfig
 
 interface GitmBuildOption {
     number?: number

@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { program } from 'commander'
 import sh from 'shelljs'
-import { red, yellow } from 'chalk'
+import chalk from 'chalk'
 import { queue } from '@gitmars/core/lib/queue'
 import { createArgs } from '@gitmars/core/lib/utils/index'
 import { getCurrentBranch, getIsGitProject } from '@gitmars/core/lib/git/index'
@@ -10,14 +10,15 @@ import type { GitmarsOptionOptionsType } from '../typings'
 import suggestConfig from '#lib/conf/suggest'
 import i18n from '#lib/locales/index'
 
+const { red, yellow } = chalk
+const { args, options } = suggestConfig
+
 if (!getIsGitProject()) {
     sh.echo(
         red(i18n.__('The current directory is not a git project directory'))
     )
     process.exit(1)
 }
-
-const { args, options } = suggestConfig
 
 interface GitmBuildOption {
     keep?: boolean

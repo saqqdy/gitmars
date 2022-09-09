@@ -1,7 +1,7 @@
 #!/usr/bin/env ts-node
 import { program } from 'commander'
 import columnify from 'columnify'
-import { cyan, green, red, yellow } from 'chalk'
+import chalk from 'chalk'
 import getIsGitProject from '@gitmars/core/lib/git/getIsGitProject'
 import getCurrentBranch from '@gitmars/core/lib/git/getCurrentBranch'
 import getGitStatus from '@gitmars/core/lib/git/getGitStatus'
@@ -11,12 +11,13 @@ import type { GitStatusInfoType, GitmarsOptionOptionsType } from '../typings'
 import statusConfig from '#lib/conf/status'
 import i18n from '#lib/locales/index'
 
+const { cyan, green, red, yellow } = chalk
+const { args, options } = statusConfig
+
 if (!getIsGitProject()) {
     echo(red(i18n.__('The current directory is not a git project directory')))
     process.exit(1)
 }
-
-const { args, options } = statusConfig
 
 /**
  * gitm status

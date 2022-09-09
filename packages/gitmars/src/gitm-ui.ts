@@ -2,7 +2,7 @@
 // import { dirname, join } from 'path'
 // import { fileURLToPath } from 'url'
 import sh from 'shelljs'
-import { yellow } from 'chalk'
+import chalk from 'chalk'
 import { program } from 'commander'
 import { spawnSync } from '@gitmars/core/lib/spawn'
 import { createArgs } from '@gitmars/core/lib/utils/command'
@@ -13,6 +13,7 @@ import i18n from '#lib/locales/index'
 
 // const __filename = fileURLToPath(import.meta.url)
 // const __dirname = dirname(__filename)
+const { yellow } = chalk
 const { args, options } = uiConfig
 
 interface GitmBuildOption {
