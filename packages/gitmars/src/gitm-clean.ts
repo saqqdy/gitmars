@@ -1,7 +1,7 @@
 #!/usr/bin/env ts-node
 import { program } from 'commander'
 import sh from 'shelljs'
-import { green, yellow } from 'chalk'
+import chalk from 'chalk'
 import inquirer from 'inquirer'
 import getGitRevParse from '@gitmars/core/lib/git/getGitRevParse'
 import getIsGitProject from '@gitmars/core/lib/git/getIsGitProject'
@@ -16,6 +16,7 @@ import i18n from '#lib/locales/index'
 
 sh.config.silent = true
 
+const { green, yellow } = chalk
 const { args, options } = cleanConfig
 const { gitDir } = getGitRevParse()
 

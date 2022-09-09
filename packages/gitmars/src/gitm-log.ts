@@ -2,7 +2,7 @@
 import { program } from 'commander'
 import dayjs from 'dayjs'
 import columnify from 'columnify'
-import { blue, cyan, green, red, yellow } from 'chalk'
+import chalk from 'chalk'
 import getIsGitProject from '@gitmars/core/lib/git/getIsGitProject'
 import getGitLogs from '@gitmars/core/lib/git/getGitLogs'
 import { createArgs } from '@gitmars/core/lib/utils/command'
@@ -11,12 +11,13 @@ import type { GitLogsType, GitmarsOptionOptionsType } from '../typings'
 import logConfig from '#lib/conf/log'
 import i18n from '#lib/locales/index'
 
+const { blue, cyan, green, red, yellow } = chalk
+const { args, options } = logConfig
+
 if (!getIsGitProject()) {
     echo(red(i18n.__('The current directory is not a git project directory')))
     process.exit(1)
 }
-
-const { args, options } = logConfig
 
 interface GitmBuildOption {
     lastet?: string

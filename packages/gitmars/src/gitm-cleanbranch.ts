@@ -1,6 +1,6 @@
 #!/usr/bin/env ts-node
 import { program } from 'commander'
-import { green, red, yellow } from 'chalk'
+import chalk from 'chalk'
 import inquirer from 'inquirer'
 import ora from 'ora'
 import getIsGitProject from '@gitmars/core/lib/git/getIsGitProject'
@@ -22,12 +22,14 @@ import type {
 import cleanbranchConfig from '#lib/conf/cleanbranch'
 import i18n from '#lib/locales/index'
 
+const { green, red, yellow } = chalk
+const { args, options } = cleanbranchConfig
+
 if (!getIsGitProject()) {
     echo(red(i18n.__('The current directory is not a git project directory')))
     process.exit(1)
 }
 
-const { args, options } = cleanbranchConfig
 const config = getConfig()
 
 interface GitmBuildOption {

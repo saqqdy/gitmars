@@ -1,7 +1,7 @@
 #!/usr/bin/env ts-node
 import { program } from 'commander'
 import ora from 'ora'
-import { green, red } from 'chalk'
+import chalk from 'chalk'
 import { createArgs } from '@gitmars/core/lib/utils/command'
 import { spawnSync } from '@gitmars/core/lib/spawn'
 import echo from '@gitmars/core/lib/utils/echo'
@@ -9,6 +9,7 @@ import type { GitmarsOptionOptionsType, PackageVersionTag } from '../typings'
 import installConfig from '#lib/conf/install'
 import i18n from '#lib/locales/index'
 
+const { green, red } = chalk
 const { args, options } = installConfig
 
 interface GitmBuildOption {

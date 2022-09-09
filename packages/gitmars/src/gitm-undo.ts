@@ -3,7 +3,7 @@ import { program } from 'commander'
 import dayjs from 'dayjs'
 import inquirer from 'inquirer'
 import sh from 'shelljs'
-import { blue, green, red, yellow } from 'chalk'
+import chalk from 'chalk'
 import { queue } from '@gitmars/core/lib/queue'
 import getIsGitProject from '@gitmars/core/lib/git/getIsGitProject'
 import getGitLogs from '@gitmars/core/lib/git/getGitLogs'
@@ -26,14 +26,15 @@ import type {
 import undoConfig from '#lib/conf/undo'
 import i18n from '#lib/locales/index'
 
+const { blue, green, red, yellow } = chalk
+const { args, options } = undoConfig
+
 if (!getIsGitProject()) {
     sh.echo(
         red(i18n.__('The current directory is not a git project directory'))
     )
     process.exit(1)
 }
-
-const { args, options } = undoConfig
 
 interface GitmBuildOption {
     mode: 1 | 2

@@ -1,6 +1,6 @@
 #!/usr/bin/env ts-node
 import { program } from 'commander'
-import { green, red } from 'chalk'
+import chalk from 'chalk'
 import ora from 'ora'
 import { spawnSync } from '@gitmars/core/lib/spawn'
 import { createArgs } from '@gitmars/core/lib/utils/command'
@@ -8,6 +8,7 @@ import type { GitmarsOptionOptionsType, PackageVersionTag } from '../typings'
 import upgradeConfig from '#lib/conf/upgrade'
 import i18n from '#lib/locales/index'
 
+const { green, red } = chalk
 const { args, options } = upgradeConfig
 
 interface GitmBuildOption {
