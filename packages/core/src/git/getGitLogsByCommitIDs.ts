@@ -1,7 +1,7 @@
 import type { GitLogKeysType, GitLogsType } from '../../typings'
-import { spawnSync } from '../spawn'
-import { debug } from '../utils/debug'
-import GitLogsFormatter from './gitLogsFormatter'
+import { spawnSync } from '#lib/spawn'
+import { debug } from '#lib/utils/debug'
+import GitLogsFormatter from '#lib/git/gitLogsFormatter'
 
 export interface GetGitLogsByCommitIDsOptions {
     commitIDs: string | string[]

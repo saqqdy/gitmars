@@ -1,10 +1,10 @@
 import { resolve } from 'path'
 import { createRequire } from 'node:module'
 import getProperty from 'js-cool/lib/getProperty'
-import { isCacheExpired, updateCacheTime } from '../cache/cache'
-import { spawnSync } from '../spawn'
-import { isFileExist, removeFile, writeFile } from './file'
-import { CACHE_PATH } from './paths'
+import { spawnSync } from '#lib/spawn'
+import { isCacheExpired, updateCacheTime } from '#lib/cache/cache'
+import { CACHE_PATH } from '#lib/utils/paths'
+import { isFileExist, removeFile, writeFile } from '#lib/utils/file'
 
 const require = createRequire(import.meta.url)
 

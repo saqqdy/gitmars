@@ -1,5 +1,5 @@
-import { spawnSync } from '../spawn'
-import { debug } from '../utils/debug'
+import { spawnSync } from '#lib/spawn'
+import { debug } from '#lib/utils/debug'
 
 /**
  * 获取git用户名称

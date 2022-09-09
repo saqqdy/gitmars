@@ -1,5 +1,5 @@
 import type { GitLogKeysType, GitLogsType } from '../../typings'
-import { debug } from '../utils/debug'
+import { debug } from '#lib/utils/debug'
 
 class GitLogsFormatter {
     keys: GitLogKeysType[] = [

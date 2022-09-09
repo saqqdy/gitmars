@@ -1,7 +1,7 @@
 import chalk from 'chalk'
 import request from '@jssj/request'
-import getConfig from '../getConfig'
-import { debug } from '../utils/debug'
+import getConfig from '#lib/getConfig'
+import { debug } from '#lib/utils/debug'
 const config = getConfig()
 
 const MERGE_REQUESTS_NOTES_URL = `${config.gitHost}/api/v4/projects/${config.gitID}/merge_requests`

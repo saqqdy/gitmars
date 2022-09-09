@@ -2,7 +2,7 @@ import sh from 'shelljs'
 import chalk from 'chalk'
 import request from '@jssj/request'
 import type { ApolloConfigType } from '../typings'
-import { getBuildConfig } from './build/buildConfig'
+import { getBuildConfig } from '#lib/build/buildConfig'
 
 /**
  * 发送群消息

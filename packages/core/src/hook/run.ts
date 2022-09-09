@@ -1,7 +1,7 @@
 import type { ShellCode } from '../../typings'
-import { spawnSync } from '../spawn'
-import getConfig from '../getConfig'
-import checkGitDirEnv from './checkGitDirEnv'
+import { spawnSync } from '#lib/spawn'
+import getConfig from '#lib/getConfig'
+import checkGitDirEnv from '#lib/hook/checkGitDirEnv'
 const config = getConfig()
 function getCommand(cwd: string, hookName: string) {
     return config && config.hooks && config.hooks[hookName]

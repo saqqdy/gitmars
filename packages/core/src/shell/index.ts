@@ -1,4 +1,4 @@
-import getCurlOfMergeRequest from './getCurlOfMergeRequest'
+import getCurlOfMergeRequest from '#lib/shell/getCurlOfMergeRequest'
 
 export default {
     getCurlOfMergeRequest

@@ -22,6 +22,11 @@
             "types": "./lib/*.d.ts"
         }
     },
+    "imports": {
+        "#lib/*": {
+            "import": "./lib/*.mjs"
+        }
+    },
     "files": [
         "cache/.gitkeep",
         "lib",

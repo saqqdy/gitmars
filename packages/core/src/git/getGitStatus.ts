@@ -1,7 +1,7 @@
 import type { SpawnOptions } from 'child_process'
 import type { GitStatusInfoType } from '../../typings'
-import { spawnSync } from '../spawn'
-import { debug } from '../utils/debug'
+import { spawnSync } from '#lib/spawn'
+import { debug } from '#lib/utils/debug'
 
 /**
  * 获取分支状态

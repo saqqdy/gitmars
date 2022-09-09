@@ -1,6 +1,6 @@
-import getGitConfig from '../git/getGitConfig'
-import getGitRevParse from '../git/getGitRevParse'
-import readPkg from '../utils/readPkg'
+import getGitConfig from '#lib/git/getGitConfig'
+import getGitRevParse from '#lib/git/getGitRevParse'
+import readPkg from '#lib/utils/readPkg'
 const { gitUrl } = getGitConfig()
 const { root } = getGitRevParse()
 

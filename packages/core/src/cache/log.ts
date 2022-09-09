@@ -1,7 +1,7 @@
 import sh from 'shelljs'
 import type { GitmarsLogType } from '../../typings'
-import getGitRevParse from '../git/getGitRevParse'
-import { removeFile } from '../utils/file'
+import getGitRevParse from '#lib/git/getGitRevParse'
+import { removeFile } from '#lib/utils/file'
 
 const { gitDir } = getGitRevParse()
 

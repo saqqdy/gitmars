@@ -1,4 +1,4 @@
-import { spawnSync } from '../spawn'
+import { spawnSync } from '#lib/spawn'
 
 /**
  * 获取当前分支

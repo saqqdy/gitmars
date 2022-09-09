@@ -1,8 +1,8 @@
 import type { GitLogKeysType, GitLogsType } from '../../typings'
-import { spawnSync } from '../spawn'
-import getSeconds from '../utils/getSeconds'
-import { debug } from '../utils/debug'
-import GitLogsFormatter from './gitLogsFormatter'
+import { spawnSync } from '#lib/spawn'
+import getSeconds from '#lib/utils/getSeconds'
+import { debug } from '#lib/utils/debug'
+import GitLogsFormatter from '#lib/git/gitLogsFormatter'
 
 export interface GetGitLogsOption {
     lastet?: string

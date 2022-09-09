@@ -4,7 +4,7 @@ import type {
     SpawnSyncReturns
 } from 'child_process'
 import crossSpawn from 'cross-spawn'
-import { debug } from './utils/debug'
+import { debug } from '#lib/utils/debug'
 
 /**
  * 异步执行脚本

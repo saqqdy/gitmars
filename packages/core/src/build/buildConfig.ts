@@ -8,11 +8,11 @@ import type {
     GitmarsConfigApisBuildConfigType,
     GitmarsConfigType
 } from '../../typings'
-import { isFileExist, removeFile, writeFile } from '../utils/file'
-import { isCacheExpired, updateCacheTime } from '../cache/cache'
-import getConfig from '../getConfig'
-import { debug } from '../utils/debug'
-import { CACHE_PATH } from '../utils/paths'
+import { isCacheExpired, updateCacheTime } from '#lib/cache/cache'
+import { isFileExist, removeFile, writeFile } from '#lib/utils/file'
+import getConfig from '#lib/getConfig'
+import { debug } from '#lib/utils/debug'
+import { CACHE_PATH } from '#lib/utils/paths'
 
 const require = createRequire(import.meta.url)
 

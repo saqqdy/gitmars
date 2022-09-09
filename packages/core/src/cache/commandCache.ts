@@ -1,7 +1,7 @@
 import sh from 'shelljs'
 import type { CommandType } from '../../typings'
-import getGitRevParse from '../git/getGitRevParse'
-import { isFileExist } from '../utils/file'
+import getGitRevParse from '#lib/git/getGitRevParse'
+import { isFileExist } from '#lib/utils/file'
 
 /**
  * 获取未执行脚本列表
