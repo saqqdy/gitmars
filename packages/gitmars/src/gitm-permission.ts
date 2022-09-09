@@ -5,7 +5,7 @@ import { red } from 'chalk'
 import getCurrentBranch from '@gitmars/core/lib/git/getCurrentBranch'
 import { spawnSync } from '@gitmars/core/lib/spawn'
 import getConfig from '@gitmars/core/lib/getConfig'
-import i18n from './locales'
+import i18n from '#lib/locales/index'
 const config = getConfig()
 
 interface GitmBuildOption {

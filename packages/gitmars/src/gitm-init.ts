@@ -7,8 +7,8 @@ import inquirer from 'inquirer'
 import getIsGitProject from '@gitmars/core/lib/git/getIsGitProject'
 import getGitRevParse from '@gitmars/core/lib/git/getGitRevParse'
 import type { InitInquirerPromptType } from '../typings'
-import { defaults } from './common/global'
-import i18n from './locales'
+import { defaults } from '#lib/common/global'
+import i18n from '#lib/locales/index'
 if (!getIsGitProject()) {
     sh.echo(
         red(i18n.__('The current directory is not a git project directory'))

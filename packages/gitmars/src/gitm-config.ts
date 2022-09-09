@@ -6,8 +6,8 @@ import getIsGitProject from '@gitmars/core/lib/git/getIsGitProject'
 import getGitRevParse from '@gitmars/core/lib/git/getGitRevParse'
 import { writeFile } from '@gitmars/core/lib/utils/file'
 import getConfig from '@gitmars/core/lib/getConfig'
-import { defaults } from './common/global'
-import i18n from './locales'
+import { defaults } from '#lib/common/global'
+import i18n from '#lib/locales/index'
 if (!getIsGitProject()) {
     sh.echo(
         red(i18n.__('The current directory is not a git project directory'))

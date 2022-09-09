@@ -21,9 +21,9 @@ import type {
     FetchDataType,
     GitmarsOptionOptionsType
 } from '../typings'
-import { defaults } from './common/global'
-import i18n from './locales'
-import combineConfig from './conf/combine'
+import { defaults } from '#lib/common/global'
+import i18n from '#lib/locales/index'
+import combineConfig from '#lib/conf/combine'
 
 if (!getIsGitProject()) {
     sh.echo(

@@ -8,8 +8,8 @@ import { spawnSync } from '@gitmars/core/lib/spawn'
 import { createArgs } from '@gitmars/core/lib/utils/command'
 import echo from '@gitmars/core/lib/utils/echo'
 import type { GitmarsOptionOptionsType } from '../typings'
-import uiConfig from './conf/ui'
-import i18n from './locales'
+import uiConfig from '#lib/conf/ui'
+import i18n from '#lib/locales/index'
 
 // const __filename = fileURLToPath(import.meta.url)
 // const __dirname = dirname(__filename)

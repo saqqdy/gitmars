@@ -3,8 +3,8 @@ import { program } from 'commander'
 import sendGroupMessage from '@gitmars/core/lib/sendGroupMessage'
 import { createArgs } from '@gitmars/core/lib/utils/command'
 import type { GitmarsOptionOptionsType } from '../typings'
-import postmsgConfig from './conf/postmsg'
-import i18n from './locales'
+import postmsgConfig from '#lib/conf/postmsg'
+import i18n from '#lib/locales/index'
 
 const { args, options } = postmsgConfig
 

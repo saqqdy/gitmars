@@ -12,8 +12,8 @@ import type {
     GitmarsBranchType,
     GitmarsOptionOptionsType
 } from '../typings'
-import branchConfig from './conf/branch'
-import i18n from './locales'
+import branchConfig from '#lib/conf/branch'
+import i18n from '#lib/locales/index'
 
 if (!getIsGitProject()) {
     sh.echo(

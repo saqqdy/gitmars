@@ -165,6 +165,10 @@ export async function buildLib() {
                                 {
                                     find: /^@\//,
                                     replacement: resolve(PACKAGE, name, 'src')
+                                },
+                                {
+                                    find: /^#lib\//,
+                                    replacement: resolve(PACKAGE, name, 'src')
                                 }
                             ],
                             customResolver: nodeResolve() as ResolverObject

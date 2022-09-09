@@ -5,8 +5,8 @@ import ora from 'ora'
 import { spawnSync } from '@gitmars/core/lib/spawn'
 import { createArgs } from '@gitmars/core/lib/utils/command'
 import type { GitmarsOptionOptionsType, PackageVersionTag } from '../typings'
-import upgradeConfig from './conf/upgrade'
-import i18n from './locales'
+import upgradeConfig from '#lib/conf/upgrade'
+import i18n from '#lib/locales/index'
 
 const { args, options } = upgradeConfig
 

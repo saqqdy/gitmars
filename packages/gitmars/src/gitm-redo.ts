@@ -19,8 +19,8 @@ import type {
     InitInquirerPromptType,
     RevertCacheType
 } from '../typings'
-import redoConfig from './conf/redo'
-import i18n from './locales'
+import redoConfig from '#lib/conf/redo'
+import i18n from '#lib/locales/index'
 
 if (!getIsGitProject()) {
     sh.echo(

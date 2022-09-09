@@ -8,8 +8,8 @@ import getGitStatus from '@gitmars/core/lib/git/getGitStatus'
 import { createArgs } from '@gitmars/core/lib/utils/command'
 import echo from '@gitmars/core/lib/utils/echo'
 import type { GitStatusInfoType, GitmarsOptionOptionsType } from '../typings'
-import statusConfig from './conf/status'
-import i18n from './locales'
+import statusConfig from '#lib/conf/status'
+import i18n from '#lib/locales/index'
 
 if (!getIsGitProject()) {
     echo(red(i18n.__('The current directory is not a git project directory')))

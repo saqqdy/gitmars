@@ -12,8 +12,8 @@ import type {
     GitmarsOptionOptionsType,
     QueueReturnsType
 } from '../typings'
-import copyConfig from './conf/copy'
-import i18n from './locales'
+import copyConfig from '#lib/conf/copy'
+import i18n from '#lib/locales/index'
 
 if (!getIsGitProject()) {
     sh.echo(

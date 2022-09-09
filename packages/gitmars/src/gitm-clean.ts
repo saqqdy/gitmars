@@ -11,8 +11,8 @@ import { cleanCache } from '@gitmars/core/lib/cache/cache'
 import { cleanPkgInfo } from '@gitmars/core/lib/utils/pkgInfo'
 import { cleanBuildConfig } from '@gitmars/core/lib/build/buildConfig'
 import type { GitmarsOptionOptionsType } from '../typings'
-import cleanConfig from './conf/clean'
-import i18n from './locales'
+import cleanConfig from '#lib/conf/clean'
+import i18n from '#lib/locales/index'
 
 sh.config.silent = true
 

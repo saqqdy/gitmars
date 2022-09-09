@@ -6,8 +6,8 @@ import { queue } from '@gitmars/core/lib/queue'
 import getIsGitProject from '@gitmars/core/lib/git/getIsGitProject'
 import { createArgs } from '@gitmars/core/lib/utils/command'
 import type { CommandType, GitmarsOptionOptionsType } from '../typings'
-import revertConfig from './conf/revert'
-import i18n from './locales'
+import revertConfig from '#lib/conf/revert'
+import i18n from '#lib/locales/index'
 
 if (!getIsGitProject()) {
     sh.echo(

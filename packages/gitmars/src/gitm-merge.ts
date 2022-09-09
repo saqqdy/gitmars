@@ -5,7 +5,7 @@ import { red } from 'chalk'
 import { queue } from '@gitmars/core/lib/queue'
 import getIsGitProject from '@gitmars/core/lib/git/getIsGitProject'
 import type { CommandType } from '../typings'
-import i18n from './locales'
+import i18n from '#lib/locales/index'
 if (!getIsGitProject()) {
     sh.echo(
         red(i18n.__('The current directory is not a git project directory'))

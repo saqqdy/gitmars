@@ -1,11 +1,16 @@
 #!/usr/bin/env ts-node
+import { createRequire } from 'node:module'
 import { program } from 'commander'
 import sh from 'shelljs'
-import { green } from 'chalk'
+import chalk from 'chalk'
 import { spawnSync } from '@gitmars/core/lib/spawn'
 import echo from '@gitmars/core/lib/utils/echo'
-import { version } from '../package.json'
-import i18n from './locales'
+// import { version } from '../package.json' assert { type: 'json' }
+import i18n from '#lib/locales/index'
+
+const require = createRequire(import.meta.url)
+const { green } = chalk
+const { version } = require('../package.json')
 
 if (!sh.which('git')) {
     echo(

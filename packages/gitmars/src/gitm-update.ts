@@ -12,9 +12,9 @@ import { createArgs } from '@gitmars/core/lib/utils/command'
 import getConfig from '@gitmars/core/lib/getConfig'
 import { isNeedUpgrade, upgradeGitmars } from '@gitmars/core/lib/versionControl'
 import type { CommandType, GitmarsOptionOptionsType } from '../typings'
-import i18n from './locales'
-import { defaults } from './common/global'
-import updateConfig from './conf/update'
+import { defaults } from '#lib/common/global'
+import updateConfig from '#lib/conf/update'
+import i18n from '#lib/locales/index'
 
 if (!getIsGitProject()) {
     sh.echo(
