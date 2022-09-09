@@ -1,7 +1,7 @@
 import sh from 'shelljs'
 import chalk from 'chalk'
-import { debug } from '../utils/debug'
-import getGitStatus from './getGitStatus'
+import { debug } from '#lib/utils/debug'
+import getGitStatus from '#lib/git/getGitStatus'
 
 /**
  * 检测状态，获取是否有未提交的文件

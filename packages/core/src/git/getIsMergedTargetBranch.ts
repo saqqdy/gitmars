@@ -1,6 +1,6 @@
-import { spawnSync } from '../spawn'
-import { debug } from '../utils/debug'
-import getCurrentBranch from './getCurrentBranch'
+import { spawnSync } from '#lib/spawn'
+import { debug } from '#lib/utils/debug'
+import getCurrentBranch from '#lib/git/getCurrentBranch'
 
 /**
  * 获取是否合并过dev

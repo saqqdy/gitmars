@@ -1,4 +1,4 @@
-import { debug } from '../utils/debug'
+import { debug } from '#lib/utils/debug'
 
 /**
  * 检查git环境变量

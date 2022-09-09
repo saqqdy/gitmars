@@ -1,9 +1,9 @@
 import { statSync } from 'fs'
 import { cosmiconfigSync } from 'cosmiconfig'
 import type { GitmarsConfigType } from '../typings'
-import getGitRevParse from './git/getGitRevParse'
-import { debug } from './utils/debug'
-import echo from './utils/echo'
+import getGitRevParse from '#lib/git/getGitRevParse'
+import { debug } from '#lib/utils/debug'
+import echo from '#lib/utils/echo'
 
 const defaults = {
     master: 'master',

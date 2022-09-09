@@ -1,9 +1,9 @@
 import { createRequire } from 'node:module'
 import sh from 'shelljs'
 import type { RevertCacheType } from '../../typings'
-import getGitRevParse from '../git/getGitRevParse'
-import { isFileExist, writeFileSync } from '../utils/file'
-import { debug } from '../utils/debug'
+import getGitRevParse from '#lib/git/getGitRevParse'
+import { isFileExist, writeFileSync } from '#lib/utils/file'
+import { debug } from '#lib/utils/debug'
 
 const require = createRequire(import.meta.url)
 const { gitDir } = getGitRevParse()

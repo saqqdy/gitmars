@@ -1,4 +1,4 @@
-export { default as getUserToken } from './getUserToken'
+export { default as getUserToken } from '#lib/api/getUserToken'
 
 export {
     createMergeRequest,
@@ -11,4 +11,4 @@ export {
     acceptMergeRequest,
     updateMergeRequest,
     deleteMergeRequest
-} from './mergeRequest'
+} from '#lib/api/mergeRequest'

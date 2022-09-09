@@ -1,6 +1,6 @@
 import slash from 'slash'
-import { spawnSync } from '../spawn'
-import { debug } from '../utils/debug'
+import { spawnSync } from '#lib/spawn'
+import { debug } from '#lib/utils/debug'
 
 export interface GitProjectRevParseType {
     prefix: string

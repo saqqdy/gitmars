@@ -1,5 +1,5 @@
-import { encodeUnicode } from '../utils/unicode'
-import getConfig from '../getConfig'
+import { encodeUnicode } from '#lib/utils/unicode'
+import getConfig from '#lib/getConfig'
 const config = getConfig()
 
 /**

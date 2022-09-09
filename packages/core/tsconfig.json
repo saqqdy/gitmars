@@ -12,6 +12,10 @@
         // "outDir": "dist",
         "module": "ESNext",
         "lib": ["ESNext"],
-        "sourceMap": false
+        "sourceMap": false,
+        "baseUrl": ".",
+        "paths": {
+            "#lib/*": ["./src/*"]
+        }
     }
 }

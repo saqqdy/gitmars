@@ -1,7 +1,7 @@
-import { spawnSync } from '../spawn'
-import { debug } from '../utils/debug'
-import fetch from './fetch'
-import getCurrentBranch from './getCurrentBranch'
+import { spawnSync } from '#lib/spawn'
+import { debug } from '#lib/utils/debug'
+import fetch from '#lib/git/fetch'
+import getCurrentBranch from '#lib/git/getCurrentBranch'
 
 /**
  * 获取当前本地分支领先远程的日志

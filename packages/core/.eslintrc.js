@@ -1,6 +1,6 @@
 module.exports = {
     extends: ['@eslint-sets/simple-ts'],
     rules: {
-        camelcase: 1
+        camelcase: 0
     }
 }

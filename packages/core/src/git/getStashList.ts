@@ -1,7 +1,7 @@
 import sh from 'shelljs'
 import chalk from 'chalk'
-import { spawnSync } from '../spawn'
-import { debug } from '../utils/debug'
+import { spawnSync } from '#lib/spawn'
+import { debug } from '#lib/utils/debug'
 
 /**
  * 获取暂存区列表

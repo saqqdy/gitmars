@@ -13,7 +13,7 @@
 import { readFileSync } from 'fs'
 import { resolve } from 'path'
 import type { AnyObject } from '../../typings'
-import getGitRevParse from '../git/getGitRevParse'
+import getGitRevParse from '#lib/git/getGitRevParse'
 
 /**
  * 读取配置

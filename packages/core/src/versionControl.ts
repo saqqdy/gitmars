@@ -2,8 +2,8 @@ import { createRequire } from 'node:module'
 import sh from 'shelljs'
 import chalk from 'chalk'
 // import { version } from '../package.json' assert { type: 'json' }
-import { getPkgInfo } from './utils/pkgInfo'
-import { debug } from './utils/debug'
+import { getPkgInfo } from '#lib/utils/pkgInfo'
+import { debug } from '#lib/utils/debug'
 
 const require = createRequire(import.meta.url)
 const { version } = require('../package.json')

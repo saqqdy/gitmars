@@ -1,7 +1,7 @@
 import { resolve } from 'path'
 import { createRequire } from 'node:module'
-import { isFileExist, removeFile, writeFile } from '../utils/file'
-import { CACHE_PATH } from '../utils/paths'
+import { isFileExist, removeFile, writeFile } from '#lib/utils/file'
+import { CACHE_PATH } from '#lib/utils/paths'
 
 const require = createRequire(import.meta.url)
 

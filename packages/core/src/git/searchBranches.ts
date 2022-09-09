@@ -1,7 +1,7 @@
-import { spawnSync } from '../spawn'
-import { debug } from '../utils/debug'
-import getGitConfig from './getGitConfig'
-import getGitRevParse from './getGitRevParse'
+import { spawnSync } from '#lib/spawn'
+import { debug } from '#lib/utils/debug'
+import getGitConfig from '#lib/git/getGitConfig'
+import getGitRevParse from '#lib/git/getGitRevParse'
 
 export interface SearchBranchesMapType {
     heads: string[]

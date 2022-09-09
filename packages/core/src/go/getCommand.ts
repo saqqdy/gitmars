@@ -1,6 +1,6 @@
 import inquirer from 'inquirer'
 import type { GitmarsOptionType } from '../../typings'
-import createPrompt from './createPrompt'
+import createPrompt from '#lib/go/createPrompt'
 
 export interface CommandNeedInput {
     required: boolean

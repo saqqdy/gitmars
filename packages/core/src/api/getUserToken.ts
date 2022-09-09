@@ -2,9 +2,9 @@ import sh from 'shelljs'
 import chalk from 'chalk'
 import request from '@jssj/request'
 import type { FetchDataType } from '../../typings'
-import { getGitUser } from '../git/getGitUser'
-import getConfig from '../getConfig'
-import { debug } from '../utils/debug'
+import getConfig from '#lib/getConfig'
+import { debug } from '#lib/utils/debug'
+import { getGitUser } from '#lib/git/getGitUser'
 
 // 获取用户信息
 async function getUserToken(): Promise<FetchDataType> {

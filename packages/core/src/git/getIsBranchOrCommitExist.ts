@@ -1,5 +1,5 @@
-import { spawnSync } from '../spawn'
-import getCurrentBranch from './getCurrentBranch'
+import { spawnSync } from '#lib/spawn'
+import getCurrentBranch from '#lib/git/getCurrentBranch'
 
 /**
  * 获取是否存在某个分支

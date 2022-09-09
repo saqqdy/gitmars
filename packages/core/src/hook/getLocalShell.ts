@@ -1,4 +1,4 @@
-import getHookComment from './getHookComment'
+import getHookComment from '#lib/hook/getHookComment'
 const hookComment = getHookComment()
 
 /**

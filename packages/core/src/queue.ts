@@ -8,12 +8,12 @@ import type {
     CommandTypeCmd,
     QueueReturnsType
 } from '../typings'
-import { setCommandCache } from './cache/commandCache'
-import getCommandMessage from './git/getCommandMessage'
-import { setLog } from './cache/log'
-import { postMessage } from './utils/message'
-import { spawnSync } from './spawn'
-import { debug } from './utils/debug'
+import { setCommandCache } from '#lib/cache/commandCache'
+import getCommandMessage from '#lib/git/getCommandMessage'
+import { setLog } from '#lib/cache/log'
+import { postMessage } from '#lib/utils/message'
+import { spawnSync } from '#lib/spawn'
+import { debug } from '#lib/utils/debug'
 
 const require = createRequire(import.meta.url)
 

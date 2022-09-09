@@ -1,10 +1,10 @@
 import sh from 'shelljs'
 import request from '@jssj/request'
 import chalk from 'chalk'
-import getGitConfig from '../git/getGitConfig'
-import getGitRevParse from '../git/getGitRevParse'
-import getConfig from '../getConfig'
-import mapTemplate from './mapTemplate'
+import getGitConfig from '#lib/git/getGitConfig'
+import getGitRevParse from '#lib/git/getGitRevParse'
+import getConfig from '#lib/getConfig'
+import mapTemplate from '#lib/utils/mapTemplate'
 
 /**
  * 解析模板数据

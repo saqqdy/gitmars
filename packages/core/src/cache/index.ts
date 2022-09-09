@@ -1,14 +1,14 @@
-export { isCacheExpired, updateCacheTime, cleanCache } from './cache'
-export { setLog, cleanLog } from './log'
+export { isCacheExpired, updateCacheTime, cleanCache } from '#lib/cache/cache'
+export { setLog, cleanLog } from '#lib/cache/log'
 export {
     getCommandCache,
     setCommandCache,
     cleanCommandCache
-} from './commandCache'
+} from '#lib/cache/commandCache'
 export {
     getRevertCache,
     setRevertCache,
     addRevertCache,
     delRevertCache,
     cleanRevertCache
-} from './revertCache'
+} from '#lib/cache/revertCache'
