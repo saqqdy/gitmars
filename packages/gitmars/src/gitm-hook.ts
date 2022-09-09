@@ -14,7 +14,7 @@ import { init, remove } from '@gitmars/core/lib/hook/index'
 import getConfig from '@gitmars/core/lib/getConfig'
 import type { GitmarsOptionOptionsType } from '../typings'
 import i18n from '#lib/locales/index'
-import hookConfig from '#lib/conf/hook'
+import hookConfig from '#lib/conf/hook/index'
 
 const { green, red } = chalk
 const { args, options } = hookConfig

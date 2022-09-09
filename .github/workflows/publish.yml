@@ -3,8 +3,8 @@ name: Npm publish
 on:
     release:
         types: [created]
-    # push:
-    #     branches: [master]
+        # push:
+        #     branches: [master]
 
 jobs:
     publish-gpr:

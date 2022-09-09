@@ -1,5 +1,5 @@
 import type { GitmarsMultiOptionType } from '../../typings'
-import i18n from '../locales'
+import i18n from '#lib/locales/index'
 
 const cmdConfig: GitmarsMultiOptionType = {
     command: 'admin',
