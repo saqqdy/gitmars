@@ -13,9 +13,8 @@
         },
         "./lib": "./lib/index.mjs",
         "./lib/*": "./lib/*.mjs",
-        "./*": {
-            "import": "./*.mjs"
-        }
+        "./*.js": "./lib/*.mjs",
+        "./*": "./*"
     },
     "imports": {
         "#lib/*": {
