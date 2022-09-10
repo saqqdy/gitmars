@@ -1,7 +1,7 @@
 {
     "name": "@gitmars/core",
     "description": "gitmars核心程序",
-    "version": "4.0.0-alpha.6",
+    "version": "4.0.0-alpha.8",
     "private": false,
     "main": "./lib/index.js",
     "module": "./lib/index.mjs",
@@ -55,7 +55,7 @@
         "debug": "^4.3.4",
         "i18n": "^0.15.0",
         "inquirer": "^9.1.1",
-        "js-cool": "^2.4.0",
+        "js-cool": "^2.5.0",
         "node-apollo": "^1.2.1",
         "ora": "^6.1.2",
         "os-locale": "^6.0.2",

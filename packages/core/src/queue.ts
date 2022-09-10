@@ -1,6 +1,6 @@
 import { createRequire } from 'node:module'
 import ora from 'ora'
-import extend from 'js-cool/lib/extend'
+import extend from 'js-cool/es/extend'
 import chalk from 'chalk'
 import type {
     CommandMessageType,
