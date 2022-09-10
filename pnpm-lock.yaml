@@ -112,7 +112,7 @@ importers:
   packages/core:
     specifiers:
       '@eslint-sets/eslint-config-simple-ts': ^3.0.4
-      '@jssj/request': ^1.0.0-alpha.8
+      '@jssj/request': ^1.0.0-alpha.12
       '@saqqdy/prettier-config': ^1.1.2
       '@types/cross-spawn': ^6.0.2
       '@types/inquirer': ^9.0.1
@@ -142,7 +142,7 @@ importers:
       tsnd: ^1.1.0
       typescript: ^4.7.4
     dependencies:
-      '@jssj/request': 1.0.0-alpha.8
+      '@jssj/request': 1.0.0-alpha.12
       chalk: 5.0.1
       ci-info: 3.3.2
       columnify: 1.6.0
@@ -207,7 +207,7 @@ importers:
     specifiers:
       '@eslint-sets/eslint-config-simple-ts': ^3.0.4
       '@gitmars/core': workspace:*
-      '@jssj/request': ^1.0.0-alpha.8
+      '@jssj/request': ^1.0.0-alpha.12
       '@saqqdy/prettier-config': ^1.1.2
       '@types/columnify': ^1.5.1
       '@types/cross-spawn': ^6.0.2
@@ -239,7 +239,7 @@ importers:
       typescript: ^4.7.4
     dependencies:
       '@gitmars/core': link:../core
-      '@jssj/request': 1.0.0-alpha.8
+      '@jssj/request': 1.0.0-alpha.12
       chalk: 5.0.1
       ci-info: 3.3.2
       columnify: 1.6.0
@@ -277,7 +277,7 @@ importers:
       '@eslint-sets/eslint-config-simple-ts': ^3.0.4
       '@gitmars/core': workspace:*
       '@gitmars/ui': workspace:*
-      '@jssj/request': ^1.0.0-alpha.8
+      '@jssj/request': ^1.0.0-alpha.12
       '@types/cookie-parser': ^1.4.3
       '@types/debug': ^4.1.7
       '@types/express': ^4.17.13
@@ -313,7 +313,7 @@ importers:
     dependencies:
       '@gitmars/core': link:../core
       '@gitmars/ui': link:../ui
-      '@jssj/request': 1.0.0-alpha.8
+      '@jssj/request': 1.0.0-alpha.12
       cookie-parser: 1.4.6
       debug: 4.3.4
       express: 4.18.1
@@ -1212,11 +1212,16 @@ packages:
       '@jridgewell/sourcemap-codec': 1.4.14
     dev: true
 
-  /@jssj/request/1.0.0-alpha.8:
-    resolution: {integrity: sha512-rKGtwhpneOLJ3rZiJcKX/ppmCs2ViLDek5LWLT/MY8xNiDDkTQtnVwyLDt6ND9r23MtlJ5M4Uwhgnf7W+IQyqA==}
+  /@jssj/request/1.0.0-alpha.12:
+    resolution: {integrity: sha512-PcEf4lxZ0L24bVcnz0e7hQshgg9/JJ/6r4Xe/dZDIVsqRhlNHNL5DyN7+nFUEqkzLv0ndqVHvQ0F+89bwnjfwg==}
     dependencies:
+      '@jssj/utils': 1.0.0-alpha.12
       js-cool: 2.5.0
       qs: 6.11.0
+    dev: false
+
+  /@jssj/utils/1.0.0-alpha.12:
+    resolution: {integrity: sha512-V0ABfTgfTTBI74xuHg37cCx5tbDvzQEr9kW77ZD2XX2TBcnD2JEy9cJtMrnaK3+QguRyycQkpYg3pDIisiyCzA==}
     dev: false
 
   /@messageformat/core/3.0.1:
