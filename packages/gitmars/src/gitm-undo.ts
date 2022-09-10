@@ -201,7 +201,9 @@ program.action(async (commitid: string[], opt: GitmBuildOption) => {
             // 没有查找到任何记录
             echo(
                 yellow(
-                    i18n.__('No eligible commit logs found, please relax the filtering conditions appropriately, default: "--lastet=7d --limit=20". The process has been exited')
+                    i18n.__(
+                        'No eligible commit logs found, please relax the filtering conditions appropriately, default: "--lastet=7d --limit=20". The process has been exited'
+                    )
                 )
             )
             process.exit(0)
@@ -234,7 +236,13 @@ program.action(async (commitid: string[], opt: GitmBuildOption) => {
     // 获取没有被undo过的记录
     commitIDs = getRevertCommitIDs(commitIDs)
     if (commitIDs.length === 0) {
-        echo(yellow(i18n.__('There are no revocable records, the process has exited')))
+        echo(
+            yellow(
+                i18n.__(
+                    'There are no revocable records, the process has exited'
+                )
+            )
+        )
         process.exit(0)
     }
     // 筛选被选择的记录

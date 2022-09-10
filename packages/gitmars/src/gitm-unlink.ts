@@ -12,7 +12,10 @@ const { args, options } = unlinkConfig
 /**
  * gitm unlink
  */
-program.name('gitm unlink').usage('[name]').description(i18n.__('Unlinking local package'))
+program
+    .name('gitm unlink')
+    .usage('[name]')
+    .description(i18n.__('Unlinking local package'))
 if (args.length > 0) program.arguments(createArgs(args))
 options.forEach((o: GitmarsOptionOptionsType) => {
     program.option(o.flags, o.description, o.defaultValue)

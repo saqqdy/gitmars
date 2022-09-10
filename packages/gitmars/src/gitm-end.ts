@@ -409,7 +409,13 @@ program.action(
             }
             queue(cmd)
         } else {
-            sh.echo(red(i18n.__('type only allows input') + ': ' + JSON.stringify(allow)))
+            sh.echo(
+                red(
+                    i18n.__('type only allows input') +
+                        ': ' +
+                        JSON.stringify(allow)
+                )
+            )
             process.exit(1)
         }
     }

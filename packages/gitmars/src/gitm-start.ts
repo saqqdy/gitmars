@@ -116,7 +116,9 @@ program.action(async (type: string, name: string, opt: GitmBuildOption) => {
             }
         })
     } else {
-        sh.echo(red(i18n.__('type only allows input') + '：' + JSON.stringify(opts)))
+        sh.echo(
+            red(i18n.__('type only allows input') + '：' + JSON.stringify(opts))
+        )
         process.exit(1)
     }
 })

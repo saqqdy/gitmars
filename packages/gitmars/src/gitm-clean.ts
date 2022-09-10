@@ -27,7 +27,10 @@ interface GitmBuildOption {
 /**
  * gitm clean
  */
-program.name('gitm clean').usage('[-f --force]').description(i18n.__('Clean gitmars cache'))
+program
+    .name('gitm clean')
+    .usage('[-f --force]')
+    .description(i18n.__('Clean gitmars cache'))
 if (args.length > 0) program.arguments(createArgs(args))
 options.forEach((o: GitmarsOptionOptionsType) => {
     program.option(o.flags, o.description, o.defaultValue)

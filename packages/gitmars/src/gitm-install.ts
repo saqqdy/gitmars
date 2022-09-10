@@ -102,7 +102,13 @@ program.action(
         if (install.status === 0) {
             spinner.succeed(green(i18n.__('Installation complete')))
         } else {
-            spinner.fail(red(i18n.__('There was an installation error, please contact the administrator')))
+            spinner.fail(
+                red(
+                    i18n.__(
+                        'There was an installation error, please contact the administrator'
+                    )
+                )
+            )
         }
         spinner.stop()
         process.exit(0)
