@@ -35,7 +35,7 @@ program.action((opt: GitmBuildOption) => {
     // console.info(process.cwd(), path.join(__dirname, '../ui'), path.join(process.execPath, '../../lib/node_modules/gitmars'))
     const uiBin = sh.which('gitm-ui')?.stdout
     if (!uiBin) {
-        echo(yellow('请先安装gitm ui插件：gitm install @gitmars/ui latest -m'))
+        echo(yellow(i18n.__('Please install the gitm ui plugin first: gitm install @gitmars/ui latest -m')))
         return
     }
     // const { stdout } = spawnSync('ls', ['-l', uiBin]),

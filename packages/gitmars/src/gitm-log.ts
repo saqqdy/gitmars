@@ -40,7 +40,7 @@ options.forEach((o: GitmarsOptionOptionsType) => {
     program.option(o.flags, o.description, o.defaultValue)
 })
 // .option('--lastet [lastet]', i18n.__('Query logs after a certain time, fill in the format: 10s/2m/2h/3d/4M/5y'), '7d')
-// .option('--no-merges', '是否排除merge的日志')
+// .option('--no-merges', i18n.__('Whether to exclude merge's log'))
 // .option('--limit [limit]', i18n.__('The maximum number of logs to be queried'), 20)
 // .option('--json', i18n.__('Whether to output logs in json format, default form'), false)
 program.action(async (branch: string, opt: GitmBuildOption) => {

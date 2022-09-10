@@ -90,7 +90,7 @@ program.action(async (command: string): Promise<void> => {
             })
             .then((answers: any) => {
                 if (answers.command === 'exit') {
-                    sh.echo(green('已退出'))
+                    sh.echo(green(i18n.__('exited')))
                     process.exit(0)
                 }
                 sh.echo(green(`你选择了${answers.command}指令`))

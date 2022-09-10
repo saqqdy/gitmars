@@ -28,8 +28,8 @@ program.action((name: string) => {
     if (!name) {
         // 给当前包创建软链
         const { status } = spawnSync(npmClient, ['link'])
-        if (status === 0) sh.echo('处理完成')
-        else sh.echo('出错了')
+        if (status === 0) sh.echo(i18n.__('Processing completed'))
+        else sh.echo(i18n.__('There was an error'))
         process.exit(0)
     } else if (isLink) {
         sh.rm('-rf', `./node_modules/${name}`)
@@ -38,7 +38,7 @@ program.action((name: string) => {
     }
     // sh.ln('-s', path, `./node_modules/${name}`)
     const { status } = spawnSync(npmClient, ['link', name])
-    if (status === 0) sh.echo('处理完成')
+    if (status === 0) sh.echo(i18n.__('Processing completed'))
     else {
         sh.echo(
             `处理失败，${name}软链不存在，请进入本地${name}根目录执行：gitm link`

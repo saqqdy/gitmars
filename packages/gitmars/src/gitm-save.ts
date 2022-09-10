@@ -44,7 +44,7 @@ program.action((message: string, opt: GitmBuildOption) => {
             cmd: `git stash save "${message}"`,
             config: {
                 success: i18n.__('File staging successful'),
-                fail: '出错了，请联系管理员'
+                fail: i18n.__('There was an error, please contact an administrator')
             }
         }
     ]
@@ -55,7 +55,7 @@ program.action((message: string, opt: GitmBuildOption) => {
                 cmd: `git stash save "${message}"`,
                 config: {
                     success: i18n.__('File staging successful'),
-                    fail: '出错了，请联系管理员'
+                    fail: i18n.__('There was an error, please contact an administrator')
                 }
             }
         ]

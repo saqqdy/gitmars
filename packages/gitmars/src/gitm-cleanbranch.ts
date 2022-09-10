@@ -86,7 +86,7 @@ options.forEach((o: GitmarsOptionOptionsType) => {
 // .option('--include [include]', i18n.__('Include keywords'), '')
 // .option('-r, --remote', i18n.__('Whether to clean up remote branches, default is clean up local branches'), false)
 // .option('-c, --confirm', i18n.__('Confirm start, do not show confirmation box when true'), false)
-// .option('--deadline [deadline]', '删除固定时长之前的分支，填写格式：10s/2m/2h/3d/4M/5y', '15d') -----------------------
+// .option('--deadline [deadline]', i18n.__('Delete branch before fixed duration, fill in format: 10s/2m/2h/3d/4M/5y'), '15d') -----------------------
 program.action(async (branches: string[], opt: GitmBuildOption) => {
     const spinner = ora()
     spinner.color = 'green'
@@ -144,7 +144,7 @@ program.action(async (branches: string[], opt: GitmBuildOption) => {
                 })
                 .then((answers: any) => {
                     if (!answers.value) {
-                        echo(green('已退出'))
+                        echo(green(i18n.__('exited')))
                         process.exit(0)
                     }
                 })

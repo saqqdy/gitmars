@@ -1,7 +1,7 @@
 import type { GitmarsOptionType } from '../../typings'
 import i18n from '#lib/locales/index'
 
-const cmdConfig: GitmarsOptionType = {
+export const cmdConfig: GitmarsOptionType = {
     command: 'cleanbranch',
     short: 'clb',
     args: [
@@ -110,7 +110,7 @@ const cmdConfig: GitmarsOptionType = {
         //     long: '--deadline',
         //     negate: false,
         //     description:
-        //         '删除固定时长之前的分支，填写格式：10s/2m/2h/3d/4M/5y',
+        //         i18n.__('Delete branch before fixed duration, fill in format: 10s/2m/2h/3d/4M/5y'),
         //     defaultValue: '15d'
         // },
         {
@@ -160,4 +160,4 @@ const cmdConfig: GitmarsOptionType = {
     }
 }
 
-export default cmdConfig
+export { cmdConfig as default }

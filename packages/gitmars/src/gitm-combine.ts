@@ -70,13 +70,13 @@ if (args.length > 0) program.arguments(createArgs(args))
 options.forEach((o: GitmarsOptionOptionsType) => {
     program.option(o.flags, o.description, o.defaultValue)
 })
-// .option('-d, --dev', '是否同步到alpha测试环境', false)
-// .option('-p, --prod', '是否同步到预发布环境', false)
-// .option('-b, --build [build]', '需要构建的应用')
-// .option('-m, --commit <commit>', 'commit信息', '')
+// .option('-d, --dev', i18n.__('Whether to sync to alpha test environment'), false)
+// .option('-p, --prod', i18n.__('Whether to sync to pre-release environment'), false)
+// .option('-b, --build [build]', i18n.__('Application to be built'))
+// .option('-m, --commit <commit>', i18n.__('commit information'), '')
 // .option('--description [description]', i18n.__('Description of the reason for this commit'), '')
-// .option('-a, --add', '需要add', false)
-// .option('--no-bugfix', '不同步到bug分支')
+// .option('-a, --add', i18n.__('Need to add'), false)
+// .option('--no-bugfix', i18n.__('Do not sync to bug branch'))
 // .option('--as-feature', i18n.__('bug branch merge to release'))
 // .option('-f, --force', i18n.__('Whether to force a merge request'), false)
 program.action(
@@ -576,7 +576,7 @@ program.action(
             }
             queue(cmd)
         } else {
-            sh.echo(red('type只允许输入：' + JSON.stringify(allow)))
+            sh.echo(red(i18n.__('type only allows input') + ': ' + JSON.stringify(allow)))
             process.exit(1)
         }
     }

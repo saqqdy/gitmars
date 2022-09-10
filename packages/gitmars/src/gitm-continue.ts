@@ -67,7 +67,7 @@ program.action(async (opt: GitmBuildOption) => {
                 })
                 .then((answers: any) => {
                     if (!answers.value) {
-                        sh.echo(green('已退出'))
+                        sh.echo(green(i18n.__('exited')))
                         process.exit(0)
                     }
                 })

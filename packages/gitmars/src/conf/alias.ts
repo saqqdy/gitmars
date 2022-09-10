@@ -1,7 +1,7 @@
 import type { GitmarsOptionType } from '../../typings'
 import i18n from '#lib/locales/index'
 
-const cmdConfig: GitmarsOptionType = {
+export const cmdConfig: GitmarsOptionType = {
     command: 'alias',
     short: null,
     args: [
@@ -31,4 +31,4 @@ const cmdConfig: GitmarsOptionType = {
     }
 }
 
-export default cmdConfig
+export { cmdConfig as default }

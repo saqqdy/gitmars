@@ -12,7 +12,7 @@ const { args, options } = unlinkConfig
 /**
  * gitm unlink
  */
-program.name('gitm unlink').usage('[name]').description('解除本地包链接')
+program.name('gitm unlink').usage('[name]').description(i18n.__('Unlinking local package'))
 if (args.length > 0) program.arguments(createArgs(args))
 options.forEach((o: GitmarsOptionOptionsType) => {
     program.option(o.flags, o.description, o.defaultValue)
@@ -24,7 +24,7 @@ program.action((name: string) => {
     if (!name) {
         // 解除当前包的软链
         spawnSync(npmClient, ['unlink'])
-        sh.echo('处理完成')
+        sh.echo(i18n.__('Processing completed'))
         process.exit(0)
     } else if (isLink) {
         // sh.rm('-rf', `./node_modules/${name}`)
@@ -39,7 +39,7 @@ program.action((name: string) => {
     if (isExist) {
         sh.mv(`./node_modules/${name}_bak`, `./node_modules/${name}`)
     }
-    sh.echo('处理完成')
+    sh.echo(i18n.__('Processing completed'))
 })
 program.parse(process.argv)
 export {}

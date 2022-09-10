@@ -27,7 +27,7 @@ interface GitmBuildOption {
 /**
  * gitm clean
  */
-program.name('gitm clean').usage('[-f --force]').description('清理gitmars缓存')
+program.name('gitm clean').usage('[-f --force]').description(i18n.__('Clean gitmars cache'))
 if (args.length > 0) program.arguments(createArgs(args))
 options.forEach((o: GitmarsOptionOptionsType) => {
     program.option(o.flags, o.description, o.defaultValue)
@@ -47,7 +47,7 @@ program.action(async (opt: GitmBuildOption) => {
                 })
                 .then((answers: any) => {
                     if (!answers.value) {
-                        sh.echo(green('已退出'))
+                        sh.echo(green(i18n.__('exited')))
                         process.exit(0)
                     }
                 })
