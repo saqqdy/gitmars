@@ -23,8 +23,8 @@ if (args.length > 0) program.arguments(createArgs(args))
 options.forEach((o: GitmarsOptionOptionsType) => {
     program.option(o.flags, o.description, o.defaultValue)
 })
-// .option('-e, --env [env]', '需要构建的环境，可选dev、prod、bug、all', 'dev')
-// .option('-a, --app [app]', '需要构建的应用', 'all')
+// .option('-e, --env [env]', i18n.__('Environment to be built, optionally dev, prod, bug, all'), 'dev')
+// .option('-a, --app [app]', i18n.__('Application to be built'), 'all')
 program.action((project: string, opt: GitmBuildOption): void => {
     runJenkins({
         env: opt.env,

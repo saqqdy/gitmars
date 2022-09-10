@@ -84,7 +84,7 @@ program.action(async (opt: GitmBuildOption): Promise<void> => {
         },
         {
             type: 'list',
-            message: '请选择下面的操作?',
+            message: i18n.__('Please select the action below.'),
             name: 'accept',
             choices: [
                 i18n.__('View Details'),
@@ -177,7 +177,8 @@ program.action(async (opt: GitmBuildOption): Promise<void> => {
                     )
                 )
                 echo(magenta(old_path))
-                old_path !== new_path && echo(magenta(new_path + '(新路径)'))
+                old_path !== new_path &&
+                    echo(magenta(new_path + `(${i18n.__('New path')})`))
                 echo(
                     diff
                         .replace(

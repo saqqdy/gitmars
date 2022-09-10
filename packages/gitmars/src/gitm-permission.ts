@@ -29,8 +29,8 @@ program
         i18n.__('Do you want to skip the check permission'),
         false
     )
-    .option('--dev', '是否限制dev提交', false)
-    .option('--release', '是否限制release提交', false)
+    .option('--dev', i18n.__('Whether to restrict dev commits'), false)
+    .option('--release', i18n.__('Whether to restrict release commits'), false)
     .action((message: string, opt: GitmBuildOption) => {
         console.info('gitm permission is running')
         const current = getCurrentBranch()

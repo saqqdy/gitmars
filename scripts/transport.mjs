@@ -8,14 +8,15 @@ import b from '../b.json' assert { type: 'json' }
 global.__filename = fileURLToPath(import.meta.url)
 global.__dirname = dirname(__filename)
 
-const aPath = resolve(__dirname, '..', 'a.json')
-const cPath = resolve(__dirname, '..', 'c.json')
-const arrA = Object.entries(a)
-const arrB = Object.entries(b)
+const cnPath = resolve(__dirname, '..', 'cn.json')
+const enPath = resolve(__dirname, '..', 'en.json')
 
-arrB.forEach((item, index) => {
-    item[0] = arrA[index][0]
+const cnJson = {}
+const enJson = {}
+b.forEach((key, index) => {
+    cnJson[key] = a[index]
+    enJson[key] = key
 })
 
-writeFileSync(aPath, JSON.stringify(Object.fromEntries(arrA)))
-writeFileSync(cPath, JSON.stringify(Object.fromEntries(arrB)))
+writeFileSync(cnPath, JSON.stringify(cnJson, null, 4))
+writeFileSync(enPath, JSON.stringify(enJson, null, 4))

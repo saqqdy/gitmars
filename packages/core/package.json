@@ -44,7 +44,7 @@
         "typings": "typings"
     },
     "dependencies": {
-        "@jssj/request": "^1.0.0-alpha.8",
+        "@jssj/request": "^1.0.0-alpha.12",
         "chalk": "^5.0.1",
         "ci-info": "^3.3.2",
         "columnify": "^1.6.0",

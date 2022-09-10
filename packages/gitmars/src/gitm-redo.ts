@@ -66,7 +66,7 @@ program.action(async (commitid: string[], opt: GitmBuildOption) => {
     // 没有查询到日志
     if (revertCache.length === 0) {
         // 没有查找到任何记录
-        echo(yellow('没有找到可恢复的撤销记录，进程已退出'))
+        echo(yellow(i18n.__('No recoverable undo logs found, process exited')))
         process.exit(0)
     }
     // 多条记录
@@ -89,7 +89,7 @@ program.action(async (commitid: string[], opt: GitmBuildOption) => {
     commitIDs = (await inquirer.prompt(prompt)).commitIDs
     // 没有选择任何记录
     if (commitIDs.length === 0) {
-        echo(yellow('没有选择任何记录，进程已退出'))
+        echo(yellow(i18n.__('No logs selected, process has exited')))
         process.exit(0)
     }
     // 筛选被选择的记录

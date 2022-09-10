@@ -159,8 +159,8 @@ options.forEach((o: GitmarsOptionOptionsType) => {
 })
 // .arguments('[commitid...]')
 // .option('--calc', i18n.__('Clean up the current branch undo failure log'))
-// .option('--calcAll', '清理所有撤销失败的记录')
-// .option('--no-merges', '是否排除merge的日志')
+// .option('--calcAll', i18n.__('Clean up all failed undo logs'))
+// .option('--no-merges', i18n.__('Whether to exclude merge's log'))
 // .option('-m, --mode [mode]', i18n.__('For undoing a merge record, the type to be passed in: 1 = keep current branch code, 2 = keep incoming code'), null)
 // .option('--lastet [lastet]', i18n.__('Query logs after a certain time, fill in the format: 10s/2m/2h/3d/4M/5y'), '7d')
 // .option('--limit [limit]', i18n.__('The maximum number of logs to be queried'), 20)
@@ -201,7 +201,9 @@ program.action(async (commitid: string[], opt: GitmBuildOption) => {
             // 没有查找到任何记录
             echo(
                 yellow(
-                    '没有找到符合条件的commit记录，请适当放宽筛选条件，默认："--lastet=7d --limit=20"。进程已退出'
+                    i18n.__(
+                        'No eligible commit logs found, please relax the filtering conditions appropriately, default: "--lastet=7d --limit=20". The process has been exited'
+                    )
                 )
             )
             process.exit(0)
@@ -234,7 +236,13 @@ program.action(async (commitid: string[], opt: GitmBuildOption) => {
     // 获取没有被undo过的记录
     commitIDs = getRevertCommitIDs(commitIDs)
     if (commitIDs.length === 0) {
-        echo(yellow('没有可撤销的记录，进程已退出'))
+        echo(
+            yellow(
+                i18n.__(
+                    'There are no revocable records, the process has exited'
+                )
+            )
+        )
         process.exit(0)
     }
     // 筛选被选择的记录

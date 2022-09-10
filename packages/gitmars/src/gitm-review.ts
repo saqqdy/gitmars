@@ -80,13 +80,13 @@ program.action(async (opt: GitmBuildOption): Promise<void> => {
         },
         {
             type: 'list',
-            message: '请选择下面的操作?',
+            message: i18n.__('Please select the action below.'),
             name: 'accept',
             choices: [
                 i18n.__('View Details'),
                 i18n.__('Comments'),
-                '关闭',
-                '删除',
+                i18n.__('Close'),
+                i18n.__('Deleted'),
                 i18n.__('Exit')
             ],
             when(answers) {
@@ -147,7 +147,8 @@ program.action(async (opt: GitmBuildOption): Promise<void> => {
                     )
                 )
                 echo(magenta(old_path))
-                old_path !== new_path && echo(magenta(new_path + '(新路径)'))
+                old_path !== new_path &&
+                    echo(magenta(new_path + `(${i18n.__('New path')})`))
                 echo(
                     diff
                         .replace(
@@ -190,14 +191,14 @@ program.action(async (opt: GitmBuildOption): Promise<void> => {
                     columns: ['body', 'name', 'date']
                 })
             )
-        } else if (accept === '删除') {
+        } else if (accept === i18n.__('Deleted')) {
             await deleteMergeRequest({ token, iid })
             !opt.quiet &&
                 sendGroupMessage(
                     `${appName}项目${source_branch}合并到${target_branch}请求ID${iid}已删除`
                 )
             echo(green(`合并请求${iid}：已删除`))
-        } else if (accept === '关闭') {
+        } else if (accept === i18n.__('Close')) {
             // 删除
             await updateMergeRequest({
                 token,
@@ -224,7 +225,7 @@ program.action(async (opt: GitmBuildOption): Promise<void> => {
                     `${appName}项目${source_branch}合并到${target_branch}请求ID${iid}有新评论：${note}`
                 )
             await createMergeRequestNotes({ token, iid, body: note })
-            echo(green('已提交'))
+            echo(green(i18n.__('Submitted')))
         }
     }
 })

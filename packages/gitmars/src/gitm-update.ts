@@ -90,13 +90,25 @@ program.action(
             }
             if (!allow.includes(type as string)) {
                 // type不合法
-                sh.echo(red('type只允许输入：' + JSON.stringify(allow)))
+                sh.echo(
+                    red(
+                        i18n.__('type only allows input') +
+                            ': ' +
+                            JSON.stringify(allow)
+                    )
+                )
                 process.exit(1)
             }
             branchList = [].concat(current)
         } else if (!allow.includes(type as string)) {
             // 传了type和name，但是不合法
-            sh.echo(red('type只允许输入：' + JSON.stringify(allow)))
+            sh.echo(
+                red(
+                    i18n.__('type only allows input') +
+                        ': ' +
+                        JSON.stringify(allow)
+                )
+            )
             process.exit(1)
         } else {
             // 传了正常的type和name

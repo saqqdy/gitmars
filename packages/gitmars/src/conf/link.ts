@@ -1,7 +1,7 @@
 import type { GitmarsOptionType } from '../../typings'
 import i18n from '#lib/locales/index'
 
-const cmdConfig: GitmarsOptionType = {
+export const cmdConfig: GitmarsOptionType = {
     command: 'link',
     short: null,
     args: [
@@ -31,10 +31,10 @@ const cmdConfig: GitmarsOptionType = {
         //         cb()
         //     },
         //     transformer: null,
-        //     description: '包的路径'
+        //     description: i18n.__('Path of package')
         // }
     ],
     options: []
 }
 
-export default cmdConfig
+export { cmdConfig as default }

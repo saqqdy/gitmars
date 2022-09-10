@@ -73,7 +73,9 @@ const program = new Command()
 const createProgram = program
     .name('gitm admin')
     .usage('<command> <type>')
-    .description('创建bugfix、release、develop和support分支')
+    .description(
+        i18n.__('Create bugfix, release, develop and support branches')
+    )
     .command('create ' + createArgs(create.args))
 create.options.forEach((o: GitmarsOptionOptionsType) => {
     createProgram.option(o.flags, o.description, o.defaultValue)
@@ -87,11 +89,25 @@ createProgram.action((type: GitmarsMainBranchType): void => {
     const exits = getIsBranchOrCommitExist(config[type])
     if (!status) process.exit(1)
     if (!hasBase) {
-        echo(red(base + '分支不存在，请先创建' + base + '分支'))
+        echo(
+            red(
+                i18n.__(
+                    '{{base}} branch does not exist, please create a {{base}} branch first',
+                    { base }
+                )
+            )
+        )
         process.exit(1)
     }
     if (exits) {
-        echo(red(config[type] + '分支已存在，不需要重复创建'))
+        echo(
+            red(
+                i18n.__(
+                    'The {{branch}} branch already exists and does not need to be created again',
+                    { branch: config[type] }
+                )
+            )
+        )
         process.exit(1)
     }
     if (opts.includes(type)) {
@@ -116,7 +132,7 @@ createProgram.action((type: GitmarsMainBranchType): void => {
             }
         })
     } else {
-        echo(red('type只允许输入：' + opts.join(',')))
+        echo(red(i18n.__('type only allows input') + ': ' + opts.join(',')))
         process.exit(1)
     }
 })
@@ -126,7 +142,7 @@ const publishProgram = program
     .usage(
         '<command> <type> [--description [description]] [-c --combine] [--use-rebase] [-p --prod] [-b --build [app]] [--postmsg] [-f --force]'
     )
-    .description('发布bugfix、release、support分支')
+    .description(i18n.__('Release bugfix, release, support branches'))
     .command('publish ' + createArgs(publish.args))
 publish.options.forEach((o: GitmarsOptionOptionsType) => {
     publishProgram.option(o.flags, o.description, o.defaultValue)
@@ -135,7 +151,7 @@ publish.options.forEach((o: GitmarsOptionOptionsType) => {
 // .option('-c, --combine', i18n.__('Whether to sync the release code to the bug'), false)
 // .option('--use-rebase', i18n.__('Whether to update using rebase method, default merge'), false)
 // .option('-p, --prod', i18n.__('Whether to merge bugs to master when publishing bug branches'), false)
-// .option('-b, --build [build]', '需要构建的应用')
+// .option('-b, --build [build]', i18n.__('Application to be built'))
 // .option('--postmsg', i18n.__('Send Message'), false)
 // .option('--description [description]', i18n.__('Description of the reason for this commit'), '')
 // .option('-f, --force', i18n.__('Whether to force a merge request'), false)
@@ -724,7 +740,7 @@ const updateProgram = program
     .usage(
         '<command> <type> [-m --mode [mode]] [--description [description]] [--use-rebase] [--postmsg] [-f --force]'
     )
-    .description('更新bugfix、release、support分支代码')
+    .description(i18n.__('Update bugfix, release, support branch code'))
     .command('update ' + createArgs(update.args))
 update.options.forEach((o: GitmarsOptionOptionsType) => {
     updateProgram.option(o.flags, o.description, o.defaultValue)
@@ -881,7 +897,7 @@ updateProgram.action(
             }
             queue(cmd)
         } else {
-            echo(red('type只允许输入：' + opts.join(',')))
+            echo(red(i18n.__('type only allows input') + ': ' + opts.join(',')))
             process.exit(1)
         }
     }
@@ -890,7 +906,7 @@ updateProgram.action(
 const cleanProgram = program
     .name('gitm admin')
     .usage('<command> <type>')
-    .description('构建清理工作')
+    .description(i18n.__('Build cleanup job'))
     .command('clean ' + createArgs(clean.args))
 clean.options.forEach((o: GitmarsOptionOptionsType) => {
     cleanProgram.option(o.flags, o.description, o.defaultValue)
@@ -933,7 +949,7 @@ cleanProgram.action((type: GitmarsMainBranchType): void => {
         }
         queue(cmd)
     } else {
-        echo(red('type只允许输入：' + opts.join(',')))
+        echo(red('type只允许输入' + ': ' + opts.join(',')))
         process.exit(1)
     }
 })
@@ -941,7 +957,7 @@ cleanProgram.action((type: GitmarsMainBranchType): void => {
 const approveProgram = program
     .name('gitm admin')
     .usage('[type] [-k --key [keyword]]')
-    .description('批准合并请求')
+    .description(i18n.__('Approve merge request'))
     .command('approve ' + createArgs(approve.args))
 approve.options.forEach((o: GitmarsOptionOptionsType) => {
     approveProgram.option(o.flags, o.description, o.defaultValue)

@@ -39,7 +39,7 @@ program
                 delete config.filepath
                 delete config.skipCI
                 await writeFile(filepath, JSON.stringify(config, null, 4))
-                sh.echo(green('保存成功'))
+                sh.echo(green(i18n.__('Saved successfully')))
                 process.exit(0)
             } else {
                 sh.echo(red('不支持' + option + '这个配置项'))

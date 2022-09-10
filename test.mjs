@@ -3,6 +3,8 @@ import { fileURLToPath } from 'url'
 import chalk from 'chalk'
 import { I18n } from 'i18n'
 import { osLocale } from 'os-locale'
+import { getType } from 'js-cool'
+// import conf from './packages/gitmars/lib/conf/admin.mjs'
 // import { createRequireFromPath } from 'module';
 // const require = createRequireFromPath(__filename);
 
@@ -13,6 +15,8 @@ global.__filename = fileURLToPath(import.meta.url)
 global.__dirname = dirname(__filename)
 
 console.log(
+    // conf,
+    getType,
     chalk.green('test'),
     import.meta.url,
     __filename,
@@ -28,4 +32,4 @@ const i18n = new I18n({
     directory: join(__dirname, 'packages', 'gitmars', 'src', 'locales')
 })
 
-console.log(i18n.__('Hello'))
+console.log(i18n.__('Send group message'))

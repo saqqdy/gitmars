@@ -1,7 +1,7 @@
 import type { GitmarsMultiOptionType } from '../../typings'
 import i18n from '#lib/locales/index'
 
-const cmdConfig: GitmarsMultiOptionType = {
+export const cmdConfig: GitmarsMultiOptionType = {
     command: 'admin',
     short: null,
     create: {
@@ -351,4 +351,4 @@ const cmdConfig: GitmarsMultiOptionType = {
     }
 }
 
-export default cmdConfig as GitmarsMultiOptionType
+export { cmdConfig as default }
