@@ -2,7 +2,7 @@
 import { program } from 'commander'
 import sh from 'shelljs'
 import chalk from 'chalk'
-import getType from 'js-cool/lib/getType'
+import getType from 'js-cool/es/getType'
 import { queue } from '@gitmars/core/lib/queue'
 import getIsGitProject from '@gitmars/core/lib/git/getIsGitProject'
 import checkGitStatus from '@gitmars/core/lib/git/checkGitStatus'
