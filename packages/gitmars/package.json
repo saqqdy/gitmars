@@ -1,7 +1,7 @@
 {
     "name": "gitmars",
     "description": "这是一个git工作流工具",
-    "version": "4.0.0-alpha.9",
+    "version": "4.0.0-alpha.10",
     "private": false,
     "bin": {
         "gitm": "lib/gitm.mjs"
@@ -41,7 +41,7 @@
     },
     "dependencies": {
         "@gitmars/core": "workspace:*",
-        "@jssj/request": "^1.0.0-alpha.12",
+        "@jssj/request": "^1.0.0-alpha.13",
         "chalk": "^5.0.1",
         "ci-info": "^3.3.2",
         "columnify": "^1.6.0",
