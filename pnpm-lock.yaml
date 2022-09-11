@@ -112,7 +112,7 @@ importers:
   packages/core:
     specifiers:
       '@eslint-sets/eslint-config-simple-ts': ^3.0.4
-      '@jssj/request': ^1.0.0-alpha.13
+      '@jssj/request': ^1.1.0
       '@saqqdy/prettier-config': ^1.1.2
       '@types/cross-spawn': ^6.0.2
       '@types/inquirer': ^9.0.1
@@ -142,7 +142,7 @@ importers:
       tsnd: ^1.1.0
       typescript: ^4.7.4
     dependencies:
-      '@jssj/request': 1.0.0-alpha.13
+      '@jssj/request': 1.1.0
       chalk: 5.0.1
       ci-info: 3.3.2
       columnify: 1.6.0
@@ -207,7 +207,7 @@ importers:
     specifiers:
       '@eslint-sets/eslint-config-simple-ts': ^3.0.4
       '@gitmars/core': workspace:*
-      '@jssj/request': ^1.0.0-alpha.13
+      '@jssj/request': ^1.1.0
       '@saqqdy/prettier-config': ^1.1.2
       '@types/columnify': ^1.5.1
       '@types/cross-spawn': ^6.0.2
@@ -239,7 +239,7 @@ importers:
       typescript: ^4.7.4
     dependencies:
       '@gitmars/core': link:../core
-      '@jssj/request': 1.0.0-alpha.13
+      '@jssj/request': 1.1.0
       chalk: 5.0.1
       ci-info: 3.3.2
       columnify: 1.6.0
@@ -277,7 +277,7 @@ importers:
       '@eslint-sets/eslint-config-simple-ts': ^3.0.4
       '@gitmars/core': workspace:*
       '@gitmars/ui': workspace:*
-      '@jssj/request': ^1.0.0-alpha.13
+      '@jssj/request': ^1.1.0
       '@types/cookie-parser': ^1.4.3
       '@types/debug': ^4.1.7
       '@types/express': ^4.17.13
@@ -309,11 +309,11 @@ importers:
       ts-node: ^10.9.1
       tsnd: ^1.1.0
       typescript: ^4.7.4
-      uuid: ^8.3.2
+      uuid: ^9.0.0
     dependencies:
       '@gitmars/core': link:../core
       '@gitmars/ui': link:../ui
-      '@jssj/request': 1.0.0-alpha.13
+      '@jssj/request': 1.1.0
       cookie-parser: 1.4.6
       debug: 4.3.4
       express: 4.18.1
@@ -331,7 +331,7 @@ importers:
       shelljs: 0.8.5
       socket.io: 4.5.1
       tracer: 1.1.6
-      uuid: 8.3.2
+      uuid: 9.0.0
     devDependencies:
       '@eslint-sets/eslint-config-simple-ts': 3.0.4_zczhdx677l6mw2hrju5deojgfm
       '@types/cookie-parser': 1.4.3
@@ -382,7 +382,7 @@ importers:
       unplugin-auto-import: ^0.11.2
       unplugin-element-plus: ^0.4.1
       unplugin-vue-components: ^0.22.4
-      uuid: ^8.3.2
+      uuid: ^9.0.0
       vite: ^3.0.9
       vite-tsconfig-paths: ^3.5.0
       vue: ^3.2.37
@@ -407,7 +407,7 @@ importers:
       js-cool: 2.5.0
       qs: 6.11.0
       socket.io-client: 4.5.1
-      uuid: 8.3.2
+      uuid: 9.0.0
       vue: 3.2.37
       vue-router: 4.1.4_vue@3.2.37
       vuex: 4.0.2_vue@3.2.37
@@ -1212,16 +1212,16 @@ packages:
       '@jridgewell/sourcemap-codec': 1.4.14
     dev: true
 
-  /@jssj/request/1.0.0-alpha.13:
-    resolution: {integrity: sha512-XHZs0FNpCx0vwFknnrBnm2hLWznSND9v0wd960H7EbQQnAK6IlCSIISVGMLXTUxZZXvy3hoKejpS03Rl+eF8QA==}
+  /@jssj/request/1.1.0:
+    resolution: {integrity: sha512-XEOGtru6oNCRF2zn7MGm8c8lpNsQhknX/xKhIKxW1srvtaixMPV8RGNh5theQqyUc42/GWtoi9errVf/Z5qwNA==}
     dependencies:
-      '@jssj/utils': 1.0.0-alpha.13
+      '@jssj/utils': 1.1.0
       js-cool: 2.5.0
       qs: 6.11.0
     dev: false
 
-  /@jssj/utils/1.0.0-alpha.13:
-    resolution: {integrity: sha512-9UfPHTuZp+46i3gpye5h8Fu55T3pOxC7JvfDtpru4UuhvI9+1bxuFwVppO264NxS0wzvOVG5jKHOPcbZ99a0yw==}
+  /@jssj/utils/1.1.0:
+    resolution: {integrity: sha512-QK9tV/SIkSXp36bbDREoKEdnnBA9lSrVYyV1qvAE2zZ99X6zGBMF5JCZ1N+Fa+2ojbYW1TxKZSztsHeYhbtYXA==}
     dev: false
 
   /@messageformat/core/3.0.1:
@@ -12867,8 +12867,8 @@ packages:
     hasBin: true
     dev: true
 
-  /uuid/8.3.2:
-    resolution: {integrity: sha512-+NYs2QeMWy+GWFOEm9xnn6HCDp0l7QBD7ml8zLUmJ+93Q5NF0NocErnwkTkXVFNiX3/fpC6afS8Dhb/gz7R7eg==}
+  /uuid/9.0.0:
+    resolution: {integrity: sha512-MXcSTerfPa4uqyzStbRoTgt5XIe3x5+42+q1sDuy3R5MDk66URdLMOZe5aPX/SQd+kuYAh0FdP/pO28IkQyTeg==}
     hasBin: true
     dev: false
 

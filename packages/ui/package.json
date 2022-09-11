@@ -1,7 +1,7 @@
 {
     "name": "@gitmars/ui",
     "description": "gitmars可视化界面",
-    "version": "4.0.0-alpha.10",
+    "version": "4.0.0-alpha.11",
     "private": false,
     "bin": {
         "gitm-ui": "./index.js"
@@ -30,7 +30,7 @@
         "js-cool": "^2.5.0",
         "qs": "^6.11.0",
         "socket.io-client": "^4.5.1",
-        "uuid": "^8.3.2",
+        "uuid": "^9.0.0",
         "vue": "^3.2.37",
         "vue-router": "^4.1.4",
         "vuex": "^4.0.2",
