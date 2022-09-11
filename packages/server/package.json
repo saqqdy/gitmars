@@ -1,7 +1,7 @@
 {
     "name": "@gitmars/server",
     "description": "gitmars可视化界面服务端",
-    "version": "4.0.0-alpha.8",
+    "version": "4.0.0-alpha.11",
     "private": false,
     "bin": {
         "gitm-server": "./lib/www.js"
@@ -30,7 +30,7 @@
     "dependencies": {
         "@gitmars/core": "workspace:*",
         "@gitmars/ui": "workspace:*",
-        "@jssj/request": "^1.0.0-alpha.13",
+        "@jssj/request": "^1.1.0",
         "cookie-parser": "^1.4.6",
         "debug": "^4.3.4",
         "express": "^4.18.1",
@@ -48,7 +48,7 @@
         "shelljs": "^0.8.5",
         "socket.io": "^4.5.1",
         "tracer": "^1.1.6",
-        "uuid": "^8.3.2"
+        "uuid": "^9.0.0"
     },
     "devDependencies": {
         "@eslint-sets/eslint-config-simple-ts": "^3.0.4",
