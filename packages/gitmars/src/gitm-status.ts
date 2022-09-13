@@ -50,7 +50,12 @@ program.action(() => {
             untracked: cyan(status['??'][num] || '')
         })
     }
-    echo(green(`当前分支：${current}\n`))
+    echo(
+        green(
+            i18n.__('Current branch: {{something}}', { something: current }) +
+                '\n'
+        )
+    )
     echo(columnify(data))
 })
 program.parse(process.argv)

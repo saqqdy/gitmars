@@ -195,9 +195,17 @@ program.action(async (opt: GitmBuildOption): Promise<void> => {
             await deleteMergeRequest({ token, iid })
             !opt.quiet &&
                 sendGroupMessage(
-                    `${appName}项目${source_branch}合并到${target_branch}请求ID${iid}已删除`
+                    i18n.__(
+                        '{{app}} item {{source}} merged to {{target}} request ID {{id}} has been deleted',
+                        {
+                            app: appName,
+                            source: source_branch,
+                            target: target_branch,
+                            id: iid
+                        }
+                    )
                 )
-            echo(green(`合并请求${iid}：已删除`))
+            echo(green(i18n.__('Merge request {{id}}: Deleted', { id: iid })))
         } else if (accept === i18n.__('Close')) {
             // 删除
             await updateMergeRequest({
@@ -207,9 +215,17 @@ program.action(async (opt: GitmBuildOption): Promise<void> => {
             })
             !opt.quiet &&
                 sendGroupMessage(
-                    `${appName}项目${source_branch}合并到${target_branch}请求ID${iid}已暂时关闭`
+                    i18n.__(
+                        '{{app}} item {{source}} merged to {{target}} request ID {{id}} has been closed',
+                        {
+                            app: appName,
+                            source: source_branch,
+                            target: target_branch,
+                            id: iid
+                        }
+                    )
                 )
-            echo(green(`合并请求${iid}：已关闭`))
+            echo(green(i18n.__('Merge request {{id}}: Closed', { id: iid })))
         } else if (accept === i18n.__('Comments')) {
             // 评论
             const { note } = await inquirer.prompt({
@@ -222,7 +238,16 @@ program.action(async (opt: GitmBuildOption): Promise<void> => {
             })
             !opt.quiet &&
                 sendGroupMessage(
-                    `${appName}项目${source_branch}合并到${target_branch}请求ID${iid}有新评论：${note}`
+                    i18n.__(
+                        '{{app}} item {{source}} merged to {{target}} request ID {{id}} has new comments: {{note}}',
+                        {
+                            app: appName,
+                            source: source_branch,
+                            target: target_branch,
+                            id: iid,
+                            note
+                        }
+                    )
                 )
             await createMergeRequestNotes({ token, iid, body: note })
             echo(green(i18n.__('Submitted')))

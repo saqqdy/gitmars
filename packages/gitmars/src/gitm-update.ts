@@ -56,10 +56,10 @@ options.forEach((o: GitmarsOptionOptionsType) => {
 // .option('-f, --force', i18n.__('Whether to force a merge request'), false)
 program.action(
     async (type: string | string[], name: string, opt: GitmBuildOption) => {
-        // 检测是否需要升级版本
+        // Checking if a version upgrade is needed
         const needUpgrade = await isNeedUpgrade()
         needUpgrade && upgradeGitmars()
-        const allow = ['bugfix', 'feature', 'support'] // 允许执行的指令
+        const allow = ['bugfix', 'feature', 'support'] // Permissible commands
         const deny = [
             defaults.master,
             defaults.develop,
@@ -70,10 +70,10 @@ program.action(
         const status = checkGitStatus()
         let cmds: Array<CommandType | string> = [],
             branchList = [],
-            _nameArr: string[] = [] // 分支名称数组
+            _nameArr: string[] = [] // Array of branch names
         if (!status) process.exit(1)
         if (opt.all) {
-            // 更新全部分支
+            // Update all branches
             if (!type) type = allow.join(',')
             branchList = searchBranches({ type })
         } else if (!type || !name) {
@@ -84,12 +84,17 @@ program.action(
             if (!name) {
                 deny.includes(type) &&
                     sh.echo(
-                        red(`骚年，你在${type}分支执行这个指令是什么骚操作？`)
+                        red(
+                            i18n.__(
+                                'Hey bro, what is the fuck are you doing by executing this command in the {{type}} branch?',
+                                { type }
+                            )
+                        )
                     )
                 process.exit(1)
             }
             if (!allow.includes(type as string)) {
-                // type不合法
+                // type is not legal
                 sh.echo(
                     red(
                         i18n.__('type only allows input') +
@@ -111,11 +116,11 @@ program.action(
             )
             process.exit(1)
         } else {
-            // 传了正常的type和name
+            // type and name are passed
             branchList = [type + '/' + name]
         }
         branchList.forEach((branch: string) => {
-            // feature从release拉取，bugfix从bug拉取，support从master分支拉取
+            // feature is pulled from the release, bugfix is pulled from the bug, and support is pulled from the master branch
             ;[type, ..._nameArr] = branch.split('/')
             name = _nameArr.join('/')
             const base: string =
@@ -142,8 +147,20 @@ program.action(
                         cmd: `git rebase ${base}`,
                         config: {
                             again: false,
-                            success: `${base}更新到${type}/${name}成功`,
-                            fail: `${base}更新到${type}/${name}出错了，请根据提示处理`
+                            success: i18n.__(
+                                'Merge {{source}} to {{target}} successfully',
+                                {
+                                    source: base,
+                                    target: `${type}/${name}`
+                                }
+                            ),
+                            fail: i18n.__(
+                                'An error occurred merging {{source} to {{target}}, please follow the instructions',
+                                {
+                                    source: base,
+                                    target: `${type}/${name}`
+                                }
+                            )
                         }
                     })
                 } else {
@@ -151,15 +168,33 @@ program.action(
                         cmd: `git merge --no-ff ${base}`,
                         config: {
                             again: false,
-                            success: `${base}同步到${type}/${name}成功`,
-                            fail: `${base}同步到${type}/${name}出错了，请根据提示处理`
+                            success: i18n.__(
+                                'Merge {{source}} to {{target}} successfully',
+                                {
+                                    source: base,
+                                    target: `${type}/${name}`
+                                }
+                            ),
+                            fail: i18n.__(
+                                'An error occurred merging {{source} to {{target}}, please follow the instructions',
+                                {
+                                    source: base,
+                                    target: `${type}/${name}`
+                                }
+                            )
                         }
                     })
                 }
             } else {
                 cmd = [
                     {
-                        message: `${base}已经合并过${type}/${name}`
+                        message: i18n.__(
+                            '{{source}} has been merged with {{target}}',
+                            {
+                                source: base,
+                                target: `${type}/${name}`
+                            }
+                        )
                     }
                 ]
             }

@@ -64,7 +64,11 @@ program.action(async (opt: GitmBuildOption): Promise<void> => {
         nickname = ''
     } = userInfoApi ? await getUserToken() : ({} as FetchDataType)
     if (level && level > 3) {
-        echo(red(`${nickname}同学，你的权限不足`))
+        echo(
+            red(
+                i18n.__("Hey {{name}}, you don't have permission", { nickname })
+            )
+        )
         process.exit(1)
     }
     const mrList = await getMergeRequestList({ token, state: opt.state })
@@ -161,9 +165,17 @@ program.action(async (opt: GitmBuildOption): Promise<void> => {
             await acceptMergeRequest({ token, iid })
             !opt.quiet &&
                 sendGroupMessage(
-                    `${appName}项目${source_branch}合并到${target_branch}请求ID${iid}已合并`
+                    i18n.__(
+                        '{{app}} item {{source}} merged to {{target}} request ID {{id}} has been merged',
+                        {
+                            app: appName,
+                            source: source_branch,
+                            target: target_branch,
+                            id: iid
+                        }
+                    )
                 )
-            echo(green(`合并请求${iid}：已合并`))
+            echo(green(i18n.__('Merge request {{id}}: Merged', { id: iid })))
         } else if (accept === i18n.__('View Details')) {
             const { changes, changes_count } = await getMergeRequestChanges({
                 token,
@@ -199,9 +211,17 @@ program.action(async (opt: GitmBuildOption): Promise<void> => {
             await deleteMergeRequest({ token, iid })
             !opt.quiet &&
                 sendGroupMessage(
-                    `${appName}项目${source_branch}合并到${target_branch}请求ID${iid}已删除`
+                    i18n.__(
+                        '{{app}} item {{source}} merged to {{target}} request ID {{id}} has been deleted',
+                        {
+                            app: appName,
+                            source: source_branch,
+                            target: target_branch,
+                            id: iid
+                        }
+                    )
                 )
-            echo(green(`合并请求${iid}：已删除`))
+            echo(green(i18n.__('Merge request {{id}}: Deleted', { id: iid })))
         } else if (accept === i18n.__('Not passed')) {
             // 删除
             await updateMergeRequest({
@@ -211,9 +231,17 @@ program.action(async (opt: GitmBuildOption): Promise<void> => {
             })
             !opt.quiet &&
                 sendGroupMessage(
-                    `${appName}项目${source_branch}合并到${target_branch}请求ID${iid}已暂时关闭`
+                    i18n.__(
+                        '{{app}} item {{source}} merged to {{target}} request ID {{id}} has been closed',
+                        {
+                            app: appName,
+                            source: source_branch,
+                            target: target_branch,
+                            id: iid
+                        }
+                    )
                 )
-            echo(green(`合并请求${iid}：已关闭`))
+            echo(green(i18n.__('Merge request {{id}}: Closed', { id: iid })))
         }
     }
 })

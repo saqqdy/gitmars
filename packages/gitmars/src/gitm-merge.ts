@@ -4,6 +4,7 @@ import sh from 'shelljs'
 import chalk from 'chalk'
 import { queue } from '@gitmars/core/lib/queue'
 import getIsGitProject from '@gitmars/core/lib/git/getIsGitProject'
+import getCurrentBranch from '@gitmars/core/lib/git/getCurrentBranch'
 import type { CommandType } from '../typings'
 import i18n from '#lib/locales/index'
 
@@ -25,13 +26,20 @@ program
     .arguments('<name>')
     .description(i18n.__('Merge branch code'))
     .action((name: string) => {
+        const current = getCurrentBranch()
         const cmd: Array<CommandType | string> = [
             {
                 cmd: `git merge --no-ff ${name}`,
                 config: {
                     again: false,
-                    success: `合并${name}分支成功`,
-                    fail: `合并${name}分支出错了，请根据提示处理`
+                    success: i18n.__(
+                        'Merge {{source}} to {{target}} successfully',
+                        { source: name, target: current }
+                    ),
+                    fail: i18n.__(
+                        'An error occurred merging {{source} to {{target}}, please follow the instructions',
+                        { source: name, target: current }
+                    )
                 }
             },
             {
