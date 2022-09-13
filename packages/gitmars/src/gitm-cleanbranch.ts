@@ -44,12 +44,12 @@ interface GitmBuildOption {
 }
 
 /**
- * 判断是否合过
+ * Determine if it has been merged
  *
- * @param branch - 分支名称
- * @param targets - 目标分支，数组或字符串
- * @param remote - 是否判断远程分支
- * @returns isMergedTarget - 是否合过
+ * @param branch - branch name
+ * @param targets - Target branch, array or string
+ * @param remote - Whether to determine the origin branch
+ * @returns isMergedTarget - return true | false
  */
 function getIsMergedTarget(
     branch: string,
@@ -92,7 +92,7 @@ program.action(async (branches: string[], opt: GitmBuildOption) => {
     spinner.color = 'green'
     const current = getCurrentBranch()
 
-    // 执行清理
+    // clean files
     async function clean(branch: string) {
         const removeLocal = getIsBranchOrCommitExist(branch)
         const removeRemote =
@@ -206,21 +206,25 @@ program.action(async (branches: string[], opt: GitmBuildOption) => {
             continue
         }
 
-        // 开始分支删除流程
+        // deleting
         await clean(branch)
     }
     spinner.stop()
-    // 打印列表
+
     if (opt.list) {
         if (_willDeleteBranch.length > 0) {
             console.info('\r')
-            // 选择要清理的分支
+            // Select the branch to clean
             const prompt: InitInquirerPromptType = {
                 type: 'checkbox',
                 message: yellow(
-                    `找到${_willDeleteBranch.length}条分支合并过${targets.join(
-                        ','
-                    )}分支，请选择要清理的分支`
+                    i18n.__(
+                        'Find {{total}} branches merged over {{branches}} branch, please select the branch to clean up',
+                        {
+                            branches: targets.join(','),
+                            total: String(_willDeleteBranch.length)
+                        }
+                    )
                 ),
                 name: 'selectBranches',
                 choices: []

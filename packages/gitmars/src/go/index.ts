@@ -33,7 +33,7 @@ const current = getCurrentBranch()
 const branchPrefix = current.split('/')[0]
 const functionBranches = ['feature', 'bugfix', 'support']
 
-// 新建功能分支
+// New function branch
 export const start = async () => {
     const config = cleanConfigSet(startConfig)
     const command = 'start ' + (await getCommand(config))
@@ -41,19 +41,19 @@ export const start = async () => {
     spawnSync('gitm', command.split(' '), { stdio: 'inherit' })
 }
 
-// 合并代码
+// Merge Codes
 export const combine = async () => {
     const requiredOptions: string[] = []
     let delOptions: string[] = [],
         delArgs: string[] = [],
         requiredArgs: string[] = []
     if (!functionBranches.includes(branchPrefix)) {
-        // 非功能分支不需要执行这些动作
+        // Non-functional branches do not need to perform these actions
         delOptions = ['--as-feature', '--no-bugfix']
         requiredArgs = ['type', 'name']
     } else {
         delArgs = ['type', 'name']
-        // 功能分支
+        // Functional branches
         switch (branchPrefix) {
             case 'feature':
                 delOptions = ['--as-feature']
@@ -76,12 +76,12 @@ export const combine = async () => {
     spawnSync('gitm', command.split(' '), { stdio: 'inherit' })
 }
 
-// 合并代码并删除
+// Merge codes and delete
 export const end = async () => {
     let delArgs: string[] = [],
         requiredArgs: string[] = []
     if (!functionBranches.includes(branchPrefix)) {
-        // 非功能分支不需要执行这些动作
+        // Non-functional branches do not need to perform these actions
         requiredArgs = ['type', 'name']
     } else {
         delArgs = ['type', 'name']
@@ -92,12 +92,12 @@ export const end = async () => {
     spawnSync('gitm', command.split(' '), { stdio: 'inherit' })
 }
 
-// 同步上游分支代码
+// Merge upstream branch code
 export const update = async () => {
     let delArgs: string[] = [],
         requiredArgs: string[] = []
     if (!functionBranches.includes(branchPrefix)) {
-        // 非功能分支不需要执行这些动作
+        // Non-functional branches do not need to perform these actions
         requiredArgs = ['type', 'name']
     } else {
         delArgs = ['type', 'name']
@@ -108,7 +108,7 @@ export const update = async () => {
     spawnSync('gitm', command.split(' '), { stdio: 'inherit' })
 }
 
-// 撤回代码
+// revert codes
 export const undo = async () => {
     const config = cleanConfigSet(undoConfig)
     const command = 'undo ' + (await getCommand(config))
@@ -116,7 +116,7 @@ export const undo = async () => {
     spawnSync('gitm', command.split(' '), { stdio: 'inherit' })
 }
 
-// 撤销撤回记录
+// Undo the revert records
 export const redo = async () => {
     const config = cleanConfigSet(redoConfig)
     const command = 'redo ' + (await getCommand(config))
@@ -124,7 +124,7 @@ export const redo = async () => {
     spawnSync('gitm', command.split(' '), { stdio: 'inherit' })
 }
 
-// branch分支操作指令
+// branch command
 export const branch = async () => {
     const config = cleanConfigSet(branchConfig)
     const command = 'branch ' + (await getCommand(config))
@@ -132,7 +132,7 @@ export const branch = async () => {
     spawnSync('gitm', command.split(' '), { stdio: 'inherit' })
 }
 
-// 构建指令
+// build command
 export const build = async () => {
     const config = cleanConfigSet(buildConfig)
     const command = 'build ' + (await getCommand(config))
@@ -140,7 +140,7 @@ export const build = async () => {
     spawnSync('gitm', command.split(' '), { stdio: 'inherit' })
 }
 
-// 复制、cherry-pick
+// cherry-pick command
 export const copy = async () => {
     const config = cleanConfigSet(copyConfig)
     const command = 'copy ' + (await getCommand(config))
@@ -148,7 +148,7 @@ export const copy = async () => {
     spawnSync('gitm', command.split(' '), { stdio: 'inherit' })
 }
 
-// 从暂存区取出
+// stash pop
 export const get = async () => {
     const config = cleanConfigSet(getConfig)
     const command = 'get ' + (await getCommand(config))
@@ -156,7 +156,7 @@ export const get = async () => {
     spawnSync('gitm', command.split(' '), { stdio: 'inherit' })
 }
 
-// 存入暂存区
+// stash
 export const save = async () => {
     const config = cleanConfigSet(saveConfig)
     const command = 'save ' + (await getCommand(config))
@@ -164,7 +164,7 @@ export const save = async () => {
     spawnSync('gitm', command.split(' '), { stdio: 'inherit' })
 }
 
-// 清理合并过的功能分支
+// Clean up merged function branches
 export const cleanbranch = async () => {
     const config = cleanConfigSet(cleanbranchConfig)
     const command = 'cleanbranch ' + (await getCommand(config))
@@ -172,7 +172,7 @@ export const cleanbranch = async () => {
     spawnSync('gitm', command.split(' '), { stdio: 'inherit' })
 }
 
-// 清理缓存
+// clean cache
 export const clean = async () => {
     const config = cleanConfigSet(cleanConfig)
     const command = 'clean ' + (await getCommand(config))
@@ -180,7 +180,7 @@ export const clean = async () => {
     spawnSync('gitm', command.split(' '), { stdio: 'inherit' })
 }
 
-// revert撤回
+// revert codes
 export const revert = async () => {
     const config = cleanConfigSet(revertConfig)
     const command = 'revert ' + (await getCommand(config))
@@ -188,7 +188,7 @@ export const revert = async () => {
     spawnSync('gitm', command.split(' '), { stdio: 'inherit' })
 }
 
-// link创建软链
+// link
 export const link = async () => {
     const config = cleanConfigSet(linkConfig)
     const command = 'link ' + (await getCommand(config))
@@ -196,7 +196,7 @@ export const link = async () => {
     spawnSync('gitm', command.split(' '), { stdio: 'inherit' })
 }
 
-// unlink取消软链
+// unlink
 export const unlink = async () => {
     const config = cleanConfigSet(unlinkConfig)
     const command = 'unlink ' + (await getCommand(config))
@@ -204,7 +204,7 @@ export const unlink = async () => {
     spawnSync('gitm', command.split(' '), { stdio: 'inherit' })
 }
 
-// postmsg发送消息
+// postmsg
 export const postmsg = async () => {
     const config = cleanConfigSet(postmsgConfig)
     const command = 'postmsg ' + (await getCommand(config))
@@ -212,7 +212,7 @@ export const postmsg = async () => {
     spawnSync('gitm', command.split(' '), { stdio: 'inherit' })
 }
 
-// 管理员操作
+// admin
 export const admin = {
     create: async () => {
         const config = cleanConfigSet(adminCreateConfig)

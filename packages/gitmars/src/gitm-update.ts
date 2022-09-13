@@ -50,8 +50,8 @@ if (args.length > 0) program.arguments(createArgs(args))
 options.forEach((o: GitmarsOptionOptionsType) => {
     program.option(o.flags, o.description, o.defaultValue)
 })
-// .option('--use-merge', '是否使用merge方式更新，默认merge方式', true)
-// .option('--use-rebase', '是否使用rebase方式更新，默认merge方式', false)
+// .option('--use-merge', i18n.__('Whether to use merge method to update codes, default method is merge'), true)
+// .option('--use-rebase', i18n.__('Whether to use rebase method update, default method is merge'), false)
 // .option('-a --all', i18n.__('Update all local bugfix, feature, support branches'), false)
 // .option('-f, --force', i18n.__('Whether to force a merge request'), false)
 program.action(

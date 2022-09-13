@@ -39,7 +39,9 @@ program
                 prompts.push({
                     type: 'input',
                     name: key,
-                    message: `请输入${key}分支名称`,
+                    message: i18n.__('Please enter {{branch}} branch name', {
+                        branch: key
+                    }),
                     default: () => key,
                     transformer: val => val.trim(),
                     validate: val =>
