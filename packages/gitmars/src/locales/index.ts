@@ -7,7 +7,7 @@ const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)
 const locales = ['en-US', 'zh-CN']
 // const locale = await osLocale()
-const locale = 'zh-CN'
+const locale = 'en-US'
 
 const i18n = new I18n({
     locales,
