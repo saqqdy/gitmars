@@ -72,11 +72,11 @@ program.action(async (opt: GitmBuildOption) => {
             )
         )
     }
-    // 移除 cache/buildConfig*.json cache/buildConfig.txt
+    // remove cache/buildConfig*.json cache/buildConfig.txt
     cleanBuildConfig()
-    // 移除 cache/packageInfo.json
+    // remove cache/packageInfo.json
     cleanPkgInfo()
-    // 移除 cache/timestamp.json
+    // remove cache/timestamp.json
     cleanCache()
 })
 program.parse(process.argv)

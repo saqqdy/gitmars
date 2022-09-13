@@ -72,7 +72,7 @@ program.action(async (opt: GitmBuildOption): Promise<void> => {
         process.exit(1)
     }
     const mrList = await getMergeRequestList({ token, state: opt.state })
-    // 没有任何记录
+    // no records
     if (mrList.length === 0) {
         echo(
             yellow(i18n.__('No merge request record found, process has exited'))
@@ -135,7 +135,7 @@ program.action(async (opt: GitmBuildOption): Promise<void> => {
         })
     }
     const { iids, accept } = await inquirer.prompt(prompt)
-    // 没有选择任何记录
+    // no records
     if (iids.length === 0) {
         echo(
             yellow(
@@ -145,7 +145,7 @@ program.action(async (opt: GitmBuildOption): Promise<void> => {
         process.exit(0)
     }
 
-    // 开始执行操作
+    // start
     for (const iid of iids) {
         const { merge_status, source_branch, target_branch } = mrList.find(
             (item: any) => item.iid === iid
@@ -181,7 +181,15 @@ program.action(async (opt: GitmBuildOption): Promise<void> => {
                 token,
                 iid
             })
-            echo(green(`\n${iid}：一共变动了${changes_count}个文件`))
+            echo(
+                green(
+                    '\n' +
+                        i18n.__('{{id}}: total {{total}} files changed', {
+                            id: iid,
+                            total: changes_count
+                        })
+                )
+            )
             for (const { old_path, new_path, diff } of changes) {
                 echo(
                     magenta(

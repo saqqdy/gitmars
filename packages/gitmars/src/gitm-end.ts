@@ -129,7 +129,10 @@ program.action(
             } else {
                 sh.echo(
                     branches.length > 1
-                        ? `查询到多条名称包含${type}的分支，请输入分支类型`
+                        ? i18n.__(
+                              'If you find multiple branches with names containing {{type}}, please enter the branch type',
+                              { type }
+                          )
                         : red(
                               i18n.__(
                                   'Branch does not exist, please enter it correctly'

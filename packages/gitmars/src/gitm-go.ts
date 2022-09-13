@@ -29,7 +29,14 @@ options.forEach((o: GitmarsOptionOptionsType) => {
 })
 program.action(async (command: string): Promise<void> => {
     const current = getCurrentBranch()
-    sh.echo(green(`当前分支${current}，系统猜测你可能想做以下操作：`))
+    sh.echo(
+        green(
+            i18n.__(
+                'Current branch is {{current}}, I suspect you may want to do the following: ',
+                { current }
+            )
+        )
+    )
     if (command) {
         // 执行对应指令
         const cmd = getProperty(commands, command)
@@ -93,7 +100,13 @@ program.action(async (command: string): Promise<void> => {
                     sh.echo(green(i18n.__('exited')))
                     process.exit(0)
                 }
-                sh.echo(green(`你选择了${answers.command}指令`))
+                sh.echo(
+                    green(
+                        i18n.__('You have selected the {{something}} command', {
+                            something: answers.command
+                        })
+                    )
+                )
                 // 执行对应指令
                 getProperty(commands, answers.command)()
             })

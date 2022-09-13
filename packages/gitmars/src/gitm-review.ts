@@ -139,7 +139,15 @@ program.action(async (opt: GitmBuildOption): Promise<void> => {
                 token,
                 iid
             })
-            echo(green(`\n${iid}：一共变动了${changes_count}个文件`))
+            echo(
+                green(
+                    '\n' +
+                        i18n.__('{{id}}: total {{total}} files changed', {
+                            id: iid,
+                            total: changes_count
+                        })
+                )
+            )
             for (const { old_path, new_path, diff } of changes) {
                 echo(
                     magenta(
@@ -231,10 +239,11 @@ program.action(async (opt: GitmBuildOption): Promise<void> => {
             const { note } = await inquirer.prompt({
                 type: 'input',
                 name: 'note',
-                message: '请输入评论内容',
+                message: i18n.__('Please enter the comment content'),
                 default: '',
                 transformer: (val: string) => val.trim(),
-                validate: (val: string) => (!val ? '请输入可用评论' : true)
+                validate: (val: string) =>
+                    !val ? i18n.__('Please enter the available comments') : true
             })
             !opt.quiet &&
                 sendGroupMessage(

@@ -46,13 +46,21 @@ program.action((message: string, index: string, opt: GitmBuildOption) => {
     }
     if (index === undefined && list.length > 1) {
         sh.echo(
-            yellow(`该分支下有${list.length}条暂存记录，默认恢复最近的一条记录`)
+            yellow(
+                i18n.__(
+                    'There are {{length}} staging records under this branch, and the most recent one is restored by default',
+                    { length: String(list.length) }
+                )
+            )
         )
     }
     if (list.length > 2) {
         sh.echo(
             yellow(
-                `该分支下有${list.length}条暂存记录，建议定期清理不必要的暂存记录！`
+                i18n.__(
+                    'There are {{length}} staging records under this branch, please clean up unnecessary staging records regularly',
+                    { length: String(list.length) }
+                )
             )
         )
     }

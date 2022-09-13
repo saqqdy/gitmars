@@ -68,7 +68,7 @@ program.action(async (type: string, name: string, opt: GitmBuildOption) => {
             )
             process.exit(1)
         }
-        // 校验分支名称规范
+        // Verification of branch name specification
         if (config.nameValidator) {
             const reg =
                 getType(config.nameValidator) === 'regexp'
@@ -83,9 +83,9 @@ program.action(async (type: string, name: string, opt: GitmBuildOption) => {
                 process.exit(1)
             }
         }
-        // 替换开头的'/'
+        // replace th'/'
         name = name.replace(/^\//, '')
-        // feature从release拉取，bugfix从bug拉取，support从master分支拉取
+        // feature is pulled from the release, bugfix is pulled from the bug, and support is pulled from the master branch
         const base = opt.tag
             ? opt.tag
             : type === 'bugfix'
@@ -107,11 +107,15 @@ program.action(async (type: string, name: string, opt: GitmBuildOption) => {
                 (!opt.tag && data[3].status === 0)
             ) {
                 sh.echo(
-                    `${name}分支创建成功，该分支基于${base}创建，您当前已经切换到${type}/${name}\n如果需要提测，请执行${green(
-                        'gitm combine ' + type + ' ' + name
-                    )}\n开发完成后，记得执行: ${green(
-                        'gitm end ' + type + ' ' + name
-                    )}`
+                    i18n.__(
+                        'The branch was created successfully and is based on {{source}}. You have now switched to the {{target}} branch\nIf you need to test, please run: "{{combine}}"\nWhen development is complete, remember to run: "{{end}}"',
+                        {
+                            source: String(base),
+                            target: name,
+                            combine: green('gitm combine ' + type + ' ' + name),
+                            end: green('gitm end ' + type + ' ' + name)
+                        }
+                    )
                 )
             }
         })

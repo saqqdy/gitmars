@@ -23,9 +23,9 @@ export const cmdConfig: GitmarsOptionType = {
     options: [
         {
             flags: '-d, --dev',
-            required: false, // 必填<>
-            optional: false, // 不必填[]
-            variadic: false, // 有...
+            required: false, // required<>
+            optional: false, // not required[]
+            variadic: false, // has...
             mandatory: false,
             short: '-d',
             long: '--dev',

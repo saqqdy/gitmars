@@ -1192,7 +1192,7 @@ cleanProgram.action((type: GitmarsMainBranchType): void => {
         }
         queue(cmd)
     } else {
-        echo(red('type只允许输入' + ': ' + opts.join(',')))
+        echo(red(i18n.__('type only allows input') + ': ' + opts.join(',')))
         process.exit(1)
     }
 })

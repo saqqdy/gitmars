@@ -42,7 +42,14 @@ program
                 sh.echo(green(i18n.__('Saved successfully')))
                 process.exit(0)
             } else {
-                sh.echo(red('不支持' + option + '这个配置项'))
+                sh.echo(
+                    red(
+                        i18n.__(
+                            'The configuration item {{option}} is not supported',
+                            { option }
+                        )
+                    )
+                )
                 process.exit(1)
             }
         } else {

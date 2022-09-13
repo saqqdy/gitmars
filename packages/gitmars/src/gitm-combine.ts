@@ -84,7 +84,7 @@ program.action(
         const userInfoApi =
             (config.apis && config.apis.userInfo && config.apis.userInfo.url) ||
             config.api
-        // 检测是否需要升级版本
+        // Detecting if a version upgrade is needed
         const needUpgrade = await isNeedUpgrade()
         needUpgrade && upgradeGitmars()
         const allow = ['bugfix', 'feature', 'support'] // Permissible commands
@@ -101,7 +101,7 @@ program.action(
             nickname = ''
         } = userInfoApi ? await getUserToken() : ({} as FetchDataType)
         const status = !opt.add && opt.commit === '' ? checkGitStatus() : true
-        let _nameArr: string[] = [], // 分支名称数组
+        let _nameArr: string[] = [], // Branch name array
             isDescriptionCorrect = true // Does the description of the reason for this submission meet the specification
         if (!opt.dev && !opt.prod) {
             sh.echo(i18n.__('Please enter the environment to sync to.'))
@@ -122,7 +122,7 @@ program.action(
             isDescriptionCorrect = opt.description && reg.test(opt.description)
         }
         if (!type) {
-            // type和name都没传且当前分支是开发分支
+            // type and name are not passed and the current branch is a development branch
             ;[type, ..._nameArr] = getCurrentBranch().split('/')
             name = _nameArr.join('/')
             if (!name) {
@@ -138,7 +138,7 @@ program.action(
                 process.exit(1)
             }
         } else if (!name) {
-            // 传了type没传name
+            // passed type but not name
             if (allow.includes(type)) {
                 sh.echo(i18n.__('Please enter branch name'))
                 process.exit(1)
@@ -150,7 +150,10 @@ program.action(
             } else {
                 sh.echo(
                     branches.length > 1
-                        ? `查询到多条名称包含${type}的分支，请输入分支类型`
+                        ? i18n.__(
+                              'If you find multiple branches with names containing {{type}}, please enter the branch type',
+                              { type }
+                          )
                         : red(
                               i18n.__(
                                   'Branch does not exist, please enter it correctly'
@@ -164,7 +167,7 @@ program.action(
             const base: string =
                 type === 'bugfix' ? config.bugfix : config.release
             let cmd: Array<CommandType | string> = []
-            // 获取一周内是否同步过上游分支代码
+            // Get whether the upstream branch code has been synchronized within a week
             if (
                 !getIsUpdatedInTime({ lastet: '7d', limit: 1000, branch: base })
             ) {
@@ -182,7 +185,7 @@ program.action(
             if (opt.commit) {
                 cmd = cmd.concat([`git commit -m "${opt.commit}"`])
             }
-            // 合并到dev分支
+            // combine to dev
             if (opt.dev) {
                 // Is it necessary to merge dev
                 const isNeedCombineDevelop = !getIsMergedTargetBranch(
@@ -257,9 +260,9 @@ program.action(
                     ])
                 }
             }
-            // 开始合并到prod
+            // Start merging to prod
             if (opt.prod) {
-                // 判断是否同步过dev分支
+                // Determine if has merged dev branch
                 if (
                     !opt.dev &&
                     !getIsMergedTargetBranch(
@@ -270,7 +273,10 @@ program.action(
                 ) {
                     sh.echo(
                         yellow(
-                            `检测到你的分支没有合并过${config.develop}，请先合并到${config.develop}分支`
+                            i18n.__(
+                                'If your branch has not been merged into {{target}}, please merge it into the {{target}} branch first',
+                                { target: config.develop }
+                            )
                         )
                     )
                     process.exit(1)

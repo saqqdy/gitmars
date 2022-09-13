@@ -65,7 +65,7 @@ program.action((opt: GitmBuildOption): void => {
     const cmd: Array<CommandType | string> = []
     const isBranchExist = getIsBranchOrCommitExist(opt.delete)
     if (opt.delete) {
-        // 删除分支
+        // delete branches
         if (isBranchExist) cmd.push(`git branch -d ${opt.delete}`)
         if (opt.remote) cmd.push(`git push origin --delete ${opt.delete}`)
         cmd.push({
@@ -79,7 +79,7 @@ program.action((opt: GitmBuildOption): void => {
             }
         })
     } else if (opt.forcedelete) {
-        // 强行删除分支
+        // force delete branches
         if (isBranchExist) cmd.push(`git branch -D ${opt.forcedelete}`)
         if (opt.remote) cmd.push(`git push origin --delete ${opt.delete}`)
         cmd.push({
@@ -94,14 +94,14 @@ program.action((opt: GitmBuildOption): void => {
         })
     } else if (opt.upstream) {
         if (typeof opt.upstream === 'string') {
-            // 与远程分支关联
+            // set upstream to origin
             cmd.push(`git branch --set-upstream-to origin/${opt.upstream}`)
         } else {
-            // 取消远程分支关联
+            // unset upstream to origin
             cmd.push('git branch --unset-upstream')
         }
     } else {
-        // 分支查询
+        // filter branches
         const branches = searchBranches({
             remote: opt.remote,
             type: opt.type,

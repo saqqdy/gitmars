@@ -69,8 +69,14 @@ function getRevertCommitIDs(commitIDs: string[]): string[] {
             echo(
                 yellow(
                     _before > -1
-                        ? `检测到 ${commitIDs[len]} 这条记录撤销过一次，请检查是否有误！`
-                        : `检测到 ${commitIDs[len]} 这条记录是一条revert记录，请使用gitm redo操作！`
+                        ? i18n.__(
+                              'Detected {{id}} This record has been revert once, please check if there is an error',
+                              { id: commitIDs[len] }
+                          )
+                        : i18n.__(
+                              'The record {{id}} is detected as a revert record, please use the "gitm redo" operation',
+                              { id: commitIDs[len] }
+                          )
                 )
             )
             commitIDs.splice(len, 1)
@@ -134,8 +140,14 @@ function calculate(all = false, opt: GitmBuildOption) {
             echo(
                 yellow(
                     _undoLogs.length === 0
-                        ? `检测到 ${revertCache[len].before['%H']} 这条记录撤销失败，已删除相关日志`
-                        : `检测到 ${revertCache[len].before['%H']} 这条记录已经被恢复了，已删除相关日志`
+                        ? i18n.__(
+                              'Detected that {{id}} has failed to undo this record and has deleted the related logs',
+                              { id: revertCache[len].before['%H'] }
+                          )
+                        : i18n.__(
+                              'The record {{id}} was detected to have been recovered, and the related logs were deleted',
+                              { id: revertCache[len].before['%H'] }
+                          )
                 )
             )
             revertCache.splice(len, 1)

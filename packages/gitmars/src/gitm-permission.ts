@@ -46,7 +46,16 @@ program
             !stdout.includes('Merge:') &&
             !stdout.includes('Merge branch')
         ) {
-            sh.echo(red(`${allow[index]}分支不允许直接提交`))
+            sh.echo(
+                red(
+                    i18n.__(
+                        'The {{target}} branch does not allow direct commits',
+                        {
+                            target: allow[index]
+                        }
+                    )
+                )
+            )
             process.exit(1)
         } else {
             process.exit(0)
