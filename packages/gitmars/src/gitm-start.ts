@@ -53,7 +53,7 @@ program.action(async (type: string, name: string, opt: GitmBuildOption) => {
     // 检测是否需要升级版本
     const needUpgrade = await isNeedUpgrade()
     needUpgrade && upgradeGitmars()
-    const opts = ['bugfix', 'feature', 'support'] // 允许执行的指令
+    const opts = ['bugfix', 'feature', 'support'] // Permissible commands
     const status = checkGitStatus()
     if (!status) process.exit(1)
     if (opts.includes(type)) {

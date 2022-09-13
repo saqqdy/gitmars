@@ -4,6 +4,7 @@ import type { GitmarsConfigType } from '../typings'
 import getGitRevParse from '#lib/git/getGitRevParse'
 import { debug } from '#lib/utils/debug'
 import echo from '#lib/utils/echo'
+import i18n from '#lib/locales/index'
 
 const defaults = {
     master: 'master',
@@ -15,7 +16,7 @@ const defaults = {
     email: '',
     nameValidator: '',
     descriptionValidator: '',
-    msgTemplate: '${message}；项目：${project}；路径：${pwd}',
+    msgTemplate: i18n.__('${message}; project: ${project}; path: ${pwd}'),
     msgUrl: '',
     apolloConfig: '',
     hooks: '',
@@ -56,12 +57,12 @@ function getConfig(
     const explorer = cosmiconfigSync(moduleName)
     if (!info) info = statSync(pathName)
     if (info.isDirectory()) {
-        // 传入目录
+        // Importing a directory
         const { config = {}, filepath = '' } = explorer.search(pathName) || {}
         debug('getConfig-config', config, filepath)
         return Object.assign({}, defaults, defaultSet, config, { filepath })
     } else {
-        // 传入文件
+        // Importing a file
         const { config = {}, filepath = '' } = explorer.load(pathName) || {}
         debug('getConfig-config', config, filepath)
         return Object.assign({}, defaults, defaultSet, config, { filepath })

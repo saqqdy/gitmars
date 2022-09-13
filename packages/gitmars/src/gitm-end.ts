@@ -74,7 +74,7 @@ program.action(
         // 检测是否需要升级版本
         const needUpgrade = await isNeedUpgrade()
         needUpgrade && upgradeGitmars()
-        const allow = ['bugfix', 'feature', 'support'] // 允许执行的指令
+        const allow = ['bugfix', 'feature', 'support'] // Permissible commands
         const deny = [
             defaults.master,
             defaults.develop,
@@ -89,11 +89,11 @@ program.action(
         } = userInfoApi ? await getUserToken() : ({} as FetchDataType)
         const status = checkGitStatus()
         let _nameArr: string[] = [], // 分支名称数组
-            isDescriptionCorrect = true // 本次提交的原因描述是否符合规范
+            isDescriptionCorrect = true // Does the description of the reason for this submission meet the specification
         if (!status) process.exit(1)
-        // 有配置descriptionValidator时需要校验描述信息
+        // When there is a descriptionValidator configured, the description information needs to be verified
         if (config.descriptionValidator) {
-            // 校验本次提交的原因描述
+            // Verify the description for this commit
             const reg =
                 getType(config.descriptionValidator) === 'regexp'
                     ? config.descriptionValidator
@@ -107,7 +107,12 @@ program.action(
             if (!name) {
                 deny.includes(type) &&
                     sh.echo(
-                        red(`骚年，你在${type}分支执行这个指令是什么骚操作？`)
+                        red(
+                            i18n.__(
+                                'Hey bro, what is the fuck are you doing by executing this command in the {{type}} branch?',
+                                { type }
+                            )
+                        )
                     )
                 process.exit(1)
             }
@@ -145,19 +150,19 @@ program.action(
                 ? config.bugfix
                 : config.release
             let cmd: Array<CommandType | string> = []
-            // 是否需要合并dev
+            // Is it necessary to merge dev
             const isNeedCombineDevelop = !getIsMergedTargetBranch(
                 `${type}/${name}`,
                 config.develop,
                 true
             )
-            // 是否需要合并base
+            // Is it necessary to merge base
             const isNeedCombineBase = !getIsMergedTargetBranch(
                 `${type}/${name}`,
                 base,
                 true
             )
-            // 是否需要合并bug
+            // Is it necessary to merge bug
             const isNeedCombineBugfix = !getIsMergedTargetBranch(
                 `${type}/${name}`,
                 config.bugfix,
@@ -173,8 +178,20 @@ program.action(
                         cmd: `git merge --no-ff ${type}/${name}`,
                         config: {
                             again: false,
-                            success: `${type}/${name}合并到${config.develop}成功`,
-                            fail: `${type}/${name}合并到${config.develop}出错了，请根据提示处理`
+                            success: i18n.__(
+                                'Merge {{source}} into {{target}} successfully',
+                                {
+                                    source: `${type}/${name}`,
+                                    target: config.develop
+                                }
+                            ),
+                            fail: i18n.__(
+                                'An error occurred merging {{source}} to {{target}}, Please follow the instructions',
+                                {
+                                    source: `${type}/${name}`,
+                                    target: config.develop
+                                }
+                            )
                         }
                     },
                     {
@@ -201,8 +218,20 @@ program.action(
                             cmd: `git merge --no-ff ${type}/${name}`,
                             config: {
                                 again: false,
-                                success: `${type}/${name}合并到${config.bugfix}成功`,
-                                fail: `${type}/${name}合并到${config.bugfix}出错了，请根据提示处理`
+                                success: i18n.__(
+                                    'Merge {{source}} into {{target}} successfully',
+                                    {
+                                        source: `${type}/${name}`,
+                                        target: config.bugfix
+                                    }
+                                ),
+                                fail: i18n.__(
+                                    'An error occurred merging {{source}} to {{target}}, Please follow the instructions',
+                                    {
+                                        source: `${type}/${name}`,
+                                        target: config.bugfix
+                                    }
+                                )
                             }
                         },
                         {
@@ -262,7 +291,15 @@ program.action(
                                 )
                             }
                         },
-                        `gitm postmsg "${nickname}在${appName}项目提交了${type}/${name}分支合并到${config.bugfix}分支的merge请求"`
+                        `gitm postmsg "${i18n.__(
+                            '{{nickname}} submitted a merge request for {{source}} branch to {{target}} branch in {{app}} project',
+                            {
+                                nickname,
+                                app: appName,
+                                source: `${type}/${name}`,
+                                target: config.bugfix
+                            }
+                        )}"`
                     ])
                 }
             }
@@ -312,8 +349,20 @@ program.action(
                             cmd: `git merge --no-ff ${type}/${name}`,
                             config: {
                                 again: false,
-                                success: `${type}/${name}合并到${base}成功`,
-                                fail: `${type}/${name}合并到${base}出错了，请根据提示处理`
+                                success: i18n.__(
+                                    'Merge {{source}} into {{target}} successfully',
+                                    {
+                                        source: `${type}/${name}`,
+                                        target: base
+                                    }
+                                ),
+                                fail: i18n.__(
+                                    'An error occurred merging {{source}} to {{target}}, Please follow the instructions',
+                                    {
+                                        source: `${type}/${name}`,
+                                        target: base
+                                    }
+                                )
                             }
                         },
                         {
@@ -403,7 +452,15 @@ program.action(
                                 )
                             }
                         },
-                        `gitm postmsg "${nickname}在${appName}项目提交了${type}/${name}分支合并到${base}分支的merge请求"`
+                        `gitm postmsg "${i18n.__(
+                            '{{nickname}} submitted a merge request for {{source}} branch to {{target}} branch in {{app}} project',
+                            {
+                                nickname,
+                                app: appName,
+                                source: `${type}/${name}`,
+                                target: base
+                            }
+                        )}"`
                     ])
                 }
             }

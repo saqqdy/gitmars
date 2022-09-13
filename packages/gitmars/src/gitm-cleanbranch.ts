@@ -98,19 +98,27 @@ program.action(async (branches: string[], opt: GitmBuildOption) => {
         const removeRemote =
             opt.remote && getIsBranchOrCommitExist(branch, true)
         if (removeLocal || removeRemote) {
-            spinner.start(green(`正在删除：${branch}`))
+            spinner.start(
+                green(i18n.__('Deleting: {{something}}', { something: branch }))
+            )
             await delay(200)
-            spinner.succeed(green(`删除成功：${branch}`))
+            spinner.succeed(
+                green(
+                    i18n.__('Deleted successfully: {{something}}', {
+                        something: branch
+                    })
+                )
+            )
         }
-        // 仅清理合过dev和release的分支
+        // Clean up only branches that have been combined with dev and release
         if (removeLocal) {
-            // 删除当前分支，需要切到其他分支去
+            // Delete the current branch, you need to cut to another branch
             if (current === branch) {
                 spawnSync('git', ['checkout', config.master])
             }
             spawnSync('git', ['branch', '-D', branch])
         }
-        // 清理远程分支
+        // Clean up remote branches
         if (removeRemote) {
             spawnSync('git', ['push', 'origin', '--delete', branch])
         }
@@ -120,7 +128,7 @@ program.action(async (branches: string[], opt: GitmBuildOption) => {
         ? opt.target.split(',')
         : [config.develop, config.release]
     fetch()
-    // 没有传入指定分支，进行查询
+    // No branch is passed in for the specified query
     if (branches.length === 0) {
         branches = searchBranches({
             remote: opt.remote,
@@ -154,7 +162,7 @@ program.action(async (branches: string[], opt: GitmBuildOption) => {
         process.exit(0)
     }
     for (const branch of branches) {
-        // 跳过主干分支
+        // Skip main Branches
         if (
             [
                 config.master,
@@ -166,16 +174,34 @@ program.action(async (branches: string[], opt: GitmBuildOption) => {
         ) {
             continue
         }
-        spinner.start(green(`开始分析：${branch}`))
+        spinner.start(
+            green(
+                i18n.__('Start analysis: {{something}}', {
+                    something: branch
+                })
+            )
+        )
         const isMerged = getIsMergedTarget(branch, targets, opt.remote)
         if (!isMerged) {
-            spinner.fail(red(`不可删除：${branch}`))
+            spinner.fail(
+                red(
+                    i18n.__('Cannot be deleted: {{something}}', {
+                        something: branch
+                    })
+                )
+            )
             continue
         }
 
         _willDeleteBranch.push(branch)
         await delay(200)
-        spinner.succeed(green(`分析完成：${branch}`))
+        spinner.succeed(
+            green(
+                i18n.__('Analysis completed: {{something}}', {
+                    something: branch
+                })
+            )
+        )
         if (opt.list) {
             continue
         }

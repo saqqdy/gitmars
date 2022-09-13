@@ -5,7 +5,7 @@ import type { AnyFunction, AnyObject } from '../../typings'
  *
  * @example
  * ```ts
- * const tmp = "${message}；项目：${project}；路径：${pwd}"
+ * const tmp = "${message}; project: ${project}; path: ${pwd}"
  * mapTemplate(tmp, {
  *     message: '运行成功',
  *     project: 'gitmars',

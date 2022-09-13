@@ -26,7 +26,7 @@ program.action((name: string) => {
     const isExist = sh.test('-e', `./node_modules/${name}`)
     const npmClient = sh.which('yarn') ? 'yarn' : 'npm'
     if (!name) {
-        // 给当前包创建软链
+        // Create a soft link to the current package
         const { status } = spawnSync(npmClient, ['link'])
         if (status === 0) sh.echo(i18n.__('Processing completed'))
         else sh.echo(i18n.__('There was an error'))
@@ -41,7 +41,10 @@ program.action((name: string) => {
     if (status === 0) sh.echo(i18n.__('Processing completed'))
     else {
         sh.echo(
-            `处理失败，${name}软链不存在，请进入本地${name}根目录执行：gitm link`
+            i18n.__(
+                'Processing failed, {{name}} soft link does not exist, please go to the local {{name}} root directory and execute: gitm link',
+                { name }
+            )
         )
     }
 })

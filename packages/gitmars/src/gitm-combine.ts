@@ -87,7 +87,7 @@ program.action(
         // 检测是否需要升级版本
         const needUpgrade = await isNeedUpgrade()
         needUpgrade && upgradeGitmars()
-        const allow = ['bugfix', 'feature', 'support'] // 允许执行的指令
+        const allow = ['bugfix', 'feature', 'support'] // Permissible commands
         const deny = [
             defaults.master,
             defaults.develop,
@@ -102,7 +102,7 @@ program.action(
         } = userInfoApi ? await getUserToken() : ({} as FetchDataType)
         const status = !opt.add && opt.commit === '' ? checkGitStatus() : true
         let _nameArr: string[] = [], // 分支名称数组
-            isDescriptionCorrect = true // 本次提交的原因描述是否符合规范
+            isDescriptionCorrect = true // Does the description of the reason for this submission meet the specification
         if (!opt.dev && !opt.prod) {
             sh.echo(i18n.__('Please enter the environment to sync to.'))
             process.exit(1)
@@ -112,9 +112,9 @@ program.action(
             sh.echo(red(i18n.__('Please enter the message to be submitted')))
             process.exit(1)
         }
-        // 有配置descriptionValidator时需要校验描述信息
+        // When there is a descriptionValidator configured, the description information needs to be verified
         if (config.descriptionValidator) {
-            // 校验本次提交的原因描述
+            // Verify the description for this commit
             const reg =
                 getType(config.descriptionValidator) === 'regexp'
                     ? config.descriptionValidator
@@ -128,7 +128,12 @@ program.action(
             if (!name) {
                 deny.includes(type) &&
                     sh.echo(
-                        red(`骚年，你在${type}分支执行这个指令是什么骚操作？`)
+                        red(
+                            i18n.__(
+                                'Hey bro, what is the fuck are you doing by executing this command in the {{type}} branch?',
+                                { type }
+                            )
+                        )
                     )
                 process.exit(1)
             }
@@ -179,7 +184,7 @@ program.action(
             }
             // 合并到dev分支
             if (opt.dev) {
-                // 是否需要合并dev
+                // Is it necessary to merge dev
                 const isNeedCombineDevelop = !getIsMergedTargetBranch(
                     `${type}/${name}`,
                     config.develop,
@@ -195,8 +200,20 @@ program.action(
                                   cmd: `git merge --no-ff ${type}/${name}`,
                                   config: {
                                       again: false,
-                                      success: `${type}/${name}合并到${config.develop}成功`,
-                                      fail: `${type}/${name}合并到${config.develop}出错了，请根据提示处理`
+                                      success: i18n.__(
+                                          'Merge {{source}} into {{target}} successfully',
+                                          {
+                                              source: `${type}/${name}`,
+                                              target: config.develop
+                                          }
+                                      ),
+                                      fail: i18n.__(
+                                          'An error occurred merging {{source}} to {{target}}, Please follow the instructions',
+                                          {
+                                              source: `${type}/${name}`,
+                                              target: config.develop
+                                          }
+                                      )
                                   }
                               },
                               {
@@ -213,7 +230,13 @@ program.action(
                           ]
                         : [
                               {
-                                  message: `${type}/${name}已经合并过${config.develop}`
+                                  message: i18n.__(
+                                      '{{source}} has been merged with {{target}}',
+                                      {
+                                          source: `${type}/${name}`,
+                                          target: config.develop
+                                      }
+                                  )
                               }
                           ]
                 )
@@ -256,7 +279,7 @@ program.action(
                     if (!opt.noBugfix && !opt.asFeature) {
                         // 传入noBugfix不合bug,
                         if (!level || level < 3) {
-                            // 是否需要合并prod
+                            // Is it necessary to merge prod
                             const isNeedCombineProd = !getIsMergedTargetBranch(
                                 `${type}/${name}`,
                                 base,
@@ -272,8 +295,20 @@ program.action(
                                               cmd: `git merge --no-ff ${type}/${name}`,
                                               config: {
                                                   again: false,
-                                                  success: `${type}/${name}合并到${base}成功`,
-                                                  fail: `${type}/${name}合并到${base}出错了，请根据提示处理`
+                                                  success: i18n.__(
+                                                      'Merge {{source}} into {{target}} successfully',
+                                                      {
+                                                          source: `${type}/${name}`,
+                                                          target: base
+                                                      }
+                                                  ),
+                                                  fail: i18n.__(
+                                                      'An error occurred merging {{source}} to {{target}}, Please follow the instructions',
+                                                      {
+                                                          source: `${type}/${name}`,
+                                                          target: base
+                                                      }
+                                                  )
                                               }
                                           },
                                           {
@@ -293,7 +328,13 @@ program.action(
                                       ]
                                     : [
                                           {
-                                              message: `${type}/${name}已经合并过${base}`
+                                              message: i18n.__(
+                                                  '{{source}} has been merged with {{target}}',
+                                                  {
+                                                      source: `${type}/${name}`,
+                                                      target: base
+                                                  }
+                                              )
                                           }
                                       ]
                             )
@@ -342,14 +383,22 @@ program.action(
                                         )
                                     }
                                 },
-                                `gitm postmsg "${nickname}在${appName}项目提交了${type}/${name}分支合并到${base}分支的merge请求"`
+                                `gitm postmsg "${i18n.__(
+                                    '{{nickname}} submitted a merge request for {{source}} branch to {{target}} branch in {{app}} project',
+                                    {
+                                        nickname,
+                                        app: appName,
+                                        source: `${type}/${name}`,
+                                        target: base
+                                    }
+                                )}"`
                             ])
                         }
                     }
                     // bugfix分支走release发布
                     if (type === 'bugfix' && opt.asFeature) {
                         if (!level || level < 3) {
-                            // 是否需要合并prod
+                            // Is it necessary to merge prod
                             const isNeedCombineProd = !getIsMergedTargetBranch(
                                 `${type}/${name}`,
                                 config.release,
@@ -365,8 +414,20 @@ program.action(
                                               cmd: `git merge --no-ff ${type}/${name}`,
                                               config: {
                                                   again: false,
-                                                  success: `${type}/${name}合并到${config.release}成功`,
-                                                  fail: `${type}/${name}合并到${config.release}出错了，请根据提示处理`
+                                                  success: i18n.__(
+                                                      'Merge {{source}} into {{target}} successfully',
+                                                      {
+                                                          source: `${type}/${name}`,
+                                                          target: config.release
+                                                      }
+                                                  ),
+                                                  fail: i18n.__(
+                                                      'An error occurred merging {{source}} to {{target}}, Please follow the instructions',
+                                                      {
+                                                          source: `${type}/${name}`,
+                                                          target: config.release
+                                                      }
+                                                  )
                                               }
                                           },
                                           {
@@ -386,7 +447,13 @@ program.action(
                                       ]
                                     : [
                                           {
-                                              message: `${type}/${name}已经合并过${config.release}`
+                                              message: i18n.__(
+                                                  '{{source}} has been merged with {{target}}',
+                                                  {
+                                                      source: `${type}/${name}`,
+                                                      target: config.release
+                                                  }
+                                              )
                                           }
                                       ]
                             )
@@ -435,14 +502,22 @@ program.action(
                                         )
                                     }
                                 },
-                                `gitm postmsg "${nickname}在${appName}项目提交了${type}/${name}分支合并到${config.release}分支的merge请求"`
+                                `gitm postmsg "${i18n.__(
+                                    '{{nickname}} submitted a merge request for {{source}} branch to {{target}} branch in {{app}} project',
+                                    {
+                                        nickname,
+                                        app: appName,
+                                        source: `${type}/${name}`,
+                                        target: config.release
+                                    }
+                                )}"`
                             ])
                         }
                     }
                     // support分支需要合到bugfix
                     if (type === 'support' && opt.noBugfix) {
                         if (!level || level < 3) {
-                            // 是否需要合并prod
+                            // Is it necessary to merge prod
                             const isNeedCombineProd = !getIsMergedTargetBranch(
                                 `${type}/${name}`,
                                 config.bugfix,
@@ -458,8 +533,20 @@ program.action(
                                               cmd: `git merge --no-ff ${type}/${name}`,
                                               config: {
                                                   again: false,
-                                                  success: `${type}/${name}合并到${config.bugfix}成功`,
-                                                  fail: `${type}/${name}合并到${config.bugfix}出错了，请根据提示处理`
+                                                  success: i18n.__(
+                                                      'Merge {{source}} into {{target}} successfully',
+                                                      {
+                                                          source: `${type}/${name}`,
+                                                          target: config.bugfix
+                                                      }
+                                                  ),
+                                                  fail: i18n.__(
+                                                      'An error occurred merging {{source}} to {{target}}, Please follow the instructions',
+                                                      {
+                                                          source: `${type}/${name}`,
+                                                          target: config.bugfix
+                                                      }
+                                                  )
                                               }
                                           },
                                           {
@@ -479,7 +566,13 @@ program.action(
                                       ]
                                     : [
                                           {
-                                              message: `${type}/${name}已经合并过${config.bugfix}`
+                                              message: i18n.__(
+                                                  '{{source}} has been merged with {{target}}',
+                                                  {
+                                                      source: `${type}/${name}`,
+                                                      target: config.bugfix
+                                                  }
+                                              )
                                           }
                                       ]
                             )
@@ -528,7 +621,15 @@ program.action(
                                         )
                                     }
                                 },
-                                `gitm postmsg "${nickname}在${appName}项目提交了${type}/${name}分支合并到${config.bugfix}分支的merge请求"`
+                                `gitm postmsg "${i18n.__(
+                                    '{{nickname}} submitted a merge request for {{source}} branch to {{target}} branch in {{app}} project',
+                                    {
+                                        nickname,
+                                        app: appName,
+                                        source: `${type}/${name}`,
+                                        target: config.bugfix
+                                    }
+                                )}"`
                             ])
                         }
                     }

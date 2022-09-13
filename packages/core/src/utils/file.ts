@@ -2,6 +2,7 @@ import fs from 'fs'
 import sh from 'shelljs'
 import ora from 'ora'
 import chalk from 'chalk'
+import i18n from '#lib/locales/index'
 
 sh.config.silent = true
 
@@ -36,20 +37,20 @@ export function writeFileSync(url: string, data: string, options?: any): void {
 }
 
 /**
- * 判断文件是否存在
+ * Determine if a file exists
  *
- * @param filePath - 完整文件路径
- * @returns isFileExist - 返回是否
+ * @param filePath - full file path
+ * @returns isFileExist - return true false
  */
 export function isFileExist(filePath: string): boolean {
-    // 这里使用find是为了兼容路径里面带了通配符
+    // The use of find here is for compatibility with paths that have wildcards in them
     return sh.test('-f', filePath) || sh.find(filePath).stdout !== ''
 }
 
 /**
- * 移除文件
+ * remove files
  *
- * @param files - 需要清理的文件数组，类型GitmarsCacheFileDescriptionType
+ * @param files - Array of files to be cleaned. type: GitmarsCacheFileDescriptionType
  */
 export function removeFile(
     files: GitmarsCacheFileDescriptionType | GitmarsCacheFileDescriptionType[]
@@ -57,7 +58,14 @@ export function removeFile(
     const spinner = ora()
     if (!Array.isArray(files)) files = [files]
     for (const file of files) {
-        file.name && spinner.start(chalk.green(`正在处理${file.name}`))
+        file.name &&
+            spinner.start(
+                chalk.green(
+                    i18n.__('Processing: {{something}}', {
+                        something: file.name
+                    })
+                )
+            )
         const fileExist = isFileExist(file.url)
         if (fileExist) {
             sh.rm(file.url)

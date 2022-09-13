@@ -93,7 +93,8 @@ program
                     type: 'input',
                     name: key,
                     message: i18n.__('Please enter the message template'),
-                    default: () => '${message}；项目：${project}；路径：${pwd}',
+                    default: () =>
+                        '${message}; project: ${project}; path: ${pwd}',
                     transformer: val => val.trim()
                 })
             } else if (key === 'msgUrl') {

@@ -2,12 +2,13 @@ import sh from 'shelljs'
 import chalk from 'chalk'
 import { spawnSync } from '#lib/spawn'
 import { debug } from '#lib/utils/debug'
+import i18n from '#lib/locales/index'
 
 /**
- * 获取暂存区列表
+ * Get the list of staging areas
  *
- * @param key - 名称
- * @returns stashList - 返回stashList
+ * @param key - name
+ * @returns stashList - return stashList
  */
 function getStashList(key: string) {
     const { stdout } = spawnSync('git', [
@@ -25,7 +26,10 @@ function getStashList(key: string) {
     if (list.length > 10) {
         sh.echo(
             chalk.yellow(
-                `该项目下一共有${list.length}条暂存记录，建议定期清理！`
+                i18n.__(
+                    'There are a total of {{length}} staging records under this item, please clean it up regularly!',
+                    { length: list.length }
+                )
             )
         )
     }
@@ -35,7 +39,7 @@ function getStashList(key: string) {
             const first = msgArr.shift() as string
             if (!key || (key && msgArr[msgArr.length - 1].includes(key))) {
                 const m = first.match(/^stash@\{(\d+)\}$/)
-                // 去除不必要的消息
+                // Removing unnecessary messages
                 if (msgArr.length > 1) msgArr.shift()
                 arr.push({
                     key: first,
