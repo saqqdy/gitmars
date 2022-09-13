@@ -28,7 +28,7 @@ function getStashList(key: string) {
             chalk.yellow(
                 i18n.__(
                     'There are a total of {{length}} staging records under this item, please clean it up regularly!',
-                    { length: list.length }
+                    { length: String(list.length) }
                 )
             )
         )
