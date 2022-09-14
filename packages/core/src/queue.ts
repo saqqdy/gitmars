@@ -109,7 +109,7 @@ export function queue(
                         i18n.__(
                             'An error has occurred! Command {{command}} execution failed, process exits',
                             {
-                                command: cmd
+                                command: cmd as string
                             }
                         )
                 )
@@ -119,7 +119,7 @@ export function queue(
                     i18n.__(
                         'An error has occurred! Command {{command}} execution failed, process exits',
                         {
-                            command: cmd
+                            command: cmd as string
                         }
                     )
                 )
@@ -137,7 +137,7 @@ export function queue(
                 cfg.fail ||
                 msg.fail ||
                 i18n.__('Command {{command}} Execution failed', {
-                    command: cmd
+                    command: cmd as string
                 })
             _message && spinner.warn(chalk.yellow(_message))
             cb && cb() // 回调，继续执行下一条
