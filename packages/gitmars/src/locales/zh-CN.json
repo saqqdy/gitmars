@@ -329,5 +329,9 @@
     "Please enter the comment content": "请输入评论内容",
     "Please enter the available comments": "请输入可用评论",
     "{{length}} comments": "{{length}} 条评论",
-    "{{id}} request merge {{source}} to {{target}} {{disabled}} | {{name}} | {{comments}} | {{time}}": "{{id}} 请求合并 {{source}} 到 {{target}} {{disabled}} | {{name}} | {{comments}} | {{time}}"
+    "{{id}} request merge {{source}} to {{target}} {{disabled}} | {{name}} | {{comments}} | {{time}}": "{{id}} 请求合并 {{source}} 到 {{target}} {{disabled}} | {{name}} | {{comments}} | {{time}}",
+    "The {{source}} branch has updated from main branch": "{{source}}一周内同步过主干分支代码",
+    "Detected that you have not update codes from {{source}} branch in 1 week": "检测到你1周内没有同步过主干{{source}}分支代码",
+    "Your branch was detected as not having merged {{target}}": "检测到你的分支没有合并过{{target}}",
+    "{{source}} branch has merged {{target}} branch": "{{source}}合并过{{target}}"
 }

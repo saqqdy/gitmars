@@ -65,5 +65,17 @@
     "Gitmars > Unknown error! Please contact Wu Feng": "Gitmars > 未知错误！请联系吴峰",
     "Please configure the message sending api template address": "请配置消息发送api模板地址",
     "Please configure the message push address": "请配置消息推送地址",
-    "An error occurred": "出错了"
+    "An error occurred": "出错了",
+    "An error has occurred! Command {{command}} execution failed, process exits": "出错了！指令 {{cmd}} 执行失败，中断了进程",
+    "Command {{command}} Execution failed": "指令 {{command}} 执行失败",
+    "Enter the value of parameter {{option}}": "请输入参数{{option}}的值",
+    "Not required{{tips}}": "可不填{{tips}}",
+    "default \"{{defaultValue}}\"": "默认\"{{defaultValue}}\"",
+    "Merge existing ghooks hooks: {{name}}": "合并已存在的ghooks钩子: {{name}}",
+    "Merge existing pre-commit hooks: {{name}}": "合并已存在的pre-commit钩子: {{name}}",
+    "Skip existing git hooks: {{name}}": "跳过已存在的git钩子: {{name}}",
+    "Cleaned up": "清理完毕",
+    "{{name}} not found": "{{name}}未找到",
+    "{{name}} deleted": "{{name}}已删除",
+    "File write error": "文件写入错误"
 }

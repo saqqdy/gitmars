@@ -351,11 +351,25 @@ program.action(
                     )
                     if (!isMergedBranch) {
                         console.info(
-                            red('检测到你的分支没有合并过' + config.develop)
+                            red(
+                                i18n.__(
+                                    'Your branch was detected as not having merged {{target}}',
+                                    {
+                                        target: config.develop
+                                    }
+                                )
+                            )
                         )
                         process.exit(0)
                     } else {
-                        console.info(green(branch + '合并过' + config.develop))
+                        console.info(
+                            green(
+                                i18n.__(
+                                    '{{source}} branch has merged {{target}} branch',
+                                    { source: branch, target: config.develop }
+                                )
+                            )
+                        )
                     }
                 }
             }
@@ -374,14 +388,24 @@ program.action(
                     if (!isUpdatedInTime) {
                         console.info(
                             red(
-                                '检测到你1周内没有同步过主干' +
-                                    branchPrefix +
-                                    '分支代码'
+                                i18n.__(
+                                    'Detected that you have not update codes from {{source}} branch in 1 week',
+                                    { source: branchPrefix }
+                                )
                             )
                         )
                         process.exit(0)
                     } else {
-                        console.info(green(branch + '一周内同步过主干分支代码'))
+                        console.info(
+                            green(
+                                i18n.__(
+                                    'The {{source}} branch has updated from main branch',
+                                    {
+                                        source: branch
+                                    }
+                                )
+                            )
+                        )
                     }
                 }
             }

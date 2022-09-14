@@ -61,12 +61,18 @@ ${getHookComment()}
             const hook = fs.readFileSync(filename, 'utf-8')
             // 合并
             if (getHookType.isGhooks(hook)) {
-                console.info(`合并已存在的ghooks钩子: ${name}`)
+                console.info(
+                    i18n.__('Merge existing ghooks hooks: {{name}}', { name })
+                )
                 return writeHook(filename, hookShell)
             }
             // 合并
             if (getHookType.isPreCommit(hook)) {
-                console.info(`合并已存在的pre-commit钩子: ${name}`)
+                console.info(
+                    i18n.__('Merge existing pre-commit hooks: {{name}}', {
+                        name
+                    })
+                )
                 return writeHook(filename, hookShell)
             }
             // 更新
@@ -78,7 +84,11 @@ ${getHookComment()}
                 return writeHook(filename, hookShell)
             }
             // 跳过
-            console.info(`跳过已存在的用户git钩子: ${name}`)
+            console.info(
+                i18n.__('Skip existing git hooks: {{name}}', {
+                    name
+                })
+            )
             return
         }
         // 如果不存在钩子，创建

@@ -71,7 +71,7 @@ program.action(
         const userInfoApi =
             (config.apis && config.apis.userInfo && config.apis.userInfo.url) ||
             config.api
-        // 检测是否需要升级版本
+        // Detecting if it is necessary to upgrade
         const needUpgrade = await isNeedUpgrade()
         needUpgrade && upgradeGitmars()
         const allow = ['bugfix', 'feature', 'support'] // Permissible commands
