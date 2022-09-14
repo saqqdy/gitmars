@@ -18,7 +18,7 @@ export function writeFile(url: string, data: string): Promise<Error | boolean> {
     return new Promise((resolve, reject) => {
         fs.writeFile(url, data, (err: any) => {
             if (err) {
-                reject(new Error('文件写入错误'))
+                reject(new Error(i18n.__('File write error')))
             } else {
                 resolve(true)
             }
@@ -69,13 +69,23 @@ export function removeFile(
         const fileExist = isFileExist(file.url)
         if (fileExist) {
             sh.rm(file.url)
-            file.name && spinner.succeed(chalk.green(`${file.name}已删除`))
+            file.name &&
+                spinner.succeed(
+                    chalk.green(
+                        i18n.__('{{name}} deleted', { name: file.name })
+                    )
+                )
         } else {
-            file.name && spinner.warn(chalk.green(`${file.name}未找到`))
+            file.name &&
+                spinner.warn(
+                    chalk.green(
+                        i18n.__('{{name}} not found', { name: file.name })
+                    )
+                )
         }
     }
     spinner.stop()
-    sh.echo(chalk.green('清理完毕'))
+    sh.echo(chalk.green(i18n.__('Cleaned up')))
 }
 
 export default {

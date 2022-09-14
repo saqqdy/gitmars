@@ -106,11 +106,23 @@ export function queue(
                 chalk.red(
                     cfg.fail ||
                         msg.fail ||
-                        '出错了！指令 ' + cmd + ' 执行失败，中断了进程'
+                        i18n.__(
+                            'An error has occurred! Command {{command}} execution failed, process exits',
+                            {
+                                command: cmd
+                            }
+                        )
                 )
             )
             cfg.postmsg &&
-                postMessage('出错了！指令 ' + cmd + ' 执行失败，中断了进程')
+                postMessage(
+                    i18n.__(
+                        'An error has occurred! Command {{command}} execution failed, process exits',
+                        {
+                            command: cmd
+                        }
+                    )
+                )
             rest.length > 0 &&
                 spinner.fail(
                     chalk.red(
@@ -121,7 +133,12 @@ export function queue(
                 )
             process.exit(1)
         } else {
-            const _message = cfg.fail || msg.fail || '指令 ' + cmd + ' 执行失败'
+            const _message =
+                cfg.fail ||
+                msg.fail ||
+                i18n.__('Command {{command}} Execution failed', {
+                    command: cmd
+                })
             _message && spinner.warn(chalk.yellow(_message))
             cb && cb() // 回调，继续执行下一条
         }

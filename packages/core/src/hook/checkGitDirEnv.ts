@@ -6,7 +6,7 @@ import i18n from '#lib/locales/index'
  */
 function checkGitDirEnv(): void {
     if (process.env.GIT_DIR) {
-        debug(`GIT_DIR 环境变量值为：${process.env.GIT_DIR}`)
+        debug(`GIT_DIR env is: ${process.env.GIT_DIR}`)
         debug(
             i18n.__(
                 'If prompted "fatal: not a git repository", please check the value of GIT_DIR'

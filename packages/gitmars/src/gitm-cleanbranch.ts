@@ -248,7 +248,7 @@ program.action(async (branches: string[], opt: GitmBuildOption) => {
                     process.exit(0)
                 }
                 selectBranches.forEach(async (branch: string) => {
-                    // 开始分支删除流程
+                    // start deleting branch
                     await clean(branch)
                 })
             })

@@ -329,5 +329,9 @@
     "Please enter the comment content": "Please enter the comment content",
     "Please enter the available comments": "Please enter the available comments",
     "{{length}} comments": "{{length}} comments",
-    "{{id}} request merge {{source}} to {{target}} {{disabled}} | {{name}} | {{comments}} | {{time}}": "{{id}} request merge {{source}} to {{target}} {{disabled}} | {{name}} | {{comments}} | {{time}}"
+    "{{id}} request merge {{source}} to {{target}} {{disabled}} | {{name}} | {{comments}} | {{time}}": "{{id}} request merge {{source}} to {{target}} {{disabled}} | {{name}} | {{comments}} | {{time}}",
+    "The {{source}} branch has updated from main branch": "The {{source}} branch has updated from main branch",
+    "Detected that you have not update codes from {{source}} branch in 1 week": "Detected that you have not update codes from {{source}} branch in 1 week",
+    "Your branch was detected as not having merged {{target}}": "Your branch was detected as not having merged {{target}}",
+    "{{source}} branch has merged {{target}} branch": "{{source}} branch has merged {{target}} branch"
 }

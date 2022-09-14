@@ -87,16 +87,27 @@ function createPrompt(
                     type: 'input',
                     name: opts.name,
                     message: `${
-                        opts.description || '请输入参数' + opts.name + '的值'
+                        opts.description ||
+                        i18n.__('Enter the value of parameter {{option}}', {
+                            option: opts.name
+                        })
                     }${
                         !opts.required
                             ? chalk.yellow(
-                                  '(可不填' +
-                                      ('defaultValue' in opts &&
-                                      opts.defaultValue !== ''
-                                          ? '，默认"' + opts.defaultValue + '"'
-                                          : '') +
-                                      ')'
+                                  i18n.__('(' + 'Not required{{tips}}' + ')', {
+                                      tips:
+                                          'defaultValue' in opts &&
+                                          opts.defaultValue !== ''
+                                              ? ', ' +
+                                                i18n.__(
+                                                    'default "{{defaultValue}}"',
+                                                    {
+                                                        defaultValue:
+                                                            opts.defaultValue
+                                                    }
+                                                )
+                                              : ''
+                                  })
                               )
                             : ''
                     }`,

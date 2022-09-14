@@ -65,5 +65,17 @@
     "Gitmars > Unknown error! Please contact Wu Feng": "Gitmars > Unknown error! Please contact Wu Feng",
     "Please configure the message sending api template address": "Please configure the message sending api template address",
     "Please configure the message push address": "Please configure the message push address",
-    "An error occurred": "An error occurred"
+    "An error occurred": "An error occurred",
+    "An error has occurred! Command {{command}} execution failed, process exits": "An error has occurred! Command {{command}} execution failed, process exits",
+    "Command {{command}} Execution failed": "Command {{command}} Execution failed",
+    "Enter the value of parameter {{option}}": "Enter the value of parameter {{option}}",
+    "Not required{{tips}}": "Not required{{tips}}",
+    "default \"{{defaultValue}}\"": "default \"{{defaultValue}}\"",
+    "Merge existing ghooks hooks: {{name}}": "Merge existing ghooks hooks: {{name}}",
+    "Merge existing pre-commit hooks: {{name}}": "Merge existing pre-commit hooks: {{name}}",
+    "Skip existing git hooks: {{name}}": "Skip existing git hooks: {{name}}",
+    "Cleaned up": "Cleaned up",
+    "{{name}} not found": "{{name}} not found",
+    "{{name}} deleted": "{{name}} deleted",
+    "File write error": "File write error"
 }
