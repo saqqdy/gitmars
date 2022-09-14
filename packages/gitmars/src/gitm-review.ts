@@ -106,13 +106,24 @@ program.action(async (opt: GitmBuildOption): Promise<void> => {
         const disabled = merge_status !== 'can_be_merged'
         const _time = dayjs(created_at).format('YYYY/MM/DD HH:mm')
         prompt[0].choices.push({
-            name: `${green(iid + '：')} 请求合并 ${green(
-                source_branch
-            )} 到 ${green(target_branch)} ${
-                disabled
-                    ? red(`[ ${i18n.__('Conflict or no need to merge')} ]`)
-                    : ''
-            } | ${yellow(author.name)} | ${blue(_time)}`,
+            name: i18n.__(
+                '{{id}} request merge {{source}} to {{target}} {{disabled}} | {{name}} | {{comments}} | {{time}}',
+                {
+                    id: green(iid + ': '),
+                    source: green(source_branch),
+                    target: green(target_branch),
+                    disabled: disabled
+                        ? red(`[ ${i18n.__('Conflict or no need to merge')} ]`)
+                        : '',
+                    name: yellow(author.name),
+                    comments: green(
+                        i18n.__('{{length}} comments', {
+                            length: String(mr.notes.length)
+                        })
+                    ),
+                    time: blue(_time)
+                }
+            ),
             value: iid,
             // disabled,
             checked: false

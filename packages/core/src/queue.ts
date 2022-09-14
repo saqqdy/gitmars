@@ -14,6 +14,7 @@ import { setLog } from '#lib/cache/log'
 import { postMessage } from '#lib/utils/message'
 import { spawnSync } from '#lib/spawn'
 import { debug } from '#lib/utils/debug'
+import i18n from '#lib/locales/index'
 
 const require = createRequire(import.meta.url)
 
@@ -64,7 +65,8 @@ export function queue(
         cfg: CommandTypeCmd['config'],
         cb?: WaitCallback
     ) {
-        const _message = cfg.success || msg.success || '处理完成'
+        const _message =
+            cfg.success || msg.success || i18n.__('Processing complete')
         if (_message) {
             spinner.succeed(chalk.green(_message))
             cfg.postmsg && postMessage(_message)
@@ -111,7 +113,11 @@ export function queue(
                 postMessage('出错了！指令 ' + cmd + ' 执行失败，中断了进程')
             rest.length > 0 &&
                 spinner.fail(
-                    chalk.red('请处理相关问题之后输入gitm continue继续')
+                    chalk.red(
+                        i18n.__(
+                            'Please enter gitm continue to continue after processing the issue in question'
+                        )
+                    )
                 )
             process.exit(1)
         } else {
@@ -122,7 +128,8 @@ export function queue(
     }
     return new Promise((resolve, reject) => {
         const returns: QueueReturnsType[] = []
-        if (list.length === 0) reject(new Error('指令名称不能为空'))
+        if (list.length === 0)
+            reject(new Error(i18n.__('Command name cannot be empty')))
         list = extend(true, [], list) as unknown as Array<CommandType | string>
         wait(
             list,
@@ -150,7 +157,7 @@ export function queue(
                 /**
                  * 三种场景
                  *
-                 * 1. { message: '消息' }
+                 * 1. { message: i18n.__('Message') }
                  * 2. { cmd: 'git status', config: {} }
                  * 3. { cmd: { module: '', entry: '', options: {} }, config: {} }
                  */
@@ -182,7 +189,9 @@ export function queue(
                         _execFunction = require(cmd.module)
                     if (cmd.entry) _execFunction = _execFunction[cmd.entry]
                     try {
-                        spinner.start(chalk.green(cfg.processing || '正在处理'))
+                        spinner.start(
+                            chalk.green(cfg.processing || i18n.__('Processing'))
+                        )
                         stdout = await _execFunction(cmd.options)
                         debug('queue-result', cmd, stdout)
                         onSuccess({} as CommandMessageType, cfg, cb)
@@ -214,7 +223,9 @@ export function queue(
                     const msg = getCommandMessage(cmd)
                     spinner.start(
                         chalk.green(
-                            cfg.processing || msg.processing || '正在处理'
+                            cfg.processing ||
+                                msg.processing ||
+                                i18n.__('Processing')
                         )
                     )
                     const program = spawnSync(client, argv, cfg)

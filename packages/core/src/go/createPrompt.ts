@@ -3,6 +3,7 @@ import type {
     GitmarsOptionArgsType,
     GitmarsOptionOptionsType
 } from '../../typings'
+import i18n from '#lib/locales/index'
 
 export interface PromptConfigType {
     options: GitmarsOptionArgsType[] | GitmarsOptionOptionsType[]
@@ -54,7 +55,7 @@ function createPrompt(
         if (!options.length) return null
         const promptOpt: PromptOptionCheckboxType = {
             type,
-            message: '请选择',
+            message: i18n.__('Please select'),
             name: command,
             choices: [],
             validate: answer => {
@@ -109,7 +110,7 @@ function createPrompt(
                     validate: (val): string | boolean => {
                         let msg: string | boolean = true
                         if (!val && opts.required) {
-                            msg = '请填写' + opts.description
+                            msg = i18n.__('Please fill in') + opts.description
                         }
                         validator &&
                             msg === true &&

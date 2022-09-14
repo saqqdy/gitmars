@@ -6,7 +6,7 @@ import getCurrentBranch from '#lib/git/getCurrentBranch'
  *
  * @param name - 分支名称
  * @param remote - 是否查询远程，默认：false
- * @returns isBranchOrCommitExist - 返回true/false
+ * @returns isBranchOrCommitExist - return true/false
  */
 function getIsBranchOrCommitExist(name: string, remote = false): boolean {
     if (!name) name = getCurrentBranch() || ''

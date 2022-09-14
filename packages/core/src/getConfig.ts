@@ -40,7 +40,9 @@ function getConfig(
     if (!pathName) {
         const { root } = getGitRevParse()
         if (!root) {
-            echo('当前目录不是git项目目录')
+            echo(
+                i18n.__('The current directory is not a git project directory')
+            )
             process.exit(1)
         }
         try {

@@ -1,15 +1,15 @@
 import { dirname, resolve } from 'path'
 import { fileURLToPath } from 'url'
 import { readFileSync, readdirSync, statSync, writeFileSync } from 'fs'
-// import { createRequireFromPath } from 'module';
-// const require = createRequireFromPath(__filename);
-
-import lang from '../packages/gitmars/src/locales/zh-CN.json' assert { type: 'json' }
+import { createRequire } from 'node:module'
+// import lang from '../packages/gitmars/src/locales/zh-CN.json' assert { type: 'json' }
+const require = createRequire(import.meta.url)
 
 global.__filename = fileURLToPath(import.meta.url)
 global.__dirname = dirname(__filename)
 
-const [, , filepath] = process.argv
+const [, , srcpath] = process.argv
+const lang = require(resolve(srcpath, 'locales', 'zh-CN.json'))
 
 function replaceI18n(file) {
     const langEntries = Object.entries(lang)
@@ -40,8 +40,8 @@ const readDir = entry => {
     })
 }
 
-if (filepath) readDir(filepath || 'packages/gitmars/src')
+if (srcpath) readDir(srcpath || 'packages/gitmars/src')
 else {
-    console.info('filepath is empty')
+    console.info('srcpath is empty')
     process.exit(0)
 }

@@ -2,6 +2,7 @@ import sh from 'shelljs'
 import chalk from 'chalk'
 import { spawnSync } from '#lib/spawn'
 import { debug } from '#lib/utils/debug'
+import i18n from '#lib/locales/index'
 
 /**
  * 获取git版本
@@ -14,7 +15,7 @@ function getGitVersion(): string | void {
         /[\d.?]+/g
     ) as string[]
     if (!version) {
-        sh.echo(chalk.yellow('没有找到git'))
+        sh.echo(chalk.yellow(i18n.__('git not found')))
         process.exit(1)
         return
     }
