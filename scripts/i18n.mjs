@@ -17,7 +17,10 @@ function replaceI18n(file) {
     let text = readFileSync(file, 'utf8')
 
     for (const langMap of langEntries) {
-        text = text.replace(`'${langMap[1]}'`, `i18n.__('${langMap[0]}')`)
+        text = text.replace(
+            new RegExp(`'${langMap[1]}'`, 'g'),
+            `i18n.__('${langMap[0]}')`
+        )
     }
     writeFileSync(file, text)
 }
