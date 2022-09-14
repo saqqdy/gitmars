@@ -18,6 +18,7 @@
     },
     "imports": {
         "#lib/*": {
+            "require": "./lib/*.js",
             "import": "./lib/*.mjs"
         }
     },
