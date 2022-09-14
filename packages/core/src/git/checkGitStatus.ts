@@ -2,6 +2,7 @@ import sh from 'shelljs'
 import chalk from 'chalk'
 import { debug } from '#lib/utils/debug'
 import getGitStatus from '#lib/git/getGitStatus'
+import i18n from '#lib/locales/index'
 
 /**
  * 检测状态，获取是否有未提交的文件
@@ -18,15 +19,25 @@ function checkGitStatus(): boolean {
         sum.UU.length > 0
     ) {
         sh.echo(
-            chalk.red('您还有未提交的文件，请处理后再继续') +
-                '\n如果需要暂存文件请执行: gitm save\n恢复时执行：gitm get'
+            chalk.red(
+                i18n.__(
+                    'You still have uncommitted files, please process them before continuing'
+                )
+            ) +
+                '\n' +
+                i18n.__(
+                    'If you need to staging files please do: gitm save\nWhen resuming: gitm get'
+                )
         )
         process.exit(1)
         return false
     } else if (sum['??'].length > 0) {
         sh.echo(
-            chalk.yellow('您有未加入版本的文件,') +
-                '\n如果需要暂存文件请执行: gitm save --force\n恢复时执行：gitm get'
+            chalk.yellow(i18n.__('You have uncommitted files')) +
+                ',\n' +
+                i18n.__(
+                    'If you need to staging files please run: gitm save --force\nWhen resuming: gitm get'
+                )
         )
     }
     return true

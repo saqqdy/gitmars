@@ -33,7 +33,7 @@ export const cmdConfig: GitmarsOptionType = {
             description: i18n.__('Sync to dev environment'),
             defaultValue: false,
             value: true,
-            recommend: true // 自定义值：是否默认选中
+            recommend: true // Custom value: whether to check by default
         },
         {
             flags: '-p, --prod',

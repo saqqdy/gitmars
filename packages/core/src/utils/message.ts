@@ -5,6 +5,7 @@ import getGitConfig from '#lib/git/getGitConfig'
 import getGitRevParse from '#lib/git/getGitRevParse'
 import getConfig from '#lib/getConfig'
 import mapTemplate from '#lib/utils/mapTemplate'
+import i18n from '#lib/locales/index'
 
 /**
  * 解析模板数据
@@ -49,7 +50,13 @@ export function getMessage(type: string): string {
 export async function postMessage(msg = ''): Promise<void> {
     const config = getConfig()
     if (!config.msgTemplate) {
-        sh.echo(chalk.red('请配置消息发送api模板地址'))
+        sh.echo(
+            chalk.red(
+                i18n.__(
+                    'Please configure the message sending api template address'
+                )
+            )
+        )
         return
     }
     const message = mapTemplate(config.msgTemplate, (key: string) => {
@@ -68,7 +75,7 @@ export async function postMessage(msg = ''): Promise<void> {
 export async function sendMessage(message = ''): Promise<void> {
     const config = getConfig()
     if (!config.msgUrl) {
-        sh.echo(chalk.red('请配置消息推送地址'))
+        sh.echo(chalk.red(i18n.__('Please configure the message push address')))
         return
     }
     message = message.replace(/\s/g, '')
@@ -87,7 +94,7 @@ export async function sendMessage(message = ''): Promise<void> {
                 }
             })
             .then(() => {
-                sh.echo(chalk.green('发送消息成功'))
+                sh.echo(chalk.green(i18n.__('Sending message successfully')))
             })
     }
 }

@@ -1,4 +1,5 @@
 import type { CommandMessageType } from '../../typings'
+import i18n from '#lib/locales/index'
 
 /**
  * 获取通用的指令提示信息
@@ -12,54 +13,54 @@ function getCommandMessage(cmd: string): CommandMessageType {
     if (arr.length < 2 || arr[0] !== 'git') return msg
     switch (arr[1]) {
         case 'checkout':
-            msg.processing = '正在切换分支'
-            msg.success = '切换分支成功'
-            msg.fail = '切换分支失败'
+            msg.processing = i18n.__('Checkout branches now')
+            msg.success = i18n.__('Checkout branch successfully')
+            msg.fail = i18n.__('Failed to checkout')
             break
         case 'pull':
-            msg.processing = '正在拉取代码'
-            msg.success = '拉取代码成功'
-            msg.fail = '拉取代码失败'
+            msg.processing = i18n.__('Pulling code now')
+            msg.success = i18n.__('Pulling code successfully')
+            msg.fail = i18n.__('Failed to pull code')
             break
         case 'fetch':
-            msg.processing = '正在拉取远程版本'
-            msg.success = '抓取成功'
-            msg.fail = '抓取失败'
+            msg.processing = i18n.__('Pulling remote version')
+            msg.success = i18n.__('Fetching success')
+            msg.fail = i18n.__('Failed to fetch')
             break
         case 'commit':
-            msg.processing = '正在提交'
-            msg.success = '提交成功'
-            msg.fail = '提交失败'
+            msg.processing = i18n.__('Committing')
+            msg.success = i18n.__('Commit success')
+            msg.fail = i18n.__('Commit Failure')
             break
         case 'push':
-            msg.processing = '正在推送'
-            msg.success = '推送成功'
-            msg.fail = '推送失败'
+            msg.processing = i18n.__('Pushing')
+            msg.success = i18n.__('Successful Pushed')
+            msg.fail = i18n.__('Push failed')
             break
         case 'cherry-pick':
-            msg.processing = '正在同步提交记录'
-            msg.success = '同步提交记录成功'
-            msg.fail = '同步提交记录失败'
+            msg.processing = i18n.__('Syncing submission records')
+            msg.success = i18n.__('Syncing submission records successfully')
+            msg.fail = i18n.__('Failed to sync commit records')
             break
         case 'merge':
-            msg.processing = '正在merge分支'
-            msg.success = 'merge分支成功'
-            msg.fail = 'merge分支失败'
+            msg.processing = i18n.__('Merging branch')
+            msg.success = i18n.__('merge branch succeeded')
+            msg.fail = i18n.__('merge branch failed')
             break
         case 'rebase':
-            msg.processing = '正在rebase分支'
-            msg.success = 'rebase分支成功'
-            msg.fail = 'rebase分支失败'
+            msg.processing = i18n.__('working on rebase branch')
+            msg.success = i18n.__('rebase branch succeeded')
+            msg.fail = i18n.__('rebase branch failed')
             break
         case 'revert':
-            msg.processing = '正在回撤代码'
-            msg.success = '撤销成功'
-            msg.fail = '撤销失败'
+            msg.processing = i18n.__('Undoing code')
+            msg.success = i18n.__('Undoing success')
+            msg.fail = i18n.__('undo failed')
             break
         case 'clean':
-            msg.processing = '正在清理'
-            msg.success = '清理成功'
-            msg.fail = '清理失败'
+            msg.processing = i18n.__('Cleaning up')
+            msg.success = i18n.__('Cleanup successful')
+            msg.fail = i18n.__('Cleanup failed')
             break
 
         default:

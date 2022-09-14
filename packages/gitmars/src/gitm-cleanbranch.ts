@@ -261,7 +261,7 @@ program.action(async (branches: string[], opt: GitmBuildOption) => {
                 i18n.__(
                     'Deletion complete, these branches have been cleaned up'
                 ) +
-                    '：' +
+                    ': ' +
                     _willDeleteBranch.join(' ')
             )
         )

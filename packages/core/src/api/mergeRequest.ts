@@ -2,6 +2,7 @@ import chalk from 'chalk'
 import request from '@jssj/request'
 import getConfig from '#lib/getConfig'
 import { debug } from '#lib/utils/debug'
+import i18n from '#lib/locales/index'
 const config = getConfig()
 
 const MERGE_REQUESTS_URL = `${config.gitHost}/api/v4/projects/${config.gitID}/merge_requests`
@@ -44,7 +45,7 @@ export async function createMergeRequest({
     if (fetchData && 'message' in fetchData) {
         const message = fetchData.message
             ? [].concat(fetchData.message).join('')
-            : '请求报错了'
+            : i18n.__('The request reported an error')
         return Promise.reject(chalk.red(message))
     }
     return fetchData
@@ -75,7 +76,7 @@ export async function getMergeRequestList({
     if (fetchData && 'message' in fetchData) {
         const message = fetchData.message
             ? [].concat(fetchData.message).join('')
-            : '请求报错了'
+            : i18n.__('The request reported an error')
         return Promise.reject(chalk.red(message))
     }
     return fetchData
@@ -105,7 +106,7 @@ export async function getMergeRequestCommits({
     if (fetchData && 'message' in fetchData) {
         const message = fetchData.message
             ? [].concat(fetchData.message).join('')
-            : '请求报错了'
+            : i18n.__('The request reported an error')
         return Promise.reject(chalk.red(message))
     }
     return fetchData
@@ -135,7 +136,7 @@ export async function getMergeRequestCloseIssues({
     if (fetchData && 'message' in fetchData) {
         const message = fetchData.message
             ? [].concat(fetchData.message).join('')
-            : '请求报错了'
+            : i18n.__('The request reported an error')
         return Promise.reject(chalk.red(message))
     }
     return fetchData
@@ -165,7 +166,7 @@ export async function getMergeRequestParticipants({
     if (fetchData && 'message' in fetchData) {
         const message = fetchData.message
             ? [].concat(fetchData.message).join('')
-            : '请求报错了'
+            : i18n.__('The request reported an error')
         return Promise.reject(chalk.red(message))
     }
     return fetchData
@@ -195,7 +196,7 @@ export async function getMergeRequestChanges({
     if (fetchData && 'message' in fetchData) {
         const message = fetchData.message
             ? [].concat(fetchData.message).join('')
-            : '请求报错了'
+            : i18n.__('The request reported an error')
         return Promise.reject(chalk.red(message))
     }
     return fetchData
@@ -225,7 +226,7 @@ export async function getMergeRequestDiffVersions({
     if (fetchData && 'message' in fetchData) {
         const message = fetchData.message
             ? [].concat(fetchData.message).join('')
-            : '请求报错了'
+            : i18n.__('The request reported an error')
         return Promise.reject(chalk.red(message))
     }
     return fetchData
@@ -256,7 +257,7 @@ export async function acceptMergeRequest({
     if (fetchData && 'message' in fetchData) {
         const message = fetchData.message
             ? [].concat(fetchData.message).join('')
-            : '请求报错了'
+            : i18n.__('The request reported an error')
         if (message === '500 Internal Server Error') return true
         return Promise.reject(chalk.red(message))
     }
@@ -290,7 +291,7 @@ export async function updateMergeRequest({
     if (fetchData && 'message' in fetchData) {
         const message = fetchData.message
             ? [].concat(fetchData.message).join('')
-            : '请求报错了'
+            : i18n.__('The request reported an error')
         if (message === '500 Internal Server Error') return true
         return Promise.reject(chalk.red(message))
     }
@@ -322,7 +323,7 @@ export async function deleteMergeRequest({
     if (fetchData && 'message' in fetchData) {
         const message = fetchData.message
             ? [].concat(fetchData.message).join('')
-            : '请求报错了'
+            : i18n.__('The request reported an error')
         if (message === '500 Internal Server Error') return true
         return Promise.reject(chalk.red(message))
     }

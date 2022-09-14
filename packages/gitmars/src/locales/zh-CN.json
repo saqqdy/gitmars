@@ -327,5 +327,7 @@
     "Detected that {{id}} has failed to undo this record and has deleted the related logs": "检测到{{id}}这条记录撤销失败，已删除相关日志",
     "The record {{id}} was detected to have been recovered, and the related logs were deleted": "检测到{{id}}这条记录已经被恢复了，已删除相关日志",
     "Please enter the comment content": "请输入评论内容",
-    "Please enter the available comments": "请输入可用评论"
+    "Please enter the available comments": "请输入可用评论",
+    "{{length}} comments": "{{length}} 条评论",
+    "{{id}} request merge {{source}} to {{target}} {{disabled}} | {{name}} | {{comments}} | {{time}}": "{{id}} 请求合并 {{source}} 到 {{target}} {{disabled}} | {{name}} | {{comments}} | {{time}}"
 }

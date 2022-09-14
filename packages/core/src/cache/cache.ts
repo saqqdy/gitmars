@@ -2,6 +2,7 @@ import { resolve } from 'path'
 import { createRequire } from 'node:module'
 import { isFileExist, removeFile, writeFile } from '#lib/utils/file'
 import { CACHE_PATH } from '#lib/utils/paths'
+import i18n from '#lib/locales/index'
 
 const require = createRequire(import.meta.url)
 
@@ -22,7 +23,7 @@ export function isCacheExpired(
 ) {
     const now = new Date().getTime()
     let timestamp: TimestampType = {}
-    if (!name) throw '请传入名称'
+    if (!name) throw i18n.__('Please pass in the name')
     // 没有找到缓存文件
     if (!isFileExist(resolve(CACHE_PATH + 'timestamp.json'))) return true
     // 从文件读取时间戳
@@ -38,7 +39,7 @@ export function isCacheExpired(
 export async function updateCacheTime(name: keyof TimestampType) {
     const now = new Date().getTime()
     let timestamp: TimestampType = {}
-    if (!name) throw '请传入名称'
+    if (!name) throw i18n.__('Please pass in the name')
     // 没有找到缓存文件
     if (isFileExist(resolve(CACHE_PATH + 'timestamp.json'))) {
         timestamp = require(resolve(CACHE_PATH + 'timestamp.json'))
@@ -52,7 +53,7 @@ export async function updateCacheTime(name: keyof TimestampType) {
 
 export async function cleanCache() {
     removeFile({
-        name: '缓存时间Map文件',
+        name: i18n.__('Cache time Map file'),
         url: resolve(CACHE_PATH + 'timestamp.json')
     })
 }

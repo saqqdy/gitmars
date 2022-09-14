@@ -120,15 +120,24 @@ program.action(async (opt: GitmBuildOption): Promise<void> => {
         const disabled = merge_status !== 'can_be_merged'
         const _time = dayjs(created_at).format('YYYY/MM/DD HH:mm')
         prompt[0].choices.push({
-            name: `${green(iid + '：')} 请求合并 ${green(
-                source_branch
-            )} 到 ${green(target_branch)} ${
-                disabled
-                    ? red(`[ ${i18n.__('Conflict or no need to merge')} ]`)
-                    : ''
-            } | ${yellow(author.name)} | ${green(
-                mr.notes.length + '条评论'
-            )} | ${blue(_time)}`,
+            name: i18n.__(
+                '{{id}} request merge {{source}} to {{target}} {{disabled}} | {{name}} | {{comments}} | {{time}}',
+                {
+                    id: green(iid + ': '),
+                    source: green(source_branch),
+                    target: green(target_branch),
+                    disabled: disabled
+                        ? red(`[ ${i18n.__('Conflict or no need to merge')} ]`)
+                        : '',
+                    name: yellow(author.name),
+                    comments: green(
+                        i18n.__('{{length}} comments', {
+                            length: String(mr.notes.length)
+                        })
+                    ),
+                    time: blue(_time)
+                }
+            ),
             value: iid,
             // disabled,
             checked: false
@@ -231,7 +240,7 @@ program.action(async (opt: GitmBuildOption): Promise<void> => {
                 )
             echo(green(i18n.__('Merge request {{id}}: Deleted', { id: iid })))
         } else if (accept === i18n.__('Not passed')) {
-            // 删除
+            // delete
             await updateMergeRequest({
                 token,
                 iid,

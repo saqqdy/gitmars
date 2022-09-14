@@ -11,6 +11,7 @@ import getHookComment from '#lib/hook/getHookComment'
 import getHookType from '#lib/hook/getHookType'
 import getHookShell from '#lib/hook/getHookShell'
 import getLocalShell from '#lib/hook/getLocalShell'
+import i18n from '#lib/locales/index'
 
 const hookList = [
     'applypatch-msg',
@@ -165,7 +166,11 @@ export function init(): void {
     const gitVersionIsNew = gitVersion && compareVersion(gitVersion, '2.13.0')
     // 集成环境不安装
     if (ciInfo.isCI && config.skipCI) {
-        console.info('持续集成环境，跳过钩子安装')
+        console.info(
+            i18n.__(
+                'Continuous integration environment, skip hook installation'
+            )
+        )
         return
     }
     // 如果没有hooks文件夹，创建
@@ -173,14 +178,24 @@ export function init(): void {
         fs.mkdirSync(gitHookDir)
     }
     if (['1', 'true'].includes(process.env.GITMARS_SKIP_HOOKS || '')) {
-        sh.echo(chalk.yellow('已存在环境变量GITMARS_SKIP_HOOKS，跳过安装'))
+        sh.echo(
+            chalk.yellow(
+                i18n.__(
+                    'Environment variable GITMARS_SKIP_HOOKS already exists, skip installation'
+                )
+            )
+        )
         process.exit(0)
     }
     // git版本过旧
     if (!gitVersionIsNew) {
         sh.echo(
             chalk.yellow(
-                'Gitmars需要使用2.13.0以上版本的Git，当前版本：' + gitVersion
+                i18n.__(
+                    'Gitmars requires Git version 2.13.0 or higher, current version'
+                ) +
+                    ': ' +
+                    gitVersion
             )
         )
         process.exit(0)

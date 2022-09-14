@@ -281,9 +281,9 @@ program.action(
                     )
                     process.exit(1)
                 } else {
-                    // 同步到prod环境
+                    // merge to prod
                     if (!opt.noBugfix && !opt.asFeature) {
-                        // 传入noBugfix不合bug,
+                        // noBugfix - do not merge to bug branch
                         if (!level || level < 3) {
                             // Is it necessary to merge prod
                             const isNeedCombineProd = !getIsMergedTargetBranch(

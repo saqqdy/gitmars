@@ -2,6 +2,7 @@ import sh from 'shelljs'
 import type { GitmarsLogType } from '../../typings'
 import getGitRevParse from '#lib/git/getGitRevParse'
 import { removeFile } from '#lib/utils/file'
+import i18n from '#lib/locales/index'
 
 const { gitDir } = getGitRevParse()
 
@@ -26,7 +27,7 @@ export function setLog(log: GitmarsLogType): void {
  */
 export function cleanLog() {
     removeFile({
-        name: 'Gitmars包缓存文件',
+        name: i18n.__('Gitmars package cache file'),
         url: gitDir + '/.gitmarslog'
     })
 }
