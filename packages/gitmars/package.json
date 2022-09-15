@@ -1,7 +1,7 @@
 {
     "name": "gitmars",
     "description": "这是一个git工作流工具",
-    "version": "4.0.0-alpha.13",
+    "version": "4.0.0-alpha.14",
     "private": false,
     "bin": {
         "gitm": "lib/gitm.mjs"
@@ -18,6 +18,7 @@
     },
     "imports": {
         "#lib/*": {
+            "require": "./lib/*.js",
             "import": "./lib/*.mjs"
         }
     },
@@ -42,7 +43,7 @@
     "dependencies": {
         "@gitmars/core": "workspace:*",
         "@jssj/request": "^1.1.0",
-        "chalk": "^5.0.1",
+        "chalk": "^4.1.2",
         "ci-info": "^3.3.2",
         "columnify": "^1.6.0",
         "commander": "^9.4.0",
@@ -51,10 +52,10 @@
         "dayjs": "^1.11.5",
         "debug": "^4.3.4",
         "i18n": "^0.15.0",
-        "inquirer": "^9.1.1",
+        "inquirer": "^8.2.4",
         "js-cool": "^2.5.0",
         "node-apollo": "^1.2.1",
-        "ora": "^6.1.2",
+        "ora": "^5.4.1",
         "os-locale": "^6.0.2",
         "shelljs": "^0.8.5",
         "slash": "^3.0.0"

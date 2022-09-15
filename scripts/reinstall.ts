@@ -19,9 +19,11 @@ const useWorkspace = true // 是否启用了workspace模式
 const PACKAGE_NEXT: string[] = [] // 需要安装next版本的包
 const PACKAGE_EXCLUDE: string[] = [
     'slash',
-    '@jssj/request',
     'lowdb',
-    'axios-ex'
+    'axios-ex',
+    'chalk',
+    'ora',
+    'inquirer'
 ] // 忽略的包
 const PACKAGE_MANAGERS: TypeManagers[] = ['pnpm', 'yarn', 'npm'] // 包管理工具优先级
 const cmd = getPackageManager()

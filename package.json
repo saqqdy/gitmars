@@ -1,7 +1,7 @@
 {
     "name": "@gitmars/monorepo",
     "description": "这是一个git工作流工具",
-    "version": "4.0.0-alpha.13",
+    "version": "4.0.0-alpha.14",
     "packageManager": "pnpm@7.11.0",
     "main": "index.js",
     "files": [
@@ -46,9 +46,9 @@
         "typings": "typings"
     },
     "dependencies": {
-        "chalk": "^5.0.1",
+        "chalk": "^4.1.2",
         "i18n": "^0.15.0",
-        "inquirer": "^9.1.1",
+        "inquirer": "^8.2.4",
         "js-cool": "^2.5.0",
         "morgan": "^1.10.0",
         "os-locale": "^6.0.2"
