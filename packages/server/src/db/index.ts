@@ -1,12 +1,12 @@
 // import { dirname, resolve } from 'path'
 // import { fileURLToPath } from 'url'
-const path = require('path')
-const fs = require('fs')
-const sh = require('shelljs')
-const low = require('lowdb')
-const FileSync = require('lowdb/adapters/FileSync')
-const home = require('../utils/home')
-const dbTmp = require('./db.json')
+import path from 'path'
+import fs from 'fs'
+import sh from 'shelljs'
+import low from 'lowdb'
+import FileSync from 'lowdb/adapters/FileSync'
+import home from '#lib/utils/home'
+import dbTmp from '#lib/db/db.json'
 
 // const __filename = fileURLToPath(import.meta.url)
 // const __dirname = dirname(__filename)
@@ -20,5 +20,4 @@ if (!sh.test('-f', dbPath)) {
 const adapter = new FileSync(dbPath)
 const db = low(adapter)
 
-module.exports = db
-export {}
+export default db

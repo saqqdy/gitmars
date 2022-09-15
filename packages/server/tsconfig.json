@@ -26,6 +26,10 @@
             "es2015.symbol.wellknown",
             "esnext.asynciterable"
         ],
-        "sourceMap": false
+        "sourceMap": false,
+        "baseUrl": ".",
+        "paths": {
+            "#lib/*": ["./src/*"]
+        }
     }
 }

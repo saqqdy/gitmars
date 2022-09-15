@@ -1,10 +1,10 @@
-// import { createRequire } from 'node:module'
+import { createRequire } from 'node:module'
 import type { Socket } from 'socket.io'
-// const require = createRequire(import.meta.url)
-const getCurrentBranch = require('@gitmars/core/lib/git/getCurrentBranch')
-const searchBranches = require('@gitmars/core/lib/git/searchBranches')
-const home = require('../utils/home')
+import getCurrentBranch from '@gitmars/core/lib/git/getCurrentBranch'
+import searchBranches from '@gitmars/core/lib/git/searchBranches'
+import home from '#lib/utils/home'
 
+const require = createRequire(import.meta.url)
 const homeDir = home()
 
 interface SocketOption {
@@ -49,7 +49,7 @@ const getData = (socket: Socket, option: SocketOption) => {
     }
 }
 
-module.exports = (socket: Socket) => {
+export default (socket: Socket) => {
     socket.on('create', option => {
         process.chdir(option.cwd || homeDir)
         getData(socket, option)
@@ -72,4 +72,3 @@ module.exports = (socket: Socket) => {
         socket.removeAllListeners(name + '-current')
     })
 }
-export {}

@@ -2,7 +2,7 @@ import express from 'express'
 const STATIC_MAX_AGE = 1 * 24 * 60 * 60
 const HTML_MAX_AGE = 0
 
-module.exports = function (path: string) {
+export default function (path: string) {
     return [
         express.static(path, {
             maxAge: STATIC_MAX_AGE,
@@ -23,4 +23,3 @@ module.exports = function (path: string) {
         })
     ]
 }
-export {}

@@ -1,13 +1,14 @@
 import type { NextFunction, Request, Response } from 'express'
-const express = require('express')
-const router = express.Router()
-const {
+import express from 'express'
+import {
     enterDir,
     getBranchList,
     getCurrent,
     getStatus,
     readFile
-} = require('../controller/cmd')
+} from '#lib/controller/cmd'
+
+const router = express.Router()
 
 // 开启跨域访问
 router.all('*', (req: Request, res: Response, next: NextFunction) => {
@@ -40,5 +41,4 @@ router.get('/branch/current', getCurrent)
 // 读取文件
 router.get('/fs/read', readFile)
 
-module.exports = router
-export {}
+export default router

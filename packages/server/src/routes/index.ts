@@ -1,11 +1,11 @@
-const { join } = require('path')
-const express = require('express')
+import { join } from 'path'
+import express from 'express'
+import { index } from '#lib/controller/index'
 const router = express.Router()
 
-const { index } = require('../controller')
 const [, uiBin] = process.argv
 const distPath = join(uiBin, '../../lib/node_modules/@gitmars/ui/dist')
 
 router.use('/', index(distPath))
 
-module.exports = router
+export default router

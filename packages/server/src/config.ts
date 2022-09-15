@@ -1,13 +1,13 @@
 // import { dirname, resolve } from 'path'
 // import { fileURLToPath } from 'url'
-const { resolve } = require('path')
+import { resolve } from 'path'
 
 // const __filename = fileURLToPath(import.meta.url)
 // const __dirname = dirname(__filename)
 const baseDir = resolve(__dirname, '.')
 const root = resolve(baseDir, '..')
 
-module.exports = {
+export default {
     path: {
         root,
         controller: resolve(baseDir, 'controller'),
@@ -39,4 +39,3 @@ module.exports = {
     mysql: null, // 连接mysql用到的配置
     redis: null // 连接redis用到的配置
 }
-export {}

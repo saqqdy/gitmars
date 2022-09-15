@@ -1,6 +1,6 @@
-const express = require('express')
+import express from 'express'
 
-module.exports = function (path) {
+export default function (path) {
     return [
         express.static(path, {
             maxAge: 0,
@@ -21,4 +21,3 @@ module.exports = function (path) {
         })
     ]
 }
-export {}

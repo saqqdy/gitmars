@@ -4,7 +4,7 @@
     "version": "4.0.0-alpha.14",
     "private": false,
     "bin": {
-        "gitm-ui": "./index.js"
+        "gitm-ui": "./index.mjs"
     },
     "files": [
         "dist",

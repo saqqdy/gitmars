@@ -1,11 +1,11 @@
+import { sep } from 'path'
+import { execSync } from 'child_process'
 import type { Request, Response } from 'express'
-const { sep } = require('path')
-const { execSync } = require('child_process')
-const error503 = require('../helper/503')
-const success = require('../helper/200')
-const common = require('../service/common')
+import error503 from '#lib/helper/503'
+import success from '#lib/helper/200'
+import common from '#lib/service/common'
 
-async function addProject(req: Request, res: Response) {
+export async function addProject(req: Request, res: Response) {
     // const cwd = process.cwd()
     let { path: dir = null } = req.body
     if (!dir) {
@@ -26,7 +26,7 @@ async function addProject(req: Request, res: Response) {
     success(req, res, { data })
 }
 
-async function checkProject(req: Request, res: Response) {
+export async function checkProject(req: Request, res: Response) {
     const { path } = req.query
     if (!path) {
         error503(req, res)
@@ -55,7 +55,7 @@ async function checkProject(req: Request, res: Response) {
     })
 }
 
-async function delProject(req: Request, res: Response) {
+export async function delProject(req: Request, res: Response) {
     const { id } = req.body
     if (!id) {
         error503(req, res)
@@ -65,13 +65,13 @@ async function delProject(req: Request, res: Response) {
     success(req, res, { data })
 }
 
-async function getProjectList(req: Request, res: Response) {
+export async function getProjectList(req: Request, res: Response) {
     const { id } = req.query
     const data = await common.getProjectList({ id })
     success(req, res, { data })
 }
 
-async function updateProject(req: Request, res: Response) {
+export async function updateProject(req: Request, res: Response) {
     const { id, name, path } = req.body
     if (!id) {
         error503(req, res)
@@ -81,11 +81,10 @@ async function updateProject(req: Request, res: Response) {
     success(req, res, { data })
 }
 
-module.exports = {
+export default {
     addProject,
     checkProject,
     delProject,
     getProjectList,
     updateProject
 }
-export {}

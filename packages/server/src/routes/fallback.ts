@@ -1,9 +1,8 @@
-const express = require('express')
-const fallbackController = require('../controller/fallback')
+import express from 'express'
+import fallbackController from '#lib/controller/fallback'
 
 const router = express.Router()
 
 router.use('/', fallbackController())
 
-module.exports = router
-export {}
+export default router

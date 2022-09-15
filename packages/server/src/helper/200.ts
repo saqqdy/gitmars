@@ -5,7 +5,7 @@ interface ResponseData {
     msg?: 'success' | 'fail'
 }
 
-module.exports = function (
+export default function (
     req: Request,
     res: Response,
     { data = true, msg = 'success' }: ResponseData
@@ -17,4 +17,3 @@ module.exports = function (
         msg
     })
 }
-export {}
