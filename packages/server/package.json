@@ -1,12 +1,19 @@
 {
     "name": "@gitmars/server",
     "description": "gitmars可视化界面服务端",
-    "version": "4.0.0-alpha.13",
+    "version": "4.0.0-alpha.14",
     "private": false,
     "bin": {
         "gitm-server": "./lib/www.js"
     },
     "main": "./lib/www.js",
+    "module": "./lib/www.mjs",
+    "imports": {
+        "#lib/*": {
+            "require": "./lib/*.js",
+            "import": "./lib/*.mjs"
+        }
+    },
     "files": [
         "lib",
         "typings",
