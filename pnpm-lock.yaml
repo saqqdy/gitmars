@@ -54,7 +54,7 @@ importers:
       typescript: ^4.7.4
       uglify-js: ^3.17.0
       unplugin-vue-define-options: ^0.11.1
-      vitepress: 1.0.0-alpha.14
+      vitepress: 1.0.0-alpha.15
     dependencies:
       chalk: 4.1.2
       i18n: 0.15.0
@@ -107,7 +107,7 @@ importers:
       typescript: 4.7.4
       uglify-js: 3.17.0
       unplugin-vue-define-options: 0.11.1_75tz4fz3hdw34ihj4xz6ux6bmq
-      vitepress: 1.0.0-alpha.14
+      vitepress: 1.0.0-alpha.15
 
   packages/core:
     specifiers:
@@ -187,7 +187,7 @@ importers:
       prettier: ^2.7.1
       tsnd: ^1.1.0
       typescript: ^4.7.4
-      vitepress: 1.0.0-alpha.14
+      vitepress: 1.0.0-alpha.15
     dependencies:
       js-cool: 2.4.0
     devDependencies:
@@ -201,7 +201,7 @@ importers:
       prettier: 2.7.1
       tsnd: 1.1.0
       typescript: 4.7.4
-      vitepress: 1.0.0-alpha.14
+      vitepress: 1.0.0-alpha.15
 
   packages/gitmars:
     specifiers:
@@ -13260,8 +13260,8 @@ packages:
       fsevents: 2.3.2
     dev: true
 
-  /vitepress/1.0.0-alpha.14:
-    resolution: {integrity: sha512-GVwDeZPc/+5vgxOh0NfbKlk/QT4e20hRUdLdG+hEP8myJmM0IC4uIL7xK2G/wn6ucei9hLb0YQh677oDhCxF6g==}
+  /vitepress/1.0.0-alpha.15:
+    resolution: {integrity: sha512-+pHJQCpnv0wVgLRyonisrj7Y77PVhbns2nTLxV9GkH3T+RTY/W2JmRatzBg5WciMaPyO8Ms6F3YElO5PULVv3w==}
     hasBin: true
     dependencies:
       '@docsearch/css': 3.2.1
