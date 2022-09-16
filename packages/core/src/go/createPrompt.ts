@@ -94,20 +94,23 @@ function createPrompt(
                     }${
                         !opts.required
                             ? chalk.yellow(
-                                  i18n.__('(' + 'Not required{{tips}}' + ')', {
-                                      tips:
-                                          'defaultValue' in opts &&
-                                          opts.defaultValue !== ''
-                                              ? ', ' +
-                                                i18n.__(
-                                                    'default "{{defaultValue}}"',
-                                                    {
-                                                        defaultValue:
-                                                            opts.defaultValue
-                                                    }
-                                                )
-                                              : ''
-                                  })
+                                  i18n.__(
+                                      '(' + 'Not required{{{tips}}}' + ')',
+                                      {
+                                          tips:
+                                              'defaultValue' in opts &&
+                                              opts.defaultValue !== ''
+                                                  ? ', ' +
+                                                    i18n.__(
+                                                        'default "{{{defaultValue}}}"',
+                                                        {
+                                                            defaultValue:
+                                                                opts.defaultValue
+                                                        }
+                                                    )
+                                                  : ''
+                                      }
+                                  )
                               )
                             : ''
                     }`,

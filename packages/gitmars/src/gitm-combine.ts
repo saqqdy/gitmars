@@ -204,14 +204,14 @@ program.action(
                                   config: {
                                       again: false,
                                       success: i18n.__(
-                                          'Merge {{source}} into {{target}} successfully',
+                                          'Merge {{{source}}} into {{{target}}} successfully',
                                           {
                                               source: `${type}/${name}`,
                                               target: config.develop
                                           }
                                       ),
                                       fail: i18n.__(
-                                          'An error occurred merging {{source}} to {{target}}, Please follow the instructions',
+                                          'An error occurred merging {{{source}}} to {{{target}}}, Please follow the instructions',
                                           {
                                               source: `${type}/${name}`,
                                               target: config.develop
@@ -234,7 +234,7 @@ program.action(
                         : [
                               {
                                   message: i18n.__(
-                                      '{{source}} has been merged with {{target}}',
+                                      '{{{source}}} has been merged with {{{target}}}',
                                       {
                                           source: `${type}/${name}`,
                                           target: config.develop
@@ -274,7 +274,7 @@ program.action(
                     sh.echo(
                         yellow(
                             i18n.__(
-                                'If your branch has not been merged into {{target}}, please merge it into the {{target}} branch first',
+                                'If your branch has not been merged into {{{target}}}, please merge it into the {{{target}}} branch first',
                                 { target: config.develop }
                             )
                         )
@@ -302,14 +302,14 @@ program.action(
                                               config: {
                                                   again: false,
                                                   success: i18n.__(
-                                                      'Merge {{source}} into {{target}} successfully',
+                                                      'Merge {{{source}}} into {{{target}}} successfully',
                                                       {
                                                           source: `${type}/${name}`,
                                                           target: base
                                                       }
                                                   ),
                                                   fail: i18n.__(
-                                                      'An error occurred merging {{source}} to {{target}}, Please follow the instructions',
+                                                      'An error occurred merging {{{source}}} to {{{target}}}, Please follow the instructions',
                                                       {
                                                           source: `${type}/${name}`,
                                                           target: base
@@ -335,7 +335,7 @@ program.action(
                                     : [
                                           {
                                               message: i18n.__(
-                                                  '{{source}} has been merged with {{target}}',
+                                                  '{{{source}}} has been merged with {{{target}}}',
                                                   {
                                                       source: `${type}/${name}`,
                                                       target: base
@@ -390,7 +390,7 @@ program.action(
                                     }
                                 },
                                 `gitm postmsg "${i18n.__(
-                                    '{{nickname}} submitted a merge request for {{source}} branch to {{target}} branch in {{app}} project',
+                                    '{{nickname}} submitted a merge request for {{{source}}} branch to {{{target}}} branch in {{app}} project',
                                     {
                                         nickname,
                                         app: appName,
@@ -421,14 +421,14 @@ program.action(
                                               config: {
                                                   again: false,
                                                   success: i18n.__(
-                                                      'Merge {{source}} into {{target}} successfully',
+                                                      'Merge {{{source}}} into {{{target}}} successfully',
                                                       {
                                                           source: `${type}/${name}`,
                                                           target: config.release
                                                       }
                                                   ),
                                                   fail: i18n.__(
-                                                      'An error occurred merging {{source}} to {{target}}, Please follow the instructions',
+                                                      'An error occurred merging {{{source}}} to {{{target}}}, Please follow the instructions',
                                                       {
                                                           source: `${type}/${name}`,
                                                           target: config.release
@@ -454,7 +454,7 @@ program.action(
                                     : [
                                           {
                                               message: i18n.__(
-                                                  '{{source}} has been merged with {{target}}',
+                                                  '{{{source}}} has been merged with {{{target}}}',
                                                   {
                                                       source: `${type}/${name}`,
                                                       target: config.release
@@ -509,7 +509,7 @@ program.action(
                                     }
                                 },
                                 `gitm postmsg "${i18n.__(
-                                    '{{nickname}} submitted a merge request for {{source}} branch to {{target}} branch in {{app}} project',
+                                    '{{nickname}} submitted a merge request for {{{source}}} branch to {{{target}}} branch in {{app}} project',
                                     {
                                         nickname,
                                         app: appName,
@@ -540,14 +540,14 @@ program.action(
                                               config: {
                                                   again: false,
                                                   success: i18n.__(
-                                                      'Merge {{source}} into {{target}} successfully',
+                                                      'Merge {{{source}}} into {{{target}}} successfully',
                                                       {
                                                           source: `${type}/${name}`,
                                                           target: config.bugfix
                                                       }
                                                   ),
                                                   fail: i18n.__(
-                                                      'An error occurred merging {{source}} to {{target}}, Please follow the instructions',
+                                                      'An error occurred merging {{{source}}} to {{{target}}}, Please follow the instructions',
                                                       {
                                                           source: `${type}/${name}`,
                                                           target: config.bugfix
@@ -573,7 +573,7 @@ program.action(
                                     : [
                                           {
                                               message: i18n.__(
-                                                  '{{source}} has been merged with {{target}}',
+                                                  '{{{source}}} has been merged with {{{target}}}',
                                                   {
                                                       source: `${type}/${name}`,
                                                       target: config.bugfix
@@ -628,7 +628,7 @@ program.action(
                                     }
                                 },
                                 `gitm postmsg "${i18n.__(
-                                    '{{nickname}} submitted a merge request for {{source}} branch to {{target}} branch in {{app}} project',
+                                    '{{nickname}} submitted a merge request for {{{source}}} branch to {{{target}}} branch in {{app}} project',
                                     {
                                         nickname,
                                         app: appName,

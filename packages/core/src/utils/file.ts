@@ -61,7 +61,7 @@ export function removeFile(
         file.name &&
             spinner.start(
                 chalk.green(
-                    i18n.__('Processing: {{something}}', {
+                    i18n.__('Processing: {{{something}}}', {
                         something: file.name
                     })
                 )

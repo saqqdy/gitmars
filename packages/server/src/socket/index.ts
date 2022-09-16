@@ -1,9 +1,9 @@
 import type http from 'http'
-const SocketServer = require('./socket')
-const terminal = require('./terminal')
-const gitmars = require('./gitmars')
+import SocketServer from '#lib/socket/socket'
+import terminal from '#lib/socket/terminal'
+import gitmars from '#lib/socket/gitmars'
 
-module.exports = (server: http.Server) => {
+export default (server: http.Server) => {
     const socketServer = new SocketServer(server, {
         pingTimeout: 1000 * 60 * 60 * 24,
         cors: {
@@ -15,4 +15,3 @@ module.exports = (server: http.Server) => {
     socketServer.use('terminal', terminal)
     socketServer.use('gitmars', gitmars)
 }
-export {}

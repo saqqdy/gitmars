@@ -182,14 +182,14 @@ program.action(
                         config: {
                             again: false,
                             success: i18n.__(
-                                'Merge {{source}} into {{target}} successfully',
+                                'Merge {{{source}}} into {{{target}}} successfully',
                                 {
                                     source: `${type}/${name}`,
                                     target: config.develop
                                 }
                             ),
                             fail: i18n.__(
-                                'An error occurred merging {{source}} to {{target}}, Please follow the instructions',
+                                'An error occurred merging {{{source}}} to {{{target}}}, Please follow the instructions',
                                 {
                                     source: `${type}/${name}`,
                                     target: config.develop
@@ -222,14 +222,14 @@ program.action(
                             config: {
                                 again: false,
                                 success: i18n.__(
-                                    'Merge {{source}} into {{target}} successfully',
+                                    'Merge {{{source}}} into {{{target}}} successfully',
                                     {
                                         source: `${type}/${name}`,
                                         target: config.bugfix
                                     }
                                 ),
                                 fail: i18n.__(
-                                    'An error occurred merging {{source}} to {{target}}, Please follow the instructions',
+                                    'An error occurred merging {{{source}}} to {{{target}}}, Please follow the instructions',
                                     {
                                         source: `${type}/${name}`,
                                         target: config.bugfix
@@ -295,7 +295,7 @@ program.action(
                             }
                         },
                         `gitm postmsg "${i18n.__(
-                            '{{nickname}} submitted a merge request for {{source}} branch to {{target}} branch in {{app}} project',
+                            '{{nickname}} submitted a merge request for {{{source}}} branch to {{{target}}} branch in {{app}} project',
                             {
                                 nickname,
                                 app: appName,
@@ -353,14 +353,14 @@ program.action(
                             config: {
                                 again: false,
                                 success: i18n.__(
-                                    'Merge {{source}} into {{target}} successfully',
+                                    'Merge {{{source}}} into {{{target}}} successfully',
                                     {
                                         source: `${type}/${name}`,
                                         target: base
                                     }
                                 ),
                                 fail: i18n.__(
-                                    'An error occurred merging {{source}} to {{target}}, Please follow the instructions',
+                                    'An error occurred merging {{{source}}} to {{{target}}}, Please follow the instructions',
                                     {
                                         source: `${type}/${name}`,
                                         target: base
@@ -456,7 +456,7 @@ program.action(
                             }
                         },
                         `gitm postmsg "${i18n.__(
-                            '{{nickname}} submitted a merge request for {{source}} branch to {{target}} branch in {{app}} project',
+                            '{{nickname}} submitted a merge request for {{{source}}} branch to {{{target}}} branch in {{app}} project',
                             {
                                 nickname,
                                 app: appName,

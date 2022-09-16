@@ -1,15 +1,15 @@
 // import { dirname, resolve } from 'path'
 // import { fileURLToPath } from 'url'
+import { join } from 'path'
 import type { NextFunction, Request, Response } from 'express'
-const { join } = require('path')
-const createError = require('http-errors')
-const express = require('express')
-const cookieParser = require('cookie-parser')
-// const logger = require('logger')
-const indexRouter = require('./routes/index')
-const cmdRouter = require('./routes/cmd')
-const commonRouter = require('./routes/common')
-const fallbackRouter = require('./routes/fallback')
+import createError from 'http-errors'
+import express from 'express'
+import cookieParser from 'cookie-parser'
+// import logger from 'logger'
+import indexRouter from '#lib/routes/index'
+import cmdRouter from '#lib/routes/cmd'
+import commonRouter from '#lib/routes/common'
+import fallbackRouter from '#lib/routes/fallback'
 
 // const __filename = fileURLToPath(import.meta.url)
 // const __dirname = dirname(__filename)
@@ -51,4 +51,4 @@ app.use(function (err: any, req: Request, res: Response) {
     res.render('error')
 })
 
-module.exports = app
+export { app as default }

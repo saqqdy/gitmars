@@ -39,7 +39,7 @@ program
                 prompts.push({
                     type: 'input',
                     name: key,
-                    message: i18n.__('Please enter {{branch}} branch name', {
+                    message: i18n.__('Please enter {{{branch}}} branch name', {
                         branch: key
                     }),
                     default: () => key,
@@ -98,17 +98,6 @@ program
                     default: () =>
                         '${message}; project: ${project}; path: ${pwd}',
                     transformer: val => val.trim()
-                })
-            } else if (key === 'msgUrl') {
-                prompts.push({
-                    type: 'input',
-                    name: key,
-                    message: i18n.__('Please enter the message push address'),
-                    transformer: val => val.trim(),
-                    validate: val =>
-                        val === '' || /^https?:\/\/[\S]*$/.test(val)
-                            ? true
-                            : i18n.__('Please enter the URL')
                 })
             } else if (key === 'apolloConfig') {
                 prompts.push({

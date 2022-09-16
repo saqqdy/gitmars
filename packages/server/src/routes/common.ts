@@ -1,12 +1,12 @@
 import type { NextFunction, Request, Response } from 'express'
-const express = require('express')
-const {
+import express from 'express'
+import {
     addProject,
     checkProject,
     delProject,
     getProjectList,
     updateProject
-} = require('../controller/common')
+} from '#lib/controller/common'
 
 const router = express.Router()
 
@@ -36,5 +36,4 @@ router.get('/project/update', updateProject)
 // 检测项目
 router.get('/project/check', checkProject)
 
-module.exports = router
-export {}
+export default router

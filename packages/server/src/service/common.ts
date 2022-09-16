@@ -1,9 +1,9 @@
-// const { execSync } = require('child_process')
-const sh = require('shelljs')
-const { v4: uuidv4 } = require('uuid')
-const db = require('../db')
+// import { execSync } from 'child_process'
+import sh from 'shelljs'
+import { v4 as uuidv4 } from 'uuid'
+import db from '#lib/db/index'
 
-function addProject({ name, path }: any) {
+export function addProject({ name, path }: any) {
     return new Promise((resolve, reject) => {
         const id = uuidv4()
         try {
@@ -15,7 +15,7 @@ function addProject({ name, path }: any) {
     })
 }
 
-function checkProject({ path }: any) {
+export function checkProject({ path }: any) {
     return new Promise((resolve, reject) => {
         let code = sh.test('-e', `${path}/.git`) ? 0 : 1
         try {
@@ -29,7 +29,7 @@ function checkProject({ path }: any) {
     })
 }
 
-function delProject({ id }: any) {
+export function delProject({ id }: any) {
     return new Promise((resolve, reject) => {
         try {
             db.get('projects').remove({ id }).write()
@@ -40,7 +40,7 @@ function delProject({ id }: any) {
     })
 }
 
-function getProjectList({ id }: any) {
+export function getProjectList({ id }: any) {
     return new Promise((resolve, reject) => {
         let list = []
         try {
@@ -56,7 +56,7 @@ function getProjectList({ id }: any) {
     })
 }
 
-function updateProject({ id, name, path }: any) {
+export function updateProject({ id, name, path }: any) {
     return new Promise((resolve, reject) => {
         try {
             db.get('projects').find({ id }).assign({ name, path }).write()
@@ -67,11 +67,10 @@ function updateProject({ id, name, path }: any) {
     })
 }
 
-module.exports = {
+export default {
     addProject,
     checkProject,
     delProject,
     getProjectList,
     updateProject
 }
-export {}

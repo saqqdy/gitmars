@@ -1,6 +1,6 @@
 import type http from 'http'
 import type { ServerOptions, Socket } from 'socket.io'
-const SocketIoServer = require('socket.io')
+import SocketIoServer from 'socket.io'
 
 type EventsMap = Record<string, any>
 interface ListenEvents
@@ -41,5 +41,4 @@ class SocketServer {
     }
 }
 
-module.exports = SocketServer
-export {}
+export default SocketServer

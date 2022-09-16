@@ -1,12 +1,11 @@
 {
     "name": "@gitmars/server",
     "description": "gitmars可视化界面服务端",
-    "version": "4.0.0-alpha.14",
+    "version": "4.0.0-alpha.15",
     "private": false,
     "bin": {
-        "gitm-server": "./lib/www.js"
+        "gitm-server": "./lib/www.mjs"
     },
-    "main": "./lib/www.js",
     "module": "./lib/www.mjs",
     "imports": {
         "#lib/*": {
@@ -42,6 +41,7 @@
         "debug": "^4.3.4",
         "express": "^4.18.1",
         "fast-glob": "^3.2.11",
+        "gitmars": "workspace:*",
         "hbs": "^4.2.0",
         "http-errors": "^2.0.0",
         "i18n": "^0.15.0",

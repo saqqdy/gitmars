@@ -1,7 +1,7 @@
-const express = require('express')
-const notFind = require('./404')
+import express from 'express'
+import notFind from '#lib/helper/404'
 
-module.exports = function (path) {
+export default function (path) {
     return [
         express.static(path, {
             maxAge: 0,
@@ -10,4 +10,3 @@ module.exports = function (path) {
         notFind
     ]
 }
-export {}

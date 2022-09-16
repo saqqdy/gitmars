@@ -52,7 +52,7 @@ program.action(() => {
     }
     echo(
         green(
-            i18n.__('Current branch: {{something}}', { something: current }) +
+            i18n.__('Current branch: {{{something}}}', { something: current }) +
                 '\n'
         )
     )

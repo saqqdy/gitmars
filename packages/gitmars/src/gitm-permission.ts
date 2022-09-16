@@ -49,7 +49,7 @@ program
             sh.echo(
                 red(
                     i18n.__(
-                        'The {{target}} branch does not allow direct commits',
+                        'The {{{target}}} branch does not allow direct commits',
                         {
                             target: allow[index]
                         }

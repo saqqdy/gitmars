@@ -1,10 +1,10 @@
 {
     "name": "@gitmars/ui",
     "description": "gitmars可视化界面",
-    "version": "4.0.0-alpha.14",
+    "version": "4.0.0-alpha.15",
     "private": false,
     "bin": {
-        "gitm-ui": "./index.js"
+        "gitm-ui": "./index.mjs"
     },
     "files": [
         "dist",

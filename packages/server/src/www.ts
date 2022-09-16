@@ -1,13 +1,13 @@
 #!/usr/bin/env node
 
 import { type AddressInfo } from 'net'
-const { exec } = require('child_process')
-const http = require('http')
-const debug = require('debug')
-const app = require('./app')
-const port = normalizePort(process.env.PORT || '3000') // Get port from environment and store in Express.
-const createSocketServer = require('./socket')
+import { exec } from 'child_process'
+import http from 'http'
+import debug from 'debug'
+import app from '#lib/app'
+import createSocketServer from '#lib/socket/index'
 
+const port = normalizePort(process.env.PORT || '3000') // Get port from environment and store in Express.
 const debugHandle = debug('server:server')
 
 app.set('port', port)

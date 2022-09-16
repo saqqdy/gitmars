@@ -1,9 +1,9 @@
+import { join } from 'path'
 import type { Request, Response } from 'express'
-const { join } = require('path')
-// const config = require('../config')
-const staticAssets = require('../helper/static-assets')
+// import config from '#lib/config'
+import staticAssets from '#lib/helper/static-assets'
 
-function index(path: string) {
+export function index(path: string) {
     if (!path) path = join(process.cwd(), 'dist')
     return [
         staticAssets(path),
@@ -15,7 +15,4 @@ function index(path: string) {
     ]
 }
 
-module.exports = {
-    index
-}
-export {}
+export { index as default }

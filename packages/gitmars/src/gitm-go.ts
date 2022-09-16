@@ -32,7 +32,7 @@ program.action(async (command: string): Promise<void> => {
     sh.echo(
         green(
             i18n.__(
-                'Current branch is {{current}}, I suspect you may want to do the following: ',
+                'Current branch is {{{current}}}, I suspect you may want to do the following: ',
                 { current }
             )
         )
@@ -102,9 +102,12 @@ program.action(async (command: string): Promise<void> => {
                 }
                 sh.echo(
                     green(
-                        i18n.__('You have selected the {{something}} command', {
-                            something: answers.command
-                        })
+                        i18n.__(
+                            'You have selected the {{{something}}} command',
+                            {
+                                something: answers.command
+                            }
+                        )
                     )
                 )
                 // 执行对应指令

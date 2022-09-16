@@ -1,8 +1,8 @@
 import sh from 'shelljs'
-import request from '@jssj/request'
 import chalk from 'chalk'
 import getGitConfig from '#lib/git/getGitConfig'
 import getGitRevParse from '#lib/git/getGitRevParse'
+import sendGroupMessage from '#lib/sendGroupMessage'
 import getConfig from '#lib/getConfig'
 import mapTemplate from '#lib/utils/mapTemplate'
 import i18n from '#lib/locales/index'
@@ -63,44 +63,10 @@ export async function postMessage(msg = ''): Promise<void> {
         if (key === 'message') return msg
         return getMessage(key)
     })
-    config.msgUrl && message && (await sendMessage(message))
-}
-
-/**
- * 发送消息
- *
- * @param message - 消息
- * @param cfg - 配置 SendMessageType
- */
-export async function sendMessage(message = ''): Promise<void> {
-    const config = getConfig()
-    if (!config.msgUrl) {
-        sh.echo(chalk.red(i18n.__('Please configure the message push address')))
-        return
-    }
-    message = message.replace(/\s/g, '')
-    if (config.msgUrl) {
-        await request
-            .post({
-                url: config.msgUrl,
-                data: {
-                    envParams: {
-                        error_msg: message
-                    }
-                },
-                headers: {
-                    'Content-Type': 'application/json',
-                    Accept: 'application/json'
-                }
-            })
-            .then(() => {
-                sh.echo(chalk.green(i18n.__('Sending message successfully')))
-            })
-    }
+    message && (await sendGroupMessage(message))
 }
 
 export default {
     getMessage,
-    postMessage,
-    sendMessage
+    postMessage
 }

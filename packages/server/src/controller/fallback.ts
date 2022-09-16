@@ -1,12 +1,13 @@
 import type { NextFunction, Request, Response } from 'express'
-const log4js = require('../log/logger')
+import log4js from '#lib/log/logger'
+
 const logger = log4js.getLogger('website')
 
 interface ErrorType extends Error {
     status: number
 }
 
-module.exports = function () {
+export default function () {
     return [
         // 404 not found
         (req: Request, res: Response, next: NextFunction) => {
@@ -31,4 +32,3 @@ module.exports = function () {
         }
     ]
 }
-export {}

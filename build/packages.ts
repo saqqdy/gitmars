@@ -28,7 +28,8 @@ export const packages: PackageManifest[] = [
         pkgName: '@gitmars/server',
         buildTask: 'lib',
         iife: false,
-        mjs: false,
+        cjs: false,
+        mjs: true,
         dts: false,
         output: 'lib',
         display: 'gitmars可视化界面服务端'

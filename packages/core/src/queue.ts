@@ -107,7 +107,7 @@ export function queue(
                     cfg.fail ||
                         msg.fail ||
                         i18n.__(
-                            'An error has occurred! Command {{command}} execution failed, process exits',
+                            'An error has occurred! Command {{{command}}} execution failed, process exits',
                             {
                                 command: cmd as string
                             }
@@ -117,7 +117,7 @@ export function queue(
             cfg.postmsg &&
                 postMessage(
                     i18n.__(
-                        'An error has occurred! Command {{command}} execution failed, process exits',
+                        'An error has occurred! Command {{{command}}} execution failed, process exits',
                         {
                             command: cmd as string
                         }
@@ -136,7 +136,7 @@ export function queue(
             const _message =
                 cfg.fail ||
                 msg.fail ||
-                i18n.__('Command {{command}} Execution failed', {
+                i18n.__('Command {{{command}}} Execution failed', {
                     command: cmd as string
                 })
             _message && spinner.warn(chalk.yellow(_message))

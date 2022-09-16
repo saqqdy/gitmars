@@ -353,7 +353,7 @@ program.action(
                         console.info(
                             red(
                                 i18n.__(
-                                    'Your branch was detected as not having merged {{target}}',
+                                    'Your branch was detected as not having merged {{{target}}}',
                                     {
                                         target: config.develop
                                     }
@@ -365,7 +365,7 @@ program.action(
                         console.info(
                             green(
                                 i18n.__(
-                                    '{{source}} branch has merged {{target}} branch',
+                                    '{{{source}}} branch has merged {{{target}}} branch',
                                     { source: branch, target: config.develop }
                                 )
                             )
@@ -389,7 +389,7 @@ program.action(
                         console.info(
                             red(
                                 i18n.__(
-                                    'Detected that you have not update codes from {{source}} branch in 1 week',
+                                    'Detected that you have not update codes from {{{source}}} branch in 1 week',
                                     { source: branchPrefix }
                                 )
                             )
@@ -399,7 +399,7 @@ program.action(
                         console.info(
                             green(
                                 i18n.__(
-                                    'The {{source}} branch has updated from main branch',
+                                    'The {{{source}}} branch has updated from main branch',
                                     {
                                         source: branch
                                     }

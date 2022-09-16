@@ -290,6 +290,7 @@ importers:
       eslint: ^8.22.0
       express: ^4.18.1
       fast-glob: ^3.2.11
+      gitmars: workspace:*
       hbs: ^4.2.0
       http-errors: ^2.0.0
       i18n: ^0.15.0
@@ -318,6 +319,7 @@ importers:
       debug: 4.3.4
       express: 4.18.1
       fast-glob: 3.2.11
+      gitmars: link:../gitmars
       hbs: 4.2.0
       http-errors: 2.0.0
       i18n: 0.15.0

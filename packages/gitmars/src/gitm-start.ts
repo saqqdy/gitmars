@@ -108,7 +108,7 @@ program.action(async (type: string, name: string, opt: GitmBuildOption) => {
             ) {
                 sh.echo(
                     i18n.__(
-                        'The branch was created successfully and is based on {{source}}. You have now switched to the {{target}} branch\nIf you need to test, please run: "{{combine}}"\nWhen development is complete, remember to run: "{{end}}"',
+                        'The branch was created successfully and is based on {{{source}}}. You have now switched to the {{{target}}} branch\nIf you need to test, please run: "{{{combine}}}"\nWhen development is complete, remember to run: "{{{end}}}"',
                         {
                             source: String(base),
                             target: name,

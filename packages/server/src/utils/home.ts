@@ -1,4 +1,4 @@
-const os = require('os')
+import os from 'os'
 
 function homedir() {
     const env = process.env as any
@@ -19,5 +19,4 @@ function homedir() {
     return home || null
 }
 
-module.exports = typeof os.homedir === 'function' ? os.homedir : homedir
-export {}
+export default typeof os.homedir === 'function' ? os.homedir : homedir

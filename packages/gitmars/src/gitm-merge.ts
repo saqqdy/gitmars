@@ -33,11 +33,11 @@ program
                 config: {
                     again: false,
                     success: i18n.__(
-                        'Merge {{source}} to {{target}} successfully',
+                        'Merge {{{source}}} to {{{target}}} successfully',
                         { source: name, target: current }
                     ),
                     fail: i18n.__(
-                        'An error occurred merging {{source} to {{target}}, please follow the instructions',
+                        'An error occurred merging {{{source}}} to {{{target}}}, please follow the instructions',
                         { source: name, target: current }
                     )
                 }

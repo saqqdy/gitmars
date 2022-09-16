@@ -121,7 +121,7 @@ program.action(async (opt: GitmBuildOption): Promise<void> => {
         const _time = dayjs(created_at).format('YYYY/MM/DD HH:mm')
         prompt[0].choices.push({
             name: i18n.__(
-                '{{id}} request merge {{source}} to {{target}} {{disabled}} | {{name}} | {{comments}} | {{time}}',
+                '{{id}} request merge {{{source}}} to {{{target}}} {{disabled}} | {{name}} | {{comments}} | {{time}}',
                 {
                     id: green(iid + ': '),
                     source: green(source_branch),
@@ -175,7 +175,7 @@ program.action(async (opt: GitmBuildOption): Promise<void> => {
             !opt.quiet &&
                 sendGroupMessage(
                     i18n.__(
-                        '{{app}} item {{source}} merged to {{target}} request ID {{id}} has been merged',
+                        '{{app}} item {{{source}}} merged to {{{target}}} request ID {{id}} has been merged',
                         {
                             app: appName,
                             source: source_branch,
@@ -229,7 +229,7 @@ program.action(async (opt: GitmBuildOption): Promise<void> => {
             !opt.quiet &&
                 sendGroupMessage(
                     i18n.__(
-                        '{{app}} item {{source}} merged to {{target}} request ID {{id}} has been deleted',
+                        '{{app}} item {{{source}}} merged to {{{target}}} request ID {{id}} has been deleted',
                         {
                             app: appName,
                             source: source_branch,
@@ -249,7 +249,7 @@ program.action(async (opt: GitmBuildOption): Promise<void> => {
             !opt.quiet &&
                 sendGroupMessage(
                     i18n.__(
-                        '{{app}} item {{source}} merged to {{target}} request ID {{id}} has been closed',
+                        '{{app}} item {{{source}}} merged to {{{target}}} request ID {{id}} has been closed',
                         {
                             app: appName,
                             source: source_branch,

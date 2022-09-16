@@ -160,7 +160,6 @@ export interface GitmarsConfigType {
     email?: string
     skipCI: boolean
     msgTemplate?: string
-    msgUrl?: string
     apolloConfig?: {
         configServerUrl: string
         appId: string
