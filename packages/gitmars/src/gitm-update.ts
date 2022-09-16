@@ -148,14 +148,14 @@ program.action(
                         config: {
                             again: false,
                             success: i18n.__(
-                                'Merge {{source}} to {{target}} successfully',
+                                'Merge {{{source}}} to {{{target}}} successfully',
                                 {
                                     source: base,
                                     target: `${type}/${name}`
                                 }
                             ),
                             fail: i18n.__(
-                                'An error occurred merging {{source} to {{target}}, please follow the instructions',
+                                'An error occurred merging {{{source}}} to {{{target}}}, please follow the instructions',
                                 {
                                     source: base,
                                     target: `${type}/${name}`
@@ -169,14 +169,14 @@ program.action(
                         config: {
                             again: false,
                             success: i18n.__(
-                                'Merge {{source}} to {{target}} successfully',
+                                'Merge {{{source}}} to {{{target}}} successfully',
                                 {
                                     source: base,
                                     target: `${type}/${name}`
                                 }
                             ),
                             fail: i18n.__(
-                                'An error occurred merging {{source} to {{target}}, please follow the instructions',
+                                'An error occurred merging {{{source}}} to {{{target}}}, please follow the instructions',
                                 {
                                     source: base,
                                     target: `${type}/${name}`
@@ -189,7 +189,7 @@ program.action(
                 cmd = [
                     {
                         message: i18n.__(
-                            '{{source}} has been merged with {{target}}',
+                            '{{{source}}} has been merged with {{{target}}}',
                             {
                                 source: base,
                                 target: `${type}/${name}`

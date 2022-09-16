@@ -17,7 +17,6 @@ const defaults = {
     nameValidator: '',
     descriptionValidator: '',
     msgTemplate: i18n.__('${message}; project: ${project}; path: ${pwd}'),
-    msgUrl: '',
     apolloConfig: '',
     hooks: '',
     api: '',

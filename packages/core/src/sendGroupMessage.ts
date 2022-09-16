@@ -26,7 +26,6 @@ async function sendGroupMessage(message: string, url = ''): Promise<void> {
         sh.echo(chalk.red(i18n.__('No group message push address configured')))
         return
     }
-    message = message.replace(/\s/g, '')
     urls.forEach(async item => {
         await request
             .post({

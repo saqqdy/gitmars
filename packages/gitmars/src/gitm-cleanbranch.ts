@@ -99,12 +99,14 @@ program.action(async (branches: string[], opt: GitmBuildOption) => {
             opt.remote && getIsBranchOrCommitExist(branch, true)
         if (removeLocal || removeRemote) {
             spinner.start(
-                green(i18n.__('Deleting: {{something}}', { something: branch }))
+                green(
+                    i18n.__('Deleting: {{{something}}}', { something: branch })
+                )
             )
             await delay(200)
             spinner.succeed(
                 green(
-                    i18n.__('Deleted successfully: {{something}}', {
+                    i18n.__('Deleted successfully: {{{something}}}', {
                         something: branch
                     })
                 )
@@ -176,7 +178,7 @@ program.action(async (branches: string[], opt: GitmBuildOption) => {
         }
         spinner.start(
             green(
-                i18n.__('Start analysis: {{something}}', {
+                i18n.__('Start analysis: {{{something}}}', {
                     something: branch
                 })
             )
@@ -185,7 +187,7 @@ program.action(async (branches: string[], opt: GitmBuildOption) => {
         if (!isMerged) {
             spinner.fail(
                 red(
-                    i18n.__('Cannot be deleted: {{something}}', {
+                    i18n.__('Cannot be deleted: {{{something}}}', {
                         something: branch
                     })
                 )
@@ -197,7 +199,7 @@ program.action(async (branches: string[], opt: GitmBuildOption) => {
         await delay(200)
         spinner.succeed(
             green(
-                i18n.__('Analysis completed: {{something}}', {
+                i18n.__('Analysis completed: {{{something}}}', {
                     something: branch
                 })
             )
@@ -219,7 +221,7 @@ program.action(async (branches: string[], opt: GitmBuildOption) => {
                 type: 'checkbox',
                 message: yellow(
                     i18n.__(
-                        'Find {{total}} branches merged over {{branches}} branch, please select the branch to clean up',
+                        'Find {{total}} branches merged over {{{branches}}} branch, please select the branch to clean up',
                         {
                             branches: targets.join(','),
                             total: String(_willDeleteBranch.length)

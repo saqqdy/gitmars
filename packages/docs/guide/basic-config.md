@@ -118,7 +118,9 @@ support 分支实际名称
 -   默认：`${message}；项目：${project}；路径：${pwd}`
 -   必填：否
 
-### msgUrl
+### msgUrl <!-- <Badge text="已弃用" type="error"/> -->
+
+> 4.0.0 弃用，消息发送地址统一使用 buildConfig 里面的地址
 
 推送消息 API 地址
 

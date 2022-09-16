@@ -100,7 +100,7 @@ program.action(async (commitid: string[], opt: GitmBuildOption) => {
         cmd: `git revert -s --no-edit ${item.after['%H']}${mode}`,
         config: {
             again: false,
-            success: i18n.__('Undo successfully: {{something}}', {
+            success: i18n.__('Undo successfully: {{{something}}}', {
                 something: item.after['%s']
             }),
             fail: i18n.__(

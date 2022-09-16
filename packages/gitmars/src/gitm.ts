@@ -190,7 +190,7 @@ program.on('command:*', function (types: string[], opts: string[]) {
         echo(
             green(
                 i18n.__(
-                    'Gitmars does not provide the command "gitm {{command}}", it has been passed through to git for execution, here are the results',
+                    'Gitmars does not provide the command "gitm {{{command}}}", it has been passed through to git for execution, here are the results',
                     { command: types[0] }
                 )
             )
