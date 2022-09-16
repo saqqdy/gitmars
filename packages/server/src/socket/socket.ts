@@ -1,6 +1,9 @@
 import type http from 'http'
+import { createRequire } from 'node:module'
 import type { ServerOptions, Socket } from 'socket.io'
-import SocketIoServer from 'socket.io'
+
+const require = createRequire(import.meta.url)
+const SocketIoServer = require('socket.io')
 
 type EventsMap = Record<string, any>
 interface ListenEvents

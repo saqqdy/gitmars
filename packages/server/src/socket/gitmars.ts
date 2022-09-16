@@ -25,9 +25,9 @@ let glob = {},
  * @param {*} option 参数
  */
 const getData = (socket: Socket, option: SocketOption) => {
-    delete require.cache[require.resolve('@gitmars/core/lib/global')]
+    delete require.cache[require.resolve('gitmars/lib/common/global')]
     delete require.cache[require.resolve('@gitmars/core/lib/getConfig')]
-    const g = require('@gitmars/core/lib/global')
+    const g = require('gitmars/lib/common/global')
     const c = require('@gitmars/core/lib/getConfig')()
     const bh = searchBranches({ path: option.cwd || homeDir })
     const cur = getCurrentBranch()
