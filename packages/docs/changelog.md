@@ -4,8 +4,9 @@
 
 1. 适配多语言，目前支持`zh-CN` `en-US`
 2. 全面改用 esm 规范，放弃支持 node12 及以下版本
-3. global 从 core 迁出，移到 gitmars 下面
-4. 依赖包升级
+3. config 配置取消`msgUrl`项
+4. global 从 core 迁出，移到 gitmars 下面
+5. 依赖包升级
 
 ## 2022.08.22 v3.3.5 更新日志
 
