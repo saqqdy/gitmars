@@ -11,9 +11,17 @@
             "import": "./lib/index.mjs",
             "types": "./typings/index.d.ts"
         },
-        "./lib": "./lib/index.mjs",
-        "./lib/*": "./lib/*.mjs",
-        "./*.js": "./lib/*.mjs",
+        "./lib": {
+            "import": "./lib/index.mjs",
+            "types": "./lib/index.d.ts"
+        },
+        "./lib/*": {
+            "import": "./lib/*.mjs",
+            "types": "./lib/*.d.ts"
+        },
+        "./*.js": {
+            "import": "./lib/*.mjs"
+        },
         "./*": "./*"
     },
     "imports": {

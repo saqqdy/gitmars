@@ -7,17 +7,26 @@ import common from '#lib/service/common'
 
 export async function addProject(req: Request, res: Response) {
     // const cwd = process.cwd()
-    let { path: dir = null } = req.body
+    let { path: dir = null } = req.body,
+        url
     if (!dir) {
         error503(req, res)
         return
     }
     dir = dir.split(sep).join('/')
     // process.chdir(dir)
-    const url = execSync('git config --local --get remote.origin.url', {
-        cwd: dir,
-        stdio: 'inherit'
-    }).stdout.replace(/\s+$/g, '')
+    try {
+        url = execSync('git config --local --get remote.origin.url', {
+            cwd: dir,
+            stdio: 'pipe'
+        })
+    } catch (e) {
+        console.info(e)
+    }
+    // Buffer to string
+    if (typeof url !== 'string') url = url.toString()
+    url = url.replace(/\s+$/g, '')
+
     const name = url
         ? url.replace(/^[\s\S]+\/([\w-]+)\.git$/, '$1')
         : dir.replace(/^[\s\S]+\/([\w-]+)$/, '$1')
