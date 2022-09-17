@@ -26,7 +26,7 @@ export const packages: PackageManifest[] = [
     {
         name: 'server',
         pkgName: '@gitmars/server',
-        buildTask: 'lib',
+        buildTask: ['type', 'lib'],
         iife: false,
         cjs: false,
         mjs: true,

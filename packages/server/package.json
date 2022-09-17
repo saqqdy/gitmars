@@ -1,7 +1,7 @@
 {
     "name": "@gitmars/server",
     "description": "gitmars可视化界面服务端",
-    "version": "4.0.0-alpha.16",
+    "version": "4.0.0-alpha.17",
     "private": false,
     "bin": {
         "gitm-server": "./lib/www.mjs"
@@ -80,6 +80,7 @@
         "@types/logger": "^0.0.1",
         "@types/node": "^18.7.18",
         "@types/shelljs": "^0.8.11",
+        "@types/uuid": "^8.3.4",
         "eslint": "^8.23.1",
         "nodemon": "^2.0.20",
         "prettier": "^2.7.1",

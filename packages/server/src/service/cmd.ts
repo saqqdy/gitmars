@@ -5,7 +5,7 @@ import glob from 'gitmars/lib/common/global'
 
 export function getBranchList({ path, key, type, remote }: any) {
     return new Promise((resolve, reject) => {
-        let list = []
+        let list: string[] = []
         try {
             list = searchBranches({ path, key, type, remote })
         } catch (err) {
@@ -42,7 +42,7 @@ export function readFile({ path }: any) {
         } catch (err) {
             reject(err)
         }
-        if (type === 'json') data = JSON.parse(data)
+        if (type === 'json' && data) data = JSON.parse(data)
         resolve(data)
     })
 }

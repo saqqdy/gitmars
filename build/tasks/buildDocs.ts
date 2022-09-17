@@ -6,7 +6,7 @@ import { runExec, runExecSync, runSpawnSync } from '../utils/exec'
 import { PACKAGE, ROOT } from '../utils/paths'
 import { packages } from '../packages'
 
-const pkgs = packages.filter(({ buildTask }) => buildTask === 'docs')
+const pkgs = packages.filter(({ buildTask }) => buildTask.includes('docs'))
 const os = platform()
 
 export async function buildDocs() {

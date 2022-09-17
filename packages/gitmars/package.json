@@ -1,7 +1,7 @@
 {
     "name": "gitmars",
     "description": "这是一个git工作流工具",
-    "version": "4.0.0-alpha.16",
+    "version": "4.0.0-alpha.17",
     "private": false,
     "bin": {
         "gitm": "lib/gitm.mjs"
@@ -11,9 +11,17 @@
             "import": "./lib/index.mjs",
             "types": "./typings/index.d.ts"
         },
-        "./lib": "./lib/index.mjs",
-        "./lib/*": "./lib/*.mjs",
-        "./*.js": "./lib/*.mjs",
+        "./lib": {
+            "import": "./lib/index.mjs",
+            "types": "./lib/index.d.ts"
+        },
+        "./lib/*": {
+            "import": "./lib/*.mjs",
+            "types": "./lib/*.d.ts"
+        },
+        "./*.js": {
+            "import": "./lib/*.mjs"
+        },
         "./*": "./*"
     },
     "imports": {

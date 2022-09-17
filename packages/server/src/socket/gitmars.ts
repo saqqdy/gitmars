@@ -1,10 +1,11 @@
-import { createRequire } from 'node:module'
+// import { createRequire } from 'node:module'
 import type { Socket } from 'socket.io'
 import getCurrentBranch from '@gitmars/core/lib/git/getCurrentBranch'
 import searchBranches from '@gitmars/core/lib/git/searchBranches'
+import getConfig from '@gitmars/core/lib/getConfig'
 import home from '#lib/utils/home'
 
-const require = createRequire(import.meta.url)
+// const require = createRequire(import.meta.url)
 const homeDir = home()
 
 interface SocketOption {
@@ -24,11 +25,11 @@ let glob = {},
  * @param {Socket} socket
  * @param {*} option Parameters
  */
-const getData = (socket: Socket, option: SocketOption) => {
-    delete require.cache[require.resolve('gitmars/lib/common/global')]
-    delete require.cache[require.resolve('@gitmars/core/lib/getConfig')]
-    const g = require('gitmars/lib/common/global')
-    const c = require('@gitmars/core/lib/getConfig')()
+const getData = async (socket: Socket, option: SocketOption) => {
+    // delete require.cache[require.resolve('gitmars/lib/common/global')]
+    // delete require.cache[require.resolve('@gitmars/core/lib/getConfig')]
+    const g = await import(`gitmars/lib/common/global?_t=${Date.now()}`)
+    const c = getConfig()
     const bh = searchBranches({ path: option.cwd || homeDir })
     const cur = getCurrentBranch()
     if (!glob || JSON.stringify(glob) !== JSON.stringify(g)) {

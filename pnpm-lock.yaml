@@ -285,6 +285,7 @@ importers:
       '@types/logger': ^0.0.1
       '@types/node': ^18.7.18
       '@types/shelljs': ^0.8.11
+      '@types/uuid': ^8.3.4
       cookie-parser: ^1.4.6
       debug: ^4.3.4
       eslint: ^8.23.1
@@ -343,6 +344,7 @@ importers:
       '@types/logger': 0.0.1
       '@types/node': 18.7.18
       '@types/shelljs': 0.8.11
+      '@types/uuid': 8.3.4
       eslint: 8.23.1
       nodemon: 2.0.20
       prettier: 2.7.1
@@ -2699,7 +2701,7 @@ packages:
     dev: true
 
   /@types/express-serve-static-core/4.17.31:
-    resolution: {integrity: sha512-gstzbTWro2/nFed1WXtf+TtrpwxH7Ggs4RLYTLbeVgIkUQOI3WG/JKjgeOU1zXDvezllupjrf8OPIdvTbIaVOQ==}
+    resolution: {integrity: sha512-gstzbTWro2/nFed1WXtf+TtrpwxH7Ggs4RLYTLbeVgIkUQOI3WG/JKjgeOU1zXDvezllupjrf8OPIdvTbIaVOQ==, tarball: '@types/express-serve-static-core/-/express-serve-static-core-4.17.31.tgz'}
     deprecated: '[WARNING] Use 4.17.30 instead of 4.17.31, reason: https://github.com/DefinitelyTyped/DefinitelyTyped/pull/62240/files'
     dependencies:
       '@types/node': 18.7.18
@@ -2916,6 +2918,10 @@ packages:
 
   /@types/unist/2.0.6:
     resolution: {integrity: sha512-PBjIUxZHOuj0R15/xuwJYjFi+KZdNFrehocChv4g5hu6aFroHue8m0lBP0POdK2nKzbw0cgV1mws8+V/JAcEkQ==}
+    dev: true
+
+  /@types/uuid/8.3.4:
+    resolution: {integrity: sha512-c/I8ZRb51j+pYGAu5CrFMRxqZ2ke4y2grEBO5AUjgSkSk+qT2Ea+OdWElz/OiMf5MNpn2b17kuVBwZLQJXzihw==}
     dev: true
 
   /@types/vinyl-fs/2.4.12:

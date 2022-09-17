@@ -5,6 +5,7 @@ import { runExecSync } from './utils/exec'
 import { buildLib, copyLibFile, madgeLib } from './tasks/buildLib'
 import { buildApp } from './tasks/buildApp'
 import { buildDocs, copyMdFile } from './tasks/buildDocs'
+import { buildType } from './tasks/buildType'
 import { packages } from './packages'
 
 export async function clean() {
@@ -21,6 +22,7 @@ export async function clean() {
 export { default as lib } from './tasks/buildLib'
 export { default as app } from './tasks/buildApp'
 export { default as docs } from './tasks/buildDocs'
+export { default as type } from './tasks/buildType'
 export default series(
     wrapDisplayName('clean:dist,es,lib', clean),
     parallel(
@@ -30,7 +32,8 @@ export default series(
     parallel(
         wrapDisplayName('build:lib', buildLib),
         wrapDisplayName('build:app', buildApp),
-        wrapDisplayName('build:docs', buildDocs)
+        wrapDisplayName('build:docs', buildDocs),
+        wrapDisplayName('build:type', buildType)
     ),
     parallel(wrapDisplayName('madge:lib', madgeLib))
 )

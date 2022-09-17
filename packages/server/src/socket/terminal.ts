@@ -22,7 +22,7 @@ export default (socket: http.Server) => {
             cols: option.cols || 80,
             rows: option.rows || 24,
             cwd: option.cwd || homeDir,
-            env: process.env
+            env: process.env as Record<string, string>
         })
         ptyProcess.onData((data: string) =>
             socket.emit(option.name + '-output', data)
@@ -32,7 +32,7 @@ export default (socket: http.Server) => {
             ptyProcess.resize(size[0], size[1])
         })
         socket.on(option.name + '-exit', () => {
-            ptyProcess.destroy()
+            ptyProcess.kill()
         })
         socket.emit(option.name + '-pid', ptyProcess.pid)
         ptyContainers[option.name] = ptyProcess

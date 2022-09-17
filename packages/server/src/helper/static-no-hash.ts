@@ -1,12 +1,12 @@
 import express from 'express'
 
-export default function (path) {
+export default function (path: string) {
     return [
         express.static(path, {
             maxAge: 0,
             immutable: true,
             setHeaders: function (res, path) {
-                res.set('x-timestamp', Date.now())
+                res.set('x-timestamp', String(Date.now()))
                 if (path.substr(-5) === '.html')
                     res.set(
                         'Cache-Control',
