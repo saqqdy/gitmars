@@ -1,10 +1,12 @@
 import type * as tasks from './gulpfile'
 
+type WithArray<T> = T | T[]
+
 export interface PackageManifest {
     name: string
     pkgName: string
     display: string
-    buildTask: Exclude<keyof typeof tasks, 'default'>
+    buildTask: WithArray<Exclude<keyof typeof tasks, 'default'>>
     addon?: boolean
     author?: string
     description?: string

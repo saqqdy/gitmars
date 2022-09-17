@@ -25,7 +25,7 @@ import {
 import { PACKAGE } from '../utils/paths'
 import { packages } from '../packages'
 
-const pkgs = packages.filter(({ buildTask }) => buildTask === 'lib')
+const pkgs = packages.filter(({ buildTask }) => buildTask.includes('lib'))
 
 export async function buildLib() {
     const externals = [
