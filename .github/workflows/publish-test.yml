@@ -26,7 +26,7 @@ jobs:
                   registry-url: https://registry.npmmirror.com
                   cache: pnpm
 
-            - run: pnpm store prune
+            - run: pnpm store path
             - run: pnpm install
 
             # - run: npx changelogithub --no-group
