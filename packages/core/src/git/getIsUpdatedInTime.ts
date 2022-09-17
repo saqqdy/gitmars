@@ -12,7 +12,7 @@ export interface IsUpdatedInTimeConfigType {
 /**
  * 获取一周内是否同步过上游分支代码
  *
- * @param option - 参数
+ * @param option - Parameters
  * @param option.lastet - 最近几天的日志，可以是10s/2m/2h/3d/4M/5y
  * @param option.limit - 日志数量限制
  * @param option.branch - 目标分支

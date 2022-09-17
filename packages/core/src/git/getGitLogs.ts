@@ -18,16 +18,16 @@ export interface GetGitLogsOption {
 /**
  * 获取日志
  *
- * @param option - 参数
+ * @param option - Parameters
  * @param option.lastet - 限制显示最近多长时间的日志
  * @param option.limit - 限制数量
  * @param option.noMerges - 是否排除merge记录
- * @param option.params - 附带参数
- * @param option.keys - 需要返回的字段
+ * @param option.params - Attached parameters
+ * @param option.keys - Fields to be returned
  * @param option.grep - 筛选关键词
  * @param option.author - 筛选提交人
  * @param option.branch - 要查询的分支
- * @returns logsList - 返回列表
+ * @returns logsList - Return array
  */
 function getGitLogs(option: GetGitLogsOption = {}): GitLogsType[] {
     const {

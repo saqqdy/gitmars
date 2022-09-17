@@ -50,7 +50,7 @@ interface GitmBuildOption {
  *
  * @param commitIDs - 提交ID
  * @param mode - 模式
- * @returns status - 返回状态
+ * @returns status - return status
  */
 function getRevertCommitIDs(commitIDs: string[]): string[] {
     const revertCache = getRevertCache()

@@ -5,9 +5,9 @@ import getGitStatus from '#lib/git/getGitStatus'
 import i18n from '#lib/locales/index'
 
 /**
- * 检测状态，获取是否有未提交的文件
+ * Detect status and get if there are uncommitted files
  *
- * @returns isOK - 返回true/false
+ * @returns isOK - Return true/false
  */
 function checkGitStatus(): boolean {
     const sum = getGitStatus({ stdio: 'inherit' })

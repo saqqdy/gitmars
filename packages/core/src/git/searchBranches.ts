@@ -12,8 +12,8 @@ export interface SearchBranchesMapType {
 /**
  * 搜索分支
  *
- * @param opt - 筛选参数
- * @returns branches - 返回列表数组
+ * @param opt - Filtering parameters
+ * @returns branches - return array
  */
 function searchBranches(opt: any = {}): string[] {
     const { key, type, remote = false, exclude, include } = opt
@@ -66,7 +66,7 @@ function searchBranches(opt: any = {}): string[] {
                 break
         }
     }
-    // 按类型筛选
+    // Filter by type
     if (type) {
         const _types = type.split(',')
         const temp: string[] = []
@@ -83,17 +83,17 @@ function searchBranches(opt: any = {}): string[] {
         })
         map.heads = temp
     }
-    // 正则排除
+    // Regular Exclusion
     if (exclude) {
         const reg = new RegExp(exclude)
         map.heads = map.heads.filter(el => !reg.test(el))
     }
-    // 正则包含
+    // The regular rule contains
     if (include) {
         const reg = new RegExp(include)
         map.heads = map.heads.filter(el => reg.test(el))
     }
-    // 按关键词筛选
+    // Filter by keyword
     if (key) {
         map.heads = map.heads.filter(el => el.includes(key))
     }

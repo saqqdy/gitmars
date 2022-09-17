@@ -76,5 +76,7 @@
     "Cleaned up": "Cleaned up",
     "{{name}} not found": "{{name}} not found",
     "{{name}} deleted": "{{name}} deleted",
-    "File write error": "File write error"
+    "File write error": "File write error",
+    "Jenkins build configuration cache file": "Jenkins build configuration cache file",
+    "Please configure apollo or buildConfigApi": "Please configure apollo or buildConfigApi"
 }

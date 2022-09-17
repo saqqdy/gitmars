@@ -27,10 +27,10 @@ export interface QueueStartFunction {
 }
 
 /**
- * 递归执行程序
+ * Recursive execution of programs
  *
- * @param list - 脚本序列
- * @param func - 执行函数
+ * @param list - Script Sequence
+ * @param func - Execute function
  */
 export function wait(
     list: Array<CommandType | string>,
@@ -71,9 +71,9 @@ export function queue(
             spinner.succeed(chalk.green(_message))
             cfg.postmsg && postMessage(_message)
         }
-        cb && cb() // 回调，继续执行下一条
+        cb && cb() // Callback, continue with the next line
     }
-    // 处理脚本执行错误
+    // Handling script execution errors
     function onError(
         list: Array<CommandType | string>,
         cmd: CommandTypeCmd['cmd'],
@@ -83,8 +83,8 @@ export function queue(
         cb?: WaitCallback
     ) {
         if (cfg.kill) {
-            // 当前指令执行错误且设置该条指令需要中断，则中断递归
-            cb && cb(true) // 回调并中断执行
+            // If the current instruction is executed with an error and setting up the instruction requires an interrupt, the interrupt recursion
+            cb && cb(true) // Callback and interrupt execution
             const rest = extend(true, [], list) as unknown as Array<
                 CommandType | string
             >
@@ -94,7 +94,7 @@ export function queue(
                 rest.splice(0, 1, cfg.again)
             }
             setCommandCache(rest)
-            // 只有silent模式才需要输出信息
+            // Only silent mode requires output messages
             if (
                 !cfg.stdio ||
                 (typeof cfg.stdio === 'string' &&
@@ -155,11 +155,11 @@ export function queue(
                         stdio: 'ignore',
                         postmsg: false,
                         kill: true,
-                        again: false // 指令执行中断之后是否需要重新执行，类似冲突解决之后的指令，不再需要重复执行
+                        again: false // Whether the instruction execution needs to be re-executed after interruption, similar to the instruction after conflict resolution, no longer need to repeat the execution
                     },
                     cmd,
                     message
-                // 传入对象形式：{ cmd: '', config: {} }
+                // Incoming objects: { cmd: '', config: {} }
                 if (command instanceof Object) {
                     if ('message' in command) {
                         // message优先，输出消息
@@ -172,7 +172,7 @@ export function queue(
                     cmd = command!
                 }
                 /**
-                 * 三种场景
+                 * Three scenarios
                  *
                  * 1. { message: i18n.__('Message') }
                  * 2. { cmd: 'git status', config: {} }
@@ -196,10 +196,10 @@ export function queue(
                     )
                 } else if (!cmd) {
                     spinner.stop()
-                    // 只有一条指令，不需返回数组形式
+                    // Only one instruction, no need to return array
                     resolve(returns)
                 } else if (typeof cmd === 'object') {
-                    // 传入function类型，取到需要执行的函数
+                    // Pass in the function type and fetch the function to be executed
                     let status = 0,
                         stdout,
                         stderr,
@@ -213,7 +213,7 @@ export function queue(
                         debug('queue-result', cmd, stdout)
                         onSuccess({} as CommandMessageType, cfg, cb)
                     } catch (err: any) {
-                        // 请求出错
+                        // Request error
                         status = 1
                         stderr = err
                         onError(
@@ -236,7 +236,7 @@ export function queue(
                     const [client, ...argv] = cmd
                         .replace(/\s+/g, ' ')
                         .split(' ')
-                    // cmd是字符串
+                    // cmd is a string
                     const msg = getCommandMessage(cmd)
                     spinner.start(
                         chalk.green(
@@ -272,7 +272,7 @@ export function queue(
                     if (status !== 0) {
                         onError(list, cmd, stderr, msg, cfg, cb)
                     } else {
-                        // status === 0 执行成功
+                        // status === 0 Execution success
                         onSuccess(msg, cfg, cb)
                     }
                 }

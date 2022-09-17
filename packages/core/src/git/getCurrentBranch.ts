@@ -3,7 +3,7 @@ import { spawnSync } from '#lib/spawn'
 /**
  * 获取当前分支
  *
- * @returns {String} 返回名称
+ * @returns {String} Return name
  */
 function getCurrentBranch(): string {
     const { stdout } = spawnSync('git', [
