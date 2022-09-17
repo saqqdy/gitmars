@@ -76,5 +76,7 @@
     "Cleaned up": "清理完毕",
     "{{name}} not found": "{{name}}未找到",
     "{{name}} deleted": "{{name}}已删除",
-    "File write error": "文件写入错误"
+    "File write error": "文件写入错误",
+    "Jenkins build configuration cache file": "Jenkins构建配置缓存文件",
+    "Please configure apollo or buildConfigApi": "请配置apollo或buildConfigApi"
 }

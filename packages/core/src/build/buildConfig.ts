@@ -10,6 +10,7 @@ import type {
 } from '../../typings'
 import { isCacheExpired, updateCacheTime } from '#lib/cache/cache'
 import { isFileExist, removeFile, writeFile } from '#lib/utils/file'
+import i18n from '#lib/locales/index'
 import getConfig from '#lib/getConfig'
 import { debug } from '#lib/utils/debug'
 import { CACHE_PATH } from '#lib/utils/paths'
@@ -39,7 +40,7 @@ function getNamespace(
 /**
  * 读取构建配置
  *
- * @returns buildConfig - 返回配置对象
+ * @returns buildConfig - Return the configuration object
  */
 export async function getBuildConfig(): Promise<ApolloConfigType | void> {
     const config = getConfig() as GitmarsConfigType
@@ -53,7 +54,7 @@ export async function getBuildConfig(): Promise<ApolloConfigType | void> {
         const { appId, clusterName } = config.apolloConfig
         NS = getNamespace({ appId, clusterName })
     } else {
-        sh.echo(chalk.red('请配置apollo或buildConfigApi'))
+        sh.echo(chalk.red(i18n.__('Please configure apollo or buildConfigApi')))
         process.exit(0)
         return
     }
@@ -102,7 +103,7 @@ export async function getBuildConfig(): Promise<ApolloConfigType | void> {
 export function cleanBuildConfig() {
     removeFile([
         {
-            name: 'Jenkins构建配置缓存文件',
+            name: i18n.__('Jenkins build configuration cache file'),
             url: CACHE_PATH + '/buildConfig*.json'
         },
         {

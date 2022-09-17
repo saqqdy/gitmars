@@ -10,9 +10,9 @@ import { debug } from '#lib/utils/debug'
  * 异步执行脚本
  *
  * @param client - 执行脚本的宿主，名称
- * @param argv - 参数
+ * @param argv - Parameters
  * @param options - 透传配置
- * @returns result - 返回执行状态
+ * @returns result - Return execution results
  */
 export function spawn(
     client: string,
@@ -45,9 +45,9 @@ export function spawn(
  * 同步执行脚本
  *
  * @param client - 执行脚本的宿主，名称
- * @param argv - 参数
+ * @param argv - Parameters
  * @param options - 透传配置
- * @returns result - 返回执行状态
+ * @returns result - Return execution results
  */
 export function spawnSync(
     client: string,

@@ -48,7 +48,7 @@ const emitExec = defineEmits(['exec'])
 
 const cmd: Ref<string> = ref('')
 const { command /*, short: commandShort */ } = toRaw(props.value)
-// 计算属性
+// computed
 const curBranch = computed(() => {
     const arr = toRaw(props.current).split('/')
     if (['bugfix', 'feature', 'support'].includes(arr[0])) {
@@ -59,20 +59,20 @@ const curBranch = computed(() => {
     }
     return null
 })
-// commands对象转换成shell指令
+// commands object into shell commands
 const mapComamnds = ({ options, args }: CommandSetsType): string => {
-    const argument = [] // 参数
-    const optional = [] // 可选的传参
-    const notOptional = [] // 不可选的传参
+    const argument = [] // Parameters
+    const optional = [] // Optional pass-through parameters
+    const notOptional = [] // Non-selectable pass-parameters
     for (const option of options) {
         if (option.value !== null) {
-            // 有赋值
+            // has value
             let k = option.short || option.long,
                 value =
                     option.value instanceof Array
                         ? option.value.join(' ')
                         : option.value
-            // 可选的，带参数或者没有短指令的
+            // Optionally, with Parameters or without short directives
             if (option.optional || !option.short) {
                 value = value || option.defaultValue
                 if (!value) continue
@@ -94,7 +94,7 @@ const mapComamnds = ({ options, args }: CommandSetsType): string => {
         ' '
     )} ${notOptional.join('')} ${optional.join(' ')}`.replace(/[\s]{2,}/g, ' ')
 }
-// 执行指令
+// Exec
 const exec = () => {
     emitExec('exec', cmd.value)
 }

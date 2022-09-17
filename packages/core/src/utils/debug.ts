@@ -3,7 +3,7 @@ export const isDebug = ['1', 'true'].includes(process.env.GITMARS_DEBUG || '')
 /**
  * debug
  *
- * @param args - 参数
+ * @param args - Parameters
  */
 export function debug(...args: any[]) {
     if (isDebug) {

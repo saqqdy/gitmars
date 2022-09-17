@@ -2,7 +2,7 @@
  * 中文转unicode
  *
  * @param str - 字符串
- * @returns code - 返回字符串
+ * @returns code - Return string
  */
 export function encodeUnicode(str: string): string {
     const res = []
@@ -16,7 +16,7 @@ export function encodeUnicode(str: string): string {
  * 中文转unicode
  *
  * @param str - 字符串
- * @returns code - 返回字符串
+ * @returns code - Return string
  */
 export function decodeUnicode(str: string): string {
     str = str.replace(/\\/g, '%')

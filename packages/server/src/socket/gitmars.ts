@@ -22,7 +22,7 @@ let glob = {},
  * getData
  *
  * @param {Socket} socket
- * @param {*} option 参数
+ * @param {*} option Parameters
  */
 const getData = (socket: Socket, option: SocketOption) => {
     delete require.cache[require.resolve('gitmars/lib/common/global')]

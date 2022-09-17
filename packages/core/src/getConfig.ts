@@ -29,7 +29,7 @@ const defaults = {
  *
  * @param pathName - 可传入目录或者文件，传入文件时，直接读取文件
  * @param moduleName - 包名称
- * @returns config - 返回配置对象
+ * @returns config - Return the configuration object
  */
 function getConfig(
     pathName?: string,

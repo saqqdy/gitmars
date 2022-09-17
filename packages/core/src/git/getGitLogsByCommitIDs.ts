@@ -12,11 +12,11 @@ export interface GetGitLogsByCommitIDsOptions {
 /**
  * 获取日志
  *
- * @param option - 参数
+ * @param option - Parameters
  * @param option.commitIDs - commitID
- * @param option.params - 附带参数
- * @param option.keys - 需要返回的字段
- * @returns logsList - 返回列表
+ * @param option.params - Attached parameters
+ * @param option.keys - Fields to be returned
+ * @returns logsList - Return array
  */
 function getGitLogsByCommitIDs({
     commitIDs,

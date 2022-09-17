@@ -14,7 +14,7 @@ function getCommand(cwd: string, hookName: string) {
  * @param hookName - hookName
  * @param cmd - command
  * @param env - environment
- * @returns status - 0|1 返回状态
+ * @returns status - 0|1 return status
  */
 function runCommand(cwd: string, hookName: string, cmd: string, env: any) {
     console.info(`gitmars > ${hookName} (node ${process.version})`)
@@ -45,7 +45,7 @@ function runCommand(cwd: string, hookName: string, cmd: string, env: any) {
 /**
  * 运行主程序
  *
- * @returns status - 0|1 返回状态
+ * @returns status - 0|1 return status
  */
 function start(
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment

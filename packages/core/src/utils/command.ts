@@ -4,7 +4,7 @@ import type { GitmarsOptionArgsType } from '../../typings'
  * 生成参数
  *
  * @param args - GitmarsOptionArgs
- * @return options - 参数
+ * @return options - Parameters
  */
 export function createArgs(args: GitmarsOptionArgsType[]): string {
     const argArr: string[] = []
