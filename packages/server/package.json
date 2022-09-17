@@ -1,7 +1,7 @@
 {
     "name": "@gitmars/server",
     "description": "gitmars可视化界面服务端",
-    "version": "4.0.0-alpha.17",
+    "version": "4.0.0-alpha.18",
     "private": false,
     "bin": {
         "gitm-server": "./lib/www.mjs"
@@ -89,17 +89,17 @@
         "tsnd": "^1.1.0",
         "typescript": "^4.8.3"
     },
-	"resolutions": {
-		"@types/express-serve-static-core": "4.17.30"
-	},
+    "resolutions": {
+        "@types/express-serve-static-core": "4.17.30"
+    },
     "pnpm": {
-		"packageExtensions": {
-			"@types/express": {
-				"peerDependencies": {
-					"@types/express-serve-static-core": "4.17.30"
-				}
-			}
-		}
+        "packageExtensions": {
+            "@types/express": {
+                "peerDependencies": {
+                    "@types/express-serve-static-core": "4.17.30"
+                }
+            }
+        }
     },
     "sideEffects": false,
     "keywords": [

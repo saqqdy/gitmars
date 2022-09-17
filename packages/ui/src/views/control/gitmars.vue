@@ -324,7 +324,7 @@ import {
 import { onBeforeRouteLeave, useRoute, useRouter } from 'vue-router'
 import Command from './comp/command.vue'
 import MapCommand from './comp/map-command.vue'
-import commandSets from './gitmSets'
+import commandSets from 'gitmars/lib/conf/index'
 import boxAddBranchVue from './comp/box-add-branch.vue'
 import Xterm from '@/components/xterm'
 import { SocketInjectionKey, TerminalInjectionKey } from '@/symbols/injection'

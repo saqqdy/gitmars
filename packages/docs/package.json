@@ -1,7 +1,7 @@
 {
     "name": "@gitmars/docs",
     "description": "gitmars文档库",
-    "version": "4.0.0-alpha.17",
+    "version": "4.0.0-alpha.18",
     "private": false,
     "files": [
         "dist",

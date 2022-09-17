@@ -77,7 +77,7 @@ export default defineConfig({
     resolve: {
         alias: {
             '@': resolve(__dirname, 'src'),
-            gitmars: resolve(__dirname, 'node_modules/gitmars'),
+            // gitmars: resolve(__dirname, 'node_modules/gitmars'),
             'socket.io-client': 'socket.io-client/dist/socket.io.js'
         }
     },
