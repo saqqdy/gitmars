@@ -4,7 +4,7 @@
     "exclude": ["node_modules", "**/__tests__", "../temp"],
     "compilerOptions": {
         // compile away optional-chaining-operator
-        "target": "es6",
+        "target": "ESNext",
         "outDir": "../lib",
         "module": "ESNext",
         "lib": ["ESNext"],
