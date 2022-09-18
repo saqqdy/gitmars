@@ -11973,8 +11973,8 @@ packages:
     engines: {node: '>=8'}
     dev: true
 
-  /strip-literal/0.4.1:
-    resolution: {integrity: sha512-z+F/xmDM8GOdvA5UoZXFxEnxdvMOZ+XEBIwjfLfc8hMSuHpGxjXAUCfuEo+t1GOHSb8+qgI/IBRpxXVMaABYWA==}
+  /strip-literal/0.4.2:
+    resolution: {integrity: sha512-pv48ybn4iE1O9RLgCAN0iU4Xv7RlBTiit6DKmMiErbs9x1wH6vXBs45tWc0H5wUIF6TLTrKweqkmYF/iraQKNw==}
     dependencies:
       acorn: 8.8.0
     dev: true
@@ -12555,7 +12555,7 @@ packages:
       mlly: 0.5.14
       pathe: 0.3.7
       scule: 0.3.2
-      strip-literal: 0.4.1
+      strip-literal: 0.4.2
       unplugin: 0.9.5_vite@3.1.2
     transitivePeerDependencies:
       - esbuild
