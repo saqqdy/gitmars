@@ -13,7 +13,8 @@
     ],
     "scripts": {
         "dev": "vite",
-        "build": "tscjs scripts/genGitmSets && vite build",
+        "gen:sets": "tscjs scripts/genGitmSets",
+        "build": "vite build",
         "type": "vue-tsc --noEmit",
         "serve": "vite preview",
         "eslint": "eslint --fix --ext .vue,.js,.jsx,.ts,.tsx ./",
