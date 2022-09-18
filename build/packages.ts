@@ -4,11 +4,11 @@ export const packages: PackageManifest[] = [
     {
         name: 'core',
         pkgName: '@gitmars/core',
-        buildTask: 'lib',
+        buildTask: ['type', 'lib'],
         iife: false,
         cjs: true,
         mjs: true,
-        dts: true,
+        dts: false,
         output: 'lib',
         display: 'gitmars核心程序'
     },

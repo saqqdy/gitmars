@@ -5,7 +5,7 @@ export default (options: Options = {}): Plugin =>
     esbuild({
         minify: false, // 避免\u005c被转码
         sourceMap: options.minify || false,
-        target: 'es2020',
+        target: 'esnext',
         loaders: {
             '.vue': 'ts'
         },
