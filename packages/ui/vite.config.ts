@@ -8,6 +8,7 @@ import legacy from '@vitejs/plugin-legacy'
 import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
+// import { NodeModulesPolyfillPlugin } from '@esbuild-plugins/node-modules-polyfill'
 // import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer'
 
 const __filename = fileURLToPath(import.meta.url)
@@ -33,6 +34,7 @@ export default defineConfig({
     build: {
         outDir: './dist',
         rollupOptions: {
+            // external: ['gitmars', 'promisify'],
             output: {
                 manualChunks(id) {
                     if (id.includes('node_modules')) {
@@ -95,10 +97,13 @@ export default defineConfig({
         port: 8888
     },
     optimizeDeps: {
-        include: ['socket.io-client']
-        // esbuildOptions: {
-        //     plugins: [esbuildCommonjs()]
-        // }
+        include: ['socket.io-client'],
+        esbuildOptions: {
+            plugins: [
+                // esbuildCommonjs(),
+                // NodeModulesPolyfillPlugin()
+            ]
+        }
     },
     css: {
         preprocessorOptions: {
