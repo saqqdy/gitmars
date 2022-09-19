@@ -165,12 +165,13 @@ export async function buildLib() {
                                 {
                                     find: /^@\//,
                                     replacement: resolve(PACKAGE, name, 'src')
+                                },
+                                {
+                                    find: /^#conf(.+)$/,
+                                    replacement:
+                                        resolve(PACKAGE, name, 'src', 'conf') +
+                                        '$1.mjs'
                                 }
-                                // {
-                                //     find: /^#lib(.+)$/,
-                                //     replacement:
-                                //         resolve(PACKAGE, name, 'src') + '$1.mjs'
-                                // }
                             ],
                             customResolver: nodeResolve() as ResolverObject
                         }),

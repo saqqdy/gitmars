@@ -28,6 +28,10 @@
         "#lib/*": {
             "require": "./lib/*.js",
             "import": "./lib/*.mjs"
+        },
+        "#conf/*": {
+            "require": "./lib/conf/*.js",
+            "import": "./lib/conf/*.mjs"
         }
     },
     "files": [
