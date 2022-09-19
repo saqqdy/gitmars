@@ -12,7 +12,8 @@
         "sourceMap": true,
         "baseUrl": ".",
         "paths": {
-            "#lib/*": ["./src/*"]
+            "#lib/*": ["./src/*"],
+            "#conf/*": ["./src/conf/*"]
         }
     }
 }
