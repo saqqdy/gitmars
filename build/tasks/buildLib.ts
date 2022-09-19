@@ -167,7 +167,7 @@ export async function buildLib() {
                                     replacement: resolve(PACKAGE, name, 'src')
                                 },
                                 {
-                                    find: /^#lib\//,
+                                    find: /^#lib/,
                                     replacement: resolve(PACKAGE, name, 'src')
                                 }
                             ],

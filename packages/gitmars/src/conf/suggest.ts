@@ -1,5 +1,6 @@
 import type { GitmarsOptionType } from '../../typings'
-// import i18n from '#lib/locales/index'
+// // import i18n from '#lib/locales/index'
+const i18n = { __: (txt: string) => txt }
 
 export const cmdConfig: GitmarsOptionType = {
     command: 'suggest',

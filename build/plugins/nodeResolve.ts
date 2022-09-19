@@ -18,7 +18,8 @@ export default (options: RollupNodeResolveOptions = {}): Plugin =>
                     '.less',
                     '.css'
                 ],
-                preferBuiltins: true
+                preferBuiltins: true,
+                exportConditions: ['node']
             },
             options
         )
