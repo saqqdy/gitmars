@@ -409,7 +409,7 @@ importers:
       dayjs: 1.11.5
       element-plus: 2.2.17_vue@3.2.39
       gitmars: link:../gitmars
-      js-cool: 2.5.0_core-js@3.25.1
+      js-cool: 2.5.0
       qs: 6.11.0
       socket.io-client: 4.5.2
       uuid: 9.0.0
@@ -3902,7 +3902,7 @@ packages:
       core-decorators: 0.20.0
       core-js: 3.25.1
       is-retry-allowed: 3.0.0
-      js-cool: 2.5.0_core-js@3.25.1
+      js-cool: 2.5.0
     transitivePeerDependencies:
       - debug
     dev: false
@@ -8199,15 +8199,6 @@ packages:
 
   /js-cool/2.5.0:
     resolution: {integrity: sha512-ppfsU1i5798GUoQXicE6yUjE7bZcrJTJ7SSSliarOeGAgMkfppO7pb00OViVTOjSSil5lDXXPpYxgP4FPVb2uA==}
-    dependencies:
-      core-js: 3.25.1
-      tslib: 2.4.0
-    dev: false
-
-  /js-cool/2.5.0_core-js@3.25.1:
-    resolution: {integrity: sha512-ppfsU1i5798GUoQXicE6yUjE7bZcrJTJ7SSSliarOeGAgMkfppO7pb00OViVTOjSSil5lDXXPpYxgP4FPVb2uA==}
-    peerDependencies:
-      core-js: '>=3.0.0'
     dependencies:
       core-js: 3.25.1
       tslib: 2.4.0
