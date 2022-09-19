@@ -34,8 +34,6 @@ export default series(
         wrapDisplayName('build:docs', buildDocs),
         wrapDisplayName('build:type', buildType)
     ),
-    parallel(
-        wrapDisplayName('build:app', buildApp),
-    ),
+    parallel(wrapDisplayName('build:app', buildApp)),
     parallel(wrapDisplayName('madge:lib', madgeLib))
 )
