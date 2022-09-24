@@ -29,5 +29,22 @@
         //     "@/package": ["./package.json"]
         // }
     },
-    "include": ["packages", "typings"]
+    "include": ["packages", "typings"],
+    "references": [
+        {
+            "path": "./packages/core/tsconfig.json"
+        },
+        {
+            "path": "./packages/gitmars/tsconfig.json"
+        },
+        {
+            "path": "./packages/server/tsconfig.json"
+        },
+        {
+            "path": "./packages/ui/tsconfig.json"
+        },
+        {
+            "path": "./packages/docs/tsconfig.json"
+        }
+    ]
 }
