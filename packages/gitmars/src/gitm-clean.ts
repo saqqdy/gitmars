@@ -11,11 +11,12 @@ import { cleanCache } from '@gitmars/core/lib/cache/cache'
 import { cleanPkgInfo } from '@gitmars/core/lib/utils/pkgInfo'
 import { cleanBuildConfig } from '@gitmars/core/lib/build/buildConfig'
 import type { GitmarsOptionOptionsType } from '../typings'
+import lang from '#lib/common/local'
 import cleanConfig from '#lib/conf/clean'
-import i18n from '#lib/locales/index'
 
 sh.config.silent = true
 
+const { t } = lang
 const { green, yellow } = chalk
 const { args, options } = cleanConfig
 const { gitDir } = getGitRevParse()
@@ -30,12 +31,12 @@ interface GitmBuildOption {
 program
     .name('gitm clean')
     .usage('[-f --force]')
-    .description(i18n.__('Clean gitmars cache'))
+    .description(t('Clean gitmars cache'))
 if (args.length > 0) program.arguments(createArgs(args))
 options.forEach((o: GitmarsOptionOptionsType) => {
     program.option(o.flags, o.description, o.defaultValue)
 })
-// .option('-f, --force', i18n.__('Force cleanup'), false)
+// .option('-f, --force', t('Force cleanup'), false)
 program.action(async (opt: GitmBuildOption) => {
     if (getIsGitProject()) {
         if (opt.force) {
@@ -43,33 +44,31 @@ program.action(async (opt: GitmBuildOption) => {
                 .prompt({
                     type: 'confirm',
                     name: 'value',
-                    message: i18n.__(
+                    message: t(
                         'You have entered --force, which will also clear the gitmars execution cache. Should I continue?'
                     ),
                     default: false
                 })
                 .then((answers: any) => {
                     if (!answers.value) {
-                        sh.echo(green(i18n.__('exited')))
+                        sh.echo(green(t('exited')))
                         process.exit(0)
                     }
                 })
             removeFile([
                 {
-                    name: i18n.__('gitmars command queue cache file'),
+                    name: t('gitmars command queue cache file'),
                     url: gitDir + '/.gitmarscommands'
                 },
                 {
-                    name: i18n.__('gitmars execution log file'),
+                    name: t('gitmars execution log file'),
                     url: gitDir + '/.gitmarslog'
                 }
             ])
         }
     } else {
         sh.echo(
-            yellow(
-                i18n.__('The current directory is not a git project directory')
-            )
+            yellow(t('The current directory is not a git project directory'))
         )
     }
     // remove cache/buildConfig*.json cache/buildConfig.txt

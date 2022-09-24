@@ -1,6 +1,6 @@
 import type { GitmarsOptionType } from '../../typings'
-// import i18n from '#lib/locales/index'
-const i18n = { __: (txt: string) => txt }
+// import lang from '#lib/common/local'
+const t = (txt: string) => txt
 
 export const cmdConfig: GitmarsOptionType = {
     command: 'end',
@@ -10,7 +10,7 @@ export const cmdConfig: GitmarsOptionType = {
             required: false,
             name: 'type',
             variadic: false,
-            description: i18n.__('Branch Type'),
+            description: t('Branch Type'),
             options: ['feature', 'bugfix', 'support'],
             value: ''
         },
@@ -18,7 +18,7 @@ export const cmdConfig: GitmarsOptionType = {
             required: false,
             name: 'name',
             variadic: false,
-            description: i18n.__('Branch name (without feature/bugfix prefix)')
+            description: t('Branch name (without feature/bugfix prefix)')
         }
     ],
     options: [
@@ -30,7 +30,7 @@ export const cmdConfig: GitmarsOptionType = {
             mandatory: false,
             long: '--no-combine',
             negate: true,
-            description: i18n.__(
+            description: t(
                 'Do not merge trunk branches (make sure the branch is live)'
             ),
             defaultValue: true,
@@ -44,7 +44,7 @@ export const cmdConfig: GitmarsOptionType = {
             mandatory: false,
             long: '--as-feature',
             negate: false,
-            description: i18n.__('bug branch merge to release'),
+            description: t('bug branch merge to release'),
             recommend: false
         },
         {
@@ -55,7 +55,7 @@ export const cmdConfig: GitmarsOptionType = {
             mandatory: false,
             long: '--description',
             negate: false,
-            description: i18n.__('Description of the reason for this commit'),
+            description: t('Description of the reason for this commit'),
             defaultValue: '',
             recommend: false
         }

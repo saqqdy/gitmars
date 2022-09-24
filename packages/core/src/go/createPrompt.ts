@@ -3,7 +3,9 @@ import type {
     GitmarsOptionArgsType,
     GitmarsOptionOptionsType
 } from '../../typings'
-import i18n from '#lib/locales/index'
+import lang from '#lib/lang'
+
+const { t } = lang
 
 export interface PromptConfigType {
     options: GitmarsOptionArgsType[] | GitmarsOptionOptionsType[]
@@ -55,7 +57,7 @@ function createPrompt(
         if (!options.length) return null
         const promptOpt: PromptOptionCheckboxType = {
             type,
-            message: i18n.__('Please select'),
+            message: t('Please select'),
             name: command,
             choices: [],
             validate: answer => {
@@ -88,29 +90,26 @@ function createPrompt(
                     name: opts.name,
                     message: `${
                         opts.description ||
-                        i18n.__('Enter the value of parameter {{option}}', {
+                        t('Enter the value of parameter {{option}}', {
                             option: opts.name
                         })
                     }${
                         !opts.required
                             ? chalk.yellow(
-                                  i18n.__(
-                                      '(' + 'Not required{{{tips}}}' + ')',
-                                      {
-                                          tips:
-                                              'defaultValue' in opts &&
-                                              opts.defaultValue !== ''
-                                                  ? ', ' +
-                                                    i18n.__(
-                                                        'default "{{{defaultValue}}}"',
-                                                        {
-                                                            defaultValue:
-                                                                opts.defaultValue
-                                                        }
-                                                    )
-                                                  : ''
-                                      }
-                                  )
+                                  t('(' + 'Not required{{{tips}}}' + ')', {
+                                      tips:
+                                          'defaultValue' in opts &&
+                                          opts.defaultValue !== ''
+                                              ? ', ' +
+                                                t(
+                                                    'default "{{{defaultValue}}}"',
+                                                    {
+                                                        defaultValue:
+                                                            opts.defaultValue
+                                                    }
+                                                )
+                                              : ''
+                                  })
                               )
                             : ''
                     }`,
@@ -124,7 +123,7 @@ function createPrompt(
                     validate: (val): string | boolean => {
                         let msg: string | boolean = true
                         if (!val && opts.required) {
-                            msg = i18n.__('Please fill in') + opts.description
+                            msg = t('Please fill in') + opts.description
                         }
                         validator &&
                             msg === true &&

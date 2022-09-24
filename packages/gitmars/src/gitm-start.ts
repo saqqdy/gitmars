@@ -14,16 +14,15 @@ import type {
     GitmarsOptionOptionsType,
     QueueReturnsType
 } from '../typings'
+import lang from '#lib/common/local'
 import startConfig from '#lib/conf/start'
-import i18n from '#lib/locales/index'
 
+const { t } = lang
 const { green, red } = chalk
 const { args, options } = startConfig
 
 if (!getIsGitProject()) {
-    sh.echo(
-        red(i18n.__('The current directory is not a git project directory'))
-    )
+    sh.echo(red(t('The current directory is not a git project directory')))
     process.exit(1)
 }
 
@@ -40,7 +39,7 @@ program
     .name('gitm start')
     .usage('<type> <name> [-t --tag <tag>]')
     .description(
-        i18n.__(
+        t(
             'Create bugfix task branch, create feature development branch, support framework support branch'
         )
     )
@@ -48,7 +47,7 @@ if (args.length > 0) program.arguments(createArgs(args))
 options.forEach((o: GitmarsOptionOptionsType) => {
     program.option(o.flags, o.description, o.defaultValue)
 })
-// .option('-t, --tag <tag>', i18n.__('Create branch from tag'), '')
+// .option('-t, --tag <tag>', t('Create branch from tag'), '')
 program.action(async (type: string, name: string, opt: GitmBuildOption) => {
     // 检测是否需要升级版本
     const needUpgrade = await isNeedUpgrade()
@@ -61,7 +60,7 @@ program.action(async (type: string, name: string, opt: GitmBuildOption) => {
         if (opt.tag && type !== 'bugfix') {
             sh.echo(
                 red(
-                    i18n.__(
+                    t(
                         'Specify that only bugfix branch creation is supported when pulling branches from tag'
                     )
                 )
@@ -75,11 +74,7 @@ program.action(async (type: string, name: string, opt: GitmBuildOption) => {
                     ? config.nameValidator
                     : new RegExp(config.nameValidator)
             if (!reg.test(name)) {
-                sh.echo(
-                    red(
-                        i18n.__('Branch name does not conform to specification')
-                    )
-                )
+                sh.echo(red(t('Branch name does not conform to specification')))
                 process.exit(1)
             }
         }
@@ -107,8 +102,8 @@ program.action(async (type: string, name: string, opt: GitmBuildOption) => {
                 (!opt.tag && data[3].status === 0)
             ) {
                 sh.echo(
-                    i18n.__(
-                        'The branch was created successfully and is based on {{{source}}}. You have now switched to the {{{target}}} branch\nIf you need to test, please run: "{{{combine}}}"\nWhen development is complete, remember to run: "{{{end}}}"',
+                    t(
+                        'The branch was created successfully and is based on {source}. You have now switched to the {target} branch\nIf you need to test, please run: "{combine}"\nWhen development is complete, remember to run: "{end}"',
                         {
                             source: String(base),
                             target: name,
@@ -120,9 +115,7 @@ program.action(async (type: string, name: string, opt: GitmBuildOption) => {
             }
         })
     } else {
-        sh.echo(
-            red(i18n.__('type only allows input') + ': ' + JSON.stringify(opts))
-        )
+        sh.echo(red(t('type only allows input') + ': ' + JSON.stringify(opts)))
         process.exit(1)
     }
 })

@@ -23,16 +23,15 @@ import type {
     InitInquirerPromptType,
     RevertCacheType
 } from '../typings'
+import lang from '#lib/common/local'
 import undoConfig from '#lib/conf/undo'
-import i18n from '#lib/locales/index'
 
+const { t } = lang
 const { blue, green, red, yellow } = chalk
 const { args, options } = undoConfig
 
 if (!getIsGitProject()) {
-    sh.echo(
-        red(i18n.__('The current directory is not a git project directory'))
-    )
+    sh.echo(red(t('The current directory is not a git project directory')))
     process.exit(1)
 }
 
@@ -69,12 +68,12 @@ function getRevertCommitIDs(commitIDs: string[]): string[] {
             echo(
                 yellow(
                     _before > -1
-                        ? i18n.__(
-                              'Detected {{id}} This record has been revert once, please check if there is an error',
+                        ? t(
+                              'Detected {id} This record has been revert once, please check if there is an error',
                               { id: commitIDs[len] }
                           )
-                        : i18n.__(
-                              'The record {{id}} is detected as a revert record, please use the "gitm redo" operation',
+                        : t(
+                              'The record {id} is detected as a revert record, please use the "gitm redo" operation',
                               { id: commitIDs[len] }
                           )
                 )
@@ -140,12 +139,12 @@ function calculate(all = false, opt: GitmBuildOption) {
             echo(
                 yellow(
                     _undoLogs.length === 0
-                        ? i18n.__(
-                              'Detected that {{id}} has failed to undo this record and has deleted the related logs',
+                        ? t(
+                              'Detected that {id} has failed to undo this record and has deleted the related logs',
                               { id: revertCache[len].before['%H'] }
                           )
-                        : i18n.__(
-                              'The record {{id}} was detected to have been recovered, and the related logs were deleted',
+                        : t(
+                              'The record {id} was detected to have been recovered, and the related logs were deleted',
                               { id: revertCache[len].before['%H'] }
                           )
                 )
@@ -164,18 +163,18 @@ program
     .usage(
         '[commitid...] [--lastet [lastet]] [--limit [limit]] [-m --mode [mode]] [--no-merges]'
     )
-    .description(i18n.__('Undo a commit record'))
+    .description(t('Undo a commit record'))
 if (args.length > 0) program.arguments(createArgs(args))
 options.forEach((o: GitmarsOptionOptionsType) => {
     program.option(o.flags, o.description, o.defaultValue)
 })
 // .arguments('[commitid...]')
-// .option('--calc', i18n.__('Clean up the current branch undo failure log'))
-// .option('--calcAll', i18n.__('Clean up all failed undo logs'))
-// .option('--no-merges', i18n.__('Whether to exclude merge's log'))
-// .option('-m, --mode [mode]', i18n.__('For undoing a merge record, the type to be passed in: 1 = keep current branch code, 2 = keep incoming code'), null)
-// .option('--lastet [lastet]', i18n.__('Query logs after a certain time, fill in the format: 10s/2m/2h/3d/4M/5y'), '7d')
-// .option('--limit [limit]', i18n.__('The maximum number of logs to be queried'), 20)
+// .option('--calc', t('Clean up the current branch undo failure log'))
+// .option('--calcAll', t('Clean up all failed undo logs'))
+// .option('--no-merges', t('Whether to exclude merge's log'))
+// .option('-m, --mode [mode]', t('For undoing a merge record, the type to be passed in: 1 = keep current branch code, 2 = keep incoming code'), null)
+// .option('--lastet [lastet]', t('Query logs after a certain time, fill in the format: 10s/2m/2h/3d/4M/5y'), '7d')
+// .option('--limit [limit]', t('The maximum number of logs to be queried'), 20)
 program.action(async (commitid: string[], opt: GitmBuildOption) => {
     const keys = ['%H', '%T', '%P', '%aI', '%an', '%s', '%b'] as const
     const current = getCurrentBranch()
@@ -213,7 +212,7 @@ program.action(async (commitid: string[], opt: GitmBuildOption) => {
             // 没有查找到任何记录
             echo(
                 yellow(
-                    i18n.__(
+                    t(
                         'No eligible commit logs found, please relax the filtering conditions appropriately, default: "--lastet=7d --limit=20". The process has been exited'
                     )
                 )
@@ -223,7 +222,7 @@ program.action(async (commitid: string[], opt: GitmBuildOption) => {
             // 多条记录
             const prompt: InitInquirerPromptType = {
                 type: 'checkbox',
-                message: i18n.__('Please select the commit record to undo.'),
+                message: t('Please select the commit record to undo.'),
                 name: 'commitIDs',
                 choices: []
             }
@@ -242,18 +241,14 @@ program.action(async (commitid: string[], opt: GitmBuildOption) => {
     }
     // 没有选择任何记录
     if (commitIDs.length === 0) {
-        echo(yellow(i18n.__('No commit record selected, process has exited')))
+        echo(yellow(t('No commit record selected, process has exited')))
         process.exit(0)
     }
     // 获取没有被undo过的记录
     commitIDs = getRevertCommitIDs(commitIDs)
     if (commitIDs.length === 0) {
         echo(
-            yellow(
-                i18n.__(
-                    'There are no revocable records, the process has exited'
-                )
-            )
+            yellow(t('There are no revocable records, the process has exited'))
         )
         process.exit(0)
     }
@@ -268,12 +263,10 @@ program.action(async (commitid: string[], opt: GitmBuildOption) => {
             cmd: `git revert -s --no-edit ${log['%H']}${mode}`,
             config: {
                 again: false,
-                success: i18n.__('Undo successfully: {{{something}}}', {
+                success: t('Undo successfully: {something}', {
                     something: log['%s']
                 }),
-                fail: i18n.__(
-                    'An error has occurred, please follow the instructions'
-                )
+                fail: t('An error has occurred, please follow the instructions')
             }
         }
     })
@@ -299,11 +292,7 @@ program.action(async (commitid: string[], opt: GitmBuildOption) => {
         })
         .catch(() => {
             echo(
-                yellow(
-                    i18n.__(
-                        'After handling conflicts, execute: gitm undo --calc'
-                    )
-                )
+                yellow(t('After handling conflicts, execute: gitm undo --calc'))
             )
         })
 })

@@ -6,15 +6,16 @@ import chalk from 'chalk'
 import { spawnSync } from '@gitmars/core/lib/spawn'
 import echo from '@gitmars/core/lib/utils/echo'
 // import { version } from '../package.json' assert { type: 'json' }
-import i18n from '#lib/locales/index'
+import lang from '#lib/common/local'
 
+const { t } = lang
 const require = createRequire(import.meta.url)
 const { green } = chalk
 const { version } = require('../package.json')
 
 if (!sh.which('git')) {
     echo(
-        i18n.__(
+        t(
             'Gitmars can only be executed in a git environment, so please install git first'
         )
     )
@@ -31,91 +32,85 @@ program.version(
         '                                                          \n' +
         `v${version}, powered by saqqdy\n`,
     '-v, --version',
-    i18n.__('View gitmars version number')
+    t('View gitmars version number')
 )
 
 program
     .name('gitm')
     .usage('[command] options')
-    .command('init', i18n.__('Initialize gitmars configuration'))
-    .command(
-        'config [options]',
-        i18n.__('View/Set configuration items for gitmars')
-    )
-    .command('combine', i18n.__('Branch phase mention test'))
+    .command('init', t('Initialize gitmars configuration'))
+    .command('config [options]', t('View/Set configuration items for gitmars'))
+    .command('combine', t('Branch phase mention test'))
     .alias('cb')
     .command(
         'start <type> <name>',
-        i18n.__('Create bugfix branches, create/merge release branches')
+        t('Create bugfix branches, create/merge release branches')
     )
     .alias('st')
-    .command('end <type> <name>', i18n.__('Finish developing a feature'))
+    .command('end <type> <name>', t('Finish developing a feature'))
     .alias('ed')
     .command(
         'update <type> <name>',
-        i18n.__('Update bugfix branch, update feature development branch')
+        t('Update bugfix branch, update feature development branch')
     )
     .alias('up')
-    .command('branch', i18n.__('List branches'))
+    .command('branch', t('List branches'))
     .alias('bh')
-    .command('save', i18n.__('Staging current branch files'))
+    .command('save', t('Staging current branch files'))
     .alias('sv')
     .command(
         'get',
-        i18n.__('Restore the most recently staged file in the staging area')
+        t('Restore the most recently staged file in the staging area')
     )
     .alias('gt')
-    .command('cleanbranch', i18n.__('Clean up merged feature branches'))
+    .command('cleanbranch', t('Clean up merged feature branches'))
     .alias('clb')
-    .command('copy <id>', i18n.__("Simplify git's cherry-pick operation"))
+    .command('copy <id>', t("Simplify git's cherry-pick operation"))
     .alias('cp')
-    .command('merge <name>', i18n.__('Merge code'))
+    .command('merge <name>', t('Merge code'))
     .alias('mg')
-    .command('continue', i18n.__('Continue unfinished operations'))
+    .command('continue', t('Continue unfinished operations'))
     .alias('ct')
-    .command('revert', i18n.__('Undo commit'))
+    .command('revert', t('Undo commit'))
     .alias('rt')
-    .command('upgrade', i18n.__('Upgrade gitmars'))
+    .command('upgrade', t('Upgrade gitmars'))
     .alias('ug')
-    .command('build', i18n.__('buildJenkins'))
+    .command('build', t('buildJenkins'))
     .alias('bd')
-    .command('suggest', i18n.__('Action Tips'))
+    .command('suggest', t('Action Tips'))
     .alias('sg')
-    .command('approve', i18n.__('Handling remote merge requests'))
+    .command('approve', t('Handling remote merge requests'))
     .alias('ap')
-    .command('review', i18n.__('review remote code'))
+    .command('review', t('review remote code'))
     .alias('rv')
-    .command('status', i18n.__('view branch status'))
-    .command('ui', i18n.__('Launch web version of gitmars'))
-    .command('unlink', i18n.__('Unlink softlinks'))
-    .command('link', i18n.__('Create soft links'))
-    .command('clean', i18n.__('Clear cache'))
-    .command('postmsg', i18n.__('Push Message'))
-    .command('permission', i18n.__('Commit Permissions'))
-    .command('hook', i18n.__('git hook directive'))
-    .command('undo', i18n.__('Withdraw commits on master branches'))
+    .command('status', t('view branch status'))
+    .command('ui', t('Launch web version of gitmars'))
+    .command('unlink', t('Unlink softlinks'))
+    .command('link', t('Create soft links'))
+    .command('clean', t('Clear cache'))
+    .command('postmsg', t('Push Message'))
+    .command('permission', t('Commit Permissions'))
+    .command('hook', t('git hook directive'))
+    .command('undo', t('Withdraw commits on master branches'))
     .alias('ud')
-    .command('redo', i18n.__('Resume withdrawn code back online'))
+    .command('redo', t('Resume withdrawn code back online'))
     .alias('rd')
-    .command('run', i18n.__('git hook run command'))
-    .command('log', i18n.__('Query log'))
-    .command(
-        'go',
-        i18n.__('Intelligent guessing of the action you want to perform')
-    )
-    .command('alias', i18n.__('Install and remove shortcuts'))
-    .command('install', i18n.__('Install plugins'))
+    .command('run', t('git hook run command'))
+    .command('log', t('Query log'))
+    .command('go', t('Intelligent guessing of the action you want to perform'))
+    .command('alias', t('Install and remove shortcuts'))
+    .command('install', t('Install plugins'))
     .alias('i')
     .command(
         'admin <command>',
-        i18n.__(
+        t(
             'Administrator functions, including actions for bugfixing and releasing release branches'
         )
     )
 
 // 自定义帮助
 program.on('--help', function () {
-    echo(i18n.__('Use Case'))
+    echo(t('Use Case'))
     echo('  $ gitm init')
     echo('  $ gitm --help')
     echo('  $ gitm -h')
@@ -189,8 +184,8 @@ program.on('command:*', function (types: string[], opts: string[]) {
         const arr = types.concat(opts)
         echo(
             green(
-                i18n.__(
-                    'Gitmars does not provide the command "gitm {{{command}}}", it has been passed through to git for execution, here are the results',
+                t(
+                    'Gitmars does not provide the command "gitm {command}", it has been passed through to git for execution, here are the results',
                     { command: types[0] }
                 )
             )

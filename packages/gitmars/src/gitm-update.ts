@@ -14,15 +14,14 @@ import { isNeedUpgrade, upgradeGitmars } from '@gitmars/core/lib/versionControl'
 import type { CommandType, GitmarsOptionOptionsType } from '../typings'
 import { defaults } from '#lib/common/global'
 import updateConfig from '#lib/conf/update'
-import i18n from '#lib/locales/index'
+import lang from '#lib/common/local'
 
+const { t } = lang
 const { red } = chalk
 const { args, options } = updateConfig
 
 if (!getIsGitProject()) {
-    sh.echo(
-        red(i18n.__('The current directory is not a git project directory'))
-    )
+    sh.echo(red(t('The current directory is not a git project directory')))
     process.exit(1)
 }
 
@@ -42,7 +41,7 @@ program
     .name('gitm update')
     .usage('[type] [name] [--use-merge] [--use-rebase] [-a --all] [-f --force]')
     .description(
-        i18n.__(
+        t(
             'Update bug task branch, update feature function development branch, framework adjustment branch support'
         )
     )
@@ -50,10 +49,10 @@ if (args.length > 0) program.arguments(createArgs(args))
 options.forEach((o: GitmarsOptionOptionsType) => {
     program.option(o.flags, o.description, o.defaultValue)
 })
-// .option('--use-merge', i18n.__('Whether to use merge method to update codes, default method is merge'), true)
-// .option('--use-rebase', i18n.__('Whether to use rebase method update, default method is merge'), false)
-// .option('-a --all', i18n.__('Update all local bugfix, feature, support branches'), false)
-// .option('-f, --force', i18n.__('Whether to force a merge request'), false)
+// .option('--use-merge', t('Whether to use merge method to update codes, default method is merge'), true)
+// .option('--use-rebase', t('Whether to use rebase method update, default method is merge'), false)
+// .option('-a --all', t('Update all local bugfix, feature, support branches'), false)
+// .option('-f, --force', t('Whether to force a merge request'), false)
 program.action(
     async (type: string | string[], name: string, opt: GitmBuildOption) => {
         // Checking if a version upgrade is needed
@@ -85,8 +84,8 @@ program.action(
                 deny.includes(type) &&
                     sh.echo(
                         red(
-                            i18n.__(
-                                'Hey bro, what is the fuck are you doing by executing this command in the {{type}} branch?',
+                            t(
+                                'Hey bro, what is the fuck are you doing by executing this command in the {type} branch?',
                                 { type }
                             )
                         )
@@ -97,7 +96,7 @@ program.action(
                 // type is not legal
                 sh.echo(
                     red(
-                        i18n.__('type only allows input') +
+                        t('type only allows input') +
                             ': ' +
                             JSON.stringify(allow)
                     )
@@ -108,11 +107,7 @@ program.action(
         } else if (!allow.includes(type as string)) {
             // 传了type和name，但是不合法
             sh.echo(
-                red(
-                    i18n.__('type only allows input') +
-                        ': ' +
-                        JSON.stringify(allow)
-                )
+                red(t('type only allows input') + ': ' + JSON.stringify(allow))
             )
             process.exit(1)
         } else {
@@ -147,15 +142,15 @@ program.action(
                         cmd: `git rebase ${base}`,
                         config: {
                             again: false,
-                            success: i18n.__(
-                                'Merge {{{source}}} to {{{target}}} successfully',
+                            success: t(
+                                'Merge {source} to {target} successfully',
                                 {
                                     source: base,
                                     target: `${type}/${name}`
                                 }
                             ),
-                            fail: i18n.__(
-                                'An error occurred merging {{{source}}} to {{{target}}}, please follow the instructions',
+                            fail: t(
+                                'An error occurred merging {source} to {target}, please follow the instructions',
                                 {
                                     source: base,
                                     target: `${type}/${name}`
@@ -168,15 +163,15 @@ program.action(
                         cmd: `git merge --no-ff ${base}`,
                         config: {
                             again: false,
-                            success: i18n.__(
-                                'Merge {{{source}}} to {{{target}}} successfully',
+                            success: t(
+                                'Merge {source} to {target} successfully',
                                 {
                                     source: base,
                                     target: `${type}/${name}`
                                 }
                             ),
-                            fail: i18n.__(
-                                'An error occurred merging {{{source}}} to {{{target}}}, please follow the instructions',
+                            fail: t(
+                                'An error occurred merging {source} to {target}, please follow the instructions',
                                 {
                                     source: base,
                                     target: `${type}/${name}`
@@ -188,13 +183,10 @@ program.action(
             } else {
                 cmd = [
                     {
-                        message: i18n.__(
-                            '{{{source}}} has been merged with {{{target}}}',
-                            {
-                                source: base,
-                                target: `${type}/${name}`
-                            }
-                        )
+                        message: t('{source} has been merged with {target}', {
+                            source: base,
+                            target: `${type}/${name}`
+                        })
                     }
                 ]
             }

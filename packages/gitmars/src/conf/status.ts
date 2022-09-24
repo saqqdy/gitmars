@@ -1,6 +1,6 @@
 import type { GitmarsOptionType } from '../../typings'
-// // import i18n from '#lib/locales/index'
-const i18n = { __: (txt: string) => txt }
+// import lang from '#lib/common/local'
+// const t = (txt: string) => txt
 
 export const cmdConfig: GitmarsOptionType = {
     command: 'status',

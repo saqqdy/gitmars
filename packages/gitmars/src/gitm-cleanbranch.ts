@@ -19,14 +19,15 @@ import type {
     GitmarsOptionOptionsType,
     InitInquirerPromptType
 } from '../typings'
+import lang from '#lib/common/local'
 import cleanbranchConfig from '#lib/conf/cleanbranch'
-import i18n from '#lib/locales/index'
 
+const { t } = lang
 const { green, red, yellow } = chalk
 const { args, options } = cleanbranchConfig
 
 if (!getIsGitProject()) {
-    echo(red(i18n.__('The current directory is not a git project directory')))
+    echo(red(t('The current directory is not a git project directory')))
     process.exit(1)
 }
 
@@ -73,20 +74,20 @@ program
     .usage(
         '[branches...] [-l --list [list]] [-k --key [keyword]] [--exclude [exclude]] [--include [include]] [-t --type [type]] [--target [target]] [-r --remote]'
     )
-    .description(i18n.__('Clean up merged feature branches'))
+    .description(t('Clean up merged feature branches'))
 if (args.length > 0) program.arguments(createArgs(args))
 options.forEach((o: GitmarsOptionOptionsType) => {
     program.option(o.flags, o.description, o.defaultValue)
 })
-// .option('-l, --list', i18n.__('Show a list of branches that match the criteria'), false)
-// .option('-t, --type [type]', i18n.__('The type of branch, there are 3 types: feature, bugfix, support, default all if not passed'), null)
-// .option('--target [target]', i18n.__('The name of the target branch that needs to be tested for merging, default is develop and release if not passed'), null)
-// .option('-k, --key [keyword]', i18n.__('Query branch for keywords'), null)
-// .option('--exclude [exclude]', i18n.__('Exclude keywords'), '')
-// .option('--include [include]', i18n.__('Include keywords'), '')
-// .option('-r, --remote', i18n.__('Whether to clean up remote branches, default is clean up local branches'), false)
-// .option('-c, --confirm', i18n.__('Confirm start, do not show confirmation box when true'), false)
-// .option('--deadline [deadline]', i18n.__('Delete branch before fixed duration, fill in format: 10s/2m/2h/3d/4M/5y'), '15d') -----------------------
+// .option('-l, --list', t('Show a list of branches that match the criteria'), false)
+// .option('-t, --type [type]', t('The type of branch, there are 3 types: feature, bugfix, support, default all if not passed'), null)
+// .option('--target [target]', t('The name of the target branch that needs to be tested for merging, default is develop and release if not passed'), null)
+// .option('-k, --key [keyword]', t('Query branch for keywords'), null)
+// .option('--exclude [exclude]', t('Exclude keywords'), '')
+// .option('--include [include]', t('Include keywords'), '')
+// .option('-r, --remote', t('Whether to clean up remote branches, default is clean up local branches'), false)
+// .option('-c, --confirm', t('Confirm start, do not show confirmation box when true'), false)
+// .option('--deadline [deadline]', t('Delete branch before fixed duration, fill in format: 10s/2m/2h/3d/4M/5y'), '15d') -----------------------
 program.action(async (branches: string[], opt: GitmBuildOption) => {
     const spinner = ora()
     spinner.color = 'green'
@@ -99,14 +100,12 @@ program.action(async (branches: string[], opt: GitmBuildOption) => {
             opt.remote && getIsBranchOrCommitExist(branch, true)
         if (removeLocal || removeRemote) {
             spinner.start(
-                green(
-                    i18n.__('Deleting: {{{something}}}', { something: branch })
-                )
+                green(t('Deleting: {something}', { something: branch }))
             )
             await delay(200)
             spinner.succeed(
                 green(
-                    i18n.__('Deleted successfully: {{{something}}}', {
+                    t('Deleted successfully: {something}', {
                         something: branch
                     })
                 )
@@ -147,20 +146,20 @@ program.action(async (branches: string[], opt: GitmBuildOption) => {
                 .prompt({
                     type: 'confirm',
                     name: 'value',
-                    message: i18n.__(
+                    message: t(
                         'About to start batch deleting branches, do you want to continue?'
                     ),
                     default: false
                 })
                 .then((answers: any) => {
                     if (!answers.value) {
-                        echo(green(i18n.__('exited')))
+                        echo(green(t('exited')))
                         process.exit(0)
                     }
                 })
         }
     } else {
-        echo(green(i18n.__('No branches were queried.')))
+        echo(green(t('No branches were queried.')))
         process.exit(0)
     }
     for (const branch of branches) {
@@ -178,7 +177,7 @@ program.action(async (branches: string[], opt: GitmBuildOption) => {
         }
         spinner.start(
             green(
-                i18n.__('Start analysis: {{{something}}}', {
+                t('Start analysis: {something}', {
                     something: branch
                 })
             )
@@ -187,7 +186,7 @@ program.action(async (branches: string[], opt: GitmBuildOption) => {
         if (!isMerged) {
             spinner.fail(
                 red(
-                    i18n.__('Cannot be deleted: {{{something}}}', {
+                    t('Cannot be deleted: {something}', {
                         something: branch
                     })
                 )
@@ -199,7 +198,7 @@ program.action(async (branches: string[], opt: GitmBuildOption) => {
         await delay(200)
         spinner.succeed(
             green(
-                i18n.__('Analysis completed: {{{something}}}', {
+                t('Analysis completed: {something}', {
                     something: branch
                 })
             )
@@ -220,8 +219,8 @@ program.action(async (branches: string[], opt: GitmBuildOption) => {
             const prompt: InitInquirerPromptType = {
                 type: 'checkbox',
                 message: yellow(
-                    i18n.__(
-                        'Find {{total}} branches merged over {{{branches}}} branch, please select the branch to clean up',
+                    t(
+                        'Find {total} branches merged over {branches} branch, please select the branch to clean up',
                         {
                             branches: targets.join(','),
                             total: String(_willDeleteBranch.length)
@@ -242,7 +241,7 @@ program.action(async (branches: string[], opt: GitmBuildOption) => {
                 if (selectBranches.length === 0) {
                     echo(
                         yellow(
-                            i18n.__(
+                            t(
                                 'No branches were selected and the process has exited.'
                             )
                         )
@@ -255,14 +254,12 @@ program.action(async (branches: string[], opt: GitmBuildOption) => {
                 })
             })
         } else {
-            echo(green(i18n.__('Analysis complete, no branches to clean up')))
+            echo(green(t('Analysis complete, no branches to clean up')))
         }
     } else {
         echo(
             green(
-                i18n.__(
-                    'Deletion complete, these branches have been cleaned up'
-                ) +
+                t('Deletion complete, these branches have been cleaned up') +
                     ': ' +
                     _willDeleteBranch.join(' ')
             )

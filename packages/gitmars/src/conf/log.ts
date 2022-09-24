@@ -1,6 +1,6 @@
 import type { GitmarsOptionType } from '../../typings'
-// import i18n from '#lib/locales/index'
-const i18n = { __: (txt: string) => txt }
+// import lang from '#lib/common/local'
+const t = (txt: string) => txt
 
 export const cmdConfig: GitmarsOptionType = {
     command: 'log',
@@ -22,7 +22,7 @@ export const cmdConfig: GitmarsOptionType = {
             short: '',
             long: '--lastet',
             negate: false,
-            description: i18n.__(
+            description: t(
                 'Query logs after a certain time, fill in the format: 10s/2m/2h/3d/4M/5y'
             ),
             defaultValue: '7d'
@@ -35,7 +35,7 @@ export const cmdConfig: GitmarsOptionType = {
             mandatory: false,
             long: '--no-merges',
             negate: true,
-            description: i18n.__('Whether to exclude merge records'),
+            description: t('Whether to exclude merge records'),
             defaultValue: true,
             recommend: false
         },
@@ -48,7 +48,7 @@ export const cmdConfig: GitmarsOptionType = {
             short: '',
             long: '--limit',
             negate: false,
-            description: i18n.__('The maximum number of logs to be queried'),
+            description: t('The maximum number of logs to be queried'),
             defaultValue: 20
         },
         {
@@ -60,7 +60,7 @@ export const cmdConfig: GitmarsOptionType = {
             short: '',
             long: '--json',
             negate: false,
-            description: i18n.__(
+            description: t(
                 'Whether to output logs in json format, default form'
             ),
             defaultValue: false

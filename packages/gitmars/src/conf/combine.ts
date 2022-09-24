@@ -1,6 +1,6 @@
 import type { GitmarsOptionType } from '../../typings'
-// import i18n from '#lib/locales/index'
-const i18n = { __: (txt: string) => txt }
+// import lang from '#lib/common/local'
+const t = (txt: string) => txt
 
 export const cmdConfig: GitmarsOptionType = {
     command: 'combine',
@@ -10,7 +10,7 @@ export const cmdConfig: GitmarsOptionType = {
             required: false,
             name: 'type',
             variadic: false,
-            description: i18n.__('Branch Type'),
+            description: t('Branch Type'),
             options: ['feature', 'bugfix', 'support'],
             value: ''
         },
@@ -18,7 +18,7 @@ export const cmdConfig: GitmarsOptionType = {
             required: false,
             name: 'name',
             variadic: false,
-            description: i18n.__('Branch name (without feature/bugfix prefix)')
+            description: t('Branch name (without feature/bugfix prefix)')
         }
     ],
     options: [
@@ -31,7 +31,7 @@ export const cmdConfig: GitmarsOptionType = {
             short: '-d',
             long: '--dev',
             negate: false,
-            description: i18n.__('Sync to dev environment'),
+            description: t('Sync to dev environment'),
             defaultValue: false,
             value: true,
             recommend: true // Custom value: whether to check by default
@@ -45,7 +45,7 @@ export const cmdConfig: GitmarsOptionType = {
             short: '-p',
             long: '--prod',
             negate: false,
-            description: i18n.__('Sync to prod environment'),
+            description: t('Sync to prod environment'),
             defaultValue: false,
             value: false,
             recommend: false
@@ -59,7 +59,7 @@ export const cmdConfig: GitmarsOptionType = {
             short: '-b',
             long: '--build',
             negate: false,
-            description: i18n.__('Build application'),
+            description: t('Build application'),
             value: 'all',
             recommend: true
         },
@@ -72,7 +72,7 @@ export const cmdConfig: GitmarsOptionType = {
             short: '-m',
             long: '--commit',
             negate: false,
-            description: i18n.__('Execute commit, information required'),
+            description: t('Execute commit, information required'),
             defaultValue: '',
             recommend: false
         },
@@ -84,7 +84,7 @@ export const cmdConfig: GitmarsOptionType = {
             mandatory: false,
             long: '--description',
             negate: false,
-            description: i18n.__('Description of the reason for this commit'),
+            description: t('Description of the reason for this commit'),
             defaultValue: '',
             recommend: false
         },
@@ -97,7 +97,7 @@ export const cmdConfig: GitmarsOptionType = {
             short: '-a',
             long: '--add',
             negate: false,
-            description: i18n.__('Execute add'),
+            description: t('Execute add'),
             defaultValue: false,
             recommend: false
         },
@@ -109,7 +109,7 @@ export const cmdConfig: GitmarsOptionType = {
             mandatory: false,
             long: '--no-bugfix',
             negate: true,
-            description: i18n.__(
+            description: t(
                 'bug branch merge to release without merging to bug branch'
             ),
             defaultValue: true,
@@ -123,7 +123,7 @@ export const cmdConfig: GitmarsOptionType = {
             mandatory: false,
             long: '--as-feature',
             negate: false,
-            description: i18n.__('bug branch merge to release'),
+            description: t('bug branch merge to release'),
             recommend: false
         },
         {
@@ -135,14 +135,14 @@ export const cmdConfig: GitmarsOptionType = {
             short: '-f',
             long: '--force',
             negate: false,
-            description: i18n.__('Whether to force a merge request'),
+            description: t('Whether to force a merge request'),
             recommend: false
         }
     ],
     // validator opts
     validatorOpts: (val, opts, cb) => {
         if (!val.includes('--dev') && !val.includes('--prod')) {
-            cb(new Error(i18n.__('Merge dev or prod must choose at least one')))
+            cb(new Error(t('Merge dev or prod must choose at least one')))
             return
         }
         if (
@@ -151,9 +151,7 @@ export const cmdConfig: GitmarsOptionType = {
         ) {
             cb(
                 new Error(
-                    i18n.__(
-                        'add and commit need to be selected at the same time'
-                    )
+                    t('add and commit need to be selected at the same time')
                 )
             )
             return

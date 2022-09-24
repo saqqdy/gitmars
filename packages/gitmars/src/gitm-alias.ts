@@ -6,8 +6,9 @@ import { spawnSync } from '@gitmars/core/lib/spawn'
 import echo from '@gitmars/core/lib/utils/echo'
 import type { GitmarsOptionOptionsType } from '../typings'
 import aliasConfig from '#lib/conf/alias'
-import i18n from '#lib/locales/index'
+import lang from '#lib/common/local'
 
+const { t } = lang
 const { red } = chalk
 const { args, options } = aliasConfig
 const actions = ['init', 'remove'] as const
@@ -22,7 +23,7 @@ interface Action {
 program
     .name('gitm alias')
     .usage('<action>')
-    .description(i18n.__('Install and remove shortcuts'))
+    .description(t('Install and remove shortcuts'))
 if (args.length > 0) program.arguments(createArgs(args))
 options.forEach((o: GitmarsOptionOptionsType) => {
     program.option(o.flags, o.description, o.defaultValue)
@@ -31,7 +32,7 @@ program.action((action: Module) => {
     if (!actions.includes(action)) {
         echo(
             red(
-                i18n.__(
+                t(
                     'The method you entered is incorrect, only support: init, remove'
                 )
             )

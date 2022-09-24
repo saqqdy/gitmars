@@ -5,9 +5,10 @@ import ora from 'ora'
 import { spawnSync } from '@gitmars/core/lib/spawn'
 import { createArgs } from '@gitmars/core/lib/utils/command'
 import type { GitmarsOptionOptionsType, PackageVersionTag } from '../typings'
+import lang from '#lib/common/local'
 import upgradeConfig from '#lib/conf/upgrade'
-import i18n from '#lib/locales/index'
 
+const { t } = lang
 const { green, red } = chalk
 const { args, options } = upgradeConfig
 
@@ -25,14 +26,14 @@ program
     .usage(
         '[version] [-m --mirror] [-c --client [client]] [-r --registry <registry>]'
     )
-    .description(i18n.__('Upgrade gitmars'))
+    .description(t('Upgrade gitmars'))
 if (args.length > 0) program.arguments(createArgs(args))
 options.forEach((o: GitmarsOptionOptionsType) => {
     program.option(o.flags, o.description, o.defaultValue)
 })
-// .option('-m, --mirror', i18n.__('Whether to use Taobao Mirror'), false)
-// .option('-c, --client [client]', i18n.__('The name of the client used to load the package'), 'npm')
-// .option('-r, --registry <registry]>', i18n.__('Use mirror address'), '')
+// .option('-m, --mirror', t('Whether to use Taobao Mirror'), false)
+// .option('-c, --client [client]', t('The name of the client used to load the package'), 'npm')
+// .option('-r, --registry <registry]>', t('Use mirror address'), '')
 program.action(
     async (version: PackageVersionTag | string, opt: GitmBuildOption) => {
         const spinner = ora()
@@ -50,7 +51,7 @@ program.action(
                 ].includes(version)
             ) {
                 console.error(
-                    i18n.__(
+                    t(
                         'Incorrect version number entered, only supported: alpha, lite, beta, release, latest, next'
                     )
                 )
@@ -82,7 +83,7 @@ program.action(
         if (opt.registry) {
             cmdAdd[1] = cmdAdd[1].concat(['-registry', opt.registry])
         }
-        spinner.start(green(i18n.__('Uninstalling')))
+        spinner.start(green(t('Uninstalling')))
         const uninstall = spawnSync(cmdDel[0], cmdDel[1], {
             stdio: 'ignore',
             shell: process.platform === 'win32' /*, env: { detached: true } */
@@ -90,21 +91,21 @@ program.action(
         if (uninstall.status !== 0) {
             spinner.fail(
                 red(
-                    i18n.__(
+                    t(
                         'There was an error uninstalling, please try running after manually removing: npm install -g gitmars'
                     )
                 )
             )
             process.exit(0)
         }
-        spinner.succeed(green(i18n.__('Uninstallation complete')))
-        spinner.start(green(i18n.__('Installing')))
+        spinner.succeed(green(t('Uninstallation complete')))
+        spinner.start(green(t('Installing')))
         const install = spawnSync(cmdAdd[0], cmdAdd[1], {
             stdio: 'ignore',
             shell: process.platform === 'win32' /*, env: { detached: true } */
         })
         if (install.status === 0) {
-            spinner.succeed(green(i18n.__('Installation complete')))
+            spinner.succeed(green(t('Installation complete')))
             spawnSync('gitm', ['-v'], {
                 stdio: 'inherit',
                 shell:
@@ -113,7 +114,7 @@ program.action(
         } else {
             spinner.fail(
                 red(
-                    i18n.__(
+                    t(
                         'There was an error installing, please try running: npm install -g gitmars'
                     )
                 )

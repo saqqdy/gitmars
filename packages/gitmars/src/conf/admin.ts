@@ -1,6 +1,6 @@
 import type { GitmarsMultiOptionType } from '../../typings'
-// import i18n from '#lib/locales/index'
-const i18n = { __: (txt: string) => txt }
+// import lang from '#lib/common/local'
+const t = (txt: string) => txt
 
 export const cmdConfig: GitmarsMultiOptionType = {
     command: 'admin',
@@ -15,13 +15,13 @@ export const cmdConfig: GitmarsMultiOptionType = {
                 variadic: false,
                 validator: (val, opts, cb) => {
                     if (/\s+/.test(val)) {
-                        cb(new Error(i18n.__('Please do not enter spaces')))
+                        cb(new Error(t('Please do not enter spaces')))
                         return
                     }
                     cb()
                 },
                 // transformer: null,
-                description: i18n.__('Branch Type')
+                description: t('Branch Type')
             }
         ],
         options: [],
@@ -52,13 +52,13 @@ export const cmdConfig: GitmarsMultiOptionType = {
                 variadic: false,
                 validator: (val, opts, cb) => {
                     if (/\s+/.test(val)) {
-                        cb(new Error(i18n.__('Please do not enter spaces')))
+                        cb(new Error(t('Please do not enter spaces')))
                         return
                     }
                     cb()
                 },
                 // transformer: null,
-                description: i18n.__('Branch Type'),
+                description: t('Branch Type'),
                 options: ['release', 'bugfix'],
                 value: ''
             }
@@ -73,9 +73,7 @@ export const cmdConfig: GitmarsMultiOptionType = {
                 short: '-c',
                 long: '--combine',
                 negate: false,
-                description: i18n.__(
-                    'Whether to sync the release code to the bug'
-                ),
+                description: t('Whether to sync the release code to the bug'),
                 defaultValue: false,
                 recommend: false
             },
@@ -87,7 +85,7 @@ export const cmdConfig: GitmarsMultiOptionType = {
                 mandatory: false,
                 long: '--use-rebase',
                 negate: false,
-                description: i18n.__(
+                description: t(
                     'Whether to update using rebase method, default merge'
                 ),
                 defaultValue: false,
@@ -102,7 +100,7 @@ export const cmdConfig: GitmarsMultiOptionType = {
                 short: '-p',
                 long: '--prod',
                 negate: false,
-                description: i18n.__(
+                description: t(
                     'Whether to merge bugs to master when publishing bug branches'
                 ),
                 defaultValue: false,
@@ -117,7 +115,7 @@ export const cmdConfig: GitmarsMultiOptionType = {
                 short: '-b',
                 long: '--build',
                 negate: false,
-                description: i18n.__('Build application'),
+                description: t('Build application'),
                 recommend: true
             },
             {
@@ -128,7 +126,7 @@ export const cmdConfig: GitmarsMultiOptionType = {
                 mandatory: false,
                 long: '--postmsg',
                 negate: false,
-                description: i18n.__('Send Message'),
+                description: t('Send Message'),
                 defaultValue: false,
                 recommend: false
             },
@@ -140,9 +138,7 @@ export const cmdConfig: GitmarsMultiOptionType = {
                 mandatory: false,
                 long: '--description',
                 negate: false,
-                description: i18n.__(
-                    'Description of the reason for this commit'
-                ),
+                description: t('Description of the reason for this commit'),
                 defaultValue: '',
                 recommend: false
             },
@@ -155,7 +151,7 @@ export const cmdConfig: GitmarsMultiOptionType = {
                 short: '-f',
                 long: '--force',
                 negate: false,
-                description: i18n.__('Whether to force a merge request'),
+                description: t('Whether to force a merge request'),
                 recommend: false
             }
         ],
@@ -164,7 +160,7 @@ export const cmdConfig: GitmarsMultiOptionType = {
             if (val.includes('--combine') && val.includes('--prod')) {
                 cb(
                     new Error(
-                        i18n.__(
+                        t(
                             'You cannot select both "Merge release to bug" and "Merge bug to master"'
                         )
                     )
@@ -196,13 +192,13 @@ export const cmdConfig: GitmarsMultiOptionType = {
                 variadic: false,
                 validator: (val, opts, cb) => {
                     if (/\s+/.test(val)) {
-                        cb(new Error(i18n.__('Please do not enter spaces')))
+                        cb(new Error(t('Please do not enter spaces')))
                         return
                     }
                     cb()
                 },
                 // transformer: null,
-                description: i18n.__('Branch Type')
+                description: t('Branch Type')
             }
         ],
         options: [
@@ -214,7 +210,7 @@ export const cmdConfig: GitmarsMultiOptionType = {
                 mandatory: false,
                 long: '--use-rebase',
                 negate: false,
-                description: i18n.__(
+                description: t(
                     'Whether to update using rebase method, default merge'
                 ),
                 defaultValue: false,
@@ -229,7 +225,7 @@ export const cmdConfig: GitmarsMultiOptionType = {
                 short: '-m',
                 long: '--mode',
                 negate: false,
-                description: i18n.__(
+                description: t(
                     'In case of a conflict, whether to keep the incoming code or the current code; 1=use current 2=use incoming; default is 0=handle manually. This parameter must not be used with --use-rebase'
                 ),
                 defaultValue: 0,
@@ -243,7 +239,7 @@ export const cmdConfig: GitmarsMultiOptionType = {
                 mandatory: false,
                 long: '--postmsg',
                 negate: false,
-                description: i18n.__('Send Message'),
+                description: t('Send Message'),
                 defaultValue: false,
                 recommend: false
             },
@@ -255,9 +251,7 @@ export const cmdConfig: GitmarsMultiOptionType = {
                 mandatory: false,
                 long: '--description',
                 negate: false,
-                description: i18n.__(
-                    'Description of the reason for this commit'
-                ),
+                description: t('Description of the reason for this commit'),
                 defaultValue: '',
                 recommend: false
             },
@@ -270,7 +264,7 @@ export const cmdConfig: GitmarsMultiOptionType = {
                 short: '-f',
                 long: '--force',
                 negate: false,
-                description: i18n.__('Whether to force a merge request'),
+                description: t('Whether to force a merge request'),
                 recommend: false
             }
         ],
@@ -301,13 +295,13 @@ export const cmdConfig: GitmarsMultiOptionType = {
                 variadic: false,
                 validator: (val, opts, cb) => {
                     if (/\s+/.test(val)) {
-                        cb(new Error(i18n.__('Please do not enter spaces')))
+                        cb(new Error(t('Please do not enter spaces')))
                         return
                     }
                     cb()
                 },
                 // transformer: null,
-                description: i18n.__('Branch Type')
+                description: t('Branch Type')
             }
         ],
         options: [],

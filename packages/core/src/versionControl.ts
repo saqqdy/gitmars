@@ -4,8 +4,9 @@ import chalk from 'chalk'
 // import { version } from '../package.json' assert { type: 'json' }
 import { getPkgInfo } from '#lib/utils/pkgInfo'
 import { debug } from '#lib/utils/debug'
-import i18n from '#lib/locales/index'
+import lang from '#lib/lang'
 
+const { t } = lang
 const require = createRequire(import.meta.url)
 const { version } = require('../package.json')
 
@@ -40,12 +41,10 @@ export async function isNeedUpgrade(): Promise<boolean> {
 export function upgradeGitmars() {
     sh.echo(
         chalk.red(
-            i18n.__(
-                'Your version is detected as old, please upgrade before using'
-            )
+            t('Your version is detected as old, please upgrade before using')
         ) +
             chalk.green(
-                i18n.__(
+                t(
                     '\nMac users upgrade method: sudo gitm upgrade latest -m -c npm \nWindows users use PowerShell or CMD: gitm upgrade latest -m -c npm.cmd'
                 )
             )

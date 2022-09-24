@@ -1,6 +1,6 @@
 import type { GitmarsOptionType } from '../../typings'
-// import i18n from '#lib/locales/index'
-const i18n = { __: (txt: string) => txt }
+// import lang from '#lib/common/local'
+const t = (txt: string) => txt
 
 export const cmdConfig: GitmarsOptionType = {
     command: 'postmsg',
@@ -22,7 +22,7 @@ export const cmdConfig: GitmarsOptionType = {
             short: '-u',
             long: '--url',
             negate: false,
-            description: i18n.__('The api address of the push message'),
+            description: t('The api address of the push message'),
             defaultValue: ''
         }
     ],

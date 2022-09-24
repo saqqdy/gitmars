@@ -19,16 +19,15 @@ import type {
     InitInquirerPromptType,
     RevertCacheType
 } from '../typings'
+import lang from '#lib/common/local'
 import redoConfig from '#lib/conf/redo'
-import i18n from '#lib/locales/index'
 
+const { t } = lang
 const { blue, green, red, yellow } = chalk
 const { args, options } = redoConfig
 
 if (!getIsGitProject()) {
-    sh.echo(
-        red(i18n.__('The current directory is not a git project directory'))
-    )
+    sh.echo(red(t('The current directory is not a git project directory')))
     process.exit(1)
 }
 
@@ -43,13 +42,13 @@ interface GitmBuildOption {
 program
     .name('gitm redo')
     .usage('[commitid...] [-m --mode [mode]]')
-    .description(i18n.__('Undo a commit record'))
+    .description(t('Undo a commit record'))
 if (args.length > 0) program.arguments(createArgs(args))
 options.forEach((o: GitmarsOptionOptionsType) => {
     program.option(o.flags, o.description, o.defaultValue)
 })
 // .arguments('[commitid...]')
-// .option('-m, --mode [mode]', i18n.__('For undoing a merge record, the type to be passed in: 1 = keep current branch code, 2 = keep incoming code'), null)
+// .option('-m, --mode [mode]', t('For undoing a merge record, the type to be passed in: 1 = keep current branch code, 2 = keep incoming code'), null)
 program.action(async (commitid: string[], opt: GitmBuildOption) => {
     const current = getCurrentBranch()
     let revertCache: RevertCacheType[] = getRevertCache(current),
@@ -66,13 +65,13 @@ program.action(async (commitid: string[], opt: GitmBuildOption) => {
     // 没有查询到日志
     if (revertCache.length === 0) {
         // 没有查找到任何记录
-        echo(yellow(i18n.__('No recoverable undo logs found, process exited')))
+        echo(yellow(t('No recoverable undo logs found, process exited')))
         process.exit(0)
     }
     // 多条记录
     const prompt: InitInquirerPromptType = {
         type: 'checkbox',
-        message: i18n.__('Please select the undo record to restore'),
+        message: t('Please select the undo record to restore'),
         name: 'commitIDs',
         choices: []
     }
@@ -89,7 +88,7 @@ program.action(async (commitid: string[], opt: GitmBuildOption) => {
     commitIDs = (await inquirer.prompt(prompt)).commitIDs
     // 没有选择任何记录
     if (commitIDs.length === 0) {
-        echo(yellow(i18n.__('No logs selected, process has exited')))
+        echo(yellow(t('No logs selected, process has exited')))
         process.exit(0)
     }
     // 筛选被选择的记录
@@ -100,12 +99,10 @@ program.action(async (commitid: string[], opt: GitmBuildOption) => {
         cmd: `git revert -s --no-edit ${item.after['%H']}${mode}`,
         config: {
             again: false,
-            success: i18n.__('Undo successfully: {{{something}}}', {
+            success: t('Undo successfully: {something}', {
                 something: item.after['%s']
             }),
-            fail: i18n.__(
-                'An error has occurred, please follow the instructions'
-            )
+            fail: t('An error has occurred, please follow the instructions')
         }
     }))
     // 执行

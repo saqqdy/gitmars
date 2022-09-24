@@ -13,15 +13,14 @@ import type {
     QueueReturnsType
 } from '../typings'
 import copyConfig from '#lib/conf/copy'
-import i18n from '#lib/locales/index'
+import lang from '#lib/common/local'
 
+const { t } = lang
 const { red, yellow } = chalk
 const { args, options } = copyConfig
 
 if (!getIsGitProject()) {
-    sh.echo(
-        red(i18n.__('The current directory is not a git project directory'))
-    )
+    sh.echo(red(t('The current directory is not a git project directory')))
     process.exit(1)
 }
 
@@ -40,7 +39,7 @@ program
         '[commitid...] [-t --target [target]] [-k --key [keyword]] [-a --author [author]]'
     )
     .description(
-        i18n.__(
+        t(
             'cherry-pick batch version, copy a record from a branch and merge it into the current branch'
         )
     )
@@ -48,9 +47,9 @@ if (args.length > 0) program.arguments(createArgs(args))
 options.forEach((o: GitmarsOptionOptionsType) => {
     program.option(o.flags, o.description, o.defaultValue)
 })
-// .option('-s, --source [source]', i18n.__('Copy the source branch of the record'), '')
-// .option('-k, --key [keyword]', i18n.__('Fuzzy search for commit message keywords'), '')
-// .option('-a, --author [author]', i18n.__('Submitter'), '')
+// .option('-s, --source [source]', t('Copy the source branch of the record'), '')
+// .option('-k, --key [keyword]', t('Fuzzy search for commit message keywords'), '')
+// .option('-a, --author [author]', t('Submitter'), '')
 program.action((commitid: string[], opts: GitmBuildOption) => {
     const status = checkGitStatus()
     const cur = getCurrentBranch()
@@ -61,25 +60,23 @@ program.action((commitid: string[], opts: GitmBuildOption) => {
                 cmd: `git cherry-pick ${commitid.join(' ')}`,
                 config: {
                     again: false,
-                    success: i18n.__('Record merge successful'),
-                    fail: i18n.__(
-                        'Merge failed, please follow the instructions'
-                    )
+                    success: t('Record merge successful'),
+                    fail: t('Merge failed, please follow the instructions')
                 }
             }
         ]
         queue(cmd)
     } else if (!opts.key) {
-        sh.echo(i18n.__('Please fill in the keyword'))
+        sh.echo(t('Please fill in the keyword'))
         process.exit(1)
     } else if (!opts.source) {
-        sh.echo(i18n.__('Please fill in the source branch'))
+        sh.echo(t('Please fill in the source branch'))
         process.exit(1)
     } else {
         if (opts.key.length < 3) {
             sh.echo(
                 yellow(
-                    i18n.__(
+                    t(
                         'To make sure the copy is accurate, the keywords cannot be less than 4 words, please try to fill in the keywords completely'
                     )
                 )
@@ -91,7 +88,7 @@ program.action((commitid: string[], opts: GitmBuildOption) => {
             `git log --grep=${opts.key} --author=${opts.author} --no-merges`
         ]
         // if (!/^\d{4,}$/.test(opts.key)) {
-        // 	sh.echo(red(i18n.__('To ensure accurate copy, the keyword must be a task number or bug fix number with more than 4 digits')))
+        // 	sh.echo(red(t('To ensure accurate copy, the keyword must be a task number or bug fix number with more than 4 digits')))
         // 	process.exit(1)
         // }
         queue(cmd).then((data: QueueReturnsType[]) => {
@@ -110,15 +107,15 @@ program.action((commitid: string[], opts: GitmBuildOption) => {
                             cmd: `git cherry-pick ${commits.join(' ')}`,
                             config: {
                                 again: false,
-                                success: i18n.__('Record merge successful'),
-                                fail: i18n.__(
+                                success: t('Record merge successful'),
+                                fail: t(
                                     'Merge failed, please follow the instructions'
                                 )
                             }
                         }
                     ])
                 } else {
-                    sh.echo(i18n.__('No records found'))
+                    sh.echo(t('No records found'))
                 }
                 queue(cmds)
             } else {

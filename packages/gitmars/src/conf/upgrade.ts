@@ -1,6 +1,6 @@
 import type { GitmarsOptionType } from '../../typings'
-// import i18n from '#lib/locales/index'
-const i18n = { __: (txt: string) => txt }
+// import lang from '#lib/common/local'
+const t = (txt: string) => txt
 
 export const cmdConfig: GitmarsOptionType = {
     command: 'upgrade',
@@ -12,13 +12,13 @@ export const cmdConfig: GitmarsOptionType = {
             variadic: false,
             validator: (val, opts, cb) => {
                 if (/\s+/.test(val)) {
-                    cb(new Error(i18n.__('Please do not enter spaces')))
+                    cb(new Error(t('Please do not enter spaces')))
                     return
                 }
                 cb()
             },
             // transformer: null,
-            description: i18n.__('Version number')
+            description: t('Version number')
         }
     ],
     options: [
@@ -31,7 +31,7 @@ export const cmdConfig: GitmarsOptionType = {
             short: '-m',
             long: '--mirror',
             negate: false,
-            description: i18n.__('Whether to use Taobao Mirror'),
+            description: t('Whether to use Taobao Mirror'),
             defaultValue: false
         },
         {
@@ -43,9 +43,7 @@ export const cmdConfig: GitmarsOptionType = {
             short: '-c',
             long: '--client',
             negate: false,
-            description: i18n.__(
-                'The name of the client used to load the package'
-            ),
+            description: t('The name of the client used to load the package'),
             defaultValue: 'npm',
             recommend: true,
             value: 'npm'
@@ -59,7 +57,7 @@ export const cmdConfig: GitmarsOptionType = {
             short: '-r',
             long: '--registry',
             negate: false,
-            description: i18n.__('Use mirror address'),
+            description: t('Use mirror address'),
             defaultValue: '',
             recommend: true,
             value: 'https://registry.npmmirror.com'

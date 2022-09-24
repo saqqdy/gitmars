@@ -21,18 +21,17 @@ import type {
     FetchDataType,
     GitmarsOptionOptionsType
 } from '../typings'
+import lang from '#lib/common/local'
 import { defaults } from '#lib/common/global'
 import endConfig from '#lib/conf/end'
-import i18n from '#lib/locales/index'
 
+const { t } = lang
 const require = createRequire(import.meta.url)
 const { args, options } = endConfig
 const { red } = chalk
 
 if (!getIsGitProject()) {
-    sh.echo(
-        red(i18n.__('The current directory is not a git project directory'))
-    )
+    sh.echo(red(t('The current directory is not a git project directory')))
     process.exit(1)
 }
 
@@ -55,7 +54,7 @@ program
         '[type] [name] [--description [description]] [--as-feature] [--no-combine]'
     )
     .description(
-        i18n.__(
+        t(
             'Merge bugfix task branch, merge feature function development branch, the corresponding branch will be deleted after the merge is completed'
         )
     )
@@ -63,9 +62,9 @@ if (args.length > 0) program.arguments(createArgs(args))
 options.forEach((o: GitmarsOptionOptionsType) => {
     program.option(o.flags, o.description, o.defaultValue)
 })
-// .option('--no-combine', i18n.__('Do not merge trunk branches (make sure the branch is live)'))
-// .option('--as-feature', i18n.__('bug branch merge to release'))
-// .option('--description [description]', i18n.__('Description of the reason for this commit'), '')
+// .option('--no-combine', t('Do not merge trunk branches (make sure the branch is live)'))
+// .option('--as-feature', t('bug branch merge to release'))
+// .option('--description [description]', t('Description of the reason for this commit'), '')
 program.action(
     async (type: string, name: string, opt: GitmBuildOption): Promise<void> => {
         const userInfoApi =
@@ -108,8 +107,8 @@ program.action(
                 deny.includes(type) &&
                     sh.echo(
                         red(
-                            i18n.__(
-                                'Hey bro, what is the fuck are you doing by executing this command in the {{type}} branch?',
+                            t(
+                                'Hey bro, what is the fuck are you doing by executing this command in the {type} branch?',
                                 { type }
                             )
                         )
@@ -119,7 +118,7 @@ program.action(
         } else if (!name) {
             // 传了type没传name
             if (allow.includes(type)) {
-                sh.echo(i18n.__('Please enter branch name'))
+                sh.echo(t('Please enter branch name'))
                 process.exit(1)
             }
             const branches = searchBranches({ type })
@@ -129,12 +128,12 @@ program.action(
             } else {
                 sh.echo(
                     branches.length > 1
-                        ? i18n.__(
-                              'If you find multiple branches with names containing {{type}}, please enter the branch type',
+                        ? t(
+                              'If you find multiple branches with names containing {type}, please enter the branch type',
                               { type }
                           )
                         : red(
-                              i18n.__(
+                              t(
                                   'Branch does not exist, please enter it correctly'
                               )
                           )
@@ -181,15 +180,15 @@ program.action(
                         cmd: `git merge --no-ff ${type}/${name}`,
                         config: {
                             again: false,
-                            success: i18n.__(
-                                'Merge {{{source}}} into {{{target}}} successfully',
+                            success: t(
+                                'Merge {source} into {target} successfully',
                                 {
                                     source: `${type}/${name}`,
                                     target: config.develop
                                 }
                             ),
-                            fail: i18n.__(
-                                'An error occurred merging {{{source}}} to {{{target}}}, Please follow the instructions',
+                            fail: t(
+                                'An error occurred merging {source} to {target}, Please follow the instructions',
                                 {
                                     source: `${type}/${name}`,
                                     target: config.develop
@@ -201,10 +200,8 @@ program.action(
                         cmd: 'git push',
                         config: {
                             again: true,
-                            success: i18n.__('Successful Pushed'),
-                            fail: i18n.__(
-                                'Push failed, please follow the prompts'
-                            )
+                            success: t('Successful Pushed'),
+                            fail: t('Push failed, please follow the prompts')
                         }
                     },
                     `git checkout ${type}/${name}`
@@ -221,15 +218,15 @@ program.action(
                             cmd: `git merge --no-ff ${type}/${name}`,
                             config: {
                                 again: false,
-                                success: i18n.__(
-                                    'Merge {{{source}}} into {{{target}}} successfully',
+                                success: t(
+                                    'Merge {source} into {target} successfully',
                                     {
                                         source: `${type}/${name}`,
                                         target: config.bugfix
                                     }
                                 ),
-                                fail: i18n.__(
-                                    'An error occurred merging {{{source}}} to {{{target}}}, Please follow the instructions',
+                                fail: t(
+                                    'An error occurred merging {source} to {target}, Please follow the instructions',
                                     {
                                         source: `${type}/${name}`,
                                         target: config.bugfix
@@ -241,8 +238,8 @@ program.action(
                             cmd: 'git push',
                             config: {
                                 again: true,
-                                success: i18n.__('Successful Pushed'),
-                                fail: i18n.__(
+                                success: t('Successful Pushed'),
+                                fail: t(
                                     'Push failed, please follow the prompts'
                                 )
                             }
@@ -253,7 +250,7 @@ program.action(
                     if (!isDescriptionCorrect) {
                         sh.echo(
                             red(
-                                i18n.__(
+                                t(
                                     'The description of the reason for submission does not meet the specification'
                                 )
                             )
@@ -265,10 +262,10 @@ program.action(
                             cmd: `git push --set-upstream origin ${type}/${name}`,
                             config: {
                                 again: true,
-                                success: i18n.__(
+                                success: t(
                                     'Push remote and associate remote branch successfully'
                                 ),
-                                fail: i18n.__(
+                                fail: t(
                                     'Push remote failed, please follow the prompts'
                                 )
                             }
@@ -286,16 +283,16 @@ program.action(
                             },
                             config: {
                                 again: true,
-                                success: i18n.__(
+                                success: t(
                                     'Successfully created merge request'
                                 ),
-                                fail: i18n.__(
+                                fail: t(
                                     'There was an error creating the merge request, please follow the instructions'
                                 )
                             }
                         },
-                        `gitm postmsg "${i18n.__(
-                            '{{nickname}} submitted a merge request for {{{source}}} branch to {{{target}}} branch in {{app}} project',
+                        `gitm postmsg "${t(
+                            '{nickname} submitted a merge request for {source} branch to {target} branch in {app} project',
                             {
                                 nickname,
                                 app: appName,
@@ -315,10 +312,10 @@ program.action(
                         cmd: 'git remote prune origin',
                         config: {
                             again: true,
-                            success: i18n.__(
+                            success: t(
                                 'Cleanup of remote branch was successful'
                             ),
-                            fail: i18n.__(
+                            fail: t(
                                 'Failed to clean up remote branch, please follow the prompts'
                             )
                         }
@@ -331,10 +328,10 @@ program.action(
                             cmd: `git push origin --delete ${type}/${name}`,
                             config: {
                                 again: true,
-                                success: i18n.__(
+                                success: t(
                                     'Successfully deleted remote branch'
                                 ),
-                                fail: i18n.__(
+                                fail: t(
                                     'Deletion failed, please contact administrator'
                                 )
                             }
@@ -352,15 +349,15 @@ program.action(
                             cmd: `git merge --no-ff ${type}/${name}`,
                             config: {
                                 again: false,
-                                success: i18n.__(
-                                    'Merge {{{source}}} into {{{target}}} successfully',
+                                success: t(
+                                    'Merge {source} into {target} successfully',
                                     {
                                         source: `${type}/${name}`,
                                         target: base
                                     }
                                 ),
-                                fail: i18n.__(
-                                    'An error occurred merging {{{source}}} to {{{target}}}, Please follow the instructions',
+                                fail: t(
+                                    'An error occurred merging {source} to {target}, Please follow the instructions',
                                     {
                                         source: `${type}/${name}`,
                                         target: base
@@ -372,8 +369,8 @@ program.action(
                             cmd: 'git push',
                             config: {
                                 again: true,
-                                success: i18n.__('Successful Pushed'),
-                                fail: i18n.__(
+                                success: t('Successful Pushed'),
+                                fail: t(
                                     'Push failed, please follow the prompts'
                                 )
                             }
@@ -384,10 +381,10 @@ program.action(
                             cmd: 'git remote prune origin',
                             config: {
                                 again: true,
-                                success: i18n.__(
+                                success: t(
                                     'Cleanup of remote branch was successful'
                                 ),
-                                fail: i18n.__(
+                                fail: t(
                                     'Failed to clean up remote branch, please follow the prompts'
                                 )
                             }
@@ -400,10 +397,10 @@ program.action(
                                 cmd: `git push origin --delete ${type}/${name}`,
                                 config: {
                                     again: true,
-                                    success: i18n.__(
+                                    success: t(
                                         'Successfully deleted remote branch'
                                     ),
-                                    fail: i18n.__(
+                                    fail: t(
                                         'Deletion failed, please contact administrator'
                                     )
                                 }
@@ -414,7 +411,7 @@ program.action(
                     if (!isDescriptionCorrect) {
                         sh.echo(
                             red(
-                                i18n.__(
+                                t(
                                     'The description of the reason for submission does not meet the specification'
                                 )
                             )
@@ -426,10 +423,10 @@ program.action(
                             cmd: `git push --set-upstream origin ${type}/${name}`,
                             config: {
                                 again: true,
-                                success: i18n.__(
+                                success: t(
                                     'Push remote and associate remote branch successfully'
                                 ),
-                                fail: i18n.__(
+                                fail: t(
                                     'Push remote failed, please follow the prompts'
                                 )
                             }
@@ -447,16 +444,16 @@ program.action(
                             },
                             config: {
                                 again: true,
-                                success: i18n.__(
+                                success: t(
                                     'Successfully created merge request'
                                 ),
-                                fail: i18n.__(
+                                fail: t(
                                     'There was an error creating the merge request, please follow the instructions'
                                 )
                             }
                         },
-                        `gitm postmsg "${i18n.__(
-                            '{{nickname}} submitted a merge request for {{{source}}} branch to {{{target}}} branch in {{app}} project',
+                        `gitm postmsg "${t(
+                            '{nickname} submitted a merge request for {source} branch to {target} branch in {app} project',
                             {
                                 nickname,
                                 app: appName,
@@ -470,11 +467,7 @@ program.action(
             queue(cmd)
         } else {
             sh.echo(
-                red(
-                    i18n.__('type only allows input') +
-                        ': ' +
-                        JSON.stringify(allow)
-                )
+                red(t('type only allows input') + ': ' + JSON.stringify(allow))
             )
             process.exit(1)
         }

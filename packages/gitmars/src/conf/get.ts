@@ -1,6 +1,6 @@
 import type { GitmarsOptionType } from '../../typings'
-// import i18n from '#lib/locales/index'
-const i18n = { __: (txt: string) => txt }
+// import lang from '#lib/common/local'
+const t = (txt: string) => txt
 
 export const cmdConfig: GitmarsOptionType = {
     command: 'get',
@@ -12,13 +12,13 @@ export const cmdConfig: GitmarsOptionType = {
             variadic: false,
             validator: (val, opts, cb) => {
                 if (/\s+/.test(val)) {
-                    cb(new Error(i18n.__('Please do not enter spaces')))
+                    cb(new Error(t('Please do not enter spaces')))
                     return
                 }
                 cb()
             },
             // transformer: null,
-            description: i18n.__('AccessKeyword')
+            description: t('AccessKeyword')
         },
         {
             required: false,
@@ -26,7 +26,7 @@ export const cmdConfig: GitmarsOptionType = {
             variadic: false,
             // validator: null,
             // transformer: null,
-            description: i18n.__('Serial Number')
+            description: t('Serial Number')
         }
     ],
     options: [
@@ -39,7 +39,7 @@ export const cmdConfig: GitmarsOptionType = {
             short: '-k',
             long: '--keep',
             negate: false,
-            description: i18n.__('Keep staging area not deleted'),
+            description: t('Keep staging area not deleted'),
             defaultValue: false
         }
     ],

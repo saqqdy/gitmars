@@ -6,16 +6,15 @@ import { queue } from '@gitmars/core/lib/queue'
 import getIsGitProject from '@gitmars/core/lib/git/getIsGitProject'
 import { createArgs } from '@gitmars/core/lib/utils/command'
 import type { CommandType, GitmarsOptionOptionsType } from '../typings'
+import lang from '#lib/common/local'
 import revertConfig from '#lib/conf/revert'
-import i18n from '#lib/locales/index'
 
+const { t } = lang
 const { red, yellow } = chalk
 const { args, options } = revertConfig
 
 if (!getIsGitProject()) {
-    sh.echo(
-        red(i18n.__('The current directory is not a git project directory'))
-    )
+    sh.echo(red(t('The current directory is not a git project directory')))
     process.exit(1)
 }
 
@@ -30,14 +29,14 @@ interface GitmBuildOption {
 program
     .name('gitm revert')
     .usage('[commitid] [-n --number [number]] [-m --mode [mode]]')
-    .description(i18n.__('Undo a commit record'))
+    .description(t('Undo a commit record'))
 if (args.length > 0) program.arguments(createArgs(args))
 options.forEach((o: GitmarsOptionOptionsType) => {
     program.option(o.flags, o.description, o.defaultValue)
 })
 // .arguments('[commitid]')
-// .option('-n, --number [number]', i18n.__('Undo the last commit (or undo the penultimate nth commit)'), '')
-// .option('-m, --mode [mode]', i18n.__('For undoing a merge record, the type to be passed in: 1 = keep current branch code, 2 = keep incoming code'), '')
+// .option('-n, --number [number]', t('Undo the last commit (or undo the penultimate nth commit)'), '')
+// .option('-m, --mode [mode]', t('For undoing a merge record, the type to be passed in: 1 = keep current branch code, 2 = keep incoming code'), '')
 program.action((commitid: string, opt: GitmBuildOption) => {
     const cmd: Array<CommandType | string> = []
     let n = 'HEAD',
@@ -50,10 +49,8 @@ program.action((commitid: string, opt: GitmBuildOption) => {
             cmd: `git revert ${n}${m}`,
             config: {
                 again: true,
-                success: i18n.__('Successfully reverted'),
-                fail: i18n.__(
-                    'An error has occurred, please follow the instructions'
-                )
+                success: t('Successfully reverted'),
+                fail: t('An error has occurred, please follow the instructions')
             }
         })
     } else if (commitid) {
@@ -61,14 +58,12 @@ program.action((commitid: string, opt: GitmBuildOption) => {
             cmd: `git revert ${commitid}${m}`,
             config: {
                 again: true,
-                success: i18n.__('Successfully reverted'),
-                fail: i18n.__(
-                    'An error has occurred, please follow the instructions'
-                )
+                success: t('Successfully reverted'),
+                fail: t('An error has occurred, please follow the instructions')
             }
         })
     } else {
-        sh.echo(yellow(i18n.__('Commands do not meet the specifications')))
+        sh.echo(yellow(t('Commands do not meet the specifications')))
         process.exit(1)
     }
     queue(cmd)

@@ -1,7 +1,7 @@
 {
     "name": "@gitmars/server",
     "description": "gitmars可视化界面服务端",
-    "version": "4.0.0-alpha.19",
+    "version": "4.0.0-alpha.20",
     "private": false,
     "bin": {
         "gitm-server": "./lib/www.mjs"
@@ -58,7 +58,6 @@
         "gitmars": "workspace:*",
         "hbs": "^4.2.0",
         "http-errors": "^2.0.0",
-        "i18n": "^0.15.0",
         "js-cool": "^2.5.0",
         "log4js": "^6.6.1",
         "logger": "^0.0.1",

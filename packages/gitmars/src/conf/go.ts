@@ -1,6 +1,6 @@
 import type { GitmarsOptionType } from '../../typings'
-// import i18n from '#lib/locales/index'
-const i18n = { __: (txt: string) => txt }
+// import lang from '#lib/common/local'
+const t = (txt: string) => txt
 
 export const cmdConfig: GitmarsOptionType = {
     command: 'go',
@@ -10,7 +10,7 @@ export const cmdConfig: GitmarsOptionType = {
             required: false,
             name: 'command',
             variadic: false,
-            description: i18n.__('Command Name'),
+            description: t('Command Name'),
             options: [
                 'combine',
                 'end',

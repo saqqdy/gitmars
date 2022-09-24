@@ -2,7 +2,9 @@ import chalk from 'chalk'
 import request from '@jssj/request'
 import getConfig from '#lib/getConfig'
 import { debug } from '#lib/utils/debug'
-import i18n from '#lib/locales/index'
+import lang from '#lib/lang'
+
+const { t } = lang
 const config = getConfig()
 
 const MERGE_REQUESTS_NOTES_URL = `${config.gitHost}/api/v4/projects/${config.gitID}/merge_requests`
@@ -37,7 +39,7 @@ export async function createMergeRequestNotes({
     if (fetchData && 'message' in fetchData) {
         const message = fetchData.message
             ? [].concat(fetchData.message).join('')
-            : i18n.__('The request reported an error')
+            : t('The request reported an error')
         return Promise.reject(chalk.red(message))
     }
     return fetchData
@@ -73,7 +75,7 @@ export async function getMergeRequestNotesList({
     if (fetchData && 'message' in fetchData) {
         const message = fetchData.message
             ? [].concat(fetchData.message).join('')
-            : i18n.__('The request reported an error')
+            : t('The request reported an error')
         return Promise.reject(chalk.red(message))
     }
     return fetchData
@@ -105,7 +107,7 @@ export async function getMergeRequestNotesDetail({
     if (fetchData && 'message' in fetchData) {
         const message = fetchData.message
             ? [].concat(fetchData.message).join('')
-            : i18n.__('The request reported an error')
+            : t('The request reported an error')
         return Promise.reject(chalk.red(message))
     }
     return fetchData
@@ -140,7 +142,7 @@ export async function updateMergeRequestNotes({
     if (fetchData && 'message' in fetchData) {
         const message = fetchData.message
             ? [].concat(fetchData.message).join('')
-            : i18n.__('The request reported an error')
+            : t('The request reported an error')
         return Promise.reject(chalk.red(message))
     }
     return fetchData
@@ -173,7 +175,7 @@ export async function deleteMergeRequestNotes({
     if (fetchData && 'message' in fetchData) {
         const message = fetchData.message
             ? [].concat(fetchData.message).join('')
-            : i18n.__('The request reported an error')
+            : t('The request reported an error')
         return Promise.reject(chalk.red(message))
     }
     return fetchData

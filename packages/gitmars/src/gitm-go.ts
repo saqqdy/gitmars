@@ -7,10 +7,11 @@ import getProperty from 'js-cool/es/getProperty'
 import getCurrentBranch from '@gitmars/core/lib/git/getCurrentBranch'
 import { createArgs } from '@gitmars/core/lib/utils/command'
 import type { GitmarsOptionOptionsType } from '../typings'
+import lang from '#lib/common/local'
 import * as commands from '#lib/go/index'
 import goConfig from '#lib/conf/go'
-import i18n from '#lib/locales/index'
 
+const { t } = lang
 const { green, red } = chalk
 const { args, options } = goConfig
 
@@ -20,9 +21,7 @@ const { args, options } = goConfig
 program
     .name('gitm go')
     .usage('[command]')
-    .description(
-        i18n.__('Intelligent guessing of the action you want to perform')
-    )
+    .description(t('Intelligent guessing of the action you want to perform'))
 if (args.length > 0) program.arguments(createArgs(args))
 options.forEach((o: GitmarsOptionOptionsType) => {
     program.option(o.flags, o.description, o.defaultValue)
@@ -31,8 +30,8 @@ program.action(async (command: string): Promise<void> => {
     const current = getCurrentBranch()
     sh.echo(
         green(
-            i18n.__(
-                'Current branch is {{{current}}}, I suspect you may want to do the following: ',
+            t(
+                'Current branch is {current}, I suspect you may want to do the following: ',
                 { current }
             )
         )
@@ -43,7 +42,7 @@ program.action(async (command: string): Promise<void> => {
         if (!cmd) {
             sh.echo(
                 red(
-                    i18n.__(
+                    t(
                         'The command you entered was not found and may not be supported at this time'
                     )
                 )
@@ -57,11 +56,11 @@ program.action(async (command: string): Promise<void> => {
             .prompt({
                 type: 'list',
                 name: 'command',
-                message: i18n.__('Please select the operation you want?'),
+                message: t('Please select the operation you want?'),
                 default: 'combine',
                 choices: [
                     new inquirer.Separator(
-                        ' === 1. ' + i18n.__('Gitmars Workflow') + ' === '
+                        ' === 1. ' + t('Gitmars Workflow') + ' === '
                     ),
                     'combine',
                     'end',
@@ -75,7 +74,7 @@ program.action(async (command: string): Promise<void> => {
                     'admin.create',
                     'admin.clean',
                     new inquirer.Separator(
-                        ' === 2. ' + i18n.__('Advanced Tools') + ' === '
+                        ' === 2. ' + t('Advanced Tools') + ' === '
                     ),
                     'branch',
                     'copy',
@@ -87,7 +86,7 @@ program.action(async (command: string): Promise<void> => {
                     'link',
                     'unlink',
                     'postmsg',
-                    new inquirer.Separator(' === ' + i18n.__('Exit') + ' === '),
+                    new inquirer.Separator(' === ' + t('Exit') + ' === '),
                     'exit',
                     new inquirer.Separator()
                 ],
@@ -97,17 +96,14 @@ program.action(async (command: string): Promise<void> => {
             })
             .then((answers: any) => {
                 if (answers.command === 'exit') {
-                    sh.echo(green(i18n.__('exited')))
+                    sh.echo(green(t('exited')))
                     process.exit(0)
                 }
                 sh.echo(
                     green(
-                        i18n.__(
-                            'You have selected the {{{something}}} command',
-                            {
-                                something: answers.command
-                            }
-                        )
+                        t('You have selected the {something} command', {
+                            something: answers.command
+                        })
                     )
                 )
                 // 执行对应指令

@@ -1,6 +1,6 @@
 import type { GitmarsOptionType } from '../../typings'
-// import i18n from '#lib/locales/index'
-const i18n = { __: (txt: string) => txt }
+// import lang from '#lib/common/local'
+const t = (txt: string) => txt
 
 export const cmdConfig: GitmarsOptionType = {
     command: 'hook',
@@ -26,7 +26,7 @@ export const cmdConfig: GitmarsOptionType = {
             mandatory: false,
             long: '--no-verify',
             negate: true,
-            description: i18n.__('Do you want to skip the check permission'),
+            description: t('Do you want to skip the check permission'),
             defaultValue: false
         },
         {
@@ -38,7 +38,7 @@ export const cmdConfig: GitmarsOptionType = {
             short: '',
             long: '--lastet',
             negate: false,
-            description: i18n.__(
+            description: t(
                 'Query logs after a certain time, fill in the format: 10s/2m/2h/3d/4M/5y'
             ),
             defaultValue: '7d'
@@ -52,7 +52,7 @@ export const cmdConfig: GitmarsOptionType = {
             short: '',
             long: '--limit',
             negate: false,
-            description: i18n.__('The maximum number of logs to be queried'),
+            description: t('The maximum number of logs to be queried'),
             defaultValue: 20
         },
         {
@@ -64,7 +64,7 @@ export const cmdConfig: GitmarsOptionType = {
             short: '-t',
             long: '--type',
             negate: false,
-            description: i18n.__('Detection type'),
+            description: t('Detection type'),
             defaultValue: ''
         },
         {
@@ -76,7 +76,7 @@ export const cmdConfig: GitmarsOptionType = {
             short: '',
             long: '--branch',
             negate: false,
-            description: i18n.__('Branch to query'),
+            description: t('Branch to query'),
             defaultValue: ''
         }
     ]

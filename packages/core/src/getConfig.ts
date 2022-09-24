@@ -4,8 +4,9 @@ import type { GitmarsConfigType } from '../typings'
 import getGitRevParse from '#lib/git/getGitRevParse'
 import { debug } from '#lib/utils/debug'
 import echo from '#lib/utils/echo'
-import i18n from '#lib/locales/index'
+import lang from '#lib/lang'
 
+const { t } = lang
 const defaults = {
     master: 'master',
     develop: 'dev',
@@ -16,7 +17,7 @@ const defaults = {
     email: '',
     nameValidator: '',
     descriptionValidator: '',
-    msgTemplate: i18n.__('${message}; project: ${project}; path: ${pwd}'),
+    msgTemplate: t('${message}; project: ${project}; path: ${pwd}'),
     apolloConfig: '',
     hooks: '',
     api: '',
@@ -39,9 +40,7 @@ function getConfig(
     if (!pathName) {
         const { root } = getGitRevParse()
         if (!root) {
-            echo(
-                i18n.__('The current directory is not a git project directory')
-            )
+            echo(t('The current directory is not a git project directory'))
             process.exit(1)
         }
         try {

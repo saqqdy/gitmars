@@ -1,6 +1,6 @@
 import type { GitmarsOptionType } from '../../typings'
-// import i18n from '#lib/locales/index'
-const i18n = { __: (txt: string) => txt }
+// import lang from '#lib/common/local'
+const t = (txt: string) => txt
 
 export const cmdConfig: GitmarsOptionType = {
     command: 'start',
@@ -10,7 +10,7 @@ export const cmdConfig: GitmarsOptionType = {
             required: true,
             name: 'type',
             variadic: false,
-            description: i18n.__('Branch Type'),
+            description: t('Branch Type'),
             options: ['feature', 'bugfix', 'support'],
             value: ''
         },
@@ -18,7 +18,7 @@ export const cmdConfig: GitmarsOptionType = {
             required: true,
             name: 'name',
             variadic: false,
-            description: i18n.__('Branch name (without feature/bugfix prefix)')
+            description: t('Branch name (without feature/bugfix prefix)')
         }
     ],
     options: [
@@ -31,7 +31,7 @@ export const cmdConfig: GitmarsOptionType = {
             short: '-t',
             long: '--tag',
             negate: false,
-            description: i18n.__('Create branch from tag'),
+            description: t('Create branch from tag'),
             defaultValue: '',
             recommend: false
         }

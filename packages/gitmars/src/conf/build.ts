@@ -1,6 +1,6 @@
 import type { GitmarsOptionType } from '../../typings'
-// import i18n from '#lib/locales/index'
-const i18n = { __: (txt: string) => txt }
+// import lang from '#lib/common/local'
+const t = (txt: string) => txt
 
 export const cmdConfig: GitmarsOptionType = {
     command: 'build',
@@ -10,7 +10,7 @@ export const cmdConfig: GitmarsOptionType = {
             required: true,
             name: 'project',
             variadic: false,
-            description: i18n.__('Project name')
+            description: t('Project name')
         }
     ],
     options: [
@@ -23,9 +23,7 @@ export const cmdConfig: GitmarsOptionType = {
             short: '-e',
             long: '--env',
             negate: false,
-            description: i18n.__(
-                'Build environment, optionally dev, prod, bug, all'
-            ),
+            description: t('Build environment, optionally dev, prod, bug, all'),
             defaultValue: 'dev',
             recommend: true,
             options: ['dev', 'prod', 'bug', 'all'],
@@ -40,7 +38,7 @@ export const cmdConfig: GitmarsOptionType = {
             short: '-a',
             long: '--app',
             negate: false,
-            description: i18n.__('Build application'),
+            description: t('Build application'),
             defaultValue: 'all',
             recommend: true,
             value: 'all'

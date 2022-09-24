@@ -1,5 +1,5 @@
 import { get } from 'lodash-unified'
-// import type { Language } from 'locale'
+import { type Language } from '#lib/locales/index'
 
 export type TranslatorOption = Record<string, string | number>
 export type Translator = (path: string, option?: TranslatorOption) => string
@@ -24,15 +24,11 @@ export const buildTranslator =
     (path, option) =>
         translate(path, option, locale)
 
-export const buildLocaleContext = (locale: Language): LocaleContext => {
+export const useLocale = (locale: Language): LocaleContext => {
     const lang = locale.name
     return {
         lang,
         locale,
         t: buildTranslator(locale)
     }
-}
-
-export const useLocale = locale => {
-    return buildLocaleContext(() => locale.value)
 }
