@@ -47,7 +47,7 @@
     },
     "dependencies": {
         "chalk": "^4.1.2",
-        "inquirer": "^8.2.4",
+        "inquirer": "^9.1.2",
         "js-cool": "^2.5.0",
         "morgan": "^1.10.0",
         "os-locale": "^6.0.2"
