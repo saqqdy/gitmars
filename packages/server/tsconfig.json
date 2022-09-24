@@ -10,9 +10,11 @@
         "outDir": "lib",
         // "rootDirs": ["bin", "db", "lib", "public", "routes", "socket", "views"],
         "module": "ESNext",
-        "declaration": false,
+        "declaration": true,
+        "emitDeclarationOnly": true,
         "lib": ["ESNext"],
         "sourceMap": false,
+		"rootDir": ".",
         "baseUrl": ".",
         "paths": {
             "#lib/*": ["./src/*"]

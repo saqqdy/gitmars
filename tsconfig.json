@@ -3,13 +3,14 @@
         "allowJs": true,
         "target": "esnext",
         "moduleResolution": "node",
-        "noLib": false,
+        // "noLib": true,
         "lib": ["esnext"],
         "sourceMap": false,
         "module": "commonjs",
         "jsx": "preserve",
         "strict": true,
         "declaration": true,
+        // "declarationMap": true,
         "skipLibCheck": true,
         "noImplicitOverride": true,
         "noUnusedLocals": false,
@@ -20,12 +21,13 @@
         "resolveJsonModule": true,
         "noUnusedParameters": false,
         "typeRoots": ["node_modules/@types"],
-        "baseUrl": ".",
-        // "rootDirs": ["ui", "server"],
-        "paths": {
-            "~/*": ["./*"],
-            "@/package": ["./package.json"]
-        }
+        // "baseUrl": ".",
+        // "rootDirs": ["core", "gitmars", "docs", "ui", "server"],
+        // "composite": true,
+        // "paths": {
+        //     "~/*": ["./*"],
+        //     "@/package": ["./package.json"]
+        // }
     },
     "include": ["packages", "typings"],
     "references": [
