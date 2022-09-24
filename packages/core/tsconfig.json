@@ -1,13 +1,11 @@
 {
     "extends": "../../tsconfig.json",
     "exclude": ["__tests__", "../../temp"],
+    "include": ["**/*.ts", "typings"],
     "compilerOptions": {
-        // "allowSyntheticDefaultImports": true,
-        // "moduleResolution": "Node",
-        // "resolveJsonModule": true,
-        // "allowUmdGlobalAccess":true,
         "removeComments": true,
-        "declaration": false,
+        "declaration": true,
+        "emitDeclarationOnly": true,
         "target": "ESNext",
         // "outDir": "dist",
         "module": "ESNext",
@@ -15,7 +13,8 @@
         "sourceMap": false,
         "baseUrl": ".",
         "paths": {
-            "#lib/*": ["./src/*"]
+            "#lib/*": ["./src/*"],
+            "#conf/*": ["./src/conf/*"]
         }
     }
 }

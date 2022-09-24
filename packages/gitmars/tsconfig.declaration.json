@@ -1,0 +1,13 @@
+{
+    "extends": "./tsconfig.json",
+    "exclude": ["__tests__", "../../temp"],
+    "include": ["src/**/*"],
+    "compilerOptions": {
+        "declaration": true,
+        "declarationDir": ".",
+        "emitDeclarationOnly": true,
+        "sourceMap": false,
+        "outDir": "lib",
+        "rootDir": "."
+    }
+}

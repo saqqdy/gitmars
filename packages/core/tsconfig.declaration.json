@@ -1,0 +1,11 @@
+{
+    "extends": "./tsconfig.json",
+    "exclude": ["__tests__", "temp"],
+    "include": ["./src/**/*.ts", "typings"],
+    "compilerOptions": {
+        "emitDeclarationOnly": true,
+        "sourceMap": false,
+        "outDir": "lib",
+		"rootDir": "src"
+    }
+}

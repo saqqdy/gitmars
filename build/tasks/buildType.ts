@@ -12,7 +12,7 @@ export async function buildType() {
         // Conflicts with dts=true
         if (build === false || dts !== false) return
         await runSpawnSync(
-            `npx tsc -p tsconfig.json --declaration --emitDeclarationOnly --outDir lib`,
+            `npx tsc -p tsconfig.${name}.json`,
             resolve(PACKAGE, name)
         )
     })
