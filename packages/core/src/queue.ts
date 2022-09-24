@@ -14,8 +14,9 @@ import { setLog } from '#lib/cache/log'
 import { postMessage } from '#lib/utils/message'
 import { spawnSync } from '#lib/spawn'
 import { debug } from '#lib/utils/debug'
-import i18n from '#lib/locales/index'
+import lang from '#lib/lang'
 
+const { t } = lang
 const require = createRequire(import.meta.url)
 
 export interface WaitCallback {
@@ -65,8 +66,7 @@ export function queue(
         cfg: CommandTypeCmd['config'],
         cb?: WaitCallback
     ) {
-        const _message =
-            cfg.success || msg.success || i18n.__('Processing complete')
+        const _message = cfg.success || msg.success || t('Processing complete')
         if (_message) {
             spinner.succeed(chalk.green(_message))
             cfg.postmsg && postMessage(_message)
@@ -106,7 +106,7 @@ export function queue(
                 chalk.red(
                     cfg.fail ||
                         msg.fail ||
-                        i18n.__(
+                        t(
                             'An error has occurred! Command {{{command}}} execution failed, process exits',
                             {
                                 command: cmd as string
@@ -116,7 +116,7 @@ export function queue(
             )
             cfg.postmsg &&
                 postMessage(
-                    i18n.__(
+                    t(
                         'An error has occurred! Command {{{command}}} execution failed, process exits',
                         {
                             command: cmd as string
@@ -126,7 +126,7 @@ export function queue(
             rest.length > 0 &&
                 spinner.fail(
                     chalk.red(
-                        i18n.__(
+                        t(
                             'Please enter gitm continue to continue after processing the issue in question'
                         )
                     )
@@ -136,7 +136,7 @@ export function queue(
             const _message =
                 cfg.fail ||
                 msg.fail ||
-                i18n.__('Command {{{command}}} Execution failed', {
+                t('Command {{{command}}} Execution failed', {
                     command: cmd as string
                 })
             _message && spinner.warn(chalk.yellow(_message))
@@ -146,7 +146,7 @@ export function queue(
     return new Promise((resolve, reject) => {
         const returns: QueueReturnsType[] = []
         if (list.length === 0)
-            reject(new Error(i18n.__('Command name cannot be empty')))
+            reject(new Error(t('Command name cannot be empty')))
         list = extend(true, [], list) as unknown as Array<CommandType | string>
         wait(
             list,
@@ -174,7 +174,7 @@ export function queue(
                 /**
                  * Three scenarios
                  *
-                 * 1. { message: i18n.__('Message') }
+                 * 1. { message: t('Message') }
                  * 2. { cmd: 'git status', config: {} }
                  * 3. { cmd: { module: '', entry: '', options: {} }, config: {} }
                  */
@@ -207,7 +207,7 @@ export function queue(
                     if (cmd.entry) _execFunction = _execFunction[cmd.entry]
                     try {
                         spinner.start(
-                            chalk.green(cfg.processing || i18n.__('Processing'))
+                            chalk.green(cfg.processing || t('Processing'))
                         )
                         stdout = await _execFunction(cmd.options)
                         debug('queue-result', cmd, stdout)
@@ -240,9 +240,7 @@ export function queue(
                     const msg = getCommandMessage(cmd)
                     spinner.start(
                         chalk.green(
-                            cfg.processing ||
-                                msg.processing ||
-                                i18n.__('Processing')
+                            cfg.processing || msg.processing || t('Processing')
                         )
                     )
                     const program = spawnSync(client, argv, cfg)

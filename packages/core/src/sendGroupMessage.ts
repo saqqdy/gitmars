@@ -3,7 +3,9 @@ import chalk from 'chalk'
 import request from '@jssj/request'
 import type { ApolloConfigType } from '../typings'
 import { getBuildConfig } from '#lib/build/buildConfig'
-import i18n from '#lib/locales/index'
+import lang from '#lib/lang'
+
+const { t } = lang
 
 /**
  * 发送群消息
@@ -23,7 +25,7 @@ async function sendGroupMessage(message: string, url = ''): Promise<void> {
         }
     }
     if (urls.length === 0) {
-        sh.echo(chalk.red(i18n.__('No group message push address configured')))
+        sh.echo(chalk.red(t('No group message push address configured')))
         return
     }
     urls.forEach(async item => {
@@ -36,7 +38,7 @@ async function sendGroupMessage(message: string, url = ''): Promise<void> {
                 headers: { 'Content-Type': 'application/json' }
             })
             .then(() => {
-                sh.echo(chalk.green(i18n.__('Sending message successfully')))
+                sh.echo(chalk.green(t('Sending message successfully')))
             })
     })
 }

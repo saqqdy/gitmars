@@ -1,6 +1,6 @@
 import type { GitmarsOptionType } from '../../typings'
-// import i18n from '#lib/locales/index'
-const i18n = { __: (txt: string) => txt }
+// import lang from '#lib/common/local'
+const t = (txt: string) => txt
 
 export const cmdConfig: GitmarsOptionType = {
     command: 'copy',
@@ -14,7 +14,7 @@ export const cmdConfig: GitmarsOptionType = {
                 cb()
             },
             // transformer: null,
-            description: i18n.__('Commit record ID')
+            description: t('Commit record ID')
         }
     ],
     options: [
@@ -27,7 +27,7 @@ export const cmdConfig: GitmarsOptionType = {
             short: '-s',
             long: '--source',
             negate: false,
-            description: i18n.__('Copy the source branch of the record'),
+            description: t('Copy the source branch of the record'),
             defaultValue: ''
         },
         {
@@ -39,7 +39,7 @@ export const cmdConfig: GitmarsOptionType = {
             short: '-k',
             long: '--key',
             negate: false,
-            description: i18n.__('Fuzzy search for commit message keywords'),
+            description: t('Fuzzy search for commit message keywords'),
             defaultValue: ''
         },
         {
@@ -51,7 +51,7 @@ export const cmdConfig: GitmarsOptionType = {
             short: '-a',
             long: '--author',
             negate: false,
-            description: i18n.__('Submitter'),
+            description: t('Submitter'),
             defaultValue: ''
         }
     ],

@@ -21,17 +21,16 @@ import type {
     FetchDataType,
     GitmarsOptionOptionsType
 } from '../typings'
+import lang from '#lib/common/local'
 import { defaults } from '#lib/common/global'
-import i18n from '#lib/locales/index'
 import combineConfig from '#lib/conf/combine'
 
+const { t } = lang
 const require = createRequire(import.meta.url)
 const { red, yellow } = chalk
 
 if (!getIsGitProject()) {
-    sh.echo(
-        red(i18n.__('The current directory is not a git project directory'))
-    )
+    sh.echo(red(t('The current directory is not a git project directory')))
     process.exit(1)
 }
 
@@ -62,7 +61,7 @@ program
         '[type] [name] [-d --dev] [-p --prod] [-b --build [app]] [-a --add] [-m --commit <commit>] [--description [description]] [--as-feature] [--no-bugfix] [-f --force]'
     )
     .description(
-        i18n.__(
+        t(
             'Merge bugfix task branch, merge feature development branch, merge support branch'
         )
     )
@@ -70,15 +69,15 @@ if (args.length > 0) program.arguments(createArgs(args))
 options.forEach((o: GitmarsOptionOptionsType) => {
     program.option(o.flags, o.description, o.defaultValue)
 })
-// .option('-d, --dev', i18n.__('Whether to sync to alpha test environment'), false)
-// .option('-p, --prod', i18n.__('Whether to sync to pre-release environment'), false)
-// .option('-b, --build [build]', i18n.__('Application to be built'))
-// .option('-m, --commit <commit>', i18n.__('commit information'), '')
-// .option('--description [description]', i18n.__('Description of the reason for this commit'), '')
-// .option('-a, --add', i18n.__('Need to add'), false)
-// .option('--no-bugfix', i18n.__('Do not sync to bug branch'))
-// .option('--as-feature', i18n.__('bug branch merge to release'))
-// .option('-f, --force', i18n.__('Whether to force a merge request'), false)
+// .option('-d, --dev', t('Whether to sync to alpha test environment'), false)
+// .option('-p, --prod', t('Whether to sync to pre-release environment'), false)
+// .option('-b, --build [build]', t('Application to be built'))
+// .option('-m, --commit <commit>', t('commit information'), '')
+// .option('--description [description]', t('Description of the reason for this commit'), '')
+// .option('-a, --add', t('Need to add'), false)
+// .option('--no-bugfix', t('Do not sync to bug branch'))
+// .option('--as-feature', t('bug branch merge to release'))
+// .option('-f, --force', t('Whether to force a merge request'), false)
 program.action(
     async (type: string, name: string, opt: GitmBuildOption): Promise<void> => {
         const userInfoApi =
@@ -104,12 +103,12 @@ program.action(
         let _nameArr: string[] = [], // Branch name array
             isDescriptionCorrect = true // Does the description of the reason for this submission meet the specification
         if (!opt.dev && !opt.prod) {
-            sh.echo(i18n.__('Please enter the environment to sync to.'))
+            sh.echo(t('Please enter the environment to sync to.'))
             process.exit(1)
         }
         if (!status) process.exit(1)
         if (opt.commit === true) {
-            sh.echo(red(i18n.__('Please enter the message to be submitted')))
+            sh.echo(red(t('Please enter the message to be submitted')))
             process.exit(1)
         }
         // When there is a descriptionValidator configured, the description information needs to be verified
@@ -129,8 +128,8 @@ program.action(
                 deny.includes(type) &&
                     sh.echo(
                         red(
-                            i18n.__(
-                                'Hey bro, what is the fuck are you doing by executing this command in the {{type}} branch?',
+                            t(
+                                'Hey bro, what is the fuck are you doing by executing this command in the {type} branch?',
                                 { type }
                             )
                         )
@@ -140,7 +139,7 @@ program.action(
         } else if (!name) {
             // passed type but not name
             if (allow.includes(type)) {
-                sh.echo(i18n.__('Please enter branch name'))
+                sh.echo(t('Please enter branch name'))
                 process.exit(1)
             }
             const branches = searchBranches({ type })
@@ -150,12 +149,12 @@ program.action(
             } else {
                 sh.echo(
                     branches.length > 1
-                        ? i18n.__(
-                              'If you find multiple branches with names containing {{type}}, please enter the branch type',
+                        ? t(
+                              'If you find multiple branches with names containing {type}, please enter the branch type',
                               { type }
                           )
                         : red(
-                              i18n.__(
+                              t(
                                   'Branch does not exist, please enter it correctly'
                               )
                           )
@@ -173,7 +172,7 @@ program.action(
             ) {
                 sh.echo(
                     yellow(
-                        i18n.__(
+                        t(
                             'This branch has not been synced for more than 1 week, please sync it at least once a week, execute: gitm update'
                         )
                     )
@@ -203,15 +202,15 @@ program.action(
                                   cmd: `git merge --no-ff ${type}/${name}`,
                                   config: {
                                       again: false,
-                                      success: i18n.__(
-                                          'Merge {{{source}}} into {{{target}}} successfully',
+                                      success: t(
+                                          'Merge {source} into {target} successfully',
                                           {
                                               source: `${type}/${name}`,
                                               target: config.develop
                                           }
                                       ),
-                                      fail: i18n.__(
-                                          'An error occurred merging {{{source}}} to {{{target}}}, Please follow the instructions',
+                                      fail: t(
+                                          'An error occurred merging {source} to {target}, Please follow the instructions',
                                           {
                                               source: `${type}/${name}`,
                                               target: config.develop
@@ -223,8 +222,8 @@ program.action(
                                   cmd: 'git push',
                                   config: {
                                       again: true,
-                                      success: i18n.__('Successful Pushed'),
-                                      fail: i18n.__(
+                                      success: t('Successful Pushed'),
+                                      fail: t(
                                           'Push failed, please follow the prompts'
                                       )
                                   }
@@ -233,8 +232,8 @@ program.action(
                           ]
                         : [
                               {
-                                  message: i18n.__(
-                                      '{{{source}}} has been merged with {{{target}}}',
+                                  message: t(
+                                      '{source} has been merged with {target}',
                                       {
                                           source: `${type}/${name}`,
                                           target: config.develop
@@ -251,10 +250,10 @@ program.action(
                             }`,
                             config: {
                                 again: false,
-                                success: i18n.__(
+                                success: t(
                                     'Pulling up the build was successful'
                                 ),
-                                fail: i18n.__('Failed to pull up the build')
+                                fail: t('Failed to pull up the build')
                             }
                         }
                     ])
@@ -273,8 +272,8 @@ program.action(
                 ) {
                     sh.echo(
                         yellow(
-                            i18n.__(
-                                'If your branch has not been merged into {{{target}}}, please merge it into the {{{target}}} branch first',
+                            t(
+                                'If your branch has not been merged into {target}, please merge it into the {target} branch first',
                                 { target: config.develop }
                             )
                         )
@@ -301,15 +300,15 @@ program.action(
                                               cmd: `git merge --no-ff ${type}/${name}`,
                                               config: {
                                                   again: false,
-                                                  success: i18n.__(
-                                                      'Merge {{{source}}} into {{{target}}} successfully',
+                                                  success: t(
+                                                      'Merge {source} into {target} successfully',
                                                       {
                                                           source: `${type}/${name}`,
                                                           target: base
                                                       }
                                                   ),
-                                                  fail: i18n.__(
-                                                      'An error occurred merging {{{source}}} to {{{target}}}, Please follow the instructions',
+                                                  fail: t(
+                                                      'An error occurred merging {source} to {target}, Please follow the instructions',
                                                       {
                                                           source: `${type}/${name}`,
                                                           target: base
@@ -322,10 +321,8 @@ program.action(
                                               config: {
                                                   again: true,
                                                   success:
-                                                      i18n.__(
-                                                          'Successful Pushed'
-                                                      ),
-                                                  fail: i18n.__(
+                                                      t('Successful Pushed'),
+                                                  fail: t(
                                                       'Push failed, please follow the prompts'
                                                   )
                                               }
@@ -334,8 +331,8 @@ program.action(
                                       ]
                                     : [
                                           {
-                                              message: i18n.__(
-                                                  '{{{source}}} has been merged with {{{target}}}',
+                                              message: t(
+                                                  '{source} has been merged with {target}',
                                                   {
                                                       source: `${type}/${name}`,
                                                       target: base
@@ -348,7 +345,7 @@ program.action(
                             if (!isDescriptionCorrect) {
                                 sh.echo(
                                     red(
-                                        i18n.__(
+                                        t(
                                             'The description of the reason for submission does not meet the specification'
                                         )
                                     )
@@ -360,10 +357,10 @@ program.action(
                                     cmd: `git push --set-upstream origin ${type}/${name}`,
                                     config: {
                                         again: true,
-                                        success: i18n.__(
+                                        success: t(
                                             'Push remote and associate remote branch successfully'
                                         ),
-                                        fail: i18n.__(
+                                        fail: t(
                                             'Push remote failed, please follow the prompts'
                                         )
                                     }
@@ -381,16 +378,16 @@ program.action(
                                     },
                                     config: {
                                         again: true,
-                                        success: i18n.__(
+                                        success: t(
                                             'Successfully created merge request'
                                         ),
-                                        fail: i18n.__(
+                                        fail: t(
                                             'There was an error creating the merge request, please follow the instructions'
                                         )
                                     }
                                 },
-                                `gitm postmsg "${i18n.__(
-                                    '{{nickname}} submitted a merge request for {{{source}}} branch to {{{target}}} branch in {{app}} project',
+                                `gitm postmsg "${t(
+                                    '{nickname} submitted a merge request for {source} branch to {target} branch in {app} project',
                                     {
                                         nickname,
                                         app: appName,
@@ -420,15 +417,15 @@ program.action(
                                               cmd: `git merge --no-ff ${type}/${name}`,
                                               config: {
                                                   again: false,
-                                                  success: i18n.__(
-                                                      'Merge {{{source}}} into {{{target}}} successfully',
+                                                  success: t(
+                                                      'Merge {source} into {target} successfully',
                                                       {
                                                           source: `${type}/${name}`,
                                                           target: config.release
                                                       }
                                                   ),
-                                                  fail: i18n.__(
-                                                      'An error occurred merging {{{source}}} to {{{target}}}, Please follow the instructions',
+                                                  fail: t(
+                                                      'An error occurred merging {source} to {target}, Please follow the instructions',
                                                       {
                                                           source: `${type}/${name}`,
                                                           target: config.release
@@ -441,10 +438,8 @@ program.action(
                                               config: {
                                                   again: true,
                                                   success:
-                                                      i18n.__(
-                                                          'Successful Pushed'
-                                                      ),
-                                                  fail: i18n.__(
+                                                      t('Successful Pushed'),
+                                                  fail: t(
                                                       'Push failed, please follow the prompts'
                                                   )
                                               }
@@ -453,8 +448,8 @@ program.action(
                                       ]
                                     : [
                                           {
-                                              message: i18n.__(
-                                                  '{{{source}}} has been merged with {{{target}}}',
+                                              message: t(
+                                                  '{source} has been merged with {target}',
                                                   {
                                                       source: `${type}/${name}`,
                                                       target: config.release
@@ -467,7 +462,7 @@ program.action(
                             if (!isDescriptionCorrect) {
                                 sh.echo(
                                     red(
-                                        i18n.__(
+                                        t(
                                             'The description of the reason for submission does not meet the specification'
                                         )
                                     )
@@ -479,10 +474,10 @@ program.action(
                                     cmd: `git push --set-upstream origin ${type}/${name}`,
                                     config: {
                                         again: true,
-                                        success: i18n.__(
+                                        success: t(
                                             'Push remote and associate remote branch successfully'
                                         ),
-                                        fail: i18n.__(
+                                        fail: t(
                                             'Push remote failed, please follow the prompts'
                                         )
                                     }
@@ -500,16 +495,16 @@ program.action(
                                     },
                                     config: {
                                         again: true,
-                                        success: i18n.__(
+                                        success: t(
                                             'Successfully created merge request'
                                         ),
-                                        fail: i18n.__(
+                                        fail: t(
                                             'There was an error creating the merge request, please follow the instructions'
                                         )
                                     }
                                 },
-                                `gitm postmsg "${i18n.__(
-                                    '{{nickname}} submitted a merge request for {{{source}}} branch to {{{target}}} branch in {{app}} project',
+                                `gitm postmsg "${t(
+                                    '{nickname} submitted a merge request for {source} branch to {target} branch in {app} project',
                                     {
                                         nickname,
                                         app: appName,
@@ -539,15 +534,15 @@ program.action(
                                               cmd: `git merge --no-ff ${type}/${name}`,
                                               config: {
                                                   again: false,
-                                                  success: i18n.__(
-                                                      'Merge {{{source}}} into {{{target}}} successfully',
+                                                  success: t(
+                                                      'Merge {source} into {target} successfully',
                                                       {
                                                           source: `${type}/${name}`,
                                                           target: config.bugfix
                                                       }
                                                   ),
-                                                  fail: i18n.__(
-                                                      'An error occurred merging {{{source}}} to {{{target}}}, Please follow the instructions',
+                                                  fail: t(
+                                                      'An error occurred merging {source} to {target}, Please follow the instructions',
                                                       {
                                                           source: `${type}/${name}`,
                                                           target: config.bugfix
@@ -560,10 +555,8 @@ program.action(
                                               config: {
                                                   again: true,
                                                   success:
-                                                      i18n.__(
-                                                          'Successful Pushed'
-                                                      ),
-                                                  fail: i18n.__(
+                                                      t('Successful Pushed'),
+                                                  fail: t(
                                                       'Push failed, please follow the prompts'
                                                   )
                                               }
@@ -572,8 +565,8 @@ program.action(
                                       ]
                                     : [
                                           {
-                                              message: i18n.__(
-                                                  '{{{source}}} has been merged with {{{target}}}',
+                                              message: t(
+                                                  '{source} has been merged with {target}',
                                                   {
                                                       source: `${type}/${name}`,
                                                       target: config.bugfix
@@ -586,7 +579,7 @@ program.action(
                             if (!isDescriptionCorrect) {
                                 sh.echo(
                                     red(
-                                        i18n.__(
+                                        t(
                                             'The description of the reason for submission does not meet the specification'
                                         )
                                     )
@@ -598,10 +591,10 @@ program.action(
                                     cmd: `git push --set-upstream origin ${type}/${name}`,
                                     config: {
                                         again: true,
-                                        success: i18n.__(
+                                        success: t(
                                             'Push remote and associate remote branch successfully'
                                         ),
-                                        fail: i18n.__(
+                                        fail: t(
                                             'Push remote failed, please follow the prompts'
                                         )
                                     }
@@ -619,16 +612,16 @@ program.action(
                                     },
                                     config: {
                                         again: true,
-                                        success: i18n.__(
+                                        success: t(
                                             'Successfully created merge request'
                                         ),
-                                        fail: i18n.__(
+                                        fail: t(
                                             'There was an error creating the merge request, please follow the instructions'
                                         )
                                     }
                                 },
-                                `gitm postmsg "${i18n.__(
-                                    '{{nickname}} submitted a merge request for {{{source}}} branch to {{{target}}} branch in {{app}} project',
+                                `gitm postmsg "${t(
+                                    '{nickname} submitted a merge request for {source} branch to {target} branch in {app} project',
                                     {
                                         nickname,
                                         app: appName,
@@ -649,12 +642,10 @@ program.action(
                                     }`,
                                     config: {
                                         again: false,
-                                        success: i18n.__(
+                                        success: t(
                                             'Pulling up the build was successful'
                                         ),
-                                        fail: i18n.__(
-                                            'Failed to pull up the build'
-                                        )
+                                        fail: t('Failed to pull up the build')
                                     }
                                 }
                             ])
@@ -668,12 +659,10 @@ program.action(
                                     }`,
                                     config: {
                                         again: false,
-                                        success: i18n.__(
+                                        success: t(
                                             'Pulling up the build was successful'
                                         ),
-                                        fail: i18n.__(
-                                            'Failed to pull up the build'
-                                        )
+                                        fail: t('Failed to pull up the build')
                                     }
                                 }
                             ])
@@ -684,11 +673,7 @@ program.action(
             queue(cmd)
         } else {
             sh.echo(
-                red(
-                    i18n.__('type only allows input') +
-                        ': ' +
-                        JSON.stringify(allow)
-                )
+                red(t('type only allows input') + ': ' + JSON.stringify(allow))
             )
             process.exit(1)
         }

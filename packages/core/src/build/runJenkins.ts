@@ -9,7 +9,9 @@ import type {
 import mapTemplate from '#lib/utils/mapTemplate'
 import { debug } from '#lib/utils/debug'
 import { getBuildConfig } from '#lib/build/buildConfig'
-import i18n from '#lib/locales/index'
+import lang from '#lib/lang'
+
+const { t } = lang
 
 export interface RunJenkinsOptionType {
     env: ApolloBranchList
@@ -31,7 +33,7 @@ async function runJenkins({
     const cfg: ApolloConfigBranchType = buildConfig[env]
     debug('runJenkins-buildConfig', env, project, app, buildConfig)
     if (!cfg) {
-        sh.echo(chalk.red(i18n.__('Please enter the correct environment name')))
+        sh.echo(chalk.red(t('Please enter the correct environment name')))
         process.exit(1)
         return
     }
@@ -46,9 +48,7 @@ async function runJenkins({
         for (const item of appList) {
             if (!p.apps.includes(item)) {
                 sh.echo(
-                    chalk.red(
-                        i18n.__('Please enter the correct application name')
-                    )
+                    chalk.red(t('Please enter the correct application name'))
                 )
                 process.exit(1)
                 return
@@ -57,9 +57,7 @@ async function runJenkins({
     }
     if (!buildConfig.template) {
         sh.echo(
-            chalk.red(
-                i18n.__('Please configure the Jenkins build address template')
-            )
+            chalk.red(t('Please configure the Jenkins build address template'))
         )
         process.exit(1)
         return
@@ -84,9 +82,7 @@ async function runJenkins({
             headers: { Authorization: auth }
         })
         .then(() => {
-            sh.echo(
-                chalk.green(i18n.__('Successfully pulled up Jenkins build'))
-            )
+            sh.echo(chalk.green(t('Successfully pulled up Jenkins build')))
         })
 }
 

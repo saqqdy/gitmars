@@ -5,8 +5,9 @@ import { spawnSync } from '#lib/spawn'
 import { isCacheExpired, updateCacheTime } from '#lib/cache/cache'
 import { CACHE_PATH } from '#lib/utils/paths'
 import { isFileExist, removeFile, writeFile } from '#lib/utils/file'
-import i18n from '#lib/locales/index'
+import lang from '#lib/lang'
 
+const { t } = lang
 const require = createRequire(import.meta.url)
 
 /**
@@ -29,7 +30,7 @@ export async function getPkgInfo(name?: string): Promise<any | void> {
     try {
         packageInfo = JSON.parse(stdout!)
     } catch {
-        throw i18n.__('An error occurred')
+        throw t('An error occurred')
     }
     await updateCacheTime('packageInfoTime')
     await writeFile(
@@ -44,7 +45,7 @@ export async function getPkgInfo(name?: string): Promise<any | void> {
  */
 export function cleanPkgInfo() {
     removeFile({
-        name: i18n.__('Gitmars package cache file'),
+        name: t('Gitmars package cache file'),
         url: resolve(CACHE_PATH + 'packageInfo.json')
     })
 }

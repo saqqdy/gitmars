@@ -8,11 +8,12 @@ import { spawnSync } from '@gitmars/core/lib/spawn'
 import { createArgs } from '@gitmars/core/lib/utils/command'
 import echo from '@gitmars/core/lib/utils/echo'
 import type { GitmarsOptionOptionsType } from '../typings'
+import lang from '#lib/common/local'
 import uiConfig from '#lib/conf/ui'
-import i18n from '#lib/locales/index'
 
 // const __filename = fileURLToPath(import.meta.url)
 // const __dirname = dirname(__filename)
+const { t } = lang
 const { yellow } = chalk
 const { args, options } = uiConfig
 
@@ -26,7 +27,7 @@ interface GitmBuildOption {
 program
     .name('gitm ui')
     .usage('[-p --port <port>]')
-    .description(i18n.__('Link local package'))
+    .description(t('Link local package'))
 if (args.length > 0) program.arguments(createArgs(args))
 options.forEach((o: GitmarsOptionOptionsType) => {
     program.option(o.flags, o.description, o.defaultValue)
@@ -37,7 +38,7 @@ program.action((opt: GitmBuildOption) => {
     if (!uiBin) {
         echo(
             yellow(
-                i18n.__(
+                t(
                     'Please install the gitm ui plugin first: gitm install @gitmars/ui latest -m'
                 )
             )

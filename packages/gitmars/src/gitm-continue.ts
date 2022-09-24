@@ -13,15 +13,14 @@ import {
 } from '@gitmars/core/lib/cache/commandCache'
 import type { CommandType, GitmarsOptionOptionsType } from '../typings'
 import continueConfig from '#lib/conf/continue'
-import i18n from '#lib/locales/index'
+import lang from '#lib/common/local'
 
+const { t } = lang
 const { green, red, yellow } = chalk
 const { args, options } = continueConfig
 
 if (!getIsGitProject()) {
-    sh.echo(
-        red(i18n.__('The current directory is not a git project directory'))
-    )
+    sh.echo(red(t('The current directory is not a git project directory')))
     process.exit(1)
 }
 
@@ -35,12 +34,12 @@ interface GitmBuildOption {
 program
     .name('gitm continue')
     .usage('[-l --list]')
-    .description(i18n.__('Continue unfinished operations'))
+    .description(t('Continue unfinished operations'))
 if (args.length > 0) program.arguments(createArgs(args))
 options.forEach((o: GitmarsOptionOptionsType) => {
     program.option(o.flags, o.description, o.defaultValue)
 })
-// .option('-l, --list', i18n.__('Show command queue'), false)
+// .option('-l, --list', t('Show command queue'), false)
 program.action(async (opt: GitmBuildOption) => {
     const sum = getGitStatus()
     const cmd: Array<CommandType | string> = getCommandCache()
@@ -60,31 +59,27 @@ program.action(async (opt: GitmBuildOption) => {
                 .prompt({
                     type: 'confirm',
                     name: 'value',
-                    message: i18n.__(
+                    message: t(
                         'A conflict has been detected in the merge branch and you need to run git add . Do you want to force the script to continue?'
                     ),
                     default: false
                 })
                 .then((answers: any) => {
                     if (!answers.value) {
-                        sh.echo(green(i18n.__('exited')))
+                        sh.echo(green(t('exited')))
                         process.exit(0)
                     }
                 })
         } else if (sum['??'].length > 0) {
             sh.echo(
-                yellow(
-                    i18n.__(
-                        'An uncommitted file was detected, please be aware!'
-                    )
-                )
+                yellow(t('An uncommitted file was detected, please be aware!'))
             )
         }
         queue(cmd).then(() => {
             cleanCommandCache()
         })
     } else {
-        sh.echo(red(i18n.__('There are no unexecuted commands in the queue')))
+        sh.echo(red(t('There are no unexecuted commands in the queue')))
     }
 })
 program.parse(process.argv)

@@ -5,7 +5,9 @@ import type { FetchDataType } from '../../typings'
 import getConfig from '#lib/getConfig'
 import { debug } from '#lib/utils/debug'
 import { getGitUser } from '#lib/git/getGitUser'
-import i18n from '#lib/locales/index'
+import lang from '#lib/lang'
+
+const { t } = lang
 
 // 获取用户信息
 async function getUserToken(): Promise<FetchDataType> {
@@ -16,7 +18,7 @@ async function getUserToken(): Promise<FetchDataType> {
     if (!userInfoApi) {
         sh.echo(
             chalk.red(
-                i18n.__(
+                t(
                     'Please configure the address of the api interface used to request permissions, receive parameters in the form: url?name=git_user_name, return data=token'
                 )
             )
@@ -26,7 +28,7 @@ async function getUserToken(): Promise<FetchDataType> {
 
     const user = getGitUser()
     if (!user) {
-        sh.echo(chalk.red(i18n.__('Please set the local git user name')))
+        sh.echo(chalk.red(t('Please set the local git user name')))
         process.exit(1)
     }
 
@@ -37,10 +39,10 @@ async function getUserToken(): Promise<FetchDataType> {
     debug('getUserToken-fetchData', fetchData)
     // 没有查到用户信息或者没有设置token
     if (!fetchData) {
-        sh.echo(chalk.red(i18n.__('No user found, please contact admin')))
+        sh.echo(chalk.red(t('No user found, please contact admin')))
         process.exit(1)
     } else if (!fetchData.token) {
-        sh.echo(chalk.red(i18n.__('Please set access_token')))
+        sh.echo(chalk.red(t('Please set access_token')))
         process.exit(1)
     }
     return fetchData

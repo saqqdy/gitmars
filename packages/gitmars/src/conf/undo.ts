@@ -1,6 +1,6 @@
 import type { GitmarsOptionType } from '../../typings'
-// import i18n from '#lib/locales/index'
-const i18n = { __: (txt: string) => txt }
+// import lang from '#lib/common/local'
+const t = (txt: string) => txt
 
 export const cmdConfig: GitmarsOptionType = {
     command: 'undo',
@@ -14,7 +14,7 @@ export const cmdConfig: GitmarsOptionType = {
                 cb()
             },
             // transformer: null,
-            description: i18n.__('ID of the undo needed')
+            description: t('ID of the undo needed')
         }
     ],
     options: [
@@ -27,7 +27,7 @@ export const cmdConfig: GitmarsOptionType = {
             short: '',
             long: '--lastet',
             negate: false,
-            description: i18n.__(
+            description: t(
                 'Query logs after a certain time, fill in the format: 10s/2m/2h/3d/4M/5y'
             ),
             defaultValue: '7d'
@@ -40,7 +40,7 @@ export const cmdConfig: GitmarsOptionType = {
             mandatory: false,
             long: '--no-merges',
             negate: true,
-            description: i18n.__('Whether to exclude merge records'),
+            description: t('Whether to exclude merge records'),
             defaultValue: true,
             recommend: false
         },
@@ -53,7 +53,7 @@ export const cmdConfig: GitmarsOptionType = {
             short: '-m',
             long: '--mode',
             negate: false,
-            description: i18n.__(
+            description: t(
                 'For undoing a merge record, the type to be passed in: 1 = keep current branch code, 2 = keep incoming code'
             ),
             defaultValue: null,
@@ -69,7 +69,7 @@ export const cmdConfig: GitmarsOptionType = {
             short: '',
             long: '--limit',
             negate: false,
-            description: i18n.__('The maximum number of logs to be queried'),
+            description: t('The maximum number of logs to be queried'),
             defaultValue: 20
         },
         {
@@ -80,9 +80,7 @@ export const cmdConfig: GitmarsOptionType = {
             mandatory: false,
             long: '--calc',
             negate: false,
-            description: i18n.__(
-                'Clean up the current branch undo failure log'
-            ),
+            description: t('Clean up the current branch undo failure log'),
             recommend: false
         },
         {
@@ -93,7 +91,7 @@ export const cmdConfig: GitmarsOptionType = {
             mandatory: false,
             long: '--calcAll',
             negate: false,
-            description: i18n.__('Clean up all branch undo failures'),
+            description: t('Clean up all branch undo failures'),
             recommend: false
         }
     ],
@@ -105,9 +103,7 @@ export const cmdConfig: GitmarsOptionType = {
         ) {
             cb(
                 new Error(
-                    i18n.__(
-                        '--calc and --calcAll can only be used individually'
-                    )
+                    t('--calc and --calcAll can only be used individually')
                 )
             )
             return

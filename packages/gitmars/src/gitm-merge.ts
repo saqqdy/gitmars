@@ -6,14 +6,13 @@ import { queue } from '@gitmars/core/lib/queue'
 import getIsGitProject from '@gitmars/core/lib/git/getIsGitProject'
 import getCurrentBranch from '@gitmars/core/lib/git/getCurrentBranch'
 import type { CommandType } from '../typings'
-import i18n from '#lib/locales/index'
+import lang from '#lib/common/local'
 
+const { t } = lang
 const { red } = chalk
 
 if (!getIsGitProject()) {
-    sh.echo(
-        red(i18n.__('The current directory is not a git project directory'))
-    )
+    sh.echo(red(t('The current directory is not a git project directory')))
     process.exit(1)
 }
 
@@ -24,7 +23,7 @@ program
     .name('gitm merge')
     .usage('<name>')
     .arguments('<name>')
-    .description(i18n.__('Merge branch code'))
+    .description(t('Merge branch code'))
     .action((name: string) => {
         const current = getCurrentBranch()
         const cmd: Array<CommandType | string> = [
@@ -32,12 +31,12 @@ program
                 cmd: `git merge --no-ff ${name}`,
                 config: {
                     again: false,
-                    success: i18n.__(
-                        'Merge {{{source}}} to {{{target}}} successfully',
-                        { source: name, target: current }
-                    ),
-                    fail: i18n.__(
-                        'An error occurred merging {{{source}}} to {{{target}}}, please follow the instructions',
+                    success: t('Merge {source} to {target} successfully', {
+                        source: name,
+                        target: current
+                    }),
+                    fail: t(
+                        'An error occurred merging {source} to {target}, please follow the instructions',
                         { source: name, target: current }
                     )
                 }
@@ -46,8 +45,8 @@ program
                 cmd: 'git push',
                 config: {
                     again: true,
-                    success: i18n.__('Successful Pushed'),
-                    fail: i18n.__('Push failed, please follow the prompts')
+                    success: t('Successful Pushed'),
+                    fail: t('Push failed, please follow the prompts')
                 }
             }
         ]

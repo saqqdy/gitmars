@@ -13,15 +13,14 @@ import type {
     GitmarsOptionOptionsType
 } from '../typings'
 import branchConfig from '#lib/conf/branch'
-import i18n from '#lib/locales/index'
+import lang from '#lib/common/local'
 
+const { t } = lang
 const { green, red } = chalk
 const { args, options } = branchConfig
 
 if (!getIsGitProject()) {
-    sh.echo(
-        red(i18n.__('The current directory is not a git project directory'))
-    )
+    sh.echo(red(t('The current directory is not a git project directory')))
     process.exit(1)
 }
 
@@ -45,7 +44,7 @@ program
         '[-k --key [keyword]] [-t --type [type]] [-d --delete [branch]] [--exclude [exclude]] [--include [include]] [-r --remote [remote]] [-D --forcedelete [branch]] [-u --upstream [upstream]]'
     )
     .description(
-        i18n.__(
+        t(
             'Branch query, delete (note that this command is not used to create a branch, if you want to create a branch please go through the start process)'
         )
     )
@@ -53,14 +52,14 @@ if (args.length > 0) program.arguments(createArgs(args))
 options.forEach((o: GitmarsOptionOptionsType) => {
     program.option(o.flags, o.description, o.defaultValue)
 })
-// .option('-k, --key [keyword]', i18n.__('Query branch for keywords'), null)
-// .option('--exclude [exclude]', i18n.__('Exclude keywords'), '')
-// .option('--include [include]', i18n.__('Include keywords'), '')
-// .option('-r, --remote', i18n.__('Whether to query remote branches (change to delete remote branches in deletes mode) Default is local only'), false)
-// .option('-t, --type [type]', i18n.__('The type of branch to query, there are 3 types: feature, bugfix, support, if not pass then query all'), null)
-// .option('-d, --delete [branch]', i18n.__('Delete branch'), null)
-// .option('-D, --forcedelete [branch]', i18n.__('Force branch deletion'), null)
-// .option('-u, --upstream [upstream]', i18n.__('Set association with remote branches'))
+// .option('-k, --key [keyword]', t('Query branch for keywords'), null)
+// .option('--exclude [exclude]', t('Exclude keywords'), '')
+// .option('--include [include]', t('Include keywords'), '')
+// .option('-r, --remote', t('Whether to query remote branches (change to delete remote branches in deletes mode) Default is local only'), false)
+// .option('-t, --type [type]', t('The type of branch to query, there are 3 types: feature, bugfix, support, if not pass then query all'), null)
+// .option('-d, --delete [branch]', t('Delete branch'), null)
+// .option('-D, --forcedelete [branch]', t('Force branch deletion'), null)
+// .option('-u, --upstream [upstream]', t('Set association with remote branches'))
 program.action((opt: GitmBuildOption): void => {
     const cmd: Array<CommandType | string> = []
     const isBranchExist = getIsBranchOrCommitExist(opt.delete)
@@ -72,8 +71,8 @@ program.action((opt: GitmBuildOption): void => {
             cmd: 'git remote prune origin',
             config: {
                 again: true,
-                success: i18n.__('Cleanup of remote branch was successful'),
-                fail: i18n.__(
+                success: t('Cleanup of remote branch was successful'),
+                fail: t(
                     'Failed to clean up remote branch, please follow the prompts'
                 )
             }
@@ -86,8 +85,8 @@ program.action((opt: GitmBuildOption): void => {
             cmd: 'git remote prune origin',
             config: {
                 again: true,
-                success: i18n.__('Cleanup of remote branch was successful'),
-                fail: i18n.__(
+                success: t('Cleanup of remote branch was successful'),
+                fail: t(
                     'Failed to clean up remote branch, please follow the prompts'
                 )
             }

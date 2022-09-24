@@ -3,9 +3,10 @@ import { program } from 'commander'
 import { createArgs } from '@gitmars/core/lib/utils/command'
 import runJenkins from '@gitmars/core/lib/build/runJenkins'
 import type { GitmarsOptionOptionsType } from '../typings'
+import lang from '#lib/common/local'
 import buildConfig from '#lib/conf/build'
-import i18n from '#lib/locales/index'
 
+const { t } = lang
 const { args, options } = buildConfig
 
 interface GitmBuildOption {
@@ -18,13 +19,13 @@ interface GitmBuildOption {
 program
     .name('gitm build')
     .usage('<project> [-e --env [env]] [-a --app [app]]')
-    .description(i18n.__('buildJenkins'))
+    .description(t('buildJenkins'))
 if (args.length > 0) program.arguments(createArgs(args))
 options.forEach((o: GitmarsOptionOptionsType) => {
     program.option(o.flags, o.description, o.defaultValue)
 })
-// .option('-e, --env [env]', i18n.__('Environment to be built, optionally dev, prod, bug, all'), 'dev')
-// .option('-a, --app [app]', i18n.__('Application to be built'), 'all')
+// .option('-e, --env [env]', t('Environment to be built, optionally dev, prod, bug, all'), 'dev')
+// .option('-a, --app [app]', t('Application to be built'), 'all')
 program.action((project: string, opt: GitmBuildOption): void => {
     runJenkins({
         env: opt.env,

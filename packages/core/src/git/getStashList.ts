@@ -2,7 +2,9 @@ import sh from 'shelljs'
 import chalk from 'chalk'
 import { spawnSync } from '#lib/spawn'
 import { debug } from '#lib/utils/debug'
-import i18n from '#lib/locales/index'
+import lang from '#lib/lang'
+
+const { t } = lang
 
 /**
  * Get the list of staging areas
@@ -26,7 +28,7 @@ function getStashList(key: string) {
     if (list.length > 10) {
         sh.echo(
             chalk.yellow(
-                i18n.__(
+                t(
                     'There are a total of {{length}} staging records under this item, please clean it up regularly!',
                     { length: String(list.length) }
                 )

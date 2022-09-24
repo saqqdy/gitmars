@@ -1,6 +1,6 @@
 import type { GitmarsOptionType } from '../../typings'
-// import i18n from '#lib/locales/index'
-const i18n = { __: (txt: string) => txt }
+// import lang from '#lib/common/local'
+const t = (txt: string) => txt
 
 export const cmdConfig: GitmarsOptionType = {
     command: 'redo',
@@ -14,7 +14,7 @@ export const cmdConfig: GitmarsOptionType = {
                 cb()
             },
             // transformer: null,
-            description: i18n.__('The undo log to be restored')
+            description: t('The undo log to be restored')
         }
     ],
     options: [
@@ -27,7 +27,7 @@ export const cmdConfig: GitmarsOptionType = {
             short: '-m',
             long: '--mode',
             negate: false,
-            description: i18n.__(
+            description: t(
                 'For undoing a merge record, the type to be passed in: 1 = keep current branch code, 2 = keep incoming code'
             ),
             defaultValue: null,

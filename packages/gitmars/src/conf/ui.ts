@@ -1,6 +1,6 @@
 import type { GitmarsOptionType } from '../../typings'
-// import i18n from '#lib/locales/index'
-const i18n = { __: (txt: string) => txt }
+// import lang from '#lib/common/local'
+const t = (txt: string) => txt
 
 export const cmdConfig: GitmarsOptionType = {
     command: 'ui',
@@ -16,7 +16,7 @@ export const cmdConfig: GitmarsOptionType = {
             short: '-p',
             long: '--port',
             negate: false,
-            description: i18n.__('Specify the port number'),
+            description: t('Specify the port number'),
             defaultValue: 3000,
             recommend: false
         }

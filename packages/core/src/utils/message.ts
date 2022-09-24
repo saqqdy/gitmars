@@ -5,7 +5,9 @@ import getGitRevParse from '#lib/git/getGitRevParse'
 import sendGroupMessage from '#lib/sendGroupMessage'
 import getConfig from '#lib/getConfig'
 import mapTemplate from '#lib/utils/mapTemplate'
-import i18n from '#lib/locales/index'
+import lang from '#lib/lang'
+
+const { t } = lang
 
 /**
  * 解析模板数据
@@ -52,9 +54,7 @@ export async function postMessage(msg = ''): Promise<void> {
     if (!config.msgTemplate) {
         sh.echo(
             chalk.red(
-                i18n.__(
-                    'Please configure the message sending api template address'
-                )
+                t('Please configure the message sending api template address')
             )
         )
         return

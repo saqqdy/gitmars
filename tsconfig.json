@@ -20,7 +20,7 @@
         "allowSyntheticDefaultImports": true,
         "resolveJsonModule": true,
         "noUnusedParameters": false,
-        "typeRoots": ["node_modules/@types"],
+        "typeRoots": ["node_modules/@types"]
         // "baseUrl": ".",
         // "rootDirs": ["core", "gitmars", "docs", "ui", "server"],
         // "composite": true,

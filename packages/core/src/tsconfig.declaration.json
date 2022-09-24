@@ -8,6 +8,6 @@
         "emitDeclarationOnly": true,
         "sourceMap": false,
         "outDir": "../lib",
-		"rootDir": "."
+        "rootDir": "."
     }
 }

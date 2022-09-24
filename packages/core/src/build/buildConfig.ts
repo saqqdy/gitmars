@@ -10,11 +10,12 @@ import type {
 } from '../../typings'
 import { isCacheExpired, updateCacheTime } from '#lib/cache/cache'
 import { isFileExist, removeFile, writeFile } from '#lib/utils/file'
-import i18n from '#lib/locales/index'
+import lang from '#lib/lang'
 import getConfig from '#lib/getConfig'
 import { debug } from '#lib/utils/debug'
 import { CACHE_PATH } from '#lib/utils/paths'
 
+const { t } = lang
 const require = createRequire(import.meta.url)
 
 /**
@@ -54,7 +55,7 @@ export async function getBuildConfig(): Promise<ApolloConfigType | void> {
         const { appId, clusterName } = config.apolloConfig
         NS = getNamespace({ appId, clusterName })
     } else {
-        sh.echo(chalk.red(i18n.__('Please configure apollo or buildConfigApi')))
+        sh.echo(chalk.red(t('Please configure apollo or buildConfigApi')))
         process.exit(0)
         return
     }
@@ -103,7 +104,7 @@ export async function getBuildConfig(): Promise<ApolloConfigType | void> {
 export function cleanBuildConfig() {
     removeFile([
         {
-            name: i18n.__('Jenkins build configuration cache file'),
+            name: t('Jenkins build configuration cache file'),
             url: CACHE_PATH + '/buildConfig*.json'
         },
         {

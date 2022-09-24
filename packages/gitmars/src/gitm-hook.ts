@@ -13,16 +13,15 @@ import { createArgs } from '@gitmars/core/lib/utils/command'
 import { init, remove } from '@gitmars/core/lib/hook/index'
 import getConfig from '@gitmars/core/lib/getConfig'
 import type { GitmarsOptionOptionsType } from '../typings'
-import i18n from '#lib/locales/index'
+import lang from '#lib/common/local'
 import hookConfig from '#lib/conf/hook/index'
 
+const { t } = lang
 const { green, red } = chalk
 const { args, options } = hookConfig
 
 if (!getIsGitProject()) {
-    sh.echo(
-        red(i18n.__('The current directory is not a git project directory'))
-    )
+    sh.echo(red(t('The current directory is not a git project directory')))
     process.exit(1)
 }
 
@@ -52,18 +51,17 @@ options.forEach((o: GitmarsOptionOptionsType) => {
     program.option(o.flags, o.description, o.defaultValue)
 })
 // .arguments('[command] [args...]')
-// .option('--no-verify', i18n.__('Do you want to skip the check permission'), false)
-// .option('--lastet [lastet]', i18n.__('Query logs after a certain time, fill in the format: 10s/2m/2h/3d/4M/5y'), '7d')
-// .option('--limit [limit]', i18n.__('The maximum number of logs to be queried'))
-// .option('-t, --type <type>', i18n.__('Detection type'))
-// .option('--branch [branch]', i18n.__('Branch to query'))
+// .option('--no-verify', t('Do you want to skip the check permission'), false)
+// .option('--lastet [lastet]', t('Query logs after a certain time, fill in the format: 10s/2m/2h/3d/4M/5y'), '7d')
+// .option('--limit [limit]', t('The maximum number of logs to be queried'))
+// .option('-t, --type <type>', t('Detection type'))
+// .option('--branch [branch]', t('Branch to query'))
 program.action(
     async (
         command: string,
         args: string[],
         opt: GitmBuildOption
     ): Promise<void> => {
-        console.log('gitmars hooks is running')
         // 不检测直接返回
         if (opt.noVerify) {
             process.exit(0)
@@ -326,7 +324,7 @@ program.action(
             // 	'--lastet',
             // 	'7d'
             // ]
-            console.log(
+            console.info(
                 types,
                 process.env,
                 process.argv,
@@ -352,8 +350,8 @@ program.action(
                     if (!isMergedBranch) {
                         console.info(
                             red(
-                                i18n.__(
-                                    'Your branch was detected as not having merged {{{target}}}',
+                                t(
+                                    'Your branch was detected as not having merged {target}',
                                     {
                                         target: config.develop
                                     }
@@ -364,8 +362,8 @@ program.action(
                     } else {
                         console.info(
                             green(
-                                i18n.__(
-                                    '{{{source}}} branch has merged {{{target}}} branch',
+                                t(
+                                    '{source} branch has merged {target} branch',
                                     { source: branch, target: config.develop }
                                 )
                             )
@@ -388,8 +386,8 @@ program.action(
                     if (!isUpdatedInTime) {
                         console.info(
                             red(
-                                i18n.__(
-                                    'Detected that you have not update codes from {{{source}}} branch in 1 week',
+                                t(
+                                    'Detected that you have not update codes from {source} branch in 1 week',
                                     { source: branchPrefix }
                                 )
                             )
@@ -398,8 +396,8 @@ program.action(
                     } else {
                         console.info(
                             green(
-                                i18n.__(
-                                    'The {{{source}}} branch has updated from main branch',
+                                t(
+                                    'The {source} branch has updated from main branch',
                                     {
                                         source: branch
                                     }
@@ -415,16 +413,14 @@ program.action(
                 if (!isMergeAction) {
                     console.info(
                         red(
-                            i18n.__(
+                            t(
                                 'Detects that you are modifying code directly in the master branch'
                             )
                         )
                     )
                     process.exit(0)
                 } else {
-                    console.info(
-                        green(i18n.__('The last record was a merge record'))
-                    )
+                    console.info(green(t('The last record was a merge record')))
                 }
                 // const behindLogs = getBehindLogs()
                 // const aheadLogs = getAheadLogs()
@@ -432,7 +428,7 @@ program.action(
                 // aheadLog: for (let logStr of aheadLogs) {
                 // 	let logs = logStr.split(' ')
                 // 	if (logs.length < 2) {
-                // 		console.info(yellow(i18n.__('Detects that you are modifying code directly in the master branch')))
+                // 		console.info(yellow(t('Detects that you are modifying code directly in the master branch')))
                 // 		isMerge = false
                 // 		break aheadLog
                 // 	}
@@ -451,7 +447,7 @@ program.action(
                 const behindLogs = getBehindLogs()
                 if (!behindLogs.length) {
                     console.info(
-                        i18n.__(
+                        t(
                             'Your local branch version is lagging behind the remote branch, please perform a pull first.'
                         )
                     )
@@ -459,7 +455,7 @@ program.action(
                 } else {
                     console.info(
                         green(
-                            i18n.__(
+                            t(
                                 'The local version is not behind the remote, you can push it directly'
                             )
                         )

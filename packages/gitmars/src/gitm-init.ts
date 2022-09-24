@@ -7,15 +7,14 @@ import inquirer from 'inquirer'
 import getIsGitProject from '@gitmars/core/lib/git/getIsGitProject'
 import getGitRevParse from '@gitmars/core/lib/git/getGitRevParse'
 import type { InitInquirerPromptType } from '../typings'
+import lang from '#lib/common/local'
 import { defaults } from '#lib/common/global'
-import i18n from '#lib/locales/index'
 
+const { t } = lang
 const { green, red } = chalk
 
 if (!getIsGitProject()) {
-    sh.echo(
-        red(i18n.__('The current directory is not a git project directory'))
-    )
+    sh.echo(red(t('The current directory is not a git project directory')))
     process.exit(1)
 }
 const { root } = getGitRevParse()
@@ -27,7 +26,7 @@ const { root } = getGitRevParse()
 program
     .name('gitm init')
     .usage('')
-    .description(i18n.__('Set configuration items for gitmars'))
+    .description(t('Set configuration items for gitmars'))
     .action(() => {
         const prompts: InitInquirerPromptType[] = []
         Object.keys(defaults).forEach(key => {
@@ -39,7 +38,7 @@ program
                 prompts.push({
                     type: 'input',
                     name: key,
-                    message: i18n.__('Please enter {{{branch}}} branch name', {
+                    message: t('Please enter {branch} branch name', {
                         branch: key
                     }),
                     default: () => key,
@@ -47,24 +46,24 @@ program
                     validate: val =>
                         /^\w+$/.test(val)
                             ? true
-                            : i18n.__('Please enter the available names')
+                            : t('Please enter the available names')
                 })
             } else if (key === 'user') {
                 prompts.push({
                     type: 'input',
                     name: key,
-                    message: i18n.__('Please enter the Git username'),
+                    message: t('Please enter the Git username'),
                     transformer: val => val.trim(),
                     validate: val =>
                         val === '' || /^\w+$/.test(val)
                             ? true
-                            : i18n.__('Please enter the available names')
+                            : t('Please enter the available names')
                 })
             } else if (key === 'email') {
                 prompts.push({
                     type: 'input',
                     name: key,
-                    message: i18n.__('Please enter the Git email address'),
+                    message: t('Please enter the Git email address'),
                     transformer: val => val.trim(),
                     validate: val =>
                         val === '' ||
@@ -72,13 +71,13 @@ program
                             val
                         )
                             ? true
-                            : i18n.__('Please enter the correct email')
+                            : t('Please enter the correct email')
                 })
             } else if (key === 'nameValidator') {
                 prompts.push({
                     type: 'input',
                     name: key,
-                    message: i18n.__(
+                    message: t(
                         'Please enter the branch name naming convention'
                     ),
                     transformer: val => val.trim()
@@ -87,14 +86,14 @@ program
                 prompts.push({
                     type: 'input',
                     name: key,
-                    message: i18n.__('Please enter commit message rules'),
+                    message: t('Please enter commit message rules'),
                     transformer: val => val.trim()
                 })
             } else if (key === 'msgTemplate') {
                 prompts.push({
                     type: 'input',
                     name: key,
-                    message: i18n.__('Please enter the message template'),
+                    message: t('Please enter the message template'),
                     default: () =>
                         '${message}; project: ${project}; path: ${pwd}',
                     transformer: val => val.trim()
@@ -103,7 +102,7 @@ program
                 prompts.push({
                     type: 'editor',
                     name: key,
-                    message: i18n.__('Please enter apollo configuration'),
+                    message: t('Please enter apollo configuration'),
                     default: () => `{
     "configServerUrl": "",
     "appId": "",
@@ -118,7 +117,7 @@ program
                             val = JSON.parse(val)
                             return true
                         } catch (e) {
-                            return i18n.__('Please enter json')
+                            return t('Please enter json')
                         }
                     }
                 })
@@ -126,7 +125,7 @@ program
                 prompts.push({
                     type: 'editor',
                     name: key,
-                    message: i18n.__('Please enter hooks configuration'),
+                    message: t('Please enter hooks configuration'),
                     default: () => `{
     "pre-commit": "",
     "pre-push": ""
@@ -136,7 +135,7 @@ program
                             val = JSON.parse(val)
                             return !!val
                         } catch (e) {
-                            return i18n.__('Please enter json')
+                            return t('Please enter json')
                         }
                     }
                 })
@@ -144,38 +143,38 @@ program
                 prompts.push({
                     type: 'input',
                     name: key,
-                    message: i18n.__(
+                    message: t(
                         'Please enter the query user permission interface'
                     ),
                     transformer: val => val.trim(),
                     validate: val =>
                         val === '' || /^https?:\/\/[\S]*$/.test(val)
                             ? true
-                            : i18n.__('Please enter the URL')
+                            : t('Please enter the URL')
                 })
             } else if (key === 'gitHost') {
                 prompts.push({
                     type: 'input',
                     name: key,
-                    message: i18n.__('Please enter the git URL'),
+                    message: t('Please enter the git URL'),
                     transformer: val => val.trim(),
                     validate: val =>
                         val === '' || /^https?:\/\/[\S]*$/.test(val)
                             ? true
-                            : i18n.__('Please enter the URL')
+                            : t('Please enter the URL')
                 })
             } else if (key === 'gitID') {
                 prompts.push({
                     type: 'input',
                     name: key,
-                    message: i18n.__(
+                    message: t(
                         'Please enter the git project ID, currently only gitlab is supported'
                     ),
                     transformer: val => val.trim(),
                     validate: val =>
                         val === '' || /^\d+$/.test(val)
                             ? true
-                            : i18n.__('Please enter the URL')
+                            : t('Please enter the URL')
                 })
             }
         })
@@ -204,7 +203,7 @@ program
             } catch (e) {
                 answers.hooks = ''
             }
-            sh.echo(green(i18n.__('gitmars configured successfully')))
+            sh.echo(green(t('gitmars configured successfully')))
             fs.writeFileSync(
                 root + '/.gitmarsrc',
                 JSON.stringify(answers, null, 4),

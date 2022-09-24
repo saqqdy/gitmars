@@ -1,6 +1,6 @@
 import type { GitmarsOptionType } from '../../typings'
-// import i18n from '#lib/locales/index'
-const i18n = { __: (txt: string) => txt }
+// import lang from '#lib/common/local'
+const t = (txt: string) => txt
 
 export const cmdConfig: GitmarsOptionType = {
     command: 'approve',
@@ -16,7 +16,7 @@ export const cmdConfig: GitmarsOptionType = {
             short: '',
             long: '--state',
             negate: false,
-            description: i18n.__(
+            description: t(
                 'Filter merge request status, there are 2 types: opened, closed, not passed then default all'
             ),
             defaultValue: 'opened',
@@ -32,7 +32,7 @@ export const cmdConfig: GitmarsOptionType = {
             short: '',
             long: '--quiet',
             negate: false,
-            description: i18n.__('Do not push the message'),
+            description: t('Do not push the message'),
             defaultValue: false
         }
     ],

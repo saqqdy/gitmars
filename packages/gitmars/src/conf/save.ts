@@ -1,6 +1,6 @@
 import type { GitmarsOptionType } from '../../typings'
-// import i18n from '#lib/locales/index'
-const i18n = { __: (txt: string) => txt }
+// import lang from '#lib/common/local'
+const t = (txt: string) => txt
 
 export const cmdConfig: GitmarsOptionType = {
     command: 'save',
@@ -12,13 +12,13 @@ export const cmdConfig: GitmarsOptionType = {
             variadic: false,
             validator: (val, opts, cb) => {
                 if (/\s+/.test(val)) {
-                    cb(new Error(i18n.__('Please do not enter spaces')))
+                    cb(new Error(t('Please do not enter spaces')))
                     return
                 }
                 cb()
             },
             // transformer: null,
-            description: i18n.__('AccessKeyword')
+            description: t('AccessKeyword')
         }
     ],
     options: [
@@ -31,7 +31,7 @@ export const cmdConfig: GitmarsOptionType = {
             short: '-f',
             long: '--force',
             negate: false,
-            description: i18n.__(
+            description: t(
                 'No version of the file is also staged, which will perform a git add .'
             ),
             defaultValue: false

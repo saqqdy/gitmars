@@ -2,9 +2,11 @@ import fs from 'fs'
 import sh from 'shelljs'
 import ora from 'ora'
 import chalk from 'chalk'
-import i18n from '#lib/locales/index'
+import lang from '#lib/lang'
 
 sh.config.silent = true
+
+const { t } = lang
 
 export interface GitmarsCacheFileDescriptionType {
     name?: string
@@ -18,7 +20,7 @@ export function writeFile(url: string, data: string): Promise<Error | boolean> {
     return new Promise((resolve, reject) => {
         fs.writeFile(url, data, (err: any) => {
             if (err) {
-                reject(new Error(i18n.__('File write error')))
+                reject(new Error(t('File write error')))
             } else {
                 resolve(true)
             }
@@ -61,7 +63,7 @@ export function removeFile(
         file.name &&
             spinner.start(
                 chalk.green(
-                    i18n.__('Processing: {{{something}}}', {
+                    t('Processing: {{{something}}}', {
                         something: file.name
                     })
                 )
@@ -71,21 +73,17 @@ export function removeFile(
             sh.rm(file.url)
             file.name &&
                 spinner.succeed(
-                    chalk.green(
-                        i18n.__('{{name}} deleted', { name: file.name })
-                    )
+                    chalk.green(t('{{name}} deleted', { name: file.name }))
                 )
         } else {
             file.name &&
                 spinner.warn(
-                    chalk.green(
-                        i18n.__('{{name}} not found', { name: file.name })
-                    )
+                    chalk.green(t('{{name}} not found', { name: file.name }))
                 )
         }
     }
     spinner.stop()
-    sh.echo(chalk.green(i18n.__('Cleaned up')))
+    sh.echo(chalk.green(t('Cleaned up')))
 }
 
 export default {

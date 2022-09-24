@@ -7,8 +7,9 @@ import { spawnSync } from '@gitmars/core/lib/spawn'
 import echo from '@gitmars/core/lib/utils/echo'
 import type { GitmarsOptionOptionsType, PackageVersionTag } from '../typings'
 import installConfig from '#lib/conf/install'
-import i18n from '#lib/locales/index'
+import lang from '#lib/common/local'
 
+const { t } = lang
 const { green, red } = chalk
 const { args, options } = installConfig
 
@@ -26,14 +27,14 @@ program
     .usage(
         '<pluginName> [version] [-m --mirror] [-c --client [client]] [-r --registry <registry>]'
     )
-    .description(i18n.__('Installing plugins, e.g. @gitmars/ui'))
+    .description(t('Installing plugins, e.g. @gitmars/ui'))
 if (args.length > 0) program.arguments(createArgs(args))
 options.forEach((o: GitmarsOptionOptionsType) => {
     program.option(o.flags, o.description, o.defaultValue)
 })
-// .option('-m, --mirror', i18n.__('Whether to use Taobao Mirror'), false)
-// .option('-c, --client [client]', i18n.__('The name of the client used to load the package'), 'npm')
-// .option('-r, --registry <registry>', i18n.__('Use mirror address'), '')
+// .option('-m, --mirror', t('Whether to use Taobao Mirror'), false)
+// .option('-c, --client [client]', t('The name of the client used to load the package'), 'npm')
+// .option('-r, --registry <registry>', t('Use mirror address'), '')
 program.action(
     (
         pluginName: string,
@@ -41,7 +42,7 @@ program.action(
         opt: GitmBuildOption
     ) => {
         if (!pluginName) {
-            echo(red(i18n.__('Please enter the plugin name')))
+            echo(red(t('Please enter the plugin name')))
             process.exit(1)
         }
         const spinner = ora()
@@ -59,7 +60,7 @@ program.action(
                 ].includes(version)
             ) {
                 console.error(
-                    i18n.__(
+                    t(
                         'Incorrect version number entered, only supported: alpha, lite, beta, release, latest, next'
                     )
                 )
@@ -94,17 +95,17 @@ program.action(
         if (opt.registry) {
             cmdAdd[1] = cmdAdd[1].concat(['-registry', opt.registry])
         }
-        spinner.start(green(i18n.__('Installing')))
+        spinner.start(green(t('Installing')))
         const install = spawnSync(...cmdAdd, {
             stdio: 'ignore',
             shell: process.platform === 'win32'
         })
         if (install.status === 0) {
-            spinner.succeed(green(i18n.__('Installation complete')))
+            spinner.succeed(green(t('Installation complete')))
         } else {
             spinner.fail(
                 red(
-                    i18n.__(
+                    t(
                         'There was an installation error, please contact the administrator'
                     )
                 )

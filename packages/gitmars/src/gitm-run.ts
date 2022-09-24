@@ -3,9 +3,10 @@ import { program } from 'commander'
 import { createArgs } from '@gitmars/core/lib/utils/command'
 import run from '@gitmars/core/lib/hook/run'
 import type { GitmarsOptionOptionsType } from '../typings'
+import lang from '#lib/common/local'
 import runConfig from '#lib/conf/run'
-import i18n from '#lib/locales/index'
 
+const { t } = lang
 const { args, options } = runConfig
 
 type GitmBuildOption = Record<string, string>
@@ -16,7 +17,7 @@ type GitmBuildOption = Record<string, string>
 program
     .name('gitm run')
     .usage('[command] [args...]')
-    .description(i18n.__('git hook run command'))
+    .description(t('git hook run command'))
 if (args.length > 0) program.arguments(createArgs(args))
 options.forEach((o: GitmarsOptionOptionsType) => {
     program.option(o.flags, o.description, o.defaultValue)

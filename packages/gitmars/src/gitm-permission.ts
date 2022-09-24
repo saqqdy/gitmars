@@ -5,8 +5,9 @@ import chalk from 'chalk'
 import getCurrentBranch from '@gitmars/core/lib/git/getCurrentBranch'
 import { spawnSync } from '@gitmars/core/lib/spawn'
 import getConfig from '@gitmars/core/lib/getConfig'
-import i18n from '#lib/locales/index'
+import lang from '#lib/common/local'
 
+const { t } = lang
 const { red } = chalk
 const config = getConfig()
 
@@ -23,14 +24,10 @@ program
     .name('gitm permission')
     .usage('[message] [--no-verify] [--dev] [--release]')
     .arguments('[message]')
-    .description(i18n.__('Verify commit permissions'))
-    .option(
-        '--no-verify',
-        i18n.__('Do you want to skip the check permission'),
-        false
-    )
-    .option('--dev', i18n.__('Whether to restrict dev commits'), false)
-    .option('--release', i18n.__('Whether to restrict release commits'), false)
+    .description(t('Verify commit permissions'))
+    .option('--no-verify', t('Do you want to skip the check permission'), false)
+    .option('--dev', t('Whether to restrict dev commits'), false)
+    .option('--release', t('Whether to restrict release commits'), false)
     .action((message: string, opt: GitmBuildOption) => {
         console.info('gitm permission is running')
         const current = getCurrentBranch()
@@ -48,12 +45,9 @@ program
         ) {
             sh.echo(
                 red(
-                    i18n.__(
-                        'The {{{target}}} branch does not allow direct commits',
-                        {
-                            target: allow[index]
-                        }
-                    )
+                    t('The {target} branch does not allow direct commits', {
+                        target: allow[index]
+                    })
                 )
             )
             process.exit(1)

@@ -1,4 +1,6 @@
-import i18n from '#lib/locales/index'
+import lang from '#lib/common/local'
+
+const { t } = lang
 
 export const hookList = [
     'applypatch-msg',
@@ -29,7 +31,7 @@ export const defaults = {
     email: '',
     nameValidator: '',
     descriptionValidator: '',
-    msgTemplate: i18n.__('${message}; project: ${project}; path: ${pwd}'),
+    msgTemplate: t('${message}; project: ${project}; path: ${pwd}'),
     apolloConfig: '',
     hooks: '',
     api: '',

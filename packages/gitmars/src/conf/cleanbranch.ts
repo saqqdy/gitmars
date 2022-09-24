@@ -1,6 +1,6 @@
 import type { GitmarsOptionType } from '../../typings'
-// import i18n from '#lib/locales/index'
-const i18n = { __: (txt: string) => txt }
+// import lang from '#lib/common/local'
+const t = (txt: string) => txt
 
 export const cmdConfig: GitmarsOptionType = {
     command: 'cleanbranch',
@@ -13,7 +13,7 @@ export const cmdConfig: GitmarsOptionType = {
             validator: (val, opts, cb) => {
                 cb()
             },
-            description: i18n.__('Specify the branch to clean up')
+            description: t('Specify the branch to clean up')
         }
     ],
     options: [
@@ -26,9 +26,7 @@ export const cmdConfig: GitmarsOptionType = {
             short: '-l',
             long: '--list',
             negate: false,
-            description: i18n.__(
-                'Show a list of branches that match the criteria'
-            ),
+            description: t('Show a list of branches that match the criteria'),
             defaultValue: false,
             value: true
         },
@@ -41,7 +39,7 @@ export const cmdConfig: GitmarsOptionType = {
             short: '-t',
             long: '--type',
             negate: false,
-            description: i18n.__(
+            description: t(
                 'The type of branch, there are 3 types: feature, bugfix, support, default all if not passed'
             ),
             defaultValue: null,
@@ -57,7 +55,7 @@ export const cmdConfig: GitmarsOptionType = {
             short: '',
             long: '--target',
             negate: false,
-            description: i18n.__(
+            description: t(
                 'The name of the target branch that needs to be tested for merging, default is develop and release if not passed'
             ),
             defaultValue: null,
@@ -72,7 +70,7 @@ export const cmdConfig: GitmarsOptionType = {
             short: '-k',
             long: '--key',
             negate: false,
-            description: i18n.__('Query branch for keywords'),
+            description: t('Query branch for keywords'),
             defaultValue: null
         },
         {
@@ -84,7 +82,7 @@ export const cmdConfig: GitmarsOptionType = {
             short: '',
             long: '--exclude',
             negate: false,
-            description: i18n.__('Exclude keywords'),
+            description: t('Exclude keywords'),
             defaultValue: '',
             value: ''
         },
@@ -97,7 +95,7 @@ export const cmdConfig: GitmarsOptionType = {
             short: '',
             long: '--include',
             negate: false,
-            description: i18n.__('Include keywords'),
+            description: t('Include keywords'),
             defaultValue: '',
             value: ''
         },
@@ -111,7 +109,7 @@ export const cmdConfig: GitmarsOptionType = {
         //     long: '--deadline',
         //     negate: false,
         //     description:
-        //         i18n.__('Delete branch before fixed duration, fill in format: 10s/2m/2h/3d/4M/5y'),
+        //         t('Delete branch before fixed duration, fill in format: 10s/2m/2h/3d/4M/5y'),
         //     defaultValue: '15d'
         // },
         {
@@ -123,7 +121,7 @@ export const cmdConfig: GitmarsOptionType = {
             short: '-r',
             long: '--remote',
             negate: false,
-            description: i18n.__(
+            description: t(
                 'Whether to clean up remote branches, default is clean up local branches'
             ),
             defaultValue: false
@@ -137,7 +135,7 @@ export const cmdConfig: GitmarsOptionType = {
             short: '-c',
             long: '--confirm',
             negate: false,
-            description: i18n.__(
+            description: t(
                 'Confirm start, do not show confirmation box when true'
             ),
             defaultValue: false

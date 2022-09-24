@@ -1,6 +1,6 @@
 import type { GitmarsOptionType } from '../../typings'
-// import i18n from '#lib/locales/index'
-const i18n = { __: (txt: string) => txt }
+// import lang from '#lib/common/local'
+const t = (txt: string) => txt
 
 export const cmdConfig: GitmarsOptionType = {
     command: 'branch',
@@ -16,7 +16,7 @@ export const cmdConfig: GitmarsOptionType = {
             short: '-k',
             long: '--key',
             negate: false,
-            description: i18n.__('Query branch for keywords'),
+            description: t('Query branch for keywords'),
             defaultValue: null
         },
         {
@@ -28,7 +28,7 @@ export const cmdConfig: GitmarsOptionType = {
             short: '',
             long: '--exclude',
             negate: false,
-            description: i18n.__('Exclude keywords'),
+            description: t('Exclude keywords'),
             defaultValue: '',
             value: ''
         },
@@ -41,7 +41,7 @@ export const cmdConfig: GitmarsOptionType = {
             short: '',
             long: '--include',
             negate: false,
-            description: i18n.__('Include keywords'),
+            description: t('Include keywords'),
             defaultValue: '',
             value: ''
         },
@@ -54,7 +54,7 @@ export const cmdConfig: GitmarsOptionType = {
             short: '-r',
             long: '--remote',
             negate: false,
-            description: i18n.__(
+            description: t(
                 'Whether to query remote branches (change to delete remote branches in deletes mode) Default is local only'
             ),
             defaultValue: false
@@ -68,7 +68,7 @@ export const cmdConfig: GitmarsOptionType = {
             short: '-t',
             long: '--type',
             negate: false,
-            description: i18n.__(
+            description: t(
                 'The type of branch to query, there are 3 types: feature, bugfix, support, if not pass then query all'
             ),
             defaultValue: null,
@@ -84,7 +84,7 @@ export const cmdConfig: GitmarsOptionType = {
             short: '-d',
             long: '--delete',
             negate: false,
-            description: i18n.__('Delete branch'),
+            description: t('Delete branch'),
             defaultValue: null
         },
         {
@@ -96,7 +96,7 @@ export const cmdConfig: GitmarsOptionType = {
             short: '-D',
             long: '--forcedelete',
             negate: false,
-            description: i18n.__('Force branch deletion'),
+            description: t('Force branch deletion'),
             defaultValue: null
         },
         {
@@ -108,7 +108,7 @@ export const cmdConfig: GitmarsOptionType = {
             short: '-u',
             long: '--upstream',
             negate: false,
-            description: i18n.__('Set association with remote branches')
+            description: t('Set association with remote branches')
         }
     ],
     // validator opts
@@ -123,7 +123,7 @@ export const cmdConfig: GitmarsOptionType = {
         ) {
             cb(
                 new Error(
-                    i18n.__(
+                    t(
                         'When using the bind/unbind remote branch function, it cannot be mixed with other functions.'
                     )
                 )
@@ -136,7 +136,7 @@ export const cmdConfig: GitmarsOptionType = {
         ) {
             cb(
                 new Error(
-                    i18n.__(
+                    t(
                         'When using the delete branch function, it cannot be mixed with the query branch function.'
                     )
                 )

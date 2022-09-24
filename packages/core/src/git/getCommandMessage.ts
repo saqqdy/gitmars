@@ -1,5 +1,7 @@
 import type { CommandMessageType } from '../../typings'
-import i18n from '#lib/locales/index'
+import lang from '#lib/lang'
+
+const { t } = lang
 
 /**
  * 获取通用的指令提示信息
@@ -13,54 +15,54 @@ function getCommandMessage(cmd: string): CommandMessageType {
     if (arr.length < 2 || arr[0] !== 'git') return msg
     switch (arr[1]) {
         case 'checkout':
-            msg.processing = i18n.__('Checkout branches now')
-            msg.success = i18n.__('Checkout branch successfully')
-            msg.fail = i18n.__('Failed to checkout')
+            msg.processing = t('Checkout branches now')
+            msg.success = t('Checkout branch successfully')
+            msg.fail = t('Failed to checkout')
             break
         case 'pull':
-            msg.processing = i18n.__('Pulling code now')
-            msg.success = i18n.__('Pulling code successfully')
-            msg.fail = i18n.__('Failed to pull code')
+            msg.processing = t('Pulling code now')
+            msg.success = t('Pulling code successfully')
+            msg.fail = t('Failed to pull code')
             break
         case 'fetch':
-            msg.processing = i18n.__('Pulling remote version')
-            msg.success = i18n.__('Fetching success')
-            msg.fail = i18n.__('Failed to fetch')
+            msg.processing = t('Pulling remote version')
+            msg.success = t('Fetching success')
+            msg.fail = t('Failed to fetch')
             break
         case 'commit':
-            msg.processing = i18n.__('Committing')
-            msg.success = i18n.__('Commit success')
-            msg.fail = i18n.__('Commit Failure')
+            msg.processing = t('Committing')
+            msg.success = t('Commit success')
+            msg.fail = t('Commit Failure')
             break
         case 'push':
-            msg.processing = i18n.__('Pushing')
-            msg.success = i18n.__('Successful Pushed')
-            msg.fail = i18n.__('Push failed')
+            msg.processing = t('Pushing')
+            msg.success = t('Successful Pushed')
+            msg.fail = t('Push failed')
             break
         case 'cherry-pick':
-            msg.processing = i18n.__('Syncing submission records')
-            msg.success = i18n.__('Syncing submission records successfully')
-            msg.fail = i18n.__('Failed to sync commit records')
+            msg.processing = t('Syncing submission records')
+            msg.success = t('Syncing submission records successfully')
+            msg.fail = t('Failed to sync commit records')
             break
         case 'merge':
-            msg.processing = i18n.__('Merging branch')
-            msg.success = i18n.__('merge branch succeeded')
-            msg.fail = i18n.__('merge branch failed')
+            msg.processing = t('Merging branch')
+            msg.success = t('merge branch succeeded')
+            msg.fail = t('merge branch failed')
             break
         case 'rebase':
-            msg.processing = i18n.__('working on rebase branch')
-            msg.success = i18n.__('rebase branch succeeded')
-            msg.fail = i18n.__('rebase branch failed')
+            msg.processing = t('working on rebase branch')
+            msg.success = t('rebase branch succeeded')
+            msg.fail = t('rebase branch failed')
             break
         case 'revert':
-            msg.processing = i18n.__('Undoing code')
-            msg.success = i18n.__('Undoing success')
-            msg.fail = i18n.__('undo failed')
+            msg.processing = t('Undoing code')
+            msg.success = t('Undoing success')
+            msg.fail = t('undo failed')
             break
         case 'clean':
-            msg.processing = i18n.__('Cleaning up')
-            msg.success = i18n.__('Cleanup successful')
-            msg.fail = i18n.__('Cleanup failed')
+            msg.processing = t('Cleaning up')
+            msg.success = t('Cleanup successful')
+            msg.fail = t('Cleanup failed')
             break
 
         default:

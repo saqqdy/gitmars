@@ -1,6 +1,6 @@
 import type { GitmarsOptionType } from '../../typings'
-// import i18n from '#lib/locales/index'
-const i18n = { __: (txt: string) => txt }
+// import lang from '#lib/common/local'
+const t = (txt: string) => txt
 
 export const cmdConfig: GitmarsOptionType = {
     command: 'update',
@@ -10,7 +10,7 @@ export const cmdConfig: GitmarsOptionType = {
             required: false,
             name: 'type',
             variadic: false,
-            description: i18n.__('Branch Type'),
+            description: t('Branch Type'),
             options: ['feature', 'bugfix', 'support'],
             value: ''
         },
@@ -18,7 +18,7 @@ export const cmdConfig: GitmarsOptionType = {
             required: false,
             name: 'name',
             variadic: false,
-            description: i18n.__('Branch name (without feature/bugfix prefix)')
+            description: t('Branch name (without feature/bugfix prefix)')
         }
     ],
     options: [
@@ -30,7 +30,7 @@ export const cmdConfig: GitmarsOptionType = {
             mandatory: false,
             long: '--use-merge',
             negate: false,
-            description: i18n.__('Use merge to update (default merge)'),
+            description: t('Use merge to update (default merge)'),
             defaultValue: true,
             value: true,
             recommend: true
@@ -43,7 +43,7 @@ export const cmdConfig: GitmarsOptionType = {
             mandatory: false,
             long: '--use-rebase',
             negate: false,
-            description: i18n.__('Update with rebase (default merge)'),
+            description: t('Update with rebase (default merge)'),
             defaultValue: false,
             recommend: true
         },
@@ -56,7 +56,7 @@ export const cmdConfig: GitmarsOptionType = {
             short: '-a',
             long: '--all',
             negate: false,
-            description: i18n.__(
+            description: t(
                 'Update all local bugfix, feature, support branches'
             ),
             defaultValue: false,
@@ -71,7 +71,7 @@ export const cmdConfig: GitmarsOptionType = {
             short: '-f',
             long: '--force',
             negate: false,
-            description: i18n.__('Whether to force a merge request'),
+            description: t('Whether to force a merge request'),
             recommend: false
         }
     ]

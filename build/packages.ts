@@ -15,7 +15,7 @@ export const packages: PackageManifest[] = [
     {
         name: 'gitmars',
         pkgName: 'gitmars',
-        buildTask: ['type', 'lib'],
+        buildTask: ['lib'],
         iife: false,
         cjs: false,
         mjs: true,

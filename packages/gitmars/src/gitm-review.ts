@@ -26,14 +26,15 @@ import type {
     GitmarsOptionOptionsType,
     InitInquirerPromptType
 } from '../typings'
-import i18n from '#lib/locales/index'
+import lang from '#lib/common/local'
 import reviewConfig from '#lib/conf/review'
 
+const { t } = lang
 const { blue, cyan, green, magenta, red, yellow } = chalk
 const { args, options } = reviewConfig
 
 if (!getIsGitProject()) {
-    echo(red(i18n.__('The current directory is not a git project directory')))
+    echo(red(t('The current directory is not a git project directory')))
     process.exit(1)
 }
 
@@ -51,13 +52,13 @@ interface GitmBuildOption {
 program
     .name('gitm review')
     .usage('[--state [state]] [--quiet]')
-    .description(i18n.__('review remote code'))
+    .description(t('review remote code'))
 if (args.length > 0) program.arguments(createArgs(args))
 options.forEach((o: GitmarsOptionOptionsType) => {
     program.option(o.flags, o.description, o.defaultValue)
 })
-// .option('--state [state]', i18n.__('Filter merge request status, there are 2 types: opened, closed, not passed then default all'), null)
-// .option('--quiet', i18n.__('Do not push the message'), false)
+// .option('--state [state]', t('Filter merge request status, there are 2 types: opened, closed, not passed then default all'), null)
+// .option('--quiet', t('Do not push the message'), false)
 program.action(async (opt: GitmBuildOption): Promise<void> => {
     const userInfoApi =
         (config.apis && config.apis.userInfo && config.apis.userInfo.url) ||
@@ -66,28 +67,26 @@ program.action(async (opt: GitmBuildOption): Promise<void> => {
     const mrList = await getMergeRequestList({ token, state: opt.state })
     // 没有任何记录
     if (mrList.length === 0) {
-        echo(
-            yellow(i18n.__('No merge request record found, process has exited'))
-        )
+        echo(yellow(t('No merge request record found, process has exited')))
         process.exit(0)
     }
     const prompt: InitInquirerPromptType[] = [
         {
             type: 'checkbox',
-            message: i18n.__('Please select the merge request to be operated'),
+            message: t('Please select the merge request to be operated'),
             name: 'iids',
             choices: []
         },
         {
             type: 'list',
-            message: i18n.__('Please select the action below.'),
+            message: t('Please select the action below.'),
             name: 'accept',
             choices: [
-                i18n.__('View Details'),
-                i18n.__('Comments'),
-                i18n.__('Close'),
-                i18n.__('Deleted'),
-                i18n.__('Exit')
+                t('View Details'),
+                t('Comments'),
+                t('Close'),
+                t('Deleted'),
+                t('Exit')
             ],
             when(answers) {
                 return answers.iids.length
@@ -106,18 +105,18 @@ program.action(async (opt: GitmBuildOption): Promise<void> => {
         const disabled = merge_status !== 'can_be_merged'
         const _time = dayjs(created_at).format('YYYY/MM/DD HH:mm')
         prompt[0].choices.push({
-            name: i18n.__(
-                '{{id}} request merge {{{source}}} to {{{target}}} {{disabled}} | {{name}} | {{comments}} | {{time}}',
+            name: t(
+                '{id} request merge {source} to {target} {disabled} | {name} | {comments} | {time}',
                 {
                     id: green(iid + ': '),
                     source: green(source_branch),
                     target: green(target_branch),
                     disabled: disabled
-                        ? red(`[ ${i18n.__('Conflict or no need to merge')} ]`)
+                        ? red(`[ ${t('Conflict or no need to merge')} ]`)
                         : '',
                     name: yellow(author.name),
                     comments: green(
-                        i18n.__('{{length}} comments', {
+                        t('{length} comments', {
                             length: String(mr.notes.length)
                         })
                     ),
@@ -132,11 +131,7 @@ program.action(async (opt: GitmBuildOption): Promise<void> => {
     const { iids, accept } = await inquirer.prompt(prompt)
     // 没有选择任何记录
     if (iids.length === 0) {
-        echo(
-            yellow(
-                i18n.__('No merge request record selected, process has exited')
-            )
-        )
+        echo(yellow(t('No merge request record selected, process has exited')))
         process.exit(0)
     }
 
@@ -145,7 +140,7 @@ program.action(async (opt: GitmBuildOption): Promise<void> => {
         const { source_branch, target_branch } = mrList.find(
             (item: any) => item.iid === iid
         )
-        if (accept === i18n.__('View Details')) {
+        if (accept === t('View Details')) {
             const { changes, changes_count } = await getMergeRequestChanges({
                 token,
                 iid
@@ -153,7 +148,7 @@ program.action(async (opt: GitmBuildOption): Promise<void> => {
             echo(
                 green(
                     '\n' +
-                        i18n.__('{{id}}: total {{total}} files changed', {
+                        t('{id}: total {total} files changed', {
                             id: iid,
                             total: changes_count
                         })
@@ -167,7 +162,7 @@ program.action(async (opt: GitmBuildOption): Promise<void> => {
                 )
                 echo(magenta(old_path))
                 old_path !== new_path &&
-                    echo(magenta(new_path + `(${i18n.__('New path')})`))
+                    echo(magenta(new_path + `(${t('New path')})`))
                 echo(
                     diff
                         .replace(
@@ -204,18 +199,18 @@ program.action(async (opt: GitmBuildOption): Promise<void> => {
                     '\n++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++'
                 )
             )
-            echo(magenta(i18n.__('Comment List')))
+            echo(magenta(t('Comment List')))
             echo(
                 columnify(notes, {
                     columns: ['body', 'name', 'date']
                 })
             )
-        } else if (accept === i18n.__('Deleted')) {
+        } else if (accept === t('Deleted')) {
             await deleteMergeRequest({ token, iid })
             !opt.quiet &&
                 sendGroupMessage(
-                    i18n.__(
-                        '{{app}} item {{{source}}} merged to {{{target}}} request ID {{id}} has been deleted',
+                    t(
+                        '{app} item {source} merged to {target} request ID {id} has been deleted',
                         {
                             app: appName,
                             source: source_branch,
@@ -224,8 +219,8 @@ program.action(async (opt: GitmBuildOption): Promise<void> => {
                         }
                     )
                 )
-            echo(green(i18n.__('Merge request {{id}}: Deleted', { id: iid })))
-        } else if (accept === i18n.__('Close')) {
+            echo(green(t('Merge request {id}: Deleted', { id: iid })))
+        } else if (accept === t('Close')) {
             // 删除
             await updateMergeRequest({
                 token,
@@ -234,8 +229,8 @@ program.action(async (opt: GitmBuildOption): Promise<void> => {
             })
             !opt.quiet &&
                 sendGroupMessage(
-                    i18n.__(
-                        '{{app}} item {{{source}}} merged to {{{target}}} request ID {{id}} has been closed',
+                    t(
+                        '{app} item {source} merged to {target} request ID {id} has been closed',
                         {
                             app: appName,
                             source: source_branch,
@@ -244,22 +239,22 @@ program.action(async (opt: GitmBuildOption): Promise<void> => {
                         }
                     )
                 )
-            echo(green(i18n.__('Merge request {{id}}: Closed', { id: iid })))
-        } else if (accept === i18n.__('Comments')) {
+            echo(green(t('Merge request {id}: Closed', { id: iid })))
+        } else if (accept === t('Comments')) {
             // 评论
             const { note } = await inquirer.prompt({
                 type: 'input',
                 name: 'note',
-                message: i18n.__('Please enter the comment content'),
+                message: t('Please enter the comment content'),
                 default: '',
                 transformer: (val: string) => val.trim(),
                 validate: (val: string) =>
-                    !val ? i18n.__('Please enter the available comments') : true
+                    !val ? t('Please enter the available comments') : true
             })
             !opt.quiet &&
                 sendGroupMessage(
-                    i18n.__(
-                        '{{app}} item {{{source}}} merged to {{{target}}} request ID {{id}} has new comments: {{note}}',
+                    t(
+                        '{app} item {source} merged to {target} request ID {id} has new comments: {note}',
                         {
                             app: appName,
                             source: source_branch,
@@ -270,7 +265,7 @@ program.action(async (opt: GitmBuildOption): Promise<void> => {
                     )
                 )
             await createMergeRequestNotes({ token, iid, body: note })
-            echo(green(i18n.__('Submitted')))
+            echo(green(t('Submitted')))
         }
     }
 })

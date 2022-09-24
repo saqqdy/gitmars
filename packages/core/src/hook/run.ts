@@ -2,7 +2,9 @@ import type { ShellCode } from '../../typings'
 import { spawnSync } from '#lib/spawn'
 import getConfig from '#lib/getConfig'
 import checkGitDirEnv from '#lib/hook/checkGitDirEnv'
-import i18n from '#lib/locales/index'
+import lang from '#lib/lang'
+
+const { t } = lang
 const config = getConfig()
 function getCommand(cwd: string, hookName: string) {
     return config && config.hooks && config.hooks[hookName]
@@ -77,10 +79,7 @@ async function run() {
         const status = await start(process.argv as string[])
         process.exit(status)
     } catch (err) {
-        console.info(
-            i18n.__('Gitmars > Unknown error! Please contact Wu Feng'),
-            err
-        )
+        console.info(t('Gitmars > Unknown error! Please contact Wu Feng'), err)
         process.exit(1)
     }
 }

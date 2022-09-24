@@ -30,6 +30,8 @@ const pkgs = packages.filter(({ buildTask }) => buildTask.includes('lib'))
 export async function buildLib() {
     const externals = [
         'js-cool',
+        'lodash-unified',
+        'lodash-es',
         '@gitmars/core',
         '@gitmars/docs',
         '@gitmars/server',
@@ -67,6 +69,8 @@ export async function buildLib() {
             // const deps = Object.keys(pkg.dependencies || {})
             const iifeGlobals = {
                 'js-cool': 'JsCool',
+                // 'lodash-unified': 'lodashUnified',
+                // 'lodash-es': 'lodashEs',
                 '@gitmars/utils': 'EslintSets',
                 '@gitmars/core': 'EslintSets',
                 ...globals

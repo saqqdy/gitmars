@@ -11,8 +11,9 @@ import getHookComment from '#lib/hook/getHookComment'
 import getHookType from '#lib/hook/getHookType'
 import getHookShell from '#lib/hook/getHookShell'
 import getLocalShell from '#lib/hook/getLocalShell'
-import i18n from '#lib/locales/index'
+import lang from '#lib/lang'
 
+const { t } = lang
 const hookList = [
     'applypatch-msg',
     'pre-applypatch',
@@ -62,14 +63,14 @@ ${getHookComment()}
             // 合并
             if (getHookType.isGhooks(hook)) {
                 console.info(
-                    i18n.__('Merge existing ghooks hooks: {{name}}', { name })
+                    t('Merge existing ghooks hooks: {{name}}', { name })
                 )
                 return writeHook(filename, hookShell)
             }
             // 合并
             if (getHookType.isPreCommit(hook)) {
                 console.info(
-                    i18n.__('Merge existing pre-commit hooks: {{name}}', {
+                    t('Merge existing pre-commit hooks: {{name}}', {
                         name
                     })
                 )
@@ -85,7 +86,7 @@ ${getHookComment()}
             }
             // 跳过
             console.info(
-                i18n.__('Skip existing git hooks: {{name}}', {
+                t('Skip existing git hooks: {{name}}', {
                     name
                 })
             )
@@ -177,9 +178,7 @@ export function init(): void {
     // 集成环境不安装
     if (ciInfo.isCI && config.skipCI) {
         console.info(
-            i18n.__(
-                'Continuous integration environment, skip hook installation'
-            )
+            t('Continuous integration environment, skip hook installation')
         )
         return
     }
@@ -190,7 +189,7 @@ export function init(): void {
     if (['1', 'true'].includes(process.env.GITMARS_SKIP_HOOKS || '')) {
         sh.echo(
             chalk.yellow(
-                i18n.__(
+                t(
                     'Environment variable GITMARS_SKIP_HOOKS already exists, skip installation'
                 )
             )
@@ -201,7 +200,7 @@ export function init(): void {
     if (!gitVersionIsNew) {
         sh.echo(
             chalk.yellow(
-                i18n.__(
+                t(
                     'Gitmars requires Git version 2.13.0 or higher, current version'
                 ) +
                     ': ' +
