@@ -42,7 +42,7 @@ const { appName } = getGitConfig()
 const config = getConfig()
 
 interface GitmBuildOption {
-    state?: string
+    state: 'all' | 'opened' | 'closed' | 'merged'
     quiet: boolean
 }
 

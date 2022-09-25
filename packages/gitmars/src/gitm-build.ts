@@ -2,6 +2,7 @@
 import { program } from 'commander'
 import { createArgs } from '@gitmars/core/lib/utils/command'
 import runJenkins from '@gitmars/core/lib/build/runJenkins'
+import { type ApolloBranchList } from '@gitmars/core/typings/index'
 import type { GitmarsOptionOptionsType } from '../typings'
 import lang from '#lib/common/local'
 import buildConfig from '#lib/conf/build'
@@ -10,8 +11,8 @@ const { t } = lang
 const { args, options } = buildConfig
 
 interface GitmBuildOption {
-    env?: string
-    app?: string
+    env: ApolloBranchList
+    app: string
 }
 /**
  * gitm build

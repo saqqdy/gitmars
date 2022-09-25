@@ -231,7 +231,7 @@ export type GitStatusInfoType = {
 }
 
 export interface QueueConfigType extends SpawnOptions {
-    again?: boolean
+    again?: boolean | string
     processing?: string
     success?: string
     fail?: string

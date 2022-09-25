@@ -63,7 +63,7 @@ export async function getMergeRequestList({
     state = 'opened',
     token
 }: {
-    state: 'merged' | 'opened' | 'closed' | 'all'
+    state?: 'merged' | 'opened' | 'closed' | 'all'
     token: string
 }) {
     const params = {
@@ -279,7 +279,7 @@ export async function updateMergeRequest({
 }: {
     iid: number | string
     token: string
-    data: unknown & {
+    data: Record<string, unknown> & {
         private_token?: string
     }
 }) {

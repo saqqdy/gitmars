@@ -44,7 +44,7 @@ program.action(async (opt: GitmBuildOption) => {
     const sum = getGitStatus()
     const cmd: Array<CommandType | string> = getCommandCache()
     if (opt.list) {
-        sh.echo(cmd)
+        console.info(cmd)
         process.exit(0)
     }
     if (cmd.length > 0) {
