@@ -144,7 +144,7 @@ program.action(
             }
             const branches = searchBranches({ type })
             if (branches.length === 1) {
-                ;[type, _nameArr] = branches[0].split('/')
+                ;[type, ..._nameArr] = branches[0].split('/')
                 name = _nameArr.join('/')
             } else {
                 sh.echo(

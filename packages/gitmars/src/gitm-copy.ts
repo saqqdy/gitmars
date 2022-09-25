@@ -95,7 +95,7 @@ program.action((commitid: string[], opts: GitmBuildOption) => {
             const commits: string[] = []
             if (data[1].status === 0) {
                 const logs =
-                    data[1].stdout.match(/(commit\s[a-z0-9]*\n+)/g) || []
+                    data[1].stdout!.match(/(commit\s[a-z0-9]*\n+)/g) || []
                 let cmds: Array<CommandType | string> = [`git checkout ${cur}`]
                 logs.forEach(el => {
                     commits.push(el.replace(/(commit\s)|\n/g, ''))
@@ -119,7 +119,7 @@ program.action((commitid: string[], opts: GitmBuildOption) => {
                 }
                 queue(cmds)
             } else {
-                sh.echo(data[1].stderr)
+                sh.echo(data[1].stderr!)
             }
         })
     }

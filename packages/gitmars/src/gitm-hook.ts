@@ -14,7 +14,7 @@ import { init, remove } from '@gitmars/core/lib/hook/index'
 import getConfig from '@gitmars/core/lib/getConfig'
 import type { GitmarsOptionOptionsType } from '../typings'
 import lang from '#lib/common/local'
-import hookConfig from '#lib/conf/hook/index'
+import hookConfig from '#lib/conf/hook'
 
 const { t } = lang
 const { green, red } = chalk
@@ -27,8 +27,8 @@ if (!getIsGitProject()) {
 
 const config = getConfig()
 interface GitmBuildOption {
-    noVerify?: boolean
-    lastet?: string
+    noVerify: boolean
+    lastet: string
     limit?: number
     type?: string
     branch?: string

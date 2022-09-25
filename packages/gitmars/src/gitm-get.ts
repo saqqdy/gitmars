@@ -66,12 +66,12 @@ program.action((message: string, index: string, opt: GitmBuildOption) => {
     queue([
         {
             cmd: `git stash ${opt.keep ? 'apply' : 'pop'} ${
-                list[index || 0].key
+                list[Number(index) || 0].key
             }`,
             config: {
                 again: opt.keep
                     ? false
-                    : `git stash drop ${list[index || 0].key}`,
+                    : `git stash drop ${list[Number(index) || 0].key}`,
                 success: t('File recovery successful'),
                 fail: t('Recovery failed, please check for conflicts')
             }

@@ -14,8 +14,8 @@ const { green, red } = chalk
 const { args, options } = installConfig
 
 interface GitmBuildOption {
-    mirror?: boolean
-    client?: 'npm' | 'yarn' | 'pnpm' | 'cnpm' | string
+    mirror: boolean
+    client: 'npm' | 'yarn' | 'pnpm' | 'cnpm' | string
     registry?: string
 }
 

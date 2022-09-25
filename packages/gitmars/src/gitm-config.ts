@@ -6,6 +6,7 @@ import getIsGitProject from '@gitmars/core/lib/git/getIsGitProject'
 import getGitRevParse from '@gitmars/core/lib/git/getGitRevParse'
 import { writeFile } from '@gitmars/core/lib/utils/file'
 import getConfig from '@gitmars/core/lib/getConfig'
+import type { GitmarsConfigType } from '@gitmars/core/typings/index'
 import lang from '#lib/common/local'
 import { defaults } from '#lib/common/global'
 
@@ -26,35 +27,43 @@ program
     .usage('<option> [value]')
     .command('set <option> [value]')
     .description(t('Set configuration items for gitmars'))
-    .action(async (option: string, value: string): Promise<void> => {
-        let { filepath } = config
-        if (!filepath) {
-            const { root } = getGitRevParse()
-            filepath = root + '/.gitmarsrc'
-        }
-        if (value) {
-            if (Object.keys(defaults).includes(option)) {
-                config[option] = value
-                delete config.filepath
-                delete config.skipCI
-                await writeFile(filepath, JSON.stringify(config, null, 4))
-                sh.echo(green(t('Saved successfully')))
-                process.exit(0)
-            } else {
-                sh.echo(
-                    red(
-                        t('The configuration item {option} is not supported', {
-                            option
-                        })
+    .action(
+        async (
+            option: keyof GitmarsConfigType,
+            value: string
+        ): Promise<void> => {
+            let { filepath } = config
+            if (!filepath) {
+                const { root } = getGitRevParse()
+                filepath = root + '/.gitmarsrc'
+            }
+            if (value) {
+                if (Object.keys(defaults).includes(option)) {
+                    config[option] = value
+                    delete config.filepath
+                    delete config.skipCI
+                    await writeFile(filepath, JSON.stringify(config, null, 4))
+                    sh.echo(green(t('Saved successfully')))
+                    process.exit(0)
+                } else {
+                    sh.echo(
+                        red(
+                            t(
+                                'The configuration item {option} is not supported',
+                                {
+                                    option
+                                }
+                            )
+                        )
                     )
-                )
+                    process.exit(1)
+                }
+            } else {
+                sh.echo(t('Please enter the items to be configured'))
                 process.exit(1)
             }
-        } else {
-            sh.echo(t('Please enter the items to be configured'))
-            process.exit(1)
         }
-    })
+    )
 /**
  * gitm config list
  */
