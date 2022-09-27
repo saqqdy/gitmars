@@ -26,6 +26,10 @@
         "#lib/*": {
             "require": "./lib/*.js",
             "import": "./lib/*.mjs"
+        },
+        "#typings/*": {
+            "require": "./typings/*.d.ts",
+            "import": "./typings/*.d.ts"
         }
     },
     "files": [

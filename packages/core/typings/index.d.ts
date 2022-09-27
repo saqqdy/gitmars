@@ -174,6 +174,7 @@ export interface GitmarsConfigType {
     gitID?: string
     hooks?: Record<string, string>
     filepath: string
+    nameValidator?: string | regExp
     descriptionValidator?: string | regExp
 }
 
