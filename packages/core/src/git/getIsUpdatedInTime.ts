@@ -5,7 +5,7 @@ import getGitLogs from '#lib/git/getGitLogs'
 
 export interface IsUpdatedInTimeConfigType {
     lastet: string
-    limit: number
+    limit?: number
     branch: string
 }
 

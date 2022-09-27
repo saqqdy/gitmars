@@ -16,6 +16,7 @@ import {
     getRevertCache,
     setRevertCache
 } from '@gitmars/core/lib/cache/revertCache'
+import type { GitLogKeysType } from '@gitmars/core/typings/index'
 import type {
     CommandType,
     GitLogsType,
@@ -94,7 +95,7 @@ function getRevertCommitIDs(commitIDs: string[]): string[] {
  * @param opt - option: GitmBuildOption
  */
 function calculate(all = false, opt: GitmBuildOption) {
-    const keys = ['%H', '%T', '%P', '%aI', '%an', '%s', '%b']
+    const keys: GitLogKeysType[] = ['%H', '%T', '%P', '%aI', '%an', '%s', '%b']
     const revertCache = getRevertCache()
     const current = getCurrentBranch()
     let len = revertCache.length
@@ -141,11 +142,11 @@ function calculate(all = false, opt: GitmBuildOption) {
                     _undoLogs.length === 0
                         ? t(
                               'Detected that {id} has failed to undo this record and has deleted the related logs',
-                              { id: revertCache[len].before['%H'] }
+                              { id: revertCache[len].before['%H']! }
                           )
                         : t(
                               'The record {id} was detected to have been recovered, and the related logs were deleted',
-                              { id: revertCache[len].before['%H'] }
+                              { id: revertCache[len].before['%H']! }
                           )
                 )
             )
@@ -176,7 +177,7 @@ options.forEach((o: GitmarsOptionOptionsType) => {
 // .option('--lastet [lastet]', t('Query logs after a certain time, fill in the format: 10s/2m/2h/3d/4M/5y'), '7d')
 // .option('--limit [limit]', t('The maximum number of logs to be queried'), 20)
 program.action(async (commitid: string[], opt: GitmBuildOption) => {
-    const keys = ['%H', '%T', '%P', '%aI', '%an', '%s', '%b'] as const
+    const keys: GitLogKeysType[] = ['%H', '%T', '%P', '%aI', '%an', '%s', '%b']
     const current = getCurrentBranch()
     let logList: Array<
             {

@@ -68,7 +68,7 @@ program.action(
         ]
         const status = checkGitStatus()
         let cmds: Array<CommandType | string> = [],
-            branchList = [],
+            branchList: string[] = [],
             _nameArr: string[] = [] // Array of branch names
         if (!status) process.exit(1)
         if (opt.all) {
@@ -103,7 +103,7 @@ program.action(
                 )
                 process.exit(1)
             }
-            branchList = [].concat(current)
+            branchList = branchList.concat(current)
         } else if (!allow.includes(type as string)) {
             // 传了type和name，但是不合法
             sh.echo(

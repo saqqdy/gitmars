@@ -121,13 +121,13 @@ createProgram.action((type: GitmarsMainBranchType): void => {
             if (data[3].status === 0) {
                 echo(
                     t(
-                        'The {target} branch was created successfully and is based on {base}, you have now switched to {target}\nWhen you need to publish, remember to run: {command}'
-                    ),
+                        'The {target} branch was created successfully and is based on {base}, you have now switched to {target}\nWhen you need to publish, remember to run: {command}',
                     {
                         target: config[type],
                         base,
                         command: green('gitm admin publish ' + config[type])
                     }
+                    )
                 )
             }
         })
