@@ -95,7 +95,15 @@ function getRevertCommitIDs(commitIDs: string[]): string[] {
  * @param opt - option: GitmBuildOption
  */
 function calculate(all = false, opt: GitmBuildOption) {
-    const keys: GitLogKeysType[] = ['%H', '%T', '%P', '%aI', '%an', '%s', '%b']
+    const keys = [
+        '%H',
+        '%T',
+        '%P',
+        '%aI',
+        '%an',
+        '%s',
+        '%b'
+    ] as GitLogKeysType[]
     const revertCache = getRevertCache()
     const current = getCurrentBranch()
     let len = revertCache.length
@@ -179,11 +187,7 @@ options.forEach((o: GitmarsOptionOptionsType) => {
 program.action(async (commitid: string[], opt: GitmBuildOption) => {
     const keys: GitLogKeysType[] = ['%H', '%T', '%P', '%aI', '%an', '%s', '%b']
     const current = getCurrentBranch()
-    let logList: Array<
-            {
-                [key in typeof keys[number]]: string
-            } & GitLogsType
-        > = [],
+    let logList: GitLogsType[] = [],
         cmd: Array<CommandType | string> = [],
         commitIDs: string[] = [], // 需要执行的commitID
         mode = ''
@@ -255,7 +259,7 @@ program.action(async (commitid: string[], opt: GitmBuildOption) => {
     }
     // 筛选被选择的记录
     logList = logList.filter(log =>
-        commitIDs.some(id => log['%H'].includes(id))
+        commitIDs.some(id => log['%H']!.includes(id))
     )
     cmd = logList.map(log => {
         // 判断是否有merge的记录
@@ -265,7 +269,7 @@ program.action(async (commitid: string[], opt: GitmBuildOption) => {
             config: {
                 again: false,
                 success: t('Undo successfully: {something}', {
-                    something: log['%s']
+                    something: log['%s']!
                 }),
                 fail: t('An error has occurred, please follow the instructions')
             }
@@ -273,7 +277,11 @@ program.action(async (commitid: string[], opt: GitmBuildOption) => {
     })
     // 先保存缓存
     const revertCacheList = logList.map(log => {
-        const cache = { before: log, after: null, branch: current }
+        const cache = {
+            before: log,
+            after: null as any,
+            branch: current
+        }
         const _logs = getGitLogs({
             lastet: opt.lastet,
             limit: opt.limit * 2,

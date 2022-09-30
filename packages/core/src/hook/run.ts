@@ -73,11 +73,11 @@ function start(
     return 0
 }
 
-async function run(command: string, args: string[], opt: string) {
+async function run(command: string, args: string[]) {
     checkGitDirEnv()
     try {
         const status = await start(
-            command ? [command, args, opt] : (process.argv as string[])
+            command ? [command, args] : (process.argv as string[])
         )
         process.exit(status)
     } catch (err) {
