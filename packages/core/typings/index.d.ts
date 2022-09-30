@@ -178,6 +178,26 @@ export interface GitmarsConfigType {
     descriptionValidator?: string | regExp
 }
 
+export type GitmarsConfigProperty =
+    | 'master'
+    | 'develop'
+    | 'release'
+    | 'bugfix'
+    | 'support'
+    | 'user'
+    | 'email'
+    | 'skipCI'
+    | 'msgTemplate'
+    | 'apolloConfig'
+    | 'apis'
+    | 'api'
+    | 'gitHost'
+    | 'gitID'
+    | 'hooks'
+    | 'filepath'
+    | 'nameValidator'
+    | 'descriptionValidator'
+
 export type ApolloBranchList = 'dev' | 'bug' | 'prod'
 
 export interface ApolloConfigProjectType {

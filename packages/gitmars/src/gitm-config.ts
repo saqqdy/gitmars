@@ -6,7 +6,7 @@ import getIsGitProject from '@gitmars/core/lib/git/getIsGitProject'
 import getGitRevParse from '@gitmars/core/lib/git/getGitRevParse'
 import { writeFile } from '@gitmars/core/lib/utils/file'
 import getConfig from '@gitmars/core/lib/getConfig'
-import type { GitmarsConfigType } from '@gitmars/core/typings/index'
+import type { GitmarsConfigProperty } from '@gitmars/core/typings/index'
 import lang from '#lib/common/local'
 import { defaults } from '#lib/common/global'
 
@@ -28,10 +28,7 @@ program
     .command('set <option> [value]')
     .description(t('Set configuration items for gitmars'))
     .action(
-        async (
-            option: keyof GitmarsConfigType,
-            value: string
-        ): Promise<void> => {
+        async (option: GitmarsConfigProperty, value: string): Promise<void> => {
             let { filepath } = config
             if (!filepath) {
                 const { root } = getGitRevParse()
@@ -72,7 +69,7 @@ program
     .usage('list [option]')
     .command('list [option]')
     .description(t('Query single or all gitmars for configuration items'))
-    .action((option: string): void => {
+    .action((option: GitmarsConfigProperty): void => {
         if (option) {
             sh.echo(green(config[option]))
         } else {

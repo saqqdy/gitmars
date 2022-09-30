@@ -9,8 +9,6 @@ import runConfig from '#lib/conf/run'
 const { t } = lang
 const { args, options } = runConfig
 
-type GitmBuildOption = Record<string, string>
-
 /**
  * gitm run
  */
@@ -23,8 +21,8 @@ options.forEach((o: GitmarsOptionOptionsType) => {
     program.option(o.flags, o.description, o.defaultValue)
 })
 // .arguments('[command] [args...]')
-program.action((command: string, args: string[], opt: GitmBuildOption) => {
-    run(command, args, opt)
+program.action((command: string, args: string[]) => {
+    run(command, args)
 })
 program.parse(process.argv)
 export {}

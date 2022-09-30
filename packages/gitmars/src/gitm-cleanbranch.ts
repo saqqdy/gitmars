@@ -237,7 +237,7 @@ program.action(async (branches: string[], opt: GitmBuildOption) => {
                     checked: true
                 })
             })
-            inquirer.prompt(prompt).then(({ selectBranches }: any) => {
+            inquirer.prompt(prompt as any).then(({ selectBranches }: any) => {
                 if (selectBranches.length === 0) {
                     echo(
                         yellow(
