@@ -158,7 +158,7 @@ export interface GitmarsConfigType {
     support: string
     user?: string
     email?: string
-    skipCI: boolean
+    skipCI?: boolean
     msgTemplate?: string
     apolloConfig?: {
         configServerUrl: string
@@ -173,30 +173,35 @@ export interface GitmarsConfigType {
     gitHost?: string
     gitID?: string
     hooks?: Record<string, string>
-    filepath: string
+    filepath?: string
     nameValidator?: string | regExp
     descriptionValidator?: string | regExp
+} // & Record<string, unknown>
+
+export interface GitmarsConfigExtend extends GitmarsConfigType {
+    skipCI: boolean
+    filepath: string
 }
 
-export type GitmarsConfigProperty =
-    | 'master'
-    | 'develop'
-    | 'release'
-    | 'bugfix'
-    | 'support'
-    | 'user'
-    | 'email'
-    | 'skipCI'
-    | 'msgTemplate'
-    | 'apolloConfig'
-    | 'apis'
-    | 'api'
-    | 'gitHost'
-    | 'gitID'
-    | 'hooks'
-    | 'filepath'
-    | 'nameValidator'
-    | 'descriptionValidator'
+export type GitmarsConfigProperty = keyof GitmarsConfigType
+// | 'master'
+// | 'develop'
+// | 'release'
+// | 'bugfix'
+// | 'support'
+// | 'user'
+// | 'email'
+// | 'skipCI'
+// | 'msgTemplate'
+// | 'apolloConfig'
+// | 'apis'
+// | 'api'
+// | 'gitHost'
+// | 'gitID'
+// | 'hooks'
+// | 'filepath'
+// | 'nameValidator'
+// | 'descriptionValidator'
 
 export type ApolloBranchList = 'dev' | 'bug' | 'prod'
 

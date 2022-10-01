@@ -233,7 +233,7 @@ program.action(async (commitid: string[], opt: GitmBuildOption) => {
             }
             logList.forEach((log, index) => {
                 const _time = dayjs(log['%aI']).format('YYYY/MM/DD HH:mm')
-                prompt.choices.push({
+                prompt.choices!.push({
                     name: `${green(index + 1 + '.')} ${green(
                         log['%s']
                     )} | ${yellow(log['%an'])} | ${blue(_time)}`,

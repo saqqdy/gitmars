@@ -1,6 +1,6 @@
 import { statSync } from 'fs'
 import { cosmiconfigSync } from 'cosmiconfig'
-import type { GitmarsConfigType } from '../typings'
+import type { GitmarsConfigExtend } from '../typings'
 import getGitRevParse from '#lib/git/getGitRevParse'
 import { debug } from '#lib/utils/debug'
 import echo from '#lib/utils/echo'
@@ -35,7 +35,7 @@ const defaults = {
 function getConfig(
     pathName?: string,
     moduleName = 'gitmars'
-): GitmarsConfigType {
+): GitmarsConfigExtend {
     let info
     if (!pathName) {
         const { root } = getGitRevParse()
