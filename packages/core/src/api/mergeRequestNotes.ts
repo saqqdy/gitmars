@@ -23,7 +23,7 @@ export async function createMergeRequestNotes({
 }: {
     iid: number | string
     body: string
-    created_at: string
+    created_at?: string
     token: string
 }) {
     const params = {

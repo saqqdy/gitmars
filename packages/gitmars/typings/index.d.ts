@@ -1,6 +1,7 @@
 /// <reference types="node" />
 
 import type { SpawnOptions, SpawnSyncReturns } from 'child_process'
+import type { QuestionCollection } from 'inquirer'
 
 export type AnyObject = Record<string, any>
 
@@ -144,7 +145,7 @@ export interface QueueReturnsType
     cmd: string | ModuleCommandType
 }
 
-export interface InitInquirerPromptType {
+export type InitInquirerPromptType = QuestionCollection<{
     type: string
     name: string
     message: string
@@ -153,7 +154,7 @@ export interface InitInquirerPromptType {
     validate?(val: any): string | boolean
     when?(val: any): string | boolean
     choices?: any
-}
+}>
 
 export interface RevertCacheType {
     before: GitLogsType

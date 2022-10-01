@@ -128,7 +128,8 @@ program.action(async (opt: GitmBuildOption): Promise<void> => {
             checked: false
         })
     })
-    const { iids, accept } = await inquirer.prompt(prompt)
+    const { iids, accept }: { iids: string[]; accept: string } =
+        await inquirer.prompt(prompt)
     // 没有选择任何记录
     if (iids.length === 0) {
         echo(yellow(t('No merge request record selected, process has exited')))
@@ -242,7 +243,7 @@ program.action(async (opt: GitmBuildOption): Promise<void> => {
             echo(green(t('Merge request {id}: Closed', { id: iid })))
         } else if (accept === t('Comments')) {
             // 评论
-            const { note } = await inquirer.prompt({
+            const { note }: { note: string } = await inquirer.prompt({
                 type: 'input',
                 name: 'note',
                 message: t('Please enter the comment content'),
