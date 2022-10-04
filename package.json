@@ -96,7 +96,7 @@
         "typedoc-plugin-markdown": "^3.13.6",
         "typescript": "^4.8.3",
         "uglify-js": "^3.17.0",
-        "unplugin-vue-define-options": "^0.11.2",
+        "unplugin-vue-define-options": "^0.12.0",
         "vitepress": "1.0.0-alpha.15"
     },
     "peerDependencies": {
