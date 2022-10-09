@@ -96,7 +96,7 @@ program.action(async (type: string, name: string, opt: GitmBuildOption) => {
                   'git pull',
                   `git checkout -b ${type}/${name} ${base}`
               ]
-        queue(cmd).then((data: QueueReturnsType[]) => {
+        queue(cmd).then((data: any) => {
             if (
                 (opt.tag && data[1].status === 0) ||
                 (!opt.tag && data[3].status === 0)

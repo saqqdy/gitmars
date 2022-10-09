@@ -69,7 +69,7 @@ program.action(async (commitid: string[], opt: GitmBuildOption) => {
         process.exit(0)
     }
     // 多条记录
-    const prompt: InitInquirerPromptType = {
+    const prompt: any = {
         type: 'checkbox',
         message: t('Please select the undo record to restore'),
         name: 'commitIDs',

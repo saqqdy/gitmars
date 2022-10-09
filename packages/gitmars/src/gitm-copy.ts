@@ -91,13 +91,13 @@ program.action((commitid: string[], opts: GitmBuildOption) => {
         // 	sh.echo(red(t('To ensure accurate copy, the keyword must be a task number or bug fix number with more than 4 digits')))
         // 	process.exit(1)
         // }
-        queue(cmd).then((data: QueueReturnsType[]) => {
+        queue(cmd).then((data: any) => {
             const commits: string[] = []
             if (data[1].status === 0) {
                 const logs =
                     data[1].stdout!.match(/(commit\s[a-z0-9]*\n+)/g) || []
                 let cmds: Array<CommandType | string> = [`git checkout ${cur}`]
-                logs.forEach(el => {
+                logs.forEach((el: any) => {
                     commits.push(el.replace(/(commit\s)|\n/g, ''))
                 })
                 commits.reverse()
