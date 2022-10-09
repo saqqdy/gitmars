@@ -216,7 +216,7 @@ program.action(async (branches: string[], opt: GitmBuildOption) => {
         if (_willDeleteBranch.length > 0) {
             console.info('\r')
             // Select the branch to clean
-            const prompt: InitInquirerPromptType = {
+            const prompt: any = {
                 type: 'checkbox',
                 message: yellow(
                     t(

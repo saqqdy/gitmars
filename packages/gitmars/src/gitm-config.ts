@@ -12,7 +12,7 @@ import { defaults } from '#lib/common/global'
 
 const { t } = lang
 const { green, red } = chalk
-const config = getConfig()
+const config: any = getConfig()
 
 if (!getIsGitProject()) {
     sh.echo(red(t('The current directory is not a git project directory')))
@@ -28,7 +28,7 @@ program
     .command('set <option> [value]')
     .description(t('Set configuration items for gitmars'))
     .action(
-        async (option: GitmarsConfigProperty, value: string): Promise<void> => {
+        async (option: any, value: string): Promise<void> => {
             let { filepath } = config
             if (!filepath) {
                 const { root } = getGitRevParse()

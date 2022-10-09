@@ -74,7 +74,7 @@ program.action(async (opt: GitmBuildOption): Promise<void> => {
         echo(yellow(t('No merge request record found, process has exited')))
         process.exit(0)
     }
-    const prompt: InitInquirerPromptType[] = [
+    const prompt: any = [
         {
             type: 'checkbox',
             message: t('Please select the merge request to be operated'),
@@ -92,7 +92,7 @@ program.action(async (opt: GitmBuildOption): Promise<void> => {
                 t('Failed and deleted'),
                 t('Exit')
             ],
-            when(answers) {
+            when(answers: any) {
                 return answers.iids.length
             }
         }
