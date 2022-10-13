@@ -82,7 +82,7 @@
         "prettier": "^2.7.1",
         "prettier-config-common": "^1.2.1",
         "rimraf": "^3.0.2",
-        "rollup": "^2.79.0",
+        "rollup": "^3.1.0",
         "rollup-plugin-add-banner": "^1.1.0",
         "rollup-plugin-css-only": "^3.1.0",
         "rollup-plugin-dts": "^4.2.2",
