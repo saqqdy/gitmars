@@ -56,7 +56,7 @@
         "@esbuild-kit/cjs-loader": "^2.3.3",
         "@eslint-sets/eslint-config-simple-ts": "^3.0.5",
         "@microsoft/api-extractor": "^7.31.1",
-        "@pnpm/find-workspace-packages": "^4.0.36",
+        "@pnpm/find-workspace-packages": "^5.0.0",
         "@pnpm/logger": "^5.0.0",
         "@rollup/plugin-alias": "^4.0.0",
         "@rollup/plugin-commonjs": "^23.0.0",
