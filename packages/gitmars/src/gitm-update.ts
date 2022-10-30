@@ -7,6 +7,7 @@ import getIsGitProject from '@gitmars/core/lib/git/getIsGitProject'
 import getCurrentBranch from '@gitmars/core/lib/git/getCurrentBranch'
 import getIsMergedTargetBranch from '@gitmars/core/lib/git/getIsMergedTargetBranch'
 import checkGitStatus from '@gitmars/core/lib/git/checkGitStatus'
+import fetch from '@gitmars/core/lib/git/fetch'
 import searchBranches from '@gitmars/core/lib/git/searchBranches'
 import { createArgs } from '@gitmars/core/lib/utils/command'
 import getConfig from '@gitmars/core/lib/getConfig'
@@ -71,6 +72,7 @@ program.action(
             branchList: string[] = [],
             _nameArr: string[] = [] // Array of branch names
         if (!status) process.exit(1)
+        fetch()
         if (opt.all) {
             // Update all branches
             if (!type) type = allow.join(',')
