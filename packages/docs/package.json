@@ -28,14 +28,15 @@
     "devDependencies": {
         "@eslint-sets/eslint-config-vue3-ts": "^3.0.5",
         "@saqqdy/prettier-config": "^1.1.2",
-        "@types/node": "^18.7.18",
-        "eslint": "^8.23.1",
+        "@types/markdown-it": "^12.2.3",
+        "@types/node": "^18.11.7",
+        "eslint": "^8.26.0",
         "markdown-it": "^13.0.1",
         "markdown-it-anchor": "^8.6.5",
         "markdown-it-container": "^3.0.0",
         "prettier": "^2.7.1",
         "tsnd": "^1.1.0",
-        "typescript": "^4.8.3",
+        "typescript": "^4.8.4",
         "vitepress": "1.0.0-alpha.26"
     },
     "sideEffects": false,
