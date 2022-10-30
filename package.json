@@ -141,9 +141,9 @@
             }
         }
     },
-	"resolutions": {
-		"fsevents": ">= 2.0.0"
-	},
+    "resolutions": {
+        "fsevents": ">= 2.0.0"
+    },
     "publishConfig": {
         "registry": "https://registry.npmjs.org",
         "access": "public"

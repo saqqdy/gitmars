@@ -5,7 +5,7 @@
 1. 适配多语言，目前支持`zh-CN` `en-US`
 2. 全面改用 esm 规范，放弃支持 node12 及以下版本
 3. config 配置取消`msgUrl`项
-4. 修复`update`指令判断是否需要合并不准确的bug
+4. 修复`update`指令判断是否需要合并不准确的 bug
 5. global 从 core 迁出，移到 gitmars 下面
 6. 依赖包升级
 
