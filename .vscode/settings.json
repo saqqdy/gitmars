@@ -142,23 +142,23 @@
     "editor.codeActionsOnSave": {
         "source.fixAll.eslint": false
     },
-    "npm.packageManager": "yarn",
-    "eslint.probe": [
-        "javascript",
-        "javascriptreact",
-        "typescript",
-        "typescriptreact",
-        "html",
-        "vue",
-        "markdown"
-    ],
-    "eslint.validate": [
-        "javascript",
-        "javascriptreact",
-        "typescript",
-        "typescriptreact",
-        "html",
-        "vue",
-        "markdown"
-    ]
+    "npm.packageManager": "pnpm",
+    // "eslint.probe": [
+    //     "javascript",
+    //     "javascriptreact",
+    //     "typescript",
+    //     "typescriptreact",
+    //     "html",
+    //     "vue",
+    //     "markdown"
+    // ],
+    // "eslint.validate": [
+    //     "javascript",
+    //     "javascriptreact",
+    //     "typescript",
+    //     "typescriptreact",
+    //     "html",
+    //     "vue",
+    //     "markdown"
+    // ]
 }
