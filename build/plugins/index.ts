@@ -1,3 +1,4 @@
+export { default as alias } from './alias'
 export { default as esbuild } from './esbuild'
 export { default as vue } from './vue'
 export { default as vueJsx } from './vueJsx'

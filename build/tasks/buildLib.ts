@@ -1,15 +1,14 @@
 import { resolve } from 'path'
 import { parallel, series } from 'gulp'
 import { rollup } from 'rollup'
-import alias from '@rollup/plugin-alias'
 import type { OutputOptions } from 'rollup'
-import type { ResolverObject } from '@rollup/plugin-alias'
 import glob from 'fast-glob'
 import { runExec, runSpawnSync } from '../utils/exec'
 import { wrapDisplayName } from '../utils/gulp'
 import { excludeFiles, generateExternal } from '../utils/rollup'
 
 import {
+    alias,
     banner as bannerPlugin,
     commonjs,
     dts as dtsPlugin,
@@ -176,8 +175,7 @@ export async function buildLib() {
                                         resolve(PACKAGE, name, 'src', 'conf') +
                                         '$1.mjs'
                                 }
-                            ],
-                            customResolver: nodeResolve() as ResolverObject
+                            ]
                         }),
                         nodeResolve(),
                         json,
