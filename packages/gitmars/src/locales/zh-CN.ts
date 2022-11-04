@@ -454,5 +454,6 @@ export default {
         '检测到你1周内没有同步过主干{source}分支代码',
     'Your branch was detected as not having merged {target}':
         '检测到你的分支没有合并过{target}',
-    '{source} branch has merged {target} branch': '{source}合并过{target}'
+    '{source} branch has merged {target} branch': '{source}合并过{target}',
+    'Using strict mode': '使用严格模式'
 }
