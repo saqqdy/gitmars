@@ -60,7 +60,7 @@ function getIsMergedTarget(
     branch = remote ? 'origin/' + branch : branch
     if (typeof targets === 'string') targets = [targets]
     for (const target of targets) {
-        const isMerged = getIsMergedTargetBranch(branch, target, remote)
+        const isMerged = getIsMergedTargetBranch(branch, target, { remote })
         if (!isMerged) return false
     }
     return true

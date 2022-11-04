@@ -183,22 +183,22 @@ publishProgram.action(
         const isNeedCombineBugfixToRelease = !getIsMergedTargetBranch(
             `origin/${config.bugfix}`,
             config.release,
-            true
+            { remote: true }
         )
         const isNeedCombineSupportToRelease = !getIsMergedTargetBranch(
             `origin/${config.support}`,
             config.release,
-            true
+            { remote: true }
         )
         const isNeedCombineSupportToBugfix = !getIsMergedTargetBranch(
             `origin/${config.support}`,
             config.bugfix,
-            true
+            { remote: true }
         )
         const isNeedCombineReleaseToMaster = !getIsMergedTargetBranch(
             `origin/${config.release}`,
             config.master,
-            true
+            { remote: true }
         )
         if (opts.includes(type)) {
             /**
@@ -617,7 +617,7 @@ publishProgram.action(
                 const isNeedCombine = !getIsMergedTargetBranch(
                     `origin/${config.bugfix}`,
                     config.master,
-                    true
+                    { remote: true }
                 )
                 if (!level || level < 4) {
                     cmd[type] = cmd[type].concat(
@@ -764,7 +764,7 @@ publishProgram.action(
                 const isNeedCombine = !getIsMergedTargetBranch(
                     `origin/${config.release}`,
                     config.bugfix,
-                    true
+                    { remote: true }
                 )
                 // use rebase
                 if (opt.useRebase) {
@@ -987,7 +987,7 @@ updateProgram.action(
             const isNeedCombine = !getIsMergedTargetBranch(
                 `origin/${base}`,
                 config[type],
-                true
+                { remote: true }
             )
             let cmd
             if (isNeedCombine || opt.force) {
