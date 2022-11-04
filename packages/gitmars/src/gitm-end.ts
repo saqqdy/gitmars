@@ -156,19 +156,19 @@ program.action(
             const isNeedCombineDevelop = !getIsMergedTargetBranch(
                 `${type}/${name}`,
                 config.develop,
-                true
+                { remote: true }
             )
             // Is it necessary to merge base
             const isNeedCombineBase = !getIsMergedTargetBranch(
                 `${type}/${name}`,
                 base,
-                true
+                { remote: true }
             )
             // Is it necessary to merge bug
             const isNeedCombineBugfix = !getIsMergedTargetBranch(
                 `${type}/${name}`,
                 config.bugfix,
-                true
+                { remote: true }
             )
             if (opt.combine && isNeedCombineDevelop) {
                 // 需要合并代码到dev

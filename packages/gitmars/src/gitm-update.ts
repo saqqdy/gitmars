@@ -129,7 +129,7 @@ program.action(
             const isNeedCombine = !getIsMergedTargetBranch(
                 base,
                 `${type}/${name}`,
-                true
+                { remote: true }
             )
             let cmd: Array<CommandType | string> = []
             if (isNeedCombine || opt.force) {

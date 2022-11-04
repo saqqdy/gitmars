@@ -3,10 +3,12 @@
 ## 2022.09.08 v4.0.0 更新日志
 
 1. 适配多语言，目前支持`zh-CN` `en-US`
-2. 全面改用 esm 规范，放弃支持 node12 及以下版本
-3. config 配置取消`msgUrl`项
-4. global 从 core 迁出，移到 gitmars 下面
-5. 依赖包升级
+2. `getIsMergedTargetBranch` 方法更改入参方式，新增strictly，更换默认的判断方式
+3. 全面改用 esm 规范，放弃支持 node12 及以下版本
+4. config 配置取消`msgUrl`项
+5. 修复`update`指令判断是否需要合并不准确的 bug
+6. global 从 core 迁出，移到 gitmars 下面
+7. 依赖包升级
 
 ## 2022.08.22 v3.3.5 更新日志
 
@@ -23,7 +25,7 @@
 
 ## 2022.08.12 v3.3.2 更新日志
 
-1. 修复构建流程导致 gitm-ui 无法运行的问题
+1. 修复构建流程导致 gitm-ui 无法运
 
 ## 2022.08.11 v3.3.1 更新日志
 

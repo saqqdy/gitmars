@@ -37,7 +37,7 @@
         "prettier": "^2.7.1",
         "tsnd": "^1.1.0",
         "typescript": "^4.8.4",
-        "vitepress": "1.0.0-alpha.26"
+        "vitepress": "1.0.0-alpha.27"
     },
     "sideEffects": false,
     "keywords": [

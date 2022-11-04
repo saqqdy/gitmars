@@ -190,7 +190,7 @@ program.action(
                 const isNeedCombineDevelop = !getIsMergedTargetBranch(
                     `${type}/${name}`,
                     config.develop,
-                    true
+                    { remote: true }
                 )
                 cmd = cmd.concat(
                     isNeedCombineDevelop || opt.force
@@ -267,7 +267,7 @@ program.action(
                     !getIsMergedTargetBranch(
                         `${type}/${name}`,
                         config.develop,
-                        true
+                        { remote: true }
                     )
                 ) {
                     sh.echo(
@@ -288,7 +288,7 @@ program.action(
                             const isNeedCombineProd = !getIsMergedTargetBranch(
                                 `${type}/${name}`,
                                 base,
-                                true
+                                { remote: true }
                             )
                             cmd = cmd.concat(
                                 isNeedCombineProd || opt.force
@@ -405,7 +405,7 @@ program.action(
                             const isNeedCombineProd = !getIsMergedTargetBranch(
                                 `${type}/${name}`,
                                 config.release,
-                                true
+                                { remote: true }
                             )
                             cmd = cmd.concat(
                                 isNeedCombineProd || opt.force
@@ -522,7 +522,7 @@ program.action(
                             const isNeedCombineProd = !getIsMergedTargetBranch(
                                 `${type}/${name}`,
                                 config.bugfix,
-                                true
+                                { remote: true }
                             )
                             cmd = cmd.concat(
                                 isNeedCombineProd || opt.force
