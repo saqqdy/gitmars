@@ -3,7 +3,7 @@
 ## 2022.09.08 v4.0.0 更新日志
 
 1. 适配多语言，目前支持`zh-CN` `en-US`
-2. `getIsMergedTargetBranch` 方法更改入参方式，新增strictly，更换默认的判断方式
+2. `getIsMergedTargetBranch` 方法更改入参方式，新增 strictly，更换默认的判断方式
 3. 全面改用 esm 规范，放弃支持 node12 及以下版本
 4. config 配置取消`msgUrl`项
 5. 修复`update`指令判断是否需要合并不准确的 bug

@@ -142,7 +142,7 @@
     "editor.codeActionsOnSave": {
         "source.fixAll.eslint": false
     },
-    "npm.packageManager": "pnpm",
+    "npm.packageManager": "pnpm"
     // "eslint.probe": [
     //     "javascript",
     //     "javascriptreact",
