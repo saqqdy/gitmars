@@ -41,7 +41,7 @@ interface GitmBuildOption {
     exclude?: string
     include?: string
     remote?: boolean
-    strictly?: boolean
+    noStrictly?: boolean
     confirm?: boolean
 }
 
@@ -82,7 +82,7 @@ function getIsMergedTarget(
 program
     .name('gitm cleanbranch')
     .usage(
-        '[branches...] [-l --list [list]] [-k --key [keyword]] [--exclude [exclude]] [--include [include]] [-t --type [type]] [--target [target]] [-r --remote] [-s --strictly]'
+        '[branches...] [-l --list [list]] [-k --key [keyword]] [--exclude [exclude]] [--include [include]] [-t --type [type]] [--target [target]] [-r --remote] [--no-strictly]'
     )
     .description(t('Clean up merged feature branches'))
 if (args.length > 0) program.arguments(createArgs(args))
@@ -97,7 +97,7 @@ options.forEach((o: GitmarsOptionOptionsType) => {
 // .option('--include [include]', t('Include keywords'), '')
 // .option('-r, --remote', t('Whether to clean up remote branches, default is clean up local branches'), false)
 // .option('-c, --confirm', t('Confirm start, do not show confirmation box when true'), false)
-// .option('-s, --strictly', t('Using strict mode'), false)
+// .option('-s, --no-strictly', t('Do not use strict mode'))
 // .option('--deadline [deadline]', t('Delete branch before fixed duration, fill in format: 10s/2m/2h/3d/4M/5y'), '15d') -----------------------
 program.action(async (branches: string[], opt: GitmBuildOption) => {
     const spinner = ora()
@@ -195,7 +195,7 @@ program.action(async (branches: string[], opt: GitmBuildOption) => {
         )
         const isMerged = getIsMergedTarget(branch, targets, {
             remote: opt.remote,
-            strictly: opt.strictly
+            strictly: !opt.noStrictly
         })
         if (!isMerged) {
             spinner.fail(

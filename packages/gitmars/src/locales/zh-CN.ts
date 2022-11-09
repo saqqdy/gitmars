@@ -455,5 +455,5 @@ export default {
     'Your branch was detected as not having merged {target}':
         '检测到你的分支没有合并过{target}',
     '{source} branch has merged {target} branch': '{source}合并过{target}',
-    'Using strict mode': '使用严格模式'
+    'Do not use strict mode': '使用严格模式'
 }

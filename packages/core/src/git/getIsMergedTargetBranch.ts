@@ -9,7 +9,7 @@ import getCurrentBranch from '#lib/git/getCurrentBranch'
  * @param targetBranch - 目标分支
  * @param option - 参数
  * @param option.remote - 是否查询远程，默认：false，非strictly模式下此参数无效
- * @param option.strictly - 是否严格模式，默认：false
+ * @param option.strictly - 是否严格模式，默认：true
  * @returns isMergedTargetBranch - 是否合并过
  */
 function getIsMergedTargetBranch(
@@ -17,7 +17,7 @@ function getIsMergedTargetBranch(
     targetBranch = 'dev',
     {
         remote = false,
-        strictly = false
+        strictly = true
     }: {
         remote?: boolean
         strictly?: boolean

@@ -127,16 +127,16 @@ export const cmdConfig: GitmarsOptionType = {
             defaultValue: false
         },
         {
-            flags: '-s, --strictly',
+            flags: '--no-strictly',
             required: false,
             optional: false,
             variadic: false,
             mandatory: false,
-            short: '-s',
-            long: '--strictly',
-            negate: false,
-            description: t('Using strict mode'),
-            defaultValue: false
+            long: '--no-strictly',
+            negate: true,
+            description: t('Do not use strict mode'),
+            defaultValue: true,
+            recommend: false
         },
         {
             flags: '-c, --confirm',
