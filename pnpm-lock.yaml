@@ -39,12 +39,12 @@ importers:
       npm-run-all: ^4.1.5
       os-locale: ^6.0.2
       prettier: ^2.7.1
-      prettier-config-common: ^1.2.1
+      prettier-config-common: ^1.2.2
       rimraf: ^3.0.2
       rollup: ^2.79.1
       rollup-plugin-add-banner: ^1.1.0
       rollup-plugin-css-only: ^4.2.0
-      rollup-plugin-dts: ^5.0.0
+      rollup-plugin-dts: ^4.2.3
       rollup-plugin-esbuild: ^4.10.1
       rollup-plugin-filesize: ^9.1.2
       rollup-plugin-node-externals: ^5.0.1
@@ -56,7 +56,7 @@ importers:
       typescript: ^4.8.4
       uglify-js: ^3.17.4
       unplugin-vue-define-options: ^0.12.4
-      vitepress: 1.0.0-alpha.27
+      vitepress: 1.0.0-alpha.28
     dependencies:
       chalk: 4.1.2
       inquirer: 8.2.5
@@ -91,12 +91,12 @@ importers:
       madge: 5.0.1
       npm-run-all: 4.1.5
       prettier: 2.7.1
-      prettier-config-common: 1.2.1
+      prettier-config-common: 1.2.2
       rimraf: 3.0.2
       rollup: 2.79.1
       rollup-plugin-add-banner: 1.1.0_rollup@2.79.1
       rollup-plugin-css-only: 4.2.0_rollup@2.79.1
-      rollup-plugin-dts: 5.0.0_gypgyaqhine6mwjfvh7icfhviq
+      rollup-plugin-dts: 4.2.3_gypgyaqhine6mwjfvh7icfhviq
       rollup-plugin-esbuild: 4.10.1_lecm7whau5ub3cwxpurr6hs4em
       rollup-plugin-filesize: 9.1.2
       rollup-plugin-node-externals: 5.0.1_rollup@2.79.1
@@ -108,15 +108,15 @@ importers:
       typescript: 4.8.4
       uglify-js: 3.17.4
       unplugin-vue-define-options: 0.12.4
-      vitepress: 1.0.0-alpha.27
+      vitepress: 1.0.0-alpha.28_@types+node@18.11.7
 
   packages/core:
     specifiers:
       '@eslint-sets/eslint-config-simple-ts': ^3.0.5
       '@jssj/request': ^1.1.0
-      '@saqqdy/prettier-config': ^1.1.2
       '@types/cross-spawn': ^6.0.2
       '@types/inquirer': ^9.0.2
+      '@types/lodash-es': ^4.17.6
       '@types/node': ^18.11.7
       '@types/shelljs': ^0.8.11
       chalk: ^4.1.2
@@ -139,6 +139,7 @@ importers:
       ora: ^5.4.1
       os-locale: ^6.0.2
       prettier: ^2.7.1
+      prettier-config-common: ^1.2.2
       shelljs: ^0.8.5
       slash: ^3.0.0
       tsnd: ^1.1.0
@@ -156,7 +157,7 @@ importers:
       inquirer: 8.2.5
       js-cool: 2.5.0
       lodash-es: 4.17.21
-      lodash-unified: 1.0.2_lodash-es@4.17.21
+      lodash-unified: 1.0.2_6vt5du6ay2thm2pqhl32dksnvu
       node-apollo: 1.2.1
       ora: 5.4.1
       os-locale: 6.0.2
@@ -164,9 +165,9 @@ importers:
       slash: 3.0.0
     devDependencies:
       '@eslint-sets/eslint-config-simple-ts': 3.0.5_5mwv7fvncepd6sa2722dnt6c7q
-      '@saqqdy/prettier-config': 1.1.2
       '@types/cross-spawn': 6.0.2
       '@types/inquirer': 9.0.2
+      '@types/lodash-es': 4.17.6
       '@types/node': 18.11.7
       '@types/shelljs': 0.8.11
       cron-parser: 4.6.0
@@ -174,13 +175,13 @@ importers:
       eslint: 8.26.0
       madge: 5.0.1
       prettier: 2.7.1
+      prettier-config-common: 1.2.2
       tsnd: 1.1.0
       typescript: 4.8.4
 
   packages/docs:
     specifiers:
       '@eslint-sets/eslint-config-vue3-ts': ^3.0.5
-      '@saqqdy/prettier-config': ^1.1.2
       '@types/markdown-it': ^12.2.3
       '@types/node': ^18.11.7
       eslint: ^8.26.0
@@ -189,14 +190,14 @@ importers:
       markdown-it-anchor: ^8.6.5
       markdown-it-container: ^3.0.0
       prettier: ^2.7.1
+      prettier-config-common: ^1.2.2
       tsnd: ^1.1.0
       typescript: ^4.8.4
-      vitepress: 1.0.0-alpha.27
+      vitepress: 1.0.0-alpha.28
     dependencies:
       js-cool: 2.5.0
     devDependencies:
       '@eslint-sets/eslint-config-vue3-ts': 3.0.5_5mwv7fvncepd6sa2722dnt6c7q
-      '@saqqdy/prettier-config': 1.1.2
       '@types/markdown-it': 12.2.3
       '@types/node': 18.11.7
       eslint: 8.26.0
@@ -204,16 +205,16 @@ importers:
       markdown-it-anchor: 8.6.5_ea7kj7wzjkld5jo2noyjqxi764
       markdown-it-container: 3.0.0
       prettier: 2.7.1
+      prettier-config-common: 1.2.2
       tsnd: 1.1.0
       typescript: 4.8.4
-      vitepress: 1.0.0-alpha.27
+      vitepress: 1.0.0-alpha.28_@types+node@18.11.7
 
   packages/gitmars:
     specifiers:
       '@eslint-sets/eslint-config-simple-ts': ^3.0.5
       '@gitmars/core': workspace:*
       '@jssj/request': ^1.1.0
-      '@saqqdy/prettier-config': ^1.1.2
       '@types/columnify': ^1.5.1
       '@types/cross-spawn': ^6.0.2
       '@types/inquirer': ^9.0.2
@@ -239,6 +240,7 @@ importers:
       ora: ^5.4.1
       os-locale: ^6.0.2
       prettier: ^2.7.1
+      prettier-config-common: ^1.2.2
       shelljs: ^0.8.5
       slash: ^3.0.0
       tsnd: ^1.1.0
@@ -265,7 +267,6 @@ importers:
       slash: 3.0.0
     devDependencies:
       '@eslint-sets/eslint-config-simple-ts': 3.0.5_5mwv7fvncepd6sa2722dnt6c7q
-      '@saqqdy/prettier-config': 1.1.2
       '@types/columnify': 1.5.1
       '@types/cross-spawn': 6.0.2
       '@types/inquirer': 9.0.2
@@ -276,6 +277,7 @@ importers:
       cross-env: 7.0.3
       eslint: 8.26.0
       prettier: 2.7.1
+      prettier-config-common: 1.2.2
       tsnd: 1.1.0
       typescript: 4.8.4
 
@@ -364,7 +366,6 @@ importers:
       '@eslint-sets/eslint-config-vue3-ts': ^3.0.5
       '@gitmars/server': workspace:*
       '@originjs/vite-plugin-commonjs': ^1.0.3
-      '@saqqdy/prettier-config': ^1.1.2
       '@types/qs': ^6.9.7
       '@vitejs/plugin-legacy': ^2.3.0
       '@vitejs/plugin-vue': ^3.2.0
@@ -385,6 +386,7 @@ importers:
       less-loader: ^11.1.0
       lint-staged: ^13.0.3
       prettier: ^2.7.1
+      prettier-config-common: ^1.2.2
       qs: ^6.11.0
       socket.io-client: ^4.5.3
       tsnd: ^1.1.0
@@ -431,7 +433,6 @@ importers:
       '@esbuild-plugins/node-modules-polyfill': 0.1.4
       '@eslint-sets/eslint-config-vue3-ts': 3.0.5_5mwv7fvncepd6sa2722dnt6c7q
       '@originjs/vite-plugin-commonjs': 1.0.3
-      '@saqqdy/prettier-config': 1.1.2
       '@types/qs': 6.9.7
       '@vitejs/plugin-legacy': 2.3.0_vite@3.2.1
       '@vitejs/plugin-vue': 3.2.0_vite@3.2.1+vue@3.2.41
@@ -445,6 +446,7 @@ importers:
       less-loader: 11.1.0_less@4.1.3
       lint-staged: 13.0.3
       prettier: 2.7.1
+      prettier-config-common: 1.2.2
       tsnd: 1.1.0
       typescript: 4.8.4
       unplugin-auto-import: 0.11.4_@vueuse+core@9.4.0
@@ -2490,10 +2492,6 @@ packages:
       string-argv: 0.3.1
     dev: true
 
-  /@saqqdy/prettier-config/1.1.2:
-    resolution: {integrity: sha512-LwD7QgGuA4BQy1eMZqNYHR0Gd6MJHCjVJU4kw8norlKumnMuY2mKvzs5vbLCvlj/cavx7zwyx6sX/oA4E8vMuw==}
-    dev: true
-
   /@sindresorhus/is/4.6.0:
     resolution: {integrity: sha512-t09vSN3MdfsyCHoFcTRCH/iUtG7OJ0CsjzB8cjAmKc/va/kIgeDI/TxsigdncE/4be734m0cvIYwNaV4i2XqAw==}
     engines: {node: '>=10'}
@@ -3087,7 +3085,23 @@ packages:
       vue:
         optional: true
     dependencies:
-      vite: 3.2.1
+      vite: 3.2.1_less@4.1.3
+      vue: 3.2.41
+    dev: true
+
+  /@vitejs/plugin-vue/3.2.0_vite@3.2.3+vue@3.2.41:
+    resolution: {integrity: sha512-E0tnaL4fr+qkdCNxJ+Xd0yM31UwMkQje76fsDVBBUCoGOUPexu2VDUYHL8P4CwV+zMvWw6nlRw19OnRKmYAJpw==}
+    engines: {node: ^14.18.0 || >=16.0.0}
+    peerDependencies:
+      vite: ^3.0.0
+      vue: ^3.2.25
+    peerDependenciesMeta:
+      vite:
+        optional: true
+      vue:
+        optional: true
+    dependencies:
+      vite: 3.2.3_@types+node@18.11.7
       vue: 3.2.41
     dev: true
 
@@ -8586,19 +8600,6 @@ packages:
       lodash-es: 4.17.21
     dev: false
 
-  /lodash-unified/1.0.2_lodash-es@4.17.21:
-    resolution: {integrity: sha512-OGbEy+1P+UT26CYi4opY4gebD8cWRDxAT6MAObIVQMiqYdxZr1g3QHWCToVsm31x2NkLS4K3+MC2qInaRMa39g==}
-    peerDependencies:
-      '@types/lodash-es': '*'
-      lodash: '*'
-      lodash-es: '*'
-    peerDependenciesMeta:
-      lodash:
-        optional: true
-    dependencies:
-      lodash-es: 4.17.21
-    dev: false
-
   /lodash.get/4.4.2:
     resolution: {integrity: sha512-z+Uw/vLuy6gQe8cfaFWD7p0wVv8fJl3mbzXh33RS+0oW2wvUqiRXiQ69gLWSLpgB5/6sU+r6BlQR0MBILadqTQ==}
     dev: true
@@ -10388,8 +10389,8 @@ packages:
     engines: {node: '>= 0.8.0'}
     dev: true
 
-  /prettier-config-common/1.2.1:
-    resolution: {integrity: sha512-QZ14dtGnGVKgofOB3aPC24faaPPcsHuVRqvD4oj00HgI4+yGhrvihEN4E8rRQpWtXNttLjxf9UDr3knt/j7x9g==}
+  /prettier-config-common/1.2.2:
+    resolution: {integrity: sha512-AabyhnUU6dk1scNBdDCJeKABh2oaU57ZVh6UdU1cZ46ol0CzlKSO0E5HlLtCoH42xgvc95MJRsIJKrdyo1kqOA==}
     dev: true
 
   /prettier-linter-helpers/1.0.0:
@@ -10983,11 +10984,11 @@ packages:
       rollup: 2.79.1
     dev: true
 
-  /rollup-plugin-dts/5.0.0_gypgyaqhine6mwjfvh7icfhviq:
-    resolution: {integrity: sha512-OO8ayCvuJCKaQSShyVTARxGurVVk4ulzbuvz+0zFd1f93vlnWFU5pBMT7HFeS6uj7MvvZLx4kUAarGATSU1+Ng==}
-    engines: {node: '>=v14'}
+  /rollup-plugin-dts/4.2.3_gypgyaqhine6mwjfvh7icfhviq:
+    resolution: {integrity: sha512-jlcpItqM2efqfIiKzDB/IKOS9E9fDvbkJSGw5GtK/PqPGS9eC3R3JKyw2VvpTktZA+TNgJRMu1NTv244aTUzzQ==}
+    engines: {node: '>=v12.22.12'}
     peerDependencies:
-      rollup: ^3.0.0
+      rollup: ^2.55
       typescript: ^4.1
     dependencies:
       magic-string: 0.26.7
@@ -12833,36 +12834,6 @@ packages:
       - supports-color
     dev: true
 
-  /vite/3.2.1:
-    resolution: {integrity: sha512-ADtMkfHuWq4tskJsri2n2FZkORO8ZyhI+zIz7zTrDAgDEtct1jdxOg3YsZBfHhKjmMoWLOSCr+64qrEDGo/DbQ==}
-    engines: {node: ^14.18.0 || >=16.0.0}
-    hasBin: true
-    peerDependencies:
-      less: '*'
-      sass: '*'
-      stylus: '*'
-      sugarss: '*'
-      terser: ^5.4.0
-    peerDependenciesMeta:
-      less:
-        optional: true
-      sass:
-        optional: true
-      stylus:
-        optional: true
-      sugarss:
-        optional: true
-      terser:
-        optional: true
-    dependencies:
-      esbuild: 0.15.12
-      postcss: 8.4.18
-      resolve: 1.22.1
-      rollup: 2.79.1
-    optionalDependencies:
-      fsevents: 2.3.2
-    dev: true
-
   /vite/3.2.1_less@4.1.3:
     resolution: {integrity: sha512-ADtMkfHuWq4tskJsri2n2FZkORO8ZyhI+zIz7zTrDAgDEtct1jdxOg3YsZBfHhKjmMoWLOSCr+64qrEDGo/DbQ==}
     engines: {node: ^14.18.0 || >=16.0.0}
@@ -12894,21 +12865,56 @@ packages:
       fsevents: 2.3.2
     dev: true
 
-  /vitepress/1.0.0-alpha.27:
-    resolution: {integrity: sha512-7/PwlIRZANvB2uyi8oi4oMXuH84g2/pAaoymb+ObBCs60m0oVxKMPO28w7R/svqSnnE+bNDOuLzTCXt7gn513g==}
+  /vite/3.2.3_@types+node@18.11.7:
+    resolution: {integrity: sha512-h8jl1TZ76eGs3o2dIBSsvXDLb1m/Ec1iej8ZMdz+PsaFUsftZeWe2CZOI3qogEsMNaywc17gu0q6cQDzh/weCQ==}
+    engines: {node: ^14.18.0 || >=16.0.0}
+    hasBin: true
+    peerDependencies:
+      '@types/node': '>= 14'
+      less: '*'
+      sass: '*'
+      stylus: '*'
+      sugarss: '*'
+      terser: ^5.4.0
+    peerDependenciesMeta:
+      '@types/node':
+        optional: true
+      less:
+        optional: true
+      sass:
+        optional: true
+      stylus:
+        optional: true
+      sugarss:
+        optional: true
+      terser:
+        optional: true
+    dependencies:
+      '@types/node': 18.11.7
+      esbuild: 0.15.12
+      postcss: 8.4.18
+      resolve: 1.22.1
+      rollup: 2.79.1
+    optionalDependencies:
+      fsevents: 2.3.2
+    dev: true
+
+  /vitepress/1.0.0-alpha.28_@types+node@18.11.7:
+    resolution: {integrity: sha512-pvbLssDMgLUN1terajmPlFBxHSDGO4DqwexKbjFyr7LeELerVuwGrG6F2J1hxmwOlbpLd1kHXEDqGm9JX/kTDQ==}
     hasBin: true
     dependencies:
       '@docsearch/css': 3.3.0
       '@docsearch/js': 3.3.0
-      '@vitejs/plugin-vue': 3.2.0_vite@3.2.1+vue@3.2.41
+      '@vitejs/plugin-vue': 3.2.0_vite@3.2.3+vue@3.2.41
       '@vue/devtools-api': 6.4.5
       '@vueuse/core': 9.4.0_vue@3.2.41
       body-scroll-lock: 4.0.0-beta.0
       shiki: 0.11.1
-      vite: 3.2.1
+      vite: 3.2.3_@types+node@18.11.7
       vue: 3.2.41
     transitivePeerDependencies:
       - '@algolia/client-search'
+      - '@types/node'
       - '@types/react'
       - '@vue/composition-api'
       - less

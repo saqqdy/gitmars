@@ -4,57 +4,57 @@
 
 master 分支实际名称
 
--   类型：`String`
--   默认：`master`
--   必填：是
+- 类型：`String`
+- 默认：`master`
+- 必填：是
 
 ### develop
 
 develop 分支实际名称
 
--   类型：`String`
--   默认：`dev`
--   必填：是
+- 类型：`String`
+- 默认：`dev`
+- 必填：是
 
 ### release
 
 release 分支实际名称
 
--   类型：`String`
--   默认：`release`
--   必填：是
+- 类型：`String`
+- 默认：`release`
+- 必填：是
 
 ### bugfix
 
 bugfix 分支实际名称
 
--   类型：`String`
--   默认：`bug`
--   必填：是
+- 类型：`String`
+- 默认：`bug`
+- 必填：是
 
 ### support <!-- <Badge text="已弃用" type="error"/> -->
 
 support 分支实际名称
 
--   类型：`String`
--   默认：`support`
--   必填：是
+- 类型：`String`
+- 默认：`support`
+- 必填：是
 
 ### user <!-- <Badge text="已弃用" type="error"/> -->
 
 用户名称
 
--   类型：`String`
--   默认：``
--   必填：否
+- 类型：`String`
+- 默认：``
+- 必填：否
 
 ### email <!-- <Badge text="已弃用" type="error"/> -->
 
 用户邮箱
 
--   类型：`String`
--   默认：``
--   必填：否
+- 类型：`String`
+- 默认：``
+- 必填：否
 
 ### nameValidator
 
@@ -62,16 +62,16 @@ support 分支实际名称
 
 校验分支命名规范的正则表达式，可输入字符串或者正则
 
--   类型：`String`,`RegExp`
--   默认：``
--   必填：否
--   示例：
+- 类型：`String`,`RegExp`
+- 默认：``
+- 必填：否
+- 示例：
 
 1. 设置正则字符串
 
 ```json
 {
-    "nameValidator": "[a-z]{3,}_w+" // 检验：saqqdy_xxxxxx
+  "nameValidator": "[a-z]{3,}_w+" // 检验：saqqdy_xxxxxx
 }
 ```
 
@@ -89,16 +89,16 @@ support 分支实际名称
 
 校验本次提交的原因描述，可输入字符串或者正则，如果不需要校验，请保持参数为：''
 
--   类型：`String`,`RegExp`
--   默认：``
--   必填：否
--   示例：
+- 类型：`String`,`RegExp`
+- 默认：``
+- 必填：否
+- 示例：
 
 1. 设置正则字符串
 
 ```json
 {
-    "descriptionValidator": "【修改原因】.+【修改内容】.+" // 检验：【修改原因】10010某个功能有BUG【修改内容】改了某个方法
+  "descriptionValidator": "【修改原因】.+【修改内容】.+" // 检验：【修改原因】10010某个功能有BUG【修改内容】改了某个方法
 }
 ```
 
@@ -114,9 +114,9 @@ support 分支实际名称
 
 推送消息模板
 
--   类型：`String`
--   默认：`${message}；项目：${project}；路径：${pwd}`
--   必填：否
+- 类型：`String`
+- 默认：`${message}；项目：${project}；路径：${pwd}`
+- 必填：否
 
 ### msgUrl <!-- <Badge text="已弃用" type="error"/> -->
 
@@ -124,27 +124,27 @@ support 分支实际名称
 
 推送消息 API 地址
 
--   类型：`String`
--   默认：``
--   必填：否
+- 类型：`String`
+- 默认：``
+- 必填：否
 
 ### apolloConfig
 
 apollo 配置参数
 
--   类型：`Object`
--   默认：``
--   必填：否
--   参数：
+- 类型：`Object`
+- 默认：``
+- 必填：否
+- 参数：
 
 ```json
 {
-    "configServerUrl": "",
-    "appId": "",
-    "clusterName": "default",
-    "namespaceName": ["namespaceName"],
-    "apolloEnv": "",
-    "token": ""
+  "configServerUrl": "",
+  "appId": "",
+  "clusterName": "default",
+  "namespaceName": ["namespaceName"],
+  "apolloEnv": "",
+  "token": ""
 }
 ```
 
@@ -152,56 +152,56 @@ apollo 构建项目配置参考
 
 ```json
 {
-    "username": "jenkins_username",
-    "password": "jenkins_password",
-    "template": "http://www.jenkins.com/view/${line}/job/${project}/build?token=${token}", // 不带参数
-    "templateWithParam": "http://www.jenkins.com/view/${line}/job/${project}/buildWithParameters?token=${token}&build_app=${app}", // 带参数
-    "gitNotificationGroupUrl": "https://www.dingding.com/robot/webhook/send?type=0&token=xxxxxxxx", // 推送群消息的api
-    "dev": {
-        "line": "git_dev",
-        "token": "dev_token",
-        "list": [
-            {
-                "name": "project1",
-                "project": "git_project1"
-            },
-            {
-                "name": "project2",
-                "project": "git_project2",
-                "apps": ["all", "admin", "client"]
-            }
-        ]
-    },
-    "bug": {
-        "line": "git_bug",
-        "token": "bug_token",
-        "list": [
-            {
-                "name": "project1",
-                "project": "git_project1_bug"
-            },
-            {
-                "name": "project2",
-                "project": "egg_project2_bug",
-                "apps": ["all", "admin", "client"]
-            }
-        ]
-    },
-    "prod": {
-        "line": "git_prod",
-        "token": "prod_token",
-        "list": [
-            {
-                "name": "project1",
-                "project": "git_project1_prod"
-            },
-            {
-                "name": "project2",
-                "project": "git_project2_prod",
-                "apps": ["all", "admin", "client"]
-            }
-        ]
-    }
+  "username": "jenkins_username",
+  "password": "jenkins_password",
+  "template": "http://www.jenkins.com/view/${line}/job/${project}/build?token=${token}", // 不带参数
+  "templateWithParam": "http://www.jenkins.com/view/${line}/job/${project}/buildWithParameters?token=${token}&build_app=${app}", // 带参数
+  "gitNotificationGroupUrl": "https://www.dingding.com/robot/webhook/send?type=0&token=xxxxxxxx", // 推送群消息的api
+  "dev": {
+    "line": "git_dev",
+    "token": "dev_token",
+    "list": [
+      {
+        "name": "project1",
+        "project": "git_project1"
+      },
+      {
+        "name": "project2",
+        "project": "git_project2",
+        "apps": ["all", "admin", "client"]
+      }
+    ]
+  },
+  "bug": {
+    "line": "git_bug",
+    "token": "bug_token",
+    "list": [
+      {
+        "name": "project1",
+        "project": "git_project1_bug"
+      },
+      {
+        "name": "project2",
+        "project": "egg_project2_bug",
+        "apps": ["all", "admin", "client"]
+      }
+    ]
+  },
+  "prod": {
+    "line": "git_prod",
+    "token": "prod_token",
+    "list": [
+      {
+        "name": "project1",
+        "project": "git_project1_prod"
+      },
+      {
+        "name": "project2",
+        "project": "git_project2_prod",
+        "apps": ["all", "admin", "client"]
+      }
+    ]
+  }
 }
 ```
 
@@ -211,16 +211,16 @@ apollo 构建项目配置参考
 
 > 1.4.0 新增
 
--   类型：`Object`
--   默认：``
--   必填：否
--   示例：
+- 类型：`Object`
+- 默认：``
+- 必填：否
+- 示例：
 
 ```json
 {
-    "pre-commit": "lint-staged",
-    "pre-push": "gitm permission",
-    "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+  "pre-commit": "lint-staged",
+  "pre-push": "gitm permission",
+  "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
 }
 ```
 
@@ -230,23 +230,23 @@ apollo 构建项目配置参考
 
 > 2.18.0 新增
 
--   类型：`Object`
--   默认：``
--   必填：是
--   示例：
+- 类型：`Object`
+- 默认：``
+- 必填：是
+- 示例：
 
 ```json
 {
-    "buildConfig": {
-        "url": "https://xxx.com/xxx/getBuildConfig",
-        "method": "get",
-        "params": {
-            "name": "gitmars"
-        }
-    },
-    "userInfo": {
-        "url": "https://xxx.com/xxx/getUserInfo"
+  "buildConfig": {
+    "url": "https://xxx.com/xxx/getBuildConfig",
+    "method": "get",
+    "params": {
+      "name": "gitmars"
     }
+  },
+  "userInfo": {
+    "url": "https://xxx.com/xxx/getUserInfo"
+  }
 }
 ```
 
@@ -258,17 +258,17 @@ apollo 构建项目配置参考
 > 2.17.0 新增`level=3`审核员，审核员有合并权限可以执行`admin publish`动作，但是与管理员不同的是审核员提交代码会推送到远程。原开发者调整为 4<br>
 > 2.19.0 版本开始移除这项配置，由`apis.userInfo`替代
 
--   类型：`String`
--   默认：``
--   必填：否
--   说明：
+- 类型：`String`
+- 默认：``
+- 必填：否
+- 说明：
 
 返回的参数必须包含 token 和 level
 
 ```json
 {
-    "token": "gitlab access_token", // gitlab上生成的access_token
-    "level": 4 // 1=超级管理员 2=管理员 3=审核员 4=开发者
+  "token": "gitlab access_token", // gitlab上生成的access_token
+  "level": 4 // 1=超级管理员 2=管理员 3=审核员 4=开发者
 }
 ```
 
@@ -278,9 +278,9 @@ git 服务器位置，例如：https://gitlab.com
 
 > 2.0.1 新增
 
--   类型：`String`
--   默认：``
--   必填：是
+- 类型：`String`
+- 默认：``
+- 必填：是
 
 ### gitID
 
@@ -288,6 +288,6 @@ git 项目 ID，在 gitlab 上可以查到，通常是一串数字
 
 > 2.0.1 新增
 
--   类型：`Number`
--   默认：``
--   必填：是
+- 类型：`Number`
+- 默认：``
+- 必填：是

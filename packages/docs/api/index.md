@@ -11,8 +11,8 @@ sidebarDepth: 2
 
 智能导航指令，只记一条指令就能完成所有功能使用
 
--   使用：`gitm go`
--   参数：
+- 使用：`gitm go`
+- 参数：
 
 <div class="table-prop">
 
@@ -22,15 +22,15 @@ sidebarDepth: 2
 
 </div>
 
--   示例：
+- 示例：
 
 ```shell
 gitm go build
 ```
 
--   演示：
+- 演示：
 
-    > ![gitmars-go.gif](https://raw.githubusercontent.com/saqqdy/gitmars/master/static/img/gitmars-go.gif)
+  > ![gitmars-go.gif](https://raw.githubusercontent.com/saqqdy/gitmars/master/static/img/gitmars-go.gif)
 
 ## 配置
 
@@ -38,8 +38,8 @@ gitm go build
 
 初始化配置，按照提示输入即可
 
--   使用：`gitm init`
--   参考：[配置参数](../guide/basic-config)
+- 使用：`gitm init`
+- 参考：[配置参数](../guide/basic-config)
 
 ### gitm config
 
@@ -47,8 +47,8 @@ gitm go build
 
 #### 设置单个配置
 
--   使用：`gitm config <option> [value]`
--   参数：
+- 使用：`gitm config <option> [value]`
+- 参数：
 
 <div class="table-prop">
 
@@ -59,7 +59,7 @@ gitm go build
 
 </div>
 
--   示例：
+- 示例：
 
 1. 设置 master 分支名称为 main
 
@@ -75,8 +75,8 @@ gitm config apolloConfig "{ ... }"
 
 #### 查询配置
 
--   使用：`gitm config list [option]`
--   参数：
+- 使用：`gitm config list [option]`
+- 参数：
 
 <div class="table-prop">
 
@@ -86,7 +86,7 @@ gitm config apolloConfig "{ ... }"
 
 </div>
 
--   示例：
+- 示例：
 
 1. 查询全部配置
 
@@ -112,8 +112,8 @@ gitm config list apolloConfig
 
 开始任务，创建分支
 
--   使用：`gitm start <type> <name> [-t --tag <tag>]`
--   参数：
+- 使用：`gitm start <type> <name> [-t --tag <tag>]`
+- 参数：
 
 <div class="table-prop">
 
@@ -124,7 +124,7 @@ gitm config list apolloConfig
 
 </div>
 
--   传值：
+- 传值：
 
 <div class="table-option">
 
@@ -134,7 +134,7 @@ gitm config list apolloConfig
 
 </div>
 
--   示例：
+- 示例：
 
 1. 创建主流程分支
 
@@ -160,8 +160,8 @@ gitm start bugfix 1001 --tag 20211010
 
 bugfix 分支和 feature 分支需要提交到 dev 或者预发布环境时使用 combine 指令来自动执行合并
 
--   使用：`gitm combine [type] [name] [-a --add] [-m --commit [message]] [-d --dev] [-p --prod] [-b --build [build]] [--description [description]] [--no-bugfix] [--as-feature] [-f --force]`
--   参数：
+- 使用：`gitm combine [type] [name] [-a --add] [-m --commit [message]] [-d --dev] [-p --prod] [-b --build [build]] [--description [description]] [--no-bugfix] [--as-feature] [-f --force]`
+- 参数：
 
 <div class="table-prop">
 
@@ -172,7 +172,7 @@ bugfix 分支和 feature 分支需要提交到 dev 或者预发布环境时使�
 
 </div>
 
--   传值：
+- 传值：
 
 <div class="table-option">
 
@@ -190,7 +190,7 @@ bugfix 分支和 feature 分支需要提交到 dev 或者预发布环境时使�
 
 </div>
 
--   示例：
+- 示例：
 
 1. 合并当前分支到 alpha
 
@@ -245,8 +245,8 @@ gitm cb -pd --no-bugfix
 
 任务完成，合并并删除分支，这个操作会把 20001 这个分支代码合并到 bug 分支并删除 20001 分支(远程的 20001 分支也会同步删除)
 
--   使用：`gitm end [type] [name] [--description [description]] [--no-combine] [--as-feature]`
--   参数：
+- 使用：`gitm end [type] [name] [--description [description]] [--no-combine] [--as-feature]`
+- 参数：
 
 <div class="table-prop">
 
@@ -257,7 +257,7 @@ gitm cb -pd --no-bugfix
 
 </div>
 
--   传值：
+- 传值：
 
 <div class="table-option">
 
@@ -269,7 +269,7 @@ gitm cb -pd --no-bugfix
 
 </div>
 
--   示例：
+- 示例：
 
 1. 结束 bugfix/20001 分支
 
@@ -297,8 +297,8 @@ gitm end --as-feature
 
 把 bug 分支的最新代码同步到 20001 分支上（--use-rebase 使用 rebase 方法合并，默认 false）
 
--   使用：`gitm update [type] [name] [--use-merge] [--use-rebase] [-a --all] [-f --force]`
--   参数：
+- 使用：`gitm update [type] [name] [--use-merge] [--use-rebase] [-a --all] [-f --force]`
+- 参数：
 
 <div class="table-prop">
 
@@ -309,7 +309,7 @@ gitm end --as-feature
 
 </div>
 
--   传值：
+- 传值：
 
 <div class="table-option">
 
@@ -322,7 +322,7 @@ gitm end --as-feature
 
 </div>
 
--   示例：
+- 示例：
 
 1. 升级 bugfix/20001 分支
 
@@ -362,9 +362,9 @@ gitm up feature -a
 
 继续未完成的操作
 
--   使用：`gitm continue`
--   示例：
--   传值：
+- 使用：`gitm continue`
+- 示例：
+- 传值：
 
 <div class="table-option">
 
@@ -398,8 +398,8 @@ gitm ct -l
 
 合并分支，类似 git merge 功能
 
--   使用：`gitm merge <name>`
--   参数：
+- 使用：`gitm merge <name>`
+- 参数：
 
 <div class="table-prop">
 
@@ -409,7 +409,7 @@ gitm ct -l
 
 </div>
 
--   示例：
+- 示例：
 
 合并 20001 分支到当前分支
 
@@ -425,8 +425,8 @@ gitm mg 20001
 
 复制其他分支上的提交记录到当前分支
 
--   使用：`gitm copy [commitid...]` 或者 `gitm copy [-s --source [source]] [-k --key [keyword]] [-a --author [author]]`
--   参数：
+- 使用：`gitm copy [commitid...]` 或者 `gitm copy [-s --source [source]] [-k --key [keyword]] [-a --author [author]]`
+- 参数：
 
 <div class="table-prop">
 
@@ -436,7 +436,7 @@ gitm mg 20001
 
 </div>
 
--   传值：
+- 传值：
 
 <div class="table-option">
 
@@ -448,7 +448,7 @@ gitm mg 20001
 
 </div>
 
--   示例：
+- 示例：
 
 1. 传入 commit-id，把其他分支上的 commit-id 复制过来，执行下面指令
 
@@ -468,8 +468,8 @@ gitm copy --source dev --key 100000 --author saqqdy
 
 该指令用于发起 Jenkins 构建，project 必传，app 名称可传入 all
 
--   使用：`gitm build <project> [-e --env [env]] [-a --app [app]]`
--   参数：
+- 使用：`gitm build <project> [-e --env [env]] [-a --app [app]]`
+- 参数：
 
 <div class="table-prop">
 
@@ -479,7 +479,7 @@ gitm copy --source dev --key 100000 --author saqqdy
 
 </div>
 
--   传值：
+- 传值：
 
 <div class="table-option">
 
@@ -490,7 +490,7 @@ gitm copy --source dev --key 100000 --author saqqdy
 
 </div>
 
--   示例：
+- 示例：
 
 1. 构建 gitmars 的 app 应用
 
@@ -506,8 +506,8 @@ gitm build gitmars --env dev --app app
 
 提供分支搜索和删除功能
 
--   使用：`gitm branch [-k --key] [-t --type] [--exclude [exclude]] [--include [include]] [-r --remote]` 或者 `gitm branch [-d --delete [name]] [-D --forcedelete [name]]` 或者 `gitm branch [-u --upstream [upstream]]`
--   传值：
+- 使用：`gitm branch [-k --key] [-t --type] [--exclude [exclude]] [--include [include]] [-r --remote]` 或者 `gitm branch [-d --delete [name]] [-D --forcedelete [name]]` 或者 `gitm branch [-u --upstream [upstream]]`
+- 传值：
 
 <div class="table-option">
 
@@ -524,7 +524,7 @@ gitm build gitmars --env dev --app app
 
 </div>
 
--   示例：
+- 示例：
 
 1. 查询本地 feature 功能分支
 
@@ -572,8 +572,8 @@ gitm branch -u
 
 撤销当前分支的某条提交记录，如果需要撤销一条 merge 记录，需要传入撤销方式，1 = 保留当前分支代码；2 = 保留传入代码
 
--   使用：`gitm revert [commitid] [-m --mode [mode]]` 或者 `gitm revert [-n --number] [-m --mode [mode]]`
--   参数：
+- 使用：`gitm revert [commitid] [-m --mode [mode]]` 或者 `gitm revert [-n --number] [-m --mode [mode]]`
+- 参数：
 
 <div class="table-prop">
 
@@ -583,7 +583,7 @@ gitm branch -u
 
 </div>
 
--   传值：
+- 传值：
 
 <div class="table-option">
 
@@ -594,7 +594,7 @@ gitm branch -u
 
 </div>
 
--   示例：
+- 示例：
 
 1. 撤销最后一次提交（或者撤销倒数第 n 次提交）
 
@@ -622,8 +622,8 @@ gitm rt xxxxxx -m 1
 
 撤销当前分支的某条提交记录，或者撤销某条分支的多条合并记录，如果需要撤销一条 merge 记录，需要传入撤销方式，1 = 保留当前分支代码；2 = 保留传入代码
 
--   使用：`gitm undo [commitid...] [-m --mode [mode]]` 或者 `gitm undo [--lastet [lastet]] [--limit [limit]] [-m --mode [mode]] [--no-merges]` 或者 `gitm undo [--calc] [--calcAll]`
--   参数：
+- 使用：`gitm undo [commitid...] [-m --mode [mode]]` 或者 `gitm undo [--lastet [lastet]] [--limit [limit]] [-m --mode [mode]] [--no-merges]` 或者 `gitm undo [--calc] [--calcAll]`
+- 参数：
 
 <div class="table-prop">
 
@@ -633,7 +633,7 @@ gitm rt xxxxxx -m 1
 
 </div>
 
--   传值：
+- 传值：
 
 <div class="table-option">
 
@@ -648,7 +648,7 @@ gitm rt xxxxxx -m 1
 
 </div>
 
--   示例：
+- 示例：
 
 1. 不传 commitid，显示 log 列表选择要撤销的 commit，如果是 merge 记录，保留当前分支代码
 
@@ -693,8 +693,8 @@ gitm ud --calc
 
 重做当前分支的某条提交记录，或者重做某条分支的多条合并记录，如果需要重做一条 merge 记录，需要传入重做方式，1 = 保留当前分支代码；2 = 保留传入代码
 
--   使用：`gitm redo [commitid...] [-m --mode [mode]]` 或者 `gitm redo [-m --mode [mode]]`
--   参数：
+- 使用：`gitm redo [commitid...] [-m --mode [mode]]` 或者 `gitm redo [-m --mode [mode]]`
+- 参数：
 
 <div class="table-prop">
 
@@ -704,7 +704,7 @@ gitm ud --calc
 
 </div>
 
--   传值：
+- 传值：
 
 <div class="table-option">
 
@@ -714,7 +714,7 @@ gitm ud --calc
 
 </div>
 
--   示例：
+- 示例：
 
 1. 传入分支名称
 
@@ -740,8 +740,8 @@ gitm rd -m 1
 
 暂存当前分支代码
 
--   使用：`gitm save [message] [-f --force]`
--   参数：
+- 使用：`gitm save [message] [-f --force]`
+- 参数：
 
 <div class="table-prop">
 
@@ -751,7 +751,7 @@ gitm rd -m 1
 
 </div>
 
--   传值：
+- 传值：
 
 <div class="table-option">
 
@@ -761,7 +761,7 @@ gitm rd -m 1
 
 </div>
 
--   示例：
+- 示例：
 
 1. 简单使用
 
@@ -793,8 +793,8 @@ gitm save "test login"
 
 恢复暂存代码
 
--   使用：`gitm get [message] [index] [-k --keep]`
--   参数：
+- 使用：`gitm get [message] [index] [-k --keep]`
+- 参数：
 
 <div class="table-prop">
 
@@ -805,7 +805,7 @@ gitm save "test login"
 
 </div>
 
--   传值：
+- 传值：
 
 <div class="table-option">
 
@@ -815,7 +815,7 @@ gitm save "test login"
 
 </div>
 
--   示例：
+- 示例：
 
 1. 简单使用
 
@@ -858,8 +858,8 @@ gitm get "test login"
 
 清理合并过的功能分支
 
--   使用：`gitm cleanbranch [branches...] [-l --list [list]] [-k --key [keyword]] [--exclude [exclude]] [--include [include]] [-t --type [type]] [--target [target]] [-r --remote] [--no-strictly]`
--   参数：
+- 使用：`gitm cleanbranch [branches...] [-l --list [list]] [-k --key [keyword]] [--exclude [exclude]] [--include [include]] [-t --type [type]] [--target [target]] [-r --remote] [--no-strictly]`
+- 参数：
 
 <div class="table-prop">
 
@@ -869,7 +869,7 @@ gitm get "test login"
 
 </div>
 
--   传值：
+- 传值：
 
 <div class="table-option">
 
@@ -887,7 +887,7 @@ gitm get "test login"
 
 </div>
 
--   示例：
+- 示例：
 
 1. 清理前查看符合条件的分支列表
 
@@ -947,8 +947,8 @@ gitm cleanbranch --target release --no-strictly
 
 查询日志
 
--   使用：`gitm log [branch] [--lastet [lastet]] [--limit [limit]] [--no-merges] [--json]`
--   参数：
+- 使用：`gitm log [branch] [--lastet [lastet]] [--limit [limit]] [--no-merges] [--json]`
+- 参数：
 
 <div class="table-prop">
 
@@ -970,7 +970,7 @@ gitm cleanbranch --target release --no-strictly
 
 </div>
 
--   示例：
+- 示例：
 
 1. 查询最近 7 天内的日志，最多 50 条
 
@@ -1002,8 +1002,8 @@ gitm log --json
 
 发布操作
 
--   使用：`gitm hook [command] [args...] [--no-verify] [--lastet [lastet]] [--limit [limit]] [-t --type <type>] [--branch [branch]]`
--   参数：
+- 使用：`gitm hook [command] [args...] [--no-verify] [--lastet [lastet]] [--limit [limit]] [-t --type <type>] [--branch [branch]]`
+- 参数：
 
 <div class="table-prop">
 
@@ -1013,7 +1013,7 @@ gitm log --json
 
 </div>
 
--   传值：
+- 传值：
 
 <div class="table-option">
 
@@ -1037,8 +1037,8 @@ gitm log --json
 
 run 指令是 gitmars hook 里面执行的内部指令，用来执行钩子方法
 
--   使用：`gitm run <command> [args...]`
--   参数：
+- 使用：`gitm run <command> [args...]`
+- 参数：
 
 <div class="table-prop">
 
@@ -1055,8 +1055,8 @@ run 指令是 gitmars hook 里面执行的内部指令，用来执行钩子方�
 
 升级 gitmars 版本，可输入 version 指定版本，选填，默认安装最新版
 
--   使用：`gitm upgrade [version] [-m --mirror] [-c --client [client]] [-r --registry <registry>]`
--   参数：
+- 使用：`gitm upgrade [version] [-m --mirror] [-c --client [client]] [-r --registry <registry>]`
+- 参数：
 
 <div class="table-prop">
 
@@ -1066,7 +1066,7 @@ run 指令是 gitmars hook 里面执行的内部指令，用来执行钩子方�
 
 </div>
 
--   传值：
+- 传值：
 
 <div class="table-option">
 
@@ -1078,7 +1078,7 @@ run 指令是 gitmars hook 里面执行的内部指令，用来执行钩子方�
 
 </div>
 
--   示例：
+- 示例：
 
 1. 简单使用
 
@@ -1096,7 +1096,7 @@ gitm ug -m
 形式：gitm clean [-f --force]
 ```
 
--   传值：
+- 传值：
 
 <div class="table-option">
 
@@ -1106,7 +1106,7 @@ gitm ug -m
 
 </div>
 
--   示例：
+- 示例：
 
 ```shell
 gitm clean
@@ -1137,9 +1137,9 @@ gitm suggest
 
 处理远程合并请求
 
--   使用：`gitm approve [--state [state]] [--quiet]`
--   参数：无
--   传值：
+- 使用：`gitm approve [--state [state]] [--quiet]`
+- 参数：无
+- 传值：
 
 <div class="table-option">
 
@@ -1150,7 +1150,7 @@ gitm suggest
 
 </div>
 
--   示例：
+- 示例：
 
 ```shell
 # 输入指令，按照提示操作
@@ -1166,9 +1166,9 @@ gitm approve --quiet
 
 远程 review 代码
 
--   使用：`gitm review [--state [state]] [--quiet]`
--   参数：无
--   传值：
+- 使用：`gitm review [--state [state]] [--quiet]`
+- 参数：无
+- 传值：
 
 <div class="table-option">
 
@@ -1179,7 +1179,7 @@ gitm approve --quiet
 
 </div>
 
--   示例：
+- 示例：
 
 ```shell
 # 输入指令，按照提示操作
@@ -1190,11 +1190,11 @@ gitm review --state merged
 
 查看当前分支状态
 
--   使用：`gitm status`
--   参数：无
--   传值：无
+- 使用：`gitm status`
+- 参数：无
+- 传值：无
 
--   示例：
+- 示例：
 
 ```shell
 gitm status
@@ -1206,10 +1206,10 @@ gitm status
 
 启动 UI 界面
 
--   安装：`gitm install @gitmars/ui`
--   使用：`gitm ui [-p --port [port]]`
--   参数：无
--   传值：
+- 安装：`gitm install @gitmars/ui`
+- 使用：`gitm ui [-p --port [port]]`
+- 参数：无
+- 传值：
 
 <div class="table-option">
 
@@ -1219,7 +1219,7 @@ gitm status
 
 </div>
 
--   示例：
+- 示例：
 
 ```shell
 gitm ui -p 8080
@@ -1229,8 +1229,8 @@ gitm ui -p 8080
 
 创建本地包软链接，传入 name 时把依赖包软链到本地包，不传 name 时给当前包创建公共软链
 
--   使用：`gitm link [name]`
--   参数：
+- 使用：`gitm link [name]`
+- 参数：
 
 <div class="table-prop">
 
@@ -1240,13 +1240,13 @@ gitm ui -p 8080
 
 </div>
 
--   示例 1：链接本地的 tool 包
+- 示例 1：链接本地的 tool 包
 
 ```shell
 gitm link tool
 ```
 
--   示例 2：给当前包创建公共软链
+- 示例 2：给当前包创建公共软链
 
 ```shell
 gitm link
@@ -1256,8 +1256,8 @@ gitm link
 
 传入 name 时解除依赖包软链，不传 name 时删除当前包的公共软链
 
--   使用：`gitm unlink [name]`
--   参数：
+- 使用：`gitm unlink [name]`
+- 参数：
 
 <div class="table-prop">
 
@@ -1267,13 +1267,13 @@ gitm link
 
 </div>
 
--   示例 1：解除依赖包软链
+- 示例 1：解除依赖包软链
 
 ```shell
 gitm unlink tool
 ```
 
--   示例 2：删除当前包的公共软链
+- 示例 2：删除当前包的公共软链
 
 ```shell
 gitm unlink
@@ -1283,8 +1283,8 @@ gitm unlink
 
 推送消息
 
--   使用：`gitm postmsg <message> [-u --url [url]]`
--   参数：
+- 使用：`gitm postmsg <message> [-u --url [url]]`
+- 参数：
 
 <div class="table-prop">
 
@@ -1294,7 +1294,7 @@ gitm unlink
 
 </div>
 
--   传值：
+- 传值：
 
 <div class="table-option">
 
@@ -1304,7 +1304,7 @@ gitm unlink
 
 </div>
 
--   示例：
+- 示例：
 
 1. 简单使用
 
@@ -1326,10 +1326,10 @@ gitm postmsg "测试消息" --url "https://github.com/"
 
 安装和移除快捷方式
 
--   使用：`gitm alias init` or `gitm alias remove`
--   参数：无
--   传值：无
--   示例：
+- 使用：`gitm alias init` or `gitm alias remove`
+- 参数：无
+- 传值：无
+- 示例：
 
 ```shell
 # 安装
@@ -1338,7 +1338,7 @@ gitm alias init
 gitm alias remove
 ```
 
--   运用：
+- 运用：
 
 1. `gitm` 别名使用
 
@@ -1389,8 +1389,8 @@ git flow start feature 100001
 
 创建 release、bugfix、support 和 develop 分支
 
--   使用：`gitm admin create <type>`
--   参数：
+- 使用：`gitm admin create <type>`
+- 参数：
 
 <div class="table-prop">
 
@@ -1400,7 +1400,7 @@ git flow start feature 100001
 
 </div>
 
--   示例：
+- 示例：
 
 创建 release 分支
 
@@ -1414,8 +1414,8 @@ gitm admin create release
 
 发布操作
 
--   使用：`gitm admin publish <type> [--description [description]] [-c --combine] [--use-rebase] [-p --prod] [-b --build [build]] [-p --postmsg] [-f --force]`
--   参数：
+- 使用：`gitm admin publish <type> [--description [description]] [-c --combine] [--use-rebase] [-p --prod] [-b --build [build]] [-p --postmsg] [-f --force]`
+- 参数：
 
 <div class="table-prop">
 
@@ -1425,7 +1425,7 @@ gitm admin create release
 
 </div>
 
--   传值：
+- 传值：
 
 <div class="table-option">
 
@@ -1441,7 +1441,7 @@ gitm admin create release
 
 </div>
 
--   示例：
+- 示例：
 
 1. 合并 release 代码到预发环境
 
@@ -1468,8 +1468,8 @@ gitm admin publish release -b app
 
 更新 release、bugfix、support 分支代码，默认走 merge 方法
 
--   使用：`gitm admin update <type> [--description [description]] [--use-rebase] [-m --mode [mode]] [-p --postmsg] [-f --force]`
--   参数：
+- 使用：`gitm admin update <type> [--description [description]] [--use-rebase] [-m --mode [mode]] [-p --postmsg] [-f --force]`
+- 参数：
 
 <div class="table-prop">
 
@@ -1479,7 +1479,7 @@ gitm admin publish release -b app
 
 </div>
 
--   传值：
+- 传值：
 
 <div class="table-option">
 
@@ -1493,7 +1493,7 @@ gitm admin publish release -b app
 
 </div>
 
--   示例：
+- 示例：
 
 1. 更新 bug 分支代码
 
@@ -1507,8 +1507,8 @@ gitm admin up bugfix -m 2
 
 Jenkins 构建清理 git 分支专用，可传入 release、bugfix、develop 分支代码
 
--   使用：`gitm admin clean <type>`
--   参数：
+- 使用：`gitm admin clean <type>`
+- 参数：
 
 <div class="table-prop">
 
@@ -1518,7 +1518,7 @@ Jenkins 构建清理 git 分支专用，可传入 release、bugfix、develop 分
 
 </div>
 
--   示例：
+- 示例：
 
 清理分支
 
@@ -1532,15 +1532,15 @@ gitm admin clean bugfix
 
 检测是否骚操作
 
--   使用：`gitm permission`
--   示例：
+- 使用：`gitm permission`
+- 示例：
 
 ### gitm version
 
 查看 gitmars 版本号
 
--   使用：`gitm --version`
--   示例：
+- 使用：`gitm --version`
+- 示例：
 
 ```shell
 gitm --version

@@ -1,4 +1,4 @@
 module.exports = {
-    ...require('@saqqdy/prettier-config'),
+    ...require('prettier-config-common'),
     useTabs: false
 }
