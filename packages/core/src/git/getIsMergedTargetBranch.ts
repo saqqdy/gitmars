@@ -33,8 +33,7 @@ function getIsMergedTargetBranch(
             'branch',
             '--contains',
             branch,
-            '--format',
-            '%(refname:short)',
+            '--format=%(refname:short)',
             remote ? '--remote' : ''
         ])
         debug('getIsMergedTargetBranch:strictly', stdout)

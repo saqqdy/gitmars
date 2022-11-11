@@ -4,24 +4,24 @@ title: Gitmars
 titleTemplate: 这是一个git工作流工具
 
 hero:
-    name: Gitmars
-    text: 这是一个git工作流工具
-    tagline: 上手简单，功能强大，性能优异。封装了大量高级技巧，让你解放双手，提升工作效率
-    actions:
-        - theme: brand
-          text: 开始 →
-          link: /guide/
-        - theme: alt
-          text: 去GitHub看源码
-          link: https://github.com/saqqdy/gitmars
+  name: Gitmars
+  text: 这是一个git工作流工具
+  tagline: 上手简单，功能强大，性能优异。封装了大量高级技巧，让你解放双手，提升工作效率
+  actions:
+    - theme: brand
+      text: 开始 →
+      link: /guide/
+    - theme: alt
+      text: 去GitHub看源码
+      link: https://github.com/saqqdy/gitmars
 
 features:
-    - title: 高效
-      details: 执行动作之后自动切分支、自动拉代码等等
-    - title: 智能
-      details: 智能检测当前可执行的指令，智能导航
-    - title: 安全
-      details: 内建了骚操作检测方法，可主动防止不合规的操作
+  - title: 高效
+    details: 执行动作之后自动切分支、自动拉代码等等
+  - title: 智能
+    details: 智能检测当前可执行的指令，智能导航
+  - title: 安全
+    details: 内建了骚操作检测方法，可主动防止不合规的操作
 footer: GPL-3.0 Licensed | Copyright © 2020-present saqqdy
 ---
 
