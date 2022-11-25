@@ -56,7 +56,7 @@ importers:
       typescript: ^4.8.4
       uglify-js: ^3.17.4
       unplugin-vue-define-options: ^0.12.4
-      vitepress: 1.0.0-alpha.28
+      vitepress: 1.0.0-alpha.29
     dependencies:
       chalk: 4.1.2
       inquirer: 8.2.5
@@ -108,7 +108,7 @@ importers:
       typescript: 4.8.4
       uglify-js: 3.17.4
       unplugin-vue-define-options: 0.12.4
-      vitepress: 1.0.0-alpha.28_@types+node@18.11.7
+      vitepress: 1.0.0-alpha.29_@types+node@18.11.7
 
   packages/core:
     specifiers:
@@ -193,7 +193,7 @@ importers:
       prettier-config-common: ^1.2.2
       tsnd: ^1.1.0
       typescript: ^4.8.4
-      vitepress: 1.0.0-alpha.28
+      vitepress: 1.0.0-alpha.29
     dependencies:
       js-cool: 2.5.0
     devDependencies:
@@ -208,7 +208,7 @@ importers:
       prettier-config-common: 1.2.2
       tsnd: 1.1.0
       typescript: 4.8.4
-      vitepress: 1.0.0-alpha.28_@types+node@18.11.7
+      vitepress: 1.0.0-alpha.29_@types+node@18.11.7
 
   packages/gitmars:
     specifiers:
@@ -3284,7 +3284,7 @@ packages:
       '@types/semver': 7.3.13
       '@types/treeify': 1.0.0
       '@yarnpkg/fslib': 3.0.0-rc.27
-      '@yarnpkg/libzip': 3.0.0-rc.27
+      '@yarnpkg/libzip': 3.0.0-rc.27_@yarnpkg+fslib@3.0.0-rc.27
       '@yarnpkg/parsers': 3.0.0-rc.27
       '@yarnpkg/shell': 4.0.0-rc.27
       camelcase: 5.3.1
@@ -3315,7 +3315,7 @@ packages:
       '@types/semver': 7.3.13
       '@types/treeify': 1.0.0
       '@yarnpkg/fslib': 3.0.0-rc.27
-      '@yarnpkg/libzip': 3.0.0-rc.27
+      '@yarnpkg/libzip': 3.0.0-rc.27_@yarnpkg+fslib@3.0.0-rc.27
       '@yarnpkg/parsers': 3.0.0-rc.27
       '@yarnpkg/shell': 4.0.0-rc.27
       camelcase: 5.3.1
@@ -3371,9 +3371,11 @@ packages:
       tslib: 1.14.1
     dev: true
 
-  /@yarnpkg/libzip/3.0.0-rc.27:
+  /@yarnpkg/libzip/3.0.0-rc.27_@yarnpkg+fslib@3.0.0-rc.27:
     resolution: {integrity: sha512-5NBoxavjEZz3Yw3na0m/CnKr+p++8pDBnDGZeppeXNY/fjeJpX8fYdVxSyUHeQ3/zo53F9o5ljfW3e9lc9gDIQ==}
     engines: {node: '>=14.15.0'}
+    peerDependencies:
+      '@yarnpkg/fslib': ^3.0.0-rc.27
     dependencies:
       '@types/emscripten': 1.39.6
       '@yarnpkg/fslib': 3.0.0-rc.27
@@ -12899,8 +12901,8 @@ packages:
       fsevents: 2.3.2
     dev: true
 
-  /vitepress/1.0.0-alpha.28_@types+node@18.11.7:
-    resolution: {integrity: sha512-pvbLssDMgLUN1terajmPlFBxHSDGO4DqwexKbjFyr7LeELerVuwGrG6F2J1hxmwOlbpLd1kHXEDqGm9JX/kTDQ==}
+  /vitepress/1.0.0-alpha.29_@types+node@18.11.7:
+    resolution: {integrity: sha512-oaRaeMLcN9M3Bxz97fFVF6Gzm3Aqtb0CijTt5TOW0XPzNPuKA0YpFnsmS97gdKmA+VztM6itRJ8K7JJuU0VS3g==}
     hasBin: true
     dependencies:
       '@docsearch/css': 3.3.0
