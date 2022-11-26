@@ -39,14 +39,8 @@ export default defineConfig({
                 manualChunks(id) {
                     if (id.includes('node_modules')) {
                         // @ts-expect-error
-                        const [, module] =
-                            /node_modules\/(@?[a-z0-9-]+?[a-z0-9-]+)/.exec(id)
-                        const url = join(
-                            process.cwd(),
-                            'node_modules',
-                            module,
-                            'package.json'
-                        )
+                        const [, module] = /node_modules\/(@?[a-z0-9-]+?[a-z0-9-]+)/.exec(id)
+                        const url = join(process.cwd(), 'node_modules', module, 'package.json')
                         if (
                             [
                                 'axios',

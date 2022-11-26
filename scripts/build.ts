@@ -29,33 +29,20 @@ async function buildMetaFiles() {
             )
 
         for (const file of FILES_COPY_ROOT)
-            await promises.copyFile(
-                path.join(rootDir, file),
-                path.join(packageDist, file)
-            )
+            await promises.copyFile(path.join(rootDir, file), path.join(packageDist, file))
 
         const files = await fg(FILES_COPY_LOCAL, { cwd: packageRoot })
         for (const file of files)
-            await promises.copyFile(
-                path.join(packageRoot, file),
-                path.join(packageDist, file)
-            )
+            await promises.copyFile(path.join(packageRoot, file), path.join(packageDist, file))
 
-        const packageJSON = JSON.parse(
-            readFileSync(path.join(packageRoot, 'package.json'), 'utf8')
-        )
+        const packageJSON = JSON.parse(readFileSync(path.join(packageRoot, 'package.json'), 'utf8'))
         for (const key of Object.keys(packageJSON.dependencies || {})) {
-            if (key.startsWith('@gitmars/'))
-                packageJSON.dependencies[key] = version
+            if (key.startsWith('@gitmars/')) packageJSON.dependencies[key] = version
         }
         for (const key of Object.keys(packageJSON.devDependencies || {})) {
-            if (key.startsWith('@gitmars/'))
-                packageJSON.devDependencies[key] = version
+            if (key.startsWith('@gitmars/')) packageJSON.devDependencies[key] = version
         }
-        writeFileSync(
-            path.join(packageDist, 'package.json'),
-            JSON.stringify(packageJSON, null, 4)
-        )
+        writeFileSync(path.join(packageDist, 'package.json'), JSON.stringify(packageJSON, null, 4))
     }
 }
 

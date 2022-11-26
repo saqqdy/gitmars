@@ -39,8 +39,7 @@ async function getCommand({
     if (options.length > 0) {
         // 是否需要执行第一步checkbox选择：1. options全部参数都需要输入值；2. 全部参数都是recommend为true，满足这两个条件则不走checkbox。
         const needStep1 = options.some(
-            option =>
-                (!option.optional && !option.required) || !option.recommend
+            option => (!option.optional && !option.required) || !option.recommend
         )
         if (needStep1) {
             const answer1 = await inquirer.prompt(

@@ -56,9 +56,7 @@ export const cmdConfig: GitmarsOptionType = {
             short: '-a',
             long: '--all',
             negate: false,
-            description: t(
-                'Update all local bugfix, feature, support branches'
-            ),
+            description: t('Update all local bugfix, feature, support branches'),
             defaultValue: false,
             recommend: false
         },

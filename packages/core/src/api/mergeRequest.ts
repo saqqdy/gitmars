@@ -240,13 +240,7 @@ export async function getMergeRequestDiffVersions({
  * @param option - options
  * @returns command
  */
-export async function acceptMergeRequest({
-    iid,
-    token
-}: {
-    iid: number | string
-    token: string
-}) {
+export async function acceptMergeRequest({ iid, token }: { iid: number | string; token: string }) {
     const params = {
         private_token: token
     }
@@ -306,13 +300,7 @@ export async function updateMergeRequest({
  * @param option - options
  * @returns command
  */
-export async function deleteMergeRequest({
-    iid,
-    token
-}: {
-    iid: number | string
-    token: string
-}) {
+export async function deleteMergeRequest({ iid, token }: { iid: number | string; token: string }) {
     const params = {
         private_token: token
     }

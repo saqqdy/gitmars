@@ -23,10 +23,7 @@ if (!getIsGitProject()) {
 /**
  * gitm status
  */
-program
-    .name('gitm status')
-    .usage('[-k --keep [keep]]')
-    .description(t('Restore staging area file'))
+program.name('gitm status').usage('[-k --keep [keep]]').description(t('Restore staging area file'))
 if (args.length > 0) program.arguments(createArgs(args))
 options.forEach((o: GitmarsOptionOptionsType) => {
     program.option(o.flags, o.description, o.defaultValue)

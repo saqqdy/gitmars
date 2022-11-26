@@ -7,10 +7,7 @@ import { queue } from '@gitmars/core/lib/queue'
 import getIsGitProject from '@gitmars/core/lib/git/getIsGitProject'
 import getGitStatus from '@gitmars/core/lib/git/getGitStatus'
 import { createArgs } from '@gitmars/core/lib/utils/command'
-import {
-    cleanCommandCache,
-    getCommandCache
-} from '@gitmars/core/lib/cache/commandCache'
+import { cleanCommandCache, getCommandCache } from '@gitmars/core/lib/cache/commandCache'
 import type { CommandType, GitmarsOptionOptionsType } from '../typings'
 import continueConfig from '#lib/conf/continue'
 import lang from '#lib/common/local'
@@ -31,10 +28,7 @@ interface GitmBuildOption {
 /**
  * gitm continue
  */
-program
-    .name('gitm continue')
-    .usage('[-l --list]')
-    .description(t('Continue unfinished operations'))
+program.name('gitm continue').usage('[-l --list]').description(t('Continue unfinished operations'))
 if (args.length > 0) program.arguments(createArgs(args))
 options.forEach((o: GitmarsOptionOptionsType) => {
     program.option(o.flags, o.description, o.defaultValue)
@@ -49,12 +43,7 @@ program.action(async (opt: GitmBuildOption) => {
     }
     if (cmd.length > 0) {
         // 检测是否有未提交的文件
-        if (
-            sum.A.length > 0 ||
-            sum.D.length > 0 ||
-            sum.M.length > 0 ||
-            sum.UU.length > 0
-        ) {
+        if (sum.A.length > 0 || sum.D.length > 0 || sum.M.length > 0 || sum.UU.length > 0) {
             await inquirer
                 .prompt({
                     type: 'confirm',
@@ -71,9 +60,7 @@ program.action(async (opt: GitmBuildOption) => {
                     }
                 })
         } else if (sum['??'].length > 0) {
-            sh.echo(
-                yellow(t('An uncommitted file was detected, please be aware!'))
-            )
+            sh.echo(yellow(t('An uncommitted file was detected, please be aware!')))
         }
         queue(cmd).then(() => {
             cleanCommandCache()

@@ -97,15 +97,8 @@ export const cmdConfig: GitmarsOptionType = {
     ],
     // validator opts
     validatorOpts: (val, opts, cb) => {
-        if (
-            (val.includes('--calc') || val.includes('--calcAll')) &&
-            val.length > 1
-        ) {
-            cb(
-                new Error(
-                    t('--calc and --calcAll can only be used individually')
-                )
-            )
+        if ((val.includes('--calc') || val.includes('--calcAll')) && val.length > 1) {
+            cb(new Error(t('--calc and --calcAll can only be used individually')))
             return
         }
         cb()

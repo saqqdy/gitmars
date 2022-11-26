@@ -35,11 +35,7 @@ function searchBranches(opt: any = {}): string[] {
         // 'version:refname',
         path
     ])
-    debug(
-        'searchBranches',
-        { key, type, remote, exclude, include, path },
-        stdout
-    )
+    debug('searchBranches', { key, type, remote, exclude, include, path }, stdout)
     const arr = stdout ? stdout.split('\n') : []
     const map: SearchBranchesMapType = {
         heads: [],
@@ -47,9 +43,7 @@ function searchBranches(opt: any = {}): string[] {
         others: []
     }
     for (const el of arr) {
-        const match = el.match(
-            /^\w+[\s]+refs\/(heads|remotes|tags)\/([\w-\/]+)$/
-        )
+        const match = el.match(/^\w+[\s]+refs\/(heads|remotes|tags)\/([\w-\/]+)$/)
         if (!match) continue
         switch (match[1]) {
             case 'heads':
@@ -72,10 +66,7 @@ function searchBranches(opt: any = {}): string[] {
         const temp: string[] = []
         map.heads.forEach(item => {
             types: for (const t of _types) {
-                if (
-                    ['bugfix', 'feature', 'support'].includes(t) &&
-                    item.includes(t + '/')
-                ) {
+                if (['bugfix', 'feature', 'support'].includes(t) && item.includes(t + '/')) {
                     temp.push(item)
                     break types
                 }

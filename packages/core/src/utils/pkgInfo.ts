@@ -33,10 +33,7 @@ export async function getPkgInfo(name?: string): Promise<any | void> {
         throw t('An error occurred')
     }
     await updateCacheTime('packageInfoTime')
-    await writeFile(
-        resolve(CACHE_PATH + 'packageInfo.json'),
-        JSON.stringify(packageInfo)
-    )
+    await writeFile(resolve(CACHE_PATH + 'packageInfo.json'), JSON.stringify(packageInfo))
     return name ? getProperty(packageInfo, name) : packageInfo
 }
 

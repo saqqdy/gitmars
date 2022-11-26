@@ -1,11 +1,10 @@
 import chalk from 'chalk'
 import _debug from 'debug'
-import { name } from '../../package.json'
 
 const { red, yellow, green } = chalk
+const name = '@gitmars/core'
 
-export const isDebug =
-    ['1', 'true'].includes(process.env.GITMARS_DEBUG || '') || process.env.DEBUG
+export const isDebug = ['1', 'true'].includes(process.env.GITMARS_DEBUG || '') || process.env.DEBUG
 
 /**
  * debug

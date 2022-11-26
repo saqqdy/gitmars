@@ -21,11 +21,7 @@ import {
     createMergeRequestNotes,
     getMergeRequestNotesList
 } from '@gitmars/core/lib/api/mergeRequestNotes'
-import type {
-    FetchDataType,
-    GitmarsOptionOptionsType,
-    InitInquirerPromptType
-} from '../typings'
+import type { FetchDataType, GitmarsOptionOptionsType, InitInquirerPromptType } from '../typings'
 import lang from '#lib/common/local'
 import reviewConfig from '#lib/conf/review'
 
@@ -61,8 +57,7 @@ options.forEach((o: GitmarsOptionOptionsType) => {
 // .option('--quiet', t('Do not push the message'), false)
 program.action(async (opt: GitmBuildOption): Promise<void> => {
     const userInfoApi =
-        (config.apis && config.apis.userInfo && config.apis.userInfo.url) ||
-        config.api
+        (config.apis && config.apis.userInfo && config.apis.userInfo.url) || config.api
     const { token } = userInfoApi ? await getUserToken() : ({} as FetchDataType)
     const mrList = await getMergeRequestList({ token, state: opt.state })
     // 没有任何记录
@@ -81,27 +76,14 @@ program.action(async (opt: GitmBuildOption): Promise<void> => {
             type: 'list',
             message: t('Please select the action below.'),
             name: 'accept',
-            choices: [
-                t('View Details'),
-                t('Comments'),
-                t('Close'),
-                t('Deleted'),
-                t('Exit')
-            ],
+            choices: [t('View Details'), t('Comments'), t('Close'), t('Deleted'), t('Exit')],
             when(answers: any) {
                 return answers.iids.length
             }
         }
     ]
     mrList.forEach((mr: any) => {
-        const {
-            iid,
-            author,
-            source_branch,
-            target_branch,
-            merge_status,
-            created_at
-        } = mr
+        const { iid, author, source_branch, target_branch, merge_status, created_at } = mr
         const disabled = merge_status !== 'can_be_merged'
         const _time = dayjs(created_at).format('YYYY/MM/DD HH:mm')
         prompt[0].choices.push({
@@ -111,9 +93,7 @@ program.action(async (opt: GitmBuildOption): Promise<void> => {
                     id: green(iid + ': '),
                     source: green(source_branch),
                     target: green(target_branch),
-                    disabled: disabled
-                        ? red(`[ ${t('Conflict or no need to merge')} ]`)
-                        : '',
+                    disabled: disabled ? red(`[ ${t('Conflict or no need to merge')} ]`) : '',
                     name: yellow(author.name),
                     comments: green(
                         t('{length} comments', {
@@ -128,8 +108,7 @@ program.action(async (opt: GitmBuildOption): Promise<void> => {
             checked: false
         })
     })
-    const { iids, accept }: { iids: string[]; accept: string } =
-        await inquirer.prompt(prompt)
+    const { iids, accept }: { iids: string[]; accept: string } = await inquirer.prompt(prompt)
     // 没有选择任何记录
     if (iids.length === 0) {
         echo(yellow(t('No merge request record selected, process has exited')))
@@ -138,9 +117,7 @@ program.action(async (opt: GitmBuildOption): Promise<void> => {
 
     // 开始执行操作
     for (const iid of iids) {
-        const { source_branch, target_branch } = mrList.find(
-            (item: any) => item.iid === iid
-        )
+        const { source_branch, target_branch } = mrList.find((item: any) => item.iid === iid)
         if (accept === t('View Details')) {
             const { changes, changes_count } = await getMergeRequestChanges({
                 token,
@@ -162,22 +139,12 @@ program.action(async (opt: GitmBuildOption): Promise<void> => {
                     )
                 )
                 echo(magenta(old_path))
-                old_path !== new_path &&
-                    echo(magenta(new_path + `(${t('New path')})`))
+                old_path !== new_path && echo(magenta(new_path + `(${t('New path')})`))
                 echo(
                     diff
-                        .replace(
-                            /(@@.+)\n/g,
-                            (m: string, p1: string) => cyan(p1) + '\n'
-                        )
-                        .replace(
-                            /\n(-.+)/g,
-                            (m: string, p1: string) => '\n' + red(p1)
-                        )
-                        .replace(
-                            /\n(\+.+)/g,
-                            (m: string, p1: string) => '\n' + green(p1)
-                        )
+                        .replace(/(@@.+)\n/g, (m: string, p1: string) => cyan(p1) + '\n')
+                        .replace(/\n(-.+)/g, (m: string, p1: string) => '\n' + red(p1))
+                        .replace(/\n(\+.+)/g, (m: string, p1: string) => '\n' + green(p1))
                 )
             }
             // 日志
@@ -191,9 +158,7 @@ program.action(async (opt: GitmBuildOption): Promise<void> => {
                 .map((note: any) => ({
                     body: green(note.body),
                     name: yellow(note.author.name),
-                    date: blue(
-                        dayjs(note.updated_at).format('YYYY/MM/DD HH:mm:ss')
-                    )
+                    date: blue(dayjs(note.updated_at).format('YYYY/MM/DD HH:mm:ss'))
                 }))
             echo(
                 magenta(
@@ -210,15 +175,12 @@ program.action(async (opt: GitmBuildOption): Promise<void> => {
             await deleteMergeRequest({ token, iid })
             !opt.quiet &&
                 sendGroupMessage(
-                    t(
-                        '{app} item {source} merged to {target} request ID {id} has been deleted',
-                        {
-                            app: appName,
-                            source: source_branch,
-                            target: target_branch,
-                            id: iid
-                        }
-                    )
+                    t('{app} item {source} merged to {target} request ID {id} has been deleted', {
+                        app: appName,
+                        source: source_branch,
+                        target: target_branch,
+                        id: iid
+                    })
                 )
             echo(green(t('Merge request {id}: Deleted', { id: iid })))
         } else if (accept === t('Close')) {
@@ -230,15 +192,12 @@ program.action(async (opt: GitmBuildOption): Promise<void> => {
             })
             !opt.quiet &&
                 sendGroupMessage(
-                    t(
-                        '{app} item {source} merged to {target} request ID {id} has been closed',
-                        {
-                            app: appName,
-                            source: source_branch,
-                            target: target_branch,
-                            id: iid
-                        }
-                    )
+                    t('{app} item {source} merged to {target} request ID {id} has been closed', {
+                        app: appName,
+                        source: source_branch,
+                        target: target_branch,
+                        id: iid
+                    })
                 )
             echo(green(t('Merge request {id}: Closed', { id: iid })))
         } else if (accept === t('Comments')) {
@@ -249,8 +208,7 @@ program.action(async (opt: GitmBuildOption): Promise<void> => {
                 message: t('Please enter the comment content'),
                 default: '',
                 transformer: (val: string) => val.trim(),
-                validate: (val: string) =>
-                    !val ? t('Please enter the available comments') : true
+                validate: (val: string) => (!val ? t('Please enter the available comments') : true)
             })
             !opt.quiet &&
                 sendGroupMessage(

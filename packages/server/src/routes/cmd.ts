@@ -1,12 +1,6 @@
 import type { NextFunction, Request, Response } from 'express'
 import express from 'express'
-import {
-    enterDir,
-    getBranchList,
-    getCurrent,
-    getStatus,
-    readFile
-} from '#lib/controller/cmd'
+import { enterDir, getBranchList, getCurrent, getStatus, readFile } from '#lib/controller/cmd'
 
 const router = express.Router()
 
@@ -17,10 +11,7 @@ router.all('*', (req: Request, res: Response, next: NextFunction) => {
         'Access-Control-Allow-Headers',
         'Content-Type, Content-Length, Authorization, Accept, Cache-Control'
     )
-    res.header(
-        'Access-Control-Allow-Methods',
-        'PUT, POST, GET, DELETE, OPTIONS'
-    )
+    res.header('Access-Control-Allow-Methods', 'PUT, POST, GET, DELETE, OPTIONS')
     res.header('Access-Control-Allow-Credentials', 'true')
     next()
 })

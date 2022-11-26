@@ -18,11 +18,7 @@ import {
     updateMergeRequest
 } from '@gitmars/core/lib/api/mergeRequest'
 import { getMergeRequestNotesList } from '@gitmars/core/lib/api/mergeRequestNotes'
-import type {
-    FetchDataType,
-    GitmarsOptionOptionsType,
-    InitInquirerPromptType
-} from '../typings'
+import type { FetchDataType, GitmarsOptionOptionsType, InitInquirerPromptType } from '../typings'
 import lang from '#lib/common/local'
 import approveConfig from '#lib/conf/approve'
 
@@ -57,8 +53,7 @@ options.forEach((o: GitmarsOptionOptionsType) => {
 // .option('--quiet', t('Do not push the message'), false)
 program.action(async (opt: GitmBuildOption): Promise<void> => {
     const userInfoApi =
-        (config.apis && config.apis.userInfo && config.apis.userInfo.url) ||
-        config.api
+        (config.apis && config.apis.userInfo && config.apis.userInfo.url) || config.api
     const {
         token,
         level,
@@ -98,14 +93,7 @@ program.action(async (opt: GitmBuildOption): Promise<void> => {
         }
     ]
     for (const mr of mrList) {
-        const {
-            iid,
-            author,
-            source_branch,
-            target_branch,
-            merge_status,
-            created_at
-        } = mr
+        const { iid, author, source_branch, target_branch, merge_status, created_at } = mr
         mr.notes = (
             (await getMergeRequestNotesList({
                 token,
@@ -121,9 +109,7 @@ program.action(async (opt: GitmBuildOption): Promise<void> => {
                     id: green(iid + ': '),
                     source: green(source_branch),
                     target: green(target_branch),
-                    disabled: disabled
-                        ? red(`[ ${t('Conflict or no need to merge')} ]`)
-                        : '',
+                    disabled: disabled ? red(`[ ${t('Conflict or no need to merge')} ]`) : '',
                     name: yellow(author.name),
                     comments: green(
                         t('{length} comments', {
@@ -155,9 +141,7 @@ program.action(async (opt: GitmBuildOption): Promise<void> => {
             if (!CAN_BE_MERGED) {
                 echo(
                     yellow(
-                        t(
-                            "Requests that can't be merged can't be clicked for review and approval"
-                        )
+                        t("Requests that can't be merged can't be clicked for review and approval")
                     )
                 )
                 process.exit(0)
@@ -165,15 +149,12 @@ program.action(async (opt: GitmBuildOption): Promise<void> => {
             await acceptMergeRequest({ token, iid })
             !opt.quiet &&
                 sendGroupMessage(
-                    t(
-                        '{app} item {source} merged to {target} request ID {id} has been merged',
-                        {
-                            app: appName,
-                            source: source_branch,
-                            target: target_branch,
-                            id: iid
-                        }
-                    )
+                    t('{app} item {source} merged to {target} request ID {id} has been merged', {
+                        app: appName,
+                        source: source_branch,
+                        target: target_branch,
+                        id: iid
+                    })
                 )
             echo(green(t('Merge request {id}: Merged', { id: iid })))
         } else if (accept === t('View Details')) {
@@ -197,37 +178,24 @@ program.action(async (opt: GitmBuildOption): Promise<void> => {
                     )
                 )
                 echo(magenta(old_path))
-                old_path !== new_path &&
-                    echo(magenta(new_path + `(${t('New path')})`))
+                old_path !== new_path && echo(magenta(new_path + `(${t('New path')})`))
                 echo(
                     diff
-                        .replace(
-                            /(@@.+)\n/g,
-                            (m: string, p1: string) => cyan(p1) + '\n'
-                        )
-                        .replace(
-                            /\n(-.+)/g,
-                            (m: string, p1: string) => '\n' + red(p1)
-                        )
-                        .replace(
-                            /\n(\+.+)/g,
-                            (m: string, p1: string) => '\n' + green(p1)
-                        )
+                        .replace(/(@@.+)\n/g, (m: string, p1: string) => cyan(p1) + '\n')
+                        .replace(/\n(-.+)/g, (m: string, p1: string) => '\n' + red(p1))
+                        .replace(/\n(\+.+)/g, (m: string, p1: string) => '\n' + green(p1))
                 )
             }
         } else if (accept === t('Failed and deleted')) {
             await deleteMergeRequest({ token, iid })
             !opt.quiet &&
                 sendGroupMessage(
-                    t(
-                        '{app} item {source} merged to {target} request ID {id} has been deleted',
-                        {
-                            app: appName,
-                            source: source_branch,
-                            target: target_branch,
-                            id: iid
-                        }
-                    )
+                    t('{app} item {source} merged to {target} request ID {id} has been deleted', {
+                        app: appName,
+                        source: source_branch,
+                        target: target_branch,
+                        id: iid
+                    })
                 )
             echo(green(t('Merge request {id}: Deleted', { id: iid })))
         } else if (accept === t('Not passed')) {
@@ -239,15 +207,12 @@ program.action(async (opt: GitmBuildOption): Promise<void> => {
             })
             !opt.quiet &&
                 sendGroupMessage(
-                    t(
-                        '{app} item {source} merged to {target} request ID {id} has been closed',
-                        {
-                            app: appName,
-                            source: source_branch,
-                            target: target_branch,
-                            id: iid
-                        }
-                    )
+                    t('{app} item {source} merged to {target} request ID {id} has been closed', {
+                        app: appName,
+                        source: source_branch,
+                        target: target_branch,
+                        id: iid
+                    })
                 )
             echo(green(t('Merge request {id}: Closed', { id: iid })))
         }

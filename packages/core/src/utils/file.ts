@@ -71,15 +71,9 @@ export function removeFile(
         const fileExist = isFileExist(file.url)
         if (fileExist) {
             sh.rm(file.url)
-            file.name &&
-                spinner.succeed(
-                    chalk.green(t('{{name}} deleted', { name: file.name }))
-                )
+            file.name && spinner.succeed(chalk.green(t('{{name}} deleted', { name: file.name })))
         } else {
-            file.name &&
-                spinner.warn(
-                    chalk.green(t('{{name}} not found', { name: file.name }))
-                )
+            file.name && spinner.warn(chalk.green(t('{{name}} not found', { name: file.name })))
         }
     }
     spinner.stop()

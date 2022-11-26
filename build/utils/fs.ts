@@ -14,9 +14,7 @@ import { readFileSync, writeFileSync } from 'fs'
  * @param args.options - options
  * @returns result - json | {}
  */
-export function readJSON(
-    ...args: Parameters<typeof readFileSync>
-): Record<string, unknown> {
+export function readJSON(...args: Parameters<typeof readFileSync>): Record<string, unknown> {
     const data = readFileSync(...args).toString()
     try {
         return JSON.parse(data)

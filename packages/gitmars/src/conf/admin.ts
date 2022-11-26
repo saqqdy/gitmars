@@ -85,9 +85,7 @@ export const cmdConfig: GitmarsMultiOptionType = {
                 mandatory: false,
                 long: '--use-rebase',
                 negate: false,
-                description: t(
-                    'Whether to update using rebase method, default merge'
-                ),
+                description: t('Whether to update using rebase method, default merge'),
                 defaultValue: false,
                 recommend: false
             },
@@ -100,9 +98,7 @@ export const cmdConfig: GitmarsMultiOptionType = {
                 short: '-p',
                 long: '--prod',
                 negate: false,
-                description: t(
-                    'Whether to merge bugs to master when publishing bug branches'
-                ),
+                description: t('Whether to merge bugs to master when publishing bug branches'),
                 defaultValue: false,
                 recommend: false
             },
@@ -160,9 +156,7 @@ export const cmdConfig: GitmarsMultiOptionType = {
             if (val.includes('--combine') && val.includes('--prod')) {
                 cb(
                     new Error(
-                        t(
-                            'You cannot select both "Merge release to bug" and "Merge bug to master"'
-                        )
+                        t('You cannot select both "Merge release to bug" and "Merge bug to master"')
                     )
                 )
                 return
@@ -210,9 +204,7 @@ export const cmdConfig: GitmarsMultiOptionType = {
                 mandatory: false,
                 long: '--use-rebase',
                 negate: false,
-                description: t(
-                    'Whether to update using rebase method, default merge'
-                ),
+                description: t('Whether to update using rebase method, default merge'),
                 defaultValue: false,
                 recommend: false
             },

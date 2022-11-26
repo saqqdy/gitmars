@@ -11,11 +11,7 @@ import getGitLogsByCommitIDs from '@gitmars/core/lib/git/getGitLogsByCommitIDs'
 import getCurrentBranch from '@gitmars/core/lib/git/getCurrentBranch'
 import { createArgs } from '@gitmars/core/lib/utils/command'
 import echo from '@gitmars/core/lib/utils/echo'
-import {
-    addRevertCache,
-    getRevertCache,
-    setRevertCache
-} from '@gitmars/core/lib/cache/revertCache'
+import { addRevertCache, getRevertCache, setRevertCache } from '@gitmars/core/lib/cache/revertCache'
 import type { GitLogKeysType } from '@gitmars/core/typings/index'
 import type {
     CommandType,
@@ -95,15 +91,7 @@ function getRevertCommitIDs(commitIDs: string[]): string[] {
  * @param opt - option: GitmBuildOption
  */
 function calculate(all = false, opt: GitmBuildOption) {
-    const keys = [
-        '%H',
-        '%T',
-        '%P',
-        '%aI',
-        '%an',
-        '%s',
-        '%b'
-    ] as GitLogKeysType[]
+    const keys = ['%H', '%T', '%P', '%aI', '%an', '%s', '%b'] as GitLogKeysType[]
     const revertCache = getRevertCache()
     const current = getCurrentBranch()
     let len = revertCache.length
@@ -169,9 +157,7 @@ function calculate(all = false, opt: GitmBuildOption) {
  */
 program
     .name('gitm undo')
-    .usage(
-        '[commitid...] [--lastet [lastet]] [--limit [limit]] [-m --mode [mode]] [--no-merges]'
-    )
+    .usage('[commitid...] [--lastet [lastet]] [--limit [limit]] [-m --mode [mode]] [--no-merges]')
     .description(t('Undo a commit record'))
 if (args.length > 0) program.arguments(createArgs(args))
 options.forEach((o: GitmarsOptionOptionsType) => {
@@ -234,9 +220,9 @@ program.action(async (commitid: string[], opt: GitmBuildOption) => {
             logList.forEach((log, index) => {
                 const _time = dayjs(log['%aI']).format('YYYY/MM/DD HH:mm')
                 prompt.choices.push({
-                    name: `${green(index + 1 + '.')} ${green(
-                        log['%s']
-                    )} | ${yellow(log['%an'])} | ${blue(_time)}`,
+                    name: `${green(index + 1 + '.')} ${green(log['%s'])} | ${yellow(
+                        log['%an']
+                    )} | ${blue(_time)}`,
                     value: log['%H'],
                     checked: false
                 })
@@ -252,15 +238,11 @@ program.action(async (commitid: string[], opt: GitmBuildOption) => {
     // 获取没有被undo过的记录
     commitIDs = getRevertCommitIDs(commitIDs)
     if (commitIDs.length === 0) {
-        echo(
-            yellow(t('There are no revocable records, the process has exited'))
-        )
+        echo(yellow(t('There are no revocable records, the process has exited')))
         process.exit(0)
     }
     // 筛选被选择的记录
-    logList = logList.filter(log =>
-        commitIDs.some(id => log['%H']!.includes(id))
-    )
+    logList = logList.filter(log => commitIDs.some(id => log['%H']!.includes(id)))
     cmd = logList.map(log => {
         // 判断是否有merge的记录
         // const isMergeLog = log['%P'].indexOf(' ') > -1
@@ -300,9 +282,7 @@ program.action(async (commitid: string[], opt: GitmBuildOption) => {
             calculate(false, opt)
         })
         .catch(() => {
-            echo(
-                yellow(t('After handling conflicts, execute: gitm undo --calc'))
-            )
+            echo(yellow(t('After handling conflicts, execute: gitm undo --calc')))
         })
 })
 

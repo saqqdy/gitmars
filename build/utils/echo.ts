@@ -8,10 +8,7 @@ import chalk from 'chalk'
  * @param message - 需要输出的内容
  * @param type - 输出的类型
  */
-function echo(
-    message: string,
-    type?: 'warning' | 'info' | 'error' | 'success'
-): void {
+function echo(message: string, type?: 'warning' | 'info' | 'error' | 'success'): void {
     let output = format(message)
     switch (type) {
         case 'warning':

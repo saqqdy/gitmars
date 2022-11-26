@@ -7,25 +7,18 @@ const noWlPrefixFile =
     /(utils|styles|style|directives|plugins|filters|images|hooks|locale|directives)/
 
 export function generateExternal(
-    {
-        name,
-        input,
-        isFull = false
-    }: { name: string; input: string; isFull?: boolean },
+    { name, input, isFull = false }: { name: string; input: string; isFull?: boolean },
     externals: string[] = []
 ) {
-    const {
-        dependencies = {},
-        devDependencies = {},
-        peerDependencies = {}
-    } = require(resolve(PACKAGE, name, 'package.json'))
+    const { dependencies = {}, devDependencies = {}, peerDependencies = {} } = require(resolve(
+        PACKAGE,
+        name,
+        'package.json'
+    ))
     return (id: string) => {
         const pkgs: string[] = Object.keys(peerDependencies)
         if (!isFull) {
-            pkgs.push(
-                ...Object.keys(dependencies),
-                ...Object.keys(devDependencies)
-            )
+            pkgs.push(...Object.keys(dependencies), ...Object.keys(devDependencies))
         }
         return [...new Set(pkgs)].some(
             pkg =>
@@ -57,18 +50,12 @@ export function pathRewriter(bundlePath: string) {
 
 export const reporter = (opt: any, outputOptions: any, info: any) =>
     `${chalk.cyan(
-        chalk.bold(
-            (info.fileName &&
-                `${outputOptions.file?.split('packages/').pop()}`) ||
-                ''
-        )
+        chalk.bold((info.fileName && `${outputOptions.file?.split('packages/').pop()}`) || '')
     )}: bundle size ${chalk.yellow(info.bundleSize)} -> minified ${chalk.green(
         (info.minSize && `${info.minSize}`) || ''
     )}`
 
 export const excludeFiles = (files: string[]) => {
     const excludes = ['node_modules', 'test', 'mock', 'gulpfile', 'dist']
-    return files.filter(
-        path => !excludes.some(exclude => path.includes(exclude))
-    )
+    return files.filter(path => !excludes.some(exclude => path.includes(exclude)))
 }

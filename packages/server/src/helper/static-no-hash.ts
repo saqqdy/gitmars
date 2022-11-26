@@ -12,11 +12,7 @@ export default function (path: string) {
                         'Cache-Control',
                         'public, max-age=0, s-maxage=0, immutable, must-revalidate'
                     )
-                else
-                    res.set(
-                        'Cache-Control',
-                        'public, max-age=0, s-maxage=0, immutable'
-                    )
+                else res.set('Cache-Control', 'public, max-age=0, s-maxage=0, immutable')
             }
         })
     ]

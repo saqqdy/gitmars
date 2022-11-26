@@ -20,23 +20,14 @@ interface Action {
 /**
  * gitm alias
  */
-program
-    .name('gitm alias')
-    .usage('<action>')
-    .description(t('Install and remove shortcuts'))
+program.name('gitm alias').usage('<action>').description(t('Install and remove shortcuts'))
 if (args.length > 0) program.arguments(createArgs(args))
 options.forEach((o: GitmarsOptionOptionsType) => {
     program.option(o.flags, o.description, o.defaultValue)
 })
 program.action((action: Module) => {
     if (!actions.includes(action)) {
-        echo(
-            red(
-                t(
-                    'The method you entered is incorrect, only support: init, remove'
-                )
-            )
-        )
+        echo(red(t('The method you entered is incorrect, only support: init, remove')))
         process.exit(1)
     }
     const alias = {
@@ -71,22 +62,12 @@ program.action((action: Module) => {
     const cmd: Record<Module, Action> = {
         init: () => {
             for (const short in alias) {
-                spawnSync('git', [
-                    'config',
-                    '--global',
-                    `alias.${short}`,
-                    alias[short as Short]
-                ])
+                spawnSync('git', ['config', '--global', `alias.${short}`, alias[short as Short]])
             }
         },
         remove: () => {
             for (const short in alias) {
-                spawnSync('git', [
-                    'config',
-                    '--global',
-                    '--unset',
-                    `alias.${short}`
-                ])
+                spawnSync('git', ['config', '--global', '--unset', `alias.${short}`])
             }
         }
     }

@@ -17,10 +17,7 @@ router.all('*', (req: Request, res: Response, next: NextFunction) => {
         'Access-Control-Allow-Headers',
         'Content-Type, Content-Length, Authorization, Accept, Cache-Control'
     )
-    res.header(
-        'Access-Control-Allow-Methods',
-        'PUT, POST, GET, DELETE, OPTIONS'
-    )
+    res.header('Access-Control-Allow-Methods', 'PUT, POST, GET, DELETE, OPTIONS')
     res.header('Access-Control-Allow-Credentials', 'true')
     next()
 })

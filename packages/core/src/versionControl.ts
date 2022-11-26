@@ -40,9 +40,7 @@ export async function isNeedUpgrade(): Promise<boolean> {
  */
 export function upgradeGitmars() {
     sh.echo(
-        chalk.red(
-            t('Your version is detected as old, please upgrade before using')
-        ) +
+        chalk.red(t('Your version is detected as old, please upgrade before using')) +
             chalk.green(
                 t(
                     '\nMac users upgrade method: sudo gitm upgrade latest -m -c npm \nWindows users use PowerShell or CMD: gitm upgrade latest -m -c npm.cmd'

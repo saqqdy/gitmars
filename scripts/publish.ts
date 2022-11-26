@@ -20,21 +20,13 @@ for (const { name, pkgName } of packages) {
     const pkgJson = readJSON(PKG_FILE)
     const newPkgJson = JSON.parse(JSON.stringify(pkgJson))
     for (const { pkgName: pkg } of packages) {
-        if (
-            pkg in ((newPkgJson.dependencies as Record<string, unknown>) || {})
-        ) {
+        if (pkg in ((newPkgJson.dependencies as Record<string, unknown>) || {})) {
             newPkgJson.dependencies[pkg] = version
         }
-        if (
-            pkg in
-            ((newPkgJson.devDependencies as Record<string, unknown>) || {})
-        ) {
+        if (pkg in ((newPkgJson.devDependencies as Record<string, unknown>) || {})) {
             newPkgJson.devDependencies[pkg] = version
         }
-        if (
-            pkg in
-            ((newPkgJson.peerDependencies as Record<string, unknown>) || {})
-        ) {
+        if (pkg in ((newPkgJson.peerDependencies as Record<string, unknown>) || {})) {
             newPkgJson.peerDependencies[pkg] = version
         }
     }

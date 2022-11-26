@@ -18,10 +18,7 @@ type TimestampType = Record<string, number> & {
  * @param time - 过期时长，默认24 * 60 * 60 * 1000
  * @returns isCacheExpired - 返回是否过期
  */
-export function isCacheExpired(
-    name: keyof TimestampType,
-    time: number = 24 * 60 * 60 * 1000
-) {
+export function isCacheExpired(name: keyof TimestampType, time: number = 24 * 60 * 60 * 1000) {
     const now = new Date().getTime()
     let timestamp: TimestampType = {}
     if (!name) throw t('Please pass in the name')
@@ -46,10 +43,7 @@ export async function updateCacheTime(name: keyof TimestampType) {
         timestamp = require(resolve(CACHE_PATH + 'timestamp.json'))
     }
     timestamp[name] = now
-    await writeFile(
-        resolve(CACHE_PATH + 'timestamp.json'),
-        JSON.stringify(timestamp)
-    )
+    await writeFile(resolve(CACHE_PATH + 'timestamp.json'), JSON.stringify(timestamp))
 }
 
 export async function cleanCache() {

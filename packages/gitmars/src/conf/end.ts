@@ -30,9 +30,7 @@ export const cmdConfig: GitmarsOptionType = {
             mandatory: false,
             long: '--no-combine',
             negate: true,
-            description: t(
-                'Do not merge trunk branches (make sure the branch is live)'
-            ),
+            description: t('Do not merge trunk branches (make sure the branch is live)'),
             defaultValue: true,
             recommend: false
         },

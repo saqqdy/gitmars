@@ -109,9 +109,7 @@ export const cmdConfig: GitmarsOptionType = {
             mandatory: false,
             long: '--no-bugfix',
             negate: true,
-            description: t(
-                'bug branch merge to release without merging to bug branch'
-            ),
+            description: t('bug branch merge to release without merging to bug branch'),
             defaultValue: true,
             recommend: false
         },
@@ -149,11 +147,7 @@ export const cmdConfig: GitmarsOptionType = {
             (val.includes('--add') && !val.includes('--commit')) ||
             (!val.includes('--add') && val.includes('--commit'))
         ) {
-            cb(
-                new Error(
-                    t('add and commit need to be selected at the same time')
-                )
-            )
+            cb(new Error(t('add and commit need to be selected at the same time')))
             return
         }
         cb()

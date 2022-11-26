@@ -3,9 +3,7 @@ const { join } = require('path')
 const argv = process.argv.slice(2)
 
 const sets: unknown[] = []
-const absPath = require
-    .resolve('gitmars/package.json')
-    .replace(/package\.json$/, '')
+const absPath = require.resolve('gitmars/package.json').replace(/package\.json$/, '')
 
 // const readDir = (entry: string) => {
 //     const dirInfo = readdirSync(entry)
@@ -29,14 +27,7 @@ const absPath = require
 //     JSON.stringify(sets, null, 2)
 // )
 
-const FILE_NAME = join(
-    __dirname,
-    '..',
-    'src',
-    'views',
-    'control',
-    'gitmSets.ts'
-)
+const FILE_NAME = join(__dirname, '..', 'src', 'views', 'control', 'gitmSets.ts')
 let codes = readFileSync(FILE_NAME).toString()
 writeFileSync(
     FILE_NAME,

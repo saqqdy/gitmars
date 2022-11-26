@@ -62,9 +62,7 @@ ${getHookComment()}
             const hook = fs.readFileSync(filename, 'utf-8')
             // 合并
             if (getHookType.isGhooks(hook)) {
-                console.info(
-                    t('Merge existing ghooks hooks: {{name}}', { name })
-                )
+                console.info(t('Merge existing ghooks hooks: {{name}}', { name }))
                 return writeHook(filename, hookShell)
             }
             // 合并
@@ -152,11 +150,7 @@ export function createLocalShell(
     relativeUserPkgDir: string
 ): void {
     const filename = path.join(dir, 'gitmars.local.sh')
-    fs.writeFileSync(
-        filename,
-        getLocalShell(pmName, relativeUserPkgDir),
-        'utf-8'
-    )
+    fs.writeFileSync(filename, getLocalShell(pmName, relativeUserPkgDir), 'utf-8')
     fs.chmodSync(filename, 0o0755)
 }
 
@@ -177,9 +171,7 @@ export function init(): void {
     const gitVersionIsNew = gitVersion && compareVersion(gitVersion, '2.13.0')
     // 集成环境不安装
     if (ciInfo.isCI && config.skipCI) {
-        console.info(
-            t('Continuous integration environment, skip hook installation')
-        )
+        console.info(t('Continuous integration environment, skip hook installation'))
         return
     }
     // 如果没有hooks文件夹，创建
@@ -189,9 +181,7 @@ export function init(): void {
     if (['1', 'true'].includes(process.env.GITMARS_SKIP_HOOKS || '')) {
         sh.echo(
             chalk.yellow(
-                t(
-                    'Environment variable GITMARS_SKIP_HOOKS already exists, skip installation'
-                )
+                t('Environment variable GITMARS_SKIP_HOOKS already exists, skip installation')
             )
         )
         process.exit(0)
@@ -200,9 +190,7 @@ export function init(): void {
     if (!gitVersionIsNew) {
         sh.echo(
             chalk.yellow(
-                t(
-                    'Gitmars requires Git version 2.13.0 or higher, current version'
-                ) +
+                t('Gitmars requires Git version 2.13.0 or higher, current version') +
                     ': ' +
                     gitVersion
             )

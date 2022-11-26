@@ -14,22 +14,13 @@ const { t } = lang
 function checkGitStatus(): boolean {
     const sum = getGitStatus({ stdio: 'inherit' })
     debug('checkGitStatus', sum)
-    if (
-        sum.A.length > 0 ||
-        sum.D.length > 0 ||
-        sum.M.length > 0 ||
-        sum.UU.length > 0
-    ) {
+    if (sum.A.length > 0 || sum.D.length > 0 || sum.M.length > 0 || sum.UU.length > 0) {
         sh.echo(
             chalk.red(
-                t(
-                    'You still have uncommitted files, please process them before continuing'
-                )
+                t('You still have uncommitted files, please process them before continuing')
             ) +
                 '\n' +
-                t(
-                    'If you need to staging files please do: gitm save\nWhen resuming: gitm get'
-                )
+                t('If you need to staging files please do: gitm save\nWhen resuming: gitm get')
         )
         process.exit(1)
         return false

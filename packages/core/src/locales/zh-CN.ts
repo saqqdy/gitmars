@@ -1,7 +1,6 @@
 export default {
     name: 'zh-CN',
-    'The current directory is not a git project directory':
-        '当前目录不是git项目目录',
+    'The current directory is not a git project directory': '当前目录不是git项目目录',
     'Successful Pushed': '推送成功',
     'Processing complete': '处理完成',
     'Command name cannot be empty': '指令名称不能为空',
@@ -23,8 +22,7 @@ export default {
     'The request reported an error': '请求报错了',
     'Please enter the correct environment name': '请输入正确的环境名称',
     'Please enter the correct application name': '请输入正确的应用名称',
-    'Please configure the Jenkins build address template':
-        '请配置Jenkins构建地址模板',
+    'Please configure the Jenkins build address template': '请配置Jenkins构建地址模板',
     'Successfully pulled up Jenkins build': '成功调起Jenkins构建',
     'Cache time Map file': '缓存时间Map文件',
     'Please pass in the name': '请传入名称',
@@ -70,16 +68,13 @@ export default {
     'Please fill in': '请填写',
     'If prompted "fatal: not a git repository", please check the value of GIT_DIR':
         '如果提示"fatal: not a git repository"，请检查 GIT_DIR 的值',
-    'Continuous integration environment, skip hook installation':
-        '持续集成环境，跳过钩子安装',
+    'Continuous integration environment, skip hook installation': '持续集成环境，跳过钩子安装',
     'Environment variable GITMARS_SKIP_HOOKS already exists, skip installation':
         '已存在环境变量GITMARS_SKIP_HOOKS，跳过安装',
     'Gitmars requires Git version 2.13.0 or higher, current version':
         'Gitmars需要使用2.13.0以上版本的Git，当前版本',
-    'Gitmars > Unknown error! Please contact Wu Feng':
-        'Gitmars > 未知错误！请联系吴峰',
-    'Please configure the message sending api template address':
-        '请配置消息发送api模板地址',
+    'Gitmars > Unknown error! Please contact Wu Feng': 'Gitmars > 未知错误！请联系吴峰',
+    'Please configure the message sending api template address': '请配置消息发送api模板地址',
     'An error occurred': '出错了',
     'An error has occurred! Command {command} execution failed, process exits':
         '出错了！指令 {cmd} 执行失败，中断了进程',
@@ -88,8 +83,7 @@ export default {
     'Not required{tips}': '可不填{tips}',
     'default "{defaultValue}"': '默认"{defaultValue}"',
     'Merge existing ghooks hooks: {name}': '合并已存在的ghooks钩子: {name}',
-    'Merge existing pre-commit hooks: {name}':
-        '合并已存在的pre-commit钩子: {name}',
+    'Merge existing pre-commit hooks: {name}': '合并已存在的pre-commit钩子: {name}',
     'Skip existing git hooks: {name}': '跳过已存在的git钩子: {name}',
     'Cleaned up': '清理完毕',
     '{name} not found': '{name}未找到',

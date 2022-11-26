@@ -13,10 +13,7 @@ const { args, options } = unlinkConfig
 /**
  * gitm unlink
  */
-program
-    .name('gitm unlink')
-    .usage('[name]')
-    .description(t('Unlinking local package'))
+program.name('gitm unlink').usage('[name]').description(t('Unlinking local package'))
 if (args.length > 0) program.arguments(createArgs(args))
 options.forEach((o: GitmarsOptionOptionsType) => {
     program.option(o.flags, o.description, o.defaultValue)
@@ -34,9 +31,7 @@ program.action((name: string) => {
         // sh.rm('-rf', `./node_modules/${name}`)
         spawnSync(npmClient, ['unlink', name])
     } else {
-        sh.echo(
-            t('No softlink found, please confirm entering the correct name')
-        )
+        sh.echo(t('No softlink found, please confirm entering the correct name'))
     }
     if (isExist) {
         sh.mv(`./node_modules/${name}_bak`, `./node_modules/${name}`)

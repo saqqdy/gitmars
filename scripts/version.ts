@@ -1,10 +1,5 @@
 import { resolve } from 'path'
-import {
-    type ExecSyncOptions,
-    type SpawnSyncOptions,
-    execSync,
-    spawnSync
-} from 'child_process'
+import { type ExecSyncOptions, type SpawnSyncOptions, execSync, spawnSync } from 'child_process'
 import { Separator, prompt } from 'inquirer'
 import pkg from '../package.json'
 import { writeJSON } from '../build/utils/fs'

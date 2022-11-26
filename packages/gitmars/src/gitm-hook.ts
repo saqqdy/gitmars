@@ -56,415 +56,384 @@ options.forEach((o: GitmarsOptionOptionsType) => {
 // .option('--limit [limit]', t('The maximum number of logs to be queried'))
 // .option('-t, --type <type>', t('Detection type'))
 // .option('--branch [branch]', t('Branch to query'))
-program.action(
-    async (
-        command: string,
-        args: string[],
-        opt: GitmBuildOption
-    ): Promise<void> => {
-        // 不检测直接返回
-        if (opt.noVerify) {
-            process.exit(0)
-            return
-        }
+program.action(async (command: string, args: string[], opt: GitmBuildOption): Promise<void> => {
+    // 不检测直接返回
+    if (opt.noVerify) {
+        process.exit(0)
+        return
+    }
 
-        if (command === 'init') {
-            init()
-        } else if (command === 'remove') {
-            remove()
-        } else {
-            const types: string[] = opt.type ? opt.type.split(',') : []
-            const mainBranches = [
-                config.master,
-                config.develop,
-                config.release,
-                config.support,
-                config.bugfix
-            ]
-            const current = getCurrentBranch()
-            // GIT_REFLOG_ACTION: 'merge feature/wu',   说明走的是pre-merge-commit钩子，没有冲突的时候才会走这里
+    if (command === 'init') {
+        init()
+    } else if (command === 'remove') {
+        remove()
+    } else {
+        const types: string[] = opt.type ? opt.type.split(',') : []
+        const mainBranches = [
+            config.master,
+            config.develop,
+            config.release,
+            config.support,
+            config.bugfix
+        ]
+        const current = getCurrentBranch()
+        // GIT_REFLOG_ACTION: 'merge feature/wu',   说明走的是pre-merge-commit钩子，没有冲突的时候才会走这里
 
-            // [1,2]
-            // pre-merge-commit
-            // env
-            // {
-            //   NVM_INC: '/Users/saqqdy/.nvm/versions/node/v12.18.4/include/node',
-            //   TERM_PROGRAM: 'vscode',
-            //   GITHEAD_acc96d08801012ad966d6e6290d6e300ac7e515f: 'feature/hooks',
-            //   NVM_CD_FLAGS: '-q',
-            //   SHELL: '/bin/zsh',
-            //   TERM: 'xterm-256color',
-            //   HOMEBREW_BOTTLE_DOMAIN: 'https://mirrors.ustc.edu.cn/homebrew-bottles',
-            //   TMPDIR: '/var/folders/g_/l7kkw491041c0j788971x61h0000gn/T/',
-            //   TERM_PROGRAM_VERSION: '1.52.1',
-            //   ORIGINAL_XDG_CURRENT_DESKTOP: 'undefined',
-            //   GIT_REFLOG_ACTION: 'merge feature/hooks',
-            //   ZSH: '/Users/saqqdy/.oh-my-zsh',
-            //   NVM_DIR: '/Users/saqqdy/.nvm',
-            //   USER: 'saqqdy',
-            //   COMMAND_MODE: 'unix2003',
-            //   GIT_INDEX_FILE: '.git/index',
-            //   SSH_AUTH_SOCK: '/private/tmp/com.apple.launchd.AWN6MRz7nq/Listeners',
-            //   __CF_USER_TEXT_ENCODING: '0x1F5:0x19:0x34',
-            //   PAGER: 'less',
-            //   GIT_PREFIX: '',
-            //   LSCOLORS: 'Gxfxcxdxbxegedabagacad',
-            //   PATH: '/usr/local/Cellar/git/2.30.0/libexec/git-core:/usr/local/Cellar/git/2.30.0/libexec/git-core:/Users/saqqdy/.nvm/versions/node/v12.18.4/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Applications/VMware Fusion.app/Contents/Public:/Library/Apple/usr/bin:/Users/saqqdy/.nvm/versions/node/v12.18.4/bin',
-            //   _: '/Users/saqqdy/.nvm/versions/node/v12.18.4/bin/gitm',
-            //   LaunchInstanceID: '8EF81FC6-B59A-459E-8571-F561E68E8C5C',
-            //   __CFBundleIdentifier: 'com.microsoft.VSCode',
-            //   PWD: '/Users/saqqdy/www/saqqdy/gitmars',
-            //   LANG: 'zh_CN.UTF-8',
-            //   GITMARS_GIT_PARAMS: '',
-            //   XPC_FLAGS: '0x0',
-            //   XPC_SERVICE_NAME: '0',
-            //   HOME: '/Users/saqqdy',
-            //   NVM_LOCAL: '/usr/local/opt/nvm',
-            //   SHLVL: '3',
-            //   VSCODE_GIT_ASKPASS_MAIN: '/Applications/Visual Studio Code.app/Contents/Resources/app/extensions/git/dist/askpass-main.js',
-            //   LESS: '-R',
-            //   LOGNAME: 'saqqdy',
-            //   VSCODE_GIT_IPC_HANDLE: '/var/folders/g_/l7kkw491041c0j788971x61h0000gn/T/vscode-git-ccf0d34b37.sock',
-            //   NVM_BIN: '/Users/saqqdy/.nvm/versions/node/v12.18.4/bin',
-            //   GIT_ASKPASS: '/Applications/Visual Studio Code.app/Contents/Resources/app/extensions/git/dist/askpass.sh',
-            //   VSCODE_GIT_ASKPASS_NODE: '/Applications/Visual Studio Code.app/Contents/Frameworks/Code Helper (Renderer).app/Contents/MacOS/Code Helper (Renderer)',
-            //   SECURITYSESSIONID: '186a9',
-            //   GIT_EXEC_PATH: '/usr/local/Cellar/git/2.30.0/libexec/git-core',
-            //   COLORTERM: 'truecolor'
-            // }
+        // [1,2]
+        // pre-merge-commit
+        // env
+        // {
+        //   NVM_INC: '/Users/saqqdy/.nvm/versions/node/v12.18.4/include/node',
+        //   TERM_PROGRAM: 'vscode',
+        //   GITHEAD_acc96d08801012ad966d6e6290d6e300ac7e515f: 'feature/hooks',
+        //   NVM_CD_FLAGS: '-q',
+        //   SHELL: '/bin/zsh',
+        //   TERM: 'xterm-256color',
+        //   HOMEBREW_BOTTLE_DOMAIN: 'https://mirrors.ustc.edu.cn/homebrew-bottles',
+        //   TMPDIR: '/var/folders/g_/l7kkw491041c0j788971x61h0000gn/T/',
+        //   TERM_PROGRAM_VERSION: '1.52.1',
+        //   ORIGINAL_XDG_CURRENT_DESKTOP: 'undefined',
+        //   GIT_REFLOG_ACTION: 'merge feature/hooks',
+        //   ZSH: '/Users/saqqdy/.oh-my-zsh',
+        //   NVM_DIR: '/Users/saqqdy/.nvm',
+        //   USER: 'saqqdy',
+        //   COMMAND_MODE: 'unix2003',
+        //   GIT_INDEX_FILE: '.git/index',
+        //   SSH_AUTH_SOCK: '/private/tmp/com.apple.launchd.AWN6MRz7nq/Listeners',
+        //   __CF_USER_TEXT_ENCODING: '0x1F5:0x19:0x34',
+        //   PAGER: 'less',
+        //   GIT_PREFIX: '',
+        //   LSCOLORS: 'Gxfxcxdxbxegedabagacad',
+        //   PATH: '/usr/local/Cellar/git/2.30.0/libexec/git-core:/usr/local/Cellar/git/2.30.0/libexec/git-core:/Users/saqqdy/.nvm/versions/node/v12.18.4/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Applications/VMware Fusion.app/Contents/Public:/Library/Apple/usr/bin:/Users/saqqdy/.nvm/versions/node/v12.18.4/bin',
+        //   _: '/Users/saqqdy/.nvm/versions/node/v12.18.4/bin/gitm',
+        //   LaunchInstanceID: '8EF81FC6-B59A-459E-8571-F561E68E8C5C',
+        //   __CFBundleIdentifier: 'com.microsoft.VSCode',
+        //   PWD: '/Users/saqqdy/www/saqqdy/gitmars',
+        //   LANG: 'zh_CN.UTF-8',
+        //   GITMARS_GIT_PARAMS: '',
+        //   XPC_FLAGS: '0x0',
+        //   XPC_SERVICE_NAME: '0',
+        //   HOME: '/Users/saqqdy',
+        //   NVM_LOCAL: '/usr/local/opt/nvm',
+        //   SHLVL: '3',
+        //   VSCODE_GIT_ASKPASS_MAIN: '/Applications/Visual Studio Code.app/Contents/Resources/app/extensions/git/dist/askpass-main.js',
+        //   LESS: '-R',
+        //   LOGNAME: 'saqqdy',
+        //   VSCODE_GIT_IPC_HANDLE: '/var/folders/g_/l7kkw491041c0j788971x61h0000gn/T/vscode-git-ccf0d34b37.sock',
+        //   NVM_BIN: '/Users/saqqdy/.nvm/versions/node/v12.18.4/bin',
+        //   GIT_ASKPASS: '/Applications/Visual Studio Code.app/Contents/Resources/app/extensions/git/dist/askpass.sh',
+        //   VSCODE_GIT_ASKPASS_NODE: '/Applications/Visual Studio Code.app/Contents/Frameworks/Code Helper (Renderer).app/Contents/MacOS/Code Helper (Renderer)',
+        //   SECURITYSESSIONID: '186a9',
+        //   GIT_EXEC_PATH: '/usr/local/Cellar/git/2.30.0/libexec/git-core',
+        //   COLORTERM: 'truecolor'
+        // }
 
-            // prepare-commit-msg
-            // {
-            // 	NVM_INC: '/Users/saqqdy/.nvm/versions/node/v12.18.4/include/node',
-            // 	TERM_PROGRAM: 'vscode',
-            // 	NVM_CD_FLAGS: '-q',
-            // 	SHELL: '/bin/zsh',
-            // 	TERM: 'xterm-256color',
-            // 	HOMEBREW_BOTTLE_DOMAIN: 'https://mirrors.ustc.edu.cn/homebrew-bottles',
-            // 	TMPDIR: '/var/folders/g_/l7kkw491041c0j788971x61h0000gn/T/',
-            // 	TERM_PROGRAM_VERSION: '1.53.0',
-            // 	ORIGINAL_XDG_CURRENT_DESKTOP: 'undefined',
-            // 	GIT_REFLOG_ACTION: 'merge feature/wu',
-            // 	ZSH: '/Users/saqqdy/.oh-my-zsh',
-            // 	NVM_DIR: '/Users/saqqdy/.nvm',
-            // 	USER: 'saqqdy',
-            // 	COMMAND_MODE: 'unix2003',
-            // 	GIT_INDEX_FILE: '.git/index',
-            // 	SSH_AUTH_SOCK: '/private/tmp/com.apple.launchd.YaH1gggRtR/Listeners',
-            // 	__CF_USER_TEXT_ENCODING: '0x1F5:0x19:0x34',
-            // 	PAGER: 'less',
-            // 	GIT_PREFIX: '',
-            // 	LSCOLORS: 'Gxfxcxdxbxegedabagacad',
-            // 	PATH: '/usr/local/Cellar/git/2.30.0/libexec/git-core:/usr/local/Cellar/git/2.30.0/libexec/git-core:/Users/saqqdy/.nvm/versions/node/v12.18.4/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Applications/VMware Fusion.app/Contents/Public:/Library/Apple/usr/bin:/Users/saqqdy/.nvm/versions/node/v12.18.4/bin',
-            // 	_: '/Users/saqqdy/.nvm/versions/node/v12.18.4/bin/gitm',
-            // 	__CFBundleIdentifier: 'com.microsoft.VSCode',
-            // 	PWD: '/Users/saqqdy/www/saqqdy/gitmars/webapp/app',
-            // 	LANG: 'zh_CN.UTF-8',
-            // 	GITMARS_GIT_PARAMS: '.git/MERGE_MSG merge',
-            // 	XPC_FLAGS: '0x0',
-            // 	GITHEAD_aeea41c7f39dac18483d8a3527c0756f48b2dfaf: 'feature/wu',
-            // 	XPC_SERVICE_NAME: '0',
-            // 	HOME: '/Users/saqqdy',
-            // 	NVM_LOCAL: '/usr/local/opt/nvm',
-            // 	SHLVL: '3',
-            // 	VSCODE_GIT_ASKPASS_MAIN: '/Applications/Visual Studio Code.app/Contents/Resources/app/extensions/git/dist/askpass-main.js',
-            // 	LESS: '-R',
-            // 	LOGNAME: 'saqqdy',
-            // 	VSCODE_GIT_IPC_HANDLE: '/var/folders/g_/l7kkw491041c0j788971x61h0000gn/T/vscode-git-ccf0d34b37.sock',
-            // 	NVM_BIN: '/Users/saqqdy/.nvm/versions/node/v12.18.4/bin',
-            // 	GIT_ASKPASS: '/Applications/Visual Studio Code.app/Contents/Resources/app/extensions/git/dist/askpass.sh',
-            // 	VSCODE_GIT_ASKPASS_NODE: '/Applications/Visual Studio Code.app/Contents/Frameworks/Code Helper (Renderer).app/Contents/MacOS/Code Helper (Renderer)',
-            // 	GIT_EXEC_PATH: '/usr/local/Cellar/git/2.30.0/libexec/git-core',
-            // 	COLORTERM: 'truecolor'
-            // }
+        // prepare-commit-msg
+        // {
+        // 	NVM_INC: '/Users/saqqdy/.nvm/versions/node/v12.18.4/include/node',
+        // 	TERM_PROGRAM: 'vscode',
+        // 	NVM_CD_FLAGS: '-q',
+        // 	SHELL: '/bin/zsh',
+        // 	TERM: 'xterm-256color',
+        // 	HOMEBREW_BOTTLE_DOMAIN: 'https://mirrors.ustc.edu.cn/homebrew-bottles',
+        // 	TMPDIR: '/var/folders/g_/l7kkw491041c0j788971x61h0000gn/T/',
+        // 	TERM_PROGRAM_VERSION: '1.53.0',
+        // 	ORIGINAL_XDG_CURRENT_DESKTOP: 'undefined',
+        // 	GIT_REFLOG_ACTION: 'merge feature/wu',
+        // 	ZSH: '/Users/saqqdy/.oh-my-zsh',
+        // 	NVM_DIR: '/Users/saqqdy/.nvm',
+        // 	USER: 'saqqdy',
+        // 	COMMAND_MODE: 'unix2003',
+        // 	GIT_INDEX_FILE: '.git/index',
+        // 	SSH_AUTH_SOCK: '/private/tmp/com.apple.launchd.YaH1gggRtR/Listeners',
+        // 	__CF_USER_TEXT_ENCODING: '0x1F5:0x19:0x34',
+        // 	PAGER: 'less',
+        // 	GIT_PREFIX: '',
+        // 	LSCOLORS: 'Gxfxcxdxbxegedabagacad',
+        // 	PATH: '/usr/local/Cellar/git/2.30.0/libexec/git-core:/usr/local/Cellar/git/2.30.0/libexec/git-core:/Users/saqqdy/.nvm/versions/node/v12.18.4/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Applications/VMware Fusion.app/Contents/Public:/Library/Apple/usr/bin:/Users/saqqdy/.nvm/versions/node/v12.18.4/bin',
+        // 	_: '/Users/saqqdy/.nvm/versions/node/v12.18.4/bin/gitm',
+        // 	__CFBundleIdentifier: 'com.microsoft.VSCode',
+        // 	PWD: '/Users/saqqdy/www/saqqdy/gitmars/webapp/app',
+        // 	LANG: 'zh_CN.UTF-8',
+        // 	GITMARS_GIT_PARAMS: '.git/MERGE_MSG merge',
+        // 	XPC_FLAGS: '0x0',
+        // 	GITHEAD_aeea41c7f39dac18483d8a3527c0756f48b2dfaf: 'feature/wu',
+        // 	XPC_SERVICE_NAME: '0',
+        // 	HOME: '/Users/saqqdy',
+        // 	NVM_LOCAL: '/usr/local/opt/nvm',
+        // 	SHLVL: '3',
+        // 	VSCODE_GIT_ASKPASS_MAIN: '/Applications/Visual Studio Code.app/Contents/Resources/app/extensions/git/dist/askpass-main.js',
+        // 	LESS: '-R',
+        // 	LOGNAME: 'saqqdy',
+        // 	VSCODE_GIT_IPC_HANDLE: '/var/folders/g_/l7kkw491041c0j788971x61h0000gn/T/vscode-git-ccf0d34b37.sock',
+        // 	NVM_BIN: '/Users/saqqdy/.nvm/versions/node/v12.18.4/bin',
+        // 	GIT_ASKPASS: '/Applications/Visual Studio Code.app/Contents/Resources/app/extensions/git/dist/askpass.sh',
+        // 	VSCODE_GIT_ASKPASS_NODE: '/Applications/Visual Studio Code.app/Contents/Frameworks/Code Helper (Renderer).app/Contents/MacOS/Code Helper (Renderer)',
+        // 	GIT_EXEC_PATH: '/usr/local/Cellar/git/2.30.0/libexec/git-core',
+        // 	COLORTERM: 'truecolor'
+        // }
 
-            // pre-commit
-            // {
-            // 	NVM_INC: '/Users/saqqdy/.nvm/versions/node/v12.18.4/include/node',
-            // 	TERM_PROGRAM: 'vscode',
-            // 	NVM_CD_FLAGS: '-q',
-            // 	SHELL: '/bin/zsh',
-            // 	TERM: 'xterm-256color',
-            // 	HOMEBREW_BOTTLE_DOMAIN: 'https://mirrors.ustc.edu.cn/homebrew-bottles',
-            // 	TMPDIR: '/var/folders/g_/l7kkw491041c0j788971x61h0000gn/T/',
-            // 	TERM_PROGRAM_VERSION: '1.53.0',
-            // 	ORIGINAL_XDG_CURRENT_DESKTOP: 'undefined',
-            // 	GIT_AUTHOR_DATE: '@1612663572 +0800',
-            // 	ZSH: '/Users/saqqdy/.oh-my-zsh',
-            // 	NVM_DIR: '/Users/saqqdy/.nvm',
-            // 	USER: 'saqqdy',
-            // 	COMMAND_MODE: 'unix2003',
-            // 	GIT_INDEX_FILE: '.git/index',
-            // 	SSH_AUTH_SOCK: '/private/tmp/com.apple.launchd.YaH1gggRtR/Listeners',
-            // 	__CF_USER_TEXT_ENCODING: '0x1F5:0x19:0x34',
-            // 	GIT_AUTHOR_NAME: 'saqqdy',
-            // 	PAGER: 'less',
-            // 	GIT_PREFIX: '',
-            // 	LSCOLORS: 'Gxfxcxdxbxegedabagacad',
-            // 	PATH: '/usr/local/Cellar/git/2.30.0/libexec/git-core:/usr/local/Cellar/git/2.30.0/libexec/git-core:/usr/local/Cellar/git/2.30.0/libexec/git-core:/Users/saqqdy/.nvm/versions/node/v12.18.4/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Applications/VMware Fusion.app/Contents/Public:/Library/Apple/usr/bin:/Users/saqqdy/.nvm/versions/node/v12.18.4/bin',
-            // 	_: '/Users/saqqdy/.nvm/versions/node/v12.18.4/bin/gitm',
-            // 	__CFBundleIdentifier: 'com.microsoft.VSCode',
-            // 	PWD: '/Users/saqqdy/www/saqqdy/gitmars/webapp/app',
-            // 	LANG: 'zh_CN.UTF-8',
-            // 	GITMARS_GIT_PARAMS: '',
-            // 	XPC_FLAGS: '0x0',
-            // 	XPC_SERVICE_NAME: '0',
-            // 	HOME: '/Users/saqqdy',
-            // 	NVM_LOCAL: '/usr/local/opt/nvm',
-            // 	SHLVL: '3',
-            // 	VSCODE_GIT_ASKPASS_MAIN: '/Applications/Visual Studio Code.app/Contents/Resources/app/extensions/git/dist/askpass-main.js',
-            // 	LESS: '-R',
-            // 	LOGNAME: 'saqqdy',
-            // 	VSCODE_GIT_IPC_HANDLE: '/var/folders/g_/l7kkw491041c0j788971x61h0000gn/T/vscode-git-ccf0d34b37.sock',
-            // 	NVM_BIN: '/Users/saqqdy/.nvm/versions/node/v12.18.4/bin',
-            // 	GIT_ASKPASS: '/Applications/Visual Studio Code.app/Contents/Resources/app/extensions/git/dist/askpass.sh',
-            // 	VSCODE_GIT_ASKPASS_NODE: '/Applications/Visual Studio Code.app/Contents/Frameworks/Code Helper (Renderer).app/Contents/MacOS/Code Helper (Renderer)',
-            // 	GIT_AUTHOR_EMAIL: 'saqqdy@qq.com',
-            // 	GIT_EXEC_PATH: '/usr/local/Cellar/git/2.30.0/libexec/git-core',
-            // 	COLORTERM: 'truecolor'
-            // }
+        // pre-commit
+        // {
+        // 	NVM_INC: '/Users/saqqdy/.nvm/versions/node/v12.18.4/include/node',
+        // 	TERM_PROGRAM: 'vscode',
+        // 	NVM_CD_FLAGS: '-q',
+        // 	SHELL: '/bin/zsh',
+        // 	TERM: 'xterm-256color',
+        // 	HOMEBREW_BOTTLE_DOMAIN: 'https://mirrors.ustc.edu.cn/homebrew-bottles',
+        // 	TMPDIR: '/var/folders/g_/l7kkw491041c0j788971x61h0000gn/T/',
+        // 	TERM_PROGRAM_VERSION: '1.53.0',
+        // 	ORIGINAL_XDG_CURRENT_DESKTOP: 'undefined',
+        // 	GIT_AUTHOR_DATE: '@1612663572 +0800',
+        // 	ZSH: '/Users/saqqdy/.oh-my-zsh',
+        // 	NVM_DIR: '/Users/saqqdy/.nvm',
+        // 	USER: 'saqqdy',
+        // 	COMMAND_MODE: 'unix2003',
+        // 	GIT_INDEX_FILE: '.git/index',
+        // 	SSH_AUTH_SOCK: '/private/tmp/com.apple.launchd.YaH1gggRtR/Listeners',
+        // 	__CF_USER_TEXT_ENCODING: '0x1F5:0x19:0x34',
+        // 	GIT_AUTHOR_NAME: 'saqqdy',
+        // 	PAGER: 'less',
+        // 	GIT_PREFIX: '',
+        // 	LSCOLORS: 'Gxfxcxdxbxegedabagacad',
+        // 	PATH: '/usr/local/Cellar/git/2.30.0/libexec/git-core:/usr/local/Cellar/git/2.30.0/libexec/git-core:/usr/local/Cellar/git/2.30.0/libexec/git-core:/Users/saqqdy/.nvm/versions/node/v12.18.4/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Applications/VMware Fusion.app/Contents/Public:/Library/Apple/usr/bin:/Users/saqqdy/.nvm/versions/node/v12.18.4/bin',
+        // 	_: '/Users/saqqdy/.nvm/versions/node/v12.18.4/bin/gitm',
+        // 	__CFBundleIdentifier: 'com.microsoft.VSCode',
+        // 	PWD: '/Users/saqqdy/www/saqqdy/gitmars/webapp/app',
+        // 	LANG: 'zh_CN.UTF-8',
+        // 	GITMARS_GIT_PARAMS: '',
+        // 	XPC_FLAGS: '0x0',
+        // 	XPC_SERVICE_NAME: '0',
+        // 	HOME: '/Users/saqqdy',
+        // 	NVM_LOCAL: '/usr/local/opt/nvm',
+        // 	SHLVL: '3',
+        // 	VSCODE_GIT_ASKPASS_MAIN: '/Applications/Visual Studio Code.app/Contents/Resources/app/extensions/git/dist/askpass-main.js',
+        // 	LESS: '-R',
+        // 	LOGNAME: 'saqqdy',
+        // 	VSCODE_GIT_IPC_HANDLE: '/var/folders/g_/l7kkw491041c0j788971x61h0000gn/T/vscode-git-ccf0d34b37.sock',
+        // 	NVM_BIN: '/Users/saqqdy/.nvm/versions/node/v12.18.4/bin',
+        // 	GIT_ASKPASS: '/Applications/Visual Studio Code.app/Contents/Resources/app/extensions/git/dist/askpass.sh',
+        // 	VSCODE_GIT_ASKPASS_NODE: '/Applications/Visual Studio Code.app/Contents/Frameworks/Code Helper (Renderer).app/Contents/MacOS/Code Helper (Renderer)',
+        // 	GIT_AUTHOR_EMAIL: 'saqqdy@qq.com',
+        // 	GIT_EXEC_PATH: '/usr/local/Cellar/git/2.30.0/libexec/git-core',
+        // 	COLORTERM: 'truecolor'
+        // }
 
-            // [3,4]
-            // pre-push
-            // {
-            // 	NVM_INC: '/Users/saqqdy/.nvm/versions/node/v12.18.4/include/node',
-            // 	TERM_PROGRAM: 'vscode',
-            // 	NVM_CD_FLAGS: '-q',
-            // 	SHELL: '/bin/zsh',
-            // 	TERM: 'xterm-256color',
-            // 	HOMEBREW_BOTTLE_DOMAIN: 'https://mirrors.ustc.edu.cn/homebrew-bottles',
-            // 	TMPDIR: '/var/folders/g_/l7kkw491041c0j788971x61h0000gn/T/',
-            // 	TERM_PROGRAM_VERSION: '1.53.0',
-            // 	ORIGINAL_XDG_CURRENT_DESKTOP: 'undefined',
-            // 	ZSH: '/Users/saqqdy/.oh-my-zsh',
-            // 	NVM_DIR: '/Users/saqqdy/.nvm',
-            // 	USER: 'saqqdy',
-            // 	COMMAND_MODE: 'unix2003',
-            // 	SSH_AUTH_SOCK: '/private/tmp/com.apple.launchd.YaH1gggRtR/Listeners',
-            // 	__CF_USER_TEXT_ENCODING: '0x1F5:0x19:0x34',
-            // 	PAGER: 'less',
-            // 	GIT_PREFIX: '',
-            // 	LSCOLORS: 'Gxfxcxdxbxegedabagacad',
-            // 	PATH: '/usr/local/Cellar/git/2.30.0/libexec/git-core:/usr/local/Cellar/git/2.30.0/libexec/git-core:/Users/saqqdy/.nvm/versions/node/v12.18.4/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Applications/VMware Fusion.app/Contents/Public:/Library/Apple/usr/bin:/Users/saqqdy/.nvm/versions/node/v12.18.4/bin',
-            // 	_: '/Users/saqqdy/.nvm/versions/node/v12.18.4/bin/gitm',
-            // 	__CFBundleIdentifier: 'com.microsoft.VSCode',
-            // 	PWD: '/Users/saqqdy/www/saqqdy/gitmars/webapp/app',
-            // 	LANG: 'zh_CN.UTF-8',
-            // 	GITMARS_GIT_PARAMS: 'origin http://git.kingdee.com/wojiacloud_web/wyweb.git',
-            // 	XPC_FLAGS: '0x0',
-            // 	GITMARS_GIT_STDIN: 'refs/heads/feature/hooks 1fc02a535d90fd675ed17a9ef49524cae95ee21a refs/heads/feature/hooks acc96d08801012ad966d6e6290d6e300ac7e515f',
-            // 	XPC_SERVICE_NAME: '0',
-            // 	HOME: '/Users/saqqdy',
-            // 	NVM_LOCAL: '/usr/local/opt/nvm',
-            // 	SHLVL: '3',
-            // 	VSCODE_GIT_ASKPASS_MAIN: '/Applications/Visual Studio Code.app/Contents/Resources/app/extensions/git/dist/askpass-main.js',
-            // 	LESS: '-R',
-            // 	LOGNAME: 'saqqdy',
-            // 	VSCODE_GIT_IPC_HANDLE: '/var/folders/g_/l7kkw491041c0j788971x61h0000gn/T/vscode-git-ccf0d34b37.sock',
-            // 	NVM_BIN: '/Users/saqqdy/.nvm/versions/node/v12.18.4/bin',
-            // 	GIT_ASKPASS: '/Applications/Visual Studio Code.app/Contents/Resources/app/extensions/git/dist/askpass.sh',
-            // 	VSCODE_GIT_ASKPASS_NODE: '/Applications/Visual Studio Code.app/Contents/Frameworks/Code Helper (Renderer).app/Contents/MacOS/Code Helper (Renderer)',
-            // 	GIT_EXEC_PATH: '/usr/local/Cellar/git/2.30.0/libexec/git-core',
-            // 	COLORTERM: 'truecolor'
-            // }
+        // [3,4]
+        // pre-push
+        // {
+        // 	NVM_INC: '/Users/saqqdy/.nvm/versions/node/v12.18.4/include/node',
+        // 	TERM_PROGRAM: 'vscode',
+        // 	NVM_CD_FLAGS: '-q',
+        // 	SHELL: '/bin/zsh',
+        // 	TERM: 'xterm-256color',
+        // 	HOMEBREW_BOTTLE_DOMAIN: 'https://mirrors.ustc.edu.cn/homebrew-bottles',
+        // 	TMPDIR: '/var/folders/g_/l7kkw491041c0j788971x61h0000gn/T/',
+        // 	TERM_PROGRAM_VERSION: '1.53.0',
+        // 	ORIGINAL_XDG_CURRENT_DESKTOP: 'undefined',
+        // 	ZSH: '/Users/saqqdy/.oh-my-zsh',
+        // 	NVM_DIR: '/Users/saqqdy/.nvm',
+        // 	USER: 'saqqdy',
+        // 	COMMAND_MODE: 'unix2003',
+        // 	SSH_AUTH_SOCK: '/private/tmp/com.apple.launchd.YaH1gggRtR/Listeners',
+        // 	__CF_USER_TEXT_ENCODING: '0x1F5:0x19:0x34',
+        // 	PAGER: 'less',
+        // 	GIT_PREFIX: '',
+        // 	LSCOLORS: 'Gxfxcxdxbxegedabagacad',
+        // 	PATH: '/usr/local/Cellar/git/2.30.0/libexec/git-core:/usr/local/Cellar/git/2.30.0/libexec/git-core:/Users/saqqdy/.nvm/versions/node/v12.18.4/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Applications/VMware Fusion.app/Contents/Public:/Library/Apple/usr/bin:/Users/saqqdy/.nvm/versions/node/v12.18.4/bin',
+        // 	_: '/Users/saqqdy/.nvm/versions/node/v12.18.4/bin/gitm',
+        // 	__CFBundleIdentifier: 'com.microsoft.VSCode',
+        // 	PWD: '/Users/saqqdy/www/saqqdy/gitmars/webapp/app',
+        // 	LANG: 'zh_CN.UTF-8',
+        // 	GITMARS_GIT_PARAMS: 'origin http://git.kingdee.com/wojiacloud_web/wyweb.git',
+        // 	XPC_FLAGS: '0x0',
+        // 	GITMARS_GIT_STDIN: 'refs/heads/feature/hooks 1fc02a535d90fd675ed17a9ef49524cae95ee21a refs/heads/feature/hooks acc96d08801012ad966d6e6290d6e300ac7e515f',
+        // 	XPC_SERVICE_NAME: '0',
+        // 	HOME: '/Users/saqqdy',
+        // 	NVM_LOCAL: '/usr/local/opt/nvm',
+        // 	SHLVL: '3',
+        // 	VSCODE_GIT_ASKPASS_MAIN: '/Applications/Visual Studio Code.app/Contents/Resources/app/extensions/git/dist/askpass-main.js',
+        // 	LESS: '-R',
+        // 	LOGNAME: 'saqqdy',
+        // 	VSCODE_GIT_IPC_HANDLE: '/var/folders/g_/l7kkw491041c0j788971x61h0000gn/T/vscode-git-ccf0d34b37.sock',
+        // 	NVM_BIN: '/Users/saqqdy/.nvm/versions/node/v12.18.4/bin',
+        // 	GIT_ASKPASS: '/Applications/Visual Studio Code.app/Contents/Resources/app/extensions/git/dist/askpass.sh',
+        // 	VSCODE_GIT_ASKPASS_NODE: '/Applications/Visual Studio Code.app/Contents/Frameworks/Code Helper (Renderer).app/Contents/MacOS/Code Helper (Renderer)',
+        // 	GIT_EXEC_PATH: '/usr/local/Cellar/git/2.30.0/libexec/git-core',
+        // 	COLORTERM: 'truecolor'
+        // }
 
-            // pre-commit [1,2]
-            // {
-            // 	NVM_INC: '/Users/saqqdy/.nvm/versions/node/v12.18.4/include/node',
-            // 	TERM_PROGRAM: 'vscode',
-            // 	NVM_CD_FLAGS: '-q',
-            // 	SHELL: '/bin/zsh',
-            // 	TERM: 'xterm-256color',
-            // 	HOMEBREW_BOTTLE_DOMAIN: 'https://mirrors.ustc.edu.cn/homebrew-bottles',
-            // 	TMPDIR: '/var/folders/g_/l7kkw491041c0j788971x61h0000gn/T/',
-            // 	TERM_PROGRAM_VERSION: '1.53.0',
-            // 	ORIGINAL_XDG_CURRENT_DESKTOP: 'undefined',
-            // 	GIT_AUTHOR_DATE: '@1612671646 +0800',
-            // 	ZSH: '/Users/saqqdy/.oh-my-zsh',
-            // 	GIT_EDITOR: ':',
-            // 	NVM_DIR: '/Users/saqqdy/.nvm',
-            // 	USER: 'saqqdy',
-            // 	COMMAND_MODE: 'unix2003',
-            // 	GIT_INDEX_FILE: '.git/index',
-            // 	SSH_AUTH_SOCK: '/private/tmp/com.apple.launchd.YaH1gggRtR/Listeners',
-            // 	__CF_USER_TEXT_ENCODING: '0x1F5:0x19:0x34',
-            // 	GIT_AUTHOR_NAME: 'saqqdy',
-            // 	PAGER: 'less',
-            // 	GIT_PREFIX: '',
-            // 	LSCOLORS: 'Gxfxcxdxbxegedabagacad',
-            // 	PATH: '/usr/local/Cellar/git/2.30.0/libexec/git-core:/usr/local/Cellar/git/2.30.0/libexec/git-core:/Users/saqqdy/.nvm/versions/node/v12.18.4/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Applications/VMware Fusion.app/Contents/Public:/Library/Apple/usr/bin:/Users/saqqdy/.nvm/versions/node/v12.18.4/bin',
-            // 	_: '/Users/saqqdy/.nvm/versions/node/v12.18.4/bin/gitm',
-            // 	__CFBundleIdentifier: 'com.microsoft.VSCode',
-            // 	PWD: '/Users/saqqdy/www/saqqdy/gitmars/webapp/app',
-            // 	LANG: 'zh_CN.UTF-8',
-            // 	GITMARS_GIT_PARAMS: '',
-            // 	XPC_FLAGS: '0x0',
-            // 	XPC_SERVICE_NAME: '0',
-            // 	HOME: '/Users/saqqdy',
-            // 	NVM_LOCAL: '/usr/local/opt/nvm',
-            // 	SHLVL: '3',
-            // 	VSCODE_GIT_ASKPASS_MAIN: '/Applications/Visual Studio Code.app/Contents/Resources/app/extensions/git/dist/askpass-main.js',
-            // 	LESS: '-R',
-            // 	LOGNAME: 'saqqdy',
-            // 	VSCODE_GIT_IPC_HANDLE: '/var/folders/g_/l7kkw491041c0j788971x61h0000gn/T/vscode-git-ccf0d34b37.sock',
-            // 	NVM_BIN: '/Users/saqqdy/.nvm/versions/node/v12.18.4/bin',
-            // 	GIT_ASKPASS: '/Applications/Visual Studio Code.app/Contents/Resources/app/extensions/git/dist/askpass.sh',
-            // 	VSCODE_GIT_ASKPASS_NODE: '/Applications/Visual Studio Code.app/Contents/Frameworks/Code Helper (Renderer).app/Contents/MacOS/Code Helper (Renderer)',
-            // 	GIT_AUTHOR_EMAIL: 'saqqdy@qq.com',
-            // 	GIT_EXEC_PATH: '/usr/local/Cellar/git/2.30.0/libexec/git-core',
-            // 	COLORTERM: 'truecolor'
-            // }
+        // pre-commit [1,2]
+        // {
+        // 	NVM_INC: '/Users/saqqdy/.nvm/versions/node/v12.18.4/include/node',
+        // 	TERM_PROGRAM: 'vscode',
+        // 	NVM_CD_FLAGS: '-q',
+        // 	SHELL: '/bin/zsh',
+        // 	TERM: 'xterm-256color',
+        // 	HOMEBREW_BOTTLE_DOMAIN: 'https://mirrors.ustc.edu.cn/homebrew-bottles',
+        // 	TMPDIR: '/var/folders/g_/l7kkw491041c0j788971x61h0000gn/T/',
+        // 	TERM_PROGRAM_VERSION: '1.53.0',
+        // 	ORIGINAL_XDG_CURRENT_DESKTOP: 'undefined',
+        // 	GIT_AUTHOR_DATE: '@1612671646 +0800',
+        // 	ZSH: '/Users/saqqdy/.oh-my-zsh',
+        // 	GIT_EDITOR: ':',
+        // 	NVM_DIR: '/Users/saqqdy/.nvm',
+        // 	USER: 'saqqdy',
+        // 	COMMAND_MODE: 'unix2003',
+        // 	GIT_INDEX_FILE: '.git/index',
+        // 	SSH_AUTH_SOCK: '/private/tmp/com.apple.launchd.YaH1gggRtR/Listeners',
+        // 	__CF_USER_TEXT_ENCODING: '0x1F5:0x19:0x34',
+        // 	GIT_AUTHOR_NAME: 'saqqdy',
+        // 	PAGER: 'less',
+        // 	GIT_PREFIX: '',
+        // 	LSCOLORS: 'Gxfxcxdxbxegedabagacad',
+        // 	PATH: '/usr/local/Cellar/git/2.30.0/libexec/git-core:/usr/local/Cellar/git/2.30.0/libexec/git-core:/Users/saqqdy/.nvm/versions/node/v12.18.4/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Applications/VMware Fusion.app/Contents/Public:/Library/Apple/usr/bin:/Users/saqqdy/.nvm/versions/node/v12.18.4/bin',
+        // 	_: '/Users/saqqdy/.nvm/versions/node/v12.18.4/bin/gitm',
+        // 	__CFBundleIdentifier: 'com.microsoft.VSCode',
+        // 	PWD: '/Users/saqqdy/www/saqqdy/gitmars/webapp/app',
+        // 	LANG: 'zh_CN.UTF-8',
+        // 	GITMARS_GIT_PARAMS: '',
+        // 	XPC_FLAGS: '0x0',
+        // 	XPC_SERVICE_NAME: '0',
+        // 	HOME: '/Users/saqqdy',
+        // 	NVM_LOCAL: '/usr/local/opt/nvm',
+        // 	SHLVL: '3',
+        // 	VSCODE_GIT_ASKPASS_MAIN: '/Applications/Visual Studio Code.app/Contents/Resources/app/extensions/git/dist/askpass-main.js',
+        // 	LESS: '-R',
+        // 	LOGNAME: 'saqqdy',
+        // 	VSCODE_GIT_IPC_HANDLE: '/var/folders/g_/l7kkw491041c0j788971x61h0000gn/T/vscode-git-ccf0d34b37.sock',
+        // 	NVM_BIN: '/Users/saqqdy/.nvm/versions/node/v12.18.4/bin',
+        // 	GIT_ASKPASS: '/Applications/Visual Studio Code.app/Contents/Resources/app/extensions/git/dist/askpass.sh',
+        // 	VSCODE_GIT_ASKPASS_NODE: '/Applications/Visual Studio Code.app/Contents/Frameworks/Code Helper (Renderer).app/Contents/MacOS/Code Helper (Renderer)',
+        // 	GIT_AUTHOR_EMAIL: 'saqqdy@qq.com',
+        // 	GIT_EXEC_PATH: '/usr/local/Cellar/git/2.30.0/libexec/git-core',
+        // 	COLORTERM: 'truecolor'
+        // }
 
-            // argv
-            // [
-            // 	'/Users/saqqdy/.nvm/versions/node/v12.18.4/bin/node',
-            // 	'/Users/saqqdy/www/saqqdy/gitmars/bin/gitm-hook.js',
-            // 	'--type',
-            // 	'1,2',
-            // 	'--lastet',
-            // 	'7d'
-            // ]
-            console.info(
-                types,
-                process.env,
-                process.argv,
-                getBranchesFromID('2080d17e')
-            )
-            // 检测权限 command = hookName
-            // 检测类型对应上面的检测方法
-            if (
-                current !== config.develop &&
-                mainBranches.includes(current) &&
-                types.includes('1')
-            ) {
-                // 分支合并主干分支之后，检测该分支是否合并过dev，没有合并过的，不允许继续执行commit
-                const [command, branch] = process.env.GIT_REFLOG_ACTION
-                    ? process.env.GIT_REFLOG_ACTION.split(' ')
-                    : []
-                if (command === 'merge') {
-                    const isMergedBranch = getIsMergedTargetBranch(
-                        branch,
-                        config.develop,
-                        { remote: true }
-                    )
-                    if (!isMergedBranch) {
-                        console.info(
-                            red(
-                                t(
-                                    'Your branch was detected as not having merged {target}',
-                                    {
-                                        target: config.develop
-                                    }
-                                )
-                            )
-                        )
-                        process.exit(0)
-                    } else {
-                        console.info(
-                            green(
-                                t(
-                                    '{source} branch has merged {target} branch',
-                                    { source: branch, target: config.develop }
-                                )
-                            )
-                        )
-                    }
-                }
-            }
-            if (mainBranches.includes(current) && types.includes('2')) {
-                // 分支合并主干分支之后，检测该分支是否同步过上游分支的代码，没有同步过的，不允许继续执行commit
-                const [command, branch] = process.env.GIT_REFLOG_ACTION
-                    ? process.env.GIT_REFLOG_ACTION.split(' ')
-                    : []
-                const branchPrefix = branch.split('/')[0]
-                // ['bugfix', 'feature', 'support'].includes(branchPrefix)
-                if (command === 'merge') {
-                    const isUpdatedInTime = getIsUpdatedInTime({
-                        lastet: opt.lastet,
-                        branch
-                    })
-                    if (!isUpdatedInTime) {
-                        console.info(
-                            red(
-                                t(
-                                    'Detected that you have not update codes from {source} branch in 1 week',
-                                    { source: branchPrefix }
-                                )
-                            )
-                        )
-                        process.exit(0)
-                    } else {
-                        console.info(
-                            green(
-                                t(
-                                    'The {source} branch has updated from main branch',
-                                    {
-                                        source: branch
-                                    }
-                                )
-                            )
-                        )
-                    }
-                }
-            }
-            if (mainBranches.includes(current) && types.includes('3')) {
-                // 在主干分支执行push推送时，检测最后一次提交是否为merge记录，如果不是，提示不允许直接在主干分支做修改
-                const isMergeAction = getIsMergeAction()
-                if (!isMergeAction) {
+        // argv
+        // [
+        // 	'/Users/saqqdy/.nvm/versions/node/v12.18.4/bin/node',
+        // 	'/Users/saqqdy/www/saqqdy/gitmars/bin/gitm-hook.js',
+        // 	'--type',
+        // 	'1,2',
+        // 	'--lastet',
+        // 	'7d'
+        // ]
+        console.info(types, process.env, process.argv, getBranchesFromID('2080d17e'))
+        // 检测权限 command = hookName
+        // 检测类型对应上面的检测方法
+        if (current !== config.develop && mainBranches.includes(current) && types.includes('1')) {
+            // 分支合并主干分支之后，检测该分支是否合并过dev，没有合并过的，不允许继续执行commit
+            const [command, branch] = process.env.GIT_REFLOG_ACTION
+                ? process.env.GIT_REFLOG_ACTION.split(' ')
+                : []
+            if (command === 'merge') {
+                const isMergedBranch = getIsMergedTargetBranch(branch, config.develop, {
+                    remote: true
+                })
+                if (!isMergedBranch) {
                     console.info(
                         red(
-                            t(
-                                'Detects that you are modifying code directly in the master branch'
-                            )
-                        )
-                    )
-                    process.exit(0)
-                } else {
-                    console.info(green(t('The last record was a merge record')))
-                }
-                // const behindLogs = getBehindLogs()
-                // const aheadLogs = getAheadLogs()
-                // let isMerge = true
-                // aheadLog: for (let logStr of aheadLogs) {
-                // 	let logs = logStr.split(' ')
-                // 	if (logs.length < 2) {
-                // 		console.info(yellow(t('Detects that you are modifying code directly in the master branch')))
-                // 		isMerge = false
-                // 		break aheadLog
-                // 	}
-                // }
-                // console.info('本地领先的记录', aheadLogs)
-                // console.info('本地落后的记录', behindLogs)
-                // if (isMerge) {
-                // 	process.exit(0)
-                // } else {
-                // 	sh.echo(red('不允许在主干分支直接更改代码提交，请联系管理员'))
-                // 	process.exit(1)
-                // }
-            }
-            if (mainBranches.includes(current) && types.includes('4')) {
-                // 在主干分支执行push推送时，检测是否需要先执行pull
-                const behindLogs = getBehindLogs()
-                if (!behindLogs.length) {
-                    console.info(
-                        t(
-                            'Your local branch version is lagging behind the remote branch, please perform a pull first.'
+                            t('Your branch was detected as not having merged {target}', {
+                                target: config.develop
+                            })
                         )
                     )
                     process.exit(0)
                 } else {
                     console.info(
                         green(
-                            t(
-                                'The local version is not behind the remote, you can push it directly'
-                            )
+                            t('{source} branch has merged {target} branch', {
+                                source: branch,
+                                target: config.develop
+                            })
                         )
                     )
                 }
             }
         }
-        process.exit(0)
+        if (mainBranches.includes(current) && types.includes('2')) {
+            // 分支合并主干分支之后，检测该分支是否同步过上游分支的代码，没有同步过的，不允许继续执行commit
+            const [command, branch] = process.env.GIT_REFLOG_ACTION
+                ? process.env.GIT_REFLOG_ACTION.split(' ')
+                : []
+            const branchPrefix = branch.split('/')[0]
+            // ['bugfix', 'feature', 'support'].includes(branchPrefix)
+            if (command === 'merge') {
+                const isUpdatedInTime = getIsUpdatedInTime({
+                    lastet: opt.lastet,
+                    branch
+                })
+                if (!isUpdatedInTime) {
+                    console.info(
+                        red(
+                            t(
+                                'Detected that you have not update codes from {source} branch in 1 week',
+                                { source: branchPrefix }
+                            )
+                        )
+                    )
+                    process.exit(0)
+                } else {
+                    console.info(
+                        green(
+                            t('The {source} branch has updated from main branch', {
+                                source: branch
+                            })
+                        )
+                    )
+                }
+            }
+        }
+        if (mainBranches.includes(current) && types.includes('3')) {
+            // 在主干分支执行push推送时，检测最后一次提交是否为merge记录，如果不是，提示不允许直接在主干分支做修改
+            const isMergeAction = getIsMergeAction()
+            if (!isMergeAction) {
+                console.info(
+                    red(t('Detects that you are modifying code directly in the master branch'))
+                )
+                process.exit(0)
+            } else {
+                console.info(green(t('The last record was a merge record')))
+            }
+            // const behindLogs = getBehindLogs()
+            // const aheadLogs = getAheadLogs()
+            // let isMerge = true
+            // aheadLog: for (let logStr of aheadLogs) {
+            // 	let logs = logStr.split(' ')
+            // 	if (logs.length < 2) {
+            // 		console.info(yellow(t('Detects that you are modifying code directly in the master branch')))
+            // 		isMerge = false
+            // 		break aheadLog
+            // 	}
+            // }
+            // console.info('本地领先的记录', aheadLogs)
+            // console.info('本地落后的记录', behindLogs)
+            // if (isMerge) {
+            // 	process.exit(0)
+            // } else {
+            // 	sh.echo(red('不允许在主干分支直接更改代码提交，请联系管理员'))
+            // 	process.exit(1)
+            // }
+        }
+        if (mainBranches.includes(current) && types.includes('4')) {
+            // 在主干分支执行push推送时，检测是否需要先执行pull
+            const behindLogs = getBehindLogs()
+            if (!behindLogs.length) {
+                console.info(
+                    t(
+                        'Your local branch version is lagging behind the remote branch, please perform a pull first.'
+                    )
+                )
+                process.exit(0)
+            } else {
+                console.info(
+                    green(t('The local version is not behind the remote, you can push it directly'))
+                )
+            }
+        }
     }
-)
+    process.exit(0)
+})
 program.parse(process.argv)
 export {}

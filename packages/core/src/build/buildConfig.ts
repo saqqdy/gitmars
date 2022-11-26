@@ -24,9 +24,7 @@ const require = createRequire(import.meta.url)
  * @param params - GitmarsConfigApisBuildConfigType['params']
  * @returns string - namespace
  */
-function getNamespace(
-    params: GitmarsConfigApisBuildConfigType['params'] = {}
-): string {
+function getNamespace(params: GitmarsConfigApisBuildConfigType['params'] = {}): string {
     const names = []
     const keys = Object.keys(params).sort((a, b) => a.length - b.length)
     for (const key of keys) {
@@ -63,10 +61,7 @@ export async function getBuildConfig(): Promise<ApolloConfigType | void> {
     const BUILD_CONFIG_TIME_NAME = `buildConfigTime-${NS}`
     const BUILD_CONFIG_PATH = `${CACHE_PATH}/buildConfig-${NS}.json`
     // 有配置文件且没有过期，返回配置
-    if (
-        !isCacheExpired(BUILD_CONFIG_TIME_NAME) &&
-        isFileExist(BUILD_CONFIG_PATH)
-    ) {
+    if (!isCacheExpired(BUILD_CONFIG_TIME_NAME) && isFileExist(BUILD_CONFIG_PATH)) {
         return require(BUILD_CONFIG_PATH)
     }
 
@@ -92,8 +87,7 @@ export async function getBuildConfig(): Promise<ApolloConfigType | void> {
         } else {
             apolloConfig = config.apolloConfig
         }
-        _buildConfig =
-            (await apollo.remoteConfigService(apolloConfig)).content || {}
+        _buildConfig = (await apollo.remoteConfigService(apolloConfig)).content || {}
     }
 
     await updateCacheTime(BUILD_CONFIG_TIME_NAME)

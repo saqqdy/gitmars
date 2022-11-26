@@ -14,11 +14,7 @@ const { green } = chalk
 const { version } = require('../package.json')
 
 if (!sh.which('git')) {
-    echo(
-        t(
-            'Gitmars can only be executed in a git environment, so please install git first'
-        )
-    )
+    echo(t('Gitmars can only be executed in a git environment, so please install git first'))
     process.exit(1)
 }
 program.version(
@@ -42,26 +38,17 @@ program
     .command('config [options]', t('View/Set configuration items for gitmars'))
     .command('combine', t('Branch phase mention test'))
     .alias('cb')
-    .command(
-        'start <type> <name>',
-        t('Create bugfix branches, create/merge release branches')
-    )
+    .command('start <type> <name>', t('Create bugfix branches, create/merge release branches'))
     .alias('st')
     .command('end <type> <name>', t('Finish developing a feature'))
     .alias('ed')
-    .command(
-        'update <type> <name>',
-        t('Update bugfix branch, update feature development branch')
-    )
+    .command('update <type> <name>', t('Update bugfix branch, update feature development branch'))
     .alias('up')
     .command('branch', t('List branches'))
     .alias('bh')
     .command('save', t('Staging current branch files'))
     .alias('sv')
-    .command(
-        'get',
-        t('Restore the most recently staged file in the staging area')
-    )
+    .command('get', t('Restore the most recently staged file in the staging area'))
     .alias('gt')
     .command('cleanbranch', t('Clean up merged feature branches'))
     .alias('clb')
@@ -103,9 +90,7 @@ program
     .alias('i')
     .command(
         'admin <command>',
-        t(
-            'Administrator functions, including actions for bugfixing and releasing release branches'
-        )
+        t('Administrator functions, including actions for bugfixing and releasing release branches')
     )
 
 // 自定义帮助
@@ -177,9 +162,7 @@ program.on('command:*', function (types: string[], opts: string[]) {
     ]
     if (!cmd.includes(types[0])) {
         opts = opts.map(type =>
-            type.indexOf('-') === 0 || /^\w+$/.test(type)
-                ? type
-                : '"' + type + '"'
+            type.indexOf('-') === 0 || /^\w+$/.test(type) ? type : '"' + type + '"'
         )
         const arr = types.concat(opts)
         echo(
