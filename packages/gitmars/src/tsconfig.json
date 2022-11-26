@@ -1,7 +1,6 @@
 {
     "extends": "../tsconfig.json",
-    "include": ["./**/*.ts", "../typings/*.ts", "./*.d.ts"],
-    "exclude": ["node_modules", "**/__tests__", "../temp"],
+    "exclude": ["**/__tests__", "../temp"],
     "compilerOptions": {
         // compile away optional-chaining-operator
         "target": "ESNext",

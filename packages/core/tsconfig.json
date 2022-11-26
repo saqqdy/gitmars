@@ -1,7 +1,6 @@
 {
     "extends": "../../tsconfig.json",
-    "exclude": ["__tests__", "../../temp"],
-    "include": ["**/*.ts", "typings"],
+    "exclude": ["**/__tests__"],
     "compilerOptions": {
         "removeComments": true,
         "declaration": true,
