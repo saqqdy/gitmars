@@ -6,15 +6,11 @@ const require = createRequire(import.meta.url)
 const SocketIoServer = require('socket.io')
 
 type EventsMap = Record<string, any>
-interface ListenEvents
-    extends Record<string, (...args: any[]) => void>,
-        EventsMap {}
+interface ListenEvents extends Record<string, (...args: any[]) => void>, EventsMap {}
 
 type EmitEvents = EventsMap
 
-interface ServerSideEvents
-    extends Record<string, (...args: any[]) => void>,
-        EventsMap {}
+interface ServerSideEvents extends Record<string, (...args: any[]) => void>, EventsMap {}
 
 // interface SocketFn {
 // 	fn?: (socket: Socket<ListenEvents, EmitEvents, ServerSideEvents>) => void
@@ -26,10 +22,7 @@ class SocketServer {
         this.io = SocketIoServer(server, options)
     }
 
-    use(
-        name: string,
-        fn: (socket: Socket<ListenEvents, EmitEvents, ServerSideEvents>) => void
-    ) {
+    use(name: string, fn: (socket: Socket<ListenEvents, EmitEvents, ServerSideEvents>) => void) {
         if (!name) return false
         if (typeof name === 'string') {
             if (!fn) return false

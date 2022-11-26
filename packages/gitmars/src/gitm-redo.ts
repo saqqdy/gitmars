@@ -9,10 +9,7 @@ import getIsGitProject from '@gitmars/core/lib/git/getIsGitProject'
 import getCurrentBranch from '@gitmars/core/lib/git/getCurrentBranch'
 import { createArgs } from '@gitmars/core/lib/utils/command'
 import echo from '@gitmars/core/lib/utils/echo'
-import {
-    delRevertCache,
-    getRevertCache
-} from '@gitmars/core/lib/cache/revertCache'
+import { delRevertCache, getRevertCache } from '@gitmars/core/lib/cache/revertCache'
 import type {
     CommandType,
     GitmarsOptionOptionsType,
@@ -92,9 +89,7 @@ program.action(async (commitid: string[], opt: GitmBuildOption) => {
         process.exit(0)
     }
     // 筛选被选择的记录
-    revertCache = revertCache.filter(item =>
-        commitIDs.includes(item.after['%H']!)
-    )
+    revertCache = revertCache.filter(item => commitIDs.includes(item.after['%H']!))
     cmd = revertCache.map(item => ({
         cmd: `git revert -s --no-edit ${item.after['%H']}${mode}`,
         config: {

@@ -45,17 +45,14 @@ export function setRevertCache(reverts: Array<RevertCacheType>): void {
  * @param revertCaches - revert缓存列表
  * @returns result - 执行结果
  */
-export function addRevertCache(
-    revertCaches: RevertCacheType | RevertCacheType[]
-): void {
+export function addRevertCache(revertCaches: RevertCacheType | RevertCacheType[]): void {
     if (!Array.isArray(revertCaches)) revertCaches = [revertCaches]
     const _cacheList = getRevertCache()
     let len = revertCaches.length
     while (len--) {
         const _index = _cacheList.findIndex(
             (item: RevertCacheType) =>
-                item.before['%H'] ===
-                (revertCaches as RevertCacheType[])[len].before['%H']
+                item.before['%H'] === (revertCaches as RevertCacheType[])[len].before['%H']
         )
         if (_index === -1) {
             // 第一次revert

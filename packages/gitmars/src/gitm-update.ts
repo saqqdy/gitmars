@@ -54,149 +54,125 @@ options.forEach((o: GitmarsOptionOptionsType) => {
 // .option('--use-rebase', t('Whether to use rebase method update, default method is merge'), false)
 // .option('-a --all', t('Update all local bugfix, feature, support branches'), false)
 // .option('-f, --force', t('Whether to force a merge request'), false)
-program.action(
-    async (type: string | string[], name: string, opt: GitmBuildOption) => {
-        // Checking if a version upgrade is needed
-        const needUpgrade = await isNeedUpgrade()
-        needUpgrade && upgradeGitmars()
-        const allow = ['bugfix', 'feature', 'support'] // Permissible commands
-        const deny = [
-            defaults.master,
-            defaults.develop,
-            defaults.release,
-            defaults.bugfix,
-            defaults.support
-        ]
-        const status = checkGitStatus()
-        let cmds: Array<CommandType | string> = [],
-            branchList: string[] = [],
-            _nameArr: string[] = [] // Array of branch names
-        if (!status) process.exit(1)
-        fetch()
-        if (opt.all) {
-            // Update all branches
-            if (!type) type = allow.join(',')
-            branchList = searchBranches({ type })
-        } else if (!type || !name) {
-            // type或name没传
-            const current = getCurrentBranch()
-            ;[type, ..._nameArr] = current.split('/')
-            name = _nameArr.join('/')
-            if (!name) {
-                deny.includes(type) &&
-                    sh.echo(
-                        red(
-                            t(
-                                'Hey bro, what is the fuck are you doing by executing this command in the {type} branch?',
-                                { type }
-                            )
-                        )
-                    )
-                process.exit(1)
-            }
-            if (!allow.includes(type as string)) {
-                // type is not legal
+program.action(async (type: string | string[], name: string, opt: GitmBuildOption) => {
+    // Checking if a version upgrade is needed
+    const needUpgrade = await isNeedUpgrade()
+    needUpgrade && upgradeGitmars()
+    const allow = ['bugfix', 'feature', 'support'] // Permissible commands
+    const deny = [
+        defaults.master,
+        defaults.develop,
+        defaults.release,
+        defaults.bugfix,
+        defaults.support
+    ]
+    const status = checkGitStatus()
+    let cmds: Array<CommandType | string> = [],
+        branchList: string[] = [],
+        _nameArr: string[] = [] // Array of branch names
+    if (!status) process.exit(1)
+    fetch()
+    if (opt.all) {
+        // Update all branches
+        if (!type) type = allow.join(',')
+        branchList = searchBranches({ type })
+    } else if (!type || !name) {
+        // type或name没传
+        const current = getCurrentBranch()
+        ;[type, ..._nameArr] = current.split('/')
+        name = _nameArr.join('/')
+        if (!name) {
+            deny.includes(type) &&
                 sh.echo(
                     red(
-                        t('type only allows input') +
-                            ': ' +
-                            JSON.stringify(allow)
+                        t(
+                            'Hey bro, what is the fuck are you doing by executing this command in the {type} branch?',
+                            { type }
+                        )
                     )
                 )
-                process.exit(1)
-            }
-            branchList = branchList.concat(current)
-        } else if (!allow.includes(type as string)) {
-            // 传了type和name，但是不合法
-            sh.echo(
-                red(t('type only allows input') + ': ' + JSON.stringify(allow))
-            )
             process.exit(1)
-        } else {
-            // type and name are passed
-            branchList = [type + '/' + name]
         }
-        branchList.forEach((branch: string) => {
-            // feature is pulled from the release, bugfix is pulled from the bug, and support is pulled from the master branch
-            ;[type, ..._nameArr] = branch.split('/')
-            name = _nameArr.join('/')
-            const base: string =
-                type === 'bugfix'
-                    ? config.bugfix
-                    : type === 'support'
-                    ? config.master
-                    : config.release
-            const isNeedCombine = !getIsMergedTargetBranch(
-                base,
-                `${type}/${name}`,
-                { remote: true }
-            )
-            let cmd: Array<CommandType | string> = []
-            if (isNeedCombine || opt.force) {
-                cmd = cmd.concat([
-                    'git fetch',
-                    `git checkout ${base}`,
-                    'git pull',
-                    `git checkout ${type}/${name}`
-                ])
-                if (opt.useRebase) {
-                    cmd.push({
-                        cmd: `git rebase ${base}`,
-                        config: {
-                            again: false,
-                            success: t(
-                                'Merge {source} to {target} successfully',
-                                {
-                                    source: base,
-                                    target: `${type}/${name}`
-                                }
-                            ),
-                            fail: t(
-                                'An error occurred merging {source} to {target}, please follow the instructions',
-                                {
-                                    source: base,
-                                    target: `${type}/${name}`
-                                }
-                            )
-                        }
-                    })
-                } else {
-                    cmd.push({
-                        cmd: `git merge --no-ff ${base}`,
-                        config: {
-                            again: false,
-                            success: t(
-                                'Merge {source} to {target} successfully',
-                                {
-                                    source: base,
-                                    target: `${type}/${name}`
-                                }
-                            ),
-                            fail: t(
-                                'An error occurred merging {source} to {target}, please follow the instructions',
-                                {
-                                    source: base,
-                                    target: `${type}/${name}`
-                                }
-                            )
-                        }
-                    })
-                }
-            } else {
-                cmd = [
-                    {
-                        message: t('{source} has been merged with {target}', {
+        if (!allow.includes(type as string)) {
+            // type is not legal
+            sh.echo(red(t('type only allows input') + ': ' + JSON.stringify(allow)))
+            process.exit(1)
+        }
+        branchList = branchList.concat(current)
+    } else if (!allow.includes(type as string)) {
+        // 传了type和name，但是不合法
+        sh.echo(red(t('type only allows input') + ': ' + JSON.stringify(allow)))
+        process.exit(1)
+    } else {
+        // type and name are passed
+        branchList = [type + '/' + name]
+    }
+    branchList.forEach((branch: string) => {
+        // feature is pulled from the release, bugfix is pulled from the bug, and support is pulled from the master branch
+        ;[type, ..._nameArr] = branch.split('/')
+        name = _nameArr.join('/')
+        const base: string =
+            type === 'bugfix' ? config.bugfix : type === 'support' ? config.master : config.release
+        const isNeedCombine = !getIsMergedTargetBranch(base, `${type}/${name}`, { remote: true })
+        let cmd: Array<CommandType | string> = []
+        if (isNeedCombine || opt.force) {
+            cmd = cmd.concat([
+                'git fetch',
+                `git checkout ${base}`,
+                'git pull',
+                `git checkout ${type}/${name}`
+            ])
+            if (opt.useRebase) {
+                cmd.push({
+                    cmd: `git rebase ${base}`,
+                    config: {
+                        again: false,
+                        success: t('Merge {source} to {target} successfully', {
                             source: base,
                             target: `${type}/${name}`
-                        })
+                        }),
+                        fail: t(
+                            'An error occurred merging {source} to {target}, please follow the instructions',
+                            {
+                                source: base,
+                                target: `${type}/${name}`
+                            }
+                        )
                     }
-                ]
+                })
+            } else {
+                cmd.push({
+                    cmd: `git merge --no-ff ${base}`,
+                    config: {
+                        again: false,
+                        success: t('Merge {source} to {target} successfully', {
+                            source: base,
+                            target: `${type}/${name}`
+                        }),
+                        fail: t(
+                            'An error occurred merging {source} to {target}, please follow the instructions',
+                            {
+                                source: base,
+                                target: `${type}/${name}`
+                            }
+                        )
+                    }
+                })
             }
+        } else {
+            cmd = [
+                {
+                    message: t('{source} has been merged with {target}', {
+                        source: base,
+                        target: `${type}/${name}`
+                    })
+                }
+            ]
+        }
 
-            cmds = cmds.concat(cmd)
-        })
-        queue(cmds)
-    }
-)
+        cmds = cmds.concat(cmd)
+    })
+    queue(cmds)
+})
 program.parse(process.argv)
 export {}

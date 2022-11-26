@@ -32,52 +32,38 @@ const routes = [
     {
         path: '/project',
         name: 'project',
-        component: () =>
-            import(
-                /* webpackChunkName: "project" */ '../views/project/index.vue'
-            ),
+        component: () => import(/* webpackChunkName: "project" */ '../views/project/index.vue'),
         children: [
             {
                 path: 'list',
                 name: 'project_list',
                 component: () =>
-                    import(
-                        /* webpackChunkName: "project" */ '../views/project/list.vue'
-                    )
+                    import(/* webpackChunkName: "project" */ '../views/project/list.vue')
             },
             {
                 path: 'add',
                 name: 'project_add',
                 component: () =>
-                    import(
-                        /* webpackChunkName: "project" */ '../views/project/add.vue'
-                    )
+                    import(/* webpackChunkName: "project" */ '../views/project/add.vue')
             }
         ]
     },
     {
         path: '/control',
         name: 'control',
-        component: () =>
-            import(
-                /* webpackChunkName: "control" */ '../views/control/index.vue'
-            ),
+        component: () => import(/* webpackChunkName: "control" */ '../views/control/index.vue'),
         children: [
             {
                 path: 'gitmars',
                 name: 'control_gitmars',
                 component: () =>
-                    import(
-                        /* webpackChunkName: "control" */ '../views/control/gitmars.vue'
-                    )
+                    import(/* webpackChunkName: "control" */ '../views/control/gitmars.vue')
             },
             {
                 path: 'tasks',
                 name: 'control_tasks',
                 component: () =>
-                    import(
-                        /* webpackChunkName: "control" */ '../views/control/tasks.vue'
-                    )
+                    import(/* webpackChunkName: "control" */ '../views/control/tasks.vue')
             }
         ]
     }

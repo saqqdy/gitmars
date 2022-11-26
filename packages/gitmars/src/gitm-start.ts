@@ -9,11 +9,7 @@ import checkGitStatus from '@gitmars/core/lib/git/checkGitStatus'
 import { createArgs } from '@gitmars/core/lib/utils/command'
 import getConfig from '@gitmars/core/lib/getConfig'
 import { isNeedUpgrade, upgradeGitmars } from '@gitmars/core/lib/versionControl'
-import type {
-    CommandType,
-    GitmarsOptionOptionsType,
-    QueueReturnsType
-} from '../typings'
+import type { CommandType, GitmarsOptionOptionsType, QueueReturnsType } from '../typings'
 import lang from '#lib/common/local'
 import startConfig from '#lib/conf/start'
 
@@ -97,10 +93,7 @@ program.action(async (type: string, name: string, opt: GitmBuildOption) => {
                   `git checkout -b ${type}/${name} ${base}`
               ]
         queue(cmd).then((data: any) => {
-            if (
-                (opt.tag && data[1].status === 0) ||
-                (!opt.tag && data[3].status === 0)
-            ) {
+            if ((opt.tag && data[1].status === 0) || (!opt.tag && data[3].status === 0)) {
                 sh.echo(
                     t(
                         'The branch was created successfully and is based on {source}. You have now switched to the {target} branch\nIf you need to test, please run: "{combine}"\nWhen development is complete, remember to run: "{end}"',

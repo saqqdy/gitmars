@@ -2,12 +2,7 @@ import { createRequire } from 'node:module'
 import ora from 'ora'
 import extend from 'js-cool/es/extend'
 import chalk from 'chalk'
-import type {
-    CommandMessageType,
-    CommandType,
-    CommandTypeCmd,
-    QueueReturnsType
-} from '../typings'
+import type { CommandMessageType, CommandType, CommandTypeCmd, QueueReturnsType } from '../typings'
 import { setCommandCache } from '#lib/cache/commandCache'
 import getCommandMessage from '#lib/git/getCommandMessage'
 import { setLog } from '#lib/cache/log'
@@ -33,10 +28,7 @@ export interface QueueStartFunction {
  * @param list - Script Sequence
  * @param func - Execute function
  */
-export function wait(
-    list: Array<CommandType | string>,
-    fun: QueueStartFunction
-) {
+export function wait(list: Array<CommandType | string>, fun: QueueStartFunction) {
     // 最后一条指令，执行完成之后退出递归
     if (list.length === 0) {
         fun()
@@ -56,16 +48,10 @@ export function wait(
  * @param list - 脚本序列
  * @returns promise - QueueReturnsType
  */
-export function queue(
-    list: Array<CommandType | string>
-): Promise<QueueReturnsType[]> {
+export function queue(list: Array<CommandType | string>): Promise<QueueReturnsType[]> {
     const spinner = ora()
     // 处理脚本执行成功
-    function onSuccess(
-        msg: CommandMessageType,
-        cfg: CommandTypeCmd['config'],
-        cb?: WaitCallback
-    ) {
+    function onSuccess(msg: CommandMessageType, cfg: CommandTypeCmd['config'], cb?: WaitCallback) {
         const _message = cfg.success || msg.success || t('Processing complete')
         if (_message) {
             spinner.succeed(chalk.green(_message))
@@ -85,9 +71,7 @@ export function queue(
         if (cfg.kill) {
             // If the current instruction is executed with an error and setting up the instruction requires an interrupt, the interrupt recursion
             cb && cb(true) // Callback and interrupt execution
-            const rest = extend(true, [], list) as unknown as Array<
-                CommandType | string
-            >
+            const rest = extend(true, [], list) as unknown as Array<CommandType | string>
             if (!cfg.again) {
                 rest.shift()
             } else if (cfg.again !== true) {
@@ -95,11 +79,7 @@ export function queue(
             }
             setCommandCache(rest)
             // Only silent mode requires output messages
-            if (
-                !cfg.stdio ||
-                (typeof cfg.stdio === 'string' &&
-                    ['ignore'].includes(cfg.stdio))
-            ) {
+            if (!cfg.stdio || (typeof cfg.stdio === 'string' && ['ignore'].includes(cfg.stdio))) {
                 spinner.fail(chalk.red(err))
             }
             spinner.fail(
@@ -145,137 +125,118 @@ export function queue(
     }
     return new Promise((resolve, reject) => {
         const returns: QueueReturnsType[] = []
-        if (list.length === 0)
-            reject(new Error(t('Command name cannot be empty')))
+        if (list.length === 0) reject(new Error(t('Command name cannot be empty')))
         list = extend(true, [], list) as unknown as Array<CommandType | string>
-        wait(
-            list,
-            async (command?: CommandType | string, cb?: WaitCallback) => {
-                let cfg: CommandTypeCmd['config'] = {
-                        stdio: 'ignore',
-                        postmsg: false,
-                        kill: true,
-                        again: false // Whether the instruction execution needs to be re-executed after interruption, similar to the instruction after conflict resolution, no longer need to repeat the execution
-                    },
-                    cmd,
-                    message
-                // Incoming objects: { cmd: '', config: {} }
-                if (command instanceof Object) {
-                    if ('message' in command) {
-                        // message优先，输出消息
-                        message = command.message
-                    } else {
-                        cfg = Object.assign(cfg, command.config || {})
-                        cmd = command.cmd
-                    }
+        wait(list, async (command?: CommandType | string, cb?: WaitCallback) => {
+            let cfg: CommandTypeCmd['config'] = {
+                    stdio: 'ignore',
+                    postmsg: false,
+                    kill: true,
+                    again: false // Whether the instruction execution needs to be re-executed after interruption, similar to the instruction after conflict resolution, no longer need to repeat the execution
+                },
+                cmd,
+                message
+            // Incoming objects: { cmd: '', config: {} }
+            if (command instanceof Object) {
+                if ('message' in command) {
+                    // message优先，输出消息
+                    message = command.message
                 } else {
-                    cmd = command!
+                    cfg = Object.assign(cfg, command.config || {})
+                    cmd = command.cmd
                 }
-                /**
-                 * Three scenarios
-                 *
-                 * 1. { message: t('Message') }
-                 * 2. { cmd: 'git status', config: {} }
-                 * 3. { cmd: { module: '', entry: '', options: {} }, config: {} }
-                 */
-                if (message) {
-                    spinner.start(chalk.green(message))
-                    returns.push({
-                        status: 0,
-                        stdout: '',
-                        stderr: '',
-                        cfg,
-                        cmd: ''
-                    })
-                    onSuccess(
-                        {
-                            success: message
-                        },
-                        cfg,
-                        cb
-                    )
-                } else if (!cmd) {
-                    spinner.stop()
-                    // Only one instruction, no need to return array
-                    resolve(returns)
-                } else if (typeof cmd === 'object') {
-                    // Pass in the function type and fetch the function to be executed
-                    let status = 0,
-                        stdout,
-                        stderr,
-                        _execFunction = require(cmd.module)
-                    if (cmd.entry) _execFunction = _execFunction[cmd.entry]
-                    try {
-                        spinner.start(
-                            chalk.green(cfg.processing || t('Processing'))
-                        )
-                        stdout = await _execFunction(cmd.options)
-                        debug('queue-result', cmd, stdout)
-                        onSuccess({} as CommandMessageType, cfg, cb)
-                    } catch (err: any) {
-                        // Request error
-                        status = 1
-                        stderr = err
-                        onError(
-                            list,
-                            cmd,
-                            err,
-                            {} as CommandMessageType,
-                            cfg,
-                            cb
-                        )
-                    }
-                    returns.push({
-                        status,
-                        stdout,
-                        stderr,
-                        cfg,
-                        cmd
-                    })
-                } else {
-                    const [client, ...argv] = cmd
-                        .replace(/\s+/g, ' ')
-                        .split(' ')
-                    // cmd is a string
-                    const msg = getCommandMessage(cmd)
-                    spinner.start(
-                        chalk.green(
-                            cfg.processing || msg.processing || t('Processing')
-                        )
-                    )
-                    const program = spawnSync(client, argv, cfg)
-                    const { status, stderr } = program
-                    let { stdout } = program
+            } else {
+                cmd = command!
+            }
+            /**
+             * Three scenarios
+             *
+             * 1. { message: t('Message') }
+             * 2. { cmd: 'git status', config: {} }
+             * 3. { cmd: { module: '', entry: '', options: {} }, config: {} }
+             */
+            if (message) {
+                spinner.start(chalk.green(message))
+                returns.push({
+                    status: 0,
+                    stdout: '',
+                    stderr: '',
+                    cfg,
+                    cmd: ''
+                })
+                onSuccess(
+                    {
+                        success: message
+                    },
+                    cfg,
+                    cb
+                )
+            } else if (!cmd) {
+                spinner.stop()
+                // Only one instruction, no need to return array
+                resolve(returns)
+            } else if (typeof cmd === 'object') {
+                // Pass in the function type and fetch the function to be executed
+                let status = 0,
+                    stdout,
+                    stderr,
+                    _execFunction = require(cmd.module)
+                if (cmd.entry) _execFunction = _execFunction[cmd.entry]
+                try {
+                    spinner.start(chalk.green(cfg.processing || t('Processing')))
+                    stdout = await _execFunction(cmd.options)
                     debug('queue-result', cmd, stdout)
-                    try {
-                        stdout = JSON.parse(stdout!)
-                    } catch {
-                        //
-                    }
-                    returns.push({
+                    onSuccess({} as CommandMessageType, cfg, cb)
+                } catch (err: any) {
+                    // Request error
+                    status = 1
+                    stderr = err
+                    onError(list, cmd, err, {} as CommandMessageType, cfg, cb)
+                }
+                returns.push({
+                    status,
+                    stdout,
+                    stderr,
+                    cfg,
+                    cmd
+                })
+            } else {
+                const [client, ...argv] = cmd.replace(/\s+/g, ' ').split(' ')
+                // cmd is a string
+                const msg = getCommandMessage(cmd)
+                spinner.start(chalk.green(cfg.processing || msg.processing || t('Processing')))
+                const program = spawnSync(client, argv, cfg)
+                const { status, stderr } = program
+                let { stdout } = program
+                debug('queue-result', cmd, stdout)
+                try {
+                    stdout = JSON.parse(stdout!)
+                } catch {
+                    //
+                }
+                returns.push({
+                    status,
+                    stdout,
+                    stderr,
+                    cfg,
+                    cmd
+                })
+                if (status !== 0) {
+                    setLog({
+                        command: command as string,
                         status,
                         stdout,
-                        stderr,
-                        cfg,
-                        cmd
+                        stderr
                     })
-                    if (status !== 0) {
-                        setLog({
-                            command: command as string,
-                            status,
-                            stdout,
-                            stderr
-                        })
-                    }
-                    if (status !== 0) {
-                        onError(list, cmd, stderr, msg, cfg, cb)
-                    } else {
-                        // status === 0 Execution success
-                        onSuccess(msg, cfg, cb)
-                    }
+                }
+                if (status !== 0) {
+                    onError(list, cmd, stderr, msg, cfg, cb)
+                } else {
+                    // status === 0 Execution success
+                    onSuccess(msg, cfg, cb)
                 }
             }
-        )
+        })
     })
 }
 

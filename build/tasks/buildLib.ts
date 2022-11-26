@@ -91,12 +91,7 @@ export async function buildLib() {
                 // output mjs
                 if (mjs !== false) {
                     writeOptions.push({
-                        file: resolve(
-                            PACKAGE,
-                            name,
-                            'lib',
-                            fn.replace(/\.ts$/, '.mjs')
-                        ),
+                        file: resolve(PACKAGE, name, 'lib', fn.replace(/\.ts$/, '.mjs')),
                         exports: exportType,
                         banner,
                         format: 'es'
@@ -105,12 +100,7 @@ export async function buildLib() {
                 // output cjs
                 if (cjs !== false) {
                     writeOptions.push({
-                        file: resolve(
-                            PACKAGE,
-                            name,
-                            'lib',
-                            fn.replace(/\.ts$/, '.js')
-                        ),
+                        file: resolve(PACKAGE, name, 'lib', fn.replace(/\.ts$/, '.js')),
                         exports: exportType,
                         banner,
                         format: 'cjs'
@@ -120,12 +110,7 @@ export async function buildLib() {
                 if (iife !== false) {
                     writeOptions.push(
                         {
-                            file: resolve(
-                                PACKAGE,
-                                name,
-                                'dist',
-                                fn.replace(/\.ts$/, 'iife.js')
-                            ),
+                            file: resolve(PACKAGE, name, 'dist', fn.replace(/\.ts$/, 'iife.js')),
                             format: 'iife',
                             exports: exportType,
                             name: iifeName,
@@ -171,9 +156,7 @@ export async function buildLib() {
                                 },
                                 {
                                     find: /^#conf(.+)$/,
-                                    replacement:
-                                        resolve(PACKAGE, name, 'src', 'conf') +
-                                        '$1.mjs'
+                                    replacement: resolve(PACKAGE, name, 'src', 'conf') + '$1.mjs'
                                 }
                             ]
                         }),
@@ -185,15 +168,10 @@ export async function buildLib() {
                         // target ? esbuild({ target }) : esbuild(),
                         filesize
                     ],
-                    external: generateExternal({ name, input }, [
-                        ...externals,
-                        ...external
-                    ])
+                    external: generateExternal({ name, input }, [...externals, ...external])
                 }
                 const bundle = await rollup(rollupConfig)
-                await Promise.all(
-                    writeOptions.map(option => bundle.write(option))
-                )
+                await Promise.all(writeOptions.map(option => bundle.write(option)))
 
                 // dts
                 if (dts !== false) {
@@ -204,19 +182,12 @@ export async function buildLib() {
                     }
                     const writeDtsOptions: OutputOptions[] = [
                         {
-                            file: resolve(
-                                PACKAGE,
-                                name,
-                                'lib',
-                                fn.replace(/\.ts$/, '.d.ts')
-                            ),
+                            file: resolve(PACKAGE, name, 'lib', fn.replace(/\.ts$/, '.d.ts')),
                             format: 'es'
                         }
                     ]
                     const dtsBundle = await rollup(rollupDtsConfig)
-                    await Promise.all([
-                        writeDtsOptions.map(option => dtsBundle.write(option))
-                    ])
+                    await Promise.all([writeDtsOptions.map(option => dtsBundle.write(option))])
                 }
             }
         }
@@ -233,11 +204,11 @@ export async function madgeLib() {
 export async function copyLibFile() {
     for (const { name } of pkgs) {
         await runExec(
-            `rsync -av --exclude="*.ts" ${resolve(
+            `rsync -av --exclude="*.ts" ${resolve(PACKAGE, name, 'src')}/ ${resolve(
                 PACKAGE,
                 name,
-                'src'
-            )}/ ${resolve(PACKAGE, name, 'lib')}/`
+                'lib'
+            )}/`
         )
     }
 }

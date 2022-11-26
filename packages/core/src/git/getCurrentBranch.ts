@@ -6,12 +6,7 @@ import { spawnSync } from '#lib/spawn'
  * @returns {String} Return name
  */
 function getCurrentBranch(): string {
-    const { stdout } = spawnSync('git', [
-        'symbolic-ref',
-        '--short',
-        '-q',
-        'HEAD'
-    ])
+    const { stdout } = spawnSync('git', ['symbolic-ref', '--short', '-q', 'HEAD'])
     return stdout || ''
 }
 

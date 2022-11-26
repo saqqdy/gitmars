@@ -30,10 +30,9 @@ program.action(async (command: string): Promise<void> => {
     const current = getCurrentBranch()
     sh.echo(
         green(
-            t(
-                'Current branch is {current}, I suspect you may want to do the following: ',
-                { current }
-            )
+            t('Current branch is {current}, I suspect you may want to do the following: ', {
+                current
+            })
         )
     )
     if (command) {
@@ -42,9 +41,7 @@ program.action(async (command: string): Promise<void> => {
         if (!cmd) {
             sh.echo(
                 red(
-                    t(
-                        'The command you entered was not found and may not be supported at this time'
-                    )
+                    t('The command you entered was not found and may not be supported at this time')
                 )
             )
             process.exit(1)
@@ -59,9 +56,7 @@ program.action(async (command: string): Promise<void> => {
                 message: t('Please select the operation you want?'),
                 default: 'combine',
                 choices: [
-                    new inquirer.Separator(
-                        ' === 1. ' + t('Gitmars Workflow') + ' === '
-                    ),
+                    new inquirer.Separator(' === 1. ' + t('Gitmars Workflow') + ' === '),
                     'combine',
                     'end',
                     'update',
@@ -73,9 +68,7 @@ program.action(async (command: string): Promise<void> => {
                     'admin.update',
                     'admin.create',
                     'admin.clean',
-                    new inquirer.Separator(
-                        ' === 2. ' + t('Advanced Tools') + ' === '
-                    ),
+                    new inquirer.Separator(' === 2. ' + t('Advanced Tools') + ' === '),
                     'branch',
                     'copy',
                     'get',

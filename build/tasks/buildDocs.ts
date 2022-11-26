@@ -37,11 +37,7 @@ export async function deployDocs() {
         const RUN_PATH = resolve(PACKAGE, name, 'dist')
         await runSpawnSync(`git init`, RUN_PATH, { stdio: 'ignore' })
         await runSpawnSync(`git add .`, RUN_PATH)
-        const status = await runSpawnSync(
-            `git status -s --no-column`,
-            RUN_PATH,
-            { stdio: 'pipe' }
-        )
+        const status = await runSpawnSync(`git status -s --no-column`, RUN_PATH, { stdio: 'pipe' })
         if (!status) {
             console.info('文档已经是最新版本，无需提交')
             return
@@ -51,25 +47,16 @@ export async function deployDocs() {
             `git push -f git@github.com:saqqdy/gitmars.git master:gh-pages`,
             RUN_PATH
         )
-        await runSpawnSync(
-            `git push -f git@gitee.com:saqqdy/gitmars.git master:gh-pages`,
-            RUN_PATH
-        )
+        await runSpawnSync(`git push -f git@gitee.com:saqqdy/gitmars.git master:gh-pages`, RUN_PATH)
     })
     await Promise.all(builds)
 }
 
 export async function copyMdFile() {
     for (const { name } of pkgs) {
-        await runSpawnSync(
-            `rimraf ${resolve(PACKAGE, name)}/changelog.md`,
-            ROOT
-        )
+        await runSpawnSync(`rimraf ${resolve(PACKAGE, name)}/changelog.md`, ROOT)
         await runExec(
-            `rsync -av ${resolve(ROOT, 'CHANGELOG.md')} ${resolve(
-                PACKAGE,
-                name
-            )}/changelog.md`
+            `rsync -av ${resolve(ROOT, 'CHANGELOG.md')} ${resolve(PACKAGE, name)}/changelog.md`
         )
     }
 }

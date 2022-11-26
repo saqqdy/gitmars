@@ -5,10 +5,7 @@ function broadcastFun(componentName, eventName, params) {
         if (name === componentName) {
             child.$emit.apply(child, [eventName].concat(params))
         } else {
-            broadcastFun.apply(
-                child,
-                [componentName, eventName].concat([params])
-            )
+            broadcastFun.apply(child, [componentName, eventName].concat([params]))
         }
     })
 }

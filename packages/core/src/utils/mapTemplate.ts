@@ -16,10 +16,7 @@ import type { AnyFunction, AnyObject } from '../../typings'
  * @param tmp - 模板名称
  * @param data - 模板数据
  */
-function mapTemplate(
-    tmp: string,
-    data: AnyFunction | AnyObject
-): string | null {
+function mapTemplate(tmp: string, data: AnyFunction | AnyObject): string | null {
     if (!tmp || !data) return null
     const str: string =
         '' +

@@ -52,11 +52,7 @@ export function getMessage(type: string): string {
 export async function postMessage(msg = ''): Promise<void> {
     const config = getConfig()
     if (!config.msgTemplate) {
-        sh.echo(
-            chalk.red(
-                t('Please configure the message sending api template address')
-            )
-        )
+        sh.echo(chalk.red(t('Please configure the message sending api template address')))
         return
     }
     const message = mapTemplate(config.msgTemplate, (key: string) => {

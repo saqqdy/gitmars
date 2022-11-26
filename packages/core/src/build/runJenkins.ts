@@ -1,11 +1,7 @@
 import sh from 'shelljs'
 import chalk from 'chalk'
 import request from '@jssj/request'
-import type {
-    ApolloBranchList,
-    ApolloConfigBranchType,
-    ApolloConfigType
-} from '../../typings'
+import type { ApolloBranchList, ApolloConfigBranchType, ApolloConfigType } from '../../typings'
 import mapTemplate from '#lib/utils/mapTemplate'
 import { debug } from '#lib/utils/debug'
 import { getBuildConfig } from '#lib/build/buildConfig'
@@ -47,25 +43,19 @@ async function runJenkins({
         const appList = app.split(',')
         for (const item of appList) {
             if (!p.apps.includes(item)) {
-                sh.echo(
-                    chalk.red(t('Please enter the correct application name'))
-                )
+                sh.echo(chalk.red(t('Please enter the correct application name')))
                 process.exit(1)
                 return
             }
         }
     }
     if (!buildConfig.template) {
-        sh.echo(
-            chalk.red(t('Please configure the Jenkins build address template'))
-        )
+        sh.echo(chalk.red(t('Please configure the Jenkins build address template')))
         process.exit(1)
         return
     }
     const url = mapTemplate(
-        p.apps && p.apps.length > 0
-            ? buildConfig.templateWithParam
-            : buildConfig.template,
+        p.apps && p.apps.length > 0 ? buildConfig.templateWithParam : buildConfig.template,
         {
             line: cfg.line,
             project: p.project,
@@ -73,9 +63,9 @@ async function runJenkins({
             app
         }
     )
-    const auth = `Basic ${Buffer.from(
-        buildConfig.username + ':' + buildConfig.password
-    ).toString('base64')}`
+    const auth = `Basic ${Buffer.from(buildConfig.username + ':' + buildConfig.password).toString(
+        'base64'
+    )}`
     await request
         .get({
             url,

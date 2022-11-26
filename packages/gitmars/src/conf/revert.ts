@@ -27,9 +27,7 @@ export const cmdConfig: GitmarsOptionType = {
             short: '-n',
             long: '--number',
             negate: false,
-            description: t(
-                'Undo the last commit (or undo the penultimate nth commit)'
-            ),
+            description: t('Undo the last commit (or undo the penultimate nth commit)'),
             defaultValue: ''
         },
         {

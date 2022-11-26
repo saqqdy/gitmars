@@ -15,12 +15,7 @@ export function runSpawn(command: string, cwd: string = ROOT) {
         child.on('close', code => {
             process.removeListener('exit', onProcessExit)
             if (code === 0) resolve(true)
-            else
-                reject(
-                    new Error(
-                        `Command failed. \n Command: ${command} \n Code: ${code}`
-                    )
-                )
+            else reject(new Error(`Command failed. \n Command: ${command} \n Code: ${code}`))
         })
         process.on('exit', onProcessExit)
     })
@@ -103,7 +98,5 @@ export function runExecSync(
 }
 
 export function runTask(command: string, cwd: string = ROOT) {
-    return wrapDisplayName(`running: ${command}`, () =>
-        runSpawnSync(command, cwd)
-    )
+    return wrapDisplayName(`running: ${command}`, () => runSpawnSync(command, cwd))
 }

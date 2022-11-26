@@ -31,9 +31,7 @@ export const cmdConfig: GitmarsOptionType = {
             short: '-f',
             long: '--force',
             negate: false,
-            description: t(
-                'No version of the file is also staged, which will perform a git add .'
-            ),
+            description: t('No version of the file is also staged, which will perform a git add .'),
             defaultValue: false
         }
     ],

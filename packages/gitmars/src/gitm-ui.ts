@@ -24,10 +24,7 @@ interface GitmBuildOption {
 /**
  * gitm ui
  */
-program
-    .name('gitm ui')
-    .usage('[-p --port <port>]')
-    .description(t('Link local package'))
+program.name('gitm ui').usage('[-p --port <port>]').description(t('Link local package'))
 if (args.length > 0) program.arguments(createArgs(args))
 options.forEach((o: GitmarsOptionOptionsType) => {
     program.option(o.flags, o.description, o.defaultValue)
@@ -37,11 +34,7 @@ program.action((opt: GitmBuildOption) => {
     const uiBin = sh.which('gitm-ui')?.stdout
     if (!uiBin) {
         echo(
-            yellow(
-                t(
-                    'Please install the gitm ui plugin first: gitm install @gitmars/ui latest -m'
-                )
-            )
+            yellow(t('Please install the gitm ui plugin first: gitm install @gitmars/ui latest -m'))
         )
         return
     }

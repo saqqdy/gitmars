@@ -107,12 +107,9 @@ program.action(async (branches: string[], opt: GitmBuildOption) => {
     // clean files
     async function clean(branch: string) {
         const removeLocal = getIsBranchOrCommitExist(branch)
-        const removeRemote =
-            opt.remote && getIsBranchOrCommitExist(branch, true)
+        const removeRemote = opt.remote && getIsBranchOrCommitExist(branch, true)
         if (removeLocal || removeRemote) {
-            spinner.start(
-                green(t('Deleting: {something}', { something: branch }))
-            )
+            spinner.start(green(t('Deleting: {something}', { something: branch })))
             await delay(200)
             spinner.succeed(
                 green(
@@ -136,9 +133,7 @@ program.action(async (branches: string[], opt: GitmBuildOption) => {
         }
     }
 
-    const targets = opt.target
-        ? opt.target.split(',')
-        : [config.develop, config.release]
+    const targets = opt.target ? opt.target.split(',') : [config.develop, config.release]
     fetch()
     // No branch is passed in for the specified query
     if (branches.length === 0) {
@@ -157,9 +152,7 @@ program.action(async (branches: string[], opt: GitmBuildOption) => {
                 .prompt({
                     type: 'confirm',
                     name: 'value',
-                    message: t(
-                        'About to start batch deleting branches, do you want to continue?'
-                    ),
+                    message: t('About to start batch deleting branches, do you want to continue?'),
                     default: false
                 })
                 .then((answers: any) => {
@@ -176,13 +169,9 @@ program.action(async (branches: string[], opt: GitmBuildOption) => {
     for (const branch of branches) {
         // Skip main Branches
         if (
-            [
-                config.master,
-                config.develop,
-                config.release,
-                config.bugfix,
-                config.support
-            ].includes(branch)
+            [config.master, config.develop, config.release, config.bugfix, config.support].includes(
+                branch
+            )
         ) {
             continue
         }
@@ -253,13 +242,7 @@ program.action(async (branches: string[], opt: GitmBuildOption) => {
             })
             inquirer.prompt(prompt as any).then(({ selectBranches }: any) => {
                 if (selectBranches.length === 0) {
-                    echo(
-                        yellow(
-                            t(
-                                'No branches were selected and the process has exited.'
-                            )
-                        )
-                    )
+                    echo(yellow(t('No branches were selected and the process has exited.')))
                     process.exit(0)
                 }
                 selectBranches.forEach(async (branch: string) => {

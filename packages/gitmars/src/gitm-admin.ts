@@ -36,9 +36,7 @@ if (!getIsGitProject()) {
 
 const { appName } = getGitConfig()
 const config = getConfig()
-const userInfoApi =
-    (config.apis && config.apis.userInfo && config.apis.userInfo.url) ||
-    config.api
+const userInfoApi = (config.apis && config.apis.userInfo && config.apis.userInfo.url) || config.api
 const mergeRequestModule = require.resolve('@gitmars/core/lib/api/mergeRequest')
 const { approve, clean, create, publish, update } = adminConfig
 interface GitmBuildOption {
@@ -88,23 +86,15 @@ createProgram.action((type: GitmarsMainBranchType): void => {
     const exits = getIsBranchOrCommitExist(config[type])
     if (!status) process.exit(1)
     if (!hasBase) {
-        echo(
-            red(
-                t(
-                    '{base} branch does not exist, please create a {base} branch first',
-                    { base }
-                )
-            )
-        )
+        echo(red(t('{base} branch does not exist, please create a {base} branch first', { base })))
         process.exit(1)
     }
     if (exits) {
         echo(
             red(
-                t(
-                    'The {branch} branch already exists and does not need to be created again',
-                    { branch: config[type] }
-                )
+                t('The {branch} branch already exists and does not need to be created again', {
+                    branch: config[type]
+                })
             )
         )
         process.exit(1)
@@ -156,10 +146,7 @@ publish.options.forEach((o: GitmarsOptionOptionsType) => {
 // .option('--description [description]', t('Description of the reason for this commit'), '')
 // .option('-f, --force', t('Whether to force a merge request'), false)
 publishProgram.action(
-    async (
-        type: PublishOptsType,
-        opt: GitmBuildOption['publish']
-    ): Promise<void> => {
+    async (type: PublishOptsType, opt: GitmBuildOption['publish']): Promise<void> => {
         const {
             token,
             level,
@@ -225,13 +212,10 @@ publishProgram.action(
                                       config: {
                                           again: false,
                                           postmsg: opt.postmsg,
-                                          success: t(
-                                              'Merge {source} into {target} successfully',
-                                              {
-                                                  source: config.bugfix,
-                                                  target: config.release
-                                              }
-                                          ),
+                                          success: t('Merge {source} into {target} successfully', {
+                                              source: config.bugfix,
+                                              target: config.release
+                                          }),
                                           fail: t(
                                               'An error occurred merging {source} to {target}, Please follow the instructions',
                                               {
@@ -246,21 +230,16 @@ publishProgram.action(
                                       config: {
                                           again: true,
                                           success: t('Successful Pushed'),
-                                          fail: t(
-                                              'Push failed, please follow the prompts'
-                                          )
+                                          fail: t('Push failed, please follow the prompts')
                                       }
                                   }
                               ]
                             : [
                                   {
-                                      message: t(
-                                          '{source} has been merged with {target}',
-                                          {
-                                              source: config.bugfix,
-                                              target: config.release
-                                          }
-                                      )
+                                      message: t('{source} has been merged with {target}', {
+                                          source: config.bugfix,
+                                          target: config.release
+                                      })
                                   }
                               ],
                     support: ([] as Array<CommandType | string>)
@@ -297,21 +276,16 @@ publishProgram.action(
                                           config: {
                                               again: true,
                                               success: t('Successful Pushed'),
-                                              fail: t(
-                                                  'Push failed, please follow the prompts'
-                                              )
+                                              fail: t('Push failed, please follow the prompts')
                                           }
                                       }
                                   ]
                                 : [
                                       {
-                                          message: t(
-                                              '{source} has been merged with {target}',
-                                              {
-                                                  source: config.support,
-                                                  target: config.release
-                                              }
-                                          )
+                                          message: t('{source} has been merged with {target}', {
+                                              source: config.support,
+                                              target: config.release
+                                          })
                                       }
                                   ]
                         )
@@ -345,21 +319,16 @@ publishProgram.action(
                                           config: {
                                               again: true,
                                               success: t('Successful Pushed'),
-                                              fail: t(
-                                                  'Push failed, please follow the prompts'
-                                              )
+                                              fail: t('Push failed, please follow the prompts')
                                           }
                                       }
                                   ]
                                 : [
                                       {
-                                          message: t(
-                                              '{source} has been merged with {target}',
-                                              {
-                                                  source: config.support,
-                                                  target: config.bugfix
-                                              }
-                                          )
+                                          message: t('{source} has been merged with {target}', {
+                                              source: config.support,
+                                              target: config.bugfix
+                                          })
                                       }
                                   ]
                         ),
@@ -375,13 +344,10 @@ publishProgram.action(
                                       cmd: `git merge --no-ff ${config.release}`,
                                       config: {
                                           again: false,
-                                          success: t(
-                                              'Merge {source} into {target} successfully',
-                                              {
-                                                  source: config.release,
-                                                  target: config.master
-                                              }
-                                          ),
+                                          success: t('Merge {source} into {target} successfully', {
+                                              source: config.release,
+                                              target: config.master
+                                          }),
                                           fail: t(
                                               'An error occurred merging {source} to {target}, Please follow the instructions',
                                               {
@@ -396,21 +362,16 @@ publishProgram.action(
                                       config: {
                                           again: true,
                                           success: t('Successful Pushed'),
-                                          fail: t(
-                                              'Push failed, please follow the prompts'
-                                          )
+                                          fail: t('Push failed, please follow the prompts')
                                       }
                                   }
                               ]
                             : [
                                   {
-                                      message: t(
-                                          '{source} has been merged with {target}',
-                                          {
-                                              source: config.release,
-                                              target: config.master
-                                          }
-                                      )
+                                      message: t('{source} has been merged with {target}', {
+                                          source: config.release,
+                                          target: config.master
+                                      })
                                   }
                               ]
                 }
@@ -442,9 +403,7 @@ publishProgram.action(
                                       },
                                       config: {
                                           again: true,
-                                          success: t(
-                                              'Successfully created merge request'
-                                          ),
+                                          success: t('Successfully created merge request'),
                                           fail: t(
                                               'There was an error creating the merge request, please follow the instructions'
                                           )
@@ -462,13 +421,10 @@ publishProgram.action(
                               ]
                             : [
                                   {
-                                      message: t(
-                                          '{source} has been merged with {target}',
-                                          {
-                                              source: config.bugfix,
-                                              target: config.release
-                                          }
-                                      )
+                                      message: t('{source} has been merged with {target}', {
+                                          source: config.bugfix,
+                                          target: config.release
+                                      })
                                   }
                               ],
                     support: ([] as Array<CommandType | string>)
@@ -488,9 +444,7 @@ publishProgram.action(
                                           },
                                           config: {
                                               again: true,
-                                              success: t(
-                                                  'Successfully created merge request'
-                                              ),
+                                              success: t('Successfully created merge request'),
                                               fail: t(
                                                   'There was an error creating the merge request, please follow the instructions'
                                               )
@@ -508,13 +462,10 @@ publishProgram.action(
                                   ]
                                 : [
                                       {
-                                          message: t(
-                                              '{source} has been merged with {target}',
-                                              {
-                                                  source: config.support,
-                                                  target: config.release
-                                              }
-                                          )
+                                          message: t('{source} has been merged with {target}', {
+                                              source: config.support,
+                                              target: config.release
+                                          })
                                       }
                                   ]
                         )
@@ -534,9 +485,7 @@ publishProgram.action(
                                           },
                                           config: {
                                               again: true,
-                                              success: t(
-                                                  'Successfully created merge request'
-                                              ),
+                                              success: t('Successfully created merge request'),
                                               fail: t(
                                                   'There was an error creating the merge request, please follow the instructions'
                                               )
@@ -554,13 +503,10 @@ publishProgram.action(
                                   ]
                                 : [
                                       {
-                                          message: t(
-                                              '{source} has been merged with {target}',
-                                              {
-                                                  source: config.support,
-                                                  target: config.bugfix
-                                              }
-                                          )
+                                          message: t('{source} has been merged with {target}', {
+                                              source: config.support,
+                                              target: config.bugfix
+                                          })
                                       }
                                   ]
                         ),
@@ -580,9 +526,7 @@ publishProgram.action(
                                       },
                                       config: {
                                           again: true,
-                                          success: t(
-                                              'Successfully created merge request'
-                                          ),
+                                          success: t('Successfully created merge request'),
                                           fail: t(
                                               'There was an error creating the merge request, please follow the instructions'
                                           )
@@ -600,13 +544,10 @@ publishProgram.action(
                               ]
                             : [
                                   {
-                                      message: t(
-                                          '{source} has been merged with {target}',
-                                          {
-                                              source: config.release,
-                                              target: config.master
-                                          }
-                                      )
+                                      message: t('{source} has been merged with {target}', {
+                                          source: config.release,
+                                          target: config.master
+                                      })
                                   }
                               ]
                 }
@@ -629,13 +570,10 @@ publishProgram.action(
                                       cmd: `git merge --no-ff ${config.bugfix}`,
                                       config: {
                                           again: false,
-                                          success: t(
-                                              'Merge {source} into {target} successfully',
-                                              {
-                                                  source: config.bugfix,
-                                                  target: config.master
-                                              }
-                                          ),
+                                          success: t('Merge {source} into {target} successfully', {
+                                              source: config.bugfix,
+                                              target: config.master
+                                          }),
                                           fail: t(
                                               'An error occurred merging {source} to {target}, Please follow the instructions',
                                               {
@@ -650,21 +588,16 @@ publishProgram.action(
                                       config: {
                                           again: true,
                                           success: t('Successful Pushed'),
-                                          fail: t(
-                                              'Push failed, please follow the prompts'
-                                          )
+                                          fail: t('Push failed, please follow the prompts')
                                       }
                                   }
                               ]
                             : [
                                   {
-                                      message: t(
-                                          '{source} has been merged with {target}',
-                                          {
-                                              source: config.bugfix,
-                                              target: config.master
-                                          }
-                                      )
+                                      message: t('{source} has been merged with {target}', {
+                                          source: config.bugfix,
+                                          target: config.master
+                                      })
                                   }
                               ]
                     )
@@ -695,9 +628,7 @@ publishProgram.action(
                                       },
                                       config: {
                                           again: true,
-                                          success: t(
-                                              'Successfully created merge request'
-                                          ),
+                                          success: t('Successfully created merge request'),
                                           fail: t(
                                               'There was an error creating the merge request, please follow the instructions'
                                           )
@@ -715,13 +646,10 @@ publishProgram.action(
                               ]
                             : [
                                   {
-                                      message: t(
-                                          '{source} has been merged with {target}',
-                                          {
-                                              source: config.bugfix,
-                                              target: config.master
-                                          }
-                                      )
+                                      message: t('{source} has been merged with {target}', {
+                                          source: config.bugfix,
+                                          target: config.master
+                                      })
                                   }
                               ]
                     )
@@ -734,9 +662,7 @@ publishProgram.action(
                             }`,
                             config: {
                                 again: false,
-                                success: t(
-                                    'Pulling up the build was successful'
-                                ),
+                                success: t('Pulling up the build was successful'),
                                 fail: t('Failed to pull up the build')
                             }
                         }
@@ -783,13 +709,10 @@ publishProgram.action(
                                       config: {
                                           again: false,
                                           postmsg: opt.postmsg,
-                                          success: t(
-                                              'Merge {source} to {target} successfully',
-                                              {
-                                                  source: config.release,
-                                                  target: config.bugfix
-                                              }
-                                          ),
+                                          success: t('Merge {source} to {target} successfully', {
+                                              source: config.release,
+                                              target: config.bugfix
+                                          }),
                                           fail: t(
                                               'An error occurred merging {source} to {target}, please follow the instructions',
                                               {
@@ -804,21 +727,16 @@ publishProgram.action(
                                       config: {
                                           again: true,
                                           success: t('Successful Pushed'),
-                                          fail: t(
-                                              'Push failed, please follow the prompts'
-                                          )
+                                          fail: t('Push failed, please follow the prompts')
                                       }
                                   }
                               ]
                             : [
                                   {
-                                      message: t(
-                                          '{source} has been merged with {target}',
-                                          {
-                                              source: config.release,
-                                              target: config.bugfix
-                                          }
-                                      )
+                                      message: t('{source} has been merged with {target}', {
+                                          source: config.release,
+                                          target: config.bugfix
+                                      })
                                   }
                               ]
                     )
@@ -857,21 +775,16 @@ publishProgram.action(
                                           config: {
                                               again: true,
                                               success: t('Successful Pushed'),
-                                              fail: t(
-                                                  'Push failed, please follow the prompts'
-                                              )
+                                              fail: t('Push failed, please follow the prompts')
                                           }
                                       }
                                   ]
                                 : [
                                       {
-                                          message: t(
-                                              '{source} has been merged with {target}',
-                                              {
-                                                  source: config.release,
-                                                  target: config.bugfix
-                                              }
-                                          )
+                                          message: t('{source} has been merged with {target}', {
+                                              source: config.release,
+                                              target: config.bugfix
+                                          })
                                       }
                                   ]
                         )
@@ -900,9 +813,7 @@ publishProgram.action(
                                 },
                                 config: {
                                     again: true,
-                                    success: t(
-                                        'Successfully created merge request'
-                                    ),
+                                    success: t('Successfully created merge request'),
                                     fail: t(
                                         'There was an error creating the merge request, please follow the instructions'
                                     )
@@ -952,10 +863,7 @@ update.options.forEach((o: GitmarsOptionOptionsType) => {
 // .option('--description [description]', t('Description of the reason for this commit'), '')
 // .option('-f, --force', t('Whether to force a merge request'), false)
 updateProgram.action(
-    async (
-        type: GitmarsMainBranchType,
-        opt: GitmBuildOption['update']
-    ): Promise<void> => {
+    async (type: GitmarsMainBranchType, opt: GitmBuildOption['update']): Promise<void> => {
         const {
             token,
             level,
@@ -984,11 +892,9 @@ updateProgram.action(
         fetch()
         if (opts.includes(type)) {
             // Is it necessary to merge
-            const isNeedCombine = !getIsMergedTargetBranch(
-                `origin/${base}`,
-                config[type],
-                { remote: true }
-            )
+            const isNeedCombine = !getIsMergedTargetBranch(`origin/${base}`, config[type], {
+                remote: true
+            })
             let cmd
             if (isNeedCombine || opt.force) {
                 if (!level || level < 4) {
@@ -1006,13 +912,10 @@ updateProgram.action(
                             config: {
                                 again: false,
                                 postmsg: opt.postmsg,
-                                success: t(
-                                    'Merge {source} to {target} successfully',
-                                    {
-                                        source: base,
-                                        target: config[type]
-                                    }
-                                ),
+                                success: t('Merge {source} to {target} successfully', {
+                                    source: base,
+                                    target: config[type]
+                                }),
                                 fail: t(
                                     'An error occurred merging {source} to {target}, please follow the instructions',
                                     {
@@ -1027,9 +930,7 @@ updateProgram.action(
                             config: {
                                 again: true,
                                 success: t('Successful Pushed'),
-                                fail: t(
-                                    'Push failed, please follow the prompts'
-                                )
+                                fail: t('Push failed, please follow the prompts')
                             }
                         }
                     ]
@@ -1058,9 +959,7 @@ updateProgram.action(
                             },
                             config: {
                                 again: true,
-                                success: t(
-                                    'Successfully created merge request'
-                                ),
+                                success: t('Successfully created merge request'),
                                 fail: t(
                                     'There was an error creating the merge request, please follow the instructions'
                                 )
@@ -1092,13 +991,10 @@ updateProgram.action(
                             config: {
                                 again: false,
                                 postmsg: opt.postmsg,
-                                success: t(
-                                    'Merge {source} to {target} successfully',
-                                    {
-                                        source: base,
-                                        target: config[type]
-                                    }
-                                ),
+                                success: t('Merge {source} to {target} successfully', {
+                                    source: base,
+                                    target: config[type]
+                                }),
                                 fail: t(
                                     'An error occurred merging {source} to {target}, please follow the instructions',
                                     {
@@ -1113,9 +1009,7 @@ updateProgram.action(
                             config: {
                                 again: true,
                                 success: t('Successful Pushed'),
-                                fail: t(
-                                    'Push failed, please follow the prompts'
-                                )
+                                fail: t('Push failed, please follow the prompts')
                             }
                         }
                     ]
@@ -1163,9 +1057,7 @@ cleanProgram.action((type: GitmarsMainBranchType): void => {
                 config: {
                     again: true,
                     success: t('Cleanup of remote branch was successful'),
-                    fail: t(
-                        'Failed to clean up remote branch, please follow the prompts'
-                    )
+                    fail: t('Failed to clean up remote branch, please follow the prompts')
                 }
             },
             'git fetch',

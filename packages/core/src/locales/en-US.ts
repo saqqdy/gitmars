@@ -9,8 +9,7 @@ export default {
         'Please enter gitm continue to continue after processing the issue in question',
     Message: 'Message',
     Processing: 'Processing',
-    'No group message push address configured':
-        'No group message push address configured',
+    'No group message push address configured': 'No group message push address configured',
     'Sending message successfully': 'Sending message successfully',
     'Your version is detected as old, please upgrade before using':
         'Your version is detected as old, please upgrade before using',
@@ -19,18 +18,14 @@ export default {
     'Please configure the address of the api interface used to request permissions, receive parameters in the form: url?name=git_user_name, return data=token':
         'Please configure the address of the api interface used to request permissions, receive parameters in the form: url?name=git_user_name, return data=token',
     'Please set the local git user name': 'Please set the local git user name',
-    'No user found, please contact admin':
-        'No user found, please contact admin',
+    'No user found, please contact admin': 'No user found, please contact admin',
     'Please set access_token': 'Please set access_token',
     'The request reported an error': 'The request reported an error',
-    'Please enter the correct environment name':
-        'Please enter the correct environment name',
-    'Please enter the correct application name':
-        'Please enter the correct application name',
+    'Please enter the correct environment name': 'Please enter the correct environment name',
+    'Please enter the correct application name': 'Please enter the correct application name',
     'Please configure the Jenkins build address template':
         'Please configure the Jenkins build address template',
-    'Successfully pulled up Jenkins build':
-        'Successfully pulled up Jenkins build',
+    'Successfully pulled up Jenkins build': 'Successfully pulled up Jenkins build',
     'Cache time Map file': 'Cache time Map file',
     'Please pass in the name': 'Please pass in the name',
     'Gitmars package cache file': 'Gitmars package cache file',
@@ -56,8 +51,7 @@ export default {
     Pushing: 'Pushing',
     'Push failed': 'Push failed',
     'Syncing submission records': 'Syncing submission records',
-    'Syncing submission records successfully':
-        'Syncing submission records successfully',
+    'Syncing submission records successfully': 'Syncing submission records successfully',
     'Failed to sync commit records': 'Failed to sync commit records',
     'Merging branch': 'Merging branch',
     'merge branch succeeded': 'merge branch succeeded',
@@ -90,21 +84,16 @@ export default {
     'An error has occurred! Command {command} execution failed, process exits':
         'An error has occurred! Command {command} execution failed, process exits',
     'Command {command} Execution failed': 'Command {command} Execution failed',
-    'Enter the value of parameter {option}':
-        'Enter the value of parameter {option}',
+    'Enter the value of parameter {option}': 'Enter the value of parameter {option}',
     'Not required{tips}': 'Not required{tips}',
     'default "{defaultValue}"': 'default "{defaultValue}"',
-    'Merge existing ghooks hooks: {name}':
-        'Merge existing ghooks hooks: {name}',
-    'Merge existing pre-commit hooks: {name}':
-        'Merge existing pre-commit hooks: {name}',
+    'Merge existing ghooks hooks: {name}': 'Merge existing ghooks hooks: {name}',
+    'Merge existing pre-commit hooks: {name}': 'Merge existing pre-commit hooks: {name}',
     'Skip existing git hooks: {name}': 'Skip existing git hooks: {name}',
     'Cleaned up': 'Cleaned up',
     '{name} not found': '{name} not found',
     '{name} deleted': '{name} deleted',
     'File write error': 'File write error',
-    'Jenkins build configuration cache file':
-        'Jenkins build configuration cache file',
-    'Please configure apollo or buildConfigApi':
-        'Please configure apollo or buildConfigApi'
+    'Jenkins build configuration cache file': 'Jenkins build configuration cache file',
+    'Please configure apollo or buildConfigApi': 'Please configure apollo or buildConfigApi'
 }

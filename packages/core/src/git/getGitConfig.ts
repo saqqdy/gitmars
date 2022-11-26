@@ -14,11 +14,9 @@ export interface GitProjectConfigType {
  * @returns config - GitProjectConfigType
  */
 function getGitConfig(cwd: string = process.cwd()): GitProjectConfigType {
-    const { stdout } = spawnSync(
-        'git',
-        ['config', '--local', '--get', 'remote.origin.url'],
-        { cwd }
-    )
+    const { stdout } = spawnSync('git', ['config', '--local', '--get', 'remote.origin.url'], {
+        cwd
+    })
     const [gitUrl] = stdout!
         .split('\n')
         .map((s: string) => s.trim())

@@ -29,7 +29,6 @@
         //     "@/package": ["./package.json"]
         // }
     },
-    "include": ["packages", "typings"],
     "references": [
         {
             "path": "./packages/core/tsconfig.json"

@@ -7,11 +7,7 @@ import getIsGitProject from '@gitmars/core/lib/git/getIsGitProject'
 import getCurrentBranch from '@gitmars/core/lib/git/getCurrentBranch'
 import checkGitStatus from '@gitmars/core/lib/git/checkGitStatus'
 import { createArgs } from '@gitmars/core/lib/utils/command'
-import type {
-    CommandType,
-    GitmarsOptionOptionsType,
-    QueueReturnsType
-} from '../typings'
+import type { CommandType, GitmarsOptionOptionsType, QueueReturnsType } from '../typings'
 import copyConfig from '#lib/conf/copy'
 import lang from '#lib/common/local'
 
@@ -35,9 +31,7 @@ interface GitmBuildOption {
  */
 program
     .name('gitm copy')
-    .usage(
-        '[commitid...] [-t --target [target]] [-k --key [keyword]] [-a --author [author]]'
-    )
+    .usage('[commitid...] [-t --target [target]] [-k --key [keyword]] [-a --author [author]]')
     .description(
         t(
             'cherry-pick batch version, copy a record from a branch and merge it into the current branch'
@@ -94,8 +88,7 @@ program.action((commitid: string[], opts: GitmBuildOption) => {
         queue(cmd).then((data: any) => {
             const commits: string[] = []
             if (data[1].status === 0) {
-                const logs =
-                    data[1].stdout!.match(/(commit\s[a-z0-9]*\n+)/g) || []
+                const logs = data[1].stdout!.match(/(commit\s[a-z0-9]*\n+)/g) || []
                 let cmds: Array<CommandType | string> = [`git checkout ${cur}`]
                 logs.forEach((el: any) => {
                     commits.push(el.replace(/(commit\s)|\n/g, ''))
@@ -108,9 +101,7 @@ program.action((commitid: string[], opts: GitmBuildOption) => {
                             config: {
                                 again: false,
                                 success: t('Record merge successful'),
-                                fail: t(
-                                    'Merge failed, please follow the instructions'
-                                )
+                                fail: t('Merge failed, please follow the instructions')
                             }
                         }
                     ])

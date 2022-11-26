@@ -7,12 +7,7 @@ import home from '#lib/utils/home'
 
 const homeDir = home()
 
-const shell =
-    os.platform() === 'win32'
-        ? 'powershell.exe'
-        : sh.which('zsh')
-        ? 'zsh'
-        : 'bash'
+const shell = os.platform() === 'win32' ? 'powershell.exe' : sh.which('zsh') ? 'zsh' : 'bash'
 const ptyContainers: Record<string, IPty> = {}
 
 export default (socket: http.Server) => {
@@ -24,9 +19,7 @@ export default (socket: http.Server) => {
             cwd: option.cwd || homeDir,
             env: process.env as Record<string, string>
         })
-        ptyProcess.onData((data: string) =>
-            socket.emit(option.name + '-output', data)
-        )
+        ptyProcess.onData((data: string) => socket.emit(option.name + '-output', data))
         socket.on(option.name + '-input', data => ptyProcess.write(data))
         socket.on(option.name + '-resize', size => {
             ptyProcess.resize(size[0], size[1])

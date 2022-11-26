@@ -30,11 +30,7 @@ program
     .action(() => {
         const prompts: InitInquirerPromptType[] = []
         Object.keys(defaults).forEach(key => {
-            if (
-                ['master', 'develop', 'release', 'bugfix', 'support'].includes(
-                    key
-                )
-            ) {
+            if (['master', 'develop', 'release', 'bugfix', 'support'].includes(key)) {
                 prompts.push({
                     type: 'input',
                     name: key,
@@ -44,9 +40,7 @@ program
                     default: () => key,
                     transformer: val => val.trim(),
                     validate: val =>
-                        /^\w+$/.test(val)
-                            ? true
-                            : t('Please enter the available names')
+                        /^\w+$/.test(val) ? true : t('Please enter the available names')
                 })
             } else if (key === 'user') {
                 prompts.push({
@@ -66,10 +60,7 @@ program
                     message: t('Please enter the Git email address'),
                     transformer: val => val.trim(),
                     validate: val =>
-                        val === '' ||
-                        /^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/.test(
-                            val
-                        )
+                        val === '' || /^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/.test(val)
                             ? true
                             : t('Please enter the correct email')
                 })
@@ -77,9 +68,7 @@ program
                 prompts.push({
                     type: 'input',
                     name: key,
-                    message: t(
-                        'Please enter the branch name naming convention'
-                    ),
+                    message: t('Please enter the branch name naming convention'),
                     transformer: val => val.trim()
                 })
             } else if (key === 'descriptionValidator') {
@@ -94,8 +83,7 @@ program
                     type: 'input',
                     name: key,
                     message: t('Please enter the message template'),
-                    default: () =>
-                        '${message}; project: ${project}; path: ${pwd}',
+                    default: () => '${message}; project: ${project}; path: ${pwd}',
                     transformer: val => val.trim()
                 })
             } else if (key === 'apolloConfig') {
@@ -143,9 +131,7 @@ program
                 prompts.push({
                     type: 'input',
                     name: key,
-                    message: t(
-                        'Please enter the query user permission interface'
-                    ),
+                    message: t('Please enter the query user permission interface'),
                     transformer: val => val.trim(),
                     validate: val =>
                         val === '' || /^https?:\/\/[\S]*$/.test(val)
@@ -172,19 +158,14 @@ program
                     ),
                     transformer: val => val.trim(),
                     validate: val =>
-                        val === '' || /^\d+$/.test(val)
-                            ? true
-                            : t('Please enter the URL')
+                        val === '' || /^\d+$/.test(val) ? true : t('Please enter the URL')
                 })
             }
         })
         inquirer.prompt(prompts).then((answers: any) => {
             try {
                 answers.apolloConfig = JSON.parse(answers.apolloConfig)
-                if (
-                    !answers.apolloConfig.configServerUrl ||
-                    !answers.apolloConfig.token
-                ) {
+                if (!answers.apolloConfig.configServerUrl || !answers.apolloConfig.token) {
                     answers.apolloConfig = ''
                 }
             } catch (e) {
@@ -204,11 +185,7 @@ program
                 answers.hooks = ''
             }
             sh.echo(green(t('gitmars configured successfully')))
-            fs.writeFileSync(
-                root + '/.gitmarsrc',
-                JSON.stringify(answers, null, 4),
-                'utf-8'
-            )
+            fs.writeFileSync(root + '/.gitmarsrc', JSON.stringify(answers, null, 4), 'utf-8')
             fs.chmodSync(root + '/.gitmarsrc', 0o0755)
         })
     })

@@ -1,8 +1,5 @@
 import chalk from 'chalk'
-import type {
-    GitmarsOptionArgsType,
-    GitmarsOptionOptionsType
-} from '../../typings'
+import type { GitmarsOptionArgsType, GitmarsOptionOptionsType } from '../../typings'
 import lang from '#lib/lang'
 
 const { t } = lang
@@ -98,16 +95,11 @@ function createPrompt(
                             ? chalk.yellow(
                                   t('(' + 'Not required{{{tips}}}' + ')', {
                                       tips:
-                                          'defaultValue' in opts &&
-                                          opts.defaultValue !== ''
+                                          'defaultValue' in opts && opts.defaultValue !== ''
                                               ? ', ' +
-                                                t(
-                                                    'default "{{{defaultValue}}}"',
-                                                    {
-                                                        defaultValue:
-                                                            opts.defaultValue
-                                                    }
-                                                )
+                                                t('default "{{{defaultValue}}}"', {
+                                                    defaultValue: opts.defaultValue
+                                                })
                                               : ''
                                   })
                               )

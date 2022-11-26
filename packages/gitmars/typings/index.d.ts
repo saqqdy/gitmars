@@ -15,23 +15,12 @@ export type ValueOf<T> = T extends ReadonlyArray<any> ? T[number] : T[keyof T]
 
 export type GitmarsBranchType = 'feature' | 'bugfix' | 'support'
 
-export type GitmarsMainBranchType =
-    | 'master'
-    | 'develop'
-    | 'release'
-    | 'bugfix'
-    | 'support'
+export type GitmarsMainBranchType = 'master' | 'develop' | 'release' | 'bugfix' | 'support'
 
 // 127和128是git个别场景的执行结果值
 export type ShellCode = 0 | 1 | 127 | 128
 
-export type PackageVersionTag =
-    | 'alpha'
-    | 'lite'
-    | 'beta'
-    | 'release'
-    | 'latest'
-    | 'next'
+export type PackageVersionTag = 'alpha' | 'lite' | 'beta' | 'release' | 'latest' | 'next'
 
 export type GitLogsType = {
     [key in GitLogKeysType]?: string
@@ -42,12 +31,7 @@ export interface GitmarsOptionArgsType {
     name: string
     variadic: boolean
     validator?(val: string, opts: object, cb: Function): void
-    transformer?(
-        val: string,
-        answers: object,
-        flags: object,
-        options: GitmarsOptionArgsType
-    ): void
+    transformer?(val: string, answers: object, flags: object, options: GitmarsOptionArgsType): void
     description?: string
     defaultValue?: any
     options?: Array<string | number>
@@ -138,9 +122,7 @@ export interface QueueConfigType extends SpawnOptions {
 }
 
 export interface QueueReturnsType
-    extends Partial<
-        Pick<SpawnSyncReturns<string>, 'stdout' | 'stderr' | 'status'>
-    > {
+    extends Partial<Pick<SpawnSyncReturns<string>, 'stdout' | 'stderr' | 'status'>> {
     cfg: QueueConfigType
     cmd: string | ModuleCommandType
 }

@@ -87,12 +87,7 @@ export interface GitmarsOptionArgsType {
     name: string
     variadic: boolean
     validator?(val: string, opts: object, cb: Function): void
-    transformer?(
-        val: string,
-        answers: object,
-        flags: object,
-        options: GitmarsOptionArgsType
-    ): void
+    transformer?(val: string, answers: object, flags: object, options: GitmarsOptionArgsType): void
     description?: string
     defaultValue?: any
     options?: Array<string | number>
@@ -266,17 +261,13 @@ export interface QueueConfigType extends SpawnOptions {
 }
 
 export interface QueueReturnsType
-    extends Partial<
-        Pick<SpawnSyncReturns<string>, 'stdout' | 'stderr' | 'status'>
-    > {
+    extends Partial<Pick<SpawnSyncReturns<string>, 'stdout' | 'stderr' | 'status'>> {
     cfg: QueueConfigType
     cmd: string | ModuleCommandType
 }
 
 export interface GitmarsLogType
-    extends Partial<
-        Pick<SpawnSyncReturns<string>, 'stdout' | 'stderr' | 'status'>
-    > {
+    extends Partial<Pick<SpawnSyncReturns<string>, 'stdout' | 'stderr' | 'status'>> {
     command: string
 }
 

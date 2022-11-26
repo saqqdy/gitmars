@@ -32,9 +32,7 @@ interface GitmBuildOption {
  */
 program
     .name('gitm log')
-    .usage(
-        '[branch] [--lastet [lastet]] [--limit [limit]] [--no-merges] [--json]'
-    )
+    .usage('[branch] [--lastet [lastet]] [--limit [limit]] [--no-merges] [--json]')
     .description(t('Log query'))
 if (args.length > 0) program.arguments(createArgs(args))
 options.forEach((o: GitmarsOptionOptionsType) => {

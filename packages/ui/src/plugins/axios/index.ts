@@ -9,8 +9,7 @@ let axiosEx: any = null
  */
 // @ts-expect-error
 function setHeaders(instance) {
-    instance.defaults.headers.post['Content-Type'] =
-        'application/x-www-form-urlencoded'
+    instance.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded'
     instance.defaults.headers.common['Access-Control-Allow-Origin'] = '*'
 }
 // 请求拦截器

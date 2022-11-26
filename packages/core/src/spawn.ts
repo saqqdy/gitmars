@@ -1,8 +1,4 @@
-import type {
-    SpawnOptions,
-    SpawnSyncOptions,
-    SpawnSyncReturns
-} from 'child_process'
+import type { SpawnOptions, SpawnSyncOptions, SpawnSyncReturns } from 'child_process'
 import crossSpawn from 'cross-spawn'
 import { debug } from '#lib/utils/debug'
 
@@ -28,12 +24,10 @@ export function spawn(
         shell: process.platform === 'win32',
         ...options
     })
-    debug(client, argv)
+    debug('spawn', client, argv)
     return {
         pid: program.pid,
-        stdout: program.stdout
-            ? program.stdout.toString().replace(/\s+$/, '')
-            : '',
+        stdout: program.stdout ? program.stdout.toString().replace(/\s+$/, '') : '',
         stderr: program.stderr ? program.stderr.toString() : '',
         status: program.status,
         signal: program.signal,
@@ -63,12 +57,10 @@ export function spawnSync(
         shell: process.platform === 'win32',
         ...options
     })
-    debug(client, argv)
+    debug('spawnSync', client, argv)
     return {
         pid: program.pid,
-        stdout: program.stdout
-            ? program.stdout.toString().replace(/\s+$/, '')
-            : '',
+        stdout: program.stdout ? program.stdout.toString().replace(/\s+$/, '') : '',
         stderr: program.stderr ? program.stderr.toString() : '',
         status: program.status,
         signal: program.signal,

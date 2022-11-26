@@ -8,10 +8,7 @@ import getCurrentBranch from '#lib/git/getCurrentBranch'
  * @param remote - 是否查询远程，默认：false
  * @returns isBranchOrCommitExist - return true/false
  */
-function getIsBranchOrCommitExist(
-    name?: string | null,
-    remote = false
-): boolean {
+function getIsBranchOrCommitExist(name?: string | null, remote = false): boolean {
     if (!name) name = getCurrentBranch() || ''
     if (remote && !name.includes('origin')) name = 'origin/' + name
     const { status } = spawnSync('git', ['rev-parse', '--verify', name])

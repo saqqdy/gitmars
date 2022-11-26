@@ -32,10 +32,7 @@ const defaults = {
  * @param moduleName - 包名称
  * @returns config - Return the configuration object
  */
-function getConfig(
-    pathName?: string,
-    moduleName = 'gitmars'
-): GitmarsConfigExtend {
+function getConfig(pathName?: string, moduleName = 'gitmars'): GitmarsConfigExtend {
     let info
     if (!pathName) {
         const { root } = getGitRevParse()

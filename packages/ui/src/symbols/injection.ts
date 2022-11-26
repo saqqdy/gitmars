@@ -10,7 +10,5 @@ export interface SocketInjection {
     socketGitmars?: any
 }
 
-export const TerminalInjectionKey: InjectionKey<TerminalInjection> =
-    Symbol('Terminal')
-export const SocketInjectionKey: InjectionKey<SocketInjection> =
-    Symbol('Socket')
+export const TerminalInjectionKey: InjectionKey<TerminalInjection> = Symbol('Terminal')
+export const SocketInjectionKey: InjectionKey<SocketInjection> = Symbol('Socket')

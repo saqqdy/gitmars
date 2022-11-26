@@ -1,22 +1,18 @@
 export default {
     name: 'zh-CN',
-    'The current directory is not a git project directory':
-        '当前目录不是git项目目录',
+    'The current directory is not a git project directory': '当前目录不是git项目目录',
     'Successful Pushed': '推送成功',
     'Push failed, please follow the prompts': '推送失败，请根据提示处理',
     'The description of the reason for submission does not meet the specification':
         '提交的原因描述不符合规范',
     'Successfully reverted': '撤销成功',
-    'An error has occurred, please follow the instructions':
-        '出错了，请根据提示处理',
+    'An error has occurred, please follow the instructions': '出错了，请根据提示处理',
     'Commands do not meet the specifications': '指令不符合规范',
     'Successfully created merge request': '成功创建合并请求',
-    'Push remote failed, please follow the prompts':
-        '推送远程失败，请根据提示处理',
+    'Push remote failed, please follow the prompts': '推送远程失败，请根据提示处理',
     'There was an error creating the merge request, please follow the instructions':
         '创建合并请求出错了，请根据提示处理',
-    'Push remote and associate remote branch successfully':
-        '推送远程并关联远程分支成功',
+    'Push remote and associate remote branch successfully': '推送远程并关联远程分支成功',
     'Pulling up the build was successful': '调起构建成功',
     'Failed to pull up the build': '调起构建失败',
     'View Details': '查看详情',
@@ -24,8 +20,7 @@ export default {
     'Not passed': '不通过',
     'Failed and deleted': '不通过并删除',
     Exit: '退出',
-    'No merge request record selected, process has exited':
-        '没有选择合并请求记录，进程已退出',
+    'No merge request record selected, process has exited': '没有选择合并请求记录，进程已退出',
     'Cleanup of remote branch was successful': '清理远程分支成功',
     'Failed to clean up remote branch, please follow the prompts':
         "清理远程分支失败，请根据提示处理'",
@@ -49,8 +44,7 @@ export default {
     'Send Message': '发送消息',
     'Whether to sync the release code to the bug': '是否把release代码同步到bug',
     'Whether to force a merge request': '是否强制发起合并请求',
-    'Whether to update using rebase method, default merge':
-        '是否使用rebase方式更新，默认merge',
+    'Whether to update using rebase method, default merge': '是否使用rebase方式更新，默认merge',
     'Whether to merge bugs to master when publishing bug branches':
         '发布bug分支时，是否合并bug到master',
     'You cannot select both "Merge release to bug" and "Merge bug to master"':
@@ -74,8 +68,7 @@ export default {
     'When using the delete branch function, it cannot be mixed with the query branch function.':
         '使用删除分支功能时，不能与查询分支功能混用',
     'Project name': '项目名称',
-    'Build environment, optionally dev, prod, bug, all':
-        '构建环境，可选dev、prod、bug、all',
+    'Build environment, optionally dev, prod, bug, all': '构建环境，可选dev、prod、bug、all',
     'Force cleanup': '强制清理',
     'Specify the branch to clean up': '指定要清理的分支',
     'Show a list of branches that match the criteria': '显示符合条件的分支列表',
@@ -85,10 +78,8 @@ export default {
         '需要检测是否合过的目标分支名，不传默认是develop和release',
     'Whether to clean up remote branches, default is clean up local branches':
         '是否清理远程分支，默认清理本地分支',
-    'Confirm start, do not show confirmation box when true':
-        '确认开始，为true时不显示确认框',
-    'Branch name (without feature/bugfix prefix)':
-        '分支名称(不带feature/bugfix前缀)',
+    'Confirm start, do not show confirmation box when true': '确认开始，为true时不显示确认框',
+    'Branch name (without feature/bugfix prefix)': '分支名称(不带feature/bugfix前缀)',
     'Sync to dev environment': '同步到dev环境',
     'Sync to prod environment': '同步到prod环境',
     'Build application': '构建应用',
@@ -98,10 +89,8 @@ export default {
     'bug branch merge to release without merging to bug branch':
         'bug分支合并到release时不合并到bug分支',
     'bug branch merge to release': 'bug分支合并到release',
-    'Merge dev or prod must choose at least one':
-        '合并dev或者prod必须至少选一个',
-    'add and commit need to be selected at the same time':
-        'add和commit需要同时选择',
+    'Merge dev or prod must choose at least one': '合并dev或者prod必须至少选一个',
+    'add and commit need to be selected at the same time': 'add和commit需要同时选择',
     'Show command queue': '显示指令队列',
     'Commit record ID': '提交记录ID',
     'Copy the source branch of the record': '拷贝记录的来源分支',
@@ -125,8 +114,7 @@ export default {
     'Use mirror address': '使用镜像地址',
     'Name of the package': '包的名称',
     'Whether to exclude merge records': '是否排除merge记录',
-    'Whether to output logs in json format, default form':
-        '是否以json格式输出日志，默认表格方式',
+    'Whether to output logs in json format, default form': '是否以json格式输出日志，默认表格方式',
     'The api address of the push message': '推送消息的api地址',
     'The undo log to be restored': '需要恢复的撤销记录',
     'ID of the undo needed': '需要撤销的ID',
@@ -141,11 +129,9 @@ export default {
         '没有版本的文件也暂存，这会执行git add .',
     'Create branch from tag': '从tag创建分支',
     'Specify the port number': '指定端口号',
-    'Clean up the current branch undo failure log':
-        '清理当前分支撤销失败的记录',
+    'Clean up the current branch undo failure log': '清理当前分支撤销失败的记录',
     'Clean up all branch undo failures': '清理所有分支撤销失败的记录',
-    '--calc and --calcAll can only be used individually':
-        '--calc和--calcAll只能单独使用',
+    '--calc and --calcAll can only be used individually': '--calc和--calcAll只能单独使用',
     'Use merge to update (default merge)': '使用merge方式更新(默认merge)',
     'Update with rebase (default merge)': '使用rebase方式更新(默认merge)',
     'Update all local bugfix, feature, support branches':
@@ -154,8 +140,7 @@ export default {
     'The method you entered is incorrect, only support: init, remove':
         '您输入的方法不对，仅支持：init, remove',
     'Approve remote merge request': '审批远程合并请求',
-    'No merge request record found, process has exited':
-        '没有发现合并请求记录，进程已退出',
+    'No merge request record found, process has exited': '没有发现合并请求记录，进程已退出',
     'Please select the action below.': '请选择下面的操作',
     'There is a conflict or merge is not required': '有冲突或不需要合并',
     "Requests that can't be merged can't be clicked for review and approval":
@@ -169,26 +154,21 @@ export default {
     'About to start batch deleting branches, do you want to continue?':
         '即将开始批量删除分支，是否继续？',
     'No branches were queried.': '没有查询到任何分支',
-    'No branches were selected and the process has exited.':
-        '没有选择任何分支，进程已退出',
+    'No branches were selected and the process has exited.': '没有选择任何分支，进程已退出',
     'Analysis complete, no branches to clean up': '分析完成，没有分支需要清理',
-    'Deletion complete, these branches have been cleaned up':
-        '删除完成，这些分支已被清理',
+    'Deletion complete, these branches have been cleaned up': '删除完成，这些分支已被清理',
     'Please enter the message to be submitted': '请输入要提交的message',
     'Please enter the environment to sync to.': '请输入需要同步到的环境',
     'Merge bugfix task branch, merge feature development branch, merge support branch':
         '合并bugfix任务分支、合并feature功能开发分支、合并support分支',
-    'Branch does not exist, please enter it correctly':
-        '分支不存在，请正确输入',
+    'Branch does not exist, please enter it correctly': '分支不存在，请正确输入',
     'This branch has not been synced for more than 1 week, please sync it at least once a week, execute: gitm update':
         '检测到该分支已经超过1周没有同步过主干代码了，请每周至少同步一次，执行：gitm update',
     'Please enter the items to be configured': '请输入要配置的项',
-    'Query single or all gitmars for configuration items':
-        '查询单个或全部gitmars的配置项',
+    'Query single or all gitmars for configuration items': '查询单个或全部gitmars的配置项',
     'A conflict has been detected in the merge branch and you need to run git add . Do you want to force the script to continue?':
         '检测到有未提交的文件，在合并分支的过程遇到冲突，需要在处理冲突后执行一下 git add . 和 git commit ,然后再执行 gitm continue。是否要强制继续执行脚本？',
-    'An uncommitted file was detected, please be aware!':
-        '检测到有未加入版本的文件，请留意！',
+    'An uncommitted file was detected, please be aware!': '检测到有未加入版本的文件，请留意！',
     'There are no unexecuted commands in the queue': '队列里面没有未执行的指令',
     'cherry-pick batch version, copy a record from a branch and merge it into the current branch':
         'cherry-pick批量版本，从某个分支拷贝某条记录合并到当前分支',
@@ -229,8 +209,7 @@ export default {
     'Please enter apollo configuration': '请输入apollo配置',
     'Please enter json': '请输入json',
     'Please enter hooks configuration': '请输入hooks配置',
-    'Please enter the query user permission interface':
-        '请输入查询用户权限接口',
+    'Please enter the query user permission interface': '请输入查询用户权限接口',
     'Please enter the git URL': '请输入git网址',
     'Please enter the git project ID, currently only gitlab is supported':
         '请输入git项目ID，目前仅支持gitlab',
@@ -258,10 +237,8 @@ export default {
     'Suggestions for operation': '操作建议',
     "Please install the gitm ui plugin first: gitm install @gitmars/ui latest -m'":
         "请先安装gitm ui插件：gitm install @gitmars/ui latest -m'",
-    'After handling conflicts, execute: gitm undo --calc':
-        '处理冲突之后，执行：gitm undo --calc',
-    'No commit record selected, process has exited':
-        '没有选择commit记录，进程已退出',
+    'After handling conflicts, execute: gitm undo --calc': '处理冲突之后，执行：gitm undo --calc',
+    'No commit record selected, process has exited': '没有选择commit记录，进程已退出',
     'Please select the commit record to undo.': '请选择要撤销的commit记录',
     'No softlink found, please confirm entering the correct name':
         '没有找到软链，请确认输入正确名称',
@@ -273,15 +250,13 @@ export default {
     'Initialize gitmars configuration': '初始化gitmars配置',
     'View/Set configuration items for gitmars': '查看/设置gitmars的配置项',
     'Branch phase mention test': '分支阶段提测',
-    'Create bugfix branches, create/merge release branches':
-        '创建bugfix分支、创建/合并release分支',
+    'Create bugfix branches, create/merge release branches': '创建bugfix分支、创建/合并release分支',
     'Finish developing a feature': '完成开发某项功能',
     'Update bugfix branch, update feature development branch':
         '更新bug任务分支、更新feature功能开发分支',
     'List branches': '列出分支列表',
     'Staging current branch files': '暂存当前分支文件',
-    'Restore the most recently staged file in the staging area':
-        '恢复暂存区最近一次暂存的文件',
+    'Restore the most recently staged file in the staging area': '恢复暂存区最近一次暂存的文件',
     'Clean up merged feature branches': '清理合并过的功能分支',
     "Simplify git's cherry-pick operation": '简化git的cherry-pick操作',
     'Merge code': '合并代码',
@@ -304,8 +279,7 @@ export default {
     'Resume withdrawn code back online': '恢复撤回的代码重新上线',
     'git hook run command': 'git钩子运行指令',
     'Query log': '查询日志',
-    'Intelligent guessing of the action you want to perform':
-        '智能猜测你要执行的动作',
+    'Intelligent guessing of the action you want to perform': '智能猜测你要执行的动作',
     'Install and remove shortcuts': '安装和移除快捷方式',
     'Install plugins': '安装插件',
     'Administrator functions, including actions for bugfixing and releasing release branches':
@@ -319,10 +293,8 @@ export default {
     'The {branch} branch already exists and does not need to be created again':
         '{branch}分支已存在，不需要重复创建',
     'type only allows input': 'type只允许输入',
-    'Release bugfix, release, support branches':
-        '发布bugfix、release、support分支',
-    'Update bugfix, release, support branch code':
-        '更新bugfix、release、support分支代码',
+    'Release bugfix, release, support branches': '发布bugfix、release、support分支',
+    'Update bugfix, release, support branch code': '更新bugfix、release、support分支代码',
     'Build cleanup job': '构建清理工作',
     'Approve merge request': '批准合并请求',
     'Please select the following action': '请选择下面的操作',
@@ -342,29 +314,25 @@ export default {
     'Saved successfully': '保存成功',
     'To ensure accurate copy, the keyword must be a task number or bug fix number with more than 4 digits':
         '为确保copy准确，关键词必须是4位以上的任务号或者bug修复编号',
-    'There was an installation error, please contact the administrator':
-        '安装出错了，请联系管理员',
+    'There was an installation error, please contact the administrator': '安装出错了，请联系管理员',
     'Processing completed': '处理完成',
     'There was an error': '出错了',
     "Whether to exclude merge's log": '是否排除merge的日志',
     'Whether to restrict dev commits': '是否限制dev提交',
     'Whether to restrict release commits': '是否限制release提交',
-    'No recoverable undo logs found, process exited':
-        '没有找到可恢复的撤销记录，进程已退出',
+    'No recoverable undo logs found, process exited': '没有找到可恢复的撤销记录，进程已退出',
     'No logs selected, process has exited': '没有选择任何记录，进程已退出',
     Close: '关闭',
     Deleted: '删除',
     Submitted: '已提交',
-    'There was an error, please contact an administrator':
-        '出错了，请联系管理员',
+    'There was an error, please contact an administrator': '出错了，请联系管理员',
     'Please install the gitm ui plugin first: gitm install @gitmars/ui latest -m':
         '请先安装gitm ui插件：gitm install @gitmars/ui latest -m',
     'Clean up all failed undo logs': '清理所有撤销失败的记录',
     'Whether to exclude merge logs': '是否排除merge的日志',
     'No eligible commit logs found, please relax the filtering conditions appropriately, default: "--lastet=7d --limit=20". The process has been exited':
         '没有找到符合条件的commit记录，请适当放宽筛选条件，默认："--lastet=7d --limit=20"。进程已退出',
-    'There are no revocable records, the process has exited':
-        '没有可撤销的记录，进程已退出',
+    'There are no revocable records, the process has exited': '没有可撤销的记录，进程已退出',
     'Unlinking local package': '解除本地包链接',
     'Path of package': '包的路径',
     '{base} branch does not exist, please create a {base} branch first':
@@ -394,8 +362,7 @@ export default {
         '骚年，你在{type}分支执行这个指令是什么骚操作？',
     '{nickname} submitted a merge request for {source} branch to {target} branch in {app} project':
         '{nickname}在{app}项目提交了{source}分支合并到{target}分支的merge请求',
-    '${message}; project: ${project}; path: ${pwd}':
-        '${message}；项目：${project}；路径：${pwd}',
+    '${message}; project: ${project}; path: ${pwd}': '${message}；项目：${project}；路径：${pwd}',
     'There are a total of {length} staging records under this item, please clean it up regularly!':
         '该项目下一共有{length}条暂存记录，请定期清理！',
     'Deleting: {something}': '正在删除：{something}',
@@ -427,14 +394,12 @@ export default {
     'Please enter {branch} branch name': '请输入{branch}分支名称',
     'The branch was created successfully and is based on {source}. You have now switched to the {target} branch\nIf you need to test, please run: "{combine}"\nWhen development is complete, remember to run: "{end}"':
         '分支创建成功，该分支基于{source}创建，您当前已经切换到{target}分支\n如果需要提测，请执行："{combine}"\n开发完成后，记得执行: "{end}"',
-    'The {target} branch does not allow direct commits':
-        '{target}分支不允许直接提交',
+    'The {target} branch does not allow direct commits': '{target}分支不允许直接提交',
     'Whether to use merge method to update codes, default method is merge':
         '是否使用merge方式更新，默认merge方式',
     'Whether to use rebase method update, default method is merge':
         '是否使用rebase方式更新，默认merge方式',
-    'The configuration item {option} is not supported':
-        '不支持{option}这个配置项',
+    'The configuration item {option} is not supported': '不支持{option}这个配置项',
     'Detected {id} This record has been revert once, please check if there is an error':
         '检测到{id}这条记录撤销过一次，请检查是否有误',
     'The record {id} is detected as a revert record, please use the "gitm redo" operation':
@@ -448,12 +413,10 @@ export default {
     '{length} comments': '{length} 条评论',
     '{id} request merge {source} to {target} {disabled} | {name} | {comments} | {time}':
         '{id} 请求合并 {source} 到 {target} {disabled} | {name} | {comments} | {time}',
-    'The {source} branch has updated from main branch':
-        '{source}一周内同步过主干分支代码',
+    'The {source} branch has updated from main branch': '{source}一周内同步过主干分支代码',
     'Detected that you have not update codes from {source} branch in 1 week':
         '检测到你1周内没有同步过主干{source}分支代码',
-    'Your branch was detected as not having merged {target}':
-        '检测到你的分支没有合并过{target}',
+    'Your branch was detected as not having merged {target}': '检测到你的分支没有合并过{target}',
     '{source} branch has merged {target} branch': '{source}合并过{target}',
     'Do not use strict mode': '使用严格模式'
 }

@@ -13,8 +13,7 @@ const { t } = lang
 async function getUserToken(): Promise<FetchDataType> {
     const config = getConfig()
     const userInfoApi =
-        (config.apis && config.apis.userInfo && config.apis.userInfo.url) ||
-        config.api
+        (config.apis && config.apis.userInfo && config.apis.userInfo.url) || config.api
     if (!userInfoApi) {
         sh.echo(
             chalk.red(
@@ -33,8 +32,7 @@ async function getUserToken(): Promise<FetchDataType> {
     }
 
     const fetchData =
-        ((await request.get({ url: `${userInfoApi}?name=${user}` }))
-            .data as FetchDataType) || null
+        ((await request.get({ url: `${userInfoApi}?name=${user}` })).data as FetchDataType) || null
     debug('getUserToken-user', user, userInfoApi)
     debug('getUserToken-fetchData', fetchData)
     // 没有查到用户信息或者没有设置token

@@ -60,9 +60,7 @@ export const cmdConfig: GitmarsOptionType = {
             short: '',
             long: '--json',
             negate: false,
-            description: t(
-                'Whether to output logs in json format, default form'
-            ),
+            description: t('Whether to output logs in json format, default form'),
             defaultValue: false
         }
     ]
