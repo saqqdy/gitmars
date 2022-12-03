@@ -873,17 +873,17 @@ gitm get "test login"
 
 <div class="table-option">
 
-| 名称          | 简写 | 说明                                                        | 类型          | 可选值 | 传值必填 | 默认  |
-| ------------- | ---- | ----------------------------------------------------------- | ------------- | ------ | -------- | ----- |
-| --list        | -l   | 显示符合条件的分支列表                                      | Boolean       | -      | 否       | false |
-| --key         | -k   | 查询分支的关键词                                            | String        | -      | 否       | -     |
-| --exclude     |      | 排除的分支名，支持正则或字符串                              | String/RegExp | -      | 否       | -     |
-| --include     |      | 筛选符合条件的分支，支持正则或字符串                        | String/RegExp | -      | 否       | -     |
-| --type        | -t   | 分支类型，支持：feature/bugfix/support                      | String        | -      | 否       | -     |
-| --target      |      | 需要检测是否合过的目标分支名，不传默认是 develop 和 release | String        | -      | 否       | -     |
-| --remote      | -r   | 是否清理远程分支，默认清理本地分支                          | Boolean       | -      | 否       | false |
-| --strictly    | -s   | 是否开启严格模式                                            | Boolean       | -      | 否       | false |
-| --confirm     | -c   | 确认开始，为 true 时不显示确认框                            | Boolean       | -      | 否       | false |
+| 名称       | 简写 | 说明                                                        | 类型          | 可选值 | 传值必填 | 默认  |
+| ---------- | ---- | ----------------------------------------------------------- | ------------- | ------ | -------- | ----- |
+| --list     | -l   | 显示符合条件的分支列表                                      | Boolean       | -      | 否       | false |
+| --key      | -k   | 查询分支的关键词                                            | String        | -      | 否       | -     |
+| --exclude  |      | 排除的分支名，支持正则或字符串                              | String/RegExp | -      | 否       | -     |
+| --include  |      | 筛选符合条件的分支，支持正则或字符串                        | String/RegExp | -      | 否       | -     |
+| --type     | -t   | 分支类型，支持：feature/bugfix/support                      | String        | -      | 否       | -     |
+| --target   |      | 需要检测是否合过的目标分支名，不传默认是 develop 和 release | String        | -      | 否       | -     |
+| --remote   | -r   | 是否清理远程分支，默认清理本地分支                          | Boolean       | -      | 否       | false |
+| --strictly | -s   | 是否开启严格模式                                            | Boolean       | -      | 否       | false |
+| --confirm  | -c   | 确认开始，为 true 时不显示确认框                            | Boolean       | -      | 否       | false |
 
 </div>
 
