@@ -457,5 +457,5 @@ export default {
     'Your branch was detected as not having merged {target}':
         'Your branch was detected as not having merged {target}',
     '{source} branch has merged {target} branch': '{source} branch has merged {target} branch',
-    'Do not use strict mode': 'Do not use strict mode'
+    'Use strict mode': 'Use strict mode'
 }

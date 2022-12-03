@@ -296,7 +296,7 @@ importers:
       '@types/logger': ^0.0.1
       '@types/node': ^18.11.7
       '@types/shelljs': ^0.8.11
-      '@types/uuid': ^8.3.4
+      '@types/uuid': ^9.0.0
       cookie-parser: ^1.4.6
       debug: ^4.3.4
       eslint: ^8.26.0
@@ -353,7 +353,7 @@ importers:
       '@types/logger': 0.0.1
       '@types/node': 18.11.7
       '@types/shelljs': 0.8.11
-      '@types/uuid': 8.3.4
+      '@types/uuid': 9.0.0
       eslint: 8.26.0
       nodemon: 2.0.20
       prettier: 2.7.1
@@ -2831,8 +2831,8 @@ packages:
     resolution: {integrity: sha512-PBjIUxZHOuj0R15/xuwJYjFi+KZdNFrehocChv4g5hu6aFroHue8m0lBP0POdK2nKzbw0cgV1mws8+V/JAcEkQ==}
     dev: true
 
-  /@types/uuid/8.3.4:
-    resolution: {integrity: sha512-c/I8ZRb51j+pYGAu5CrFMRxqZ2ke4y2grEBO5AUjgSkSk+qT2Ea+OdWElz/OiMf5MNpn2b17kuVBwZLQJXzihw==}
+  /@types/uuid/9.0.0:
+    resolution: {integrity: sha512-kr90f+ERiQtKWMz5rP32ltJ/BtULDI5RVO0uavn1HQUOwjx0R1h0rnDYNL0CepF1zL5bSY6FISAfd9tOdDhU5Q==}
     dev: true
 
   /@types/vinyl-fs/2.4.12:
