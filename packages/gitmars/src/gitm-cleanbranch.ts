@@ -41,7 +41,7 @@ interface GitmBuildOption {
     exclude?: string
     include?: string
     remote?: boolean
-    noStrictly?: boolean
+    strictly?: boolean
     confirm?: boolean
 }
 
@@ -58,10 +58,10 @@ function getIsMergedTarget(
     targets: string | string[],
     {
         remote,
-        strictly
+        noMerges
     }: {
         remote?: boolean
-        strictly?: boolean
+        noMerges?: boolean
     }
 ) {
     branch = remote ? 'origin/' + branch : branch
@@ -69,7 +69,7 @@ function getIsMergedTarget(
     for (const target of targets) {
         const isMerged = getIsMergedTargetBranch(branch, target, {
             remote,
-            strictly
+            noMerges
         })
         if (!isMerged) return false
     }
@@ -82,7 +82,7 @@ function getIsMergedTarget(
 program
     .name('gitm cleanbranch')
     .usage(
-        '[branches...] [-l --list [list]] [-k --key [keyword]] [--exclude [exclude]] [--include [include]] [-t --type [type]] [--target [target]] [-r --remote] [--no-strictly]'
+        '[branches...] [-l --list [list]] [-k --key [keyword]] [--exclude [exclude]] [--include [include]] [-t --type [type]] [--target [target]] [-r --remote] [-s --strictly]'
     )
     .description(t('Clean up merged feature branches'))
 if (args.length > 0) program.arguments(createArgs(args))
@@ -97,7 +97,7 @@ options.forEach((o: GitmarsOptionOptionsType) => {
 // .option('--include [include]', t('Include keywords'), '')
 // .option('-r, --remote', t('Whether to clean up remote branches, default is clean up local branches'), false)
 // .option('-c, --confirm', t('Confirm start, do not show confirmation box when true'), false)
-// .option('-s, --no-strictly', t('Do not use strict mode'))
+// .option('-s, --strictly', t('Use strict mode'), false)
 // .option('--deadline [deadline]', t('Delete branch before fixed duration, fill in format: 10s/2m/2h/3d/4M/5y'), '15d') -----------------------
 program.action(async (branches: string[], opt: GitmBuildOption) => {
     const spinner = ora()
@@ -184,7 +184,7 @@ program.action(async (branches: string[], opt: GitmBuildOption) => {
         )
         const isMerged = getIsMergedTarget(branch, targets, {
             remote: opt.remote,
-            strictly: !opt.noStrictly
+            noMerges: !opt.strictly
         })
         if (!isMerged) {
             spinner.fail(
