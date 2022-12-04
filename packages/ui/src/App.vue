@@ -56,6 +56,7 @@ const getTerminal = (
         terms[id] = {
             term: new Terminal({
                 theme: xtermTheme,
+                allowProposedApi: true,
                 fontSize: 12,
                 fontWeight: 300,
                 lineHeight: 1.1,

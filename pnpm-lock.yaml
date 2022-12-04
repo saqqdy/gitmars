@@ -8,6 +8,7 @@ importers:
   .:
     specifiers:
       '@esbuild-kit/cjs-loader': ^2.4.0
+      '@esbuild-kit/esm-loader': ^2.5.4
       '@eslint-sets/eslint-config-simple-ts': ^3.0.5
       '@microsoft/api-extractor': ^7.33.5
       '@pnpm/find-workspace-packages': ^5.0.3
@@ -67,6 +68,7 @@ importers:
       os-locale: 6.0.2
     devDependencies:
       '@esbuild-kit/cjs-loader': 2.4.0
+      '@esbuild-kit/esm-loader': 2.5.4
       '@eslint-sets/eslint-config-simple-ts': 3.0.5_5mwv7fvncepd6sa2722dnt6c7q
       '@microsoft/api-extractor': 7.33.5
       '@pnpm/find-workspace-packages': 5.0.3_@pnpm+logger@5.0.0
@@ -1003,6 +1005,13 @@ packages:
     dependencies:
       esbuild: 0.15.12
       source-map-support: 0.5.21
+    dev: true
+
+  /@esbuild-kit/esm-loader/2.5.4:
+    resolution: {integrity: sha512-afmtLf6uqxD5IgwCzomtqCYIgz/sjHzCWZFvfS5+FzeYxOURPUo4QcHtqJxbxWOMOogKriZanN/1bJQE/ZL93A==}
+    dependencies:
+      '@esbuild-kit/core-utils': 3.0.0
+      get-tsconfig: 4.2.0
     dev: true
 
   /@esbuild-plugins/node-modules-polyfill/0.1.4:
@@ -5871,7 +5880,7 @@ packages:
   /esbuild-node-loader/0.8.0:
     resolution: {integrity: sha512-BJaecVcClXVa5lO7TbHp+CgWtUmYrtZHyPYDx1JVTO3OOXdQM569vbJOeQGPucbYThuWTiNUUNeLEc4+EZk8QQ==}
     dependencies:
-      esbuild: 0.14.54
+      esbuild: 0.15.12
       node-fetch: 3.2.10
       semver: 7.3.8
     dev: true

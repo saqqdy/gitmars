@@ -55,6 +55,7 @@
     },
     "devDependencies": {
         "@esbuild-kit/cjs-loader": "^2.4.0",
+        "@esbuild-kit/esm-loader": "^2.5.4",
         "@eslint-sets/eslint-config-simple-ts": "^3.0.5",
         "@microsoft/api-extractor": "^7.33.5",
         "@pnpm/find-workspace-packages": "^5.0.3",
