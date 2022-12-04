@@ -3,6 +3,7 @@
     "description": "gitmars可视化界面服务端",
     "version": "4.0.0-beta.6",
     "private": false,
+    "type": "module",
     "bin": {
         "gitm-server": "./lib/www.mjs"
     },
@@ -33,7 +34,7 @@
         "*.d.ts"
     ],
     "scripts": {
-        "server:start": "node app/bin/www",
+        "server:start": "node lib/www",
         "server:watch": "nodemon --config nodemon.json",
         "server:watch:debug": "nodemon --config nodemon.json --inspect-brk",
         "lib": "sh scripts/lib.sh",
