@@ -48,7 +48,7 @@
         "@originjs/vite-plugin-commonjs": "^1.0.3",
         "@types/qs": "^6.9.7",
         "@vitejs/plugin-legacy": "^3.0.1",
-        "@vitejs/plugin-vue": "^3.2.0",
+        "@vitejs/plugin-vue": "^4.0.0",
         "@vitejs/plugin-vue-jsx": "^3.0.0",
         "@vue/compiler-sfc": "^3.2.41",
         "babel-plugin-import": "^1.13.5",
