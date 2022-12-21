@@ -37,7 +37,7 @@
         "prettier-config-common": "^1.3.0",
         "tsnd": "^1.1.0",
         "typescript": "^4.8.4",
-        "vitepress": "1.0.0-alpha.32"
+        "vitepress": "1.0.0-alpha.33"
     },
     "sideEffects": false,
     "keywords": [
