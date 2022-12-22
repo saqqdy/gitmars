@@ -59,7 +59,7 @@
         "gitmars": "workspace:*",
         "hbs": "^4.2.0",
         "http-errors": "^2.0.0",
-        "js-cool": "^2.5.0",
+        "js-cool": "^2.8.0",
         "log4js": "^6.7.0",
         "logger": "^0.0.1",
         "lowdb": "^1.0.0",
@@ -72,7 +72,7 @@
         "uuid": "^9.0.0"
     },
     "devDependencies": {
-        "@eslint-sets/eslint-config-simple-ts": "^3.1.0",
+        "@eslint-sets/eslint-config-simple-ts": "^3.2.0",
         "@types/cookie-parser": "^1.4.3",
         "@types/debug": "^4.1.7",
         "@types/express": "^4.17.14",

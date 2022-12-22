@@ -64,7 +64,7 @@
         "dayjs": "^1.11.6",
         "debug": "^4.3.4",
         "inquirer": "^8.2.4",
-        "js-cool": "^2.5.0",
+        "js-cool": "^2.8.0",
         "lodash-es": "^4.17.21",
         "lodash-unified": "^1.0.2",
         "node-apollo": "^1.2.1",
@@ -74,7 +74,7 @@
         "slash": "^3.0.0"
     },
     "devDependencies": {
-        "@eslint-sets/eslint-config-simple-ts": "^3.1.0",
+        "@eslint-sets/eslint-config-simple-ts": "^3.2.0",
         "@types/columnify": "^1.5.1",
         "@types/cross-spawn": "^6.0.2",
         "@types/inquirer": "^9.0.2",
