@@ -106,9 +106,6 @@ export default {
         'add and commit need to be selected at the same time',
     'Show command queue': 'Show command queue',
     'Commit record ID': 'Commit record ID',
-    'Copy the source branch of the record': 'Copy the source branch of the record',
-    'Fuzzy search for commit message keywords': 'Fuzzy search for commit message keywords',
-    Submitter: 'Submitter',
     'Do not merge trunk branches (make sure the branch is live)':
         'Do not merge trunk branches (make sure the branch is live)',
     AccessKeyword: 'AccessKeyword',
@@ -197,8 +194,6 @@ export default {
         'cherry-pick batch version, copy a record from a branch and merge it into the current branch',
     'Record merge successful': 'Record merge successful',
     'Merge failed, please follow the instructions': 'Merge failed, please follow the instructions',
-    'Please fill in the keyword': 'Please fill in the keyword',
-    'Please fill in the source branch': 'Please fill in the source branch',
     'To make sure the copy is accurate, the keywords cannot be less than 4 words, please try to fill in the keywords completely':
         'To make sure the copy is accurate, the keywords cannot be less than 4 words, please try to fill in the keywords completely',
     'No records found': 'No records found',
@@ -342,8 +337,8 @@ export default {
     'Need to add': 'Need to add',
     'Do not sync to bug branch': 'Do not sync to bug branch',
     'Saved successfully': 'Saved successfully',
-    'To ensure accurate copy, the keyword must be a task number or bug fix number with more than 4 digits':
-        'To ensure accurate copy, the keyword must be a task number or bug fix number with more than 4 digits',
+    'Please select the commit record to copy': 'Please select the commit record to copy',
+    'Please select the target branch': 'Please select the target branch',
     'There was an installation error, please contact the administrator':
         'There was an installation error, please contact the administrator',
     'Processing completed': 'Processing completed',

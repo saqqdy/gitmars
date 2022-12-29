@@ -19,41 +19,43 @@ export const cmdConfig: GitmarsOptionType = {
     ],
     options: [
         {
-            flags: '-s, --source [source]',
+            flags: '--lastet [lastet]',
             required: false,
             optional: true,
             variadic: false,
             mandatory: false,
-            short: '-s',
-            long: '--source',
+            short: '',
+            long: '--lastet',
             negate: false,
-            description: t('Copy the source branch of the record'),
-            defaultValue: ''
+            description: t(
+                'Query logs after a certain time, fill in the format: 10s/2m/2h/3d/4M/5y'
+            ),
+            defaultValue: '7d'
         },
         {
-            flags: '-k, --key [keyword]',
+            flags: '--no-merges',
             required: false,
-            optional: true,
+            optional: false,
             variadic: false,
             mandatory: false,
-            short: '-k',
-            long: '--key',
-            negate: false,
-            description: t('Fuzzy search for commit message keywords'),
-            defaultValue: ''
+            long: '--no-merges',
+            negate: true,
+            description: t('Whether to exclude merge records'),
+            defaultValue: true,
+            recommend: false
         },
         {
-            flags: '-a, --author [author]',
+            flags: '--limit [limit]',
             required: false,
             optional: true,
             variadic: false,
             mandatory: false,
-            short: '-a',
-            long: '--author',
+            short: '',
+            long: '--limit',
             negate: false,
-            description: t('Submitter'),
-            defaultValue: ''
-        }
+            description: t('The maximum number of logs to be queried'),
+            defaultValue: 20
+        },
     ],
     // validator opts
     validatorOpts: (val, opts, cb) => {

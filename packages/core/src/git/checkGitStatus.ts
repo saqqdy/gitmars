@@ -12,7 +12,7 @@ const { t } = lang
  * @returns isOK - Return true/false
  */
 function checkGitStatus(): boolean {
-    const sum = getGitStatus({ stdio: 'inherit' })
+    const sum = getGitStatus()
     debug('checkGitStatus', sum)
     if (sum.A.length > 0 || sum.D.length > 0 || sum.M.length > 0 || sum.UU.length > 0) {
         sh.echo(
@@ -22,7 +22,6 @@ function checkGitStatus(): boolean {
                 '\n' +
                 t('If you need to staging files please do: gitm save\nWhen resuming: gitm get')
         )
-        process.exit(1)
         return false
     } else if (sum['??'].length > 0) {
         sh.echo(
