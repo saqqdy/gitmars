@@ -55,7 +55,7 @@ export const cmdConfig: GitmarsOptionType = {
             negate: false,
             description: t('The maximum number of logs to be queried'),
             defaultValue: 20
-        },
+        }
     ],
     // validator opts
     validatorOpts: (val, opts, cb) => {
