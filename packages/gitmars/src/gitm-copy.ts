@@ -1,18 +1,27 @@
 #!/usr/bin/env ts-node
 import { program } from 'commander'
+import dayjs from 'dayjs'
+import inquirer from 'inquirer'
 import sh from 'shelljs'
 import chalk from 'chalk'
 import { queue } from '@gitmars/core/lib/queue'
 import getIsGitProject from '@gitmars/core/lib/git/getIsGitProject'
 import getCurrentBranch from '@gitmars/core/lib/git/getCurrentBranch'
 import checkGitStatus from '@gitmars/core/lib/git/checkGitStatus'
+import fetch from '@gitmars/core/lib/git/fetch'
+import prune from '@gitmars/core/lib/git/prune'
+import getGitLogs from '@gitmars/core/lib/git/getGitLogs'
+import getGitLogsByCommitIDs from '@gitmars/core/lib/git/getGitLogsByCommitIDs'
+import searchBranches from '@gitmars/core/lib/git/searchBranches'
 import { createArgs } from '@gitmars/core/lib/utils/command'
-import type { CommandType, GitmarsOptionOptionsType, QueueReturnsType } from '../typings'
+import echo from '@gitmars/core/lib/utils/echo'
+import type { GitLogKeysType } from '@gitmars/core/typings/index'
+import type { CommandType, GitLogsType, GitmarsOptionOptionsType } from '../typings'
 import copyConfig from '#lib/conf/copy'
 import lang from '#lib/common/local'
 
 const { t } = lang
-const { red, yellow } = chalk
+const { blue, green, red, yellow } = chalk
 const { args, options } = copyConfig
 
 if (!getIsGitProject()) {
@@ -21,9 +30,9 @@ if (!getIsGitProject()) {
 }
 
 interface GitmBuildOption {
-    source?: string
-    key?: string
-    author?: string
+    merges: boolean
+    lastet: string
+    limit: number
 }
 
 /**
@@ -31,7 +40,7 @@ interface GitmBuildOption {
  */
 program
     .name('gitm copy')
-    .usage('[commitid...] [-t --target [target]] [-k --key [keyword]] [-a --author [author]]')
+    .usage('[commitid...] [--lastet [lastet]] [--limit [limit]] [--no-merges]')
     .description(
         t(
             'cherry-pick batch version, copy a record from a branch and merge it into the current branch'
@@ -41,79 +50,102 @@ if (args.length > 0) program.arguments(createArgs(args))
 options.forEach((o: GitmarsOptionOptionsType) => {
     program.option(o.flags, o.description, o.defaultValue)
 })
-// .option('-s, --source [source]', t('Copy the source branch of the record'), '')
-// .option('-k, --key [keyword]', t('Fuzzy search for commit message keywords'), '')
-// .option('-a, --author [author]', t('Submitter'), '')
-program.action((commitid: string[], opts: GitmBuildOption) => {
+// .option('--no-merges', t('Whether to exclude merge's log'))
+// .option('--lastet [lastet]', t('Query logs after a certain time, fill in the format: 10s/2m/2h/3d/4M/5y'), '7d')
+// .option('--limit [limit]', t('The maximum number of logs to be queried'), 20)
+program.action(async (commitid: string[], opts: GitmBuildOption) => {
+    const keys: GitLogKeysType[] = ['%H', '%T', '%P', '%aI', '%an', '%s', '%b']
+    const current = getCurrentBranch()
     const status = checkGitStatus()
-    const cur = getCurrentBranch()
+    let logList: GitLogsType[] = [],
+        cmd: Array<CommandType | string> = [],
+        commitIDs: string[] = [], // 需要执行的commitID
+        targetBranch: string // 目标分支
+
     if (!status) process.exit(1)
+    fetch()
+    prune()
+
+    const branches = searchBranches()
+
     if (commitid.length > 0) {
-        const cmd: Array<CommandType | string> = [
-            {
-                cmd: `git cherry-pick ${commitid.join(' ')}`,
-                config: {
-                    again: false,
-                    success: t('Record merge successful'),
-                    fail: t('Merge failed, please follow the instructions')
-                }
-            }
-        ]
-        queue(cmd)
-    } else if (!opts.key) {
-        sh.echo(t('Please fill in the keyword'))
-        process.exit(1)
-    } else if (!opts.source) {
-        sh.echo(t('Please fill in the source branch'))
-        process.exit(1)
+        // 传入了commitIDs
+        logList = getGitLogsByCommitIDs({ commitIDs: commitid, keys })
     } else {
-        if (opts.key.length < 3) {
-            sh.echo(
+        // 没有传入commitIDs，展示日志列表给用户选择
+        logList = getGitLogs({
+            lastet: opts.lastet,
+            limit: opts.limit,
+            noMerges: !opts.merges,
+            keys
+        })
+        // 没有查询到日志
+        if (logList.length === 0) {
+            // 没有查找到任何记录
+            echo(
                 yellow(
                     t(
-                        'To make sure the copy is accurate, the keywords cannot be less than 4 words, please try to fill in the keywords completely'
+                        'No eligible commit logs found, please relax the filtering conditions appropriately, default: "--lastet=7d --limit=20". The process has been exited'
                     )
                 )
             )
-            process.exit(1)
+            process.exit(0)
         }
-        const cmd: Array<CommandType | string> = [
-            `git checkout ${opts.source}`,
-            `git log --grep=${opts.key} --author=${opts.author} --no-merges`
-        ]
-        // if (!/^\d{4,}$/.test(opts.key)) {
-        // 	sh.echo(red(t('To ensure accurate copy, the keyword must be a task number or bug fix number with more than 4 digits')))
-        // 	process.exit(1)
-        // }
-        queue(cmd).then((data: any) => {
-            const commits: string[] = []
-            if (data[1].status === 0) {
-                const logs = data[1].stdout!.match(/(commit\s[a-z0-9]*\n+)/g) || []
-                let cmds: Array<CommandType | string> = [`git checkout ${cur}`]
-                logs.forEach((el: any) => {
-                    commits.push(el.replace(/(commit\s)|\n/g, ''))
-                })
-                commits.reverse()
-                if (commits.length > 0) {
-                    cmds = cmds.concat([
-                        {
-                            cmd: `git cherry-pick ${commits.join(' ')}`,
-                            config: {
-                                again: false,
-                                success: t('Record merge successful'),
-                                fail: t('Merge failed, please follow the instructions')
-                            }
-                        }
-                    ])
-                } else {
-                    sh.echo(t('No records found'))
-                }
-                queue(cmds)
-            } else {
-                sh.echo(data[1].stderr!)
-            }
-        })
     }
+    // 多条记录
+    const prompt: any = [
+        {
+            type: 'checkbox',
+            message: t('Please select the commit record to copy'),
+            name: 'commitIDs',
+            choices: []
+        },
+        {
+            type: 'list',
+            message: t('Please select the target branch'),
+            name: 'branch',
+            choices: branches,
+            when(answers: any) {
+                return answers.commitIDs.length
+            }
+        }
+    ]
+    logList.forEach((log, index) => {
+        const _time = dayjs(log['%aI']).format('YYYY/MM/DD HH:mm')
+        prompt[0].choices.push({
+            name: `${green(index + 1 + '.')} ${green(log['%s'])} | ${yellow(log['%an'])} | ${blue(
+                _time
+            )}`,
+            value: log['%H'],
+            checked: false
+        })
+    })
+    const answers = await inquirer.prompt(prompt)
+    commitIDs = answers.commitIDs
+    targetBranch = answers.branch
+
+    // 没有选择任何记录
+    if (commitIDs.length === 0) {
+        echo(yellow(t('No commit record selected, process has exited')))
+        process.exit(0)
+    }
+
+    cmd = [
+        `git checkout ${targetBranch}`,
+        'git pull',
+        {
+            cmd: `git cherry-pick ${commitIDs.reverse().join(' ')}`,
+            config: {
+                again: false,
+                success: t('Record merge successful'),
+                fail: t('Merge failed, please follow the instructions')
+            }
+        },
+        `git checkout ${current}`
+    ]
+
+    // 执行
+    queue(cmd)
 })
 program.parse(process.argv)
 export {}

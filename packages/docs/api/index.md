@@ -423,15 +423,17 @@ gitm mg 20001
 
 #### 短指令：gitm cp
 
-复制其他分支上的提交记录到当前分支
+> v4.0.0 重构指令，改造成自选提交记录的方式
 
-- 使用：`gitm copy [commitid...]` 或者 `gitm copy [-s --source [source]] [-k --key [keyword]] [-a --author [author]]`
+复制当前分支上的提交记录到目标分支
+
+- 使用：`gitm copy [commitid...]` 或者 `gitm copy [--lastet [lastet]] [--limit [limit]] [--no-merges]`
 - 参数：
 
 <div class="table-prop">
 
-| 参数     | 说明                                        | 类型   | 可选值 | 必填 | 默认 |
-| -------- | ------------------------------------------- | ------ | ------ | ---- | ---- |
+| 参数     | 说明                          | 类型   | 可选值 | 必填 | 默认 |
+| -------- | ----------------------------- | ------ | ------ | ---- | ---- |
 | commitid | 需要 copy 的 commitID，可传入多个，空格隔开 | String | -      | 否   | -    |
 
 </div>
@@ -440,26 +442,31 @@ gitm mg 20001
 
 <div class="table-option">
 
-| 名称     | 简写 | 说明                                             | 类型   | 可选值 | 传值必填 | 默认 |
-| -------- | ---- | ------------------------------------------------ | ------ | ------ | -------- | ---- |
-| --source | -s   | 拷贝记录的来源分支，当不传 commitid 时，参数必填 | String | -      | 是/否    | -    |
-| --key    | -k   | 模糊匹配的查询关键词，不能少于 3 个字            | String | -      | 是       | -    |
-| --author | -a   | 查询提交的用户名                                 | String | -      | 否       | -    |
+| 名称       | 简写 | 说明                                                                  | 类型    | 可选值 | 传值必填 | 默认  |
+| ---------- | ---- | --------------------------------------------------------------------- | ------- | ------ | -------- | ----- |
+| --no-merge | -    | 排除 merge 记录                                                       | Boolean | -      | 否       | false |
+| --lastet   | -    | 查询在某个时间之后的日志，填写格式：10s/2m/2h/3d/4M/5y                | String  | -      | 否       | '7d'  |
+| --limit    | -    | 最多查询的日志条数                                                    | Nmuber  | -      | 否       | 20    |
 
 </div>
 
 - 示例：
 
-1. 传入 commit-id，把其他分支上的 commit-id 复制过来，执行下面指令
+1. 不传 commitid，筛选需要展示的日志（默认显示 20 条）
 
 ```shell
-gitm copy xxxxxx xxxxxx xxxxxx
+gitm copy --lastet 7d --limit 100
+# or
+gitm cp --lastet 7d --limit 100
 ```
 
-2. 传入查询关键词，gitm 会根据提供的关键词（为确保 copy 准确，请尽量完整填写关键词），在对应分支的提交记录里面搜索提交记录并自动执行 copy 指令
+2. 传入单个或者多个 commitID
 
 ```shell
-gitm copy --source dev --key 100000 --author saqqdy
+# 形式：gitm copy [commitid...]
+gitm copy xxxxxx xxxxxx
+# or
+gitm cp xxxxxx
 ```
 
 ### gitm build

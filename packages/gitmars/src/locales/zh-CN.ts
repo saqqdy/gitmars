@@ -93,9 +93,6 @@ export default {
     'add and commit need to be selected at the same time': 'add和commit需要同时选择',
     'Show command queue': '显示指令队列',
     'Commit record ID': '提交记录ID',
-    'Copy the source branch of the record': '拷贝记录的来源分支',
-    'Fuzzy search for commit message keywords': '模糊搜索commit信息关键词',
-    Submitter: '提交者',
     'Do not merge trunk branches (make sure the branch is live)':
         '不合并主干分支（请确保分支已经上线）',
     AccessKeyword: '存取关键字',
@@ -174,8 +171,6 @@ export default {
         'cherry-pick批量版本，从某个分支拷贝某条记录合并到当前分支',
     'Record merge successful': '记录合并成功',
     'Merge failed, please follow the instructions': '合并失败，请根据提示处理',
-    'Please fill in the keyword': '请填写关键词',
-    'Please fill in the source branch': '请填写源分支',
     'To make sure the copy is accurate, the keywords cannot be less than 4 words, please try to fill in the keywords completely':
         '为确保copy准确，关键词不能少于4个字，请尽量完整填写关键词',
     'No records found': '没有找到任何记录',
@@ -312,8 +307,8 @@ export default {
     'Need to add': '需要add',
     'Do not sync to bug branch': '不同步到bug分支',
     'Saved successfully': '保存成功',
-    'To ensure accurate copy, the keyword must be a task number or bug fix number with more than 4 digits':
-        '为确保copy准确，关键词必须是4位以上的任务号或者bug修复编号',
+    'Please select the commit record to copy': '请选择要拷贝的提交记录',
+    'Please select the target branch': '请选择目标分支',
     'There was an installation error, please contact the administrator': '安装出错了，请联系管理员',
     'Processing completed': '处理完成',
     'There was an error': '出错了',
