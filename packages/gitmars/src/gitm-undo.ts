@@ -168,8 +168,8 @@ options.forEach((o: GitmarsOptionOptionsType) => {
 // .option('--calcAll', t('Clean up all failed undo logs'))
 // .option('--no-merges', t('Whether to exclude merge's log'))
 // .option('-m, --mode [mode]', t('For undoing a merge record, the type to be passed in: 1 = keep current branch code, 2 = keep incoming code'), null)
-// .option('--lastet [lastet]', t('Query logs after a certain time, fill in the format: 10s/2m/2h/3d/4M/5y'), '7d')
-// .option('--limit [limit]', t('The maximum number of logs to be queried'), 20)
+// .option('--lastet [lastet]', t('Query logs after a certain time, fill in the format: 10s/2m/2h/3d/4M/5y'), '')
+// .option('--limit [limit]', t('The maximum number of logs to be queried'))
 program.action(async (commitid: string[], opt: GitmBuildOption) => {
     const keys: GitLogKeysType[] = ['%H', '%T', '%P', '%aI', '%an', '%s', '%b']
     const current = getCurrentBranch()
@@ -204,7 +204,7 @@ program.action(async (commitid: string[], opt: GitmBuildOption) => {
             echo(
                 yellow(
                     t(
-                        'No eligible commit logs found, please relax the filtering conditions appropriately, default: "--lastet=7d --limit=20". The process has been exited'
+                        'No eligible commit logs found, please relax the filtering conditions appropriately. The process has been exited'
                     )
                 )
             )
