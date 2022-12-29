@@ -25,7 +25,7 @@ export const cmdConfig: GitmarsOptionType = {
             description: t(
                 'Query logs after a certain time, fill in the format: 10s/2m/2h/3d/4M/5y'
             ),
-            defaultValue: '7d'
+            defaultValue: ''
         },
         {
             flags: '--no-merges',
@@ -49,7 +49,7 @@ export const cmdConfig: GitmarsOptionType = {
             long: '--limit',
             negate: false,
             description: t('The maximum number of logs to be queried'),
-            defaultValue: 20
+            defaultValue: ''
         },
         {
             flags: '--json',

@@ -52,7 +52,7 @@ options.forEach((o: GitmarsOptionOptionsType) => {
 })
 // .arguments('[command] [args...]')
 // .option('--no-verify', t('Do you want to skip the check permission'), false)
-// .option('--lastet [lastet]', t('Query logs after a certain time, fill in the format: 10s/2m/2h/3d/4M/5y'), '7d')
+// .option('--lastet [lastet]', t('Query logs after a certain time, fill in the format: 10s/2m/2h/3d/4M/5y'), '')
 // .option('--limit [limit]', t('The maximum number of logs to be queried'))
 // .option('-t, --type <type>', t('Detection type'))
 // .option('--branch [branch]', t('Branch to query'))

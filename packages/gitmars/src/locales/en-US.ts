@@ -358,8 +358,8 @@ export default {
         'Please install the gitm ui plugin first: gitm install @gitmars/ui latest -m',
     'Clean up all failed undo logs': 'Clean up all failed undo logs',
     'Whether to exclude merge logs': 'Whether to exclude merge logs',
-    'No eligible commit logs found, please relax the filtering conditions appropriately, default: "--lastet=7d --limit=20". The process has been exited':
-        'No eligible commit logs found, please relax the filtering conditions appropriately, default: "--lastet=7d --limit=20". The process has been exited',
+    'No eligible commit logs found, please relax the filtering conditions appropriately. The process has been exited':
+        'No eligible commit logs found, please relax the filtering conditions appropriately. The process has been exited',
     'There are no revocable records, the process has exited':
         'There are no revocable records, the process has exited',
     'Unlinking local package': 'Unlinking local package',

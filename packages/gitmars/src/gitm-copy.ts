@@ -50,17 +50,16 @@ if (args.length > 0) program.arguments(createArgs(args))
 options.forEach((o: GitmarsOptionOptionsType) => {
     program.option(o.flags, o.description, o.defaultValue)
 })
-// .option('--no-merges', t('Whether to exclude merge's log'))
-// .option('--lastet [lastet]', t('Query logs after a certain time, fill in the format: 10s/2m/2h/3d/4M/5y'), '7d')
-// .option('--limit [limit]', t('The maximum number of logs to be queried'), 20)
+// .option('--no-merges', t('Whether to exclude merge's log'), false)
+// .option('--lastet [lastet]', t('Query logs after a certain time, fill in the format: 10s/2m/2h/3d/4M/5y'), '')
+// .option('--limit [limit]', t('The maximum number of logs to be queried'))
 program.action(async (commitid: string[], opts: GitmBuildOption) => {
     const keys: GitLogKeysType[] = ['%H', '%T', '%P', '%aI', '%an', '%s', '%b']
     const current = getCurrentBranch()
     const status = checkGitStatus()
     let logList: GitLogsType[] = [],
         cmd: Array<CommandType | string> = [],
-        commitIDs: string[] = [], // 需要执行的commitID
-        targetBranch: string // 目标分支
+        commitIDs: string[] = [] // 需要执行的commitID
 
     if (!status) process.exit(1)
     fetch()
@@ -85,7 +84,7 @@ program.action(async (commitid: string[], opts: GitmBuildOption) => {
             echo(
                 yellow(
                     t(
-                        'No eligible commit logs found, please relax the filtering conditions appropriately, default: "--lastet=7d --limit=20". The process has been exited'
+                        'No eligible commit logs found, please relax the filtering conditions appropriately. The process has been exited'
                     )
                 )
             )
@@ -122,7 +121,6 @@ program.action(async (commitid: string[], opts: GitmBuildOption) => {
     })
     const answers = await inquirer.prompt(prompt)
     commitIDs = answers.commitIDs
-    targetBranch = answers.branch
 
     // 没有选择任何记录
     if (commitIDs.length === 0) {
@@ -131,7 +129,7 @@ program.action(async (commitid: string[], opts: GitmBuildOption) => {
     }
 
     cmd = [
-        `git checkout ${targetBranch}`,
+        `git checkout ${answers.branch}`,
         'git pull',
         {
             cmd: `git cherry-pick ${commitIDs.reverse().join(' ')}`,

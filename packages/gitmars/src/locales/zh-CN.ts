@@ -325,8 +325,8 @@ export default {
         '请先安装gitm ui插件：gitm install @gitmars/ui latest -m',
     'Clean up all failed undo logs': '清理所有撤销失败的记录',
     'Whether to exclude merge logs': '是否排除merge的日志',
-    'No eligible commit logs found, please relax the filtering conditions appropriately, default: "--lastet=7d --limit=20". The process has been exited':
-        '没有找到符合条件的commit记录，请适当放宽筛选条件，默认："--lastet=7d --limit=20"。进程已退出',
+    'No eligible commit logs found, please relax the filtering conditions appropriately. The process has been exited':
+        '没有找到符合条件的commit记录，请适当放宽筛选条件。进程已退出',
     'There are no revocable records, the process has exited': '没有可撤销的记录，进程已退出',
     'Unlinking local package': '解除本地包链接',
     'Path of package': '包的路径',

@@ -38,9 +38,9 @@ if (args.length > 0) program.arguments(createArgs(args))
 options.forEach((o: GitmarsOptionOptionsType) => {
     program.option(o.flags, o.description, o.defaultValue)
 })
-// .option('--lastet [lastet]', t('Query logs after a certain time, fill in the format: 10s/2m/2h/3d/4M/5y'), '7d')
+// .option('--lastet [lastet]', t('Query logs after a certain time, fill in the format: 10s/2m/2h/3d/4M/5y'), '')
 // .option('--no-merges', t('Whether to exclude merge's log'))
-// .option('--limit [limit]', t('The maximum number of logs to be queried'), 20)
+// .option('--limit [limit]', t('The maximum number of logs to be queried'))
 // .option('--json', t('Whether to output logs in json format, default form'), false)
 program.action(async (branch: string, opt: GitmBuildOption) => {
     const logs = getGitLogs({
