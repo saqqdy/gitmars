@@ -10,7 +10,7 @@
 6. global 从 core 迁出，移到 gitmars 下面
 7. 重构`copy`指令，改造成自选提交记录的方式
 8. 新增`prune`方法
-9. 修复`checkGitStatus`方法bug
+9. 修复`checkGitStatus`方法 bug
 10. 依赖包升级
 
 ## 2022.08.22 v3.3.5 更新日志
