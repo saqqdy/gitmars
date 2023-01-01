@@ -2,6 +2,10 @@
 
 ## 2022.09.08 v4.0.0 更新日志
 
+1. 开始使用[reinstaller](https://github.com/saqqdy/reinstaller)
+
+## 2022.09.08 v4.0.0 更新日志
+
 1. 适配多语言，目前支持`zh-CN` `en-US`
 2. `getIsMergedTargetBranch` 方法更改入参方式，新增 strictly，更换默认的判断方式
 3. 全面改用 esm 规范，放弃支持 node12 及以下版本
@@ -10,7 +14,9 @@
 6. global 从 core 迁出，移到 gitmars 下面
 7. 重构`copy`指令，改造成自选提交记录的方式
 8. 新增`prune`方法
-9. 依赖包升级
+9. 修复`checkGitStatus`方法 bug
+10. 移除`lastet` `limit` 默认值设置
+11. 依赖包升级
 
 ## 2022.08.22 v3.3.5 更新日志
 
