@@ -29,11 +29,11 @@ function getIsMergedTargetBranch(
     }
     const { stdout } = spawnSync('git', [
         'log',
+        noMerges ? '--no-merges' : '',
+        '--format=%h',
         branch,
         `^${targetBranch}`,
-        '--',
-        noMerges ? '--no-merges' : '',
-        '--format=%h'
+        '--'
     ])
     debug('getIsMergedTargetBranch', stdout)
     return !stdout || !/[a-zA-Z0-9]+/.test(stdout)
