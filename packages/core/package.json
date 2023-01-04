@@ -1,7 +1,7 @@
 {
     "name": "@gitmars/core",
     "description": "gitmars核心程序",
-    "version": "4.0.1",
+    "version": "4.0.2",
     "private": false,
     "main": "./lib/index.js",
     "module": "./lib/index.mjs",
@@ -64,7 +64,7 @@
         "lodash-unified": "^1.0.2",
         "node-apollo": "^1.2.1",
         "ora": "^5.4.1",
-        "os-locale": "^6.0.2",
+        "os-locale": "^5.0.0",
         "shelljs": "^0.8.5",
         "slash": "^3.0.0"
     },

@@ -1,10 +1,15 @@
 # 更新日志
 
-## 2022.09.08 v4.0.0 更新日志
+## 2023.01.04 v4.0.2 更新日志
+
+1. 修复`getIsMergedTargetBranch`在 windows 下的兼容问题
+2. os-local 降级
+
+## 2023.01.02 v4.0.1 更新日志
 
 1. 开始使用[reinstaller](https://github.com/saqqdy/reinstaller)
 
-## 2022.09.08 v4.0.0 更新日志
+## 2022.12.30 v4.0.0 更新日志
 
 1. 适配多语言，目前支持`zh-CN` `en-US`
 2. `getIsMergedTargetBranch` 方法更改入参方式，新增 strictly，更换默认的判断方式
