@@ -31,6 +31,7 @@ function getIsMergedTargetBranch(
         'log',
         branch,
         `^${targetBranch}`,
+        '--',
         noMerges ? '--no-merges' : '',
         '--format=%h'
     ])
