@@ -1,6 +1,7 @@
 import type { SpawnOptions, SpawnSyncOptions, SpawnSyncReturns } from 'child_process'
 import crossSpawn from 'cross-spawn'
 import { debug } from '#lib/utils/debug'
+import stringify from '#lib/utils/stringify'
 
 /**
  * 异步执行脚本
@@ -19,11 +20,15 @@ export function spawn(
     while (len--) {
         !argv[len] && argv.splice(len, 1)
     }
-    const program = crossSpawn.sync(client, argv, {
-        // stdio: 'inherit',
-        shell: process.platform === 'win32',
-        ...options
-    })
+    const program = crossSpawn.sync(
+        client,
+        argv.map(item => stringify(item)),
+        {
+            // stdio: 'inherit',
+            shell: process.platform === 'win32',
+            ...options
+        }
+    )
     debug('spawn', client, argv)
     return {
         pid: program.pid,
@@ -52,11 +57,15 @@ export function spawnSync(
     while (len--) {
         !argv[len] && argv.splice(len, 1)
     }
-    const program = crossSpawn.sync(client, argv, {
-        // stdio: 'inherit',
-        shell: process.platform === 'win32',
-        ...options
-    })
+    const program = crossSpawn.sync(
+        client,
+        argv.map(item => stringify(item)),
+        {
+            // stdio: 'inherit',
+            shell: process.platform === 'win32',
+            ...options
+        }
+    )
     debug('spawnSync', client, argv)
     return {
         pid: program.pid,
