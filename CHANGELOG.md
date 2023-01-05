@@ -1,5 +1,9 @@
 # 更新日志
 
+## 2023.01.05 v4.0.4 更新日志
+
+1. 修复`getIsMergedTargetBranch`在 windows 下的兼容问题
+
 ## 2023.01.04 v4.0.3 更新日志
 
 1. 修复`getIsMergedTargetBranch`在 windows 下的兼容问题

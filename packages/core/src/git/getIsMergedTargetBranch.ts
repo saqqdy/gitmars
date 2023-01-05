@@ -32,7 +32,7 @@ function getIsMergedTargetBranch(
         noMerges ? '--no-merges' : '',
         '--format=%h',
         branch,
-        `^${targetBranch}`,
+        JSON.stringify(`^${targetBranch}`),
         '--'
     ])
     debug('getIsMergedTargetBranch', stdout)
