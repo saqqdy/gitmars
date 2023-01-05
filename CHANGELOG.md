@@ -2,6 +2,11 @@
 
 ## 2023.01.05 v4.0.4 更新日志
 
+1. 增加`stringify` `isWin32` 两个方法，处理 windows 环境脚本兼容问题
+2. 修复`getIsMergedTargetBranch`在 windows 下的兼容问题
+
+## 2023.01.05 v4.0.4 更新日志
+
 1. 修复`getIsMergedTargetBranch`在 windows 下的兼容问题
 
 ## 2023.01.04 v4.0.3 更新日志
