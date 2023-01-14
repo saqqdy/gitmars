@@ -58,7 +58,7 @@
 		"chalk": "^4.1.2",
 		"ci-info": "^3.5.0",
 		"columnify": "^1.6.0",
-		"commander": "^9.4.1",
+		"commander": "^10.0.0",
 		"cosmiconfig": "^8.0.0",
 		"cross-spawn": "^7.0.3",
 		"dayjs": "^1.11.6",
