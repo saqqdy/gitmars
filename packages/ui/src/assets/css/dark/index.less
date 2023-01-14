@@ -1,79 +1,79 @@
 html,
 body {
-    background: #2c3e50;
+	background: #2c3e50;
 }
 #app {
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    color: #fff;
-    height: 100%;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	color: #fff;
+	height: 100%;
 
-    #nav {
-        padding: 30px;
-        position: fixed;
-        z-index: 99;
-        bottom: 10px;
-        left: 10px;
+	#nav {
+		padding: 30px;
+		position: fixed;
+		z-index: 99;
+		bottom: 10px;
+		left: 10px;
 
-        a {
-            font-weight: bold;
-            color: #fff;
+		a {
+			font-weight: bold;
+			color: #fff;
 
-            &.router-link-exact-active {
-                color: #42b983;
-            }
-        }
-    }
+			&.router-link-exact-active {
+				color: #42b983;
+			}
+		}
+	}
 }
 
 #project {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    .head {
-        height: 110px;
-        padding: 0 20px;
-        background: #3a5169;
-        text-align: center;
-        .title {
-            display: flex;
-            line-height: 66px;
-            .left {
-                width: 120px;
-                text-align: left;
-            }
-            .right {
-                width: 120px;
-                text-align: right;
-            }
-            h1 {
-                flex: 1;
-                color: #fff;
-                font: 300 24px/66px 'JetBrains Mono';
-            }
-        }
-        .menu {
-            a {
-                font-size: 16px;
-                line-height: 42px;
-                display: inline-block;
-                padding: 0 20px;
-                color: #fff;
-                border-bottom: 2px solid #3a5169;
-                &.router-link-active,
-                &:hover,
-                &:active {
-                    background: #4e6e8e;
-                    border-color: #4e6e8e;
-                }
-                &.router-link-active {
-                    color: #c486fb;
-                    border-color: #c486fb;
-                }
-            }
-        }
-    }
-    .routerView {
-        flex: 1;
-    }
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+	.head {
+		height: 110px;
+		padding: 0 20px;
+		background: #3a5169;
+		text-align: center;
+		.title {
+			display: flex;
+			line-height: 66px;
+			.left {
+				width: 120px;
+				text-align: left;
+			}
+			.right {
+				width: 120px;
+				text-align: right;
+			}
+			h1 {
+				flex: 1;
+				color: #fff;
+				font: 300 24px/66px 'JetBrains Mono';
+			}
+		}
+		.menu {
+			a {
+				font-size: 16px;
+				line-height: 42px;
+				display: inline-block;
+				padding: 0 20px;
+				color: #fff;
+				border-bottom: 2px solid #3a5169;
+				&.router-link-active,
+				&:hover,
+				&:active {
+					background: #4e6e8e;
+					border-color: #4e6e8e;
+				}
+				&.router-link-active {
+					color: #c486fb;
+					border-color: #c486fb;
+				}
+			}
+		}
+	}
+	.routerView {
+		flex: 1;
+	}
 }

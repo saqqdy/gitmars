@@ -1,20 +1,20 @@
 {
-    "restartable": "rs",
-    "ignore": [".git", "node_modules/", "dist/", "lib", "coverage/"],
-    "watch": ["src"],
-    "execMap": {
-        "ts": "node -r ts-node/register",
-        "js": "node --harmony"
-    },
-    "events": {
-        "start": "",
-        "crash": "",
-        "exit": "",
-        "restart": ""
-    },
-    "exec": "node --loader ts-node/esm src/www.ts",
-    "env": {
-        "NODE_ENV": "development"
-    },
-    "ext": "js,json,ts"
+	"restartable": "rs",
+	"ignore": [".git", "node_modules/", "dist/", "lib", "coverage/"],
+	"watch": ["src"],
+	"execMap": {
+		"ts": "node -r ts-node/register",
+		"js": "node --harmony"
+	},
+	"events": {
+		"start": "",
+		"crash": "",
+		"exit": "",
+		"restart": ""
+	},
+	"exec": "node --loader ts-node/esm src/www.ts",
+	"env": {
+		"NODE_ENV": "development"
+	},
+	"ext": "js,json,ts"
 }

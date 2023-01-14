@@ -12,32 +12,32 @@ import stringify from '#lib/utils/stringify'
  * @returns result - Return execution results
  */
 export function spawn(
-    client: string,
-    argv: string[],
-    options: SpawnOptions = {}
+	client: string,
+	argv: string[],
+	options: SpawnOptions = {}
 ): Partial<SpawnSyncReturns<string>> {
-    let len = argv.length
-    while (len--) {
-        !argv[len] && argv.splice(len, 1)
-    }
-    const program = crossSpawn.sync(
-        client,
-        argv.map(item => stringify(item)),
-        {
-            // stdio: 'inherit',
-            shell: process.platform === 'win32',
-            ...options
-        }
-    )
-    debug('spawn', client, argv)
-    return {
-        pid: program.pid,
-        stdout: program.stdout ? program.stdout.toString().replace(/\s+$/, '') : '',
-        stderr: program.stderr ? program.stderr.toString() : '',
-        status: program.status,
-        signal: program.signal,
-        error: program.error
-    }
+	let len = argv.length
+	while (len--) {
+		!argv[len] && argv.splice(len, 1)
+	}
+	const program = crossSpawn.sync(
+		client,
+		argv.map(item => stringify(item)),
+		{
+			// stdio: 'inherit',
+			shell: process.platform === 'win32',
+			...options
+		}
+	)
+	debug('spawn', client, argv)
+	return {
+		pid: program.pid,
+		stdout: program.stdout ? program.stdout.toString().replace(/\s+$/, '') : '',
+		stderr: program.stderr ? program.stderr.toString() : '',
+		status: program.status,
+		signal: program.signal,
+		error: program.error
+	}
 }
 
 /**
@@ -49,35 +49,35 @@ export function spawn(
  * @returns result - Return execution results
  */
 export function spawnSync(
-    client: string,
-    argv: string[],
-    options: SpawnSyncOptions = {}
+	client: string,
+	argv: string[],
+	options: SpawnSyncOptions = {}
 ): Partial<SpawnSyncReturns<string>> {
-    let len = argv.length
-    while (len--) {
-        !argv[len] && argv.splice(len, 1)
-    }
-    const program = crossSpawn.sync(
-        client,
-        argv.map(item => stringify(item)),
-        {
-            // stdio: 'inherit',
-            shell: process.platform === 'win32',
-            ...options
-        }
-    )
-    debug('spawnSync', client, argv)
-    return {
-        pid: program.pid,
-        stdout: program.stdout ? program.stdout.toString().replace(/\s+$/, '') : '',
-        stderr: program.stderr ? program.stderr.toString() : '',
-        status: program.status,
-        signal: program.signal,
-        error: program.error
-    }
+	let len = argv.length
+	while (len--) {
+		!argv[len] && argv.splice(len, 1)
+	}
+	const program = crossSpawn.sync(
+		client,
+		argv.map(item => stringify(item)),
+		{
+			// stdio: 'inherit',
+			shell: process.platform === 'win32',
+			...options
+		}
+	)
+	debug('spawnSync', client, argv)
+	return {
+		pid: program.pid,
+		stdout: program.stdout ? program.stdout.toString().replace(/\s+$/, '') : '',
+		stderr: program.stderr ? program.stderr.toString() : '',
+		status: program.status,
+		signal: program.signal,
+		error: program.error
+	}
 }
 
 export default {
-    spawnSync,
-    spawn
+	spawnSync,
+	spawn
 }

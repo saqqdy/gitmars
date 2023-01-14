@@ -10,9 +10,9 @@ const REGISTRY_URL = 'https://registry.npmjs.org'
 const command = `npm --registry=${REGISTRY_URL} view`
 
 for (const { pkgName } of packages) {
-    for (const name of propNames) {
-        execSync(`${command} ${pkgName} ${name}`, {
-            stdio: 'inherit'
-        })
-    }
+	for (const name of propNames) {
+		execSync(`${command} ${pkgName} ${name}`, {
+			stdio: 'inherit'
+		})
+	}
 }

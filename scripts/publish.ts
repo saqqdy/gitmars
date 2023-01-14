@@ -16,37 +16,37 @@ if (version.includes('beta')) command += ' --tag beta'
 if (version.includes('alpha')) command += ' --tag alpha'
 
 for (const { name, pkgName } of packages) {
-    const PKG_FILE = join(PACKAGE, name, 'package.json')
-    const pkgJson = readJSON(PKG_FILE)
-    const newPkgJson = JSON.parse(JSON.stringify(pkgJson))
-    for (const { pkgName: pkg } of packages) {
-        if (pkg in ((newPkgJson.dependencies as Record<string, unknown>) || {})) {
-            newPkgJson.dependencies[pkg] = version
-        }
-        if (pkg in ((newPkgJson.devDependencies as Record<string, unknown>) || {})) {
-            newPkgJson.devDependencies[pkg] = version
-        }
-        if (pkg in ((newPkgJson.peerDependencies as Record<string, unknown>) || {})) {
-            newPkgJson.peerDependencies[pkg] = version
-        }
-    }
-    writeJSON(PKG_FILE, newPkgJson, {
-        encoding: 'utf8'
-    })
-    execSync(command, {
-        stdio: 'inherit',
-        cwd: join('packages', name)
-    })
-    writeJSON(PKG_FILE, pkgJson, {
-        encoding: 'utf8'
-    })
-    execSync(`npx prettier --write ${PKG_FILE}`, {
-        stdio: 'inherit',
-        cwd: ROOT
-    })
-    consola.success(`Published ${pkgName}`)
+	const PKG_FILE = join(PACKAGE, name, 'package.json')
+	const pkgJson = readJSON(PKG_FILE)
+	const newPkgJson = JSON.parse(JSON.stringify(pkgJson))
+	for (const { pkgName: pkg } of packages) {
+		if (pkg in ((newPkgJson.dependencies as Record<string, unknown>) || {})) {
+			newPkgJson.dependencies[pkg] = version
+		}
+		if (pkg in ((newPkgJson.devDependencies as Record<string, unknown>) || {})) {
+			newPkgJson.devDependencies[pkg] = version
+		}
+		if (pkg in ((newPkgJson.peerDependencies as Record<string, unknown>) || {})) {
+			newPkgJson.peerDependencies[pkg] = version
+		}
+	}
+	writeJSON(PKG_FILE, newPkgJson, {
+		encoding: 'utf8'
+	})
+	execSync(command, {
+		stdio: 'inherit',
+		cwd: join('packages', name)
+	})
+	writeJSON(PKG_FILE, pkgJson, {
+		encoding: 'utf8'
+	})
+	execSync(`npx prettier --write ${PKG_FILE}`, {
+		stdio: 'inherit',
+		cwd: ROOT
+	})
+	consola.success(`Published ${pkgName}`)
 }
 execSync(command, {
-    stdio: 'inherit'
+	stdio: 'inherit'
 })
 consola.success('Published @gitmars/monorepo')

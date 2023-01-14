@@ -17,24 +17,24 @@ interface ServerSideEvents extends Record<string, (...args: any[]) => void>, Eve
 // }
 
 class SocketServer {
-    io: any
-    constructor(server: http.Server, options: Partial<ServerOptions>) {
-        this.io = SocketIoServer(server, options)
-    }
+	io: any
+	constructor(server: http.Server, options: Partial<ServerOptions>) {
+		this.io = SocketIoServer(server, options)
+	}
 
-    use(name: string, fn: (socket: Socket<ListenEvents, EmitEvents, ServerSideEvents>) => void) {
-        if (!name) return false
-        if (typeof name === 'string') {
-            if (!fn) return false
-            if (typeof fn !== 'function') {
-                throw new TypeError('middleware must be a function!')
-            }
+	use(name: string, fn: (socket: Socket<ListenEvents, EmitEvents, ServerSideEvents>) => void) {
+		if (!name) return false
+		if (typeof name === 'string') {
+			if (!fn) return false
+			if (typeof fn !== 'function') {
+				throw new TypeError('middleware must be a function!')
+			}
 
-            this.io.of(name).on('connection', fn)
-        } else if (typeof name === 'function') {
-            this.io.on('connection', fn)
-        }
-    }
+			this.io.of(name).on('connection', fn)
+		} else if (typeof name === 'function') {
+			this.io.on('connection', fn)
+		}
+	}
 }
 
 export default SocketServer

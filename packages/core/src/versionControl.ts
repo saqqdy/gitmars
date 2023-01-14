@@ -16,41 +16,41 @@ const { version } = require('../package.json')
  * @returns isNeedUpgrade 返回是/否
  */
 export async function isNeedUpgrade(): Promise<boolean> {
-    const { 'dist-tags': tags, versions } = await getPkgInfo()
-    debug('tags-versions', tags, versions)
-    // let compareVers = []
-    // if (version.indexOf('1.') === 0) {
-    //     // compareVers = versions.filter(
-    //     //     (item: string) => /^1\./.test(item) && !item.match(/[a-z]+/g)
-    //     // )
-    //     // // 有落后middle以上的版本需要更新版本
-    //     // for (let ver of versions) {
-    //     //     if (/^1\./.test(ver) && parseFloat(ver) > parseFloat(ver)) {
-    //     //         return true
-    //     //     }
-    //     // }
-    //     // return false
-    //     return parseFloat(tags.lite) > parseFloat(version)
-    // }
-    return parseFloat(tags.latest) > parseFloat(version)
+	const { 'dist-tags': tags, versions } = await getPkgInfo()
+	debug('tags-versions', tags, versions)
+	// let compareVers = []
+	// if (version.indexOf('1.') === 0) {
+	//     // compareVers = versions.filter(
+	//     //     (item: string) => /^1\./.test(item) && !item.match(/[a-z]+/g)
+	//     // )
+	//     // // 有落后middle以上的版本需要更新版本
+	//     // for (let ver of versions) {
+	//     //     if (/^1\./.test(ver) && parseFloat(ver) > parseFloat(ver)) {
+	//     //         return true
+	//     //     }
+	//     // }
+	//     // return false
+	//     return parseFloat(tags.lite) > parseFloat(version)
+	// }
+	return parseFloat(tags.latest) > parseFloat(version)
 }
 
 /**
  * 升级版本提示
  */
 export function upgradeGitmars() {
-    sh.echo(
-        chalk.red(t('Your version is detected as old, please upgrade before using')) +
-            chalk.green(
-                t(
-                    '\nMac users upgrade method: sudo gitm upgrade latest -m -c npm \nWindows users use PowerShell or CMD: gitm upgrade latest -m -c npm.cmd'
-                )
-            )
-    )
-    process.exit(1)
+	sh.echo(
+		chalk.red(t('Your version is detected as old, please upgrade before using')) +
+			chalk.green(
+				t(
+					'\nMac users upgrade method: sudo gitm upgrade latest -m -c npm \nWindows users use PowerShell or CMD: gitm upgrade latest -m -c npm.cmd'
+				)
+			)
+	)
+	process.exit(1)
 }
 
 export default {
-    isNeedUpgrade,
-    upgradeGitmars
+	isNeedUpgrade,
+	upgradeGitmars
 }

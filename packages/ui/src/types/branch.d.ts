@@ -1,5 +1,5 @@
 export interface BranchListType {
-    bugfix: string[]
-    feature: string[]
-    others: string[]
+	bugfix: string[]
+	feature: string[]
+	others: string[]
 }

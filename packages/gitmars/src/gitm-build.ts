@@ -11,28 +11,28 @@ const { t } = lang
 const { args, options } = buildConfig
 
 interface GitmBuildOption {
-    env: ApolloBranchList
-    app: string
+	env: ApolloBranchList
+	app: string
 }
 /**
  * gitm build
  */
 program
-    .name('gitm build')
-    .usage('<project> [-e --env [env]] [-a --app [app]]')
-    .description(t('buildJenkins'))
+	.name('gitm build')
+	.usage('<project> [-e --env [env]] [-a --app [app]]')
+	.description(t('buildJenkins'))
 if (args.length > 0) program.arguments(createArgs(args))
 options.forEach((o: GitmarsOptionOptionsType) => {
-    program.option(o.flags, o.description, o.defaultValue)
+	program.option(o.flags, o.description, o.defaultValue)
 })
 // .option('-e, --env [env]', t('Environment to be built, optionally dev, prod, bug, all'), 'dev')
 // .option('-a, --app [app]', t('Application to be built'), 'all')
 program.action((project: string, opt: GitmBuildOption): void => {
-    runJenkins({
-        env: opt.env,
-        project,
-        app: opt.app
-    })
+	runJenkins({
+		env: opt.env,
+		project,
+		app: opt.app
+	})
 })
 program.parse(process.argv)
 export {}

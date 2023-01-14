@@ -9,15 +9,15 @@ import home from '#lib/utils/home'
 const homeDir = home()
 
 interface SocketOption {
-    name: string
-    cwd: string
+	name: string
+	cwd: string
 }
 
 let glob = {},
-    config = {},
-    branch: string[] = [],
-    current = '',
-    interval: any = null
+	config = {},
+	branch: string[] = [],
+	current = '',
+	interval: any = null
 
 /**
  * getData
@@ -26,50 +26,50 @@ let glob = {},
  * @param {*} option Parameters
  */
 const getData = async (socket: Socket, option: SocketOption) => {
-    // delete require.cache[require.resolve('gitmars/lib/common/global')]
-    // delete require.cache[require.resolve('@gitmars/core/lib/getConfig')]
-    const g = await import(`gitmars/lib/common/global?_t=${Date.now()}`)
-    const c = getConfig()
-    const bh = searchBranches({ path: option.cwd || homeDir })
-    const cur = getCurrentBranch()
-    if (!glob || JSON.stringify(glob) !== JSON.stringify(g)) {
-        glob = g
-        socket.emit(option.name + '-global', g)
-    }
-    if (!config || JSON.stringify(config) !== JSON.stringify(c)) {
-        config = c
-        socket.emit(option.name + '-config', c)
-    }
-    if (!branch || branch.join() !== bh.join()) {
-        branch = bh
-        socket.emit(option.name + '-branch', bh)
-    }
-    if (!current || current !== cur) {
-        current = cur
-        socket.emit(option.name + '-current', cur)
-    }
+	// delete require.cache[require.resolve('gitmars/lib/common/global')]
+	// delete require.cache[require.resolve('@gitmars/core/lib/getConfig')]
+	const g = await import(`gitmars/lib/common/global?_t=${Date.now()}`)
+	const c = getConfig()
+	const bh = searchBranches({ path: option.cwd || homeDir })
+	const cur = getCurrentBranch()
+	if (!glob || JSON.stringify(glob) !== JSON.stringify(g)) {
+		glob = g
+		socket.emit(option.name + '-global', g)
+	}
+	if (!config || JSON.stringify(config) !== JSON.stringify(c)) {
+		config = c
+		socket.emit(option.name + '-config', c)
+	}
+	if (!branch || branch.join() !== bh.join()) {
+		branch = bh
+		socket.emit(option.name + '-branch', bh)
+	}
+	if (!current || current !== cur) {
+		current = cur
+		socket.emit(option.name + '-current', cur)
+	}
 }
 
 export default (socket: Socket) => {
-    socket.on('create', option => {
-        process.chdir(option.cwd || homeDir)
-        getData(socket, option)
+	socket.on('create', option => {
+		process.chdir(option.cwd || homeDir)
+		getData(socket, option)
 
-        if (!interval) {
-            interval = setInterval(() => getData(socket, option), 2000)
-        }
-    })
-    socket.on('remove', name => {
-        glob = {}
-        config = {}
-        branch = []
-        current = ''
-        interval && interval.unref()
-        clearInterval(interval)
-        interval = null
-        socket.removeAllListeners(name + '-global')
-        socket.removeAllListeners(name + '-config')
-        socket.removeAllListeners(name + '-branch')
-        socket.removeAllListeners(name + '-current')
-    })
+		if (!interval) {
+			interval = setInterval(() => getData(socket, option), 2000)
+		}
+	})
+	socket.on('remove', name => {
+		glob = {}
+		config = {}
+		branch = []
+		current = ''
+		interval && interval.unref()
+		clearInterval(interval)
+		interval = null
+		socket.removeAllListeners(name + '-global')
+		socket.removeAllListeners(name + '-config')
+		socket.removeAllListeners(name + '-branch')
+		socket.removeAllListeners(name + '-current')
+	})
 }

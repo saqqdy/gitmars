@@ -3,10 +3,10 @@ import type { TaskFunction } from 'gulp'
 import { dest, src } from 'gulp'
 
 export function wrapDisplayName<T extends TaskFunction>(
-    displayName: string,
-    func: T
+	displayName: string,
+	func: T
 ): TaskFunction {
-    return Object.assign(func, { displayName })
+	return Object.assign(func, { displayName })
 }
 
 /**
@@ -17,9 +17,9 @@ export function wrapDisplayName<T extends TaskFunction>(
  * @returns task - A function that can be used as a Gulp task.
  */
 export function copyTask(globs: string, destDir: string): TaskFunction {
-    return function () {
-        return src(globs).pipe(dest(destDir))
-    }
+	return function () {
+		return src(globs).pipe(dest(destDir))
+	}
 }
 
 /**

@@ -14,8 +14,8 @@ const enPath = resolve(__dirname, '..', 'en.json')
 const cnJson = {}
 const enJson = {}
 b.forEach((key, index) => {
-    cnJson[key] = a[index]
-    enJson[key] = key
+	cnJson[key] = a[index]
+	enJson[key] = key
 })
 
 writeFileSync(cnPath, JSON.stringify(cnJson, null, 4))

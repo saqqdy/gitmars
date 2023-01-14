@@ -5,9 +5,9 @@
  * @returns {String} Return string
  */
 function delay(millisecond = 0): Promise<void> {
-    return new Promise(resolve => {
-        setTimeout(resolve, millisecond)
-    })
+	return new Promise(resolve => {
+		setTimeout(resolve, millisecond)
+	})
 }
 
 export default delay

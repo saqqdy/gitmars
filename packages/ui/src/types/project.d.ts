@@ -1,5 +1,5 @@
 export interface ProjectType {
-    id: string
-    name: string
-    path: string
+	id: string
+	name: string
+	path: string
 }

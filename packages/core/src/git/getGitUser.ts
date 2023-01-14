@@ -7,9 +7,9 @@ import { debug } from '#lib/utils/debug'
  * @returns user - Return string
  */
 export function getGitUser(): string {
-    const { stdout } = spawnSync('git', ['config', 'user.name'])
-    debug('git.user', stdout)
-    return stdout!
+	const { stdout } = spawnSync('git', ['config', 'user.name'])
+	debug('git.user', stdout)
+	return stdout!
 }
 
 /**
@@ -18,12 +18,12 @@ export function getGitUser(): string {
  * @returns email - Return string
  */
 export function getGitEmail(): string {
-    const { stdout } = spawnSync('git', ['config', 'user.email'])
-    debug('git.email', stdout)
-    return stdout!
+	const { stdout } = spawnSync('git', ['config', 'user.email'])
+	debug('git.email', stdout)
+	return stdout!
 }
 
 export default {
-    getGitUser,
-    getGitEmail
+	getGitUser,
+	getGitEmail
 }

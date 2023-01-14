@@ -17,20 +17,20 @@ import type { AnyFunction, AnyObject } from '../../typings'
  * @param data - 模板数据
  */
 function mapTemplate(tmp: string, data: AnyFunction | AnyObject): string | null {
-    if (!tmp || !data) return null
-    const str: string =
-        '' +
-        tmp.replace(/\$\{([a-zA-Z0-9-_]+)\}/g, (a, b) => {
-            if (typeof data === 'function') {
-                return data(b)
-            }
-            for (const k in data) {
-                if (b === k) {
-                    return data[k]
-                }
-            }
-        })
-    return str
+	if (!tmp || !data) return null
+	const str: string =
+		'' +
+		tmp.replace(/\$\{([a-zA-Z0-9-_]+)\}/g, (a, b) => {
+			if (typeof data === 'function') {
+				return data(b)
+			}
+			for (const k in data) {
+				if (b === k) {
+					return data[k]
+				}
+			}
+		})
+	return str
 }
 
 export default mapTemplate

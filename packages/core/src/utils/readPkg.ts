@@ -22,13 +22,13 @@ import getGitRevParse from '#lib/git/getGitRevParse'
  * @returns config - package.json
  */
 function readPkg(dir?: string): AnyObject {
-    if (!dir) {
-        const { root } = getGitRevParse()
-        dir = root
-    }
-    const pkgFile = resolve(dir, 'package.json')
-    const pkgStr = readFileSync(pkgFile, 'utf-8')
-    return JSON.parse(pkgStr)
+	if (!dir) {
+		const { root } = getGitRevParse()
+		dir = root
+	}
+	const pkgFile = resolve(dir, 'package.json')
+	const pkgStr = readFileSync(pkgFile, 'utf-8')
+	return JSON.parse(pkgStr)
 }
 
 export default readPkg

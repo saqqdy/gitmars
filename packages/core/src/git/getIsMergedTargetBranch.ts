@@ -13,30 +13,30 @@ import getCurrentBranch from '#lib/git/getCurrentBranch'
  * @returns isMergedTargetBranch - 是否合并过
  */
 function getIsMergedTargetBranch(
-    branch: string,
-    targetBranch = 'dev',
-    {
-        remote = false,
-        noMerges = true
-    }: {
-        remote?: boolean
-        noMerges?: boolean
-    }
+	branch: string,
+	targetBranch = 'dev',
+	{
+		remote = false,
+		noMerges = true
+	}: {
+		remote?: boolean
+		noMerges?: boolean
+	}
 ): boolean {
-    if (!branch) branch = getCurrentBranch() || ''
-    if (remote && !targetBranch.includes('origin')) {
-        targetBranch = 'origin/' + targetBranch
-    }
-    const { stdout } = spawnSync('git', [
-        'log',
-        noMerges ? '--no-merges' : '',
-        '--format=%h',
-        branch,
-        `^${targetBranch}`,
-        '--'
-    ])
-    debug('getIsMergedTargetBranch', stdout)
-    return !stdout || !/[a-zA-Z0-9]+/.test(stdout)
+	if (!branch) branch = getCurrentBranch() || ''
+	if (remote && !targetBranch.includes('origin')) {
+		targetBranch = 'origin/' + targetBranch
+	}
+	const { stdout } = spawnSync('git', [
+		'log',
+		noMerges ? '--no-merges' : '',
+		'--format=%h',
+		branch,
+		`^${targetBranch}`,
+		'--'
+	])
+	debug('getIsMergedTargetBranch', stdout)
+	return !stdout || !/[a-zA-Z0-9]+/.test(stdout)
 }
 
 export default getIsMergedTargetBranch

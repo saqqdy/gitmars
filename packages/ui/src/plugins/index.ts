@@ -27,10 +27,10 @@ import axios from './axios'
 import Box from './box'
 
 export default function (app: App) {
-    app.config.globalProperties.$nextIndex = nextIndex.bind(app)
-    app.config.globalProperties.$axios = axios
-    // @ts-expect-error
-    app.config.globalProperties.$delay = new Delay()
-    // @ts-expect-error
-    app.config.globalProperties.$box = (...args) => new Box(app, ...args)
+	app.config.globalProperties.$nextIndex = nextIndex.bind(app)
+	app.config.globalProperties.$axios = axios
+	// @ts-expect-error
+	app.config.globalProperties.$delay = new Delay()
+	// @ts-expect-error
+	app.config.globalProperties.$box = (...args) => new Box(app, ...args)
 }

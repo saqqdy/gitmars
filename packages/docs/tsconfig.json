@@ -1,15 +1,15 @@
 {
-    "extends": "../../tsconfig.json",
-    "exclude": ["__tests__", "../../temp"],
-    "include": ["**/*.ts", "typings"],
-    "compilerOptions": {
-        "removeComments": true,
-        "declaration": true,
-        "emitDeclarationOnly": true,
-        "target": "ESNext",
-        "outDir": "dist",
-        "module": "ESNext",
-        "lib": ["ESNext", "DOM", "DOM.Iterable"],
-        "sourceMap": false
-    }
+	"extends": "../../tsconfig.json",
+	"exclude": ["__tests__", "../../temp"],
+	"include": ["**/*.ts", "typings"],
+	"compilerOptions": {
+		"removeComments": true,
+		"declaration": true,
+		"emitDeclarationOnly": true,
+		"target": "ESNext",
+		"outDir": "dist",
+		"module": "ESNext",
+		"lib": ["ESNext", "DOM", "DOM.Iterable"],
+		"sourceMap": false
+	}
 }

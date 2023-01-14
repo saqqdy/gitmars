@@ -9,8 +9,8 @@ const NEED_STRINGIFY: string[] = ['^', '&']
  * @returns code - Return string
  */
 export default function stringify(str: string): string {
-    if (isWin32() && NEED_STRINGIFY.some(item => str.includes(item))) {
-        return JSON.stringify(str)
-    }
-    return str
+	if (isWin32() && NEED_STRINGIFY.some(item => str.includes(item))) {
+		return JSON.stringify(str)
+	}
+	return str
 }

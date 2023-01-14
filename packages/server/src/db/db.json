@@ -1,10 +1,10 @@
 {
-    "projects": [
-        {
-            "id": "357a4f34-a528-46d5-b089-08716c53e61c",
-            "name": "gitmars",
-            "path": "/Users/saqqdy/www/saqqdy/gitmars"
-        }
-    ],
-    "user": {}
+	"projects": [
+		{
+			"id": "357a4f34-a528-46d5-b089-08716c53e61c",
+			"name": "gitmars",
+			"path": "/Users/saqqdy/www/saqqdy/gitmars"
+		}
+	],
+	"user": {}
 }

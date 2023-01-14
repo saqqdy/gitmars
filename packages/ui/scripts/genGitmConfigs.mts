@@ -2,7 +2,6 @@ import { createRequire } from 'node:module'
 import { statSync, readdirSync, readFileSync, writeFileSync } from 'fs'
 import { join, dirname } from 'path'
 
-
 const require = createRequire(import.meta.url)
 const argv = process.argv.slice(2)
 const sets: unknown[] = []

@@ -7,17 +7,17 @@ import type { GitmarsOptionArgsType } from '../../typings'
  * @return options - Parameters
  */
 export function createArgs(args: GitmarsOptionArgsType[]): string {
-    const argArr: string[] = []
-    args.forEach(arg => {
-        let str = arg.name
-        if (arg.variadic) str += '...'
-        if (arg.required) str = '<' + str + '>'
-        else str = '[' + str + ']'
-        argArr.push(str)
-    })
-    return argArr.join(' ')
+	const argArr: string[] = []
+	args.forEach(arg => {
+		let str = arg.name
+		if (arg.variadic) str += '...'
+		if (arg.required) str = '<' + str + '>'
+		else str = '[' + str + ']'
+		argArr.push(str)
+	})
+	return argArr.join(' ')
 }
 
 export default {
-    createArgs
+	createArgs
 }

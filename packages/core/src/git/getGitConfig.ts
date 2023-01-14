@@ -3,8 +3,8 @@ import { spawnSync } from '#lib/spawn'
 import { debug } from '#lib/utils/debug'
 
 export interface GitProjectConfigType {
-    gitUrl: string
-    appName: string
+	gitUrl: string
+	appName: string
 }
 
 /**
@@ -14,27 +14,27 @@ export interface GitProjectConfigType {
  * @returns config - GitProjectConfigType
  */
 function getGitConfig(cwd: string = process.cwd()): GitProjectConfigType {
-    const { stdout } = spawnSync('git', ['config', '--local', '--get', 'remote.origin.url'], {
-        cwd
-    })
-    const [gitUrl] = stdout!
-        .split('\n')
-        .map((s: string) => s.trim())
-        .map(slash)
-    debug('getGitConfig', {
-        gitUrl,
-        appName: gitUrl
-            .replace(/\.git\/?$/, '')
-            .split('/')
-            .reverse()[0]
-    })
-    return {
-        gitUrl,
-        appName: gitUrl
-            .replace(/\.git\/?$/, '')
-            .split('/')
-            .reverse()[0]
-    }
+	const { stdout } = spawnSync('git', ['config', '--local', '--get', 'remote.origin.url'], {
+		cwd
+	})
+	const [gitUrl] = stdout!
+		.split('\n')
+		.map((s: string) => s.trim())
+		.map(slash)
+	debug('getGitConfig', {
+		gitUrl,
+		appName: gitUrl
+			.replace(/\.git\/?$/, '')
+			.split('/')
+			.reverse()[0]
+	})
+	return {
+		gitUrl,
+		appName: gitUrl
+			.replace(/\.git\/?$/, '')
+			.split('/')
+			.reverse()[0]
+	}
 }
 
 export default getGitConfig

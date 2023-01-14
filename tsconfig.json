@@ -1,49 +1,49 @@
 {
-    "compilerOptions": {
-        "allowJs": true,
-        "target": "esnext",
-        "moduleResolution": "node",
-        // "noLib": true,
-        "lib": ["esnext"],
-        "sourceMap": false,
-        "module": "commonjs",
-        "jsx": "preserve",
-        "strict": true,
-        "declaration": true,
-        // "declarationMap": true,
-        "skipLibCheck": true,
-        "noImplicitOverride": true,
-        "noUnusedLocals": false,
-        "esModuleInterop": true,
-        "emitDecoratorMetadata": true,
-        "experimentalDecorators": true,
-        "allowSyntheticDefaultImports": true,
-        "resolveJsonModule": true,
-        "noUnusedParameters": false,
-        "typeRoots": ["node_modules/@types"]
-        // "baseUrl": ".",
-        // "rootDirs": ["core", "gitmars", "docs", "ui", "server"],
-        // "composite": true,
-        // "paths": {
-        //     "~/*": ["./*"],
-        //     "@/package": ["./package.json"]
-        // }
-    },
-    "references": [
-        {
-            "path": "./packages/core/tsconfig.json"
-        },
-        {
-            "path": "./packages/gitmars/tsconfig.json"
-        },
-        {
-            "path": "./packages/server/tsconfig.json"
-        },
-        {
-            "path": "./packages/ui/tsconfig.json"
-        },
-        {
-            "path": "./packages/docs/tsconfig.json"
-        }
-    ]
+	"compilerOptions": {
+		"allowJs": true,
+		"target": "esnext",
+		"moduleResolution": "node",
+		// "noLib": true,
+		"lib": ["esnext"],
+		"sourceMap": false,
+		"module": "commonjs",
+		"jsx": "preserve",
+		"strict": true,
+		"declaration": true,
+		// "declarationMap": true,
+		"skipLibCheck": true,
+		"noImplicitOverride": true,
+		"noUnusedLocals": false,
+		"esModuleInterop": true,
+		"emitDecoratorMetadata": true,
+		"experimentalDecorators": true,
+		"allowSyntheticDefaultImports": true,
+		"resolveJsonModule": true,
+		"noUnusedParameters": false,
+		"typeRoots": ["node_modules/@types"]
+		// "baseUrl": ".",
+		// "rootDirs": ["core", "gitmars", "docs", "ui", "server"],
+		// "composite": true,
+		// "paths": {
+		//     "~/*": ["./*"],
+		//     "@/package": ["./package.json"]
+		// }
+	},
+	"references": [
+		{
+			"path": "./packages/core/tsconfig.json"
+		},
+		{
+			"path": "./packages/gitmars/tsconfig.json"
+		},
+		{
+			"path": "./packages/server/tsconfig.json"
+		},
+		{
+			"path": "./packages/ui/tsconfig.json"
+		},
+		{
+			"path": "./packages/docs/tsconfig.json"
+		}
+	]
 }

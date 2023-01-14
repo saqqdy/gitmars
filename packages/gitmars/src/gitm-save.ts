@@ -15,51 +15,51 @@ const { red } = chalk
 const { args, options } = saveConfig
 
 if (!getIsGitProject()) {
-    sh.echo(red(t('The current directory is not a git project directory')))
-    process.exit(1)
+	sh.echo(red(t('The current directory is not a git project directory')))
+	process.exit(1)
 }
 
 interface GitmBuildOption {
-    force?: boolean
+	force?: boolean
 }
 
 /**
  * gitm save
  */
 program
-    .name('gitm save')
-    .usage('[message] [-f --force]')
-    .description(t('Staging current branch files'))
+	.name('gitm save')
+	.usage('[message] [-f --force]')
+	.description(t('Staging current branch files'))
 if (args.length > 0) program.arguments(createArgs(args))
 options.forEach((o: GitmarsOptionOptionsType) => {
-    program.option(o.flags, o.description, o.defaultValue)
+	program.option(o.flags, o.description, o.defaultValue)
 })
 // .option('-f, --force', t('No version of the file is also staged, which will perform a git add .'), false)
 program.action((message: string, opt: GitmBuildOption) => {
-    if (!message) message = getCurrentBranch()
-    message = `${message}_cache_by_gitmars`
-    let cmd: Array<CommandType | string> = [
-        {
-            cmd: `git stash save "${message}"`,
-            config: {
-                success: t('File staging successful'),
-                fail: t('There was an error, please contact an administrator')
-            }
-        }
-    ]
-    if (opt.force) {
-        cmd = [
-            'git add .',
-            {
-                cmd: `git stash save "${message}"`,
-                config: {
-                    success: t('File staging successful'),
-                    fail: t('There was an error, please contact an administrator')
-                }
-            }
-        ]
-    }
-    queue(cmd)
+	if (!message) message = getCurrentBranch()
+	message = `${message}_cache_by_gitmars`
+	let cmd: Array<CommandType | string> = [
+		{
+			cmd: `git stash save "${message}"`,
+			config: {
+				success: t('File staging successful'),
+				fail: t('There was an error, please contact an administrator')
+			}
+		}
+	]
+	if (opt.force) {
+		cmd = [
+			'git add .',
+			{
+				cmd: `git stash save "${message}"`,
+				config: {
+					success: t('File staging successful'),
+					fail: t('There was an error, please contact an administrator')
+				}
+			}
+		]
+	}
+	queue(cmd)
 })
 program.parse(process.argv)
 export {}
