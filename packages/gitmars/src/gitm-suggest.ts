@@ -15,24 +15,24 @@ const { red, yellow } = chalk
 const { args, options } = suggestConfig
 
 if (!getIsGitProject()) {
-    sh.echo(red(t('The current directory is not a git project directory')))
-    process.exit(1)
+	sh.echo(red(t('The current directory is not a git project directory')))
+	process.exit(1)
 }
 
 interface GitmBuildOption {
-    keep?: boolean
+	keep?: boolean
 }
 
 /**
  * gitm suggest
  */
 program
-    .name('gitm suggest')
-    .usage('[message] [index] [-k --keep [keep]]')
-    .description(t('Suggestions for operation'))
+	.name('gitm suggest')
+	.usage('[message] [index] [-k --keep [keep]]')
+	.description(t('Suggestions for operation'))
 if (args.length > 0) program.arguments(createArgs(args))
 options.forEach((o: GitmarsOptionOptionsType) => {
-    program.option(o.flags, o.description, o.defaultValue)
+	program.option(o.flags, o.description, o.defaultValue)
 })
 // .option('-k, --keep [keep]', t('Keep staging area not deleted'), false)
 program.action((message: string, index: string, opt: GitmBuildOption) => {})

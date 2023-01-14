@@ -25,12 +25,12 @@ server.on('listening', onListening)
  * Normalize a port into a number, string, or false.
  */
 function normalizePort(val: string | number): boolean | number | string {
-    const port = parseInt(String(val), 10)
-    // named pipe
-    if (isNaN(port)) return val
-    // port number
-    if (port >= 0) return port
-    return false
+	const port = parseInt(String(val), 10)
+	// named pipe
+	if (isNaN(port)) return val
+	// port number
+	if (port >= 0) return port
+	return false
 }
 
 /**
@@ -39,35 +39,35 @@ function normalizePort(val: string | number): boolean | number | string {
  * @param error - 错误
  */
 function onError(error: any): void {
-    if (error.syscall !== 'listen') throw error
-    const bind = typeof port === 'string' ? 'Pipe ' + port : 'Port ' + port
-    // handle specific listen errors with friendly messages
-    switch (error.code) {
-        case 'EACCES':
-            console.error(bind + ' requires elevated privileges')
-            process.exit(1)
-            break
-        case 'EADDRINUSE':
-            console.error(bind + ' is already in use')
-            process.exit(1)
-            break
-        default:
-            throw error
-    }
+	if (error.syscall !== 'listen') throw error
+	const bind = typeof port === 'string' ? 'Pipe ' + port : 'Port ' + port
+	// handle specific listen errors with friendly messages
+	switch (error.code) {
+		case 'EACCES':
+			console.error(bind + ' requires elevated privileges')
+			process.exit(1)
+			break
+		case 'EADDRINUSE':
+			console.error(bind + ' is already in use')
+			process.exit(1)
+			break
+		default:
+			throw error
+	}
 }
 
 /**
  * Event listener for HTTP server "listening" event.
  */
 function onListening() {
-    const addr = server.address() as AddressInfo
-    const bind = typeof addr === 'string' ? 'pipe ' + addr : 'port ' + addr.port
-    const url = 'http://127.0.0.1:' + addr.port
-    console.info(`server started on ${url}`)
-    // win系统使用 一下命令打开url在浏览器
-    if (process.platform === 'win32') exec(`start ${url}`)
-    // mac系统使用 一下命令打开url在浏览器
-    else if (process.platform === 'darwin') exec(`open ${url}`)
-    else exec(`open ${url}`)
-    debugHandle('Listening on ' + bind)
+	const addr = server.address() as AddressInfo
+	const bind = typeof addr === 'string' ? 'pipe ' + addr : 'port ' + addr.port
+	const url = 'http://127.0.0.1:' + addr.port
+	console.info(`server started on ${url}`)
+	// win系统使用 一下命令打开url在浏览器
+	if (process.platform === 'win32') exec(`start ${url}`)
+	// mac系统使用 一下命令打开url在浏览器
+	else if (process.platform === 'darwin') exec(`open ${url}`)
+	else exec(`open ${url}`)
+	debugHandle('Listening on ' + bind)
 }

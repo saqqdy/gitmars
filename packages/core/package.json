@@ -1,108 +1,108 @@
 {
-    "name": "@gitmars/core",
-    "description": "gitmars核心程序",
-    "version": "4.1.0",
-    "private": false,
-    "main": "./lib/index.js",
-    "module": "./lib/index.mjs",
-    "exports": {
-        ".": {
-            "require": "./lib/index.js",
-            "import": "./lib/index.mjs",
-            "types": "./lib/index.d.ts"
-        },
-        "./*": {
-            "require": "./lib/*.js",
-            "import": "./lib/*.mjs",
-            "types": "./lib/*.d.ts"
-        },
-        "./lib/*": {
-            "require": "./lib/*.js",
-            "import": "./lib/*.mjs",
-            "types": "./lib/*.d.ts"
-        }
-    },
-    "imports": {
-        "#lib/*": {
-            "require": "./lib/*.js",
-            "import": "./lib/*.mjs"
-        },
-        "#typings/*": {
-            "require": "./typings/*.d.ts",
-            "import": "./typings/*.d.ts"
-        }
-    },
-    "files": [
-        "cache/.gitkeep",
-        "lib",
-        "sh",
-        "typings",
-        "*.d.ts"
-    ],
-    "scripts": {},
-    "directories": {
-        "bin": "bin",
-        "lib": "lib",
-        "src": "src",
-        "cache": "cache",
-        "sh": "sh",
-        "typings": "typings"
-    },
-    "dependencies": {
-        "@jssj/request": "^1.1.0",
-        "chalk": "^4.1.2",
-        "ci-info": "^3.5.0",
-        "columnify": "^1.6.0",
-        "commander": "^9.4.1",
-        "cosmiconfig": "^8.0.0",
-        "cross-spawn": "^7.0.3",
-        "dayjs": "^1.11.6",
-        "debug": "^4.3.4",
-        "inquirer": "^8.2.4",
-        "js-cool": "^2.8.0",
-        "lodash-es": "^4.17.21",
-        "lodash-unified": "^1.0.2",
-        "node-apollo": "^1.2.1",
-        "ora": "^5.4.1",
-        "os-locale": "^5.0.0",
-        "shelljs": "^0.8.5",
-        "slash": "^3.0.0"
-    },
-    "devDependencies": {
-        "@eslint-sets/eslint-config-simple-ts": "^3.2.0",
-        "@types/cross-spawn": "^6.0.2",
-        "@types/inquirer": "^9.0.2",
-        "@types/lodash-es": "^4.17.6",
-        "@types/node": "^18.11.7",
-        "@types/shelljs": "^0.8.11",
-        "cron-parser": "^4.6.0",
-        "cross-env": "^7.0.3",
-        "eslint": "^8.26.0",
-        "madge": "^5.0.1",
-        "prettier": "^2.7.1",
-        "prettier-config-common": "^1.3.0",
-        "tsnd": "^1.1.0",
-        "typescript": "^4.8.4"
-    },
-    "sideEffects": false,
-    "keywords": [
-        "gitmars",
-        "git",
-        "tool"
-    ],
-    "license": "GPL-3.0",
-    "author": "saqqdy <https://github.com/saqqdy>",
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/saqqdy/gitmars.git",
-        "directory": "packages/core"
-    },
-    "bugs": {
-        "url": "https://github.com/saqqdy/gitmars/issues"
-    },
-    "homepage": "https://github.com/saqqdy/gitmars/tree/master/packages/core#readme",
-    "publishConfig": {
-        "registry": "https://registry.npmjs.org",
-        "access": "public"
-    }
+	"name": "@gitmars/core",
+	"description": "gitmars核心程序",
+	"version": "4.1.0",
+	"private": false,
+	"main": "./lib/index.js",
+	"module": "./lib/index.mjs",
+	"exports": {
+		".": {
+			"types": "./lib/index.d.ts",
+			"require": "./lib/index.js",
+			"import": "./lib/index.mjs"
+		},
+		"./*": {
+			"types": "./lib/*.d.ts",
+			"require": "./lib/*.js",
+			"import": "./lib/*.mjs"
+		},
+		"./lib/*": {
+			"types": "./lib/*.d.ts",
+			"require": "./lib/*.js",
+			"import": "./lib/*.mjs"
+		}
+	},
+	"imports": {
+		"#lib/*": {
+			"require": "./lib/*.js",
+			"import": "./lib/*.mjs"
+		},
+		"#typings/*": {
+			"require": "./typings/*.d.ts",
+			"import": "./typings/*.d.ts"
+		}
+	},
+	"files": [
+		"cache/.gitkeep",
+		"lib",
+		"sh",
+		"typings",
+		"*.d.ts"
+	],
+	"scripts": {},
+	"directories": {
+		"bin": "bin",
+		"lib": "lib",
+		"src": "src",
+		"cache": "cache",
+		"sh": "sh",
+		"typings": "typings"
+	},
+	"dependencies": {
+		"@jssj/request": "^1.1.0",
+		"chalk": "^4.1.2",
+		"ci-info": "^3.5.0",
+		"columnify": "^1.6.0",
+		"commander": "^9.4.1",
+		"cosmiconfig": "^8.0.0",
+		"cross-spawn": "^7.0.3",
+		"dayjs": "^1.11.6",
+		"debug": "^4.3.4",
+		"inquirer": "^8.2.4",
+		"js-cool": "^2.8.0",
+		"lodash-es": "^4.17.21",
+		"lodash-unified": "^1.0.2",
+		"node-apollo": "^1.2.1",
+		"ora": "^5.4.1",
+		"os-locale": "^5.0.0",
+		"shelljs": "^0.8.5",
+		"slash": "^3.0.0"
+	},
+	"devDependencies": {
+		"@eslint-sets/eslint-config": "^4.1.0-beta.6",
+		"@types/cross-spawn": "^6.0.2",
+		"@types/inquirer": "^9.0.2",
+		"@types/lodash-es": "^4.17.6",
+		"@types/node": "^18.11.7",
+		"@types/shelljs": "^0.8.11",
+		"cron-parser": "^4.6.0",
+		"cross-env": "^7.0.3",
+		"eslint": "^8.31.0",
+		"madge": "^5.0.1",
+		"prettier": "^2.8.3",
+		"prettier-config-common": "^1.3.0",
+		"tsnd": "^1.1.0",
+		"typescript": "^4.8.4"
+	},
+	"sideEffects": false,
+	"keywords": [
+		"gitmars",
+		"git",
+		"tool"
+	],
+	"license": "GPL-3.0",
+	"author": "saqqdy <https://github.com/saqqdy>",
+	"homepage": "https://github.com/saqqdy/gitmars/tree/master/packages/core#readme",
+	"bugs": {
+		"url": "https://github.com/saqqdy/gitmars/issues"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/saqqdy/gitmars.git",
+		"directory": "packages/core"
+	},
+	"publishConfig": {
+		"registry": "https://registry.npmjs.org",
+		"access": "public"
+	}
 }

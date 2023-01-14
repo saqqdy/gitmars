@@ -13,9 +13,9 @@ export const isDebug = ['1', 'true'].includes(process.env.GITMARS_DEBUG || '') |
  * @param args - Parameters
  */
 export function debug(infoName = '', ...args: any[]) {
-    if (isDebug) {
-        _debug(`${name}:info`)(`[${green(infoName)}]`, ...args)
-    }
+	if (isDebug) {
+		_debug(`${name}:info`)(`[${green(infoName)}]`, ...args)
+	}
 }
 
 /**
@@ -25,9 +25,9 @@ export function debug(infoName = '', ...args: any[]) {
  * @param args - Parameters
  */
 export function debugWarn(infoName = '', ...args: any[]) {
-    if (isDebug) {
-        _debug(`${name}:warn`)(`[${yellow(infoName)}]`, ...args)
-    }
+	if (isDebug) {
+		_debug(`${name}:warn`)(`[${yellow(infoName)}]`, ...args)
+	}
 }
 
 /**
@@ -37,14 +37,14 @@ export function debugWarn(infoName = '', ...args: any[]) {
  * @param args - Parameters
  */
 export function debugError(infoName = '', ...args: any[]) {
-    if (isDebug) {
-        _debug(`${name}:error`)(`[${red(infoName)}]`, ...args)
-    }
+	if (isDebug) {
+		_debug(`${name}:error`)(`[${red(infoName)}]`, ...args)
+	}
 }
 
 export default {
-    isDebug,
-    debug,
-    debugWarn,
-    debugError
+	isDebug,
+	debug,
+	debugWarn,
+	debugError
 }

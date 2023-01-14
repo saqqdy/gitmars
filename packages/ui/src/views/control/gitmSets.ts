@@ -3,14 +3,14 @@ const commandSets = import.meta.glob('gitmars/lib/conf/*.mjs', { eager: true })
 let sets = {}
 
 for (const key in commandSets) {
-    const name = key.replace(/^.+\/(\w+)\.js$/, '$1')
-    if (Object.keys(commandSets[key]).length) {
-        // @ts-expect-error
-        sets[name] = commandSets[key]
-    } else {
-        sets = (window as any).gitmarsCmdConfig
-        break
-    }
+	const name = key.replace(/^.+\/(\w+)\.js$/, '$1')
+	if (Object.keys(commandSets[key]).length) {
+		// @ts-expect-error
+		sets[name] = commandSets[key]
+	} else {
+		sets = (window as any).gitmarsCmdConfig
+		break
+	}
 }
 // for (const path in require.cache) {
 // 	if (path.endsWith('combine.js')) {

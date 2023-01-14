@@ -3,25 +3,25 @@
 export = xterm_style
 
 declare const xterm_style: {
-    common: {
-        background: string
-        black: string
-        blue: string
-        brightBlack: string
-        brightBlue: string
-        brightCyan: string
-        brightGreen: string
-        brightMagenta: string
-        brightRed: string
-        brightWhite: string
-        brightYellow: string
-        cursor: string
-        cyan: string
-        foreground: string
-        green: string
-        magenta: string
-        red: string
-        white: string
-        yellow: string
-    }
+	common: {
+		background: string
+		black: string
+		blue: string
+		brightBlack: string
+		brightBlue: string
+		brightCyan: string
+		brightGreen: string
+		brightMagenta: string
+		brightRed: string
+		brightWhite: string
+		brightYellow: string
+		cursor: string
+		cyan: string
+		foreground: string
+		green: string
+		magenta: string
+		red: string
+		white: string
+		yellow: string
+	}
 }

@@ -1,20 +1,20 @@
 {
-    "extends": "../../tsconfig.json",
-    "exclude": ["**/__tests__"],
-    "compilerOptions": {
-        "declaration": true,
-        "emitDeclarationOnly": true,
-        "target": "ESNext",
-        "module": "ESNext",
-        "lib": ["ESNext"],
-        "types": ["./typings/global"],
-        "sourceMap": false,
-        "rootDir": ".",
-        "outDir": "lib",
-        "baseUrl": ".",
-        "paths": {
-            "#lib/*": ["./src/*"],
-            "#conf/*": ["./src/conf/*"]
-        }
-    }
+	"extends": "../../tsconfig.json",
+	"exclude": ["**/__tests__"],
+	"compilerOptions": {
+		"declaration": true,
+		"emitDeclarationOnly": true,
+		"target": "ESNext",
+		"module": "ESNext",
+		"lib": ["ESNext"],
+		"types": ["./typings/global"],
+		"sourceMap": false,
+		"rootDir": ".",
+		"outDir": "lib",
+		"baseUrl": ".",
+		"paths": {
+			"#lib/*": ["./src/*"],
+			"#conf/*": ["./src/conf/*"]
+		}
+	}
 }

@@ -5,14 +5,14 @@ import { debug } from '#lib/utils/debug'
 import GitLogsFormatter from '#lib/git/gitLogsFormatter'
 
 export interface GetGitLogsOption {
-    lastet?: string
-    limit?: number
-    params?: string
-    keys?: GitLogKeysType[]
-    noMerges?: boolean
-    grep?: string
-    author?: string
-    branch?: string
+	lastet?: string
+	limit?: number
+	params?: string
+	keys?: GitLogKeysType[]
+	noMerges?: boolean
+	grep?: string
+	author?: string
+	branch?: string
 }
 
 /**
@@ -30,18 +30,18 @@ export interface GetGitLogsOption {
  * @returns logsList - Return array
  */
 function getGitLogs(option: GetGitLogsOption = {}): GitLogsType[] {
-    const { lastet, limit, params = '', keys = [], noMerges = false, grep, author, branch } = option
-    const formatter = new GitLogsFormatter()
-    let argv = ['log', branch || '', '--date-order', `--pretty=format:${formatter.getFormat(keys)}`]
-    if (limit) argv.push('-' + limit)
-    if (lastet) argv = argv.concat(['--since', String(getSeconds(lastet) || '')])
-    if (grep) argv = argv.concat(['--grep', grep])
-    if (author) argv = argv.concat(['--author', author])
-    if (noMerges) argv.push('--no-merges')
-    if (params) argv = argv.concat(params.split(' '))
-    const { stdout } = spawnSync('git', argv)
-    debug('getGitLogs', stdout)
-    return formatter.getLogs(stdout!)
+	const { lastet, limit, params = '', keys = [], noMerges = false, grep, author, branch } = option
+	const formatter = new GitLogsFormatter()
+	let argv = ['log', branch || '', '--date-order', `--pretty=format:${formatter.getFormat(keys)}`]
+	if (limit) argv.push('-' + limit)
+	if (lastet) argv = argv.concat(['--since', String(getSeconds(lastet) || '')])
+	if (grep) argv = argv.concat(['--grep', grep])
+	if (author) argv = argv.concat(['--author', author])
+	if (noMerges) argv.push('--no-merges')
+	if (params) argv = argv.concat(params.split(' '))
+	const { stdout } = spawnSync('git', argv)
+	debug('getGitLogs', stdout)
+	return formatter.getLogs(stdout!)
 }
 
 export default getGitLogs

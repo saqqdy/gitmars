@@ -6,25 +6,25 @@ import { ROOT } from './utils/paths'
 let [, , type, ...argv] = process.argv
 
 const spawnOption: SpawnSyncOptions = {
-    stdio: 'inherit',
-    shell: process.platform === 'win32'
+	stdio: 'inherit',
+	shell: process.platform === 'win32'
 }
 const execOption: ExecSyncOptions = {
-    stdio: 'inherit'
+	stdio: 'inherit'
 }
 
 type && (type = type.replace(/\"/g, ''))
 
 if (!type) {
-    console.info('请输入构建类型')
-    process.exit(1)
+	console.info('请输入构建类型')
+	process.exit(1)
 } else if (Object.keys(tasks).includes(type)) {
-    spawnSync('pnpm', ['build', type], spawnOption)
+	spawnSync('pnpm', ['build', type], spawnOption)
 } else if (type === 'create') {
-    execSync(`sh ${join(ROOT, 'scripts', 'create-component.sh')} ${argv}`, execOption)
+	execSync(`sh ${join(ROOT, 'scripts', 'create-component.sh')} ${argv}`, execOption)
 } else if (type === 'remove') {
-    execSync(`npx zx ${join(ROOT, 'scripts', 'remove-component.mjs')} ${argv}`, execOption)
+	execSync(`npx zx ${join(ROOT, 'scripts', 'remove-component.mjs')} ${argv}`, execOption)
 } else {
-    console.info('请输入有效的构建类型')
-    process.exit(1)
+	console.info('请输入有效的构建类型')
+	process.exit(1)
 }

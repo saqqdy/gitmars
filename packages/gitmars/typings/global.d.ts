@@ -11,8 +11,8 @@
 // declare let window: any
 
 declare global {
-    const global: {
-        gitmarsCmdConfig: any
-    }
-    const window: any
+	const global: {
+		gitmarsCmdConfig: any
+	}
+	const window: any
 }

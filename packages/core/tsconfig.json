@@ -1,19 +1,19 @@
 {
-    "extends": "../../tsconfig.json",
-    "exclude": ["**/__tests__"],
-    "compilerOptions": {
-        "removeComments": true,
-        "declaration": true,
-        "emitDeclarationOnly": true,
-        "target": "ESNext",
-        // "outDir": "dist",
-        "module": "ESNext",
-        "lib": ["ESNext"],
-        "sourceMap": false,
-        "baseUrl": ".",
-        "paths": {
-            "#lib/*": ["./src/*"],
-            "#conf/*": ["./src/conf/*"]
-        }
-    }
+	"extends": "../../tsconfig.json",
+	"exclude": ["**/__tests__"],
+	"compilerOptions": {
+		"removeComments": true,
+		"declaration": true,
+		"emitDeclarationOnly": true,
+		"target": "ESNext",
+		// "outDir": "dist",
+		"module": "ESNext",
+		"lib": ["ESNext"],
+		"sourceMap": false,
+		"baseUrl": ".",
+		"paths": {
+			"#lib/*": ["./src/*"],
+			"#conf/*": ["./src/conf/*"]
+		}
+	}
 }

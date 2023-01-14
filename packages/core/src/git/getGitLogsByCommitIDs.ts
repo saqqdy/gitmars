@@ -4,9 +4,9 @@ import { debug } from '#lib/utils/debug'
 import GitLogsFormatter from '#lib/git/gitLogsFormatter'
 
 export interface GetGitLogsByCommitIDsOptions {
-    commitIDs: string | string[]
-    params?: string
-    keys: GitLogKeysType[]
+	commitIDs: string | string[]
+	params?: string
+	keys: GitLogKeysType[]
 }
 
 /**
@@ -19,21 +19,21 @@ export interface GetGitLogsByCommitIDsOptions {
  * @returns logsList - Return array
  */
 function getGitLogsByCommitIDs({
-    commitIDs,
-    params = '',
-    keys
+	commitIDs,
+	params = '',
+	keys
 }: GetGitLogsByCommitIDsOptions): GitLogsType[] {
-    if (typeof commitIDs === 'string') commitIDs = [commitIDs]
-    const formatter = new GitLogsFormatter()
-    const { stdout } = spawnSync('git', [
-        'show',
-        ...commitIDs,
-        '--name-only',
-        `--pretty=format:${formatter.getFormat(keys)}`,
-        ...params.split(' ')
-    ])
-    debug('getGitLogsByCommitIDs', stdout)
-    return formatter.getLogs(stdout!)
+	if (typeof commitIDs === 'string') commitIDs = [commitIDs]
+	const formatter = new GitLogsFormatter()
+	const { stdout } = spawnSync('git', [
+		'show',
+		...commitIDs,
+		'--name-only',
+		`--pretty=format:${formatter.getFormat(keys)}`,
+		...params.split(' ')
+	])
+	debug('getGitLogsByCommitIDs', stdout)
+	return formatter.getLogs(stdout!)
 }
 
 export default getGitLogsByCommitIDs

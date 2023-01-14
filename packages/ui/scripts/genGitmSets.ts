@@ -30,6 +30,6 @@ const absPath = require.resolve('gitmars/package.json').replace(/package\.json$/
 const FILE_NAME = join(__dirname, '..', 'src', 'views', 'control', 'gitmSets.ts')
 let codes = readFileSync(FILE_NAME).toString()
 writeFileSync(
-    FILE_NAME,
-    codes.replace('gitmars/lib/conf/*.js', join(absPath, 'lib', 'conf', '*.js'))
+	FILE_NAME,
+	codes.replace('gitmars/lib/conf/*.js', join(absPath, 'lib', 'conf', '*.js'))
 )

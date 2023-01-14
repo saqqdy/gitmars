@@ -7,9 +7,9 @@ import { format } from 'util'
  * @returns {Object} arr Return the configuration object
  */
 function echo(message: string): void {
-    let output = format(message)
-    output += '\n'
-    process.stdout.write(output)
+	let output = format(message)
+	output += '\n'
+	process.stdout.write(output)
 }
 
 export default echo

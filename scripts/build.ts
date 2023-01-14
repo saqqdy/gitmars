@@ -18,69 +18,69 @@ const FILES_COPY_LOCAL = ['README.md', '*.cjs', '*.mjs', '*.d.ts']
 assert(process.cwd() !== __dirname)
 
 async function buildMetaFiles() {
-    for (const { name } of packages) {
-        const packageRoot = path.resolve(__dirname, '..', 'packages', name)
-        const packageDist = path.resolve(packageRoot, 'dist')
+	for (const { name } of packages) {
+		const packageRoot = path.resolve(__dirname, '..', 'packages', name)
+		const packageDist = path.resolve(packageRoot, 'dist')
 
-        if (name === 'core')
-            await promises.copyFile(
-                path.join(rootDir, 'README.md'),
-                path.join(packageDist, 'README.md')
-            )
+		if (name === 'core')
+			await promises.copyFile(
+				path.join(rootDir, 'README.md'),
+				path.join(packageDist, 'README.md')
+			)
 
-        for (const file of FILES_COPY_ROOT)
-            await promises.copyFile(path.join(rootDir, file), path.join(packageDist, file))
+		for (const file of FILES_COPY_ROOT)
+			await promises.copyFile(path.join(rootDir, file), path.join(packageDist, file))
 
-        const files = await fg(FILES_COPY_LOCAL, { cwd: packageRoot })
-        for (const file of files)
-            await promises.copyFile(path.join(packageRoot, file), path.join(packageDist, file))
+		const files = await fg(FILES_COPY_LOCAL, { cwd: packageRoot })
+		for (const file of files)
+			await promises.copyFile(path.join(packageRoot, file), path.join(packageDist, file))
 
-        const packageJSON = JSON.parse(readFileSync(path.join(packageRoot, 'package.json'), 'utf8'))
-        for (const key of Object.keys(packageJSON.dependencies || {})) {
-            if (key.startsWith('@gitmars/')) packageJSON.dependencies[key] = version
-        }
-        for (const key of Object.keys(packageJSON.devDependencies || {})) {
-            if (key.startsWith('@gitmars/')) packageJSON.devDependencies[key] = version
-        }
-        writeFileSync(path.join(packageDist, 'package.json'), JSON.stringify(packageJSON, null, 4))
-    }
+		const packageJSON = JSON.parse(readFileSync(path.join(packageRoot, 'package.json'), 'utf8'))
+		for (const key of Object.keys(packageJSON.dependencies || {})) {
+			if (key.startsWith('@gitmars/')) packageJSON.dependencies[key] = version
+		}
+		for (const key of Object.keys(packageJSON.devDependencies || {})) {
+			if (key.startsWith('@gitmars/')) packageJSON.devDependencies[key] = version
+		}
+		writeFileSync(path.join(packageDist, 'package.json'), JSON.stringify(packageJSON, null, 4))
+	}
 }
 
 async function buildEachPackage() {
-    for (const { name, output } of packages) {
-        const packageRoot = path.resolve(PACKAGE, name)
-        const packageDist = path.resolve(PACKAGE, output || 'dist')
+	for (const { name, output } of packages) {
+		const packageRoot = path.resolve(PACKAGE, name)
+		const packageDist = path.resolve(PACKAGE, output || 'dist')
 
-        execSync(`pnpm build cjs`, {
-            cwd: packageRoot,
-            stdio: 'inherit'
-        })
-    }
+		execSync(`pnpm build cjs`, {
+			cwd: packageRoot,
+			stdio: 'inherit'
+		})
+	}
 }
 
 async function build() {
-    consola.info('Clean up')
-    execSync('pnpm run clean', { stdio: 'inherit' })
+	consola.info('Clean up')
+	execSync('pnpm run clean', { stdio: 'inherit' })
 
-    consola.info('Run Build Task')
-    // execSync(`pnpm run build:rollup${watch ? ' -- --watch' : ''}`, {
-    //     stdio: 'inherit'
-    // })
+	consola.info('Run Build Task')
+	// execSync(`pnpm run build:rollup${watch ? ' -- --watch' : ''}`, {
+	//     stdio: 'inherit'
+	// })
 
-    // consola.info("Fix types");
-    // execSync("pnpm run types:fix", { stdio: "inherit" });
+	// consola.info("Fix types");
+	// execSync("pnpm run types:fix", { stdio: "inherit" });
 
-    await buildEachPackage()
-    await buildMetaFiles()
+	await buildEachPackage()
+	await buildMetaFiles()
 }
 
 async function cli() {
-    try {
-        await build()
-    } catch (e) {
-        console.error(e)
-        process.exit(1)
-    }
+	try {
+		await build()
+	} catch (e) {
+		console.error(e)
+		process.exit(1)
+	}
 }
 
 export { build }

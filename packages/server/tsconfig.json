@@ -1,23 +1,23 @@
 {
-    "extends": "../../tsconfig.json",
-    "include": ["../typings", "./**/*.d.ts", "./**/*.ts"],
-    "exclude": ["**/node_modules/**", "**/__tests__"],
-    "compilerOptions": {
-        "allowSyntheticDefaultImports": true,
-        "moduleResolution": "NodeNext",
-        "resolveJsonModule": true,
-        "target": "ESNext",
-        "outDir": "lib",
-        // "rootDirs": ["bin", "db", "lib", "public", "routes", "socket", "views"],
-        "module": "ESNext",
-        "declaration": true,
-        "emitDeclarationOnly": true,
-        "lib": ["ESNext"],
-        "sourceMap": false,
-        "rootDir": ".",
-        "baseUrl": ".",
-        "paths": {
-            "#lib/*": ["./src/*"]
-        }
-    }
+	"extends": "../../tsconfig.json",
+	"include": ["../typings", "./**/*.d.ts", "./**/*.ts"],
+	"exclude": ["**/node_modules/**", "**/__tests__"],
+	"compilerOptions": {
+		"allowSyntheticDefaultImports": true,
+		"moduleResolution": "NodeNext",
+		"resolveJsonModule": true,
+		"target": "ESNext",
+		"outDir": "lib",
+		// "rootDirs": ["bin", "db", "lib", "public", "routes", "socket", "views"],
+		"module": "ESNext",
+		"declaration": true,
+		"emitDeclarationOnly": true,
+		"lib": ["ESNext"],
+		"sourceMap": false,
+		"rootDir": ".",
+		"baseUrl": ".",
+		"paths": {
+			"#lib/*": ["./src/*"]
+		}
+	}
 }

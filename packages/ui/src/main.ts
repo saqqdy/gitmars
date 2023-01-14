@@ -1,20 +1,20 @@
 import { createApp } from 'vue'
 import {
-    ElButton,
-    ElCarousel,
-    ElCheckbox,
-    ElCol,
-    ElCollapse,
-    ElForm,
-    ElInput,
-    ElMessage,
-    ElMessageBox,
-    ElOption,
-    ElProgress,
-    ElRow,
-    ElSelect,
-    ElSkeleton,
-    ElTooltip
+	ElButton,
+	ElCarousel,
+	ElCheckbox,
+	ElCol,
+	ElCollapse,
+	ElForm,
+	ElInput,
+	ElMessage,
+	ElMessageBox,
+	ElOption,
+	ElProgress,
+	ElRow,
+	ElSelect,
+	ElSkeleton,
+	ElTooltip
 } from 'element-plus'
 // import 'element-plus/theme-chalk/index.css'
 import App from './App.vue'

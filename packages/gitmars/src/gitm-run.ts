@@ -15,11 +15,11 @@ const { args, options } = runConfig
 program.name('gitm run').usage('[command] [args...]').description(t('git hook run command'))
 if (args.length > 0) program.arguments(createArgs(args))
 options.forEach((o: GitmarsOptionOptionsType) => {
-    program.option(o.flags, o.description, o.defaultValue)
+	program.option(o.flags, o.description, o.defaultValue)
 })
 // .arguments('[command] [args...]')
 program.action((command: string, args: string[]) => {
-    run(command, args)
+	run(command, args)
 })
 program.parse(process.argv)
 export {}

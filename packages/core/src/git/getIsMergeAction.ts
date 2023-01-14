@@ -6,11 +6,11 @@ import getGitLogs from '#lib/git/getGitLogs'
  * @returns isMergeAction - 是否merge
  */
 function getIsMergeAction(): boolean {
-    const currentLogs = getGitLogs({
-        limit: 1
-    })
-    const p = currentLogs[0]['%P'] ? currentLogs[0]['%P'].split(' ') : []
-    return p.length > 1
+	const currentLogs = getGitLogs({
+		limit: 1
+	})
+	const p = currentLogs[0]['%P'] ? currentLogs[0]['%P'].split(' ') : []
+	return p.length > 1
 }
 
 export default getIsMergeAction

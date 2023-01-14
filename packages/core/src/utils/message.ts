@@ -16,32 +16,32 @@ const { t } = lang
  * @returns message - 数据
  */
 export function getMessage(type: string): string {
-    const { root } = getGitRevParse()
-    const { appName } = getGitConfig()
-    const config = getConfig()
-    const d = new Date()
-    let str = ''
-    switch (type) {
-        case 'time':
-            str = d.toLocaleString()
-            break
-        case 'timeNum':
-            str = String(d.getTime())
-            break
-        case 'pwd':
-            str = root
-            break
-        case 'project':
-            str = appName
-            break
-        case 'user':
-            str = config.user!
-            break
+	const { root } = getGitRevParse()
+	const { appName } = getGitConfig()
+	const config = getConfig()
+	const d = new Date()
+	let str = ''
+	switch (type) {
+		case 'time':
+			str = d.toLocaleString()
+			break
+		case 'timeNum':
+			str = String(d.getTime())
+			break
+		case 'pwd':
+			str = root
+			break
+		case 'project':
+			str = appName
+			break
+		case 'user':
+			str = config.user!
+			break
 
-        default:
-            break
-    }
-    return str
+		default:
+			break
+	}
+	return str
 }
 
 /**
@@ -50,19 +50,19 @@ export function getMessage(type: string): string {
  * @param msg - 消息
  */
 export async function postMessage(msg = ''): Promise<void> {
-    const config = getConfig()
-    if (!config.msgTemplate) {
-        sh.echo(chalk.red(t('Please configure the message sending api template address')))
-        return
-    }
-    const message = mapTemplate(config.msgTemplate, (key: string) => {
-        if (key === 'message') return msg
-        return getMessage(key)
-    })
-    message && (await sendGroupMessage(message))
+	const config = getConfig()
+	if (!config.msgTemplate) {
+		sh.echo(chalk.red(t('Please configure the message sending api template address')))
+		return
+	}
+	const message = mapTemplate(config.msgTemplate, (key: string) => {
+		if (key === 'message') return msg
+		return getMessage(key)
+	})
+	message && (await sendGroupMessage(message))
 }
 
 export default {
-    getMessage,
-    postMessage
+	getMessage,
+	postMessage
 }

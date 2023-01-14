@@ -1,114 +1,113 @@
 {
-    "name": "@gitmars/server",
-    "description": "gitmars可视化界面服务端",
-    "version": "4.1.0",
-    "private": false,
-    "type": "module",
-    "bin": {
-        "gitm-server": "./lib/www.mjs"
-    },
-    "module": "./lib/www.mjs",
-    "exports": {
-        ".": {
-            "import": "./lib/www.mjs",
-            "types": "./lib/www.d.ts"
-        },
-        "./*": {
-            "import": "./lib/*.mjs",
-            "types": "./lib/*.d.ts"
-        },
-        "./lib/*": {
-            "import": "./lib/*.mjs",
-            "types": "./lib/*.d.ts"
-        }
-    },
-    "imports": {
-        "#lib/*": {
-            "import": "./lib/*.mjs"
-        },
-        "#lib/*.json": "./lib/*.json"
-    },
-    "files": [
-        "lib",
-        "typings",
-        "*.d.ts"
-    ],
-    "scripts": {
-        "server:start": "node lib/www",
-        "server:watch": "nodemon --config nodemon.json",
-        "server:watch:debug": "nodemon --config nodemon.json --inspect-brk",
-        "lib": "sh scripts/lib.sh",
-        "build:server": "rimraf app && sh scripts/build-server.sh",
-        "dist": "run-s eslint prettier build build:server circular build:ui",
-        "eslint": "eslint --fix --ext .ts,.js ./",
-        "prettier": "prettier --write \"**/*.{js,ts,json,md}\"",
-        "prettier:docs": "prettier --write \"**/*.md\""
-    },
-    "directories": {
-        "app": "app",
-        "typings": "typings"
-    },
-    "dependencies": {
-        "@gitmars/core": "workspace:*",
-        "@gitmars/ui": "workspace:*",
-        "@jssj/request": "^1.1.0",
-        "cookie-parser": "^1.4.6",
-        "debug": "^4.3.4",
-        "express": "^4.18.2",
-        "fast-glob": "^3.2.12",
-        "gitmars": "workspace:*",
-        "hbs": "^4.2.0",
-        "http-errors": "^2.0.0",
-        "js-cool": "^2.8.0",
-        "log4js": "^6.7.0",
-        "logger": "^0.0.1",
-        "lowdb": "^1.0.0",
-        "node-pty": "^0.10.1",
-        "os": "^0.1.2",
-        "os-locale": "^5.0.0",
-        "shelljs": "^0.8.5",
-        "socket.io": "^4.5.3",
-        "tracer": "^1.1.6",
-        "uuid": "^9.0.0"
-    },
-    "devDependencies": {
-        "@eslint-sets/eslint-config-simple-ts": "^3.2.0",
-        "@types/cookie-parser": "^1.4.3",
-        "@types/debug": "^4.1.7",
-        "@types/express": "^4.17.14",
-        "@types/http-errors": "^2.0.0",
-        "@types/logger": "^0.0.1",
-        "@types/node": "^18.11.7",
-        "@types/shelljs": "^0.8.11",
-        "@types/uuid": "^9.0.0",
-        "eslint": "^8.26.0",
-        "nodemon": "^2.0.20",
-        "prettier": "^2.7.1",
-        "rimraf": "^3.0.2",
-        "ts-node": "^10.9.1",
-        "tsnd": "^1.1.0",
-        "typescript": "^4.8.4"
-    },
-    "sideEffects": false,
-    "keywords": [
-        "gitmars",
-        "server",
-        "git",
-        "tool"
-    ],
-    "license": "GPL-3.0",
-    "author": "saqqdy <https://github.com/saqqdy>",
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/saqqdy/gitmars.git",
-        "directory": "packages/server"
-    },
-    "bugs": {
-        "url": "https://github.com/saqqdy/gitmars/issues"
-    },
-    "homepage": "https://github.com/saqqdy/gitmars/tree/master/packages/server#readme",
-    "publishConfig": {
-        "registry": "https://registry.npmjs.org",
-        "access": "public"
-    }
+	"name": "@gitmars/server",
+	"description": "gitmars可视化界面服务端",
+	"version": "4.1.0",
+	"private": false,
+	"bin": {
+		"gitm-server": "./lib/www.mjs"
+	},
+	"module": "./lib/www.mjs",
+	"exports": {
+		".": {
+			"types": "./lib/www.d.ts",
+			"import": "./lib/www.mjs"
+		},
+		"./*": {
+			"types": "./lib/*.d.ts",
+			"import": "./lib/*.mjs"
+		},
+		"./lib/*": {
+			"types": "./lib/*.d.ts",
+			"import": "./lib/*.mjs"
+		}
+	},
+	"imports": {
+		"#lib/*": {
+			"import": "./lib/*.mjs"
+		},
+		"#lib/*.json": "./lib/*.json"
+	},
+	"files": [
+		"lib",
+		"typings",
+		"*.d.ts"
+	],
+	"scripts": {
+		"server:start": "node lib/www",
+		"server:watch": "nodemon --config nodemon.json",
+		"server:watch:debug": "nodemon --config nodemon.json --inspect-brk",
+		"lib": "sh scripts/lib.sh",
+		"build:server": "rimraf app && sh scripts/build-server.sh",
+		"dist": "run-s eslint prettier build build:server circular build:ui",
+		"eslint": "eslint --fix --ext .ts,.js ./",
+		"prettier": "prettier --write \"**/*.{js,ts,json,md}\"",
+		"prettier:docs": "prettier --write \"**/*.md\""
+	},
+	"directories": {
+		"app": "app",
+		"typings": "typings"
+	},
+	"dependencies": {
+		"@gitmars/core": "workspace:*",
+		"@gitmars/ui": "workspace:*",
+		"@jssj/request": "^1.1.0",
+		"cookie-parser": "^1.4.6",
+		"debug": "^4.3.4",
+		"express": "^4.18.2",
+		"fast-glob": "^3.2.12",
+		"gitmars": "workspace:*",
+		"hbs": "^4.2.0",
+		"http-errors": "^2.0.0",
+		"js-cool": "^2.8.0",
+		"log4js": "^6.7.0",
+		"logger": "^0.0.1",
+		"lowdb": "^1.0.0",
+		"node-pty": "^0.10.1",
+		"os": "^0.1.2",
+		"os-locale": "^5.0.0",
+		"shelljs": "^0.8.5",
+		"socket.io": "^4.5.3",
+		"tracer": "^1.1.6",
+		"uuid": "^9.0.0"
+	},
+	"devDependencies": {
+		"@eslint-sets/eslint-config": "^4.1.0-beta.6",
+		"@types/cookie-parser": "^1.4.3",
+		"@types/debug": "^4.1.7",
+		"@types/express": "^4.17.14",
+		"@types/http-errors": "^2.0.0",
+		"@types/logger": "^0.0.1",
+		"@types/node": "^18.11.7",
+		"@types/shelljs": "^0.8.11",
+		"@types/uuid": "^9.0.0",
+		"eslint": "^8.31.0",
+		"nodemon": "^2.0.20",
+		"prettier": "^2.8.3",
+		"rimraf": "^4.0.4",
+		"ts-node": "^10.9.1",
+		"tsnd": "^1.1.0",
+		"typescript": "^4.8.4"
+	},
+	"sideEffects": false,
+	"keywords": [
+		"gitmars",
+		"server",
+		"git",
+		"tool"
+	],
+	"license": "GPL-3.0",
+	"author": "saqqdy <https://github.com/saqqdy>",
+	"homepage": "https://github.com/saqqdy/gitmars/tree/master/packages/server#readme",
+	"bugs": {
+		"url": "https://github.com/saqqdy/gitmars/issues"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/saqqdy/gitmars.git",
+		"directory": "packages/server"
+	},
+	"publishConfig": {
+		"registry": "https://registry.npmjs.org",
+		"access": "public"
+	}
 }

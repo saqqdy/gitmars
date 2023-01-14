@@ -1,13 +1,13 @@
 import type { InjectionKey } from 'vue'
 
 export interface TerminalInjection {
-    getTerminal?(id: string, cwd: string, cols: number, rows: number): any
-    fitAddon?: any
+	getTerminal?(id: string, cwd: string, cols: number, rows: number): any
+	fitAddon?: any
 }
 
 export interface SocketInjection {
-    socket?: any
-    socketGitmars?: any
+	socket?: any
+	socketGitmars?: any
 }
 
 export const TerminalInjectionKey: InjectionKey<TerminalInjection> = Symbol('Terminal')

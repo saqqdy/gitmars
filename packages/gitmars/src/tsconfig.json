@@ -1,12 +1,12 @@
 {
-    "extends": "../tsconfig.json",
-    "exclude": ["**/__tests__", "../temp"],
-    "compilerOptions": {
-        // compile away optional-chaining-operator
-        "target": "ESNext",
-        "outDir": "../lib",
-        "module": "ESNext",
-        "lib": ["ESNext"],
-        "sourceMap": true
-    }
+	"extends": "../tsconfig.json",
+	"exclude": ["**/__tests__", "../temp"],
+	"compilerOptions": {
+		// compile away optional-chaining-operator
+		"target": "ESNext",
+		"outDir": "../lib",
+		"module": "ESNext",
+		"lib": ["ESNext"],
+		"sourceMap": true
+	}
 }

@@ -1,6 +1,6 @@
 export interface PmFromUserAgentType {
-    name: string
-    version: string
+	name: string
+	version: string
 }
 /**
  * 获取本地使用的包管理工具
@@ -8,10 +8,10 @@ export interface PmFromUserAgentType {
  * @returns userAgent - 返回PmFromUserAgent
  */
 function getPackageManager(): PmFromUserAgentType | undefined {
-    if (!process.env.npm_config_user_agent) {
-        return undefined
-    }
-    return pmFromUserAgent(process.env.npm_config_user_agent)
+	if (!process.env.npm_config_user_agent) {
+		return undefined
+	}
+	return pmFromUserAgent(process.env.npm_config_user_agent)
 }
 
 /**
@@ -21,12 +21,12 @@ function getPackageManager(): PmFromUserAgentType | undefined {
  * @returns userAgent - PmFromUserAgentType
  */
 function pmFromUserAgent(userAgent: string): PmFromUserAgentType {
-    const pmSpec = userAgent.split(' ')[0]
-    const position = pmSpec.lastIndexOf('/')
-    return {
-        name: pmSpec.substr(0, position),
-        version: pmSpec.substr(position + 1)
-    }
+	const pmSpec = userAgent.split(' ')[0]
+	const position = pmSpec.lastIndexOf('/')
+	return {
+		name: pmSpec.substr(0, position),
+		version: pmSpec.substr(position + 1)
+	}
 }
 
 export default getPackageManager
