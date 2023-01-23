@@ -60,7 +60,7 @@
 		"@microsoft/api-extractor": "^7.33.5",
 		"@pnpm/find-workspace-packages": "^5.0.3",
 		"@pnpm/logger": "^5.0.0",
-		"@rollup/plugin-alias": "^3.1.9",
+		"@rollup/plugin-alias": "^4.0.3",
 		"@rollup/plugin-commonjs": "^23.0.2",
 		"@rollup/plugin-json": "^5.0.1",
 		"@rollup/plugin-node-resolve": "^15.0.1",
