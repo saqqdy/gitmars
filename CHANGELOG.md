@@ -2,7 +2,8 @@
 
 ## 2023.01.28 v4.2.0 更新日志
 
-1. 升级依赖包，开始使用 commander v10，reinstaller v2
+1. 全面改用rollup v3.0
+2. 升级依赖包，开始使用 commander v10，reinstaller v2
 
 ## 2023.01.14 v4.1.1 更新日志
 
