@@ -362,7 +362,7 @@ importers:
       '@vitejs/plugin-vue-jsx': ^3.0.0
       '@vue/compiler-sfc': ^3.2.45
       '@vueuse/core': ^9.11.1
-      axios-ex: ^2.2.4
+      axios-ex: ^2.2.5
       babel-plugin-import: ^1.13.6
       config-lite: ^3.0.0
       core-js: ^3.27.2
