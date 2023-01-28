@@ -2,7 +2,7 @@ import { execSync } from 'child_process'
 import { join } from 'path'
 import consola from 'consola'
 import { PACKAGE, ROOT } from '../build/utils/paths'
-import { readJSONSync, writeJSONSync } from '../build/utils/fs'
+import { readJSONSync, writeJSONSync } from '@node-kit/utils'
 import { version } from '../package.json'
 import { packages } from '../build/packages'
 
