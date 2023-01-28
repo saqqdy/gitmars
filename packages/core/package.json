@@ -75,7 +75,6 @@
 		"@types/lodash-es": "^4.17.6",
 		"@types/node": "^18.11.7",
 		"@types/shelljs": "^0.8.11",
-		"cron-parser": "^4.6.0",
 		"cross-env": "^7.0.3",
 		"eslint": "^8.31.0",
 		"madge": "^5.0.1",
