@@ -56,7 +56,7 @@ options.forEach((o: GitmarsOptionOptionsType) => {
 // .option('-f, --force', t('Whether to force a merge request'), false)
 program.action(async (type: string | string[], name: string, opt: GitmBuildOption) => {
 	// Checking if a version upgrade is needed
-	const needUpgrade = await isNeedUpgrade()
+	const needUpgrade = await isNeedUpgrade(config.versionControlType)
 	needUpgrade && upgradeGitmars()
 	const allow = ['bugfix', 'feature', 'support'] // Permissible commands
 	const deny = [

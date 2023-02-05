@@ -1,8 +1,8 @@
 import { resolve } from 'path'
 import { type ExecSyncOptions, type SpawnSyncOptions, execSync, spawnSync } from 'child_process'
 import { Separator, prompt } from 'inquirer'
+import { writeJSONSync } from '@node-kit/extra.fs'
 import pkg from '../package.json'
-import { writeJSONSync } from '@node-kit/utils'
 import { ROOT } from '../build/utils/paths'
 
 export interface VersionObject {
