@@ -3,7 +3,8 @@
 ## 2023.02.04 v5.0.0 更新日志
 
 1. 全面改用 rollup v3.0
-2. 升级依赖包，开始使用 commander v10，reinstaller v2
+2. 配置参数新增 `versionControlType` 用于控制强制更新版本的类型，传入 false 则不强制更新
+3. 升级依赖包，开始使用 commander v10，reinstaller v2
 
 ## 2023.01.14 v4.1.1 更新日志
 
