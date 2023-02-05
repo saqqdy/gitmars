@@ -46,7 +46,7 @@ options.forEach((o: GitmarsOptionOptionsType) => {
 // .option('-t, --tag <tag>', t('Create branch from tag'), '')
 program.action(async (type: string, name: string, opt: GitmBuildOption) => {
 	// 检测是否需要升级版本
-	const needUpgrade = await isNeedUpgrade()
+	const needUpgrade = await isNeedUpgrade(config.versionControlType)
 	needUpgrade && upgradeGitmars()
 	const opts = ['bugfix', 'feature', 'support'] // Permissible commands
 	const status = checkGitStatus()

@@ -1,7 +1,9 @@
 import { createRequire } from 'node:module'
 import sh from 'shelljs'
 import chalk from 'chalk'
+import semverDiff from 'semver-diff'
 // import { version } from '../package.json' assert { type: 'json' }
+import type { VersionControlType } from '../typings'
 import { getPkgInfo } from '#lib/utils/pkgInfo'
 import { debug } from '#lib/utils/debug'
 import lang from '#lib/lang'
@@ -11,11 +13,13 @@ const require = createRequire(import.meta.url)
 const { version } = require('../package.json')
 
 /**
- * 判断是否需要升级版本
+ * Determine if a version upgrade is needed
  *
- * @returns isNeedUpgrade 返回是/否
+ * @param type - VersionControlType, default: minor
+ * @returns - isNeedUpgrade, true/false
  */
-export async function isNeedUpgrade(): Promise<boolean> {
+export async function isNeedUpgrade(type?: VersionControlType): Promise<boolean> {
+	type ??= 'minor'
 	const { 'dist-tags': tags, versions } = await getPkgInfo()
 	debug('tags-versions', tags, versions)
 	// let compareVers = []
@@ -32,11 +36,17 @@ export async function isNeedUpgrade(): Promise<boolean> {
 	//     // return false
 	//     return parseFloat(tags.lite) > parseFloat(version)
 	// }
-	return parseFloat(tags.latest) > parseFloat(version)
+	const semver = semverDiff(version, tags.latest)
+	if (!type || !semver) return false
+	return (
+		(type === 'patch' && ['major', 'minor', 'patch'].includes(semver)) ||
+		(type === 'minor' && ['major', 'minor'].includes(semver)) ||
+		(type === 'major' && ['major'].includes(semver))
+	)
 }
 
 /**
- * 升级版本提示
+ * Upgrade version tips
  */
 export function upgradeGitmars() {
 	sh.echo(

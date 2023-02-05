@@ -291,3 +291,13 @@ git 项目 ID，在 gitlab 上可以查到，通常是一串数字
 - 类型：`Number`
 - 默认：``
 - 必填：是
+
+### versionControlType
+
+版本控制类型，如果希望强制更新所有新版本，传入`patch
+
+> 5.0.0 新增
+
+- 类型：`'major' | 'minor' | 'patch'`
+- 默认：`minor`
+- 必填：否

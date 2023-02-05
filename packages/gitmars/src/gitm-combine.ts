@@ -76,7 +76,7 @@ program.action(async (type: string, name: string, opt: GitmBuildOption): Promise
 	const userInfoApi =
 		(config.apis && config.apis.userInfo && config.apis.userInfo.url) || config.api
 	// Detecting if a version upgrade is needed
-	const needUpgrade = await isNeedUpgrade()
+	const needUpgrade = await isNeedUpgrade(config.versionControlType)
 	needUpgrade && upgradeGitmars()
 	const allow = ['bugfix', 'feature', 'support'] // Permissible commands
 	const deny = [
