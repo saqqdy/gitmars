@@ -1,7 +1,7 @@
 {
 	"name": "@gitmars/ui",
 	"description": "gitmars可视化界面",
-	"version": "4.2.0-beta.1",
+	"version": "5.0.0-beta.1",
 	"private": false,
 	"bin": {
 		"gitm-ui": "./index.mjs"
@@ -44,7 +44,7 @@
 	},
 	"devDependencies": {
 		"@esbuild-plugins/node-modules-polyfill": "^0.2.2",
-		"@eslint-sets/eslint-config-vue3": "^4.1.0",
+		"@eslint-sets/eslint-config-vue3": "^4.2.1",
 		"@originjs/vite-plugin-commonjs": "^1.0.3",
 		"@types/qs": "^6.9.7",
 		"@vitejs/plugin-legacy": "^3.0.2",

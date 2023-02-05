@@ -1,7 +1,7 @@
 {
 	"name": "gitmars",
 	"description": "这是一个git工作流工具",
-	"version": "4.2.0-beta.1",
+	"version": "5.0.0-beta.1",
 	"private": false,
 	"bin": {
 		"gitm": "lib/gitm.mjs"
@@ -74,7 +74,7 @@
 		"slash": "^3.0.0"
 	},
 	"devDependencies": {
-		"@eslint-sets/eslint-config-ts": "^4.1.0",
+		"@eslint-sets/eslint-config-ts": "^4.2.1",
 		"@types/columnify": "^1.5.1",
 		"@types/cross-spawn": "^6.0.2",
 		"@types/inquirer": "^8.2.5",

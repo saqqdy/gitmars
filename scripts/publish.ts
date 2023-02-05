@@ -1,19 +1,25 @@
 import { execSync } from 'child_process'
 import { join } from 'path'
 import consola from 'consola'
+import { readJSONSync, writeJSONSync } from '@node-kit/extra.fs'
 import { PACKAGE, ROOT } from '../build/utils/paths'
-import { readJSONSync, writeJSONSync } from '@node-kit/utils'
 import { version } from '../package.json'
 import { packages } from '../build/packages'
 
 // execSync('pnpm build', { stdio: 'inherit' })
 
+const [, , ...args] = process.argv
+const IS_TEST = args.includes('--test')
 const REGISTRY_URL = 'https://registry.npmjs.org'
 let command = `npm --registry=${REGISTRY_URL} publish --access public`
 
 if (version.includes('rc')) command += ' --tag release'
-if (version.includes('beta')) command += ' --tag beta'
-if (version.includes('alpha')) command += ' --tag alpha'
+else if (version.includes('beta')) command += ' --tag beta'
+else if (version.includes('alpha')) command += ' --tag alpha'
+else if (IS_TEST) {
+	console.warn(`${version} is not a test version, process exited`)
+	process.exit(0)
+}
 
 for (const { name, pkgName } of packages) {
 	const PKG_FILE = join(PACKAGE, name, 'package.json')
@@ -37,7 +43,7 @@ for (const { name, pkgName } of packages) {
 		stdio: 'inherit',
 		cwd: join('packages', name)
 	})
-	writeJSONSync(PKG_FILE, pkgJson, {
+	writeJSONSync(PKG_FILE, pkgJson!, {
 		encoding: 'utf8'
 	})
 	execSync(`npx prettier --write ${PKG_FILE}`, {
