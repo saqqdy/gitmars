@@ -173,7 +173,7 @@ export interface GitmarsConfigType {
 	filepath?: string
 	nameValidator?: string | regExp
 	descriptionValidator?: string | regExp
-    versionControlType?: VersionControlType
+	versionControlType?: VersionControlType
 } // & Record<string, unknown>
 
 export interface GitmarsConfigExtend extends GitmarsConfigType {
