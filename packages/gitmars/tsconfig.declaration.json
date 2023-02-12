@@ -1,6 +1,6 @@
 {
 	"extends": "./tsconfig.json",
-	"exclude": ["__tests__"],
+	"exclude": ["__tests__", "src/conf/index.ts"],
 	"include": ["./src/**/*.ts", "typings"],
 	"compilerOptions": {
 		"declaration": true,
