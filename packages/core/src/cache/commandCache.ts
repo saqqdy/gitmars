@@ -28,7 +28,7 @@ export function getCommandCache() {
  *
  * @param rest - 待执行指令列表
  */
-export function setCommandCache(rest: Array<CommandType | string>): void {
+export function setCommandCache(rest: Array<CommandType | string | string[]>): void {
 	const { gitDir } = getGitRevParse()
 	sh.touch(gitDir + '/.gitmarscommands')
 	sh.sed(

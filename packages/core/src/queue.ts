@@ -139,8 +139,9 @@ export function queue(list: Array<CommandType | string | string[]>): Promise<Que
 				},
 				cmd,
 				message
-			// Incoming objects: { cmd: '', config: {} }
-			if (command instanceof Object) {
+			if (command instanceof Array) cmd = command
+			else if (command instanceof Object) {
+				// Incoming objects: { cmd: '', config: {} }
 				if ('message' in command) {
 					// message优先，输出消息
 					message = command.message
