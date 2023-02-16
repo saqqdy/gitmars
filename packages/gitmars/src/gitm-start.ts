@@ -84,7 +84,7 @@ program.action(async (type: string, name: string, opt: GitmBuildOption) => {
 			: type === 'support'
 			? config.master
 			: config.release
-		const cmd: Array<CommandType | string> = opt.tag
+		const cmd: Array<CommandType | string | string[]> = opt.tag
 			? ['git fetch', `git checkout -b ${type}/${name} ${base}`]
 			: [
 					'git fetch',

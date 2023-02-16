@@ -174,7 +174,7 @@ program.action(async (commitid: string[], opt: GitmBuildOption) => {
 	const keys: GitLogKeysType[] = ['%H', '%T', '%P', '%aI', '%an', '%s', '%b']
 	const current = getCurrentBranch()
 	let logList: GitLogsType[] = [],
-		cmd: Array<CommandType | string> = [],
+		cmd: Array<CommandType | string | string[]> = [],
 		commitIDs: string[] = [], // 需要执行的commitID
 		mode = ''
 	if (opt.calc) {

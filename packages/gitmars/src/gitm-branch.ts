@@ -57,7 +57,7 @@ options.forEach((o: GitmarsOptionOptionsType) => {
 // .option('-D, --forcedelete [branch]', t('Force branch deletion'), null)
 // .option('-u, --upstream [upstream]', t('Set association with remote branches'))
 program.action((opt: GitmBuildOption): void => {
-	const cmd: Array<CommandType | string> = []
+	const cmd: Array<CommandType | string | string[]> = []
 	const isBranchExist = getIsBranchOrCommitExist(opt.delete)
 	if (opt.delete) {
 		// delete branches

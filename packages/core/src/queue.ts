@@ -19,7 +19,7 @@ export interface WaitCallback {
 }
 
 export interface QueueStartFunction {
-	(command?: CommandType | string, cb?: WaitCallback): void
+	(command?: CommandType | string | string[] | string[], cb?: WaitCallback): void
 }
 
 /**
@@ -28,7 +28,10 @@ export interface QueueStartFunction {
  * @param list - Script Sequence
  * @param func - Execute function
  */
-export function wait(list: Array<CommandType | string>, fun: QueueStartFunction) {
+export function wait(
+	list: Array<CommandType | string | string[] | string[]>,
+	fun: QueueStartFunction
+) {
 	// 最后一条指令，执行完成之后退出递归
 	if (list.length === 0) {
 		fun()
@@ -48,7 +51,7 @@ export function wait(list: Array<CommandType | string>, fun: QueueStartFunction)
  * @param list - 脚本序列
  * @returns promise - QueueReturnsType
  */
-export function queue(list: Array<CommandType | string>): Promise<QueueReturnsType[]> {
+export function queue(list: Array<CommandType | string | string[]>): Promise<QueueReturnsType[]> {
 	const spinner = ora()
 	// 处理脚本执行成功
 	function onSuccess(msg: CommandMessageType, cfg: CommandTypeCmd['config'], cb?: WaitCallback) {
@@ -61,7 +64,7 @@ export function queue(list: Array<CommandType | string>): Promise<QueueReturnsTy
 	}
 	// Handling script execution errors
 	function onError(
-		list: Array<CommandType | string>,
+		list: Array<CommandType | string | string[]>,
 		cmd: CommandTypeCmd['cmd'],
 		err: any,
 		msg: CommandMessageType,
@@ -71,7 +74,7 @@ export function queue(list: Array<CommandType | string>): Promise<QueueReturnsTy
 		if (cfg.kill) {
 			// If the current instruction is executed with an error and setting up the instruction requires an interrupt, the interrupt recursion
 			cb && cb(true) // Callback and interrupt execution
-			const rest = extend(true, [], list) as unknown as Array<CommandType | string>
+			const rest = extend(true, [], list) as unknown as Array<CommandType | string | string[]>
 			if (!cfg.again) {
 				rest.shift()
 			} else if (cfg.again !== true) {
@@ -126,8 +129,8 @@ export function queue(list: Array<CommandType | string>): Promise<QueueReturnsTy
 	return new Promise((resolve, reject) => {
 		const returns: QueueReturnsType[] = []
 		if (list.length === 0) reject(new Error(t('Command name cannot be empty')))
-		list = extend(true, [], list) as unknown as Array<CommandType | string>
-		wait(list, async (command?: CommandType | string, cb?: WaitCallback) => {
+		list = extend(true, [], list) as unknown as Array<CommandType | string | string[]>
+		wait(list, async (command?: CommandType | string | string[], cb?: WaitCallback) => {
 			let cfg: CommandTypeCmd['config'] = {
 					stdio: 'ignore',
 					postmsg: false,
@@ -175,33 +178,9 @@ export function queue(list: Array<CommandType | string>): Promise<QueueReturnsTy
 				spinner.stop()
 				// Only one instruction, no need to return array
 				resolve(returns)
-			} else if (typeof cmd === 'object') {
-				// Pass in the function type and fetch the function to be executed
-				let status = 0,
-					stdout,
-					stderr,
-					_execFunction = require(cmd.module)
-				if (cmd.entry) _execFunction = _execFunction[cmd.entry]
-				try {
-					spinner.start(chalk.green(cfg.processing || t('Processing')))
-					stdout = await _execFunction(cmd.options)
-					debug('queue-result', cmd, stdout)
-					onSuccess({} as CommandMessageType, cfg, cb)
-				} catch (err: any) {
-					// Request error
-					status = 1
-					stderr = err
-					onError(list, cmd, err, {} as CommandMessageType, cfg, cb)
-				}
-				returns.push({
-					status,
-					stdout,
-					stderr,
-					cfg,
-					cmd
-				})
-			} else {
-				const [client, ...argv] = cmd.replace(/\s+/g, ' ').split(' ')
+			} else if (cmd instanceof Array || typeof cmd === 'string') {
+				const [client, ...argv] =
+					cmd instanceof Array ? cmd : cmd.replace(/\s+/g, ' ').split(' ')
 				// cmd is a string
 				const msg = getCommandMessage(cmd)
 				spinner.start(chalk.green(cfg.processing || msg.processing || t('Processing')))
@@ -235,6 +214,31 @@ export function queue(list: Array<CommandType | string>): Promise<QueueReturnsTy
 					// status === 0 Execution success
 					onSuccess(msg, cfg, cb)
 				}
+			} else {
+				// Pass in the function type and fetch the function to be executed
+				let status = 0,
+					stdout,
+					stderr,
+					_execFunction = require(cmd.module)
+				if (cmd.entry) _execFunction = _execFunction[cmd.entry]
+				try {
+					spinner.start(chalk.green(cfg.processing || t('Processing')))
+					stdout = await _execFunction(cmd.options)
+					debug('queue-result', cmd, stdout)
+					onSuccess({} as CommandMessageType, cfg, cb)
+				} catch (err: any) {
+					// Request error
+					status = 1
+					stderr = err
+					onError(list, cmd, err, {} as CommandMessageType, cfg, cb)
+				}
+				returns.push({
+					status,
+					stdout,
+					stderr,
+					cfg,
+					cmd
+				})
 			}
 		})
 	})

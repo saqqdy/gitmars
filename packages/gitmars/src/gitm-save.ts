@@ -38,7 +38,7 @@ options.forEach((o: GitmarsOptionOptionsType) => {
 program.action((message: string, opt: GitmBuildOption) => {
 	if (!message) message = getCurrentBranch()
 	message = `${message}_cache_by_gitmars`
-	let cmd: Array<CommandType | string> = [
+	let cmd: Array<CommandType | string | string[]> = [
 		{
 			cmd: `git stash save "${message}"`,
 			config: {
