@@ -44,7 +44,7 @@
 	},
 	"devDependencies": {
 		"@esbuild-plugins/node-modules-polyfill": "^0.2.2",
-		"@eslint-sets/eslint-config-vue3": "^4.2.1",
+		"@eslint-sets/eslint-config-vue3": "^5.0.0",
 		"@originjs/vite-plugin-commonjs": "^1.0.3",
 		"@types/qs": "^6.9.7",
 		"@vitejs/plugin-legacy": "^4.0.1",
