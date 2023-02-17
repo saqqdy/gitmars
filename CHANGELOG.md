@@ -1,6 +1,6 @@
 # 更新日志
 
-## 2023.02.17 v5.1.0 更新日志
+## 2023.02.17 v5.1.1 更新日志
 
 1. 修复`spawnSync`解析指令出错问题
 2. 版本控制兼顾到 `prerelease` `premajor` `preminor` `prepatch` 版本

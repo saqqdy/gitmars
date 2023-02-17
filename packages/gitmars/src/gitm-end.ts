@@ -258,7 +258,8 @@ program.action(async (type: string, name: string, opt: GitmBuildOption): Promise
 					},
 					[
 						'gitm',
-						`postmsg "${t(
+						'postmsg',
+						`"${t(
 							'{nickname} submitted a merge request for {source} branch to {target} branch in {app} project',
 							{
 								nickname,
@@ -395,7 +396,8 @@ program.action(async (type: string, name: string, opt: GitmBuildOption): Promise
 					},
 					[
 						'gitm',
-						`postmsg "${t(
+						'postmsg',
+						`"${t(
 							'{nickname} submitted a merge request for {source} branch to {target} branch in {app} project',
 							{
 								nickname,

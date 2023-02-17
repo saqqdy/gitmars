@@ -417,7 +417,8 @@ publishProgram.action(
 									},
 									[
 										'gitm',
-										`postmsg "${t(
+										'postmsg',
+										`"${t(
 											'{nickname} submitted a merge request for {source} branch to {target} branch in {app} project',
 											{
 												nickname,
@@ -461,7 +462,8 @@ publishProgram.action(
 										},
 										[
 											'gitm',
-											`postmsg "${t(
+											'postmsg',
+											`"${t(
 												'{nickname} submitted a merge request for {source} branch to {target} branch in {app} project',
 												{
 													nickname,
@@ -505,7 +507,8 @@ publishProgram.action(
 										},
 										[
 											'gitm',
-											`postmsg "${t(
+											'postmsg',
+											`"${t(
 												'{nickname} submitted a merge request for {source} branch to {target} branch in {app} project',
 												{
 													nickname,
@@ -549,7 +552,8 @@ publishProgram.action(
 									},
 									[
 										'gitm',
-										`postmsg "${t(
+										'postmsg',
+										`"${t(
 											'{nickname} submitted a merge request for {source} branch to {target} branch in {app} project',
 											{
 												nickname,
@@ -657,7 +661,8 @@ publishProgram.action(
 									},
 									[
 										'gitm',
-										`postmsg "${t(
+										'postmsg',
+										`"${t(
 											'{nickname} submitted a merge request for {source} branch to {target} branch in {app} project',
 											{
 												nickname,
@@ -844,8 +849,9 @@ publishProgram.action(
 								}
 							},
 							[
-								'gtim',
-								`postmsg "${t(
+								'gitm',
+								'postmsg',
+								`"${t(
 									'{nickname} submitted a merge request for {source} branch to {target} branch in {app} project',
 									{
 										nickname,
@@ -994,7 +1000,8 @@ updateProgram.action(
 						},
 						[
 							'gitm',
-							`postmsg "${t(
+							'postmsg',
+							`"${t(
 								'{nickname} submitted a merge request for {source} branch to {target} branch in {app} project',
 								{
 									nickname,
