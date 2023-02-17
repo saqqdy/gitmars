@@ -29,6 +29,7 @@
 		"dev": "cross-env BUILD_ENV=DEV rollup -c -w",
 		"pub": "tscjs scripts/publish",
 		"unpub": "tscjs scripts/unpublish",
+		"deprecate": "tscjs scripts/deprecate",
 		"sync": "tscjs scripts/sync",
 		"viewInfo": "tscjs scripts/viewInfo",
 		"update": "tscjs scripts/update",
