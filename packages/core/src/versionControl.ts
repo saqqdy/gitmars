@@ -39,9 +39,13 @@ export async function isNeedUpgrade(type?: VersionControlType): Promise<boolean>
 	const semver = semverDiff(version, tags.latest)
 	if (!type || !semver) return false
 	return (
-		(type === 'patch' && ['major', 'minor', 'patch'].includes(semver)) ||
-		(type === 'minor' && ['major', 'minor'].includes(semver)) ||
-		(type === 'major' && ['major'].includes(semver))
+		(type === 'patch' &&
+			['prerelease', 'major', 'premajor', 'minor', 'preminor', 'patch', 'prepatch'].includes(
+				semver
+			)) ||
+		(type === 'minor' &&
+			['prerelease', 'major', 'premajor', 'minor', 'preminor'].includes(semver)) ||
+		(type === 'major' && ['prerelease', 'major', 'premajor'].includes(semver))
 	)
 }
 

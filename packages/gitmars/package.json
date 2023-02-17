@@ -1,7 +1,7 @@
 {
 	"name": "gitmars",
 	"description": "这是一个git工作流工具",
-	"version": "5.1.0-beta.1",
+	"version": "5.1.0",
 	"private": false,
 	"bin": {
 		"gitm": "lib/gitm.mjs"
@@ -56,7 +56,7 @@
 		"@gitmars/core": "workspace:*",
 		"@jssj/request": "^1.1.0",
 		"chalk": "^4.1.2",
-		"ci-info": "^3.7.1",
+		"ci-info": "^3.8.0",
 		"columnify": "^1.6.0",
 		"commander": "^10.0.0",
 		"cosmiconfig": "^8.0.0",
@@ -74,17 +74,17 @@
 		"slash": "^3.0.0"
 	},
 	"devDependencies": {
-		"@eslint-sets/eslint-config-ts": "^4.2.1",
+		"@eslint-sets/eslint-config-ts": "^5.0.0",
 		"@types/columnify": "^1.5.1",
 		"@types/cross-spawn": "^6.0.2",
 		"@types/inquirer": "^8.2.5",
 		"@types/lodash-es": "^4.17.6",
-		"@types/node": "^18.11.19",
+		"@types/node": "^18.13.0",
 		"@types/shelljs": "^0.8.11",
 		"cross-env": "^7.0.3",
-		"eslint": "^8.33.0",
-		"prettier": "^2.8.3",
-		"prettier-config-common": "^1.3.0",
+		"eslint": "^8.34.0",
+		"prettier": "^2.8.4",
+		"prettier-config-common": "^1.4.0",
 		"tsnd": "^1.1.0",
 		"typescript": "^4.9.5"
 	},

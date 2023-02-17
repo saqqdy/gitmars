@@ -1,5 +1,12 @@
 # 更新日志
 
+## 2023.02.17 v5.1.0 更新日志
+
+1. 修复`spawnSync`解析指令出错问题
+2. 版本控制兼顾到 `prerelease` `premajor` `preminor` `prepatch` 版本
+3. 构建输出 gitmars 类型文件
+4. 升级依赖包
+
 ## 2023.02.04 v5.0.0 更新日志
 
 1. 全面改用 rollup v3.0
