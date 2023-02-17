@@ -71,7 +71,7 @@
 		"uuid": "^9.0.0"
 	},
 	"devDependencies": {
-		"@eslint-sets/eslint-config-ts": "^4.2.1",
+		"@eslint-sets/eslint-config-ts": "^5.0.0",
 		"@types/cookie-parser": "^1.4.3",
 		"@types/debug": "^4.1.7",
 		"@types/express": "^4.17.17",
