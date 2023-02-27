@@ -62,7 +62,7 @@
 		"prettier-config-common": "^1.4.0",
 		"tsnd": "^1.1.0",
 		"typescript": "^4.9.5",
-		"unplugin-auto-import": "^0.14.3",
+		"unplugin-auto-import": "^0.15.0",
 		"unplugin-element-plus": "^0.6.0",
 		"unplugin-vue-components": "^0.24.0",
 		"vite": "^4.1.1",
