@@ -1,7 +1,7 @@
 {
 	"name": "@gitmars/server",
 	"description": "gitmars可视化界面服务端",
-	"version": "5.1.1",
+	"version": "5.1.2",
 	"private": false,
 	"bin": {
 		"gitm-server": "./lib/www.mjs"
@@ -59,14 +59,14 @@
 		"hbs": "^4.2.0",
 		"http-errors": "^2.0.0",
 		"js-cool": "^2.8.0",
-		"log4js": "^6.7.1",
+		"log4js": "^6.9.1",
 		"logger": "^0.0.1",
 		"lowdb": "^1.0.0",
 		"node-pty": "^0.10.1",
 		"os": "^0.1.2",
 		"os-locale": "^5.0.0",
 		"shelljs": "^0.8.5",
-		"socket.io": "^4.6.0",
+		"socket.io": "^4.6.1",
 		"tracer": "^1.1.6",
 		"userdir": "^1.0.0",
 		"uuid": "^9.0.0"
@@ -78,16 +78,16 @@
 		"@types/express": "^4.17.17",
 		"@types/http-errors": "^2.0.1",
 		"@types/logger": "^0.0.1",
-		"@types/node": "^18.13.0",
+		"@types/node": "^18.15.10",
 		"@types/shelljs": "^0.8.11",
-		"@types/uuid": "^9.0.0",
-		"eslint": "^8.34.0",
-		"nodemon": "^2.0.20",
-		"prettier": "^2.8.4",
-		"rimraf": "^4.1.2",
+		"@types/uuid": "^9.0.1",
+		"eslint": "^8.36.0",
+		"nodemon": "^2.0.22",
+		"prettier": "^2.8.7",
+		"rimraf": "^4.4.1",
 		"ts-node": "^10.9.1",
 		"tsnd": "^1.1.0",
-		"typescript": "^4.9.5"
+		"typescript": "^5.0.2"
 	},
 	"sideEffects": false,
 	"keywords": [
