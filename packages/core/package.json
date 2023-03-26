@@ -64,7 +64,7 @@
 		"lodash-unified": "^1.0.3",
 		"node-apollo": "^1.2.1",
 		"ora": "^5.4.1",
-		"os-locale": "^5.0.0",
+		"os-locale": "^6.0.2",
 		"semver-diff": "^4.0.0",
 		"shelljs": "^0.8.5",
 		"slash": "^3.0.0"
