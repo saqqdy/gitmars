@@ -68,6 +68,7 @@
 		"shelljs": "^0.8.5",
 		"socket.io": "^4.6.0",
 		"tracer": "^1.1.6",
+		"userdir": "^1.0.0",
 		"uuid": "^9.0.0"
 	},
 	"devDependencies": {

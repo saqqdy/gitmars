@@ -315,6 +315,7 @@ importers:
       ts-node: ^10.9.1
       tsnd: ^1.1.0
       typescript: ^4.9.5
+      userdir: ^1.0.0
       uuid: ^9.0.0
     dependencies:
       '@gitmars/core': link:../core
@@ -337,6 +338,7 @@ importers:
       shelljs: 0.8.5
       socket.io: 4.6.0
       tracer: 1.1.6
+      userdir: 1.0.0
       uuid: 9.0.0
     devDependencies:
       '@eslint-sets/eslint-config-ts': 5.0.0_ztlnmuobvwn63gpuifwwrjpt4i
@@ -12924,6 +12926,14 @@ packages:
     resolution: {integrity: sha512-cwESVXlO3url9YWlFW/TA9cshCEhtu7IKJ/p5soJ/gGpj7vbvFrAY/eIioQ6Dw23KjZhYgiIo8HOs1nQ2vr/oQ==}
     engines: {node: '>=0.10.0'}
     dev: true
+
+  /userdir/1.0.0:
+    resolution: {integrity: sha512-kYrrxfanOZfUGwsvEzeix5Sd6D1bx1YbWk7zsNeaFfJ0Stsv01AxapDpcQkhafs3KM6Sn1Jdq8e6HgolS42bsQ==}
+    engines: {node: '>=12.20'}
+    dependencies:
+      core-js: 3.28.0
+      js-cool: 2.8.0
+    dev: false
 
   /util-deprecate/1.0.2:
     resolution: {integrity: sha512-EPD5q1uXyFxJpCrLnCc1nHnq3gOa6DZBocAIiI2TaSCA7VCJ1UJDMagCzIkXNsUYfD1daK//LTEQ8xiIbrHtcw==}
