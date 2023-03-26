@@ -72,7 +72,7 @@
 	"devDependencies": {
 		"@eslint-sets/eslint-config-ts": "^5.0.0",
 		"@types/cross-spawn": "^6.0.2",
-		"@types/inquirer": "^8.2.5",
+		"@types/inquirer": "^8.2.6",
 		"@types/lodash-es": "^4.17.7",
 		"@types/node": "^18.15.10",
 		"@types/shelljs": "^0.8.11",

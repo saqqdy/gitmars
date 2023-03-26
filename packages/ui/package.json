@@ -23,7 +23,7 @@
 	"dependencies": {
 		"@gitmars/server": "workspace:*",
 		"@vueuse/core": "^9.13.0",
-		"axios-ex": "^2.2.5",
+		"axios-ex": "^2.3.2",
 		"core-js": "^3.29.1",
 		"dayjs": "^1.11.7",
 		"element-plus": "^2.3.1",
