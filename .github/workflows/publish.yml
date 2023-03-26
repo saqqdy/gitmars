@@ -24,10 +24,13 @@ jobs:
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v3
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: 14
           registry-url: https://registry.npmmirror.com
           cache: pnpm
 
+      - run: echo ${{ matrix.node-version }}
+      - run: npm -v
+      - run: pnpm store path
       - run: pnpm install
 
       # - run: npx changelogithub --no-group
