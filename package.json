@@ -66,7 +66,7 @@
 		"@rollup/plugin-json": "^6.0.0",
 		"@rollup/plugin-node-resolve": "^15.0.1",
 		"@types/gulp": "^4.0.10",
-		"@types/inquirer": "^8.2.6",
+		"@types/inquirer": "^9.0.3",
 		"@types/node": "^18.15.10",
 		"@types/rollup-plugin-css-only": "^3.1.0",
 		"consola": "^2.15.3",
