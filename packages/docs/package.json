@@ -23,7 +23,7 @@
 		"typings": "typings"
 	},
 	"dependencies": {
-		"js-cool": "^2.8.0"
+		"js-cool": "^3.1.0"
 	},
 	"devDependencies": {
 		"@eslint-sets/eslint-config-vue3": "^5.0.0",
