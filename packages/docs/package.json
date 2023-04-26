@@ -23,21 +23,21 @@
 		"typings": "typings"
 	},
 	"dependencies": {
-		"js-cool": "^2.8.0"
+		"js-cool": "^3.1.0"
 	},
 	"devDependencies": {
-		"@eslint-sets/eslint-config-vue3": "^5.0.0",
+		"@eslint-sets/eslint-config-vue3": "^5.1.0",
 		"@types/markdown-it": "^12.2.3",
-		"@types/node": "^18.15.10",
-		"eslint": "^8.36.0",
+		"@types/node": "^18.16.1",
+		"eslint": "^8.39.0",
 		"markdown-it": "^13.0.1",
 		"markdown-it-anchor": "^8.6.7",
 		"markdown-it-container": "^3.0.0",
-		"prettier": "^2.8.7",
+		"prettier": "^2.8.8",
 		"prettier-config-common": "^1.4.0",
 		"tsnd": "^1.1.0",
-		"typescript": "^5.0.2",
-		"vitepress": "1.0.0-alpha.62"
+		"typescript": "^5.0.4",
+		"vitepress": "1.0.0-alpha.74"
 	},
 	"sideEffects": false,
 	"keywords": [
