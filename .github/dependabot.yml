@@ -9,28 +9,70 @@ updates:
     directory: / # Location of package manifests
     schedule:
       interval: weekly
+    open-pull-requests-limit: 5
+    ignore:
+      - dependency-name: 'aws*'
+      - dependency-name: typescript
+        versions: [4.x]
+      - dependency-name: '*'
+        update-types: ['version-update:semver-patch']
 
   - package-ecosystem: npm # See documentation for possible values
     directory: /packages/core # Location of package manifests
     schedule:
       interval: weekly
+    open-pull-requests-limit: 5
+    ignore:
+      - dependency-name: 'aws*'
+      - dependency-name: typescript
+        versions: [4.x]
+      - dependency-name: '*'
+        update-types: ['version-update:semver-patch']
 
   - package-ecosystem: npm # See documentation for possible values
     directory: /packages/docs # Location of package manifests
     schedule:
       interval: weekly
+    open-pull-requests-limit: 5
+    ignore:
+      - dependency-name: 'aws*'
+      - dependency-name: typescript
+        versions: [4.x]
+      - dependency-name: '*'
+        update-types: ['version-update:semver-patch']
 
   - package-ecosystem: npm # See documentation for possible values
     directory: /packages/gitmars # Location of package manifests
     schedule:
       interval: weekly
+    open-pull-requests-limit: 5
+    ignore:
+      - dependency-name: 'aws*'
+      - dependency-name: typescript
+        versions: [4.x]
+      - dependency-name: '*'
+        update-types: ['version-update:semver-patch']
 
   - package-ecosystem: npm # See documentation for possible values
     directory: /packages/server # Location of package manifests
     schedule:
       interval: weekly
+    open-pull-requests-limit: 5
+    ignore:
+      - dependency-name: 'aws*'
+      - dependency-name: typescript
+        versions: [4.x]
+      - dependency-name: '*'
+        update-types: ['version-update:semver-patch']
 
   - package-ecosystem: npm # See documentation for possible values
     directory: /packages/ui # Location of package manifests
     schedule:
       interval: weekly
+    open-pull-requests-limit: 5
+    ignore:
+      - dependency-name: 'aws*'
+      - dependency-name: typescript
+        versions: [4.x]
+      - dependency-name: '*'
+        update-types: ['version-update:semver-patch']
