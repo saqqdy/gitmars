@@ -1,6 +1,6 @@
 import { createRequire } from 'node:module'
 import ora from 'ora'
-import extend from 'js-cool/es/extend'
+import { extend } from 'js-cool'
 import chalk from 'chalk'
 import type { CommandMessageType, CommandType, CommandTypeCmd, QueueReturnsType } from '../typings'
 import { setCommandCache } from '#lib/cache/commandCache'

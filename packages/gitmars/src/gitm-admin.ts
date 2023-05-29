@@ -2,7 +2,7 @@
 import { createRequire } from 'node:module'
 import { Command } from 'commander'
 import chalk from 'chalk'
-import getType from 'js-cool/es/getType'
+import { getType } from 'js-cool'
 import getUserToken from '@gitmars/core/lib/api/getUserToken'
 import { queue } from '@gitmars/core/lib/queue'
 import getIsBranchOrCommitExist from '@gitmars/core/lib/git/getIsBranchOrCommitExist'
