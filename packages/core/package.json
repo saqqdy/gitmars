@@ -67,7 +67,7 @@
 		"os-locale": "^5.0.0",
 		"semver-diff": "^4.0.0",
 		"shelljs": "^0.8.5",
-		"slash": "^3.0.0"
+		"slash": "^5.1.0"
 	},
 	"devDependencies": {
 		"@eslint-sets/eslint-config-ts": "^5.3.0",
