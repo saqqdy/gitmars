@@ -527,8 +527,8 @@ importers:
         specifier: ^10.1.2
         version: 10.1.2(vue@3.3.4)
       axios-ex:
-        specifier: ^2.3.2
-        version: 2.3.2(axios@0.27.2)(core-js@3.30.2)(js-cool@4.4.0)
+        specifier: ^2.4.0
+        version: 2.4.0(axios@0.27.2)(core-js@3.30.2)
       core-js:
         specifier: ^3.30.2
         version: 3.30.2
@@ -4568,18 +4568,16 @@ packages:
     engines: {node: '>= 0.4'}
     dev: true
 
-  /axios-ex@2.3.2(axios@0.27.2)(core-js@3.30.2)(js-cool@4.4.0):
-    resolution: {integrity: sha512-Ws1Hnx77UwsO6SMHL4DsTJzACXzrYYO1BIQVTWdBcvqGu7nMxzr1LYhHD9Sr8UDEixlShFNSe3y5hnWyHTveAA==}
+  /axios-ex@2.4.0(axios@0.27.2)(core-js@3.30.2):
+    resolution: {integrity: sha512-ex3VL9gqdNoUUuEj9D47pc+uTwGf9Ttl/mwvFQpzlInzs37IJ+TtVvT2vj30thyJfaHIwEf23okoQS1RmlUvmg==}
     peerDependencies:
       axios: < 1
-      core-js: '>= 3'
-      js-cool: '>= 2'
     dependencies:
       axios: 0.27.2(debug@4.3.4)
-      core-js: 3.30.2
       is-retry-allowed: 3.0.0
       js-cool: 4.4.0(core-js@3.30.2)
-      regenerator-runtime: 0.13.11
+    transitivePeerDependencies:
+      - core-js
     dev: false
 
   /axios@0.27.2(debug@4.3.4):
@@ -11124,6 +11122,7 @@ packages:
 
   /regenerator-runtime@0.13.11:
     resolution: {integrity: sha512-kY1AZVr2Ra+t+piVaJ4gxaFaReZVH40AKNo7UCX6W+dEwBo/2oZJzqfuN1qLq1oL45o56cPaTXELwrTh8Fpggg==}
+    dev: true
 
   /regenerator-transform@0.15.1:
     resolution: {integrity: sha512-knzmNAcuyxV+gQCufkYcvOqX/qIIfHLv0u5x79kRxuGojfYVky1f15TzZEu2Avte8QGepvUNTnLskf8E6X6Vyg==}
