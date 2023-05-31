@@ -1,7 +1,7 @@
 {
 	"name": "@gitmars/ui",
 	"description": "gitmars可视化界面",
-	"version": "5.1.4",
+	"version": "5.1.5",
 	"private": false,
 	"bin": {
 		"gitm-ui": "./index.mjs"
@@ -28,7 +28,7 @@
 		"dayjs": "^1.11.7",
 		"element-plus": "^2.3.5",
 		"gitmars": "workspace:*",
-		"js-cool": "^4.4.0",
+		"js-cool": "^4.4.1",
 		"qs": "^6.11.2",
 		"socket.io-client": "^4.6.1",
 		"uuid": "^9.0.0",

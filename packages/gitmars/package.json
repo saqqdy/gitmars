@@ -1,7 +1,7 @@
 {
 	"name": "gitmars",
 	"description": "这是一个git工作流工具",
-	"version": "5.1.4",
+	"version": "5.1.5",
 	"private": false,
 	"bin": {
 		"gitm": "lib/gitm.mjs"
@@ -64,7 +64,7 @@
 		"dayjs": "^1.11.7",
 		"debug": "^4.3.4",
 		"inquirer": "^8.2.5",
-		"js-cool": "^4.4.0",
+		"js-cool": "^4.4.1",
 		"lodash-es": "^4.17.21",
 		"lodash-unified": "^1.0.3",
 		"node-apollo": "^1.2.1",

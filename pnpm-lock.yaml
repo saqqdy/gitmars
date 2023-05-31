@@ -20,8 +20,8 @@ importers:
         specifier: ^8.2.5
         version: 8.2.5
       js-cool:
-        specifier: ^4.4.0
-        version: 4.4.0(core-js@3.30.2)
+        specifier: ^4.4.1
+        version: 4.4.1(core-js@3.30.2)
       morgan:
         specifier: ^1.10.0
         version: 1.10.0
@@ -106,7 +106,7 @@ importers:
         version: 1.4.0
       reinstaller:
         specifier: ^3.0.0
-        version: 3.0.0(debug@4.3.4)(js-cool@4.4.0)
+        version: 3.0.0(debug@4.3.4)(js-cool@4.4.1)
       rimraf:
         specifier: ^5.0.1
         version: 5.0.1
@@ -192,8 +192,8 @@ importers:
         specifier: ^8.2.5
         version: 8.2.5
       js-cool:
-        specifier: ^4.4.0
-        version: 4.4.0(core-js@3.30.2)
+        specifier: ^4.4.1
+        version: 4.4.1(core-js@3.30.2)
       lodash-es:
         specifier: ^4.17.21
         version: 4.17.21
@@ -338,8 +338,8 @@ importers:
         specifier: ^8.2.5
         version: 8.2.5
       js-cool:
-        specifier: ^4.4.0
-        version: 4.4.0(core-js@3.30.2)
+        specifier: ^4.4.1
+        version: 4.4.1(core-js@3.30.2)
       lodash-es:
         specifier: ^4.17.21
         version: 4.17.21
@@ -435,8 +435,8 @@ importers:
         specifier: ^2.0.0
         version: 2.0.0
       js-cool:
-        specifier: ^4.4.0
-        version: 4.4.0(core-js@3.30.2)
+        specifier: ^4.4.1
+        version: 4.4.1(core-js@3.30.2)
       log4js:
         specifier: ^6.9.1
         version: 6.9.1
@@ -542,8 +542,8 @@ importers:
         specifier: workspace:*
         version: link:../gitmars
       js-cool:
-        specifier: ^4.4.0
-        version: 4.4.0(core-js@3.30.2)
+        specifier: ^4.4.1
+        version: 4.4.1(core-js@3.30.2)
       qs:
         specifier: ^6.11.2
         version: 6.11.2
@@ -4575,7 +4575,7 @@ packages:
     dependencies:
       axios: 0.27.2(debug@4.3.4)
       is-retry-allowed: 3.0.0
-      js-cool: 4.4.0(core-js@3.30.2)
+      js-cool: 4.4.1(core-js@3.30.2)
     transitivePeerDependencies:
       - core-js
     dev: false
@@ -8654,6 +8654,21 @@ packages:
       mount-script: 1.1.0(core-js@3.30.2)
       mount-style: 1.1.1(core-js@3.30.2)
       use-downloads: 1.1.0
+    dev: false
+
+  /js-cool@4.4.1(core-js@3.30.2):
+    resolution: {integrity: sha512-od7vFpNV8TVHblnoulEO5/zETzv6WezO5njc7nA17PJ3AxV9fNzhEXKh+BM6ULzFGfQkM9t1sYPvjSP7ZqOBoA==}
+    engines: {node: '>=12.20'}
+    peerDependencies:
+      core-js: '>= 3'
+    dependencies:
+      core-js: 3.30.2
+      load-source: 1.1.0(core-js@3.30.2)
+      mount-css: 1.1.0(core-js@3.30.2)
+      mount-image: 1.1.0(core-js@3.30.2)
+      mount-script: 1.1.0(core-js@3.30.2)
+      mount-style: 1.1.1(core-js@3.30.2)
+      use-downloads: 1.1.0
 
   /js-tokens@4.0.0:
     resolution: {integrity: sha512-RdJUflcE3cUzKiMqQgsCu06FPu9UdIJO0beYbPhHN4k6apgJtifcoCtT9bcxOpYBtpD2kCM6Sbzg4CausW/PKQ==}
@@ -11176,7 +11191,7 @@ packages:
       jsesc: 0.5.0
     dev: true
 
-  /reinstaller@3.0.0(debug@4.3.4)(js-cool@4.4.0):
+  /reinstaller@3.0.0(debug@4.3.4)(js-cool@4.4.1):
     resolution: {integrity: sha512-fsGop0ShDeunvGm3G08mtVOgjJQfg+tzXadGNX6LiSYLBmwAAziBQ+BxvEFSo6EtNlZLzGAGktjx6dmaRHOhfA==}
     hasBin: true
     peerDependencies:
@@ -11190,7 +11205,7 @@ packages:
       cosmiconfig: 8.1.3
       debug: 4.3.4
       global-modules: 2.0.0
-      js-cool: 4.4.0(core-js@3.30.2)
+      js-cool: 4.4.1(core-js@3.30.2)
       monorepo-root: 2.5.1
       ora: 6.3.0
       what-pm: 2.5.1(core-js@3.30.2)
