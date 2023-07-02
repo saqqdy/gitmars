@@ -10,8 +10,7 @@
 		"chalk",
 		"ora",
 		"inquirer",
-        "@types/inquirer",
-        "os-locale"
+        "@types/inquirer"
 	],
 	"packageManager": "pnpm",
 	"registry": "https://registry.npmmirror.com"
