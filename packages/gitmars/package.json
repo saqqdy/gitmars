@@ -55,7 +55,7 @@
 	"dependencies": {
 		"@gitmars/core": "workspace:*",
 		"@jssj/request": "^1.1.0",
-		"chalk": "^4.1.2",
+		"chalk": "^5.3.0",
 		"ci-info": "^3.8.0",
 		"columnify": "^1.6.0",
 		"commander": "^11.0.0",
