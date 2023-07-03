@@ -48,7 +48,7 @@
 	},
 	"dependencies": {
 		"@node-kit/extra.fs": "^3.0.0",
-		"chalk": "^4.1.2",
+		"chalk": "^5.3.0",
 		"debug": "^4.3.4",
 		"inquirer": "^8.2.5",
 		"js-cool": "^4.7.0",
