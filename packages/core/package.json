@@ -58,7 +58,7 @@
 		"cross-spawn": "^7.0.3",
 		"dayjs": "^1.11.9",
 		"debug": "^4.3.4",
-		"inquirer": "^8.2.5",
+		"inquirer": "^9.2.7",
 		"js-cool": "^4.7.0",
 		"lodash-es": "^4.17.21",
 		"lodash-unified": "^1.0.3",
@@ -72,7 +72,7 @@
 	"devDependencies": {
 		"@eslint-sets/eslint-config-ts": "^5.5.0",
 		"@types/cross-spawn": "^6.0.2",
-		"@types/inquirer": "^8.2.6",
+		"@types/inquirer": "^9.0.3",
 		"@types/lodash-es": "^4.17.7",
 		"@types/node": "^20.3.3",
 		"@types/shelljs": "^0.8.12",
