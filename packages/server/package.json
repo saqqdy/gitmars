@@ -82,7 +82,7 @@
 		"@types/shelljs": "^0.8.12",
 		"@types/uuid": "^9.0.2",
 		"eslint": "^8.44.0",
-		"nodemon": "^2.0.22",
+		"nodemon": "^3.0.1",
 		"prettier": "^2.8.8",
 		"rimraf": "^5.0.1",
 		"ts-node": "^10.9.1",
