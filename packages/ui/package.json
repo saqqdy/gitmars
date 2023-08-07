@@ -63,7 +63,7 @@
 		"tsnd": "^1.1.0",
 		"typescript": "^5.1.6",
 		"unplugin-auto-import": "^0.16.4",
-		"unplugin-element-plus": "^0.7.1",
+		"unplugin-element-plus": "^0.8.0",
 		"unplugin-vue-components": "^0.25.1",
 		"vite": "^4.3.9",
 		"vite-tsconfig-paths": "^4.2.0",
