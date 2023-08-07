@@ -33,7 +33,7 @@
 		"markdown-it": "^13.0.1",
 		"markdown-it-anchor": "^8.6.7",
 		"markdown-it-container": "^3.0.0",
-		"prettier": "^2.8.8",
+		"prettier": "^3.0.1",
 		"prettier-config-common": "^1.4.0",
 		"tsnd": "^1.1.0",
 		"typescript": "^5.1.6",
