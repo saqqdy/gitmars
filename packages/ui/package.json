@@ -28,7 +28,7 @@
 		"dayjs": "^1.11.9",
 		"element-plus": "^2.3.7",
 		"gitmars": "workspace:*",
-		"js-cool": "^4.7.0",
+		"js-cool": "^5.5.0",
 		"qs": "^6.11.2",
 		"socket.io-client": "^4.7.1",
 		"uuid": "^9.0.0",
