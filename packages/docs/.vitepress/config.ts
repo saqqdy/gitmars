@@ -303,7 +303,7 @@ const sidebar = {
 	// ]
 }
 
-module.exports = defineConfigWithTheme({
+export default defineConfigWithTheme({
 	title: 'Gitmars',
 	description: '可视化UI界面',
 	base: '/gitmars/',

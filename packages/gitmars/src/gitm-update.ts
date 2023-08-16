@@ -67,7 +67,7 @@ program.action(async (type: string | string[], name: string, opt: GitmBuildOptio
 		defaults.support
 	]
 	const status = checkGitStatus()
-	let cmds: Array<CommandType | string> = [],
+	let cmds: Array<CommandType | string | string[]> = [],
 		branchList: string[] = [],
 		_nameArr: string[] = [] // Array of branch names
 	if (!status) process.exit(1)
@@ -114,7 +114,7 @@ program.action(async (type: string | string[], name: string, opt: GitmBuildOptio
 		const base: string =
 			type === 'bugfix' ? config.bugfix : type === 'support' ? config.master : config.release
 		const isNeedCombine = !getIsMergedTargetBranch(base, `${type}/${name}`, { remote: true })
-		let cmd: Array<CommandType | string> = []
+		let cmd: Array<CommandType | string | string[]> = []
 		if (isNeedCombine || opt.force) {
 			cmd = cmd.concat([
 				'git fetch',

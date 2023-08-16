@@ -3,9 +3,9 @@ import os from 'os'
 import type { IPty } from 'node-pty'
 import pty from 'node-pty'
 import sh from 'shelljs'
-import home from '#lib/utils/home'
+import userdir from 'userdir'
 
-const homeDir = home()
+const homeDir = userdir()
 
 const shell = os.platform() === 'win32' ? 'powershell.exe' : sh.which('zsh') ? 'zsh' : 'bash'
 const ptyContainers: Record<string, IPty> = {}

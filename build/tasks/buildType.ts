@@ -23,6 +23,6 @@ export async function cleanDirs() {
 }
 
 export default series(
-	wrapDisplayName('clean:dirs', cleanDirs),
+	// wrapDisplayName('clean:dirs', cleanDirs),
 	parallel(wrapDisplayName('build:lib', buildType))
 )

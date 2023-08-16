@@ -19,9 +19,8 @@ div {
 	padding: 0;
 	margin: 0;
 	font-size: inherit;
-	font-family: 'JetBrains Mono', Menlo, consolas, 'Microsoft YaHei',
-		'PingFangSC-Regular', 'Helvetica Neue', Helvetica, Arial,
-		'Hiragino Sans GB', 'WenQuanYi Micro Hei', sans-serif;
+	font-family: 'JetBrains Mono', Menlo, consolas, 'Microsoft YaHei', 'PingFangSC-Regular',
+		'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans GB', 'WenQuanYi Micro Hei', sans-serif;
 }
 img {
 	border: 0;
@@ -71,7 +70,7 @@ em {
 	clear: both;
 }
 .clearfix {
-    clear: both;
+	clear: both;
 	// *zoom: 1;
 }
 .clearfix:before,
@@ -95,47 +94,47 @@ em {
 	> * {
 		flex-shrink: 0;
 	}
-    &.center {
-        align-items: center;
-        justify-content: center;
-    }
+	&.center {
+		align-items: center;
+		justify-content: center;
+	}
 }
 .column {
-    display: flex !important;
-    flex-direction: column;
+	display: flex !important;
+	flex-direction: column;
 	> * {
 		flex-shrink: 0;
 	}
 }
 .flex-wrap {
-    flex-wrap: wrap;
+	flex-wrap: wrap;
 }
 .align-center {
-    align-items: center;
+	align-items: center;
 }
 .align-top {
-    align-items: flex-start;
+	align-items: flex-start;
 }
 .align-end {
-    align-items: flex-end;
+	align-items: flex-end;
 }
 .justify-center {
-    justify-content: center;
+	justify-content: center;
 }
 .justify-top {
-    justify-content: flex-start;
+	justify-content: flex-start;
 }
 .justify-between {
-    justify-content: space-between;
+	justify-content: space-between;
 }
 .justify-end {
-    justify-content: flex-end;
+	justify-content: flex-end;
 }
-.flex-columns(@n,@i:1) when(@i =< @n){
-    .col-@{i}{
-        flex: @i;
-    }
-    .flex-columns(@n,(@i + 1));
+.flex-columns(@n,@i:1) when(@i =< @n) {
+	.col-@{i} {
+		flex: @i;
+	}
+	.flex-columns(@n,(@i + 1));
 }
 .flex-columns(24);
 .mask {

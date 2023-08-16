@@ -2,7 +2,7 @@
 import { createRequire } from 'node:module'
 import { Command } from 'commander'
 import chalk from 'chalk'
-import getType from 'js-cool/es/getType'
+import { getType } from 'js-cool'
 import getUserToken from '@gitmars/core/lib/api/getUserToken'
 import { queue } from '@gitmars/core/lib/queue'
 import getIsBranchOrCommitExist from '@gitmars/core/lib/git/getIsBranchOrCommitExist'
@@ -195,7 +195,7 @@ publishProgram.action(
 			 * support -> bugfix/release
 			 */
 			let cmd: {
-				[prop in PublishOptsType]: Array<CommandType | string>
+				[prop in PublishOptsType]: Array<CommandType | string | string[]>
 			}
 			if (!level || level < 4) {
 				cmd = {
@@ -245,7 +245,7 @@ publishProgram.action(
 										})
 									}
 							  ],
-					support: ([] as Array<CommandType | string>)
+					support: ([] as Array<CommandType | string | string[]>)
 						.concat(
 							isNeedCombineSupportToRelease || opt.force
 								? [
@@ -415,15 +415,19 @@ publishProgram.action(
 											)
 										}
 									},
-									`gitm postmsg "${t(
-										'{nickname} submitted a merge request for {source} branch to {target} branch in {app} project',
-										{
-											nickname,
-											app: appName,
-											source: config.bugfix,
-											target: config.release
-										}
-									)}"`
+									[
+										'gitm',
+										'postmsg',
+										`"${t(
+											'{nickname} submitted a merge request for {source} branch to {target} branch in {app} project',
+											{
+												nickname,
+												app: appName,
+												source: config.bugfix,
+												target: config.release
+											}
+										)}"`
+									]
 							  ]
 							: [
 									{
@@ -433,7 +437,7 @@ publishProgram.action(
 										})
 									}
 							  ],
-					support: ([] as Array<CommandType | string>)
+					support: ([] as Array<CommandType | string | string[]>)
 						.concat(
 							isNeedCombineSupportToRelease || opt.force
 								? [
@@ -456,15 +460,19 @@ publishProgram.action(
 												)
 											}
 										},
-										`gitm postmsg "${t(
-											'{nickname} submitted a merge request for {source} branch to {target} branch in {app} project',
-											{
-												nickname,
-												app: appName,
-												source: config.support,
-												target: config.release
-											}
-										)}"`
+										[
+											'gitm',
+											'postmsg',
+											`"${t(
+												'{nickname} submitted a merge request for {source} branch to {target} branch in {app} project',
+												{
+													nickname,
+													app: appName,
+													source: config.support,
+													target: config.release
+												}
+											)}"`
+										]
 								  ]
 								: [
 										{
@@ -497,15 +505,19 @@ publishProgram.action(
 												)
 											}
 										},
-										`gitm postmsg "${t(
-											'{nickname} submitted a merge request for {source} branch to {target} branch in {app} project',
-											{
-												nickname,
-												app: appName,
-												source: config.support,
-												target: config.bugfix
-											}
-										)}"`
+										[
+											'gitm',
+											'postmsg',
+											`"${t(
+												'{nickname} submitted a merge request for {source} branch to {target} branch in {app} project',
+												{
+													nickname,
+													app: appName,
+													source: config.support,
+													target: config.bugfix
+												}
+											)}"`
+										]
 								  ]
 								: [
 										{
@@ -538,15 +550,19 @@ publishProgram.action(
 											)
 										}
 									},
-									`gitm postmsg "${t(
-										'{nickname} submitted a merge request for {source} branch to {target} branch in {app} project',
-										{
-											nickname,
-											app: appName,
-											source: config.release,
-											target: config.master
-										}
-									)}"`
+									[
+										'gitm',
+										'postmsg',
+										`"${t(
+											'{nickname} submitted a merge request for {source} branch to {target} branch in {app} project',
+											{
+												nickname,
+												app: appName,
+												source: config.release,
+												target: config.master
+											}
+										)}"`
+									]
 							  ]
 							: [
 									{
@@ -643,15 +659,19 @@ publishProgram.action(
 											)
 										}
 									},
-									`gitm postmsg "${t(
-										'{nickname} submitted a merge request for {source} branch to {target} branch in {app} project',
-										{
-											nickname,
-											app: appName,
-											source: config.bugfix,
-											target: config.master
-										}
-									)}"`
+									[
+										'gitm',
+										'postmsg',
+										`"${t(
+											'{nickname} submitted a merge request for {source} branch to {target} branch in {app} project',
+											{
+												nickname,
+												app: appName,
+												source: config.bugfix,
+												target: config.master
+											}
+										)}"`
+									]
 							  ]
 							: [
 									{
@@ -828,15 +848,19 @@ publishProgram.action(
 									)
 								}
 							},
-							`gitm postmsg "${t(
-								'{nickname} submitted a merge request for {source} branch to {target} branch in {app} project',
-								{
-									nickname,
-									app: appName,
-									source: config.release,
-									target: config.bugfix
-								}
-							)}"`
+							[
+								'gitm',
+								'postmsg',
+								`"${t(
+									'{nickname} submitted a merge request for {source} branch to {target} branch in {app} project',
+									{
+										nickname,
+										app: appName,
+										source: config.release,
+										target: config.bugfix
+									}
+								)}"`
+							]
 						])
 					}
 				}
@@ -974,15 +998,19 @@ updateProgram.action(
 								)
 							}
 						},
-						`gitm postmsg "${t(
-							'{nickname} submitted a merge request for {source} branch to {target} branch in {app} project',
-							{
-								nickname,
-								app: appName,
-								source: base,
-								target: config[type]
-							}
-						)}"`
+						[
+							'gitm',
+							'postmsg',
+							`"${t(
+								'{nickname} submitted a merge request for {source} branch to {target} branch in {app} project',
+								{
+									nickname,
+									app: appName,
+									source: base,
+									target: config[type]
+								}
+							)}"`
+						]
 					]
 				}
 				if (opt.useRebase) {

@@ -3,10 +3,10 @@ import type { Socket } from 'socket.io'
 import getCurrentBranch from '@gitmars/core/lib/git/getCurrentBranch'
 import searchBranches from '@gitmars/core/lib/git/searchBranches'
 import getConfig from '@gitmars/core/lib/getConfig'
-import home from '#lib/utils/home'
+import userdir from 'userdir'
 
 // const require = createRequire(import.meta.url)
-const homeDir = home()
+const homeDir = userdir()
 
 interface SocketOption {
 	name: string

@@ -120,13 +120,17 @@ export default {
 	opacity: 1;
 	-webkit-transform: scaleY(1);
 	transform: scaleY(1);
-	-webkit-transition: opacity 0.3s cubic-bezier(0.23, 1, 0.32, 1),
+	-webkit-transition:
+		opacity 0.3s cubic-bezier(0.23, 1, 0.32, 1),
 		-webkit-transform 0.3s cubic-bezier(0.23, 1, 0.32, 1);
-	transition: opacity 0.3s cubic-bezier(0.23, 1, 0.32, 1),
+	transition:
+		opacity 0.3s cubic-bezier(0.23, 1, 0.32, 1),
 		-webkit-transform 0.3s cubic-bezier(0.23, 1, 0.32, 1);
-	transition: transform 0.3s cubic-bezier(0.23, 1, 0.32, 1),
+	transition:
+		transform 0.3s cubic-bezier(0.23, 1, 0.32, 1),
 		opacity 0.3s cubic-bezier(0.23, 1, 0.32, 1);
-	transition: transform 0.3s cubic-bezier(0.23, 1, 0.32, 1),
+	transition:
+		transform 0.3s cubic-bezier(0.23, 1, 0.32, 1),
 		opacity 0.3s cubic-bezier(0.23, 1, 0.32, 1),
 		-webkit-transform 0.3s cubic-bezier(0.23, 1, 0.32, 1);
 	-webkit-transform-origin: center top;
@@ -143,13 +147,17 @@ export default {
 	opacity: 1;
 	-webkit-transform: scaleY(1);
 	transform: scaleY(1);
-	-webkit-transition: opacity 0.3s cubic-bezier(0.23, 1, 0.32, 1),
+	-webkit-transition:
+		opacity 0.3s cubic-bezier(0.23, 1, 0.32, 1),
 		-webkit-transform 0.3s cubic-bezier(0.23, 1, 0.32, 1);
-	transition: opacity 0.3s cubic-bezier(0.23, 1, 0.32, 1),
+	transition:
+		opacity 0.3s cubic-bezier(0.23, 1, 0.32, 1),
 		-webkit-transform 0.3s cubic-bezier(0.23, 1, 0.32, 1);
-	transition: transform 0.3s cubic-bezier(0.23, 1, 0.32, 1),
+	transition:
+		transform 0.3s cubic-bezier(0.23, 1, 0.32, 1),
 		opacity 0.3s cubic-bezier(0.23, 1, 0.32, 1);
-	transition: transform 0.3s cubic-bezier(0.23, 1, 0.32, 1),
+	transition:
+		transform 0.3s cubic-bezier(0.23, 1, 0.32, 1),
 		opacity 0.3s cubic-bezier(0.23, 1, 0.32, 1),
 		-webkit-transform 0.3s cubic-bezier(0.23, 1, 0.32, 1);
 	-webkit-transform-origin: center bottom;
@@ -166,13 +174,17 @@ export default {
 	opacity: 1;
 	-webkit-transform: scale(1, 1);
 	transform: scale(1, 1);
-	-webkit-transition: opacity 0.3s cubic-bezier(0.23, 1, 0.32, 1),
+	-webkit-transition:
+		opacity 0.3s cubic-bezier(0.23, 1, 0.32, 1),
 		-webkit-transform 0.3s cubic-bezier(0.23, 1, 0.32, 1);
-	transition: opacity 0.3s cubic-bezier(0.23, 1, 0.32, 1),
+	transition:
+		opacity 0.3s cubic-bezier(0.23, 1, 0.32, 1),
 		-webkit-transform 0.3s cubic-bezier(0.23, 1, 0.32, 1);
-	transition: transform 0.3s cubic-bezier(0.23, 1, 0.32, 1),
+	transition:
+		transform 0.3s cubic-bezier(0.23, 1, 0.32, 1),
 		opacity 0.3s cubic-bezier(0.23, 1, 0.32, 1);
-	transition: transform 0.3s cubic-bezier(0.23, 1, 0.32, 1),
+	transition:
+		transform 0.3s cubic-bezier(0.23, 1, 0.32, 1),
 		opacity 0.3s cubic-bezier(0.23, 1, 0.32, 1),
 		-webkit-transform 0.3s cubic-bezier(0.23, 1, 0.32, 1);
 	-webkit-transform-origin: top left;
@@ -185,15 +197,23 @@ export default {
 	transform: scale(0.45, 0.45);
 }
 .collapse-transition {
-	-webkit-transition: 0.3s height ease-in-out, 0.3s padding-top ease-in-out,
+	-webkit-transition:
+		0.3s height ease-in-out,
+		0.3s padding-top ease-in-out,
 		0.3s padding-bottom ease-in-out;
-	transition: 0.3s height ease-in-out, 0.3s padding-top ease-in-out,
+	transition:
+		0.3s height ease-in-out,
+		0.3s padding-top ease-in-out,
 		0.3s padding-bottom ease-in-out;
 }
 .horizontal-collapse-transition {
-	-webkit-transition: 0.3s width ease-in-out, 0.3s padding-left ease-in-out,
+	-webkit-transition:
+		0.3s width ease-in-out,
+		0.3s padding-left ease-in-out,
 		0.3s padding-right ease-in-out;
-	transition: 0.3s width ease-in-out, 0.3s padding-left ease-in-out,
+	transition:
+		0.3s width ease-in-out,
+		0.3s padding-left ease-in-out,
 		0.3s padding-right ease-in-out;
 }
 .v3-list-enter-active,
@@ -243,7 +263,9 @@ export default {
 	-webkit-transition: -webkit-transform 0.3s;
 	transition: -webkit-transform 0.3s;
 	transition: transform 0.3s;
-	transition: transform 0.3s, -webkit-transform 0.3s;
+	transition:
+		transform 0.3s,
+		-webkit-transform 0.3s;
 	font-weight: 300;
 }
 .v3-collapse-item__arrow.is-active {

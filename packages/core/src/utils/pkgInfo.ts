@@ -1,6 +1,6 @@
 import { resolve } from 'path'
 import { createRequire } from 'node:module'
-import getProperty from 'js-cool/es/getProperty'
+import { getProperty } from 'js-cool'
 import { spawnSync } from '#lib/spawn'
 import { isCacheExpired, updateCacheTime } from '#lib/cache/cache'
 import { CACHE_PATH } from '#lib/utils/paths'

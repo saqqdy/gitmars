@@ -1,9 +1,37 @@
 # 更新日志
 
+## 2023.08.16 v5.2.0 更新日志
+
+1. 修复一些问题
+2. 升级依赖包
+
+## 2023.07.03 v5.1.6 更新日志
+
+1. 使用 [os-lang](https://githun.com/saqqdy/os-lang) 获取系统语言
+2. 升级依赖包
+
+## 2023.05.31 v5.1.5 更新日志
+
+1. 修复 bug 优化体验
+2. 升级依赖包
+
+## 2023.03.26 v5.1.3 更新日志
+
+1. 使用 [userdir](https://githun.com/saqqdy/userdir)
+2. 修复类型输出
+3. 升级依赖包
+
+## 2023.02.17 v5.1.1 更新日志
+
+1. 修复`spawnSync`解析指令出错问题
+2. 版本控制兼顾到 `prerelease` `premajor` `preminor` `prepatch` 版本
+3. 构建输出 gitmars 类型文件
+4. 升级依赖包
+
 ## 2023.02.04 v5.0.0 更新日志
 
 1. 全面改用 rollup v3.0
-2. 配置参数新增 `versionControlType` 用于控制强制更新版本的类型，传入 false 则不强制更新 
+2. 配置参数新增 `versionControlType` 用于控制强制更新版本的类型，传入 false 则不强制更新
 3. 升级依赖包，开始使用 commander v10，reinstaller v2
 
 ## 2023.01.14 v4.1.1 更新日志

@@ -6,13 +6,13 @@ import fs from 'fs'
 import sh from 'shelljs'
 import low from 'lowdb'
 import FileSync from 'lowdb/adapters/FileSync.js'
-import home from '#lib/utils/home'
+import userdir from 'userdir'
 
 // const __filename = fileURLToPath(import.meta.url)
 // const __dirname = dirname(__filename)
 const require = createRequire(import.meta.url)
 const dbTmp = require('#lib/db/db.json')
-const dbPath = path.join(home(), '.gitmarsdb')
+const dbPath = path.join(userdir() as string, '.gitmarsdb')
 
 if (!sh.test('-f', dbPath)) {
 	fs.writeFileSync(dbPath, JSON.stringify(dbTmp, null, 4), 'utf-8')

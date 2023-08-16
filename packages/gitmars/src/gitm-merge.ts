@@ -26,7 +26,7 @@ program
 	.description(t('Merge branch code'))
 	.action((name: string) => {
 		const current = getCurrentBranch()
-		const cmd: Array<CommandType | string> = [
+		const cmd: Array<CommandType | string | string[]> = [
 			{
 				cmd: `git merge --no-ff ${name}`,
 				config: {

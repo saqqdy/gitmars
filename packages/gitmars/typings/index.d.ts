@@ -90,7 +90,7 @@ export interface ModuleCommandType {
 }
 
 export interface CommandTypeCmd {
-	cmd: string | ModuleCommandType
+	cmd: string | string[] | ModuleCommandType
 	config: QueueConfigType
 }
 
@@ -124,7 +124,7 @@ export interface QueueConfigType extends SpawnOptions {
 export interface QueueReturnsType
 	extends Partial<Pick<SpawnSyncReturns<string>, 'stdout' | 'stderr' | 'status'>> {
 	cfg: QueueConfigType
-	cmd: string | ModuleCommandType
+	cmd: string | string[] | ModuleCommandType
 }
 
 export type InitInquirerPromptType = QuestionCollection<{

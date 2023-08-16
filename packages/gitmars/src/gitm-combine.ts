@@ -3,7 +3,7 @@ import { createRequire } from 'node:module'
 import { program } from 'commander'
 import sh from 'shelljs'
 import chalk from 'chalk'
-import getType from 'js-cool/es/getType'
+import { getType } from 'js-cool'
 import { queue } from '@gitmars/core/lib/queue'
 import getIsGitProject from '@gitmars/core/lib/git/getIsGitProject'
 import getCurrentBranch from '@gitmars/core/lib/git/getCurrentBranch'
@@ -150,9 +150,15 @@ program.action(async (type: string, name: string, opt: GitmBuildOption): Promise
 			process.exit(1)
 		}
 	}
+
+	if (type === 'feature' && opt.asFeature) {
+		sh.echo(t('--as-feature is only used in the bugfix branch.'))
+		process.exit(1)
+	}
+
 	if (allow.includes(type) && name) {
 		const base: string = type === 'bugfix' ? config.bugfix : config.release
-		let cmd: Array<CommandType | string> = []
+		let cmd: Array<CommandType | string | string[]> = []
 		// Get whether the upstream branch code has been synchronized within a week
 		if (!getIsUpdatedInTime({ lastet: '7d', limit: 1000, branch: base })) {
 			sh.echo(
@@ -347,15 +353,19 @@ program.action(async (type: string, name: string, opt: GitmBuildOption): Promise
 									)
 								}
 							},
-							`gitm postmsg "${t(
-								'{nickname} submitted a merge request for {source} branch to {target} branch in {app} project',
-								{
-									nickname,
-									app: appName,
-									source: `${type}/${name}`,
-									target: base
-								}
-							)}"`
+							[
+								'gitm',
+								'postmsg',
+								`"${t(
+									'{nickname} submitted a merge request for {source} branch to {target} branch in {app} project',
+									{
+										nickname,
+										app: appName,
+										source: `${type}/${name}`,
+										target: base
+									}
+								)}"`
+							]
 						])
 					}
 				}
@@ -454,15 +464,19 @@ program.action(async (type: string, name: string, opt: GitmBuildOption): Promise
 									)
 								}
 							},
-							`gitm postmsg "${t(
-								'{nickname} submitted a merge request for {source} branch to {target} branch in {app} project',
-								{
-									nickname,
-									app: appName,
-									source: `${type}/${name}`,
-									target: config.release
-								}
-							)}"`
+							[
+								'gitm',
+								'postmsg',
+								`"${t(
+									'{nickname} submitted a merge request for {source} branch to {target} branch in {app} project',
+									{
+										nickname,
+										app: appName,
+										source: `${type}/${name}`,
+										target: config.release
+									}
+								)}"`
+							]
 						])
 					}
 				}
@@ -561,15 +575,19 @@ program.action(async (type: string, name: string, opt: GitmBuildOption): Promise
 									)
 								}
 							},
-							`gitm postmsg "${t(
-								'{nickname} submitted a merge request for {source} branch to {target} branch in {app} project',
-								{
-									nickname,
-									app: appName,
-									source: `${type}/${name}`,
-									target: config.bugfix
-								}
-							)}"`
+							[
+								'gitm',
+								'postmsg',
+								`"${t(
+									'{nickname} submitted a merge request for {source} branch to {target} branch in {app} project',
+									{
+										nickname,
+										app: appName,
+										source: `${type}/${name}`,
+										target: config.bugfix
+									}
+								)}"`
+							]
 						])
 					}
 				}

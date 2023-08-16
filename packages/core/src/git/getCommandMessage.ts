@@ -9,9 +9,9 @@ const { t } = lang
  * @param cmd - 指令
  * @returns commandMessage - 指令提示信息
  */
-function getCommandMessage(cmd: string): CommandMessageType {
+function getCommandMessage(cmd: string | string[]): CommandMessageType {
 	const msg = {} as CommandMessageType
-	const arr = cmd.replace(/[\s]+/g, ' ').split(' ')
+	const arr = cmd instanceof Array ? cmd : cmd.replace(/[\s]+/g, ' ').split(' ')
 	if (arr.length < 2 || arr[0] !== 'git') return msg
 	switch (arr[1]) {
 		case 'checkout':

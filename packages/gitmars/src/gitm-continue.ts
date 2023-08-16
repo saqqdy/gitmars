@@ -36,7 +36,7 @@ options.forEach((o: GitmarsOptionOptionsType) => {
 // .option('-l, --list', t('Show command queue'), false)
 program.action(async (opt: GitmBuildOption) => {
 	const sum = getGitStatus()
-	const cmd: Array<CommandType | string> = getCommandCache()
+	const cmd: Array<CommandType | string | string[]> = getCommandCache()
 	if (opt.list) {
 		console.info(cmd)
 		process.exit(0)

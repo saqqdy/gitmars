@@ -3,7 +3,7 @@ import { createRequire } from 'node:module'
 import { program } from 'commander'
 import sh from 'shelljs'
 import chalk from 'chalk'
-import getType from 'js-cool/es/getType'
+import { getType } from 'js-cool'
 import { queue } from '@gitmars/core/lib/queue'
 import getIsGitProject from '@gitmars/core/lib/git/getIsGitProject'
 import getCurrentBranch from '@gitmars/core/lib/git/getCurrentBranch'
@@ -136,7 +136,7 @@ program.action(async (type: string, name: string, opt: GitmBuildOption): Promise
 			: type === 'bugfix'
 			? config.bugfix
 			: config.release
-		let cmd: Array<CommandType | string> = []
+		let cmd: Array<CommandType | string | string[]> = []
 		// Is it necessary to merge dev
 		const isNeedCombineDevelop = !getIsMergedTargetBranch(`${type}/${name}`, config.develop, {
 			remote: true
@@ -256,15 +256,19 @@ program.action(async (type: string, name: string, opt: GitmBuildOption): Promise
 							)
 						}
 					},
-					`gitm postmsg "${t(
-						'{nickname} submitted a merge request for {source} branch to {target} branch in {app} project',
-						{
-							nickname,
-							app: appName,
-							source: `${type}/${name}`,
-							target: config.bugfix
-						}
-					)}"`
+					[
+						'gitm',
+						'postmsg',
+						`"${t(
+							'{nickname} submitted a merge request for {source} branch to {target} branch in {app} project',
+							{
+								nickname,
+								app: appName,
+								source: `${type}/${name}`,
+								target: config.bugfix
+							}
+						)}"`
+					]
 				])
 			}
 		}
@@ -390,15 +394,19 @@ program.action(async (type: string, name: string, opt: GitmBuildOption): Promise
 							)
 						}
 					},
-					`gitm postmsg "${t(
-						'{nickname} submitted a merge request for {source} branch to {target} branch in {app} project',
-						{
-							nickname,
-							app: appName,
-							source: `${type}/${name}`,
-							target: base
-						}
-					)}"`
+					[
+						'gitm',
+						'postmsg',
+						`"${t(
+							'{nickname} submitted a merge request for {source} branch to {target} branch in {app} project',
+							{
+								nickname,
+								app: appName,
+								source: `${type}/${name}`,
+								target: base
+							}
+						)}"`
+					]
 				])
 			}
 		}

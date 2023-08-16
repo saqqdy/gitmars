@@ -58,7 +58,7 @@ program.action(async (commitid: string[], opts: GitmBuildOption) => {
 	const current = getCurrentBranch()
 	const status = checkGitStatus()
 	let logList: GitLogsType[] = [],
-		cmd: Array<CommandType | string> = [],
+		cmd: Array<CommandType | string | string[]> = [],
 		commitIDs: string[] = [] // 需要执行的commitID
 
 	if (!status) process.exit(1)
