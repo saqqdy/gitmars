@@ -150,6 +150,12 @@ program.action(async (type: string, name: string, opt: GitmBuildOption): Promise
 			process.exit(1)
 		}
 	}
+
+	if (type === 'feature' && opt.asFeature) {
+		sh.echo(t('--as-feature is only used in the bugfix branch.'))
+		process.exit(1)
+	}
+
 	if (allow.includes(type) && name) {
 		const base: string = type === 'bugfix' ? config.bugfix : config.release
 		let cmd: Array<CommandType | string | string[]> = []

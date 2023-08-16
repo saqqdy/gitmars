@@ -65,7 +65,6 @@ function onCancel(err) {
 export default function (options: AxiosExtendConfig) {
 	if (!axiosEx)
 		axiosEx = new axiosExtend({
-			maxConnections: 20,
 			retries: 0,
 			unique: false,
 			orderly: true,

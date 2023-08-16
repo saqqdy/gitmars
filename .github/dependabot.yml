@@ -11,7 +11,11 @@ updates:
       interval: weekly
     open-pull-requests-limit: 5
     ignore:
-      - dependency-name: 'aws*'
+      - dependency-name: 'core-js'
+      - dependency-name: 'eslint'
+      - dependency-name: 'prettier'
+      - dependency-name: '@babel/*'
+      - dependency-name: '@types/*'
       - dependency-name: typescript
         versions: [4.x]
       - dependency-name: '*'
@@ -23,7 +27,11 @@ updates:
       interval: weekly
     open-pull-requests-limit: 5
     ignore:
-      - dependency-name: 'aws*'
+      - dependency-name: 'core-js'
+      - dependency-name: 'eslint'
+      - dependency-name: 'prettier'
+      - dependency-name: '@babel/*'
+      - dependency-name: '@types/*'
       - dependency-name: typescript
         versions: [4.x]
       - dependency-name: '*'
@@ -35,7 +43,11 @@ updates:
       interval: weekly
     open-pull-requests-limit: 5
     ignore:
-      - dependency-name: 'aws*'
+      - dependency-name: 'core-js'
+      - dependency-name: 'eslint'
+      - dependency-name: 'prettier'
+      - dependency-name: '@babel/*'
+      - dependency-name: '@types/*'
       - dependency-name: typescript
         versions: [4.x]
       - dependency-name: '*'
@@ -47,7 +59,11 @@ updates:
       interval: weekly
     open-pull-requests-limit: 5
     ignore:
-      - dependency-name: 'aws*'
+      - dependency-name: 'core-js'
+      - dependency-name: 'eslint'
+      - dependency-name: 'prettier'
+      - dependency-name: '@babel/*'
+      - dependency-name: '@types/*'
       - dependency-name: typescript
         versions: [4.x]
       - dependency-name: '*'
@@ -59,7 +75,11 @@ updates:
       interval: weekly
     open-pull-requests-limit: 5
     ignore:
-      - dependency-name: 'aws*'
+      - dependency-name: 'core-js'
+      - dependency-name: 'eslint'
+      - dependency-name: 'prettier'
+      - dependency-name: '@babel/*'
+      - dependency-name: '@types/*'
       - dependency-name: typescript
         versions: [4.x]
       - dependency-name: '*'
@@ -71,7 +91,11 @@ updates:
       interval: weekly
     open-pull-requests-limit: 5
     ignore:
-      - dependency-name: 'aws*'
+      - dependency-name: 'core-js'
+      - dependency-name: 'eslint'
+      - dependency-name: 'prettier'
+      - dependency-name: '@babel/*'
+      - dependency-name: '@types/*'
       - dependency-name: typescript
         versions: [4.x]
       - dependency-name: '*'

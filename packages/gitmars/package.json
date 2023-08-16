@@ -1,7 +1,7 @@
 {
 	"name": "gitmars",
 	"description": "这是一个git工作流工具",
-	"version": "5.1.6",
+	"version": "5.2.0",
 	"private": false,
 	"bin": {
 		"gitm": "lib/gitm.mjs"
@@ -64,26 +64,26 @@
 		"dayjs": "^1.11.9",
 		"debug": "^4.3.4",
 		"inquirer": "^8.2.5",
-		"js-cool": "^4.7.0",
+		"js-cool": "^5.5.0",
 		"lodash-es": "^4.17.21",
 		"lodash-unified": "^1.0.3",
 		"node-apollo": "^1.2.1",
 		"ora": "^5.4.1",
-		"os-lang": "^3.0.0",
+		"os-lang": "^3.1.1",
 		"shelljs": "^0.8.5",
 		"slash": "^3.0.0"
 	},
 	"devDependencies": {
-		"@eslint-sets/eslint-config-ts": "^5.5.0",
+		"@eslint-sets/eslint-config-ts": "^5.8.0",
 		"@types/columnify": "^1.5.1",
 		"@types/cross-spawn": "^6.0.2",
 		"@types/inquirer": "^8.2.6",
-		"@types/lodash-es": "^4.17.7",
-		"@types/node": "^20.3.3",
+		"@types/lodash-es": "^4.17.8",
+		"@types/node": "^20.5.0",
 		"@types/shelljs": "^0.8.12",
 		"cross-env": "^7.0.3",
-		"eslint": "^8.44.0",
-		"prettier": "^2.8.8",
+		"eslint": "^8.47.0",
+		"prettier": "^3.0.2",
 		"prettier-config-common": "^1.4.0",
 		"tsnd": "^1.1.0",
 		"typescript": "^5.1.6"
