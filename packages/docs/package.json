@@ -16,6 +16,7 @@
 		"prettier": "prettier --write \"**/*.{js,ts,json,md}\"",
 		"prettier:docs": "prettier --write \"**/*.md\""
 	},
+	"type": "module",
 	"directories": {
 		"dist": "dist",
 		"es": "es",

@@ -1,7 +1,7 @@
 {
 	"extends": "../../tsconfig.json",
 	"exclude": ["__tests__", "../../temp"],
-	"include": ["**/*.ts", "typings"],
+	"include": ["**/*.ts", "typings", "vite.config.mts"],
 	"compilerOptions": {
 		"removeComments": true,
 		"declaration": true,
