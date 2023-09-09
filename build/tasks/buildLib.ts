@@ -24,7 +24,14 @@ import {
 import { PACKAGE } from '../utils/paths'
 import { packages } from '../packages'
 
-const pkgs = packages.filter(({ buildTask }) => buildTask.includes('lib'))
+let pkgs = packages.filter(({ buildTask }) => buildTask.includes('lib'))
+const childBuildLibIndex = process.argv.indexOf('lib')
+
+if (childBuildLibIndex > -1) {
+	const [, packageKey, packageName] = process.argv.slice(childBuildLibIndex)
+	if (packageKey === '--package' && packageName)
+		pkgs = pkgs.filter(({ name }) => packageName.split(',').includes(name))
+}
 
 export async function buildLib() {
 	const externals = [

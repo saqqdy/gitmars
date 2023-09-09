@@ -90,5 +90,6 @@ export default {
 	'{name} deleted': '{name}已删除',
 	'File write error': '文件写入错误',
 	'Jenkins build configuration cache file': 'Jenkins构建配置缓存文件',
-	'Please configure apollo or buildConfigApi': '请配置apollo或buildConfigApi'
+	'Please configure apollo or buildConfigApi': '请配置apollo或buildConfigApi',
+	'Please enter the correct project name': '请输入正确的项目名称'
 }

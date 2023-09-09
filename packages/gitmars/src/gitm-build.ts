@@ -13,13 +13,14 @@ const { args, options } = buildConfig
 interface GitmBuildOption {
 	env: ApolloBranchList
 	app: string
+	data?: string
 }
 /**
  * gitm build
  */
 program
 	.name('gitm build')
-	.usage('<project> [-e --env [env]] [-a --app [app]]')
+	.usage('<project> [-e --env [env]] [-a --app [app]] [-d --data <data>]')
 	.description(t('buildJenkins'))
 if (args.length > 0) program.arguments(createArgs(args))
 options.forEach((o: GitmarsOptionOptionsType) => {
@@ -27,11 +28,13 @@ options.forEach((o: GitmarsOptionOptionsType) => {
 })
 // .option('-e, --env [env]', t('Environment to be built, optionally dev, prod, bug, all'), 'dev')
 // .option('-a, --app [app]', t('Application to be built'), 'all')
+// .option('-d, --data <data>', t('Other data to be transferred'), '{}')
 program.action((project: string, opt: GitmBuildOption): void => {
 	runJenkins({
 		env: opt.env,
 		project,
-		app: opt.app
+		app: opt.app,
+		data: opt.data
 	})
 })
 program.parse(process.argv)

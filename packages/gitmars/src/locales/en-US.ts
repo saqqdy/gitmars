@@ -454,5 +454,6 @@ export default {
 	'{source} branch has merged {target} branch': '{source} branch has merged {target} branch',
 	'Use strict mode': 'Use strict mode',
 	'--as-feature is only used in the bugfix branch.':
-		'--as-feature is only used in the bugfix branch.'
+		'--as-feature is only used in the bugfix branch.',
+	'Other data to be transferred': 'Other data to be transferred'
 }

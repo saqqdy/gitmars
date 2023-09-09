@@ -42,6 +42,20 @@ export const cmdConfig: GitmarsOptionType = {
 			defaultValue: 'all',
 			recommend: true,
 			value: 'all'
+		},
+		{
+			flags: '-d, --data <data>',
+			required: true,
+			optional: true,
+			variadic: false,
+			mandatory: false,
+			short: '-d',
+			long: '--data',
+			negate: false,
+			description: t('Other data to be transferred'),
+			defaultValue: '{}',
+			recommend: true,
+			value: '{}'
 		}
 	]
 }

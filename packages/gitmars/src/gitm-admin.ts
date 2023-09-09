@@ -48,6 +48,7 @@ interface GitmBuildOption {
 		description?: string
 		postmsg?: boolean
 		force?: boolean
+        data?: string
 	}
 	update: {
 		useRebase?: boolean
@@ -130,7 +131,7 @@ createProgram.action((type: GitmarsMainBranchType): void => {
 const publishProgram = program
 	.name('gitm admin')
 	.usage(
-		'<command> <type> [--description [description]] [-c --combine] [--use-rebase] [-p --prod] [-b --build [app]] [--postmsg] [-f --force]'
+		'<command> <type> [--description [description]] [-c --combine] [--use-rebase] [-p --prod] [-b --build [app]] [-d --data <data>] [--postmsg] [-f --force]'
 	)
 	.description(t('Release bugfix, release, support branches'))
 	.command('publish ' + createArgs(publish.args))
@@ -145,6 +146,7 @@ publish.options.forEach((o: GitmarsOptionOptionsType) => {
 // .option('--postmsg', t('Send Message'), false)
 // .option('--description [description]', t('Description of the reason for this commit'), '')
 // .option('-f, --force', t('Whether to force a merge request'), false)
+// .option('-d --data <data>', t('Other data to be transferred'), '{}')
 publishProgram.action(
 	async (type: PublishOptsType, opt: GitmBuildOption['publish']): Promise<void> => {
 		const {
@@ -688,7 +690,7 @@ publishProgram.action(
 						{
 							cmd: `gitm build ${appName} --env bug --app ${
 								opt.build === true ? 'all' : opt.build
-							}`,
+							} ${opt.data ? ' --data ' + opt.data : ''}`,
 							config: {
 								again: false,
 								success: t('Pulling up the build was successful'),
@@ -704,7 +706,7 @@ publishProgram.action(
 					{
 						cmd: `gitm build ${appName} --env prod --app ${
 							opt.build === true ? 'all' : opt.build
-						}`,
+						} ${opt.data ? ' --data ' + opt.data : ''}`,
 						config: {
 							again: false,
 							success: t('Pulling up the build was successful'),
