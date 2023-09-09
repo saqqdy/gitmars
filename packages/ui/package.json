@@ -1,7 +1,7 @@
 {
 	"name": "@gitmars/ui",
 	"description": "gitmars可视化界面",
-	"version": "5.2.0",
+	"version": "5.3.0",
 	"private": false,
 	"bin": {
 		"gitm-ui": "./index.mjs"

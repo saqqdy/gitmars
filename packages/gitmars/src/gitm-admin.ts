@@ -48,7 +48,7 @@ interface GitmBuildOption {
 		description?: string
 		postmsg?: boolean
 		force?: boolean
-        data?: string
+		data?: string
 	}
 	update: {
 		useRebase?: boolean

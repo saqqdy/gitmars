@@ -10,11 +10,9 @@ export function generateExternal(
 	{ name, input, isFull = false }: { name: string; input: string; isFull?: boolean },
 	externals: string[] = []
 ) {
-	const { dependencies = {}, devDependencies = {}, peerDependencies = {} } = require(resolve(
-		PACKAGE,
-		name,
-		'package.json'
-	))
+	const { dependencies = {}, devDependencies = {}, peerDependencies = {} } = require(
+		resolve(PACKAGE, name, 'package.json')
+	)
 	return (id: string) => {
 		const pkgs: string[] = Object.keys(peerDependencies)
 		if (!isFull) {
