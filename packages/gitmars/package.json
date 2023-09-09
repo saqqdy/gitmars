@@ -68,7 +68,7 @@
 		"lodash-es": "^4.17.21",
 		"lodash-unified": "^1.0.3",
 		"node-apollo": "^1.2.1",
-		"ora": "^5.4.1",
+		"ora": "^7.0.1",
 		"os-lang": "^3.2.0",
 		"shelljs": "^0.8.5",
 		"slash": "^3.0.0"
