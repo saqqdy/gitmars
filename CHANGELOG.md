@@ -1,5 +1,12 @@
 # 更新日志
 
+## 2023.09.09 v5.3.0 更新日志
+
+1. `combine` `admin publish` `build` 指令传参增加 `--data`，用来传入其他自定义构建参数
+2. 修复 `upgrade` 使用registry不生效的问题
+3. 移除 `compareVersion` 方法，改用js-cool提供的compareVersion方法
+4. 升级依赖包
+
 ## 2023.08.16 v5.2.0 更新日志
 
 1. 修复一些问题
