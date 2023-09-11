@@ -63,7 +63,7 @@
 		"cross-spawn": "^7.0.3",
 		"dayjs": "^1.11.9",
 		"debug": "^4.3.4",
-		"inquirer": "^8.2.5",
+		"inquirer": "^9.2.11",
 		"js-cool": "^5.7.2",
 		"lodash-es": "^4.17.21",
 		"lodash-unified": "^1.0.3",
