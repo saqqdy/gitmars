@@ -234,7 +234,7 @@ export default {
 	'Please enter the git project ID, currently only gitlab is supported':
 		'Please enter the git project ID, currently only gitlab is supported',
 	'gitmars configured successfully': 'gitmars configured successfully',
-	'Installing plugins, e.g. @gitmars/ui': 'Installing plugins, e.g. @gitmars/ui',
+	'Installing plugins, e.g. @gitmars/core': 'Installing plugins, e.g. @gitmars/core',
 	'Please enter the plugin name': 'Please enter the plugin name',
 	'Incorrect version number entered, only supported: alpha, lite, beta, release, latest, next':
 		'Incorrect version number entered, only supported: alpha, lite, beta, release, latest, next',
@@ -257,8 +257,6 @@ export default {
 		'Specify that only bugfix branch creation is supported when pulling branches from tag',
 	'Restore staging area file': 'Restore staging area file',
 	'Suggestions for operation': 'Suggestions for operation',
-	"Please install the gitm ui plugin first: gitm install @gitmars/ui latest -m'":
-		"Please install the gitm ui plugin first: gitm install @gitmars/ui latest -m'",
 	'After handling conflicts, execute: gitm undo --calc':
 		'After handling conflicts, execute: gitm undo --calc',
 	'No commit record selected, process has exited':
@@ -354,8 +352,6 @@ export default {
 	Submitted: 'Submitted',
 	'There was an error, please contact an administrator':
 		'There was an error, please contact an administrator',
-	'Please install the gitm ui plugin first: gitm install @gitmars/ui latest -m':
-		'Please install the gitm ui plugin first: gitm install @gitmars/ui latest -m',
 	'Clean up all failed undo logs': 'Clean up all failed undo logs',
 	'Whether to exclude merge logs': 'Whether to exclude merge logs',
 	'No eligible commit logs found, please relax the filtering conditions appropriately. The process has been exited':

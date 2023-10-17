@@ -25,7 +25,7 @@ interface GitmBuildOption {
 program
 	.name('gitm install')
 	.usage('<pluginName> [version] [-m --mirror] [-c --client [client]] [-r --registry <registry>]')
-	.description(t('Installing plugins, e.g. @gitmars/ui'))
+	.description(t('Installing plugins, e.g. @gitmars/core'))
 if (args.length > 0) program.arguments(createArgs(args))
 options.forEach((o: GitmarsOptionOptionsType) => {
 	program.option(o.flags, o.description, o.defaultValue)

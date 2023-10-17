@@ -24,28 +24,6 @@ export const packages: PackageManifest[] = [
 		display: '这是一个git工作流工具'
 	},
 	{
-		name: 'server',
-		pkgName: '@gitmars/server',
-		buildTask: ['lib'],
-		iife: false,
-		cjs: false,
-		mjs: true,
-		dts: false,
-		output: 'lib',
-		display: 'gitmars可视化界面服务端'
-	},
-	{
-		name: 'ui',
-		pkgName: '@gitmars/ui',
-		buildTask: 'app',
-		iife: false,
-		mjs: false,
-		dts: false,
-		submodules: false,
-		output: 'dist',
-		display: 'gitmars可视化界面'
-	},
-	{
 		name: 'docs',
 		pkgName: '@gitmars/docs',
 		buildTask: 'docs',

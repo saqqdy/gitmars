@@ -209,7 +209,7 @@ export default {
 	'Please enter the git project ID, currently only gitlab is supported':
 		'请输入git项目ID，目前仅支持gitlab',
 	'gitmars configured successfully': 'gitmars配置成功',
-	'Installing plugins, e.g. @gitmars/ui': '安装插件，例如：@gitmars/ui',
+	'Installing plugins, e.g. @gitmars/core': '安装插件，例如：@gitmars/core',
 	'Please enter the plugin name': '请输入插件名称',
 	'Incorrect version number entered, only supported: alpha, lite, beta, release, latest, next':
 		'输入的版本号不正确，仅支持：alpha、lite、beta、release、latest、next',
@@ -230,8 +230,6 @@ export default {
 		'指定从tag拉取分支时仅支持创建bugfix分支',
 	'Restore staging area file': '恢复暂存区文件',
 	'Suggestions for operation': '操作建议',
-	"Please install the gitm ui plugin first: gitm install @gitmars/ui latest -m'":
-		"请先安装gitm ui插件：gitm install @gitmars/ui latest -m'",
 	'After handling conflicts, execute: gitm undo --calc': '处理冲突之后，执行：gitm undo --calc',
 	'No commit record selected, process has exited': '没有选择commit记录，进程已退出',
 	'Please select the commit record to undo.': '请选择要撤销的commit记录',
@@ -321,8 +319,6 @@ export default {
 	Deleted: '删除',
 	Submitted: '已提交',
 	'There was an error, please contact an administrator': '出错了，请联系管理员',
-	'Please install the gitm ui plugin first: gitm install @gitmars/ui latest -m':
-		'请先安装gitm ui插件：gitm install @gitmars/ui latest -m',
 	'Clean up all failed undo logs': '清理所有撤销失败的记录',
 	'Whether to exclude merge logs': '是否排除merge的日志',
 	'No eligible commit logs found, please relax the filtering conditions appropriately. The process has been exited':

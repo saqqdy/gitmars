@@ -7,8 +7,6 @@ es
 app
 packages/gitmars/es
 packages/gitmars/lib
-packages/server/app
-packages/server/src/log/data
 yarn.lock
 /.pnp
 .pnp.js

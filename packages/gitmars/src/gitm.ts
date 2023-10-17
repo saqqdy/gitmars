@@ -71,7 +71,6 @@ program
 	.command('review', t('review remote code'))
 	.alias('rv')
 	.command('status', t('view branch status'))
-	.command('ui', t('Launch web version of gitmars'))
 	.command('unlink', t('Unlink softlinks'))
 	.command('link', t('Create soft links'))
 	.command('clean', t('Clear cache'))
@@ -141,7 +140,6 @@ program.on('command:*', function (types: string[], opts: string[]) {
 		'review',
 		'rv',
 		'status',
-		'ui',
 		'unlink',
 		'link',
 		'clean',

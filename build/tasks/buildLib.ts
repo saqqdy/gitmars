@@ -34,15 +34,7 @@ if (childBuildLibIndex > -1) {
 }
 
 export async function buildLib() {
-	const externals = [
-		'js-cool',
-		'lodash-unified',
-		'lodash-es',
-		'@gitmars/core',
-		'@gitmars/docs',
-		'@gitmars/server',
-		'@gitmars/ui'
-	]
+	const externals = ['js-cool', 'lodash-unified', 'lodash-es', '@gitmars/core', '@gitmars/docs']
 	const builds = pkgs.map(
 		async ({
 			globals = {},
