@@ -44,10 +44,13 @@ export async function deployDocs() {
 		}
 		await runSpawnSync(`git commit -m "deploy"`, RUN_PATH)
 		await runSpawnSync(
-			`git push -f git@github.com:saqqdy/gitmars.git master:gh-pages`,
+			`git push -f https://github.com/saqqdy/gitmars.git master:gh-pages`,
 			RUN_PATH
 		)
-		await runSpawnSync(`git push -f git@gitee.com:saqqdy/gitmars.git master:gh-pages`, RUN_PATH)
+		await runSpawnSync(
+			`git push -f https://github.com/saqqdy/gitmars.git master:gh-pages`,
+			RUN_PATH
+		)
 	})
 	await Promise.all(builds)
 }
