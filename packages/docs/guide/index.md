@@ -92,7 +92,6 @@ title: guide
 - 查询日志 [gitm log](../api/#gitm-log)
 - 智能猜测你要执行的动作 [gitm go](../api/#gitm-go)
 - 安装和移除快捷方式 [gitm alias](../api/#gitm-alias)
-- UI 可视化操作 [gitm ui](../api/#gitm-ui)
 - 管理员创建主干分支 [gitm admin create](../api/#gitm-admin-create)
 - 发布分支 [gitm admin publish](../api/#gitm-admin-publish)
 - 更新主干分支代码 [gitm admin update](../api/#gitm-admin-update)

@@ -1218,31 +1218,6 @@ gitm review --state merged
 gitm status
 ```
 
-### gitm ui
-
-> 3.0.0 版本开始，UI 界面从原 gitmars 项目中抽离成了独立项目`@gitmars/ui`，使用 ui 界面前需要在全局安装`@gitmars/ui`插件
-
-启动 UI 界面
-
-- 安装：`gitm install @gitmars/ui`
-- 使用：`gitm ui [-p --port [port]]`
-- 参数：无
-- 传值：
-
-<div class="table-option">
-
-| 名称   | 简写 | 说明       | 类型     | 可选值 | 传值必填 | 默认 |
-| ------ | ---- | ---------- | -------- | ------ | -------- | ---- |
-| --port | -p   | 运行端口号 | `Number` | -      | 否       | 8080 |
-
-</div>
-
-- 示例：
-
-```shell
-gitm ui -p 8080
-```
-
 ### gitm link
 
 创建本地包软链接，传入 name 时把依赖包软链到本地包，不传 name 时给当前包创建公共软链
