@@ -1,7 +1,7 @@
 {
 	"name": "gitmars",
 	"description": "这是一个git工作流工具",
-	"version": "5.2.0",
+	"version": "5.3.0",
 	"private": false,
 	"bin": {
 		"gitm": "lib/gitm.mjs"
@@ -59,34 +59,34 @@
 		"ci-info": "^3.8.0",
 		"columnify": "^1.6.0",
 		"commander": "^11.0.0",
-		"cosmiconfig": "^8.2.0",
+		"cosmiconfig": "^8.3.5",
 		"cross-spawn": "^7.0.3",
 		"dayjs": "^1.11.9",
 		"debug": "^4.3.4",
 		"inquirer": "^8.2.5",
-		"js-cool": "^5.5.0",
+		"js-cool": "^5.7.2",
 		"lodash-es": "^4.17.21",
 		"lodash-unified": "^1.0.3",
 		"node-apollo": "^1.2.1",
 		"ora": "^5.4.1",
-		"os-lang": "^3.1.1",
+		"os-lang": "^3.2.0",
 		"shelljs": "^0.8.5",
 		"slash": "^3.0.0"
 	},
 	"devDependencies": {
 		"@eslint-sets/eslint-config-ts": "^5.8.0",
-		"@types/columnify": "^1.5.1",
-		"@types/cross-spawn": "^6.0.2",
+		"@types/columnify": "^1.5.2",
+		"@types/cross-spawn": "^6.0.3",
 		"@types/inquirer": "^8.2.6",
-		"@types/lodash-es": "^4.17.8",
-		"@types/node": "^20.5.0",
+		"@types/lodash-es": "^4.17.9",
+		"@types/node": "^20.6.0",
 		"@types/shelljs": "^0.8.12",
 		"cross-env": "^7.0.3",
-		"eslint": "^8.47.0",
-		"prettier": "^3.0.2",
+		"eslint": "^8.49.0",
+		"prettier": "^3.0.3",
 		"prettier-config-common": "^1.4.0",
 		"tsnd": "^1.1.0",
-		"typescript": "^5.1.6"
+		"typescript": "^5.2.2"
 	},
 	"sideEffects": false,
 	"keywords": [

@@ -13,6 +13,7 @@ export interface RunJenkinsOptionType {
 	env: ApolloBranchList
 	project: string
 	app: string
+	data?: string
 }
 
 /**
@@ -23,7 +24,8 @@ export interface RunJenkinsOptionType {
 async function runJenkins({
 	env,
 	project,
-	app = 'all'
+	app = 'all',
+	data
 }: RunJenkinsOptionType): Promise<void | unknown> {
 	const buildConfig = (await getBuildConfig()) as ApolloConfigType
 	const cfg: ApolloConfigBranchType = buildConfig[env]
@@ -35,7 +37,7 @@ async function runJenkins({
 	}
 	const p = cfg.list.find(el => el.name === project)
 	if (!p) {
-		sh.echo(chalk.red('请输入正确的项目名称'))
+		sh.echo(chalk.red('Please enter the correct project name'))
 		process.exit(1)
 		return
 	}
@@ -54,21 +56,33 @@ async function runJenkins({
 		process.exit(1)
 		return
 	}
-	const url = mapTemplate(
-		p.apps && p.apps.length > 0 ? buildConfig.templateWithParam : buildConfig.template,
-		{
-			line: cfg.line,
-			project: p.project,
-			token: cfg.token,
-			app
-		}
+	const url = new URL(
+		mapTemplate(
+			p.apps && p.apps.length > 0 ? buildConfig.templateWithParam : buildConfig.template,
+			{
+				line: cfg.line,
+				project: p.project,
+				token: cfg.token,
+				app
+			}
+		)
 	)
 	const auth = `Basic ${Buffer.from(buildConfig.username + ':' + buildConfig.password).toString(
 		'base64'
 	)}`
+
+	if (data) {
+		try {
+			const _data = JSON.parse(data)
+			for (const key in _data) {
+				url.searchParams.append(key, encodeURIComponent(_data[key]))
+			}
+		} catch {}
+	}
+
 	await request
 		.get({
-			url,
+			url: url.toString(),
 			headers: { Authorization: auth }
 		})
 		.then(() => {

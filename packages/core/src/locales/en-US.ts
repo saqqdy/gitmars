@@ -95,5 +95,6 @@ export default {
 	'{name} deleted': '{name} deleted',
 	'File write error': 'File write error',
 	'Jenkins build configuration cache file': 'Jenkins build configuration cache file',
-	'Please configure apollo or buildConfigApi': 'Please configure apollo or buildConfigApi'
+	'Please configure apollo or buildConfigApi': 'Please configure apollo or buildConfigApi',
+	'Please enter the correct project name': 'Please enter the correct project name'
 }

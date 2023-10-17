@@ -69,7 +69,7 @@ program.action(async (version: PackageVersionTag | string, opt: GitmBuildOption)
 		opt.registry = 'https://registry.npmmirror.com'
 	}
 	if (opt.registry) {
-		cmdAdd[1] = cmdAdd[1].concat(['-registry', opt.registry])
+		cmdAdd[1] = cmdAdd[1].concat(['--registry', opt.registry])
 	}
 	spinner.start(green(t('Uninstalling')))
 	const uninstall = spawnSync(cmdDel[0], cmdDel[1], {

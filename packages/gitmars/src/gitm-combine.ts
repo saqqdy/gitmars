@@ -42,6 +42,7 @@ interface GitmBuildOption {
 	noBugfix?: boolean
 	asFeature?: boolean
 	force?: boolean
+	data?: string
 }
 
 const { args, options } = combineConfig
@@ -54,7 +55,7 @@ const config = getConfig()
 program
 	.name('gitm combine')
 	.usage(
-		'[type] [name] [-d --dev] [-p --prod] [-b --build [app]] [-a --add] [-m --commit <commit>] [--description [description]] [--as-feature] [--no-bugfix] [-f --force]'
+		'[type] [name] [-d --dev] [-p --prod] [-b --build [app]] [-a --add] [-m --commit <commit>] [--data <data>] [--description [description]] [--as-feature] [--no-bugfix] [-f --force]'
 	)
 	.description(
 		t('Merge bugfix task branch, merge feature development branch, merge support branch')
@@ -72,6 +73,7 @@ options.forEach((o: GitmarsOptionOptionsType) => {
 // .option('--no-bugfix', t('Do not sync to bug branch'))
 // .option('--as-feature', t('bug branch merge to release'))
 // .option('-f, --force', t('Whether to force a merge request'), false)
+// .option('--data <data>', t('Other data to be transferred'), '{}')
 program.action(async (type: string, name: string, opt: GitmBuildOption): Promise<void> => {
 	const userInfoApi =
 		(config.apis && config.apis.userInfo && config.apis.userInfo.url) || config.api
@@ -230,7 +232,7 @@ program.action(async (type: string, name: string, opt: GitmBuildOption): Promise
 					{
 						cmd: `gitm build ${appName} --env dev --app ${
 							opt.build === true ? 'all' : opt.build
-						}`,
+						} ${opt.data ? ' --data ' + opt.data : ''}`,
 						config: {
 							again: false,
 							success: t('Pulling up the build was successful'),
@@ -598,7 +600,7 @@ program.action(async (type: string, name: string, opt: GitmBuildOption): Promise
 							{
 								cmd: `gitm build ${appName} --env bug --app ${
 									opt.build === true ? 'all' : opt.build
-								}`,
+								} ${opt.data ? ' --data ' + opt.data : ''}`,
 								config: {
 									again: false,
 									success: t('Pulling up the build was successful'),
@@ -613,7 +615,7 @@ program.action(async (type: string, name: string, opt: GitmBuildOption): Promise
 							{
 								cmd: `gitm build ${appName} --env bug --app ${
 									opt.build === true ? 'all' : opt.build
-								}`,
+								} ${opt.data ? ' --data ' + opt.data : ''}`,
 								config: {
 									again: false,
 									success: t('Pulling up the build was successful'),

@@ -129,6 +129,12 @@ program.action(async (type: string, name: string, opt: GitmBuildOption): Promise
 			process.exit(1)
 		}
 	}
+
+	if (type === 'feature' && opt.asFeature) {
+		sh.echo(t('--as-feature is only used in the bugfix branch.'))
+		process.exit(1)
+	}
+
 	const isRemoteBranchExist = getIsBranchOrCommitExist(`${type}/${name}`, true)
 	if (allow.includes(type) && name) {
 		const base: string = opt.asFeature

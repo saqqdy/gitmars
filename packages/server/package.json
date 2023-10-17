@@ -1,7 +1,7 @@
 {
 	"name": "@gitmars/server",
 	"description": "gitmars可视化界面服务端",
-	"version": "5.2.0",
+	"version": "5.3.0",
 	"private": false,
 	"bin": {
 		"gitm-server": "./lib/www.mjs"
@@ -58,13 +58,13 @@
 		"gitmars": "workspace:*",
 		"hbs": "^4.2.0",
 		"http-errors": "^2.0.0",
-		"js-cool": "^5.5.0",
+		"js-cool": "^5.7.2",
 		"log4js": "^6.9.1",
 		"logger": "^0.0.1",
 		"lowdb": "^1.0.0",
 		"node-pty": "^1.0.0",
 		"os": "^0.1.2",
-		"os-lang": "^3.1.1",
+		"os-lang": "^3.2.0",
 		"shelljs": "^0.8.5",
 		"socket.io": "^4.7.2",
 		"tracer": "^1.1.6",
@@ -73,21 +73,21 @@
 	},
 	"devDependencies": {
 		"@eslint-sets/eslint-config-ts": "^5.8.0",
-		"@types/cookie-parser": "^1.4.3",
+		"@types/cookie-parser": "^1.4.4",
 		"@types/debug": "^4.1.8",
 		"@types/express": "^4.17.17",
 		"@types/http-errors": "^2.0.1",
-		"@types/logger": "^0.0.1",
-		"@types/node": "^20.5.0",
+		"@types/logger": "^0.0.2",
+		"@types/node": "^20.6.0",
 		"@types/shelljs": "^0.8.12",
-		"@types/uuid": "^9.0.2",
-		"eslint": "^8.47.0",
+		"@types/uuid": "^9.0.3",
+		"eslint": "^8.49.0",
 		"nodemon": "^3.0.1",
-		"prettier": "^3.0.2",
+		"prettier": "^3.0.3",
 		"rimraf": "^5.0.1",
 		"ts-node": "^10.9.1",
 		"tsnd": "^1.1.0",
-		"typescript": "^5.1.6"
+		"typescript": "^5.2.2"
 	},
 	"sideEffects": false,
 	"keywords": [

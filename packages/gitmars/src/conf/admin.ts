@@ -149,6 +149,20 @@ export const cmdConfig: GitmarsMultiOptionType = {
 				negate: false,
 				description: t('Whether to force a merge request'),
 				recommend: false
+			},
+			{
+				flags: '-d, --data <data>',
+				required: true,
+				optional: true,
+				variadic: false,
+				mandatory: false,
+				short: '-d',
+				long: '--data',
+				negate: false,
+				description: t('Other data to be transferred'),
+				defaultValue: '{}',
+				recommend: true,
+				value: '{}'
 			}
 		],
 		// validator opts

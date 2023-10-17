@@ -1,23 +1,23 @@
 import type { AnyFunction, AnyObject } from '../../typings'
 
 /**
- * 获取模板数据
+ * Getting template data
  *
  * @example
  * ```ts
  * const tmp = "${message}; project: ${project}; path: ${pwd}"
  * mapTemplate(tmp, {
- *     message: '运行成功',
+ *     message: 'Run successfully',
  *     project: 'gitmars',
  *     pwd: '/path/to/url'
  * })
- * // 运行成功；项目：gitmars；路径：/path/to/url
+ * // Run successfully; project: gitmars; path: /path/to/url
  * ```
- * @param tmp - 模板名称
- * @param data - 模板数据
+ * @param tmp - Template name
+ * @param data - Template data
  */
-function mapTemplate(tmp: string, data: AnyFunction | AnyObject): string | null {
-	if (!tmp || !data) return null
+function mapTemplate(tmp: string, data: AnyFunction | AnyObject): string {
+	if (!tmp || !data) throw new Error('"tmp" & "data" is required')
 	const str: string =
 		'' +
 		tmp.replace(/\$\{([a-zA-Z0-9-_]+)\}/g, (a, b) => {

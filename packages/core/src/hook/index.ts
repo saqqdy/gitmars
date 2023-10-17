@@ -3,8 +3,8 @@ import path from 'path'
 import sh from 'shelljs'
 import chalk from 'chalk'
 import ciInfo from 'ci-info'
+import { compareVersion } from 'js-cool'
 import getConfig from '#lib/getConfig'
-import compareVersion from '#lib/utils/compareVersion'
 import getGitVersion from '#lib/git/getGitVersion'
 import getGitRevParse from '#lib/git/getGitRevParse'
 import getHookComment from '#lib/hook/getHookComment'
@@ -168,7 +168,7 @@ export function removeLocalShell(dir: string = gitHookDir): void {
  * 初始化钩子
  */
 export function init(): void {
-	const gitVersionIsNew = gitVersion && compareVersion(gitVersion, '2.13.0')
+	const gitVersionIsNew = gitVersion && compareVersion(gitVersion, '2.13.0') > -1
 	// 集成环境不安装
 	if (ciInfo.isCI && config.skipCI) {
 		console.info(t('Continuous integration environment, skip hook installation'))
