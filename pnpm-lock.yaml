@@ -25,7 +25,7 @@ importers:
         version: 8.2.5
       js-cool:
         specifier: ^5.11.0
-        version: 5.11.0
+        version: 5.15.0
       morgan:
         specifier: ^1.10.0
         version: 1.10.0
@@ -116,13 +116,13 @@ importers:
         version: 1.4.0
       reinstaller:
         specifier: ^3.0.2
-        version: 3.0.2(debug@4.3.4)(js-cool@5.11.0)(typescript@5.2.2)
+        version: 3.0.2(debug@4.3.4)(js-cool@5.15.0)(typescript@5.2.2)
       rimraf:
         specifier: ^5.0.5
         version: 5.0.5
       rm-all:
         specifier: ^1.1.1
-        version: 1.1.1(js-cool@5.11.0)
+        version: 1.1.1(js-cool@5.15.0)
       rollup:
         specifier: ^4.1.4
         version: 4.1.4
@@ -7339,6 +7339,20 @@ packages:
       os-lang: 3.2.0
       tslib: 2.6.2
       use-downloads: 1.5.0
+    dev: false
+
+  /js-cool@5.15.0:
+    resolution: {integrity: sha512-kWwJrJfoaohfzSB3tyVeSat9zYGInx9gllkRldcdu2N1MFY7ECXYQxmlKQmyoB0sGlrbwmg145t/BcBLpJrEXA==}
+    engines: {node: '>=12.20'}
+    dependencies:
+      load-source: 1.2.0
+      mount-css: 1.2.0
+      mount-image: 1.2.0
+      mount-script: 1.2.0
+      mount-style: 1.2.0
+      os-lang: 3.2.0
+      tslib: 2.6.2
+      use-downloads: 1.5.0
 
   /js-tokens@4.0.0:
     resolution: {integrity: sha512-RdJUflcE3cUzKiMqQgsCu06FPu9UdIJO0beYbPhHN4k6apgJtifcoCtT9bcxOpYBtpD2kCM6Sbzg4CausW/PKQ==}
@@ -9466,7 +9480,7 @@ packages:
       functions-have-names: 1.2.3
     dev: true
 
-  /reinstaller@3.0.2(debug@4.3.4)(js-cool@5.11.0)(typescript@5.2.2):
+  /reinstaller@3.0.2(debug@4.3.4)(js-cool@5.15.0)(typescript@5.2.2):
     resolution: {integrity: sha512-VLjzE9tQMghK53x1Ccx96AEdRRe+dKq5zsnSNFLf1d7QsLAaRV0yX3lU1djgIaPYNSjDOXBRXjt8Y/GFTrHt/A==}
     hasBin: true
     peerDependencies:
@@ -9480,7 +9494,7 @@ packages:
       cosmiconfig: 8.3.6(typescript@5.2.2)
       debug: 4.3.4
       global-modules: 2.0.0
-      js-cool: 5.11.0
+      js-cool: 5.15.0
       monorepo-root: 2.5.1
       ora: 6.3.0
       what-pm: 2.5.1
@@ -9650,7 +9664,7 @@ packages:
       glob: 10.3.10
     dev: true
 
-  /rm-all@1.1.1(js-cool@5.11.0):
+  /rm-all@1.1.1(js-cool@5.15.0):
     resolution: {integrity: sha512-5n3SiDtp0BxHX485YhfbxR1RLtR9KlRTCj0hHahTufYEhUyE9ydy1nRtP4OG9kXifsYClu43gwkqcOnjpz/HPQ==}
     engines: {node: '>=12.20'}
     hasBin: true
@@ -9659,7 +9673,7 @@ packages:
     dependencies:
       '@node-kit/extra.fs': 3.2.0
       commander: 11.1.0
-      js-cool: 5.11.0
+      js-cool: 5.15.0
     dev: true
 
   /rollup-plugin-add-banner@1.1.0(rollup@4.1.4):
