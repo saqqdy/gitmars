@@ -1,4 +1,4 @@
-import type { GitmarsOptionType } from '../../typings'
+import type { GitmarsOptionType } from '../../typings/core'
 
 export interface GoCleanConfigType {
 	delOptions?: string[]
@@ -19,7 +19,10 @@ export interface GoCleanConfigType {
  * @param {array} sets.requiredArgs 必填参数
  * @returns {object} result 返回config
  */
-function cleanConfig(config: GitmarsOptionType, sets: GoCleanConfigType = {}): GitmarsOptionType {
+function cleanConfigSet(
+	config: GitmarsOptionType,
+	sets: GoCleanConfigType = {}
+): GitmarsOptionType {
 	const { delOptions = [], requiredOptions = [], delArgs = [], requiredArgs = [] } = sets
 	if (delOptions.length) {
 		let len = config.options.length
@@ -56,4 +59,4 @@ function cleanConfig(config: GitmarsOptionType, sets: GoCleanConfigType = {}): G
 	return config
 }
 
-export default cleanConfig
+export default cleanConfigSet

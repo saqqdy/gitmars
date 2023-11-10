@@ -1,5 +1,5 @@
 import sh from 'shelljs'
-import type { CommandType } from '../../typings'
+import type { CommandType } from '../../typings/core'
 import getGitRevParse from '#lib/git/getGitRevParse'
 import { isFileExist } from '#lib/utils/file'
 

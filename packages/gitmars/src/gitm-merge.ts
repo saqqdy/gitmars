@@ -5,7 +5,7 @@ import chalk from 'chalk'
 import { queue } from '@gitmars/core/lib/queue'
 import getIsGitProject from '@gitmars/core/lib/git/getIsGitProject'
 import getCurrentBranch from '@gitmars/core/lib/git/getCurrentBranch'
-import type { CommandType } from '../typings'
+import type { CommandType } from '../typings/gitmars'
 import lang from '#lib/common/local'
 
 const { t } = lang

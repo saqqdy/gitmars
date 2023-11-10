@@ -2,12 +2,14 @@ import chalk from 'chalk'
 import request from '@jssj/request'
 import getConfig from '#lib/getConfig'
 import { debug } from '#lib/utils/debug'
+import { getGitToken } from '#lib/git/getGitUser'
 import lang from '#lib/lang'
 
 const { t } = lang
 const config = getConfig()
 
 const MERGE_REQUESTS_NOTES_URL = `${config.gitHost}/api/v4/projects/${config.gitID}/merge_requests`
+const token = getGitToken()
 
 /**
  * 发起远程合并请求日志
@@ -18,13 +20,11 @@ const MERGE_REQUESTS_NOTES_URL = `${config.gitHost}/api/v4/projects/${config.git
 export async function createMergeRequestNotes({
 	iid,
 	body,
-	created_at,
-	token
+	created_at
 }: {
 	iid: number | string
 	body: string
 	created_at?: string
-	token: string
 }) {
 	const params = {
 		body,
@@ -53,12 +53,10 @@ export async function createMergeRequestNotes({
  */
 export async function getMergeRequestNotesList({
 	iid,
-	token,
 	sort = 'desc',
 	order_by = 'created_at'
 }: {
 	iid: number | string
-	token: string
 	sort?: 'asc' | 'desc'
 	order_by?: 'created_at' | 'updated_at'
 }) {
@@ -89,12 +87,10 @@ export async function getMergeRequestNotesList({
  */
 export async function getMergeRequestNotesDetail({
 	id,
-	iid,
-	token
+	iid
 }: {
 	id: number | string
 	iid: number | string
-	token: string
 }) {
 	const params = {
 		private_token: token
@@ -122,13 +118,11 @@ export async function getMergeRequestNotesDetail({
 export async function updateMergeRequestNotes({
 	id,
 	iid,
-	body,
-	token
+	body
 }: {
 	id: number | string
 	iid: number | string
 	body: string
-	token: string
 }) {
 	const fetchData = await request.put({
 		url: `${MERGE_REQUESTS_NOTES_URL}/${iid}/notes/${id}`,
@@ -156,12 +150,10 @@ export async function updateMergeRequestNotes({
  */
 export async function deleteMergeRequestNotes({
 	id,
-	iid,
-	token
+	iid
 }: {
 	id: number | string
 	iid: number | string
-	token: string
 }) {
 	const params = {
 		private_token: token

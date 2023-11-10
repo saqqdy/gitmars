@@ -1,5 +1,16 @@
-[*.{js,jsx,ts,tsx,vue}]
-indent_style = space
+root = true
+
+[*]
+end_of_line = lf
+insert_final_newline = true
+
+[*.{js,jsx,ts,tsx,vue,html}]
+root = true
+indent_style = tab
 indent_size = 4
 trim_trailing_whitespace = true
 insert_final_newline = true
+
+[*.{yml}]
+indent_style = space
+indent_size = 2

@@ -1,5 +1,6 @@
 import { encodeUnicode } from '#lib/utils/unicode'
 import getConfig from '#lib/getConfig'
+import { getGitToken } from '#lib/git/getGitUser'
 const config = getConfig()
 
 /**
@@ -11,10 +12,10 @@ const config = getConfig()
 function getCurlOfMergeRequest({
 	source_branch,
 	target_branch,
-	token,
 	description
 }: Record<string, string | undefined>): string {
 	let des = ''
+	const token = getGitToken()
 	if (description) {
 		des = `,\u005C"description\u005C":\u005C"${encodeUnicode(description)}\u005C"`
 	}

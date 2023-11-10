@@ -1,6 +1,6 @@
 import { createRequire } from 'node:module'
 import sh from 'shelljs'
-import type { RevertCacheType } from '../../typings'
+import type { RevertCacheType } from '../../typings/core'
 import getGitRevParse from '#lib/git/getGitRevParse'
 import { isFileExist, writeFileSync } from '#lib/utils/file'
 import { debug } from '#lib/utils/debug'

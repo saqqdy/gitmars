@@ -2,7 +2,12 @@ import { createRequire } from 'node:module'
 import ora from 'ora'
 import { extend } from 'js-cool'
 import chalk from 'chalk'
-import type { CommandMessageType, CommandType, CommandTypeCmd, QueueReturnsType } from '../typings'
+import type {
+	CommandMessageType,
+	CommandType,
+	CommandTypeCmd,
+	QueueReturnsType
+} from '../typings/core'
 import { setCommandCache } from '#lib/cache/commandCache'
 import getCommandMessage from '#lib/git/getCommandMessage'
 import { setLog } from '#lib/cache/log'

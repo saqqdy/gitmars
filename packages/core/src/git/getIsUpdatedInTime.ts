@@ -1,4 +1,4 @@
-import type { GitLogsType } from '../../typings'
+import type { GitLogsType } from '../../typings/core'
 import { debug } from '#lib/utils/debug'
 import getCurrentBranch from '#lib/git/getCurrentBranch'
 import getGitLogs from '#lib/git/getGitLogs'

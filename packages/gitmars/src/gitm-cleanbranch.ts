@@ -14,7 +14,7 @@ import { createArgs } from '@gitmars/core/lib/utils/command'
 import echo from '@gitmars/core/lib/utils/echo'
 import { spawnSync } from '@gitmars/core/lib/spawn'
 import getConfig from '@gitmars/core/lib/getConfig'
-import type { GitmarsBranchType, GitmarsOptionOptionsType } from '../typings'
+import type { GitmarsBranchType, GitmarsOptionOptionsType } from '../typings/gitmars'
 import lang from '#lib/common/local'
 import cleanbranchConfig from '#lib/conf/cleanbranch'
 

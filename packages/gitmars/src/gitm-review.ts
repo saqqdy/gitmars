@@ -4,13 +4,11 @@ import dayjs from 'dayjs'
 import inquirer from 'inquirer'
 import columnify from 'columnify'
 import chalk from 'chalk'
-import getUserToken from '@gitmars/core/lib/api/getUserToken'
 import getIsGitProject from '@gitmars/core/lib/git/getIsGitProject'
 import getGitConfig from '@gitmars/core/lib/git/getGitConfig'
 import sendGroupMessage from '@gitmars/core/lib/sendGroupMessage'
 import { createArgs } from '@gitmars/core/lib/utils/command'
 import echo from '@gitmars/core/lib/utils/echo'
-import getConfig from '@gitmars/core/lib/getConfig'
 import {
 	deleteMergeRequest,
 	getMergeRequestChanges,
@@ -21,7 +19,7 @@ import {
 	createMergeRequestNotes,
 	getMergeRequestNotesList
 } from '@gitmars/core/lib/api/mergeRequestNotes'
-import type { FetchDataType, GitmarsOptionOptionsType, InitInquirerPromptType } from '../typings'
+import type { GitmarsOptionOptionsType } from '../typings/gitmars'
 import lang from '#lib/common/local'
 import reviewConfig from '#lib/conf/review'
 
@@ -35,7 +33,6 @@ if (!getIsGitProject()) {
 }
 
 const { appName } = getGitConfig()
-const config = getConfig()
 
 interface GitmBuildOption {
 	state: 'all' | 'opened' | 'closed' | 'merged'
@@ -56,10 +53,7 @@ options.forEach((o: GitmarsOptionOptionsType) => {
 // .option('--state [state]', t('Filter merge request status, there are 2 types: opened, closed, not passed then default all'), null)
 // .option('--quiet', t('Do not push the message'), false)
 program.action(async (opt: GitmBuildOption): Promise<void> => {
-	const userInfoApi =
-		(config.apis && config.apis.userInfo && config.apis.userInfo.url) || config.api
-	const { token } = userInfoApi ? await getUserToken() : ({} as FetchDataType)
-	const mrList = await getMergeRequestList({ token, state: opt.state })
+	const mrList = await getMergeRequestList({ state: opt.state })
 	// 没有任何记录
 	if (mrList.length === 0) {
 		echo(yellow(t('No merge request record found, process has exited')))
@@ -120,7 +114,6 @@ program.action(async (opt: GitmBuildOption): Promise<void> => {
 		const { source_branch, target_branch } = mrList.find((item: any) => item.iid === iid)
 		if (accept === t('View Details')) {
 			const { changes, changes_count } = await getMergeRequestChanges({
-				token,
 				iid
 			})
 			echo(
@@ -150,7 +143,6 @@ program.action(async (opt: GitmBuildOption): Promise<void> => {
 			// 日志
 			const notes = (
 				(await getMergeRequestNotesList({
-					token,
 					iid
 				})) || []
 			)
@@ -172,7 +164,7 @@ program.action(async (opt: GitmBuildOption): Promise<void> => {
 				})
 			)
 		} else if (accept === t('Deleted')) {
-			await deleteMergeRequest({ token, iid })
+			await deleteMergeRequest({ iid })
 			!opt.quiet &&
 				sendGroupMessage(
 					t('{app} item {source} merged to {target} request ID {id} has been deleted', {
@@ -186,7 +178,6 @@ program.action(async (opt: GitmBuildOption): Promise<void> => {
 		} else if (accept === t('Close')) {
 			// 删除
 			await updateMergeRequest({
-				token,
 				iid,
 				data: { state_event: 'close' }
 			})
@@ -223,7 +214,7 @@ program.action(async (opt: GitmBuildOption): Promise<void> => {
 						}
 					)
 				)
-			await createMergeRequestNotes({ token, iid, body: note })
+			await createMergeRequestNotes({ iid, body: note })
 			echo(green(t('Submitted')))
 		}
 	}

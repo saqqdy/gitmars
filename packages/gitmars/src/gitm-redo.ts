@@ -10,12 +10,7 @@ import getCurrentBranch from '@gitmars/core/lib/git/getCurrentBranch'
 import { createArgs } from '@gitmars/core/lib/utils/command'
 import echo from '@gitmars/core/lib/utils/echo'
 import { delRevertCache, getRevertCache } from '@gitmars/core/lib/cache/revertCache'
-import type {
-	CommandType,
-	GitmarsOptionOptionsType,
-	InitInquirerPromptType,
-	RevertCacheType
-} from '../typings'
+import type { CommandType, GitmarsOptionOptionsType, RevertCacheType } from '../typings/gitmars'
 import lang from '#lib/common/local'
 import redoConfig from '#lib/conf/redo'
 

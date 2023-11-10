@@ -6,7 +6,7 @@ import getIsGitProject from '@gitmars/core/lib/git/getIsGitProject'
 import getGitRevParse from '@gitmars/core/lib/git/getGitRevParse'
 import { writeFile } from '@gitmars/core/lib/utils/file'
 import getConfig from '@gitmars/core/lib/getConfig'
-import type { GitmarsConfigProperty } from '@gitmars/core/typings/index'
+import type { GitmarsConfigProperty } from '@gitmars/core/typings/core'
 import lang from '#lib/common/local'
 import { defaults } from '#lib/common/global'
 

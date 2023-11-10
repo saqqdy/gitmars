@@ -1,4 +1,4 @@
-import type { GitLogKeysType, GitLogsType } from '../../typings'
+import type { GitLogKeysType, GitLogsType } from '../../typings/core'
 import { spawnSync } from '#lib/spawn'
 import getSeconds from '#lib/utils/getSeconds'
 import { debug } from '#lib/utils/debug'

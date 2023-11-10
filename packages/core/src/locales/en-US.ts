@@ -15,11 +15,11 @@ export default {
 		'Your version is detected as old, please upgrade before using',
 	'\nMac users upgrade method: sudo gitm upgrade latest -m -c npm \nWindows users use PowerShell or CMD: gitm upgrade latest -m -c npm.cmd':
 		'\nMac users upgrade method: sudo gitm upgrade latest -m -c npm \nWindows users use PowerShell or CMD: gitm upgrade latest -m -c npm.cmd',
-	'Please configure the address of the api interface used to request permissions, receive parameters in the form: url?name=git_user_name, return data=token':
-		'Please configure the address of the api interface used to request permissions, receive parameters in the form: url?name=git_user_name, return data=token',
+	'Please configure the address of the api interface used to request permissions, receive parameters in the form: url?name=git_user_name, return data.level':
+		'Please configure the address of the api interface used to request permissions, receive parameters in the form: url?name=git_user_name, return data.level',
 	'Please set the local git user name': 'Please set the local git user name',
 	'No user found, please contact admin': 'No user found, please contact admin',
-	'Please set access_token': 'Please set access_token',
+	'Please set git access token': 'Please set git access token',
 	'The request reported an error': 'The request reported an error',
 	'Please enter the correct environment name': 'Please enter the correct environment name',
 	'Please enter the correct application name': 'Please enter the correct application name',

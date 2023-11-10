@@ -2,13 +2,13 @@
 	"extends": "../../tsconfig.json",
 	"exclude": ["**/__tests__"],
 	"compilerOptions": {
-		"declaration": true,
-		"emitDeclarationOnly": true,
+		"composite": true,
 		"target": "ESNext",
 		"module": "ESNext",
-		"lib": ["ESNext"],
-		"sourceMap": false,
-		"rootDir": ".",
+		"sourceMap": true,
+		"declaration": true,
+		"emitDeclarationOnly": true,
+		"rootDir": "src",
 		"outDir": "lib",
 		"baseUrl": ".",
 		"paths": {

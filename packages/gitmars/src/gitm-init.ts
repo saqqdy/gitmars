@@ -6,7 +6,7 @@ import sh from 'shelljs'
 import inquirer from 'inquirer'
 import getIsGitProject from '@gitmars/core/lib/git/getIsGitProject'
 import getGitRevParse from '@gitmars/core/lib/git/getGitRevParse'
-import type { InitInquirerPromptType } from '../typings'
+import type { InitInquirerPromptType } from '../typings/gitmars'
 import lang from '#lib/common/local'
 import { defaults } from '#lib/common/global'
 

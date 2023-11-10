@@ -4,7 +4,7 @@ import chalk from 'chalk'
 import ora from 'ora'
 import { spawnSync } from '@gitmars/core/lib/spawn'
 import { createArgs } from '@gitmars/core/lib/utils/command'
-import type { GitmarsOptionOptionsType, PackageVersionTag } from '../typings'
+import type { GitmarsOptionOptionsType, PackageVersionTag } from '../typings/gitmars'
 import lang from '#lib/common/local'
 import upgradeConfig from '#lib/conf/upgrade'
 

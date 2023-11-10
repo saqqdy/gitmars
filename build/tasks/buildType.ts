@@ -11,7 +11,7 @@ export async function buildType() {
 	const builds = pkgs.map(async ({ name, build, dts }) => {
 		// Conflicts with dts=true
 		if (build === false || dts !== false) return
-		await runSpawnSync(`npx tsc -p tsconfig.declaration.json`, resolve(PACKAGE, name))
+		await runSpawnSync(`npx tsc -p tsconfig.json`, resolve(PACKAGE, name))
 	})
 	await Promise.all(builds)
 }
@@ -24,5 +24,5 @@ export async function cleanDirs() {
 
 export default series(
 	// wrapDisplayName('clean:dirs', cleanDirs),
-	parallel(wrapDisplayName('build:lib', buildType))
+	parallel(wrapDisplayName('build:type', buildType))
 )

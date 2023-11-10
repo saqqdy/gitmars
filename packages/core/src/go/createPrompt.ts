@@ -1,5 +1,5 @@
 import chalk from 'chalk'
-import type { GitmarsOptionArgsType, GitmarsOptionOptionsType } from '../../typings'
+import type { GitmarsOptionArgsType, GitmarsOptionOptionsType } from '../../typings/core'
 import lang from '#lib/lang'
 
 const { t } = lang

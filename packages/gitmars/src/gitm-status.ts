@@ -7,7 +7,7 @@ import getCurrentBranch from '@gitmars/core/lib/git/getCurrentBranch'
 import getGitStatus from '@gitmars/core/lib/git/getGitStatus'
 import { createArgs } from '@gitmars/core/lib/utils/command'
 import echo from '@gitmars/core/lib/utils/echo'
-import type { GitStatusInfoType, GitmarsOptionOptionsType } from '../typings'
+import type { GitStatusInfoType, GitmarsOptionOptionsType } from '../typings/gitmars'
 import lang from '#lib/common/local'
 import statusConfig from '#lib/conf/status'
 

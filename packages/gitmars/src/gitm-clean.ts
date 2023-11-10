@@ -10,7 +10,7 @@ import { createArgs } from '@gitmars/core/lib/utils/command'
 import { cleanCache } from '@gitmars/core/lib/cache/cache'
 import { cleanPkgInfo } from '@gitmars/core/lib/utils/pkgInfo'
 import { cleanBuildConfig } from '@gitmars/core/lib/build/buildConfig'
-import type { GitmarsOptionOptionsType } from '../typings'
+import type { GitmarsOptionOptionsType } from '../typings/gitmars'
 import lang from '#lib/common/local'
 import cleanConfig from '#lib/conf/clean'
 

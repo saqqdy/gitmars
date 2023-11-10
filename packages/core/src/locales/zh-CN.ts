@@ -14,11 +14,11 @@ export default {
 		'检测到你的版本比较古老，请升级之后再使用',
 	'\nMac users upgrade method: sudo gitm upgrade latest -m -c npm \nWindows users use PowerShell or CMD: gitm upgrade latest -m -c npm.cmd':
 		'\nMac用户升级方法：sudo gitm upgrade latest -m -c npm\nWindows用户使用PowerShell或CMD：gitm upgrade latest -m -c npm.cmd',
-	'Please configure the address of the api interface used to request permissions, receive parameters in the form: url?name=git_user_name, return data=token':
-		'请配置用于请求权限的api接口地址，接收参数形式：url?name=git_user_name，返回data=token',
+	'Please configure the address of the api interface used to request permissions, receive parameters in the form: url?name=git_user_name, return data.level':
+		'请配置用于请求权限的api接口地址，接收参数形式：url?name=git_user_name，返回data.level',
 	'Please set the local git user name': '请设置本地git用户名',
 	'No user found, please contact admin': '没有找到用户，请联系管理员',
-	'Please set access_token': '请设置access_token',
+	'Please set git access token': '请设置git access token',
 	'The request reported an error': '请求报错了',
 	'Please enter the correct environment name': '请输入正确的环境名称',
 	'Please enter the correct application name': '请输入正确的应用名称',

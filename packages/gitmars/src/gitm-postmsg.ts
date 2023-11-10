@@ -2,7 +2,7 @@
 import { program } from 'commander'
 import sendGroupMessage from '@gitmars/core/lib/sendGroupMessage'
 import { createArgs } from '@gitmars/core/lib/utils/command'
-import type { GitmarsOptionOptionsType } from '../typings'
+import type { GitmarsOptionOptionsType } from '../typings/gitmars'
 import lang from '#lib/common/local'
 import postmsgConfig from '#lib/conf/postmsg'
 

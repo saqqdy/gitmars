@@ -1,43 +1,36 @@
 {
 	"compilerOptions": {
-		"allowJs": true,
 		"target": "esnext",
 		"moduleResolution": "node",
-		// "noLib": true,
+		"noLib": false,
 		"lib": ["esnext"],
 		"sourceMap": false,
+		"resolveJsonModule": true,
 		"module": "commonjs",
-		"jsx": "preserve",
 		"strict": true,
-		"declaration": true,
-		// "declarationMap": true,
-		"skipLibCheck": true,
 		"noImplicitOverride": true,
-		"noUnusedLocals": false,
+		"noUnusedLocals": true,
 		"esModuleInterop": true,
 		"emitDecoratorMetadata": true,
 		"experimentalDecorators": true,
 		"allowSyntheticDefaultImports": true,
-		"resolveJsonModule": true,
-		"noUnusedParameters": false,
-		"typeRoots": ["node_modules/@types"]
+		"skipLibCheck": true
 		// "baseUrl": ".",
-		// "rootDirs": ["core", "gitmars", "docs"],
-		// "composite": true,
 		// "paths": {
-		//     "~/*": ["./*"],
-		//     "@/package": ["./package.json"]
+		// 	"@/*": ["./packages/*"],
+		// 	"@/package": ["./package.json"]
 		// }
 	},
-	"references": [
-		{
-			"path": "./packages/core/tsconfig.json"
-		},
-		{
-			"path": "./packages/gitmars/tsconfig.json"
-		},
-		{
-			"path": "./packages/docs/tsconfig.json"
-		}
-	]
+	"exclude": ["**/*_bak", "**/*.bak"]
+	// "references": [
+	// 	{
+	// 		"path": "./packages/core/tsconfig.json"
+	// 	},
+	// 	{
+	// 		"path": "./packages/gitmars/tsconfig.json"
+	// 	},
+	// 	{
+	// 		"path": "./packages/docs/tsconfig.json"
+	// 	}
+	// ]
 }

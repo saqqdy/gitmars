@@ -1,5 +1,5 @@
 import sh from 'shelljs'
-import type { GitmarsLogType } from '../../typings'
+import type { GitmarsLogType } from '../../typings/core'
 import getGitRevParse from '#lib/git/getGitRevParse'
 import { removeFile } from '#lib/utils/file'
 import lang from '#lib/lang'

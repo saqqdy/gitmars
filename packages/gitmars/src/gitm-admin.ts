@@ -3,7 +3,7 @@ import { createRequire } from 'node:module'
 import { Command } from 'commander'
 import chalk from 'chalk'
 import { getType } from 'js-cool'
-import getUserToken from '@gitmars/core/lib/api/getUserToken'
+import getUserInfo from '@gitmars/core/lib/api/getUserInfo'
 import { queue } from '@gitmars/core/lib/queue'
 import getIsBranchOrCommitExist from '@gitmars/core/lib/git/getIsBranchOrCommitExist'
 import getIsGitProject from '@gitmars/core/lib/git/getIsGitProject'
@@ -21,7 +21,7 @@ import type {
 	FetchDataType,
 	GitmarsMainBranchType,
 	GitmarsOptionOptionsType
-} from '../typings'
+} from '../typings/gitmars'
 import lang from '#lib/common/local'
 import adminConfig from '#lib/conf/admin'
 
@@ -36,7 +36,7 @@ if (!getIsGitProject()) {
 
 const { appName } = getGitConfig()
 const config = getConfig()
-const userInfoApi = (config.apis && config.apis.userInfo && config.apis.userInfo.url) || config.api
+const userInfoApi = config.apis?.userInfo?.url || config.api
 const mergeRequestModule = require.resolve('@gitmars/core/lib/api/mergeRequest')
 const { approve, clean, create, publish, update } = adminConfig
 interface GitmBuildOption {
@@ -149,11 +149,7 @@ publish.options.forEach((o: GitmarsOptionOptionsType) => {
 // .option('-d --data <data>', t('Other data to be transferred'), '{}')
 publishProgram.action(
 	async (type: PublishOptsType, opt: GitmBuildOption['publish']): Promise<void> => {
-		const {
-			token,
-			level,
-			nickname = ''
-		} = userInfoApi ? await getUserToken() : ({} as FetchDataType)
+		const { level, nickname = '' } = userInfoApi ? await getUserInfo() : ({} as FetchDataType)
 		const opts = ['bugfix', 'release', 'support'] // Permissible commands
 		const status = checkGitStatus()
 		const curBranch = await getCurrentBranch()
@@ -405,7 +401,6 @@ publishProgram.action(
 											options: {
 												source_branch: config.bugfix,
 												target_branch: config.release,
-												token,
 												description: opt.description
 											}
 										},
@@ -450,7 +445,6 @@ publishProgram.action(
 												options: {
 													source_branch: config.support,
 													target_branch: config.release,
-													token,
 													description: opt.description
 												}
 											},
@@ -495,7 +489,6 @@ publishProgram.action(
 												options: {
 													source_branch: config.support,
 													target_branch: config.bugfix,
-													token,
 													description: opt.description
 												}
 											},
@@ -540,7 +533,6 @@ publishProgram.action(
 											options: {
 												source_branch: config.release,
 												target_branch: config.master,
-												token,
 												description: opt.description
 											}
 										},
@@ -649,7 +641,6 @@ publishProgram.action(
 											options: {
 												source_branch: config.bugfix,
 												target_branch: config.master,
-												token,
 												description: opt.description
 											}
 										},
@@ -838,7 +829,6 @@ publishProgram.action(
 									options: {
 										source_branch: config.release,
 										target_branch: config.bugfix,
-										token,
 										description: opt.description
 									}
 								},
@@ -899,11 +889,7 @@ update.options.forEach((o: GitmarsOptionOptionsType) => {
 // .option('-f, --force', t('Whether to force a merge request'), false)
 updateProgram.action(
 	async (type: GitmarsMainBranchType, opt: GitmBuildOption['update']): Promise<void> => {
-		const {
-			token,
-			level,
-			nickname = ''
-		} = userInfoApi ? await getUserToken() : ({} as FetchDataType)
+		const { level, nickname = '' } = userInfoApi ? await getUserInfo() : ({} as FetchDataType)
 		const opts = ['bugfix', 'release', 'support'] // Permissible commands
 		const base = type === 'release' ? config.master : config.release
 		const status = checkGitStatus()
@@ -988,7 +974,6 @@ updateProgram.action(
 								options: {
 									source_branch: base,
 									target_branch: config[type],
-									token,
 									description: opt.description
 								}
 							},

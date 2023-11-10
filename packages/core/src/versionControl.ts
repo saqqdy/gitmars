@@ -3,7 +3,7 @@ import sh from 'shelljs'
 import chalk from 'chalk'
 import semverDiff from 'semver-diff'
 // import { version } from '../package.json' assert { type: 'json' }
-import type { VersionControlType } from '../typings'
+import type { VersionControlType } from '../typings/core'
 import { getPkgInfo } from '#lib/utils/pkgInfo'
 import { debug } from '#lib/utils/debug'
 import lang from '#lib/lang'

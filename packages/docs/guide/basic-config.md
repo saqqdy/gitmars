@@ -257,18 +257,19 @@ apollo 构建项目配置参考
 > 2.0.1 新增<br>
 > 2.17.0 新增`level=3`审核员，审核员有合并权限可以执行`admin publish`动作，但是与管理员不同的是审核员提交代码会推送到远程。原开发者调整为 4<br>
 > 2.19.0 版本开始移除这项配置，由`apis.userInfo`替代
+> 6.0.0 版本开始`token`从git config里面取`user.token`，接口不需要再返回token
 
 - 类型：`String`
 - 默认：``
 - 必填：否
 - 说明：
 
-返回的参数必须包含 token 和 level
+返回的参数必须包含 `level`，可选返回 `nickname`
 
 ```json
 {
-  "token": "gitlab access_token", // gitlab上生成的access_token
-  "level": 4 // 1=超级管理员 2=管理员 3=审核员 4=开发者
+  "level": 4, // 1=超级管理员 2=管理员 3=审核员 4=开发者
+  "nickname": ""
 }
 ```
 

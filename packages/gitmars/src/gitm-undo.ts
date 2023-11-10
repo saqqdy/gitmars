@@ -12,14 +12,13 @@ import getCurrentBranch from '@gitmars/core/lib/git/getCurrentBranch'
 import { createArgs } from '@gitmars/core/lib/utils/command'
 import echo from '@gitmars/core/lib/utils/echo'
 import { addRevertCache, getRevertCache, setRevertCache } from '@gitmars/core/lib/cache/revertCache'
-import type { GitLogKeysType } from '@gitmars/core/typings/index'
+import type { GitLogKeysType } from '@gitmars/core/typings/core'
 import type {
 	CommandType,
 	GitLogsType,
 	GitmarsOptionOptionsType,
-	InitInquirerPromptType,
 	RevertCacheType
-} from '../typings'
+} from '../typings/gitmars'
 import lang from '#lib/common/local'
 import undoConfig from '#lib/conf/undo'
 

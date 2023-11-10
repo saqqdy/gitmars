@@ -1,7 +1,7 @@
 import sh from 'shelljs'
 import chalk from 'chalk'
 import request from '@jssj/request'
-import type { ApolloConfigType } from '../typings'
+import type { ApolloConfigType } from '../typings/core'
 import { getBuildConfig } from '#lib/build/buildConfig'
 import lang from '#lib/lang'
 

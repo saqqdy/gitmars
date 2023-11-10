@@ -7,7 +7,7 @@ import searchBranches from '@gitmars/core/lib/git/searchBranches'
 import getIsGitProject from '@gitmars/core/lib/git/getIsGitProject'
 import getIsBranchOrCommitExist from '@gitmars/core/lib/git/getIsBranchOrCommitExist'
 import { createArgs } from '@gitmars/core/lib/utils/command'
-import type { CommandType, GitmarsBranchType, GitmarsOptionOptionsType } from '../typings'
+import type { CommandType, GitmarsBranchType, GitmarsOptionOptionsType } from '../typings/gitmars'
 import branchConfig from '#lib/conf/branch'
 import lang from '#lib/common/local'
 

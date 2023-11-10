@@ -7,7 +7,7 @@ import type {
 	ApolloConfigType,
 	GitmarsConfigApisBuildConfigType,
 	GitmarsConfigType
-} from '../../typings'
+} from '../../typings/core'
 import { isCacheExpired, updateCacheTime } from '#lib/cache/cache'
 import { isFileExist, removeFile, writeFile } from '#lib/utils/file'
 import lang from '#lib/lang'
@@ -105,9 +105,4 @@ export function cleanBuildConfig() {
 			url: CACHE_PATH + '/buildConfig.txt'
 		}
 	])
-}
-
-export default {
-	getBuildConfig,
-	cleanBuildConfig
 }

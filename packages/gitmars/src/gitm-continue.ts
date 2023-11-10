@@ -8,7 +8,7 @@ import getIsGitProject from '@gitmars/core/lib/git/getIsGitProject'
 import getGitStatus from '@gitmars/core/lib/git/getGitStatus'
 import { createArgs } from '@gitmars/core/lib/utils/command'
 import { cleanCommandCache, getCommandCache } from '@gitmars/core/lib/cache/commandCache'
-import type { CommandType, GitmarsOptionOptionsType } from '../typings'
+import type { CommandType, GitmarsOptionOptionsType } from '../typings/gitmars'
 import continueConfig from '#lib/conf/continue'
 import lang from '#lib/common/local'
 

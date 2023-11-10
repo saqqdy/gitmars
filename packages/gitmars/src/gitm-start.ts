@@ -9,7 +9,7 @@ import checkGitStatus from '@gitmars/core/lib/git/checkGitStatus'
 import { createArgs } from '@gitmars/core/lib/utils/command'
 import getConfig from '@gitmars/core/lib/getConfig'
 import { isNeedUpgrade, upgradeGitmars } from '@gitmars/core/lib/versionControl'
-import type { CommandType, GitmarsOptionOptionsType, QueueReturnsType } from '../typings'
+import type { CommandType, GitmarsOptionOptionsType } from '../typings/gitmars'
 import lang from '#lib/common/local'
 import startConfig from '#lib/conf/start'
 

@@ -5,7 +5,7 @@ import chalk from 'chalk'
 import { createArgs } from '@gitmars/core/lib/utils/command'
 import { spawnSync } from '@gitmars/core/lib/spawn'
 import echo from '@gitmars/core/lib/utils/echo'
-import type { GitmarsOptionOptionsType, PackageVersionTag } from '../typings'
+import type { GitmarsOptionOptionsType, PackageVersionTag } from '../typings/gitmars'
 import installConfig from '#lib/conf/install'
 import lang from '#lib/common/local'
 

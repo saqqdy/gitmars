@@ -1,5 +1,5 @@
 import inquirer from 'inquirer'
-import type { GitmarsOptionType } from '../../typings'
+import type { GitmarsOptionType } from '../../typings/core'
 import createPrompt from '#lib/go/createPrompt'
 
 export interface CommandNeedInput {

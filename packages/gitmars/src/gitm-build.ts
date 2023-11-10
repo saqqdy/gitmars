@@ -2,8 +2,8 @@
 import { program } from 'commander'
 import { createArgs } from '@gitmars/core/lib/utils/command'
 import runJenkins from '@gitmars/core/lib/build/runJenkins'
-import { type ApolloBranchList } from '@gitmars/core/typings/index'
-import type { GitmarsOptionOptionsType } from '../typings'
+import { type ApolloBranchList } from '@gitmars/core/typings/core'
+import type { GitmarsOptionOptionsType } from '../typings/gitmars'
 import lang from '#lib/common/local'
 import buildConfig from '#lib/conf/build'
 
