@@ -54,7 +54,7 @@
 		"ci-info": "^4.0.0",
 		"columnify": "^1.6.0",
 		"commander": "^11.1.0",
-		"cosmiconfig": "^8.3.6",
+		"cosmiconfig": "^9.0.0",
 		"cross-spawn": "^7.0.3",
 		"dayjs": "^1.11.10",
 		"debug": "^4.3.4",
