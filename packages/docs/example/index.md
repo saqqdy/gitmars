@@ -487,27 +487,6 @@ bugfix 分支基于 bug 创建，所以发布的时候会吧 bug 合并到 maste
 
 ## 效率
 
-### merge
-
-#### 合并分支（--no-ff）
-
-- 使用：`gitm merge feature/10088`
-- 参考：[gitm merge](../api/#gitm-merge)
-
-::: tip 其他写法
-
-- 使用简写 `gitm mg feature/10088`
-
-:::
-
-- 结果：
-
-```shell
-    ➜  gitmars git:(support/graphql) gitm merge feature/10088
-    ...
-    ➜  gitmars git:(support/graphql)
-```
-
 ### copy
 
 #### 复制 commit 记录

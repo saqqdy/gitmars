@@ -69,10 +69,6 @@ const sidebar = {
 			collapsable: false,
 			items: [
 				{
-					text: 'merge',
-					link: '/example/#merge'
-				},
-				{
 					text: 'copy',
 					link: '/example/#copy'
 				},
@@ -142,10 +138,6 @@ const sidebar = {
 			text: '效率',
 			collapsable: false,
 			items: [
-				{
-					text: 'gitm merge',
-					link: '/api/#gitm-merge'
-				},
 				{
 					text: 'gitm copy',
 					link: '/api/#gitm-copy'

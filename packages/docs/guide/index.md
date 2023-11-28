@@ -74,7 +74,6 @@ title: guide
 - 远程 review 代码 [gitm review](../api/#gitm-review)
 - 清理合并过的功能分支 [gitm cleanbranch](../api/#gitm-cleanbranch)
 - 简化 git 的 cherry-pick 操作 [gitm copy](../api/#gitm-copy)
-- 合并代码 [gitm merge](../api/#gitm-merge)
 - 继续未完成的操作 [gitm continue](../api/#gitm-continue)
 - 撤销提交 [gitm revert](../api/#gitm-revert)
 - 撤回某次提交记录或者撤回谋条分支的合并记录 [gitm undo](../api/#gitm-undo)
@@ -96,7 +95,6 @@ title: guide
 - 发布分支 [gitm admin publish](../api/#gitm-admin-publish)
 - 更新主干分支代码 [gitm admin update](../api/#gitm-admin-update)
 - 清理分支 [gitm admin clean](../api/#gitm-admin-clean)
-- 查看版本号 [gitm version](../api/#gitm-version)
 
 ## 为什么不用 GitFlow
 

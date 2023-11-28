@@ -54,8 +54,6 @@ program
 	.alias('clb')
 	.command('copy <id>', t("Simplify git's cherry-pick operation"))
 	.alias('cp')
-	.command('merge <name>', t('Merge code'))
-	.alias('mg')
 	.command('continue', t('Continue unfinished operations'))
 	.alias('ct')
 	.command('revert', t('Undo commit'))
@@ -123,8 +121,6 @@ program.on('command:*', function (types: string[], opts: string[]) {
 		'clb',
 		'copy',
 		'cp',
-		'merge',
-		'mg',
 		'continue',
 		'ct',
 		'revert',

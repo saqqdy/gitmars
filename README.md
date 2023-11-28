@@ -94,7 +94,6 @@ yarn global add gitmars
 - 远程 review 代码 [gitm review](http://www.saqqdy.com/gitmars/api/#gitm-review)
 - 清理合并过的功能分支 [gitm cleanbranch](http://www.saqqdy.com/gitmars/api/#gitm-cleanbranch)
 - 简化 git 的 cherry-pick 操作 [gitm copy](http://www.saqqdy.com/gitmars/api/#gitm-copy)
-- 合并代码 [gitm merge](http://www.saqqdy.com/gitmars/api/#gitm-merge)
 - 继续未完成的操作 [gitm continue](http://www.saqqdy.com/gitmars/api/#gitm-continue)
 - 撤销提交 [gitm revert](http://www.saqqdy.com/gitmars/api/#gitm-revert)
 - 撤回某次提交记录或者撤回谋条分支的合并记录 [gitm undo](http://www.saqqdy.com/gitmars/api/#gitm-undo)
@@ -116,7 +115,6 @@ yarn global add gitmars
 - 发布分支 [gitm admin publish](http://www.saqqdy.com/gitmars/api/#gitm-admin-publish)
 - 更新主干分支代码 [gitm admin update](http://www.saqqdy.com/gitmars/api/#gitm-admin-update)
 - 清理分支 [gitm admin clean](http://www.saqqdy.com/gitmars/api/#gitm-admin-clean)
-- 查看版本号 [gitm version](http://www.saqqdy.com/gitmars/api/#gitm-version)
 
 ## 智能导航
 

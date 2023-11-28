@@ -400,33 +400,6 @@ gitm ct -l
 
 ## 效率
 
-### gitm merge
-
-#### 短指令：gitm mg
-
-合并分支，类似 git merge 功能
-
-- 使用：`gitm merge <name>`
-- 参数：
-
-<div class="table-prop">
-
-| 参数 | 说明       | 类型     | 可选值 | 必填 | 默认 |
-| ---- | ---------- | -------- | ------ | ---- | ---- |
-| name | merge 来源 | `String` | -      | 是   | -    |
-
-</div>
-
-- 示例：
-
-合并 20001 分支到当前分支
-
-```shell
-gitm merge 20001
-# or
-gitm mg 20001
-```
-
 ### gitm copy
 
 #### 短指令：gitm cp
