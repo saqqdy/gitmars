@@ -141,7 +141,7 @@ program.action(async (type: string, name: string, opt: GitmBuildOption): Promise
 					? t(
 							'If you find multiple branches with names containing {type}, please enter the branch type',
 							{ type }
-					  )
+						)
 					: red(t('Branch does not exist, please enter it correctly'))
 			)
 			process.exit(1)
@@ -212,7 +212,7 @@ program.action(async (type: string, name: string, opt: GitmBuildOption): Promise
 								}
 							},
 							`git checkout ${type}/${name}`
-					  ]
+						]
 					: [
 							{
 								message: t('{source} has been merged with {target}', {
@@ -220,7 +220,7 @@ program.action(async (type: string, name: string, opt: GitmBuildOption): Promise
 									target: config.develop
 								})
 							}
-					  ]
+						]
 			)
 			if (opt.build) {
 				cmd = cmd.concat([
@@ -299,7 +299,7 @@ program.action(async (type: string, name: string, opt: GitmBuildOption): Promise
 											}
 										},
 										`git checkout ${type}/${name}`
-								  ]
+									]
 								: [
 										{
 											message: t('{source} has been merged with {target}', {
@@ -307,7 +307,7 @@ program.action(async (type: string, name: string, opt: GitmBuildOption): Promise
 												target: base
 											})
 										}
-								  ]
+									]
 						)
 					} else {
 						if (!isDescriptionCorrect) {
@@ -409,7 +409,7 @@ program.action(async (type: string, name: string, opt: GitmBuildOption): Promise
 											}
 										},
 										`git checkout ${type}/${name}`
-								  ]
+									]
 								: [
 										{
 											message: t('{source} has been merged with {target}', {
@@ -417,7 +417,7 @@ program.action(async (type: string, name: string, opt: GitmBuildOption): Promise
 												target: config.release
 											})
 										}
-								  ]
+									]
 						)
 					} else {
 						if (!isDescriptionCorrect) {
@@ -519,7 +519,7 @@ program.action(async (type: string, name: string, opt: GitmBuildOption): Promise
 											}
 										},
 										`git checkout ${type}/${name}`
-								  ]
+									]
 								: [
 										{
 											message: t('{source} has been merged with {target}', {
@@ -527,7 +527,7 @@ program.action(async (type: string, name: string, opt: GitmBuildOption): Promise
 												target: config.bugfix
 											})
 										}
-								  ]
+									]
 						)
 					} else {
 						if (!isDescriptionCorrect) {

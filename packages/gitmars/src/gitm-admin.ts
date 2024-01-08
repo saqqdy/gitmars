@@ -234,7 +234,7 @@ publishProgram.action(
 											fail: t('Push failed, please follow the prompts')
 										}
 									}
-							  ]
+								]
 							: [
 									{
 										message: t('{source} has been merged with {target}', {
@@ -242,7 +242,7 @@ publishProgram.action(
 											target: config.release
 										})
 									}
-							  ],
+								],
 					support: ([] as Array<CommandType | string | string[]>)
 						.concat(
 							isNeedCombineSupportToRelease || opt.force
@@ -280,7 +280,7 @@ publishProgram.action(
 												fail: t('Push failed, please follow the prompts')
 											}
 										}
-								  ]
+									]
 								: [
 										{
 											message: t('{source} has been merged with {target}', {
@@ -288,7 +288,7 @@ publishProgram.action(
 												target: config.release
 											})
 										}
-								  ]
+									]
 						)
 						.concat(
 							isNeedCombineSupportToBugfix || opt.force
@@ -323,7 +323,7 @@ publishProgram.action(
 												fail: t('Push failed, please follow the prompts')
 											}
 										}
-								  ]
+									]
 								: [
 										{
 											message: t('{source} has been merged with {target}', {
@@ -331,7 +331,7 @@ publishProgram.action(
 												target: config.bugfix
 											})
 										}
-								  ]
+									]
 						),
 					release:
 						isNeedCombineReleaseToMaster || opt.force
@@ -369,7 +369,7 @@ publishProgram.action(
 											fail: t('Push failed, please follow the prompts')
 										}
 									}
-							  ]
+								]
 							: [
 									{
 										message: t('{source} has been merged with {target}', {
@@ -377,7 +377,7 @@ publishProgram.action(
 											target: config.master
 										})
 									}
-							  ]
+								]
 				}
 			} else {
 				if (!isDescriptionCorrect) {
@@ -425,7 +425,7 @@ publishProgram.action(
 											}
 										)}"`
 									]
-							  ]
+								]
 							: [
 									{
 										message: t('{source} has been merged with {target}', {
@@ -433,7 +433,7 @@ publishProgram.action(
 											target: config.release
 										})
 									}
-							  ],
+								],
 					support: ([] as Array<CommandType | string | string[]>)
 						.concat(
 							isNeedCombineSupportToRelease || opt.force
@@ -469,7 +469,7 @@ publishProgram.action(
 												}
 											)}"`
 										]
-								  ]
+									]
 								: [
 										{
 											message: t('{source} has been merged with {target}', {
@@ -477,7 +477,7 @@ publishProgram.action(
 												target: config.release
 											})
 										}
-								  ]
+									]
 						)
 						.concat(
 							isNeedCombineSupportToBugfix || opt.force
@@ -513,7 +513,7 @@ publishProgram.action(
 												}
 											)}"`
 										]
-								  ]
+									]
 								: [
 										{
 											message: t('{source} has been merged with {target}', {
@@ -521,7 +521,7 @@ publishProgram.action(
 												target: config.bugfix
 											})
 										}
-								  ]
+									]
 						),
 					release:
 						isNeedCombineReleaseToMaster || opt.force
@@ -557,7 +557,7 @@ publishProgram.action(
 											}
 										)}"`
 									]
-							  ]
+								]
 							: [
 									{
 										message: t('{source} has been merged with {target}', {
@@ -565,7 +565,7 @@ publishProgram.action(
 											target: config.master
 										})
 									}
-							  ]
+								]
 				}
 			}
 			// Publish the bug branch and sync to master
@@ -610,7 +610,7 @@ publishProgram.action(
 											fail: t('Push failed, please follow the prompts')
 										}
 									}
-							  ]
+								]
 							: [
 									{
 										message: t('{source} has been merged with {target}', {
@@ -618,7 +618,7 @@ publishProgram.action(
 											target: config.master
 										})
 									}
-							  ]
+								]
 					)
 				} else {
 					if (!isDescriptionCorrect) {
@@ -665,7 +665,7 @@ publishProgram.action(
 											}
 										)}"`
 									]
-							  ]
+								]
 							: [
 									{
 										message: t('{source} has been merged with {target}', {
@@ -673,7 +673,7 @@ publishProgram.action(
 											target: config.master
 										})
 									}
-							  ]
+								]
 					)
 				}
 				if (opt.build && (!level || level < 4)) {
@@ -752,7 +752,7 @@ publishProgram.action(
 											fail: t('Push failed, please follow the prompts')
 										}
 									}
-							  ]
+								]
 							: [
 									{
 										message: t('{source} has been merged with {target}', {
@@ -760,7 +760,7 @@ publishProgram.action(
 											target: config.bugfix
 										})
 									}
-							  ]
+								]
 					)
 				} else {
 					if (!level || level < 4) {
@@ -800,7 +800,7 @@ publishProgram.action(
 												fail: t('Push failed, please follow the prompts')
 											}
 										}
-								  ]
+									]
 								: [
 										{
 											message: t('{source} has been merged with {target}', {
@@ -808,7 +808,7 @@ publishProgram.action(
 												target: config.bugfix
 											})
 										}
-								  ]
+									]
 						)
 					} else {
 						if (!isDescriptionCorrect) {

@@ -118,7 +118,7 @@ program.action(async (type: string, name: string, opt: GitmBuildOption): Promise
 					? t(
 							'If you find multiple branches with names containing {type}, please enter the branch type',
 							{ type }
-					  )
+						)
 					: red(t('Branch does not exist, please enter it correctly'))
 			)
 			process.exit(1)
@@ -135,8 +135,8 @@ program.action(async (type: string, name: string, opt: GitmBuildOption): Promise
 		const base: string = opt.asFeature
 			? config.release
 			: type === 'bugfix'
-			? config.bugfix
-			: config.release
+				? config.bugfix
+				: config.release
 		let cmd: Array<CommandType | string | string[]> = []
 		// Is it necessary to merge dev
 		const isNeedCombineDevelop = !getIsMergedTargetBranch(`${type}/${name}`, config.develop, {

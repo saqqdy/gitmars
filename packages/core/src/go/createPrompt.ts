@@ -97,12 +97,12 @@ function createPrompt(
 										tips:
 											'defaultValue' in opts && opts.defaultValue !== ''
 												? ', ' +
-												  t('default "{{{defaultValue}}}"', {
+													t('default "{{{defaultValue}}}"', {
 														defaultValue: opts.defaultValue
-												  })
+													})
 												: ''
 									})
-							  )
+								)
 							: ''
 					}`,
 					transformer: (val: string, answers: object, flags: any) => {

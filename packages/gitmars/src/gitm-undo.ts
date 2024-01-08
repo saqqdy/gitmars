@@ -67,11 +67,11 @@ function getRevertCommitIDs(commitIDs: string[]): string[] {
 						? t(
 								'Detected {id} This record has been revert once, please check if there is an error',
 								{ id: commitIDs[len] }
-						  )
+							)
 						: t(
 								'The record {id} is detected as a revert record, please use the "gitm redo" operation',
 								{ id: commitIDs[len] }
-						  )
+							)
 				)
 			)
 			commitIDs.splice(len, 1)
@@ -138,11 +138,11 @@ function calculate(all = false, opt: GitmBuildOption) {
 						? t(
 								'Detected that {id} has failed to undo this record and has deleted the related logs',
 								{ id: revertCache[len].before['%H']! }
-						  )
+							)
 						: t(
 								'The record {id} was detected to have been recovered, and the related logs were deleted',
 								{ id: revertCache[len].before['%H']! }
-						  )
+							)
 				)
 			)
 			revertCache.splice(len, 1)
