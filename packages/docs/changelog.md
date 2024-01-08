@@ -3,8 +3,9 @@
 ## 2024.01.08 v6.0.0
 
 1. 移除 `server` `ui` 两个子项目
-2. 弃用 `gitm merge` 指令
-3. 升级依赖包
+2. 6.0.0 版本开始`token`从git config里面取`user.token`，接口不需要再返回token
+3. 弃用 `gitm merge` 指令
+4. 升级依赖包
 
 ## 2023.09.09 v5.3.0
 
