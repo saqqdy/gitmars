@@ -411,5 +411,12 @@ export default {
 	'{source} branch has merged {target} branch': '{source}合并过{target}',
 	'Use strict mode': '使用严格模式',
 	'--as-feature is only used in the bugfix branch.': '--as-feature仅用于bugfix分支',
-	'Other data to be transferred': '需要传输的其他数据'
+	'Other data to be transferred': '需要传输的其他数据',
+	'Please double check the following build parameters': '请仔细确认以下构建参数',
+	'Code Branch': '代码分支',
+	'Build Application': '构建应用',
+	'Interface Environment': '接口环境',
+	'Experience version pushed to': '体验版推送至',
+	'Version Description': '版本描述',
+	'Clean node modules (use with caution)': '清理安装包(慎用)'
 }

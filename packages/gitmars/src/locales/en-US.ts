@@ -451,5 +451,13 @@ export default {
 	'Use strict mode': 'Use strict mode',
 	'--as-feature is only used in the bugfix branch.':
 		'--as-feature is only used in the bugfix branch.',
-	'Other data to be transferred': 'Other data to be transferred'
+	'Other data to be transferred': 'Other data to be transferred',
+	'Please double check the following build parameters':
+		'Please double check the following build parameters',
+	'Code Branch': 'Code Branch',
+	'Build Application': 'Build Application',
+	'Interface Environment': 'Interface Environment',
+	'Experience version pushed to': 'Experience version pushed to',
+	'Version Description': 'Version Description',
+	'Clean node modules (use with caution)': 'Clean node modules (use with caution)'
 }

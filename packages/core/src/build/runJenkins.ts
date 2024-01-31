@@ -75,7 +75,7 @@ async function runJenkins({
 		try {
 			const _data = JSON.parse(data)
 			for (const key in _data) {
-				url.searchParams.append(key, encodeURIComponent(_data[key]))
+				url.searchParams.append(key, _data[key])
 			}
 		} catch {}
 	}

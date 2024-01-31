@@ -1,5 +1,7 @@
 #!/usr/bin/env ts-node
 import { program } from 'commander'
+import inquirer from 'inquirer'
+import chalk from 'chalk'
 import { createArgs } from '@gitmars/core/lib/utils/command'
 import runJenkins from '@gitmars/core/lib/build/runJenkins'
 import { type ApolloBranchList } from '@gitmars/core/typings/core'
@@ -8,6 +10,7 @@ import lang from '#lib/common/local'
 import buildConfig from '#lib/conf/build'
 
 const { t } = lang
+const { red, yellow } = chalk
 const { args, options } = buildConfig
 
 interface GitmBuildOption {
@@ -29,13 +32,35 @@ options.forEach((o: GitmarsOptionOptionsType) => {
 // .option('-e, --env [env]', t('Environment to be built, optionally dev, prod, bug, all'), 'dev')
 // .option('-a, --app [app]', t('Application to be built'), 'all')
 // .option('-d, --data <data>', t('Other data to be transferred'), '{}')
-program.action((project: string, opt: GitmBuildOption): void => {
-	runJenkins({
-		env: opt.env,
-		project,
-		app: opt.app,
-		data: opt.data
+program.action(async (project: string, opt: GitmBuildOption): Promise<void> => {
+	const data = JSON.parse(opt.data || '{}')
+	let message = `${yellow(t('Please double check the following build parameters'))}\n${t(
+		'Project Name'
+	)}: ${red(project)}\n${t('Code Branch')}: ${red(opt.env)}\n${t('Build Application')}: ${red(
+		opt.app
+	)}`
+
+	if ('build_api_env' in data)
+		message += `\n${t('Interface Environment')}: ${red(data.build_api_env)}`
+	if ('mini_program' in data)
+		message += `\n${t('Experience version pushed to')}: ${red(data.mini_program)}`
+	if ('description' in data) message += `\n${t('Version Description')}: ${red(data.description)}`
+	if ('clean' in data)
+		message += `\n${t('Clean node modules (use with caution)')}: ${red(data.clean)}`
+
+	const { confirm } = await inquirer.prompt({
+		type: 'confirm',
+		name: 'confirm',
+		message
 	})
+
+	confirm &&
+		runJenkins({
+			env: opt.env,
+			project,
+			app: opt.app,
+			data: opt.data
+		})
 })
 program.parse(process.argv)
 export {}
