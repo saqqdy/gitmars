@@ -44,11 +44,11 @@ export async function deployDocs() {
 		}
 		await runSpawnSync(`git commit -m "deploy"`, RUN_PATH)
 		await runSpawnSync(
-			`git push -f https://github.com/saqqdy/gitmars.git master:gh-pages`,
+			`git push -f https://github.com/saqqdy/gitmars.git main:gh-pages`,
 			RUN_PATH
 		)
 		await runSpawnSync(
-			`git push -f https://github.com/saqqdy/gitmars.git master:gh-pages`,
+			`git push -f https://gitee.com/saqqdy/gitmars.git main:gh-pages`,
 			RUN_PATH
 		)
 	})
