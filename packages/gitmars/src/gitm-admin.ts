@@ -683,6 +683,7 @@ publishProgram.action(
 								opt.build === true ? 'all' : opt.build
 							} ${opt.data ? ' --data ' + opt.data : ''}`,
 							config: {
+								stdio: 'inherit',
 								again: false,
 								success: t('Pulling up the build was successful'),
 								fail: t('Failed to pull up the build')
@@ -699,6 +700,7 @@ publishProgram.action(
 							opt.build === true ? 'all' : opt.build
 						} ${opt.data ? ' --data ' + opt.data : ''}`,
 						config: {
+							stdio: 'inherit',
 							again: false,
 							success: t('Pulling up the build was successful'),
 							fail: t('Failed to pull up the build')

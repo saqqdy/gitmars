@@ -229,6 +229,7 @@ program.action(async (type: string, name: string, opt: GitmBuildOption): Promise
 							opt.build === true ? 'all' : opt.build
 						} ${opt.data ? ' --data ' + opt.data : ''}`,
 						config: {
+							stdio: 'inherit',
 							again: false,
 							success: t('Pulling up the build was successful'),
 							fail: t('Failed to pull up the build')
@@ -594,6 +595,7 @@ program.action(async (type: string, name: string, opt: GitmBuildOption): Promise
 									opt.build === true ? 'all' : opt.build
 								} ${opt.data ? ' --data ' + opt.data : ''}`,
 								config: {
+									stdio: 'inherit',
 									again: false,
 									success: t('Pulling up the build was successful'),
 									fail: t('Failed to pull up the build')
@@ -609,6 +611,7 @@ program.action(async (type: string, name: string, opt: GitmBuildOption): Promise
 									opt.build === true ? 'all' : opt.build
 								} ${opt.data ? ' --data ' + opt.data : ''}`,
 								config: {
+									stdio: 'inherit',
 									again: false,
 									success: t('Pulling up the build was successful'),
 									fail: t('Failed to pull up the build')

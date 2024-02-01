@@ -1,5 +1,6 @@
 #!/usr/bin/env ts-node
 import { program } from 'commander'
+import sh from 'shelljs'
 import inquirer from 'inquirer'
 import chalk from 'chalk'
 import { createArgs } from '@gitmars/core/lib/utils/command'
@@ -54,7 +55,8 @@ program.action(async (project: string, opt: GitmBuildOption): Promise<void> => {
 		message
 	})
 
-	confirm &&
+	if (!confirm) sh.exit(1)
+	else
 		runJenkins({
 			env: opt.env,
 			project,
