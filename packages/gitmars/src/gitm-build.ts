@@ -39,7 +39,8 @@ program.action(async (project: string, opt: GitmBuildOption): Promise<void> => {
 	const data = JSON.parse(opt.data || '{}')
 	let confirm = opt.confirm
 
-	if (!confirm) {
+	// 有opt.data时强制确认
+	if (!confirm || (opt.data && opt.data !== '{}')) {
 		let message = `${yellow(t('Please double check the following build parameters'))}\n${t(
 			'Project Name'
 		)}: ${red(project)}\n${t('Code Branch')}: ${red(opt.env)}\n${t('Build Application')}: ${red(
