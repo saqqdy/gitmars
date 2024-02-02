@@ -225,7 +225,7 @@ program.action(async (type: string, name: string, opt: GitmBuildOption): Promise
 			if (opt.build) {
 				cmd = cmd.concat([
 					{
-						cmd: `gitm build ${appName} --env dev --app ${
+						cmd: `gitm build ${appName} --confirm --env dev --app ${
 							opt.build === true ? 'all' : opt.build
 						} ${opt.data ? ' --data ' + opt.data : ''}`,
 						config: {
@@ -591,7 +591,7 @@ program.action(async (type: string, name: string, opt: GitmBuildOption): Promise
 					if (type === 'bugfix') {
 						cmd = cmd.concat([
 							{
-								cmd: `gitm build ${appName} --env bug --app ${
+								cmd: `gitm build ${appName} --confirm --env bug --app ${
 									opt.build === true ? 'all' : opt.build
 								} ${opt.data ? ' --data ' + opt.data : ''}`,
 								config: {
@@ -607,7 +607,7 @@ program.action(async (type: string, name: string, opt: GitmBuildOption): Promise
 					if (type === 'support' && opt.noBugfix) {
 						cmd = cmd.concat([
 							{
-								cmd: `gitm build ${appName} --env bug --app ${
+								cmd: `gitm build ${appName} --confirm --env bug --app ${
 									opt.build === true ? 'all' : opt.build
 								} ${opt.data ? ' --data ' + opt.data : ''}`,
 								config: {

@@ -679,7 +679,7 @@ publishProgram.action(
 				if (opt.build && (!level || level < 4)) {
 					cmd[type] = cmd[type].concat([
 						{
-							cmd: `gitm build ${appName} --env bug --app ${
+							cmd: `gitm build ${appName} --confirm --env bug --app ${
 								opt.build === true ? 'all' : opt.build
 							} ${opt.data ? ' --data ' + opt.data : ''}`,
 							config: {
@@ -696,7 +696,7 @@ publishProgram.action(
 			if (type === 'release' && opt.build && (!level || level < 4)) {
 				cmd[type] = cmd[type].concat([
 					{
-						cmd: `gitm build ${appName} --env prod --app ${
+						cmd: `gitm build ${appName} --confirm --env prod --app ${
 							opt.build === true ? 'all' : opt.build
 						} ${opt.data ? ' --data ' + opt.data : ''}`,
 						config: {
