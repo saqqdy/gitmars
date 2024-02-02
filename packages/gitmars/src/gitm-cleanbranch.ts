@@ -78,7 +78,7 @@ function getIsMergedTarget(
 program
 	.name('gitm cleanbranch')
 	.usage(
-		'[branches...] [-l --list [list]] [-k --key [keyword]] [--exclude [exclude]] [--include [include]] [-t --type [type]] [--target [target]] [-r --remote] [-s --strictly]'
+		'[branches...] [-l --list [list]] [-k --key [keyword]] [--exclude [exclude]] [--include [include]] [-t --type [type]] [--target [target]] [-r --remote] [-c --confirm] [-s --strictly]'
 	)
 	.description(t('Clean up merged feature branches'))
 if (args.length > 0) program.arguments(createArgs(args))

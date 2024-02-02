@@ -454,11 +454,12 @@ gitm cp xxxxxx
 
 #### 短指令：gitm bd
 
-> v5.3.0 增加data传值，支持传入额外的参数
+> v5.3.0 增加data传值，支持传入额外的参数<br/>
+> v6.2.0 新增--confirm 参数
 
 该指令用于发起 Jenkins 构建，project 必传，app 名称可传入 all
 
-- 使用：`gitm build <project> [-e --env [env]] [-a --app [app]] [-d --data <data>]`
+- 使用：`gitm build <project> [-e --env [env]] [-a --app [app]] [-d --data <data>] [-c --confirm]`
 - 参数：
 
 <div class="table-prop">
@@ -473,11 +474,12 @@ gitm cp xxxxxx
 
 <div class="table-option">
 
-| 名称   | 简写 | 说明                               | 类型     | 可选值       | 传值必填 | 默认  |
-| ------ | ---- | ---------------------------------- | -------- | ------------ | -------- | ----- |
-| --env  | -e   | 要构建的环境                       | `String` | dev/prod/bug | 是       | -     |
-| --app  | -a   | 需要构建的子项目                   | `String` | -            | 否       | `all` |
-| --data | -d   | 需要传输的其他数据，传入JSON字符串 | `String` | -            | 否       | '{}'  |
+| 名称      | 简写 | 说明                               | 类型      | 可选值       | 传值必填 | 默认    |
+| --------- | ---- | ---------------------------------- | --------- | ------------ | -------- | ------- |
+| --env     | -e   | 要构建的环境                       | `String`  | dev/prod/bug | 是       | -       |
+| --app     | -a   | 需要构建的子项目                   | `String`  | -            | 否       | `all`   |
+| --data    | -d   | 需要传输的其他数据，传入JSON字符串 | `String`  | -            | 否       | '{}'    |
+| --confirm | -c   | 确认开始，为 true 时不显示确认框   | `Boolean` | -            | 否       | `false` |
 
 </div>
 
@@ -849,7 +851,7 @@ gitm get "test login"
 
 清理合并过的功能分支
 
-- 使用：`gitm cleanbranch [branches...] [-l --list [list]] [-k --key [keyword]] [--exclude [exclude]] [--include [include]] [-t --type [type]] [--target [target]] [-r --remote] [-s --strictly]`
+- 使用：`gitm cleanbranch [branches...] [-l --list [list]] [-k --key [keyword]] [--exclude [exclude]] [--include [include]] [-t --type [type]] [--target [target]] [-r --remote] [-c --confirm] [-s --strictly]`
 - 参数：
 
 <div class="table-prop">

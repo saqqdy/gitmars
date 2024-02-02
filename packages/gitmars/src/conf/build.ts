@@ -56,6 +56,18 @@ export const cmdConfig: GitmarsOptionType = {
 			defaultValue: '{}',
 			recommend: true,
 			value: '{}'
+		},
+		{
+			flags: '-c, --confirm',
+			required: false,
+			optional: false,
+			variadic: false,
+			mandatory: false,
+			short: '-c',
+			long: '--confirm',
+			negate: false,
+			description: t('Confirm start, do not show confirmation box when true'),
+			defaultValue: false
 		}
 	]
 }
