@@ -179,8 +179,8 @@ export default {
 		'Merge bugfix task branch, merge feature development branch, merge support branch',
 	'Branch does not exist, please enter it correctly':
 		'Branch does not exist, please enter it correctly',
-	'This branch has not been synced for more than 1 week, please sync it at least once a week, execute: gitm update':
-		'This branch has not been synced for more than 1 week, please sync it at least once a week, execute: gitm update',
+	'This branch has not been synced for more than 1 week, please sync it at least once a week, execute: gitm update (-f)':
+		'This branch has not been synced for more than 1 week, please sync it at least once a week, execute: gitm update (-f)',
 	'Please enter the items to be configured': 'Please enter the items to be configured',
 	'Query single or all gitmars for configuration items':
 		'Query single or all gitmars for configuration items',
@@ -459,5 +459,7 @@ export default {
 	'Interface Environment': 'Interface Environment',
 	'Experience version pushed to': 'Experience version pushed to',
 	'Version Description': 'Version Description',
-	'Clean node modules (use with caution)': 'Clean node modules (use with caution)'
+	'Clean node modules (use with caution)': 'Clean node modules (use with caution)',
+	'This process will not automatically execute the build process, please wait for the administrator to review the code and execute it: gitm build {appName} -e prod -a {app} {data}':
+		'This process will not automatically execute the build process, please wait for the administrator to review the code and execute it: gitm build {appName} -e prod -a {app} {data}'
 }

@@ -27,7 +27,7 @@ import adminConfig from '#lib/conf/admin'
 
 const { t } = lang
 const require = createRequire(import.meta.url)
-const { green, red } = chalk
+const { green, red, yellow } = chalk
 
 if (!getIsGitProject()) {
 	echo(red(t('The current directory is not a git project directory')))
@@ -676,10 +676,43 @@ publishProgram.action(
 								]
 					)
 				}
-				if (opt.build && (!level || level < 4)) {
+				if (opt.build) {
+					if (!level || level < 4) {
+						cmd[type] = cmd[type].concat([
+							{
+								cmd: `gitm build ${appName} --confirm --env bug --app ${
+									opt.build === true ? 'all' : opt.build
+								} ${opt.data ? ' --data ' + opt.data : ''}`,
+								config: {
+									stdio: 'inherit',
+									again: false,
+									success: t('Pulling up the build was successful'),
+									fail: t('Failed to pull up the build')
+								}
+							}
+						])
+					} else {
+						echo(
+							yellow(
+								t(
+									'This process will not automatically execute the build process, please wait for the administrator to review the code and execute it: gitm build {appName} -e prod -a {app} {data}',
+									{
+										appName,
+										app: opt.build === true ? 'all' : opt.build,
+										data: opt.data ? ' --data ' + opt.data : ''
+									}
+								)
+							)
+						)
+					}
+				}
+			}
+			// release release branch
+			if (type === 'release' && opt.build) {
+				if (!level || level < 4) {
 					cmd[type] = cmd[type].concat([
 						{
-							cmd: `gitm build ${appName} --confirm --env bug --app ${
+							cmd: `gitm build ${appName} --confirm --env prod --app ${
 								opt.build === true ? 'all' : opt.build
 							} ${opt.data ? ' --data ' + opt.data : ''}`,
 							config: {
@@ -690,23 +723,20 @@ publishProgram.action(
 							}
 						}
 					])
+				} else {
+					echo(
+						yellow(
+							t(
+								'This process will not automatically execute the build process, please wait for the administrator to review the code and execute it: gitm build {appName} -e prod -a {app} {data}',
+								{
+									appName,
+									app: opt.build === true ? 'all' : opt.build,
+									data: opt.data ? ' --data ' + opt.data : ''
+								}
+							)
+						)
+					)
 				}
-			}
-			// release release branch
-			if (type === 'release' && opt.build && (!level || level < 4)) {
-				cmd[type] = cmd[type].concat([
-					{
-						cmd: `gitm build ${appName} --confirm --env prod --app ${
-							opt.build === true ? 'all' : opt.build
-						} ${opt.data ? ' --data ' + opt.data : ''}`,
-						config: {
-							stdio: 'inherit',
-							again: false,
-							success: t('Pulling up the build was successful'),
-							fail: t('Failed to pull up the build')
-						}
-					}
-				])
 			}
 			// Release the release branch and sync the release code to the bug line
 			if (type === 'release' && opt.combine) {

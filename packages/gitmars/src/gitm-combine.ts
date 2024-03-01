@@ -161,7 +161,7 @@ program.action(async (type: string, name: string, opt: GitmBuildOption): Promise
 			sh.echo(
 				yellow(
 					t(
-						'This branch has not been synced for more than 1 week, please sync it at least once a week, execute: gitm update'
+						'This branch has not been synced for more than 1 week, please sync it at least once a week, execute: gitm update (-f)'
 					)
 				)
 			)
@@ -587,37 +587,52 @@ program.action(async (type: string, name: string, opt: GitmBuildOption): Promise
 					}
 				}
 				// 仅支持构建bug
-				if (opt.build && (!level || level < 3)) {
-					if (type === 'bugfix') {
-						cmd = cmd.concat([
-							{
-								cmd: `gitm build ${appName} --confirm --env bug --app ${
-									opt.build === true ? 'all' : opt.build
-								} ${opt.data ? ' --data ' + opt.data : ''}`,
-								config: {
-									stdio: 'inherit',
-									again: false,
-									success: t('Pulling up the build was successful'),
-									fail: t('Failed to pull up the build')
+				if (opt.build) {
+					if (!level || level < 3) {
+						if (type === 'bugfix') {
+							cmd = cmd.concat([
+								{
+									cmd: `gitm build ${appName} --confirm --env bug --app ${
+										opt.build === true ? 'all' : opt.build
+									} ${opt.data ? ' --data ' + opt.data : ''}`,
+									config: {
+										stdio: 'inherit',
+										again: false,
+										success: t('Pulling up the build was successful'),
+										fail: t('Failed to pull up the build')
+									}
 								}
-							}
-						])
-					}
-					// support分支要构建bug和release
-					if (type === 'support' && opt.noBugfix) {
-						cmd = cmd.concat([
-							{
-								cmd: `gitm build ${appName} --confirm --env bug --app ${
-									opt.build === true ? 'all' : opt.build
-								} ${opt.data ? ' --data ' + opt.data : ''}`,
-								config: {
-									stdio: 'inherit',
-									again: false,
-									success: t('Pulling up the build was successful'),
-									fail: t('Failed to pull up the build')
+							])
+						}
+						// support分支要构建bug和release
+						if (type === 'support' && opt.noBugfix) {
+							cmd = cmd.concat([
+								{
+									cmd: `gitm build ${appName} --confirm --env bug --app ${
+										opt.build === true ? 'all' : opt.build
+									} ${opt.data ? ' --data ' + opt.data : ''}`,
+									config: {
+										stdio: 'inherit',
+										again: false,
+										success: t('Pulling up the build was successful'),
+										fail: t('Failed to pull up the build')
+									}
 								}
-							}
-						])
+							])
+						}
+					} else {
+						sh.echo(
+							yellow(
+								t(
+									'This process will not automatically execute the build process, please wait for the administrator to review the code and execute it: gitm build {appName} -e prod -a {app} {data}',
+									{
+										appName,
+										app: opt.build === true ? 'all' : opt.build,
+										data: opt.data ? ' --data ' + opt.data : ''
+									}
+								)
+							)
+						)
 					}
 				}
 			}

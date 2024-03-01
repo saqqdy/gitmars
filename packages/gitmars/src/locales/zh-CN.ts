@@ -159,8 +159,8 @@ export default {
 	'Merge bugfix task branch, merge feature development branch, merge support branch':
 		'合并bugfix任务分支、合并feature功能开发分支、合并support分支',
 	'Branch does not exist, please enter it correctly': '分支不存在，请正确输入',
-	'This branch has not been synced for more than 1 week, please sync it at least once a week, execute: gitm update':
-		'检测到该分支已经超过1周没有同步过主干代码了，请每周至少同步一次，执行：gitm update',
+	'This branch has not been synced for more than 1 week, please sync it at least once a week, execute: gitm update (-f)':
+		'检测到该分支已经超过1周没有同步过主干代码了，请每周至少同步一次，执行：gitm update (-f)',
 	'Please enter the items to be configured': '请输入要配置的项',
 	'Query single or all gitmars for configuration items': '查询单个或全部gitmars的配置项',
 	'A conflict has been detected in the merge branch and you need to run git add . Do you want to force the script to continue?':
@@ -418,5 +418,7 @@ export default {
 	'Interface Environment': '接口环境',
 	'Experience version pushed to': '体验版推送至',
 	'Version Description': '版本描述',
-	'Clean node modules (use with caution)': '清理安装包(慎用)'
+	'Clean node modules (use with caution)': '清理安装包(慎用)',
+	'This process will not automatically execute the build process, please wait for the administrator to review the code and execute it: gitm build {appName} -e prod -a {app} {data}':
+		'本次进程不会自动执行构建流程，请等待管理员审核代码后执行：gitm build {appName} -e prod -a {app} {data}'
 }
