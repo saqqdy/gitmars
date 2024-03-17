@@ -12,7 +12,7 @@ import getIsBranchOrCommitExist from '#lib/git/getIsBranchOrCommitExist'
 import getIsMergeAction from '#lib/git/getIsMergeAction'
 import getIsMergedTargetBranch from '#lib/git/getIsMergedTargetBranch'
 import getIsUpdatedInTime from '#lib/git/getIsUpdatedInTime'
-import { getGitEmail, getGitUser } from '#lib/git/getGitUser'
+import { getGitEmail, getGitToken, getGitUser } from '#lib/git/getGitUser'
 import getBranchesFromID from '#lib/git/getBranchesFromID'
 import getGitStatus from '#lib/git/getGitStatus'
 import getCommandMessage from '#lib/git/getCommandMessage'
@@ -35,6 +35,7 @@ export default {
 	getIsMergeAction,
 	getIsMergedTargetBranch,
 	getIsUpdatedInTime,
+	getGitToken,
 	getGitUser,
 	getGitEmail,
 	getBranchesFromID,

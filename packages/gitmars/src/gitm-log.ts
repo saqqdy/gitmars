@@ -7,7 +7,7 @@ import getIsGitProject from '@gitmars/core/lib/git/getIsGitProject'
 import getGitLogs from '@gitmars/core/lib/git/getGitLogs'
 import { createArgs } from '@gitmars/core/lib/utils/command'
 import echo from '@gitmars/core/lib/utils/echo'
-import type { GitLogsType, GitmarsOptionOptionsType } from '../typings'
+import type { GitLogsType, GitmarsOptionOptionsType } from '../typings/gitmars'
 import logConfig from '#lib/conf/log'
 import lang from '#lib/common/local'
 

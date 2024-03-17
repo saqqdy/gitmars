@@ -1,8 +1,8 @@
 import sh from 'shelljs'
 import chalk from 'chalk'
 import request from '@jssj/request'
-import type { ApolloBranchList, ApolloConfigBranchType, ApolloConfigType } from '../../typings'
-import mapTemplate from '#lib/utils/mapTemplate'
+import { mapTemplate } from 'js-cool'
+import type { ApolloBranchList, ApolloConfigBranchType, ApolloConfigType } from '../../typings/core'
 import { debug } from '#lib/utils/debug'
 import { getBuildConfig } from '#lib/build/buildConfig'
 import lang from '#lib/lang'
@@ -75,7 +75,7 @@ async function runJenkins({
 		try {
 			const _data = JSON.parse(data)
 			for (const key in _data) {
-				url.searchParams.append(key, encodeURIComponent(_data[key]))
+				url.searchParams.append(key, _data[key])
 			}
 		} catch {}
 	}

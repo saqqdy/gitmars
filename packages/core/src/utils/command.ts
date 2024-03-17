@@ -1,4 +1,4 @@
-import type { GitmarsOptionArgsType } from '../../typings'
+import type { GitmarsOptionArgsType } from '../../typings/core'
 
 /**
  * 生成参数

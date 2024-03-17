@@ -3,15 +3,14 @@
 import { program } from 'commander'
 import sh from 'shelljs'
 import chalk from 'chalk'
-import { queue } from '@gitmars/core/lib/queue'
 import { createArgs } from '@gitmars/core/lib/utils/command'
 import getIsGitProject from '@gitmars/core/lib/git/getIsGitProject'
-import type { GitmarsOptionOptionsType } from '../typings'
+import type { GitmarsOptionOptionsType } from '../typings/gitmars'
 import lang from '#lib/common/local'
 import suggestConfig from '#lib/conf/suggest'
 
 const { t } = lang
-const { red, yellow } = chalk
+const { red } = chalk
 const { args, options } = suggestConfig
 
 if (!getIsGitProject()) {

@@ -1,4 +1,4 @@
-import type { GitLogKeysType, GitLogsType } from '../../typings'
+import type { GitLogKeysType, GitLogsType } from '../../typings/core'
 import { debug } from '#lib/utils/debug'
 
 class GitLogsFormatter {

@@ -3,7 +3,7 @@ import { createRequire } from 'node:module'
 import { Command } from 'commander'
 import chalk from 'chalk'
 import { getType } from 'js-cool'
-import getUserToken from '@gitmars/core/lib/api/getUserToken'
+import getUserInfo from '@gitmars/core/lib/api/getUserInfo'
 import { queue } from '@gitmars/core/lib/queue'
 import getIsBranchOrCommitExist from '@gitmars/core/lib/git/getIsBranchOrCommitExist'
 import getIsGitProject from '@gitmars/core/lib/git/getIsGitProject'
@@ -21,13 +21,13 @@ import type {
 	FetchDataType,
 	GitmarsMainBranchType,
 	GitmarsOptionOptionsType
-} from '../typings'
+} from '../typings/gitmars'
 import lang from '#lib/common/local'
 import adminConfig from '#lib/conf/admin'
 
 const { t } = lang
 const require = createRequire(import.meta.url)
-const { green, red } = chalk
+const { green, red, yellow } = chalk
 
 if (!getIsGitProject()) {
 	echo(red(t('The current directory is not a git project directory')))
@@ -36,7 +36,7 @@ if (!getIsGitProject()) {
 
 const { appName } = getGitConfig()
 const config = getConfig()
-const userInfoApi = (config.apis && config.apis.userInfo && config.apis.userInfo.url) || config.api
+const userInfoApi = config.apis?.userInfo?.url || config.api
 const mergeRequestModule = require.resolve('@gitmars/core/lib/api/mergeRequest')
 const { approve, clean, create, publish, update } = adminConfig
 interface GitmBuildOption {
@@ -149,11 +149,7 @@ publish.options.forEach((o: GitmarsOptionOptionsType) => {
 // .option('-d --data <data>', t('Other data to be transferred'), '{}')
 publishProgram.action(
 	async (type: PublishOptsType, opt: GitmBuildOption['publish']): Promise<void> => {
-		const {
-			token,
-			level,
-			nickname = ''
-		} = userInfoApi ? await getUserToken() : ({} as FetchDataType)
+		const { level, nickname = '' } = userInfoApi ? await getUserInfo() : ({} as FetchDataType)
 		const opts = ['bugfix', 'release', 'support'] // Permissible commands
 		const status = checkGitStatus()
 		const curBranch = await getCurrentBranch()
@@ -238,7 +234,7 @@ publishProgram.action(
 											fail: t('Push failed, please follow the prompts')
 										}
 									}
-							  ]
+								]
 							: [
 									{
 										message: t('{source} has been merged with {target}', {
@@ -246,7 +242,7 @@ publishProgram.action(
 											target: config.release
 										})
 									}
-							  ],
+								],
 					support: ([] as Array<CommandType | string | string[]>)
 						.concat(
 							isNeedCombineSupportToRelease || opt.force
@@ -284,7 +280,7 @@ publishProgram.action(
 												fail: t('Push failed, please follow the prompts')
 											}
 										}
-								  ]
+									]
 								: [
 										{
 											message: t('{source} has been merged with {target}', {
@@ -292,7 +288,7 @@ publishProgram.action(
 												target: config.release
 											})
 										}
-								  ]
+									]
 						)
 						.concat(
 							isNeedCombineSupportToBugfix || opt.force
@@ -327,7 +323,7 @@ publishProgram.action(
 												fail: t('Push failed, please follow the prompts')
 											}
 										}
-								  ]
+									]
 								: [
 										{
 											message: t('{source} has been merged with {target}', {
@@ -335,7 +331,7 @@ publishProgram.action(
 												target: config.bugfix
 											})
 										}
-								  ]
+									]
 						),
 					release:
 						isNeedCombineReleaseToMaster || opt.force
@@ -373,7 +369,7 @@ publishProgram.action(
 											fail: t('Push failed, please follow the prompts')
 										}
 									}
-							  ]
+								]
 							: [
 									{
 										message: t('{source} has been merged with {target}', {
@@ -381,7 +377,7 @@ publishProgram.action(
 											target: config.master
 										})
 									}
-							  ]
+								]
 				}
 			} else {
 				if (!isDescriptionCorrect) {
@@ -405,7 +401,6 @@ publishProgram.action(
 											options: {
 												source_branch: config.bugfix,
 												target_branch: config.release,
-												token,
 												description: opt.description
 											}
 										},
@@ -430,7 +425,7 @@ publishProgram.action(
 											}
 										)}"`
 									]
-							  ]
+								]
 							: [
 									{
 										message: t('{source} has been merged with {target}', {
@@ -438,7 +433,7 @@ publishProgram.action(
 											target: config.release
 										})
 									}
-							  ],
+								],
 					support: ([] as Array<CommandType | string | string[]>)
 						.concat(
 							isNeedCombineSupportToRelease || opt.force
@@ -450,7 +445,6 @@ publishProgram.action(
 												options: {
 													source_branch: config.support,
 													target_branch: config.release,
-													token,
 													description: opt.description
 												}
 											},
@@ -475,7 +469,7 @@ publishProgram.action(
 												}
 											)}"`
 										]
-								  ]
+									]
 								: [
 										{
 											message: t('{source} has been merged with {target}', {
@@ -483,7 +477,7 @@ publishProgram.action(
 												target: config.release
 											})
 										}
-								  ]
+									]
 						)
 						.concat(
 							isNeedCombineSupportToBugfix || opt.force
@@ -495,7 +489,6 @@ publishProgram.action(
 												options: {
 													source_branch: config.support,
 													target_branch: config.bugfix,
-													token,
 													description: opt.description
 												}
 											},
@@ -520,7 +513,7 @@ publishProgram.action(
 												}
 											)}"`
 										]
-								  ]
+									]
 								: [
 										{
 											message: t('{source} has been merged with {target}', {
@@ -528,7 +521,7 @@ publishProgram.action(
 												target: config.bugfix
 											})
 										}
-								  ]
+									]
 						),
 					release:
 						isNeedCombineReleaseToMaster || opt.force
@@ -540,7 +533,6 @@ publishProgram.action(
 											options: {
 												source_branch: config.release,
 												target_branch: config.master,
-												token,
 												description: opt.description
 											}
 										},
@@ -565,7 +557,7 @@ publishProgram.action(
 											}
 										)}"`
 									]
-							  ]
+								]
 							: [
 									{
 										message: t('{source} has been merged with {target}', {
@@ -573,7 +565,7 @@ publishProgram.action(
 											target: config.master
 										})
 									}
-							  ]
+								]
 				}
 			}
 			// Publish the bug branch and sync to master
@@ -618,7 +610,7 @@ publishProgram.action(
 											fail: t('Push failed, please follow the prompts')
 										}
 									}
-							  ]
+								]
 							: [
 									{
 										message: t('{source} has been merged with {target}', {
@@ -626,7 +618,7 @@ publishProgram.action(
 											target: config.master
 										})
 									}
-							  ]
+								]
 					)
 				} else {
 					if (!isDescriptionCorrect) {
@@ -649,7 +641,6 @@ publishProgram.action(
 											options: {
 												source_branch: config.bugfix,
 												target_branch: config.master,
-												token,
 												description: opt.description
 											}
 										},
@@ -674,7 +665,7 @@ publishProgram.action(
 											}
 										)}"`
 									]
-							  ]
+								]
 							: [
 									{
 										message: t('{source} has been merged with {target}', {
@@ -682,38 +673,70 @@ publishProgram.action(
 											target: config.master
 										})
 									}
-							  ]
+								]
 					)
 				}
-				if (opt.build && (!level || level < 4)) {
+				if (opt.build) {
+					if (!level || level < 4) {
+						cmd[type] = cmd[type].concat([
+							{
+								cmd: `gitm build ${appName} --confirm --env bug --app ${
+									opt.build === true ? 'all' : opt.build
+								} ${opt.data ? ' --data ' + opt.data : ''}`,
+								config: {
+									stdio: 'inherit',
+									again: false,
+									success: t('Pulling up the build was successful'),
+									fail: t('Failed to pull up the build')
+								}
+							}
+						])
+					} else {
+						echo(
+							yellow(
+								t(
+									'This process will not automatically execute the build process, please wait for the administrator to review the code and execute it: gitm build {appName} -e prod -a {app} {data}',
+									{
+										appName,
+										app: opt.build === true ? 'all' : opt.build,
+										data: opt.data ? ' --data ' + opt.data : ''
+									}
+								)
+							)
+						)
+					}
+				}
+			}
+			// release release branch
+			if (type === 'release' && opt.build) {
+				if (!level || level < 4) {
 					cmd[type] = cmd[type].concat([
 						{
-							cmd: `gitm build ${appName} --env bug --app ${
+							cmd: `gitm build ${appName} --confirm --env prod --app ${
 								opt.build === true ? 'all' : opt.build
 							} ${opt.data ? ' --data ' + opt.data : ''}`,
 							config: {
+								stdio: 'inherit',
 								again: false,
 								success: t('Pulling up the build was successful'),
 								fail: t('Failed to pull up the build')
 							}
 						}
 					])
+				} else {
+					echo(
+						yellow(
+							t(
+								'This process will not automatically execute the build process, please wait for the administrator to review the code and execute it: gitm build {appName} -e prod -a {app} {data}',
+								{
+									appName,
+									app: opt.build === true ? 'all' : opt.build,
+									data: opt.data ? ' --data ' + opt.data : ''
+								}
+							)
+						)
+					)
 				}
-			}
-			// release release branch
-			if (type === 'release' && opt.build && (!level || level < 4)) {
-				cmd[type] = cmd[type].concat([
-					{
-						cmd: `gitm build ${appName} --env prod --app ${
-							opt.build === true ? 'all' : opt.build
-						} ${opt.data ? ' --data ' + opt.data : ''}`,
-						config: {
-							again: false,
-							success: t('Pulling up the build was successful'),
-							fail: t('Failed to pull up the build')
-						}
-					}
-				])
 			}
 			// Release the release branch and sync the release code to the bug line
 			if (type === 'release' && opt.combine) {
@@ -761,7 +784,7 @@ publishProgram.action(
 											fail: t('Push failed, please follow the prompts')
 										}
 									}
-							  ]
+								]
 							: [
 									{
 										message: t('{source} has been merged with {target}', {
@@ -769,7 +792,7 @@ publishProgram.action(
 											target: config.bugfix
 										})
 									}
-							  ]
+								]
 					)
 				} else {
 					if (!level || level < 4) {
@@ -809,7 +832,7 @@ publishProgram.action(
 												fail: t('Push failed, please follow the prompts')
 											}
 										}
-								  ]
+									]
 								: [
 										{
 											message: t('{source} has been merged with {target}', {
@@ -817,7 +840,7 @@ publishProgram.action(
 												target: config.bugfix
 											})
 										}
-								  ]
+									]
 						)
 					} else {
 						if (!isDescriptionCorrect) {
@@ -838,7 +861,6 @@ publishProgram.action(
 									options: {
 										source_branch: config.release,
 										target_branch: config.bugfix,
-										token,
 										description: opt.description
 									}
 								},
@@ -899,11 +921,7 @@ update.options.forEach((o: GitmarsOptionOptionsType) => {
 // .option('-f, --force', t('Whether to force a merge request'), false)
 updateProgram.action(
 	async (type: GitmarsMainBranchType, opt: GitmBuildOption['update']): Promise<void> => {
-		const {
-			token,
-			level,
-			nickname = ''
-		} = userInfoApi ? await getUserToken() : ({} as FetchDataType)
+		const { level, nickname = '' } = userInfoApi ? await getUserInfo() : ({} as FetchDataType)
 		const opts = ['bugfix', 'release', 'support'] // Permissible commands
 		const base = type === 'release' ? config.master : config.release
 		const status = checkGitStatus()
@@ -988,7 +1006,6 @@ updateProgram.action(
 								options: {
 									source_branch: base,
 									target_branch: config[type],
-									token,
 									description: opt.description
 								}
 							},

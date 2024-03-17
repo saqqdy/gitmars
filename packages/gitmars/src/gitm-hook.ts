@@ -12,7 +12,7 @@ import getBehindLogs from '@gitmars/core/lib/git/getBehindLogs'
 import { createArgs } from '@gitmars/core/lib/utils/command'
 import { init, remove } from '@gitmars/core/lib/hook/index'
 import getConfig from '@gitmars/core/lib/getConfig'
-import type { GitmarsOptionOptionsType } from '../typings'
+import type { GitmarsOptionOptionsType } from '../typings/gitmars'
 import lang from '#lib/common/local'
 import hookConfig from '#lib/conf/hook'
 

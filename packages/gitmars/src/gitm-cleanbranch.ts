@@ -3,6 +3,7 @@ import { program } from 'commander'
 import chalk from 'chalk'
 import inquirer from 'inquirer'
 import ora from 'ora'
+import { waiting } from 'js-cool'
 import getIsGitProject from '@gitmars/core/lib/git/getIsGitProject'
 import searchBranches from '@gitmars/core/lib/git/searchBranches'
 import getCurrentBranch from '@gitmars/core/lib/git/getCurrentBranch'
@@ -10,15 +11,10 @@ import getIsMergedTargetBranch from '@gitmars/core/lib/git/getIsMergedTargetBran
 import getIsBranchOrCommitExist from '@gitmars/core/lib/git/getIsBranchOrCommitExist'
 import fetch from '@gitmars/core/lib/git/fetch'
 import { createArgs } from '@gitmars/core/lib/utils/command'
-import delay from '@gitmars/core/lib/utils/delay'
 import echo from '@gitmars/core/lib/utils/echo'
 import { spawnSync } from '@gitmars/core/lib/spawn'
 import getConfig from '@gitmars/core/lib/getConfig'
-import type {
-	GitmarsBranchType,
-	GitmarsOptionOptionsType,
-	InitInquirerPromptType
-} from '../typings'
+import type { GitmarsBranchType, GitmarsOptionOptionsType } from '../typings/gitmars'
 import lang from '#lib/common/local'
 import cleanbranchConfig from '#lib/conf/cleanbranch'
 
@@ -82,7 +78,7 @@ function getIsMergedTarget(
 program
 	.name('gitm cleanbranch')
 	.usage(
-		'[branches...] [-l --list [list]] [-k --key [keyword]] [--exclude [exclude]] [--include [include]] [-t --type [type]] [--target [target]] [-r --remote] [-s --strictly]'
+		'[branches...] [-l --list [list]] [-k --key [keyword]] [--exclude [exclude]] [--include [include]] [-t --type [type]] [--target [target]] [-r --remote] [-c --confirm] [-s --strictly]'
 	)
 	.description(t('Clean up merged feature branches'))
 if (args.length > 0) program.arguments(createArgs(args))
@@ -110,7 +106,7 @@ program.action(async (branches: string[], opt: GitmBuildOption) => {
 		const removeRemote = opt.remote && getIsBranchOrCommitExist(branch, true)
 		if (removeLocal || removeRemote) {
 			spinner.start(green(t('Deleting: {something}', { something: branch })))
-			await delay(200)
+			await waiting(200)
 			spinner.succeed(
 				green(
 					t('Deleted successfully: {something}', {
@@ -198,7 +194,7 @@ program.action(async (branches: string[], opt: GitmBuildOption) => {
 		}
 
 		_willDeleteBranch.push(branch)
-		await delay(200)
+		await waiting(200)
 		spinner.succeed(
 			green(
 				t('Analysis completed: {something}', {

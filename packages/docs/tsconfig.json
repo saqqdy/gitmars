@@ -3,6 +3,7 @@
 	"exclude": ["__tests__", "../../temp"],
 	"include": ["**/*.ts", "typings", "vite.config.mts"],
 	"compilerOptions": {
+		"composite": true,
 		"removeComments": true,
 		"declaration": true,
 		"emitDeclarationOnly": true,

@@ -15,8 +15,8 @@ import searchBranches from '@gitmars/core/lib/git/searchBranches'
 import { createArgs } from '@gitmars/core/lib/utils/command'
 import { isNeedUpgrade, upgradeGitmars } from '@gitmars/core/lib/versionControl'
 import getConfig from '@gitmars/core/lib/getConfig'
-import getUserToken from '@gitmars/core/lib/api/getUserToken'
-import type { CommandType, FetchDataType, GitmarsOptionOptionsType } from '../typings'
+import getUserInfo from '@gitmars/core/lib/api/getUserInfo'
+import type { CommandType, FetchDataType, GitmarsOptionOptionsType } from '../typings/gitmars'
 import lang from '#lib/common/local'
 import { defaults } from '#lib/common/global'
 import endConfig from '#lib/conf/end'
@@ -60,8 +60,7 @@ options.forEach((o: GitmarsOptionOptionsType) => {
 // .option('--as-feature', t('bug branch merge to release'))
 // .option('--description [description]', t('Description of the reason for this commit'), '')
 program.action(async (type: string, name: string, opt: GitmBuildOption): Promise<void> => {
-	const userInfoApi =
-		(config.apis && config.apis.userInfo && config.apis.userInfo.url) || config.api
+	const userInfoApi = config.apis?.userInfo?.url || config.api
 	// Detecting if it is necessary to upgrade
 	const needUpgrade = await isNeedUpgrade(config.versionControlType)
 	needUpgrade && upgradeGitmars()
@@ -73,11 +72,7 @@ program.action(async (type: string, name: string, opt: GitmBuildOption): Promise
 		defaults.bugfix,
 		defaults.support
 	]
-	const {
-		token,
-		level,
-		nickname = ''
-	} = userInfoApi ? await getUserToken() : ({} as FetchDataType)
+	const { level, nickname = '' } = userInfoApi ? await getUserInfo() : ({} as FetchDataType)
 	const status = checkGitStatus()
 	let _nameArr: string[] = [], // 分支名称数组
 		isDescriptionCorrect = true // Does the description of the reason for this submission meet the specification
@@ -123,7 +118,7 @@ program.action(async (type: string, name: string, opt: GitmBuildOption): Promise
 					? t(
 							'If you find multiple branches with names containing {type}, please enter the branch type',
 							{ type }
-					  )
+						)
 					: red(t('Branch does not exist, please enter it correctly'))
 			)
 			process.exit(1)
@@ -140,8 +135,8 @@ program.action(async (type: string, name: string, opt: GitmBuildOption): Promise
 		const base: string = opt.asFeature
 			? config.release
 			: type === 'bugfix'
-			? config.bugfix
-			: config.release
+				? config.bugfix
+				: config.release
 		let cmd: Array<CommandType | string | string[]> = []
 		// Is it necessary to merge dev
 		const isNeedCombineDevelop = !getIsMergedTargetBranch(`${type}/${name}`, config.develop, {
@@ -250,7 +245,6 @@ program.action(async (type: string, name: string, opt: GitmBuildOption): Promise
 							options: {
 								source_branch: `${type}/${name}`,
 								target_branch: config.bugfix,
-								token,
 								description: opt.description
 							}
 						},
@@ -388,7 +382,6 @@ program.action(async (type: string, name: string, opt: GitmBuildOption): Promise
 							options: {
 								source_branch: `${type}/${name}`,
 								target_branch: base,
-								token,
 								description: opt.description
 							}
 						},

@@ -94,7 +94,6 @@ yarn global add gitmars
 - 远程 review 代码 [gitm review](http://www.saqqdy.com/gitmars/api/#gitm-review)
 - 清理合并过的功能分支 [gitm cleanbranch](http://www.saqqdy.com/gitmars/api/#gitm-cleanbranch)
 - 简化 git 的 cherry-pick 操作 [gitm copy](http://www.saqqdy.com/gitmars/api/#gitm-copy)
-- 合并代码 [gitm merge](http://www.saqqdy.com/gitmars/api/#gitm-merge)
 - 继续未完成的操作 [gitm continue](http://www.saqqdy.com/gitmars/api/#gitm-continue)
 - 撤销提交 [gitm revert](http://www.saqqdy.com/gitmars/api/#gitm-revert)
 - 撤回某次提交记录或者撤回谋条分支的合并记录 [gitm undo](http://www.saqqdy.com/gitmars/api/#gitm-undo)
@@ -112,12 +111,10 @@ yarn global add gitmars
 - 查询日志 [gitm log](http://www.saqqdy.com/gitmars/api/#gitm-log)
 - 智能猜测你要执行的动作 [gitm go](http://www.saqqdy.com/gitmars/api/#gitm-go)
 - 安装和移除快捷方式 [gitm alias](http://www.saqqdy.com/gitmars/api/#gitm-alias)
-- UI 可视化操作 [gitm ui](http://www.saqqdy.com/gitmars/api/#gitm-ui)
 - 管理员创建主干分支 [gitm admin create](http://www.saqqdy.com/gitmars/api/#gitm-admin-create)
 - 发布分支 [gitm admin publish](http://www.saqqdy.com/gitmars/api/#gitm-admin-publish)
 - 更新主干分支代码 [gitm admin update](http://www.saqqdy.com/gitmars/api/#gitm-admin-update)
 - 清理分支 [gitm admin clean](http://www.saqqdy.com/gitmars/api/#gitm-admin-clean)
-- 查看版本号 [gitm version](http://www.saqqdy.com/gitmars/api/#gitm-version)
 
 ## 智能导航
 
@@ -141,32 +138,6 @@ gitm go build
 - 演示：
 
 ![gitmars-go.gif](https://raw.githubusercontent.com/saqqdy/gitmars/master/static/img/gitmars-go.gif)
-
-## UI 界面
-
-> 3.0.0 版本开始，UI 界面从原 gitmars 项目中抽离成了独立项目`@gitmars/ui`
-
-### gitm ui
-
-如果你厌倦了敲指令，gitmars 提供了懒人 UI 界面
-
-- 安装：`gitm install @gitmars/ui`
-- 使用：`gitm ui [-p --port [port]]`
-- 传值：
-
-| 名称   | 简写 | 说明       | 类型   | 可选值 | 传值必填 | 默认 |
-| ------ | ---- | ---------- | ------ | ------ | -------- | ---- |
-| --port | -p   | 启动端口号 | Number | -      | 否       | 3000 |
-
-- 示例：
-
-```shell
-gitm ui --port 3000
-```
-
-- 演示：
-
-![gitmars-ui.gif](https://raw.githubusercontent.com/saqqdy/gitmars/master/static/img/gitmars-ui.gif)
 
 [npm-image]: https://img.shields.io/npm/v/gitmars.svg?style=flat-square
 [npm-url]: https://npmjs.com/package/gitmars

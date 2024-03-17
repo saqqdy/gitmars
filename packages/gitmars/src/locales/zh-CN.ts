@@ -159,8 +159,8 @@ export default {
 	'Merge bugfix task branch, merge feature development branch, merge support branch':
 		'合并bugfix任务分支、合并feature功能开发分支、合并support分支',
 	'Branch does not exist, please enter it correctly': '分支不存在，请正确输入',
-	'This branch has not been synced for more than 1 week, please sync it at least once a week, execute: gitm update':
-		'检测到该分支已经超过1周没有同步过主干代码了，请每周至少同步一次，执行：gitm update',
+	'This branch has not been synced for more than 1 week, please sync it at least once a week, execute: gitm update (-f)':
+		'检测到该分支已经超过1周没有同步过主干代码了，请每周至少同步一次，执行：gitm update (-f)',
 	'Please enter the items to be configured': '请输入要配置的项',
 	'Query single or all gitmars for configuration items': '查询单个或全部gitmars的配置项',
 	'A conflict has been detected in the merge branch and you need to run git add . Do you want to force the script to continue?':
@@ -209,7 +209,7 @@ export default {
 	'Please enter the git project ID, currently only gitlab is supported':
 		'请输入git项目ID，目前仅支持gitlab',
 	'gitmars configured successfully': 'gitmars配置成功',
-	'Installing plugins, e.g. @gitmars/ui': '安装插件，例如：@gitmars/ui',
+	'Installing plugins, e.g. @gitmars/core': '安装插件，例如：@gitmars/core',
 	'Please enter the plugin name': '请输入插件名称',
 	'Incorrect version number entered, only supported: alpha, lite, beta, release, latest, next':
 		'输入的版本号不正确，仅支持：alpha、lite、beta、release、latest、next',
@@ -230,8 +230,6 @@ export default {
 		'指定从tag拉取分支时仅支持创建bugfix分支',
 	'Restore staging area file': '恢复暂存区文件',
 	'Suggestions for operation': '操作建议',
-	"Please install the gitm ui plugin first: gitm install @gitmars/ui latest -m'":
-		"请先安装gitm ui插件：gitm install @gitmars/ui latest -m'",
 	'After handling conflicts, execute: gitm undo --calc': '处理冲突之后，执行：gitm undo --calc',
 	'No commit record selected, process has exited': '没有选择commit记录，进程已退出',
 	'Please select the commit record to undo.': '请选择要撤销的commit记录',
@@ -321,8 +319,6 @@ export default {
 	Deleted: '删除',
 	Submitted: '已提交',
 	'There was an error, please contact an administrator': '出错了，请联系管理员',
-	'Please install the gitm ui plugin first: gitm install @gitmars/ui latest -m':
-		'请先安装gitm ui插件：gitm install @gitmars/ui latest -m',
 	'Clean up all failed undo logs': '清理所有撤销失败的记录',
 	'Whether to exclude merge logs': '是否排除merge的日志',
 	'No eligible commit logs found, please relax the filtering conditions appropriately. The process has been exited':
@@ -415,5 +411,17 @@ export default {
 	'{source} branch has merged {target} branch': '{source}合并过{target}',
 	'Use strict mode': '使用严格模式',
 	'--as-feature is only used in the bugfix branch.': '--as-feature仅用于bugfix分支',
-	'Other data to be transferred': '需要传输的其他数据'
+	'Other data to be transferred': '需要传输的其他数据',
+	'Please double check the following build parameters': '请仔细确认以下构建参数',
+	'Code Branch': '代码分支',
+	'Build Application': '构建应用',
+	'Interface Environment': '接口环境',
+	'Experience version pushed to': '体验版推送至',
+	'Version Description': '版本描述',
+	'Clean node modules (use with caution)': '清理安装包(慎用)',
+	'This process will not automatically execute the build process, please wait for the administrator to review the code and execute it: gitm build {appName} -e prod -a {app} {data}':
+		'本次进程不会自动执行构建流程，请等待管理员审核代码后执行：gitm build {appName} -e prod -a {app} {data}',
+	'Push to templates only': '仅推送到模板',
+	'Use the {base} branch for posting on Thursday, Friday, and Sunday':
+		'周四周五周日发版使用{base}分支，请确认'
 }

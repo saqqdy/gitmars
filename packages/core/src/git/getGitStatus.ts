@@ -1,5 +1,5 @@
 import type { SpawnOptions } from 'child_process'
-import type { GitStatusInfoType } from '../../typings'
+import type { GitStatusInfoType } from '../../typings/core'
 import { spawnSync } from '#lib/spawn'
 import { debug } from '#lib/utils/debug'
 

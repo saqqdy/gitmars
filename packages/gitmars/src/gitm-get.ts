@@ -7,7 +7,7 @@ import getIsGitProject from '@gitmars/core/lib/git/getIsGitProject'
 import getCurrentBranch from '@gitmars/core/lib/git/getCurrentBranch'
 import getStashList from '@gitmars/core/lib/git/getStashList'
 import { createArgs } from '@gitmars/core/lib/utils/command'
-import type { GitmarsOptionOptionsType } from '../typings'
+import type { GitmarsOptionOptionsType } from '../typings/gitmars'
 import lang from '#lib/common/local'
 import getConfig from '#lib/conf/get'
 

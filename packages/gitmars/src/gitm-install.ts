@@ -5,7 +5,7 @@ import chalk from 'chalk'
 import { createArgs } from '@gitmars/core/lib/utils/command'
 import { spawnSync } from '@gitmars/core/lib/spawn'
 import echo from '@gitmars/core/lib/utils/echo'
-import type { GitmarsOptionOptionsType, PackageVersionTag } from '../typings'
+import type { GitmarsOptionOptionsType, PackageVersionTag } from '../typings/gitmars'
 import installConfig from '#lib/conf/install'
 import lang from '#lib/common/local'
 
@@ -25,7 +25,7 @@ interface GitmBuildOption {
 program
 	.name('gitm install')
 	.usage('<pluginName> [version] [-m --mirror] [-c --client [client]] [-r --registry <registry>]')
-	.description(t('Installing plugins, e.g. @gitmars/ui'))
+	.description(t('Installing plugins, e.g. @gitmars/core'))
 if (args.length > 0) program.arguments(createArgs(args))
 options.forEach((o: GitmarsOptionOptionsType) => {
 	program.option(o.flags, o.description, o.defaultValue)

@@ -9,7 +9,7 @@ updates:
     directory: / # Location of package manifests
     schedule:
       interval: weekly
-    open-pull-requests-limit: 5
+    open-pull-requests-limit: 2
     ignore:
       - dependency-name: 'core-js'
       - dependency-name: 'eslint'
@@ -25,7 +25,7 @@ updates:
     directory: /packages/core # Location of package manifests
     schedule:
       interval: weekly
-    open-pull-requests-limit: 5
+    open-pull-requests-limit: 2
     ignore:
       - dependency-name: 'core-js'
       - dependency-name: 'eslint'
@@ -41,7 +41,7 @@ updates:
     directory: /packages/docs # Location of package manifests
     schedule:
       interval: weekly
-    open-pull-requests-limit: 5
+    open-pull-requests-limit: 2
     ignore:
       - dependency-name: 'core-js'
       - dependency-name: 'eslint'
@@ -57,39 +57,7 @@ updates:
     directory: /packages/gitmars # Location of package manifests
     schedule:
       interval: weekly
-    open-pull-requests-limit: 5
-    ignore:
-      - dependency-name: 'core-js'
-      - dependency-name: 'eslint'
-      - dependency-name: 'prettier'
-      - dependency-name: '@babel/*'
-      - dependency-name: '@types/*'
-      - dependency-name: typescript
-        versions: [4.x]
-      - dependency-name: '*'
-        update-types: ['version-update:semver-patch']
-
-  - package-ecosystem: npm # See documentation for possible values
-    directory: /packages/server # Location of package manifests
-    schedule:
-      interval: weekly
-    open-pull-requests-limit: 5
-    ignore:
-      - dependency-name: 'core-js'
-      - dependency-name: 'eslint'
-      - dependency-name: 'prettier'
-      - dependency-name: '@babel/*'
-      - dependency-name: '@types/*'
-      - dependency-name: typescript
-        versions: [4.x]
-      - dependency-name: '*'
-        update-types: ['version-update:semver-patch']
-
-  - package-ecosystem: npm # See documentation for possible values
-    directory: /packages/ui # Location of package manifests
-    schedule:
-      interval: weekly
-    open-pull-requests-limit: 5
+    open-pull-requests-limit: 2
     ignore:
       - dependency-name: 'core-js'
       - dependency-name: 'eslint'

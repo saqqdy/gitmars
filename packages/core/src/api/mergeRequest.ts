@@ -2,12 +2,14 @@ import chalk from 'chalk'
 import request from '@jssj/request'
 import getConfig from '#lib/getConfig'
 import { debug } from '#lib/utils/debug'
+import { getGitToken } from '#lib/git/getGitUser'
 import lang from '#lib/lang'
 
 const { t } = lang
 const config = getConfig()
 
 const MERGE_REQUESTS_URL = `${config.gitHost}/api/v4/projects/${config.gitID}/merge_requests`
+const token = getGitToken()
 
 /**
  * Initiate a remote merge request
@@ -18,13 +20,11 @@ const MERGE_REQUESTS_URL = `${config.gitHost}/api/v4/projects/${config.gitID}/me
 export async function createMergeRequest({
 	source_branch,
 	target_branch,
-	description,
-	token
+	description
 }: {
 	source_branch: string
 	target_branch: string
 	description: string
-	token: string
 }) {
 	const params: {
 		source_branch: string
@@ -60,11 +60,9 @@ export async function createMergeRequest({
  * @returns command
  */
 export async function getMergeRequestList({
-	state = 'opened',
-	token
+	state = 'opened'
 }: {
 	state?: 'merged' | 'opened' | 'closed' | 'all'
-	token: string
 }) {
 	const params = {
 		state,
@@ -90,13 +88,7 @@ export async function getMergeRequestList({
  * @param option - options
  * @returns command
  */
-export async function getMergeRequestCommits({
-	iid,
-	token
-}: {
-	iid: number | string
-	token: string
-}) {
+export async function getMergeRequestCommits({ iid }: { iid: number | string }) {
 	const params = {
 		private_token: token
 	}
@@ -120,13 +112,7 @@ export async function getMergeRequestCommits({
  * @param option - options
  * @returns command
  */
-export async function getMergeRequestCloseIssues({
-	iid,
-	token
-}: {
-	iid: number | string
-	token: string
-}) {
+export async function getMergeRequestCloseIssues({ iid }: { iid: number | string }) {
 	const params = {
 		private_token: token
 	}
@@ -150,13 +136,7 @@ export async function getMergeRequestCloseIssues({
  * @param option - options
  * @returns command
  */
-export async function getMergeRequestParticipants({
-	iid,
-	token
-}: {
-	iid: number | string
-	token: string
-}) {
+export async function getMergeRequestParticipants({ iid }: { iid: number | string }) {
 	const params = {
 		private_token: token
 	}
@@ -180,13 +160,7 @@ export async function getMergeRequestParticipants({
  * @param option - options
  * @returns command
  */
-export async function getMergeRequestChanges({
-	iid,
-	token
-}: {
-	iid: number | string
-	token: string
-}) {
+export async function getMergeRequestChanges({ iid }: { iid: number | string }) {
 	const params = {
 		private_token: token
 	}
@@ -210,13 +184,7 @@ export async function getMergeRequestChanges({
  * @param option - options
  * @returns command
  */
-export async function getMergeRequestDiffVersions({
-	iid,
-	token
-}: {
-	iid: number | string
-	token: string
-}) {
+export async function getMergeRequestDiffVersions({ iid }: { iid: number | string }) {
 	const params = {
 		private_token: token
 	}
@@ -240,7 +208,7 @@ export async function getMergeRequestDiffVersions({
  * @param option - options
  * @returns command
  */
-export async function acceptMergeRequest({ iid, token }: { iid: number | string; token: string }) {
+export async function acceptMergeRequest({ iid }: { iid: number | string }) {
 	const params = {
 		private_token: token
 	}
@@ -268,11 +236,9 @@ export async function acceptMergeRequest({ iid, token }: { iid: number | string;
  */
 export async function updateMergeRequest({
 	iid,
-	token,
 	data = {}
 }: {
 	iid: number | string
-	token: string
 	data: Record<string, unknown> & {
 		private_token?: string
 	}
@@ -300,7 +266,7 @@ export async function updateMergeRequest({
  * @param option - options
  * @returns command
  */
-export async function deleteMergeRequest({ iid, token }: { iid: number | string; token: string }) {
+export async function deleteMergeRequest({ iid }: { iid: number | string }) {
 	const params = {
 		private_token: token
 	}

@@ -1,4 +1,4 @@
-import type { CommandMessageType } from '../../typings'
+import type { CommandMessageType } from '../../typings/core'
 import lang from '#lib/lang'
 
 const { t } = lang

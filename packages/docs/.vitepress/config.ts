@@ -69,10 +69,6 @@ const sidebar = {
 			collapsable: false,
 			items: [
 				{
-					text: 'merge',
-					link: '/example/#merge'
-				},
-				{
 					text: 'copy',
 					link: '/example/#copy'
 				},
@@ -142,10 +138,6 @@ const sidebar = {
 			text: '效率',
 			collapsable: false,
 			items: [
-				{
-					text: 'gitm merge',
-					link: '/api/#gitm-merge'
-				},
 				{
 					text: 'gitm copy',
 					link: '/api/#gitm-copy'
@@ -217,10 +209,6 @@ const sidebar = {
 				{
 					text: 'gitm status',
 					link: '/api/#gitm-status'
-				},
-				{
-					text: 'gitm ui',
-					link: '/api/#gitm-ui'
 				},
 				{
 					text: 'gitm link',
@@ -305,7 +293,7 @@ const sidebar = {
 
 export default defineConfigWithTheme({
 	title: 'Gitmars',
-	description: '可视化UI界面',
+	description: '这是一个git工作流工具',
 	base: '/gitmars/',
 	outDir: 'dist',
 	// theme: '@vuepress/default',
@@ -317,7 +305,6 @@ export default defineConfigWithTheme({
 			{ text: 'API参考', link: '/api/' },
 			{ text: '示例', link: '/example/' },
 			// { text: 'Git Hooks', link: '/hook/' },
-			{ text: 'UI界面', link: '/ui/' },
 			{ text: 'Go', link: '/go/' },
 			{
 				text: '更多',

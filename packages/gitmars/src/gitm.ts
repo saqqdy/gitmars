@@ -54,8 +54,6 @@ program
 	.alias('clb')
 	.command('copy <id>', t("Simplify git's cherry-pick operation"))
 	.alias('cp')
-	.command('merge <name>', t('Merge code'))
-	.alias('mg')
 	.command('continue', t('Continue unfinished operations'))
 	.alias('ct')
 	.command('revert', t('Undo commit'))
@@ -71,7 +69,6 @@ program
 	.command('review', t('review remote code'))
 	.alias('rv')
 	.command('status', t('view branch status'))
-	.command('ui', t('Launch web version of gitmars'))
 	.command('unlink', t('Unlink softlinks'))
 	.command('link', t('Create soft links'))
 	.command('clean', t('Clear cache'))
@@ -124,8 +121,6 @@ program.on('command:*', function (types: string[], opts: string[]) {
 		'clb',
 		'copy',
 		'cp',
-		'merge',
-		'mg',
 		'continue',
 		'ct',
 		'revert',
@@ -141,7 +136,6 @@ program.on('command:*', function (types: string[], opts: string[]) {
 		'review',
 		'rv',
 		'status',
-		'ui',
 		'unlink',
 		'link',
 		'clean',

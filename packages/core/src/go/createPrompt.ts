@@ -1,5 +1,5 @@
 import chalk from 'chalk'
-import type { GitmarsOptionArgsType, GitmarsOptionOptionsType } from '../../typings'
+import type { GitmarsOptionArgsType, GitmarsOptionOptionsType } from '../../typings/core'
 import lang from '#lib/lang'
 
 const { t } = lang
@@ -97,12 +97,12 @@ function createPrompt(
 										tips:
 											'defaultValue' in opts && opts.defaultValue !== ''
 												? ', ' +
-												  t('default "{{{defaultValue}}}"', {
+													t('default "{{{defaultValue}}}"', {
 														defaultValue: opts.defaultValue
-												  })
+													})
 												: ''
 									})
-							  )
+								)
 							: ''
 					}`,
 					transformer: (val: string, answers: object, flags: any) => {

@@ -9,7 +9,7 @@ import checkGitStatus from '@gitmars/core/lib/git/checkGitStatus'
 import { createArgs } from '@gitmars/core/lib/utils/command'
 import getConfig from '@gitmars/core/lib/getConfig'
 import { isNeedUpgrade, upgradeGitmars } from '@gitmars/core/lib/versionControl'
-import type { CommandType, GitmarsOptionOptionsType, QueueReturnsType } from '../typings'
+import type { CommandType, GitmarsOptionOptionsType } from '../typings/gitmars'
 import lang from '#lib/common/local'
 import startConfig from '#lib/conf/start'
 
@@ -80,10 +80,10 @@ program.action(async (type: string, name: string, opt: GitmBuildOption) => {
 		const base = opt.tag
 			? opt.tag
 			: type === 'bugfix'
-			? config.bugfix
-			: type === 'support'
-			? config.master
-			: config.release
+				? config.bugfix
+				: type === 'support'
+					? config.master
+					: config.release
 		const cmd: Array<CommandType | string | string[]> = opt.tag
 			? ['git fetch', `git checkout -b ${type}/${name} ${base}`]
 			: [
@@ -91,7 +91,7 @@ program.action(async (type: string, name: string, opt: GitmBuildOption) => {
 					`git checkout ${base}`,
 					'git pull',
 					`git checkout -b ${type}/${name} ${base}`
-			  ]
+				]
 		queue(cmd).then((data: any) => {
 			if ((opt.tag && data[1].status === 0) || (!opt.tag && data[3].status === 0)) {
 				sh.echo(

@@ -1,10 +1,10 @@
 import sh from 'shelljs'
 import chalk from 'chalk'
+import { mapTemplate } from 'js-cool'
 import getGitConfig from '#lib/git/getGitConfig'
 import getGitRevParse from '#lib/git/getGitRevParse'
 import sendGroupMessage from '#lib/sendGroupMessage'
 import getConfig from '#lib/getConfig'
-import mapTemplate from '#lib/utils/mapTemplate'
 import lang from '#lib/lang'
 
 const { t } = lang

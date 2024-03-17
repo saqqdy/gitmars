@@ -5,7 +5,7 @@ import chalk from 'chalk'
 import { queue } from '@gitmars/core/lib/queue'
 import getIsGitProject from '@gitmars/core/lib/git/getIsGitProject'
 import { createArgs } from '@gitmars/core/lib/utils/command'
-import type { CommandType, GitmarsOptionOptionsType } from '../typings'
+import type { CommandType, GitmarsOptionOptionsType } from '../typings/gitmars'
 import lang from '#lib/common/local'
 import revertConfig from '#lib/conf/revert'
 

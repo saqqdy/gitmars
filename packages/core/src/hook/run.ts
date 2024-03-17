@@ -1,4 +1,4 @@
-import type { ShellCode } from '../../typings'
+import type { ShellCode } from '../../typings/core'
 import { spawnSync } from '#lib/spawn'
 import getConfig from '#lib/getConfig'
 import checkGitDirEnv from '#lib/hook/checkGitDirEnv'

@@ -400,33 +400,6 @@ gitm ct -l
 
 ## 效率
 
-### gitm merge
-
-#### 短指令：gitm mg
-
-合并分支，类似 git merge 功能
-
-- 使用：`gitm merge <name>`
-- 参数：
-
-<div class="table-prop">
-
-| 参数 | 说明       | 类型     | 可选值 | 必填 | 默认 |
-| ---- | ---------- | -------- | ------ | ---- | ---- |
-| name | merge 来源 | `String` | -      | 是   | -    |
-
-</div>
-
-- 示例：
-
-合并 20001 分支到当前分支
-
-```shell
-gitm merge 20001
-# or
-gitm mg 20001
-```
-
 ### gitm copy
 
 #### 短指令：gitm cp
@@ -481,11 +454,12 @@ gitm cp xxxxxx
 
 #### 短指令：gitm bd
 
-> v5.3.0 增加data传值，支持传入额外的参数
+> v5.3.0 增加data传值，支持传入额外的参数<br/>
+> v6.2.0 新增--confirm 参数
 
 该指令用于发起 Jenkins 构建，project 必传，app 名称可传入 all
 
-- 使用：`gitm build <project> [-e --env [env]] [-a --app [app]] [-d --data <data>]`
+- 使用：`gitm build <project> [-e --env [env]] [-a --app [app]] [-d --data <data>] [-c --confirm]`
 - 参数：
 
 <div class="table-prop">
@@ -500,11 +474,12 @@ gitm cp xxxxxx
 
 <div class="table-option">
 
-| 名称   | 简写 | 说明                               | 类型     | 可选值       | 传值必填 | 默认  |
-| ------ | ---- | ---------------------------------- | -------- | ------------ | -------- | ----- |
-| --env  | -e   | 要构建的环境                       | `String` | dev/prod/bug | 是       | -     |
-| --app  | -a   | 需要构建的子项目                   | `String` | -            | 否       | `all` |
-| --data | -d   | 需要传输的其他数据，传入JSON字符串 | `String` | -            | 否       | '{}'  |
+| 名称      | 简写 | 说明                               | 类型      | 可选值       | 传值必填 | 默认    |
+| --------- | ---- | ---------------------------------- | --------- | ------------ | -------- | ------- |
+| --env     | -e   | 要构建的环境                       | `String`  | dev/prod/bug | 是       | -       |
+| --app     | -a   | 需要构建的子项目                   | `String`  | -            | 否       | `all`   |
+| --data    | -d   | 需要传输的其他数据，传入JSON字符串 | `String`  | -            | 否       | '{}'    |
+| --confirm | -c   | 确认开始，为 true 时不显示确认框   | `Boolean` | -            | 否       | `false` |
 
 </div>
 
@@ -876,7 +851,7 @@ gitm get "test login"
 
 清理合并过的功能分支
 
-- 使用：`gitm cleanbranch [branches...] [-l --list [list]] [-k --key [keyword]] [--exclude [exclude]] [--include [include]] [-t --type [type]] [--target [target]] [-r --remote] [-s --strictly]`
+- 使用：`gitm cleanbranch [branches...] [-l --list [list]] [-k --key [keyword]] [--exclude [exclude]] [--include [include]] [-t --type [type]] [--target [target]] [-r --remote] [-c --confirm] [-s --strictly]`
 - 参数：
 
 <div class="table-prop">
@@ -1216,31 +1191,6 @@ gitm review --state merged
 
 ```shell
 gitm status
-```
-
-### gitm ui
-
-> 3.0.0 版本开始，UI 界面从原 gitmars 项目中抽离成了独立项目`@gitmars/ui`，使用 ui 界面前需要在全局安装`@gitmars/ui`插件
-
-启动 UI 界面
-
-- 安装：`gitm install @gitmars/ui`
-- 使用：`gitm ui [-p --port [port]]`
-- 参数：无
-- 传值：
-
-<div class="table-option">
-
-| 名称   | 简写 | 说明       | 类型     | 可选值 | 传值必填 | 默认 |
-| ------ | ---- | ---------- | -------- | ------ | -------- | ---- |
-| --port | -p   | 运行端口号 | `Number` | -      | 否       | 8080 |
-
-</div>
-
-- 示例：
-
-```shell
-gitm ui -p 8080
 ```
 
 ### gitm link

@@ -179,8 +179,8 @@ export default {
 		'Merge bugfix task branch, merge feature development branch, merge support branch',
 	'Branch does not exist, please enter it correctly':
 		'Branch does not exist, please enter it correctly',
-	'This branch has not been synced for more than 1 week, please sync it at least once a week, execute: gitm update':
-		'This branch has not been synced for more than 1 week, please sync it at least once a week, execute: gitm update',
+	'This branch has not been synced for more than 1 week, please sync it at least once a week, execute: gitm update (-f)':
+		'This branch has not been synced for more than 1 week, please sync it at least once a week, execute: gitm update (-f)',
 	'Please enter the items to be configured': 'Please enter the items to be configured',
 	'Query single or all gitmars for configuration items':
 		'Query single or all gitmars for configuration items',
@@ -234,7 +234,7 @@ export default {
 	'Please enter the git project ID, currently only gitlab is supported':
 		'Please enter the git project ID, currently only gitlab is supported',
 	'gitmars configured successfully': 'gitmars configured successfully',
-	'Installing plugins, e.g. @gitmars/ui': 'Installing plugins, e.g. @gitmars/ui',
+	'Installing plugins, e.g. @gitmars/core': 'Installing plugins, e.g. @gitmars/core',
 	'Please enter the plugin name': 'Please enter the plugin name',
 	'Incorrect version number entered, only supported: alpha, lite, beta, release, latest, next':
 		'Incorrect version number entered, only supported: alpha, lite, beta, release, latest, next',
@@ -257,8 +257,6 @@ export default {
 		'Specify that only bugfix branch creation is supported when pulling branches from tag',
 	'Restore staging area file': 'Restore staging area file',
 	'Suggestions for operation': 'Suggestions for operation',
-	"Please install the gitm ui plugin first: gitm install @gitmars/ui latest -m'":
-		"Please install the gitm ui plugin first: gitm install @gitmars/ui latest -m'",
 	'After handling conflicts, execute: gitm undo --calc':
 		'After handling conflicts, execute: gitm undo --calc',
 	'No commit record selected, process has exited':
@@ -354,8 +352,6 @@ export default {
 	Submitted: 'Submitted',
 	'There was an error, please contact an administrator':
 		'There was an error, please contact an administrator',
-	'Please install the gitm ui plugin first: gitm install @gitmars/ui latest -m':
-		'Please install the gitm ui plugin first: gitm install @gitmars/ui latest -m',
 	'Clean up all failed undo logs': 'Clean up all failed undo logs',
 	'Whether to exclude merge logs': 'Whether to exclude merge logs',
 	'No eligible commit logs found, please relax the filtering conditions appropriately. The process has been exited':
@@ -455,5 +451,18 @@ export default {
 	'Use strict mode': 'Use strict mode',
 	'--as-feature is only used in the bugfix branch.':
 		'--as-feature is only used in the bugfix branch.',
-	'Other data to be transferred': 'Other data to be transferred'
+	'Other data to be transferred': 'Other data to be transferred',
+	'Please double check the following build parameters':
+		'Please double check the following build parameters',
+	'Code Branch': 'Code Branch',
+	'Build Application': 'Build Application',
+	'Interface Environment': 'Interface Environment',
+	'Experience version pushed to': 'Experience version pushed to',
+	'Version Description': 'Version Description',
+	'Clean node modules (use with caution)': 'Clean node modules (use with caution)',
+	'This process will not automatically execute the build process, please wait for the administrator to review the code and execute it: gitm build {appName} -e prod -a {app} {data}':
+		'This process will not automatically execute the build process, please wait for the administrator to review the code and execute it: gitm build {appName} -e prod -a {app} {data}',
+	'Push to templates only': 'Push to templates only',
+	'Use the {base} branch for posting on Thursday, Friday, and Sunday':
+		'Use the {base} branch for posting on Thursday, Friday, and Sunday'
 }
