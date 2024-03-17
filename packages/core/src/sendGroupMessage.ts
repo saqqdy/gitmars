@@ -1,9 +1,9 @@
 import sh from 'shelljs'
 import chalk from 'chalk'
 import request from '@jssj/request'
-import type { ApolloConfigType } from '../typings/core'
-import { getBuildConfig } from '#lib/build/buildConfig'
-import lang from '#lib/lang'
+import { getBuildConfig } from '@gitmars/build'
+import type { ApolloConfigType } from './types'
+import lang from './lang'
 
 const { t } = lang
 

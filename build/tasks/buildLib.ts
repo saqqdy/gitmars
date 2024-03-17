@@ -34,7 +34,21 @@ if (childBuildLibIndex > -1) {
 }
 
 export async function buildLib() {
-	const externals = ['js-cool', 'lodash-unified', 'lodash-es', '@gitmars/core', '@gitmars/docs']
+	const externals = [
+		'js-cool',
+		'lodash-unified',
+		'lodash-es',
+		'@gitmars/api',
+		'@gitmars/build',
+		'@gitmars/cache',
+		'@gitmars/core',
+		'@gitmars/git',
+		'@gitmars/go',
+		'@gitmars/hook',
+		'@gitmars/shell',
+		'@gitmars/utils',
+		'@gitmars/docs'
+	]
 	const builds = pkgs.map(
 		async ({
 			globals = {},
@@ -69,8 +83,6 @@ export async function buildLib() {
 				'js-cool': 'JsCool',
 				// 'lodash-unified': 'lodashUnified',
 				// 'lodash-es': 'lodashEs',
-				'@gitmars/utils': 'EslintSets',
-				'@gitmars/core': 'EslintSets',
 				...globals
 			}
 			const iifeName = 'Gitmars'

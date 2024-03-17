@@ -2,19 +2,12 @@ import { createRequire } from 'node:module'
 import ora from 'ora'
 import { extend } from 'js-cool'
 import chalk from 'chalk'
-import type {
-	CommandMessageType,
-	CommandType,
-	CommandTypeCmd,
-	QueueReturnsType
-} from '../typings/core'
-import { setCommandCache } from '#lib/cache/commandCache'
-import getCommandMessage from '#lib/git/getCommandMessage'
-import { setLog } from '#lib/cache/log'
-import { postMessage } from '#lib/utils/message'
-import { spawnSync } from '#lib/spawn'
-import { debug } from '#lib/utils/debug'
-import lang from '#lib/lang'
+import { setCommandCache, setLog } from '@gitmars/cache'
+import { getCommandMessage } from '@gitmars/git'
+import { debug, postMessage } from '@gitmars/utils'
+import type { CommandMessageType, CommandType, CommandTypeCmd, QueueReturnsType } from './types'
+import { spawnSync } from './spawn'
+import lang from './lang'
 
 const { t } = lang
 const require = createRequire(import.meta.url)
@@ -248,9 +241,4 @@ export function queue(list: Array<CommandType | string | string[]>): Promise<Que
 			}
 		})
 	})
-}
-
-export default {
-	wait,
-	queue
 }

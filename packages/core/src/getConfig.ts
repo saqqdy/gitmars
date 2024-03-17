@@ -1,10 +1,9 @@
 import { statSync } from 'fs'
 import { cosmiconfigSync } from 'cosmiconfig'
-import type { GitmarsConfigExtend } from '../typings/core'
-import getGitRevParse from '#lib/git/getGitRevParse'
-import { debug } from '#lib/utils/debug'
-import echo from '#lib/utils/echo'
-import lang from '#lib/lang'
+import { getGitRevParse } from '@gitmars/git'
+import { debug, echo } from '@gitmars/utils'
+import type { GitmarsConfigExtend } from './types'
+import lang from './lang'
 
 const { t } = lang
 const defaults = {

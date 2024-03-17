@@ -1,7 +1,6 @@
 import type { SpawnOptions, SpawnSyncOptions, SpawnSyncReturns } from 'child_process'
 import crossSpawn from 'cross-spawn'
-import { debug } from '#lib/utils/debug'
-import stringify from '#lib/utils/stringify'
+import { debug, stringify } from '@gitmars/utils'
 
 /**
  * 异步执行脚本
@@ -75,9 +74,4 @@ export function spawnSync(
 		signal: program.signal,
 		error: program.error
 	}
-}
-
-export default {
-	spawnSync,
-	spawn
 }

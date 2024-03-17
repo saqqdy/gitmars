@@ -389,8 +389,6 @@ export default {
 		'{nickname} submitted a merge request for {source} branch to {target} branch in {app} project',
 	'${message}; project: ${project}; path: ${pwd}':
 		'${message}; project: ${project}; path: ${pwd}',
-	'There are a total of {length} staging records under this item, please clean it up regularly!':
-		'There are a total of {length} staging records under this item, please clean it up regularly!',
 	'Deleting: {something}': 'Deleting: {something}',
 	'Deleted successfully: {something}': 'Deleted successfully: {something}',
 	'Start analysis: {something}': 'Start analysis: {something}',
@@ -400,7 +398,6 @@ export default {
 	'Current branch: {something}': 'Current branch: {something}',
 	'Processing failed, {name} soft link does not exist, please go to the local {name} root directory and execute: gitm link':
 		'Processing failed, {name} soft link does not exist, please go to the local {name} root directory and execute: gitm link',
-	'Processing: {something}': 'Processing: {something}',
 	'File write error occurred': 'File write error occurred',
 	'Cleanup is complete': 'Cleanup is complete',
 	'{id}: total {total} files changed': '{id}: total {total} files changed',

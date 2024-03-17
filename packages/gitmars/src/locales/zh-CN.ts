@@ -354,8 +354,6 @@ export default {
 	'{nickname} submitted a merge request for {source} branch to {target} branch in {app} project':
 		'{nickname}在{app}项目提交了{source}分支合并到{target}分支的merge请求',
 	'${message}; project: ${project}; path: ${pwd}': '${message}；项目：${project}；路径：${pwd}',
-	'There are a total of {length} staging records under this item, please clean it up regularly!':
-		'该项目下一共有{length}条暂存记录，请定期清理！',
 	'Deleting: {something}': '正在删除：{something}',
 	'Deleted successfully: {something}': '删除成功：{something}',
 	'Start analysis: {something}': '开始分析：{something}',
@@ -365,7 +363,6 @@ export default {
 	'Current branch: {something}': '当前分支：{something}',
 	'Processing failed, {name} soft link does not exist, please go to the local {name} root directory and execute: gitm link':
 		'处理失败，{name}软链不存在，请进入本地{name}根目录执行：gitm link',
-	'Processing: {something}': '正在处理：{something}',
 	'File write error occurred': '文件写入错误',
 	'Cleanup is complete': '清理完毕',
 	'{id}: total {total} files changed': '{id}：一共变动了{total}个文件',

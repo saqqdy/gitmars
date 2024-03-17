@@ -1,4 +1,12 @@
 packages:
+  - packages/api
+  - packages/build
+  - packages/cache
   - packages/core
+  - packages/git
+  - packages/go
+  - packages/hook
+  - packages/shell
+  - packages/utils
   - packages/docs
   - packages/gitmars
