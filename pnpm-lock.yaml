@@ -24,8 +24,8 @@ importers:
         specifier: ^8.2.5
         version: 8.2.5
       js-cool:
-        specifier: ^5.17.1
-        version: 5.17.1
+        specifier: ^5.18.1
+        version: 5.18.1
       morgan:
         specifier: ^1.10.0
         version: 1.10.0
@@ -116,13 +116,13 @@ importers:
         version: 1.4.0
       reinstaller:
         specifier: ^3.0.2
-        version: 3.0.2(debug@4.3.4)(js-cool@5.17.1)(typescript@5.3.3)
+        version: 3.0.2(debug@4.3.4)(js-cool@5.18.1)(typescript@5.3.3)
       rimraf:
         specifier: ^5.0.5
         version: 5.0.5
       rm-all:
         specifier: ^1.1.1
-        version: 1.1.1(js-cool@5.17.1)
+        version: 1.1.1(js-cool@5.18.1)
       rollup:
         specifier: ^4.12.0
         version: 4.12.0
@@ -202,8 +202,8 @@ importers:
         specifier: ^8.2.5
         version: 8.2.5
       js-cool:
-        specifier: ^5.17.1
-        version: 5.17.1
+        specifier: ^5.18.1
+        version: 5.18.1
       lodash-es:
         specifier: ^4.17.21
         version: 4.17.21
@@ -275,8 +275,8 @@ importers:
   packages/docs:
     dependencies:
       js-cool:
-        specifier: ^5.17.1
-        version: 5.17.1
+        specifier: ^5.18.1
+        version: 5.18.1
     devDependencies:
       '@eslint-sets/eslint-config-vue3':
         specifier: ^5.12.0
@@ -351,8 +351,8 @@ importers:
         specifier: ^8.2.5
         version: 8.2.5
       js-cool:
-        specifier: ^5.17.1
-        version: 5.17.1
+        specifier: ^5.18.1
+        version: 5.18.1
       lodash-es:
         specifier: ^4.17.21
         version: 4.17.21
@@ -7262,8 +7262,8 @@ packages:
       tslib: 2.6.2
     dev: false
 
-  /js-cool@5.17.1:
-    resolution: {integrity: sha512-o9fhZFmJszU9KKCpdjfHWlCJ2CFWA+fv2sqad1D16oGs8o6fqS47aCphldpQcoSOtSEyvR7hXg4NL4EBA4rLLQ==}
+  /js-cool@5.18.1:
+    resolution: {integrity: sha512-ScnRFG9lsNTyXgNtlnaRgIug+41bIbtmR2NU3hhhNiysFCwPmlP7l5AKKhnjQajrkFDcLcx8m3X/NgOvfquobA==}
     engines: {node: '>=12.20'}
     dependencies:
       await-to-done: 1.0.2
@@ -9374,7 +9374,7 @@ packages:
       set-function-name: 2.0.1
     dev: true
 
-  /reinstaller@3.0.2(debug@4.3.4)(js-cool@5.17.1)(typescript@5.3.3):
+  /reinstaller@3.0.2(debug@4.3.4)(js-cool@5.18.1)(typescript@5.3.3):
     resolution: {integrity: sha512-VLjzE9tQMghK53x1Ccx96AEdRRe+dKq5zsnSNFLf1d7QsLAaRV0yX3lU1djgIaPYNSjDOXBRXjt8Y/GFTrHt/A==}
     hasBin: true
     peerDependencies:
@@ -9388,7 +9388,7 @@ packages:
       cosmiconfig: 8.3.6(typescript@5.3.3)
       debug: 4.3.4
       global-modules: 2.0.0
-      js-cool: 5.17.1
+      js-cool: 5.18.1
       monorepo-root: 2.5.1
       ora: 6.3.0
       what-pm: 2.5.1
@@ -9562,7 +9562,7 @@ packages:
       glob: 10.3.10
     dev: true
 
-  /rm-all@1.1.1(js-cool@5.17.1):
+  /rm-all@1.1.1(js-cool@5.18.1):
     resolution: {integrity: sha512-5n3SiDtp0BxHX485YhfbxR1RLtR9KlRTCj0hHahTufYEhUyE9ydy1nRtP4OG9kXifsYClu43gwkqcOnjpz/HPQ==}
     engines: {node: '>=12.20'}
     hasBin: true
@@ -9571,7 +9571,7 @@ packages:
     dependencies:
       '@node-kit/extra.fs': 3.2.0
       commander: 11.1.0
-      js-cool: 5.17.1
+      js-cool: 5.18.1
     dev: true
 
   /rollup-plugin-add-banner@1.1.0(rollup@4.12.0):

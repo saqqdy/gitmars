@@ -47,10 +47,9 @@ program.action(async (project: string, opt: GitmBuildOption): Promise<void> => {
 			opt.app
 		)}`
 
-		if ('build_api_env' in data)
-			message += `\n${t('Interface Environment')}: ${red(data.build_api_env)}`
+		message += `\n${t('Interface Environment')}: ${red(data.build_api_env || 'production')}`
 		if ('mini_program' in data)
-			message += `\n${t('Experience version pushed to')}: ${red(data.mini_program)}`
+			message += `\n${t('Experience version pushed to')}: ${red(data.mini_program || t('Push to templates only'))}`
 		if ('description' in data)
 			message += `\n${t('Version Description')}: ${red(data.description)}`
 		if ('clean' in data)

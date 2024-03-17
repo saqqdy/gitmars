@@ -420,5 +420,8 @@ export default {
 	'Version Description': '版本描述',
 	'Clean node modules (use with caution)': '清理安装包(慎用)',
 	'This process will not automatically execute the build process, please wait for the administrator to review the code and execute it: gitm build {appName} -e prod -a {app} {data}':
-		'本次进程不会自动执行构建流程，请等待管理员审核代码后执行：gitm build {appName} -e prod -a {app} {data}'
+		'本次进程不会自动执行构建流程，请等待管理员审核代码后执行：gitm build {appName} -e prod -a {app} {data}',
+	'Push to templates only': '仅推送到模板',
+	'Use the {base} branch for posting on Thursday, Friday, and Sunday':
+		'周四周五周日发版使用{base}分支，请确认'
 }

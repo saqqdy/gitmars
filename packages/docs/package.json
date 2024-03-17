@@ -1,7 +1,7 @@
 {
 	"name": "@gitmars/docs",
 	"description": "gitmars文档库",
-	"version": "6.3.0",
+	"version": "6.4.0",
 	"private": false,
 	"files": [
 		"dist",
@@ -24,7 +24,7 @@
 		"typings": "typings"
 	},
 	"dependencies": {
-		"js-cool": "^5.17.1"
+		"js-cool": "^5.18.1"
 	},
 	"devDependencies": {
 		"@eslint-sets/eslint-config-vue3": "^5.12.0",

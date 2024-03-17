@@ -461,5 +461,8 @@ export default {
 	'Version Description': 'Version Description',
 	'Clean node modules (use with caution)': 'Clean node modules (use with caution)',
 	'This process will not automatically execute the build process, please wait for the administrator to review the code and execute it: gitm build {appName} -e prod -a {app} {data}':
-		'This process will not automatically execute the build process, please wait for the administrator to review the code and execute it: gitm build {appName} -e prod -a {app} {data}'
+		'This process will not automatically execute the build process, please wait for the administrator to review the code and execute it: gitm build {appName} -e prod -a {app} {data}',
+	'Push to templates only': 'Push to templates only',
+	'Use the {base} branch for posting on Thursday, Friday, and Sunday':
+		'Use the {base} branch for posting on Thursday, Friday, and Sunday'
 }
