@@ -5,7 +5,7 @@ import semverDiff from 'semver-diff'
 // import { version } from '../package.json' assert { type: 'json' }
 import { debug, getPkgInfo } from '@gitmars/utils'
 import type { VersionControlType } from './types'
-import lang from '#lib/lang'
+import lang from './lang'
 
 const { t } = lang
 const require = createRequire(import.meta.url)

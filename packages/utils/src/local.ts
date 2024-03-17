@@ -34,7 +34,7 @@ export const useLocale = (locale: Language): LocaleContext => {
 }
 
 // import { get } from 'lodash-unified'
-// import { type Language } from '#lib/locales/index'
+// import { type Language } from './locales/index'
 
 // export type TranslatorOption = Record<string, string | number>
 // export type Translator = (path: string, option?: TranslatorOption) => string
