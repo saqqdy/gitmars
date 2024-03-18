@@ -1,6 +1,5 @@
 {
 	"extends": "../../tsconfig.json",
-	"exclude": ["**/__tests__"],
 	"compilerOptions": {
 		"composite": true,
 		"target": "ESNext",

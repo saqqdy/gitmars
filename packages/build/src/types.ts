@@ -35,11 +35,6 @@ export interface GitmarsConfigType {
 	versionControlType?: VersionControlType
 } // & Record<string, unknown>
 
-export interface GitmarsConfigExtend extends GitmarsConfigType {
-	skipCI: boolean
-	filepath: string
-}
-
 export type GitmarsConfigProperty = keyof GitmarsConfigType
 // | 'master'
 // | 'develop'

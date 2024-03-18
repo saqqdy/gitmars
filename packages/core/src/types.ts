@@ -69,3 +69,43 @@ export interface CommandMessageType {
 	success?: string
 	fail?: string
 }
+
+export interface GitmarsConfigApisBuildConfigType {
+	url: string
+	method?: 'post' | 'get' | 'put' | 'delete'
+	params?: Record<string, string | number | boolean | null>
+}
+
+export interface GitmarsConfigType {
+	master: string
+	develop: string
+	release: string
+	bugfix: string
+	support: string
+	user?: string
+	email?: string
+	skipCI?: boolean
+	msgTemplate?: string
+	apolloConfig?: {
+		configServerUrl: string
+		appId: string
+		clusterName: string
+		namespaceName: string[]
+		apolloEnv: string
+		token: string
+	}
+	apis?: Record<string, GitmarsConfigApisBuildConfigType>
+	api?: string
+	gitHost?: string
+	gitID?: string
+	hooks?: Record<string, string>
+	filepath?: string
+	nameValidator?: string | RegExp
+	descriptionValidator?: string | RegExp
+	versionControlType?: VersionControlType
+} // & Record<string, unknown>
+
+export interface GitmarsConfigExtend extends GitmarsConfigType {
+	skipCI: boolean
+	filepath: string
+}
