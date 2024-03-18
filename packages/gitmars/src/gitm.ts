@@ -3,10 +3,10 @@ import { createRequire } from 'node:module'
 import { program } from 'commander'
 import sh from 'shelljs'
 import chalk from 'chalk'
-import { spawnSync } from '@gitmars/core/lib/spawn'
-import echo from '@gitmars/core/lib/utils/echo'
+import { spawnSync } from '@gitmars/core'
+import { echo } from '@gitmars/utils'
 // import { version } from '../package.json' assert { type: 'json' }
-import lang from '#lib/common/local'
+import lang from './common/local'
 
 const { t } = lang
 const require = createRequire(import.meta.url)

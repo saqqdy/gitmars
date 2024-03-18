@@ -3,18 +3,19 @@ import { createRequire } from 'node:module'
 import { Command } from 'commander'
 import chalk from 'chalk'
 import { getType } from 'js-cool'
-import getUserInfo from '@gitmars/core/lib/api/getUserInfo'
+import { getUserInfo } from '@gitmars/api'
 import { queue } from '@gitmars/core/lib/queue'
-import getIsBranchOrCommitExist from '@gitmars/core/lib/git/getIsBranchOrCommitExist'
-import getIsGitProject from '@gitmars/core/lib/git/getIsGitProject'
-import getCurrentBranch from '@gitmars/core/lib/git/getCurrentBranch'
-import getGitConfig from '@gitmars/core/lib/git/getGitConfig'
-import getIsMergedTargetBranch from '@gitmars/core/lib/git/getIsMergedTargetBranch'
-import checkGitStatus from '@gitmars/core/lib/git/checkGitStatus'
-import fetch from '@gitmars/core/lib/git/fetch'
-import { createArgs } from '@gitmars/core/lib/utils/command'
+import {
+	checkGitStatus,
+	fetch,
+	getCurrentBranch,
+	getGitConfig,
+	getIsBranchOrCommitExist,
+	getIsGitProject,
+	getIsMergedTargetBranch
+} from '@gitmars/git'
+import { createArgs, echo } from '@gitmars/utils'
 import { spawnSync } from '@gitmars/core/lib/spawn'
-import echo from '@gitmars/core/lib/utils/echo'
 import getConfig from '@gitmars/core/lib/getConfig'
 import type {
 	CommandType,
@@ -22,8 +23,8 @@ import type {
 	GitmarsMainBranchType,
 	GitmarsOptionOptionsType
 } from '../typings/gitmars'
-import lang from '#lib/common/local'
-import adminConfig from '#lib/conf/admin'
+import lang from './common/local'
+import adminConfig from './conf/admin'
 
 const { t } = lang
 const require = createRequire(import.meta.url)

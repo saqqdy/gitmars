@@ -3,24 +3,21 @@ import { program } from 'commander'
 import dayjs from 'dayjs'
 import inquirer from 'inquirer'
 import chalk from 'chalk'
-import getUserInfo from '@gitmars/core/lib/api/getUserInfo'
-import getIsGitProject from '@gitmars/core/lib/git/getIsGitProject'
-import getGitConfig from '@gitmars/core/lib/git/getGitConfig'
-import sendGroupMessage from '@gitmars/core/lib/sendGroupMessage'
-import { createArgs } from '@gitmars/core/lib/utils/command'
-import echo from '@gitmars/core/lib/utils/echo'
-import getConfig from '@gitmars/core/lib/getConfig'
 import {
 	acceptMergeRequest,
 	deleteMergeRequest,
 	getMergeRequestChanges,
 	getMergeRequestList,
+	getMergeRequestNotesList,
+	getUserInfo,
 	updateMergeRequest
-} from '@gitmars/core/lib/api/mergeRequest'
-import { getMergeRequestNotesList } from '@gitmars/core/lib/api/mergeRequestNotes'
-import type { FetchDataType, GitmarsOptionOptionsType } from '../typings/gitmars'
-import lang from '#lib/common/local'
-import approveConfig from '#lib/conf/approve'
+} from '@gitmars/api'
+import { getGitConfig, getIsGitProject } from '@gitmars/git'
+import { getConfig, sendGroupMessage } from '@gitmars/core'
+import { createArgs, echo } from '@gitmars/utils'
+import type { FetchDataType, GitmarsOptionOptionsType } from './types'
+import lang from './common/local'
+import approveConfig from './conf/approve'
 
 const { t } = lang
 const { blue, cyan, green, magenta, red, yellow } = chalk

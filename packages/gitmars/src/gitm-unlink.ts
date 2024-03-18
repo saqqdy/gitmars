@@ -1,11 +1,11 @@
 #!/usr/bin/env ts-node
 import { program } from 'commander'
 import sh from 'shelljs'
-import { createArgs } from '@gitmars/core/lib/utils/command'
-import { spawnSync } from '@gitmars/core/lib/spawn'
-import type { GitmarsOptionOptionsType } from '../typings/gitmars'
-import lang from '#lib/common/local'
-import unlinkConfig from '#lib/conf/unlink'
+import { createArgs } from '@gitmars/utils'
+import { spawnSync } from '@gitmars/core'
+import type { GitmarsOptionOptionsType } from './types'
+import lang from './common/local'
+import unlinkConfig from './conf/unlink'
 
 const { t } = lang
 const { args, options } = unlinkConfig

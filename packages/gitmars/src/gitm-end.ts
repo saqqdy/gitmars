@@ -4,22 +4,22 @@ import { program } from 'commander'
 import sh from 'shelljs'
 import chalk from 'chalk'
 import { getType } from 'js-cool'
-import { queue } from '@gitmars/core/lib/queue'
-import getIsGitProject from '@gitmars/core/lib/git/getIsGitProject'
-import getCurrentBranch from '@gitmars/core/lib/git/getCurrentBranch'
-import getGitConfig from '@gitmars/core/lib/git/getGitConfig'
-import getIsMergedTargetBranch from '@gitmars/core/lib/git/getIsMergedTargetBranch'
-import getIsBranchOrCommitExist from '@gitmars/core/lib/git/getIsBranchOrCommitExist'
-import checkGitStatus from '@gitmars/core/lib/git/checkGitStatus'
-import searchBranches from '@gitmars/core/lib/git/searchBranches'
-import { createArgs } from '@gitmars/core/lib/utils/command'
-import { isNeedUpgrade, upgradeGitmars } from '@gitmars/core/lib/versionControl'
-import getConfig from '@gitmars/core/lib/getConfig'
-import getUserInfo from '@gitmars/core/lib/api/getUserInfo'
-import type { CommandType, FetchDataType, GitmarsOptionOptionsType } from '../typings/gitmars'
-import lang from '#lib/common/local'
-import { defaults } from '#lib/common/global'
-import endConfig from '#lib/conf/end'
+import { getConfig, isNeedUpgrade, queue, upgradeGitmars } from '@gitmars/core'
+import {
+	checkGitStatus,
+	getCurrentBranch,
+	getGitConfig,
+	getIsBranchOrCommitExist,
+	getIsGitProject,
+	getIsMergedTargetBranch,
+	searchBranches
+} from '@gitmars/git'
+import { createArgs } from '@gitmars/utils'
+import { getUserInfo } from '@gitmars/api'
+import type { CommandType, FetchDataType, GitmarsOptionOptionsType } from './types'
+import lang from './common/local'
+import { defaults } from './common/global'
+import endConfig from './conf/end'
 
 const { t } = lang
 const require = createRequire(import.meta.url)

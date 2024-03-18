@@ -3,12 +3,12 @@ import { program } from 'commander'
 import sh from 'shelljs'
 import inquirer from 'inquirer'
 import chalk from 'chalk'
-import { createArgs } from '@gitmars/core/lib/utils/command'
-import runJenkins from '@gitmars/core/lib/build/runJenkins'
+import { createArgs } from '@gitmars/utils'
+import { runJenkins } from '@gitmars/build'
 import { type ApolloBranchList } from '@gitmars/build'
-import type { GitmarsOptionOptionsType } from '../typings/gitmars'
-import lang from '#lib/common/local'
-import buildConfig from '#lib/conf/build'
+import type { GitmarsOptionOptionsType } from '../types'
+import lang from './common/local'
+import buildConfig from './conf/build'
 
 const { t } = lang
 const { red, yellow } = chalk

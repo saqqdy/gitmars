@@ -1,6 +1,6 @@
 import { osLangSync } from 'os-lang'
-import { type LocaleContext, useLocale } from '@gitmars/core/lib/utils/local'
-import * as languages from '#lib/locales/index'
+import { type LocaleContext, useLocale } from '@gitmars/utils'
+import * as languages from '../locales/index'
 
 export type LanguageType = Exclude<keyof typeof languages, 'default'>
 

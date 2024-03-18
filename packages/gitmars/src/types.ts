@@ -1,5 +1,3 @@
-/// <reference types="node" />
-
 import type { SpawnOptions, SpawnSyncReturns } from 'child_process'
 import type { QuestionCollection } from 'inquirer'
 

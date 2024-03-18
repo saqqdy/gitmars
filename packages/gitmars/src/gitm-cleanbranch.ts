@@ -4,19 +4,20 @@ import chalk from 'chalk'
 import inquirer from 'inquirer'
 import ora from 'ora'
 import { waiting } from 'js-cool'
-import getIsGitProject from '@gitmars/core/lib/git/getIsGitProject'
-import searchBranches from '@gitmars/core/lib/git/searchBranches'
-import getCurrentBranch from '@gitmars/core/lib/git/getCurrentBranch'
-import getIsMergedTargetBranch from '@gitmars/core/lib/git/getIsMergedTargetBranch'
-import getIsBranchOrCommitExist from '@gitmars/core/lib/git/getIsBranchOrCommitExist'
-import fetch from '@gitmars/core/lib/git/fetch'
-import { createArgs } from '@gitmars/core/lib/utils/command'
-import echo from '@gitmars/core/lib/utils/echo'
+import {
+	fetch,
+	getCurrentBranch,
+	getIsBranchOrCommitExist,
+	getIsGitProject,
+	getIsMergedTargetBranch,
+	searchBranches
+} from '@gitmars/git'
+import { createArgs, echo } from '@gitmars/utils'
 import { spawnSync } from '@gitmars/core/lib/spawn'
 import getConfig from '@gitmars/core/lib/getConfig'
-import type { GitmarsBranchType, GitmarsOptionOptionsType } from '../typings/gitmars'
-import lang from '#lib/common/local'
-import cleanbranchConfig from '#lib/conf/cleanbranch'
+import type { GitmarsBranchType, GitmarsOptionOptionsType } from './types'
+import lang from './common/local'
+import cleanbranchConfig from './conf/cleanbranch'
 
 const { t } = lang
 const { green, red, yellow } = chalk

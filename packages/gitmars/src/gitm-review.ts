@@ -4,11 +4,9 @@ import dayjs from 'dayjs'
 import inquirer from 'inquirer'
 import columnify from 'columnify'
 import chalk from 'chalk'
-import getIsGitProject from '@gitmars/core/lib/git/getIsGitProject'
-import getGitConfig from '@gitmars/core/lib/git/getGitConfig'
-import sendGroupMessage from '@gitmars/core/lib/sendGroupMessage'
-import { createArgs } from '@gitmars/core/lib/utils/command'
-import echo from '@gitmars/core/lib/utils/echo'
+import { getGitConfig, getIsGitProject } from '@gitmars/git'
+import { sendGroupMessage } from '@gitmars/core'
+import { createArgs, echo } from '@gitmars/utils'
 import {
 	deleteMergeRequest,
 	getMergeRequestChanges,
@@ -20,8 +18,8 @@ import {
 	getMergeRequestNotesList
 } from '@gitmars/core/lib/api/mergeRequestNotes'
 import type { GitmarsOptionOptionsType } from '../typings/gitmars'
-import lang from '#lib/common/local'
-import reviewConfig from '#lib/conf/review'
+import lang from './common/local'
+import reviewConfig from './conf/review'
 
 const { t } = lang
 const { blue, cyan, green, magenta, red, yellow } = chalk

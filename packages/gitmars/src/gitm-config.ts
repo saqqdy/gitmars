@@ -2,13 +2,12 @@
 import { program } from 'commander'
 import sh from 'shelljs'
 import chalk from 'chalk'
-import getIsGitProject from '@gitmars/core/lib/git/getIsGitProject'
-import getGitRevParse from '@gitmars/core/lib/git/getGitRevParse'
-import { writeFile } from '@gitmars/core/lib/utils/file'
-import getConfig from '@gitmars/core/lib/getConfig'
+import { getGitRevParse, getIsGitProject } from '@gitmars/git'
+import { writeFile } from '@gitmars/utils'
+import { getConfig } from '@gitmars/core'
 import type { GitmarsConfigProperty } from '@gitmars/build'
-import lang from '#lib/common/local'
-import { defaults } from '#lib/common/global'
+import lang from './common/local'
+import { defaults } from './common/global'
 
 const { t } = lang
 const { green, red } = chalk

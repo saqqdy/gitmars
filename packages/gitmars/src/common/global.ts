@@ -1,4 +1,4 @@
-import lang from '#lib/common/local'
+import lang from '../common/local'
 
 const { t } = lang
 

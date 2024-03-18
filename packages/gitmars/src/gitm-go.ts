@@ -4,12 +4,12 @@ import sh from 'shelljs'
 import chalk from 'chalk'
 import inquirer from 'inquirer'
 import { getProperty } from 'js-cool'
-import getCurrentBranch from '@gitmars/core/lib/git/getCurrentBranch'
-import { createArgs } from '@gitmars/core/lib/utils/command'
-import type { GitmarsOptionOptionsType } from '../typings/gitmars'
-import lang from '#lib/common/local'
-import * as commands from '#lib/go/index'
-import goConfig from '#lib/conf/go'
+import { getCurrentBranch } from '@gitmars/git'
+import { createArgs } from '@gitmars/utils'
+import type { GitmarsOptionOptionsType } from './types'
+import lang from './common/local'
+import * as commands from './go/index'
+import goConfig from './conf/go'
 
 const { t } = lang
 const { green, red } = chalk

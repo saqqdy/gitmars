@@ -4,23 +4,14 @@ import dayjs from 'dayjs'
 import inquirer from 'inquirer'
 import sh from 'shelljs'
 import chalk from 'chalk'
-import { queue } from '@gitmars/core/lib/queue'
-import getIsGitProject from '@gitmars/core/lib/git/getIsGitProject'
-import getGitLogs from '@gitmars/core/lib/git/getGitLogs'
-import getGitLogsByCommitIDs from '@gitmars/core/lib/git/getGitLogsByCommitIDs'
-import getCurrentBranch from '@gitmars/core/lib/git/getCurrentBranch'
-import { createArgs } from '@gitmars/core/lib/utils/command'
-import echo from '@gitmars/core/lib/utils/echo'
-import { addRevertCache, getRevertCache, setRevertCache } from '@gitmars/core/lib/cache/revertCache'
-import type { GitLogKeysType } from '@gitmars/core/typings/core'
-import type {
-	CommandType,
-	GitLogsType,
-	GitmarsOptionOptionsType,
-	RevertCacheType
-} from '../typings/gitmars'
-import lang from '#lib/common/local'
-import undoConfig from '#lib/conf/undo'
+import { queue } from '@gitmars/core'
+import { getCurrentBranch, getGitLogs, getGitLogsByCommitIDs, getIsGitProject } from '@gitmars/git'
+import { createArgs, echo } from '@gitmars/utils'
+import { addRevertCache, getRevertCache, setRevertCache } from '@gitmars/cache'
+import type { GitLogKeysType } from '@gitmars/core'
+import type { CommandType, GitLogsType, GitmarsOptionOptionsType, RevertCacheType } from './types'
+import lang from './common/local'
+import undoConfig from './conf/undo'
 
 const { t } = lang
 const { blue, green, red, yellow } = chalk

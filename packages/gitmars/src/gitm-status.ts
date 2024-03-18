@@ -2,14 +2,11 @@
 import { program } from 'commander'
 import columnify from 'columnify'
 import chalk from 'chalk'
-import getIsGitProject from '@gitmars/core/lib/git/getIsGitProject'
-import getCurrentBranch from '@gitmars/core/lib/git/getCurrentBranch'
-import getGitStatus from '@gitmars/core/lib/git/getGitStatus'
-import { createArgs } from '@gitmars/core/lib/utils/command'
-import echo from '@gitmars/core/lib/utils/echo'
-import type { GitStatusInfoType, GitmarsOptionOptionsType } from '../typings/gitmars'
-import lang from '#lib/common/local'
-import statusConfig from '#lib/conf/status'
+import { getCurrentBranch, getGitStatus, getIsGitProject } from '@gitmars/git'
+import { createArgs, echo } from '@gitmars/utils'
+import type { GitStatusInfoType, GitmarsOptionOptionsType } from './types'
+import lang from './common/local'
+import statusConfig from './conf/status'
 
 const { t } = lang
 const { cyan, green, red, yellow } = chalk

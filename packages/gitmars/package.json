@@ -53,7 +53,14 @@
 		"typings": "typings"
 	},
 	"dependencies": {
+		"@gitmars/api": "workspace:*",
+		"@gitmars/build": "workspace:*",
 		"@gitmars/core": "workspace:*",
+		"@gitmars/git": "workspace:*",
+		"@gitmars/go": "workspace:*",
+		"@gitmars/hook": "workspace:*",
+		"@gitmars/shell": "workspace:*",
+		"@gitmars/utils": "workspace:*",
 		"@jssj/request": "^1.1.0",
 		"chalk": "^4.1.2",
 		"ci-info": "^4.0.0",

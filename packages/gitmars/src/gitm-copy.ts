@@ -4,21 +4,22 @@ import dayjs from 'dayjs'
 import inquirer from 'inquirer'
 import sh from 'shelljs'
 import chalk from 'chalk'
-import { queue } from '@gitmars/core/lib/queue'
-import getIsGitProject from '@gitmars/core/lib/git/getIsGitProject'
-import getCurrentBranch from '@gitmars/core/lib/git/getCurrentBranch'
-import checkGitStatus from '@gitmars/core/lib/git/checkGitStatus'
-import fetch from '@gitmars/core/lib/git/fetch'
-import prune from '@gitmars/core/lib/git/prune'
-import getGitLogs from '@gitmars/core/lib/git/getGitLogs'
-import getGitLogsByCommitIDs from '@gitmars/core/lib/git/getGitLogsByCommitIDs'
-import searchBranches from '@gitmars/core/lib/git/searchBranches'
-import { createArgs } from '@gitmars/core/lib/utils/command'
-import echo from '@gitmars/core/lib/utils/echo'
-import type { GitLogKeysType } from '@gitmars/core/typings/core'
-import type { CommandType, GitLogsType, GitmarsOptionOptionsType } from '../typings/gitmars'
-import copyConfig from '#lib/conf/copy'
-import lang from '#lib/common/local'
+import { queue } from '@gitmars/core'
+import {
+	checkGitStatus,
+	fetch,
+	getCurrentBranch,
+	getGitLogs,
+	getGitLogsByCommitIDs,
+	getIsGitProject,
+	prune,
+	searchBranches
+} from '@gitmars/git'
+import { createArgs, echo } from '@gitmars/utils'
+import type { GitLogKeysType } from '@gitmars/core'
+import type { CommandType, GitLogsType, GitmarsOptionOptionsType } from './types'
+import copyConfig from './conf/copy'
+import lang from './common/local'
 
 const { t } = lang
 const { blue, green, red, yellow } = chalk

@@ -2,12 +2,11 @@
 import { program } from 'commander'
 import ora from 'ora'
 import chalk from 'chalk'
-import { createArgs } from '@gitmars/core/lib/utils/command'
-import { spawnSync } from '@gitmars/core/lib/spawn'
-import echo from '@gitmars/core/lib/utils/echo'
-import type { GitmarsOptionOptionsType, PackageVersionTag } from '../typings/gitmars'
-import installConfig from '#lib/conf/install'
-import lang from '#lib/common/local'
+import { createArgs, echo } from '@gitmars/utils'
+import { spawnSync } from '@gitmars/core'
+import type { GitmarsOptionOptionsType, PackageVersionTag } from './types'
+import installConfig from './conf/install'
+import lang from './common/local'
 
 const { t } = lang
 const { green, red } = chalk

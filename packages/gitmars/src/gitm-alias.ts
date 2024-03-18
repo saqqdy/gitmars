@@ -1,12 +1,11 @@
 #!/usr/bin/env ts-node
 import { program } from 'commander'
 import chalk from 'chalk'
-import { createArgs } from '@gitmars/core/lib/utils/command'
+import { createArgs, echo } from '@gitmars/utils'
 import { spawnSync } from '@gitmars/core/lib/spawn'
-import echo from '@gitmars/core/lib/utils/echo'
-import type { GitmarsOptionOptionsType } from '../typings/gitmars'
-import aliasConfig from '#lib/conf/alias'
-import lang from '#lib/common/local'
+import type { GitmarsOptionOptionsType } from './types'
+import aliasConfig from './conf/alias'
+import lang from './common/local'
 
 const { t } = lang
 const { red } = chalk
