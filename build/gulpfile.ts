@@ -29,11 +29,8 @@ export default series(
 		wrapDisplayName('copy:md', copyMdFile),
 		wrapDisplayName('copy-lib:json,sh', copyLibFile)
 	),
-	parallel(
-		wrapDisplayName('build:lib', buildLib),
-		wrapDisplayName('build:docs', buildDocs),
-		wrapDisplayName('build:type', buildType)
-	),
+	wrapDisplayName('build:type', buildType),
+	parallel(wrapDisplayName('build:lib', buildLib), wrapDisplayName('build:docs', buildDocs)),
 	parallel(wrapDisplayName('build:app', buildApp)),
 	parallel(wrapDisplayName('madge:lib', madgeLib))
 )

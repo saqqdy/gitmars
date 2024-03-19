@@ -2,7 +2,7 @@
 import { program } from 'commander'
 import sh from 'shelljs'
 import chalk from 'chalk'
-import { queue } from '@gitmars/core/lib/queue'
+import { queue } from '@gitmars/core'
 import { getCurrentBranch, getIsGitProject, getStashList } from '@gitmars/git'
 import { createArgs } from '@gitmars/utils'
 import type { GitmarsOptionOptionsType } from './types'

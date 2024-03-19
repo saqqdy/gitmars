@@ -2,7 +2,7 @@
 import { program } from 'commander'
 import sh from 'shelljs'
 import chalk from 'chalk'
-import { queue } from '@gitmars/core/lib/queue'
+import { getConfig, isNeedUpgrade, queue, upgradeGitmars } from '@gitmars/core'
 import {
 	checkGitStatus,
 	fetch,
@@ -12,7 +12,6 @@ import {
 	searchBranches
 } from '@gitmars/git'
 import { createArgs } from '@gitmars/utils'
-import { getConfig, isNeedUpgrade, upgradeGitmars } from '@gitmars/core'
 import type { CommandType, GitmarsOptionOptionsType } from './types'
 import { defaults } from './common/global'
 import updateConfig from './conf/update'

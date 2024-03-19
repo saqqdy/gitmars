@@ -8,16 +8,14 @@ import { getGitConfig, getIsGitProject } from '@gitmars/git'
 import { sendGroupMessage } from '@gitmars/core'
 import { createArgs, echo } from '@gitmars/utils'
 import {
+	createMergeRequestNotes,
 	deleteMergeRequest,
 	getMergeRequestChanges,
 	getMergeRequestList,
+	getMergeRequestNotesList,
 	updateMergeRequest
-} from '@gitmars/core/lib/api/mergeRequest'
-import {
-	createMergeRequestNotes,
-	getMergeRequestNotesList
-} from '@gitmars/core/lib/api/mergeRequestNotes'
-import type { GitmarsOptionOptionsType } from '../typings/gitmars'
+} from '@gitmars/api'
+import type { GitmarsOptionOptionsType } from './types'
 import lang from './common/local'
 import reviewConfig from './conf/review'
 

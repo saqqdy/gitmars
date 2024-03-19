@@ -30,7 +30,7 @@ $ pnpm install @gitmars/core
 ## Usage
 
 ```js
-const getConfig = require('@gitmars/core/lib/getConfig')
+const getConfig = require('@gitmars/core')
 
 getConfig()
 ```

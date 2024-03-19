@@ -13,8 +13,7 @@ import {
 	searchBranches
 } from '@gitmars/git'
 import { createArgs, echo } from '@gitmars/utils'
-import { spawnSync } from '@gitmars/core/lib/spawn'
-import getConfig from '@gitmars/core/lib/getConfig'
+import { getConfig, spawnSync } from '@gitmars/core'
 import type { GitmarsBranchType, GitmarsOptionOptionsType } from './types'
 import lang from './common/local'
 import cleanbranchConfig from './conf/cleanbranch'

@@ -4,7 +4,7 @@ import { program } from 'commander'
 import sh from 'shelljs'
 import chalk from 'chalk'
 import { getType } from 'js-cool'
-import { queue } from '@gitmars/core/lib/queue'
+import { getConfig, isNeedUpgrade, queue, upgradeGitmars } from '@gitmars/core'
 import {
 	checkGitStatus,
 	getCurrentBranch,
@@ -15,7 +15,6 @@ import {
 	searchBranches
 } from '@gitmars/git'
 import { createArgs } from '@gitmars/utils'
-import { getConfig, isNeedUpgrade, upgradeGitmars } from '@gitmars/core'
 import { getUserInfo } from '@gitmars/api'
 import type { CommandType, FetchDataType, GitmarsOptionOptionsType } from './types'
 import lang from './common/local'

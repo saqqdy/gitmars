@@ -4,7 +4,7 @@ import { Command } from 'commander'
 import chalk from 'chalk'
 import { getType } from 'js-cool'
 import { getUserInfo } from '@gitmars/api'
-import { queue } from '@gitmars/core/lib/queue'
+import { getConfig, queue, spawnSync } from '@gitmars/core'
 import {
 	checkGitStatus,
 	fetch,
@@ -15,14 +15,12 @@ import {
 	getIsMergedTargetBranch
 } from '@gitmars/git'
 import { createArgs, echo } from '@gitmars/utils'
-import { spawnSync } from '@gitmars/core/lib/spawn'
-import getConfig from '@gitmars/core/lib/getConfig'
 import type {
 	CommandType,
 	FetchDataType,
 	GitmarsMainBranchType,
 	GitmarsOptionOptionsType
-} from '../typings/gitmars'
+} from './types'
 import lang from './common/local'
 import adminConfig from './conf/admin'
 
