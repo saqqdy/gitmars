@@ -1,6 +1,7 @@
 import fs from 'fs'
 import { resolve } from 'path'
-import { SH_PATH, readPkg } from '@gitmars/utils'
+import { readPkg } from '@gitmars/git'
+import { SH_PATH } from '@gitmars/utils'
 import getHookComment from './getHookComment'
 
 /**

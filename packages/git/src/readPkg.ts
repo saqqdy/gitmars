@@ -12,7 +12,7 @@
 
 import { readFileSync } from 'fs'
 import { resolve } from 'path'
-import { getGitRevParse } from '@gitmars/git'
+import getGitRevParse from './getGitRevParse'
 import type { AnyObject } from './types'
 
 /**

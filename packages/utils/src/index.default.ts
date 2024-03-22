@@ -8,7 +8,6 @@ import useLocale from './lang'
 import { getMessage, postMessage } from './message'
 import { CACHE_PATH, ROOT_PATH, SH_PATH, SRC_PATH } from './paths'
 import { cleanPkgInfo, getPkgInfo } from './pkgInfo'
-import readPkg from './readPkg'
 import stringify from './stringify'
 import { decodeUnicode, encodeUnicode } from './unicode'
 
@@ -34,7 +33,6 @@ export default {
 	SH_PATH,
 	getPkgInfo,
 	cleanPkgInfo,
-	readPkg,
 	stringify,
 	encodeUnicode,
 	decodeUnicode

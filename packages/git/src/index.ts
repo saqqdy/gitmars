@@ -1,47 +1,24 @@
-import getIsGitProject from './getIsGitProject'
-import searchBranches from './searchBranches'
-import getCurrentBranch from './getCurrentBranch'
-import getGitLogs from './getGitLogs'
-import getGitLogsByCommitIDs from './getGitLogsByCommitIDs'
-import getGitVersion from './getGitVersion'
-import getGitConfig from './getGitConfig'
-import getGitRevParse from './getGitRevParse'
-import getAheadLogs from './getAheadLogs'
-import getBehindLogs from './getBehindLogs'
-import getIsBranchOrCommitExist from './getIsBranchOrCommitExist'
-import getIsMergeAction from './getIsMergeAction'
-import getIsMergedTargetBranch from './getIsMergedTargetBranch'
-import getIsUpdatedInTime from './getIsUpdatedInTime'
-import { getGitEmail, getGitToken, getGitUser } from './getGitUser'
-import getBranchesFromID from './getBranchesFromID'
-import getGitStatus from './getGitStatus'
-import getCommandMessage from './getCommandMessage'
-import checkGitStatus from './checkGitStatus'
-import getStashList from './getStashList'
-import fetch from './fetch'
+export { default as getIsGitProject } from './getIsGitProject'
+export { default as searchBranches } from './searchBranches'
+export { default as getCurrentBranch } from './getCurrentBranch'
+export { default as getGitLogs } from './getGitLogs'
+export { default as getGitLogsByCommitIDs } from './getGitLogsByCommitIDs'
+export { default as getGitVersion } from './getGitVersion'
+export { default as getGitConfig } from './getGitConfig'
+export { default as getGitRevParse } from './getGitRevParse'
+export { default as getAheadLogs } from './getAheadLogs'
+export { default as getBehindLogs } from './getBehindLogs'
+export { default as getIsBranchOrCommitExist } from './getIsBranchOrCommitExist'
+export { default as getIsMergeAction } from './getIsMergeAction'
+export { default as getIsMergedTargetBranch } from './getIsMergedTargetBranch'
+export { default as getIsUpdatedInTime } from './getIsUpdatedInTime'
+export { getGitEmail, getGitToken, getGitUser } from './getGitUser'
+export { default as getBranchesFromID } from './getBranchesFromID'
+export { default as getGitStatus } from './getGitStatus'
+export { default as getCommandMessage } from './getCommandMessage'
+export { default as checkGitStatus } from './checkGitStatus'
+export { default as getStashList } from './getStashList'
+export { default as fetch } from './fetch'
+export { default as readPkg } from './readPkg'
 
-export default {
-	getIsGitProject,
-	searchBranches,
-	getCurrentBranch,
-	getGitLogs,
-	getGitLogsByCommitIDs,
-	getGitVersion,
-	getGitConfig,
-	getGitRevParse,
-	getAheadLogs,
-	getBehindLogs,
-	getIsBranchOrCommitExist,
-	getIsMergeAction,
-	getIsMergedTargetBranch,
-	getIsUpdatedInTime,
-	getGitToken,
-	getGitUser,
-	getGitEmail,
-	getBranchesFromID,
-	getGitStatus,
-	getCommandMessage,
-	checkGitStatus,
-	getStashList,
-	fetch
-}
+export { default } from './index.default'

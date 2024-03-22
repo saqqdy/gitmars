@@ -1,5 +1,4 @@
-import { getGitConfig, getGitRevParse } from '@gitmars/git'
-import { readPkg } from '@gitmars/utils'
+import { getGitConfig, getGitRevParse, readPkg } from '@gitmars/git'
 const { gitUrl } = getGitConfig()
 const { root } = getGitRevParse()
 

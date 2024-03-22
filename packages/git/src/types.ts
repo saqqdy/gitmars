@@ -1,3 +1,5 @@
+export type AnyObject = Record<string, any>
+
 export type GitLogKeysType =
 	| '%H'
 	| '%h'

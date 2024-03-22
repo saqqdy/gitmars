@@ -8,7 +8,6 @@ export { default as useLocale } from './lang'
 export { getMessage, postMessage } from './message'
 export { ROOT_PATH, SRC_PATH, CACHE_PATH, SH_PATH } from './paths'
 export { getPkgInfo, cleanPkgInfo } from './pkgInfo'
-export { default as readPkg } from './readPkg'
 export { default as stringify } from './stringify'
 export { encodeUnicode, decodeUnicode } from './unicode'
 
