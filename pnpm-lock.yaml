@@ -378,9 +378,6 @@ importers:
       chalk:
         specifier: ^4.1.2
         version: 4.1.2
-      cosmiconfig:
-        specifier: ^9.0.0
-        version: 9.0.0(typescript@5.3.3)
       js-cool:
         specifier: ^5.18.1
         version: 5.18.1
@@ -491,6 +488,9 @@ importers:
       chalk:
         specifier: ^4.1.2
         version: 4.1.2
+      cosmiconfig:
+        specifier: ^9.0.0
+        version: 9.0.0(typescript@5.3.3)
       lodash-es:
         specifier: ^4.17.21
         version: 4.17.21
@@ -579,9 +579,6 @@ importers:
       commander:
         specifier: ^11.1.0
         version: 11.1.0
-      cosmiconfig:
-        specifier: ^9.0.0
-        version: 9.0.0(typescript@5.3.3)
       dayjs:
         specifier: ^1.11.10
         version: 1.11.10
@@ -7717,6 +7714,7 @@ packages:
 
   /js-tokens@4.0.0:
     resolution: {integrity: sha512-RdJUflcE3cUzKiMqQgsCu06FPu9UdIJO0beYbPhHN4k6apgJtifcoCtT9bcxOpYBtpD2kCM6Sbzg4CausW/PKQ==}
+    requiresBuild: true
 
   /js-yaml@4.1.0:
     resolution: {integrity: sha512-wpxZs9NoxZaJESJGIZTyDEaYpl0FKSA+FB9aJiyemKhMwkxQg63h4T1KJgUGHpTqPDNRcmmYLugrRjJlBtWvRA==}
