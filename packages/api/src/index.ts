@@ -1,4 +1,3 @@
-export type * from './types'
 export { default as getUserInfo } from './getUserInfo'
 
 export {
@@ -13,3 +12,7 @@ export {
 	updateMergeRequest,
 	deleteMergeRequest
 } from './mergeRequest'
+
+export { default } from './index.default'
+export type * from './index.default'
+export const version = '__VERSION__' as string

@@ -9,7 +9,9 @@ import stringify from './stringify'
 import { decodeUnicode, encodeUnicode } from './unicode'
 import { spawn, spawnSync } from './spawn'
 
+export type * from './types'
 export default {
+	version: '__VERSION__',
 	createArgs,
 	isDebug,
 	debug,

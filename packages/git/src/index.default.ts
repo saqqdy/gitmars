@@ -22,7 +22,9 @@ import fetch from './fetch'
 import readPkg from './readPkg'
 import getConfig from './getConfig'
 
+export type * from './types'
 export default {
+	version: '__VERSION__',
 	getIsGitProject,
 	searchBranches,
 	getCurrentBranch,

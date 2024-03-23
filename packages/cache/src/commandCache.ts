@@ -1,5 +1,5 @@
 import sh from 'shelljs'
-import getGitRevParse from '@gitmars/git'
+import { getGitRevParse } from '@gitmars/git'
 import { isFileExist } from '@gitmars/utils'
 import type { CommandType } from './types'
 
