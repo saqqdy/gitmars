@@ -10,5 +10,6 @@ export { ROOT_PATH, SRC_PATH, CACHE_PATH, SH_PATH } from './paths'
 export { getPkgInfo, cleanPkgInfo } from './pkgInfo'
 export { default as stringify } from './stringify'
 export { encodeUnicode, decodeUnicode } from './unicode'
+export { spawn, spawnSync } from './spawn'
 
 export { default } from './index.default'
