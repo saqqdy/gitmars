@@ -80,17 +80,6 @@ export const packages: PackageManifest[] = [
 	},
 	{
 		name: 'core',
-		pkgName: '@gitmars/shell',
-		buildTask: ['type', 'lib'],
-		iife: false,
-		cjs: true,
-		mjs: true,
-		dts: false,
-		output: 'lib',
-		display: 'gitmars shell'
-	},
-	{
-		name: 'core',
 		pkgName: '@gitmars/utils',
 		buildTask: ['type', 'lib'],
 		iife: false,

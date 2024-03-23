@@ -561,9 +561,6 @@ importers:
       '@gitmars/hook':
         specifier: workspace:*
         version: link:../hook
-      '@gitmars/shell':
-        specifier: workspace:*
-        version: link:../shell
       '@gitmars/utils':
         specifier: workspace:*
         version: link:../utils
@@ -737,70 +734,6 @@ importers:
       js-cool:
         specifier: ^5.18.1
         version: 5.18.1
-      lodash-es:
-        specifier: ^4.17.21
-        version: 4.17.21
-      lodash-unified:
-        specifier: ^1.0.3
-        version: 1.0.3(@types/lodash-es@4.17.12)(lodash-es@4.17.21)
-      os-lang:
-        specifier: ^3.2.0
-        version: 3.2.0
-      shelljs:
-        specifier: ^0.8.5
-        version: 0.8.5
-    devDependencies:
-      '@eslint-sets/eslint-config-ts':
-        specifier: ^5.12.0
-        version: 5.12.0(eslint@8.57.0)(prettier@3.2.5)(typescript@5.3.3)
-      '@types/lodash-es':
-        specifier: ^4.17.12
-        version: 4.17.12
-      '@types/node':
-        specifier: ^20.11.24
-        version: 20.11.24
-      '@types/shelljs':
-        specifier: ^0.8.15
-        version: 0.8.15
-      cross-env:
-        specifier: ^7.0.3
-        version: 7.0.3
-      eslint:
-        specifier: ^8.57.0
-        version: 8.57.0
-      madge:
-        specifier: ^6.1.0
-        version: 6.1.0(typescript@5.3.3)
-      prettier:
-        specifier: ^3.2.5
-        version: 3.2.5
-      prettier-config-common:
-        specifier: ^1.4.0
-        version: 1.4.0
-      tsnd:
-        specifier: ^1.1.0
-        version: 1.1.0
-      typescript:
-        specifier: ^5.3.3
-        version: 5.3.3
-
-  packages/shell:
-    dependencies:
-      '@gitmars/core':
-        specifier: workspace:*
-        version: link:../core
-      '@gitmars/git':
-        specifier: workspace:*
-        version: link:../git
-      '@gitmars/utils':
-        specifier: workspace:*
-        version: link:../utils
-      '@jssj/request':
-        specifier: ^1.1.0
-        version: 1.1.0(core-js@3.32.2)(tslib@2.6.2)
-      chalk:
-        specifier: ^4.1.2
-        version: 4.1.2
       lodash-es:
         specifier: ^4.17.21
         version: 4.17.21

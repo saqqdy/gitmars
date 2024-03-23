@@ -134,22 +134,6 @@ updates:
         update-types: ['version-update:semver-patch']
 
   - package-ecosystem: npm # See documentation for possible values
-    directory: /packages/shell # Location of package manifests
-    schedule:
-      interval: weekly
-    open-pull-requests-limit: 2
-    ignore:
-      - dependency-name: 'core-js'
-      - dependency-name: 'eslint'
-      - dependency-name: 'prettier'
-      - dependency-name: '@babel/*'
-      - dependency-name: '@types/*'
-      - dependency-name: typescript
-        versions: [4.x]
-      - dependency-name: '*'
-        update-types: ['version-update:semver-patch']
-
-  - package-ecosystem: npm # See documentation for possible values
     directory: /packages/utils # Location of package manifests
     schedule:
       interval: weekly

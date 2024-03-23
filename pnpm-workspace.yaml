@@ -6,7 +6,6 @@ packages:
   - packages/git
   - packages/go
   - packages/hook
-  - packages/shell
   - packages/utils
   - packages/docs
   - packages/gitmars

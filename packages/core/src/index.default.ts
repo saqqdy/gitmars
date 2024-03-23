@@ -14,6 +14,7 @@
 import { enUS, zhCN } from './locales'
 export type { TranslatePair, Language } from './locales'
 import { getMessage, postMessage } from './message'
+import getCurlOfMergeRequest from './getCurlOfMergeRequest'
 
 export default {
 	version: '__VERSION__',
@@ -30,5 +31,6 @@ export default {
 	zhCN,
 	enUS,
 	getMessage,
-	postMessage
+	postMessage,
+	getCurlOfMergeRequest
 }

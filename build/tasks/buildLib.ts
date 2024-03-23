@@ -45,7 +45,6 @@ export async function buildLib() {
 		'@gitmars/git',
 		'@gitmars/go',
 		'@gitmars/hook',
-		'@gitmars/shell',
 		'@gitmars/utils',
 		'@gitmars/docs'
 	]
