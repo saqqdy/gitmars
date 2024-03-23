@@ -24,6 +24,17 @@ export const packages: PackageManifest[] = [
 		display: 'gitmars git'
 	},
 	{
+		name: 'hook',
+		pkgName: '@gitmars/hook',
+		buildTask: ['type', 'lib'],
+		iife: false,
+		cjs: true,
+		mjs: true,
+		dts: false,
+		output: 'lib',
+		display: 'gitmars hook'
+	},
+	{
 		name: 'cache',
 		pkgName: '@gitmars/cache',
 		buildTask: ['type', 'lib'],
@@ -77,17 +88,6 @@ export const packages: PackageManifest[] = [
 		dts: false,
 		output: 'lib',
 		display: 'gitmars核心程序'
-	},
-	{
-		name: 'hook',
-		pkgName: '@gitmars/hook',
-		buildTask: ['type', 'lib'],
-		iife: false,
-		cjs: true,
-		mjs: true,
-		dts: false,
-		output: 'lib',
-		display: 'gitmars hook'
 	},
 	{
 		name: 'gitmars',
