@@ -1,4 +1,4 @@
-import { spawnSync } from '@gitmars/core'
+import { spawnSync } from '@gitmars/utils'
 import { debug } from '@gitmars/utils'
 import getGitConfig from './getGitConfig'
 import getGitRevParse from './getGitRevParse'

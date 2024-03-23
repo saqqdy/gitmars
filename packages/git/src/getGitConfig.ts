@@ -1,6 +1,5 @@
 import slash from 'slash'
-import { spawnSync } from '@gitmars/core'
-import { debug } from '@gitmars/utils'
+import { debug, spawnSync } from '@gitmars/utils'
 
 export interface GitProjectConfigType {
 	gitUrl: string

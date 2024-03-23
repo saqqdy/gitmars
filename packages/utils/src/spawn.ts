@@ -1,6 +1,7 @@
 import type { SpawnOptions, SpawnSyncOptions, SpawnSyncReturns } from 'child_process'
 import crossSpawn from 'cross-spawn'
-import { debug, stringify } from '@gitmars/utils'
+import { debug } from './debug'
+import stringify from './stringify'
 
 /**
  * 异步执行脚本

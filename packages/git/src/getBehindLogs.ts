@@ -1,5 +1,4 @@
-import { spawnSync } from '@gitmars/core'
-import { debug } from '@gitmars/utils'
+import { debug, spawnSync } from '@gitmars/utils'
 import fetch from './fetch'
 import getCurrentBranch from './getCurrentBranch'
 

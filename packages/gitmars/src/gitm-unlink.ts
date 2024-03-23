@@ -2,7 +2,7 @@
 import { program } from 'commander'
 import sh from 'shelljs'
 import { createArgs } from '@gitmars/utils'
-import { spawnSync } from '@gitmars/core'
+import { spawnSync } from '@gitmars/utils'
 import type { GitmarsOptionOptionsType } from './types'
 import lang from './common/local'
 import unlinkConfig from './conf/unlink'

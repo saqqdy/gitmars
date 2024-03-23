@@ -1,4 +1,4 @@
-import { spawnSync } from '@gitmars/core'
+import { spawnSync } from '@gitmars/utils'
 import { debug } from '@gitmars/utils'
 import { getCurrentBranch } from '@gitmars/git'
 import { cleanConfigSet, getCommand } from '@gitmars/go'

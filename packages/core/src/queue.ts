@@ -4,9 +4,8 @@ import { extend } from 'js-cool'
 import chalk from 'chalk'
 import { setCommandCache, setLog } from '@gitmars/cache'
 import { getCommandMessage } from '@gitmars/git'
-import { debug, postMessage } from '@gitmars/utils'
+import { debug, postMessage, spawnSync } from '@gitmars/utils'
 import type { CommandMessageType, CommandType, CommandTypeCmd, QueueReturnsType } from './types'
-import { spawnSync } from './spawn'
 import lang from './lang'
 
 const { t } = lang

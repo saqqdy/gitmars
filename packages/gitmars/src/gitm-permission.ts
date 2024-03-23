@@ -3,7 +3,8 @@ import { program } from 'commander'
 import sh from 'shelljs'
 import chalk from 'chalk'
 import { getCurrentBranch } from '@gitmars/git'
-import { getConfig, spawnSync } from '@gitmars/core'
+import { spawnSync } from '@gitmars/utils'
+import { getConfig } from '@gitmars/core'
 import lang from './common/local'
 
 const { t } = lang

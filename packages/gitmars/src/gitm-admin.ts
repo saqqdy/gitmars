@@ -4,7 +4,8 @@ import { Command } from 'commander'
 import chalk from 'chalk'
 import { getType } from 'js-cool'
 import { getUserInfo } from '@gitmars/api'
-import { getConfig, queue, spawnSync } from '@gitmars/core'
+import { spawnSync } from '@gitmars/utils'
+import { getConfig, queue } from '@gitmars/core'
 import {
 	checkGitStatus,
 	fetch,

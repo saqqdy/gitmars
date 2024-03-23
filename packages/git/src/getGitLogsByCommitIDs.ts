@@ -1,5 +1,4 @@
-import { spawnSync } from '@gitmars/core'
-import { debug } from '@gitmars/utils'
+import { debug, spawnSync } from '@gitmars/utils'
 import GitLogsFormatter from './gitLogsFormatter'
 import type { GitLogKeysType, GitLogsType } from './types'
 

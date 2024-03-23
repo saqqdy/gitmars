@@ -378,9 +378,6 @@ importers:
       cosmiconfig:
         specifier: ^9.0.0
         version: 9.0.0(typescript@5.3.3)
-      cross-spawn:
-        specifier: ^7.0.3
-        version: 7.0.3
       js-cool:
         specifier: ^5.18.1
         version: 5.18.1
@@ -406,9 +403,6 @@ importers:
       '@eslint-sets/eslint-config-ts':
         specifier: ^5.12.0
         version: 5.12.0(eslint@8.57.0)(prettier@3.2.5)(typescript@5.3.3)
-      '@types/cross-spawn':
-        specifier: ^6.0.6
-        version: 6.0.6
       '@types/lodash-es':
         specifier: ^4.17.12
         version: 4.17.12
@@ -588,9 +582,6 @@ importers:
       cosmiconfig:
         specifier: ^9.0.0
         version: 9.0.0(typescript@5.3.3)
-      cross-spawn:
-        specifier: ^7.0.3
-        version: 7.0.3
       dayjs:
         specifier: ^1.11.10
         version: 1.11.10
@@ -631,9 +622,6 @@ importers:
       '@types/columnify':
         specifier: ^1.5.4
         version: 1.5.4
-      '@types/cross-spawn':
-        specifier: ^6.0.6
-        version: 6.0.6
       '@types/inquirer':
         specifier: ^8.2.6
         version: 8.2.6
@@ -868,6 +856,9 @@ importers:
       chalk:
         specifier: ^4.1.2
         version: 4.1.2
+      cross-spawn:
+        specifier: ^7.0.3
+        version: 7.0.3
       debug:
         specifier: ^4.3.4
         version: 4.3.4
@@ -893,6 +884,9 @@ importers:
       '@eslint-sets/eslint-config-ts':
         specifier: ^5.12.0
         version: 5.12.0(eslint@8.57.0)(prettier@3.2.5)(typescript@5.3.3)
+      '@types/cross-spawn':
+        specifier: ^6.0.6
+        version: 6.0.6
       '@types/debug':
         specifier: ^4.1.12
         version: 4.1.12

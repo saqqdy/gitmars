@@ -1,4 +1,5 @@
-import { getConfig, spawnSync } from '@gitmars/core'
+import { spawnSync } from '@gitmars/utils'
+import { getConfig } from '@gitmars/core'
 import type { ShellCode } from './types'
 import checkGitDirEnv from './checkGitDirEnv'
 import lang from './lang'

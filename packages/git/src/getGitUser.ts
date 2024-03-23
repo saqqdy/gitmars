@@ -1,6 +1,6 @@
 import chalk from 'chalk'
 import sh from 'shelljs'
-import { spawnSync } from '@gitmars/core'
+import { spawnSync } from '@gitmars/utils'
 import { debug } from '@gitmars/utils'
 import lang from './lang'
 

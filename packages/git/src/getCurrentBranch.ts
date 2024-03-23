@@ -1,4 +1,4 @@
-import { spawnSync } from '@gitmars/core'
+import { spawnSync } from '@gitmars/utils'
 
 /**
  * 获取当前分支
