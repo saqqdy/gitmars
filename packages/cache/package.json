@@ -51,6 +51,7 @@
 	"dependencies": {
 		"@gitmars/git": "workspace:*",
 		"@gitmars/utils": "workspace:*",
+		"js-cool": "^5.18.1",
 		"lodash-es": "^4.17.21",
 		"lodash-unified": "^1.0.3",
 		"os-lang": "^3.2.0",

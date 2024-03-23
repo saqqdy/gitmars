@@ -5,7 +5,6 @@ import { isFileExist, removeFile, writeFile, writeFileSync } from './file'
 import getSeconds from './getSeconds'
 import isWin32 from './isWin32'
 import useLocale from './lang'
-import { getMessage, postMessage } from './message'
 import { CACHE_PATH, ROOT_PATH, SH_PATH, SRC_PATH } from './paths'
 import { cleanPkgInfo, getPkgInfo } from './pkgInfo'
 import stringify from './stringify'
@@ -26,8 +25,6 @@ export default {
 	getSeconds,
 	isWin32,
 	useLocale,
-	getMessage,
-	postMessage,
 	ROOT_PATH,
 	SRC_PATH,
 	CACHE_PATH,

@@ -54,7 +54,6 @@
 		"chalk": "^4.1.2",
 		"cross-spawn": "^7.0.3",
 		"debug": "^4.3.4",
-		"js-cool": "^5.18.1",
 		"lodash-es": "^4.17.21",
 		"lodash-unified": "^1.0.3",
 		"ora": "^5.4.1",

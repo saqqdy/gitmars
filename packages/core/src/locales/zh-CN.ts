@@ -33,5 +33,6 @@ export default {
 	'Merge existing ghooks hooks: {name}': '合并已存在的ghooks钩子: {name}',
 	'Merge existing pre-commit hooks: {name}': '合并已存在的pre-commit钩子: {name}',
 	'Skip existing git hooks: {name}': '跳过已存在的git钩子: {name}',
-	'Please enter the correct project name': '请输入正确的项目名称'
+	'Please enter the correct project name': '请输入正确的项目名称',
+	'Please configure the message sending api template address': '请配置消息发送api模板地址'
 }

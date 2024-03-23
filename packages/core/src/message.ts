@@ -2,7 +2,8 @@ import sh from 'shelljs'
 import chalk from 'chalk'
 import { mapTemplate } from 'js-cool'
 import { getGitConfig, getGitRevParse } from '@gitmars/git'
-import { getConfig, sendGroupMessage } from '@gitmars/core'
+import getConfig from './getConfig'
+import sendGroupMessage from './sendGroupMessage'
 import lang from './lang'
 
 const { t } = lang

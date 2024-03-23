@@ -36,5 +36,7 @@ export default {
 	'Merge existing ghooks hooks: {name}': 'Merge existing ghooks hooks: {name}',
 	'Merge existing pre-commit hooks: {name}': 'Merge existing pre-commit hooks: {name}',
 	'Skip existing git hooks: {name}': 'Skip existing git hooks: {name}',
-	'Please enter the correct project name': 'Please enter the correct project name'
+	'Please enter the correct project name': 'Please enter the correct project name',
+	'Please configure the message sending api template address':
+		'Please configure the message sending api template address'
 }

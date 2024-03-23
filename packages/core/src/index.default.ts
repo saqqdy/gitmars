@@ -13,6 +13,7 @@
 
 import { enUS, zhCN } from './locales'
 export type { TranslatePair, Language } from './locales'
+import { getMessage, postMessage } from './message'
 
 export default {
 	version: '__VERSION__',
@@ -27,5 +28,7 @@ export default {
 	// removeLocalShell,
 	// locales
 	zhCN,
-	enUS
+	enUS,
+	getMessage,
+	postMessage
 }

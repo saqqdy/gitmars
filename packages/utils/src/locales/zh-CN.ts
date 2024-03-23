@@ -5,7 +5,6 @@ export default {
 	'{name} deleted': '{name}已删除',
 	'Cleaned up': '清理完毕',
 	'{name} not found': '{name}未找到',
-	'Please configure the message sending api template address': '请配置消息发送api模板地址',
 	'An error occurred': '出错了',
 	'Gitmars package cache file': 'Gitmars包缓存文件'
 }
