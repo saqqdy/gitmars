@@ -8,3 +8,6 @@ export {
 	delRevertCache,
 	cleanRevertCache
 } from './revertCache'
+export { getPkgInfo, cleanPkgInfo } from './pkgInfo'
+
+export { default } from './index.default'

@@ -1,12 +1,15 @@
-import { resolve } from 'path'
+import { dirname, resolve } from 'path'
+import { fileURLToPath } from 'url'
 import { createRequire } from 'node:module'
 import { getProperty } from 'js-cool'
-import { isCacheExpired, updateCacheTime } from '@gitmars/cache'
-import { spawnSync } from './spawn'
-import { CACHE_PATH } from './paths'
-import { isFileExist, removeFile, writeFile } from './file'
+import { isFileExist, removeFile, spawnSync, writeFile } from '@gitmars/utils'
+import { isCacheExpired, updateCacheTime } from './cache'
 import lang from './lang'
 
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = dirname(__filename)
+const ROOT_PATH = resolve(__dirname, '..')
+const CACHE_PATH = resolve(ROOT_PATH, 'cache')
 const { t } = lang
 const require = createRequire(import.meta.url)
 

@@ -3,7 +3,8 @@ import sh from 'shelljs'
 import chalk from 'chalk'
 import semverDiff from 'semver-diff'
 // import { version } from '../package.json' assert { type: 'json' }
-import { debug, getPkgInfo } from '@gitmars/utils'
+import { getPkgInfo } from '@gitmars/cache'
+import { debug } from '@gitmars/utils'
 import type { VersionControlType } from './types'
 import lang from './lang'
 
