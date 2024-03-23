@@ -5,7 +5,6 @@ import { isFileExist, removeFile, writeFile, writeFileSync } from './file'
 import getSeconds from './getSeconds'
 import isWin32 from './isWin32'
 import useLocale from './lang'
-import { CACHE_PATH, ROOT_PATH, SH_PATH, SRC_PATH } from './paths'
 import stringify from './stringify'
 import { decodeUnicode, encodeUnicode } from './unicode'
 import { spawn, spawnSync } from './spawn'
@@ -24,10 +23,6 @@ export default {
 	getSeconds,
 	isWin32,
 	useLocale,
-	ROOT_PATH,
-	SRC_PATH,
-	CACHE_PATH,
-	SH_PATH,
 	stringify,
 	encodeUnicode,
 	decodeUnicode,

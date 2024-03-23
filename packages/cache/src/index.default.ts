@@ -1,3 +1,4 @@
+import { CACHE_PATH } from './paths'
 import { cleanCache, isCacheExpired, updateCacheTime } from './cache'
 import { cleanLog, setLog } from './log'
 import { cleanCommandCache, getCommandCache, setCommandCache } from './commandCache'
@@ -11,6 +12,7 @@ import {
 import { cleanPkgInfo, getPkgInfo } from './pkgInfo'
 
 export default {
+	CACHE_PATH,
 	isCacheExpired,
 	updateCacheTime,
 	cleanCache,

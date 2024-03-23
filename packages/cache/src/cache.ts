@@ -1,6 +1,7 @@
 import { resolve } from 'path'
 import { createRequire } from 'node:module'
-import { CACHE_PATH, isFileExist, removeFile, writeFile } from '@gitmars/utils'
+import { isFileExist, removeFile, writeFile } from '@gitmars/utils'
+import { CACHE_PATH } from './paths'
 import lang from './lang'
 
 const { t } = lang

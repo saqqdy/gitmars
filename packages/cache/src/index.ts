@@ -1,3 +1,4 @@
+export { CACHE_PATH } from './paths'
 export { isCacheExpired, updateCacheTime, cleanCache } from './cache'
 export { setLog, cleanLog } from './log'
 export { getCommandCache, setCommandCache, cleanCommandCache } from './commandCache'
