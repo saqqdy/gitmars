@@ -52,6 +52,7 @@
 		"@gitmars/core": "workspace:*",
 		"@gitmars/utils": "workspace:*",
 		"chalk": "^4.1.2",
+		"cosmiconfig": "^9.0.0",
 		"lodash-es": "^4.17.21",
 		"lodash-unified": "^1.0.3",
 		"os-lang": "^3.2.0",

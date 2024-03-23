@@ -1,7 +1,7 @@
 import { statSync } from 'fs'
 import { cosmiconfigSync } from 'cosmiconfig'
-import { getGitRevParse } from '@gitmars/git'
 import { debug, echo } from '@gitmars/utils'
+import getGitRevParse from './getGitRevParse'
 import type { GitmarsConfigExtend } from './types'
 import lang from './lang'
 

@@ -6,6 +6,7 @@ import ora from 'ora'
 import { waiting } from 'js-cool'
 import {
 	fetch,
+	getConfig,
 	getCurrentBranch,
 	getIsBranchOrCommitExist,
 	getIsGitProject,
@@ -13,7 +14,7 @@ import {
 	searchBranches
 } from '@gitmars/git'
 import { createArgs, echo } from '@gitmars/utils'
-import { getConfig, spawnSync } from '@gitmars/core'
+import { spawnSync } from '@gitmars/core'
 import type { GitmarsBranchType, GitmarsOptionOptionsType } from './types'
 import lang from './common/local'
 import cleanbranchConfig from './conf/cleanbranch'

@@ -2,7 +2,51 @@ import type { PackageManifest } from './types'
 
 export const packages: PackageManifest[] = [
 	{
-		name: 'core',
+		name: 'utils',
+		pkgName: '@gitmars/utils',
+		buildTask: ['type', 'lib'],
+		iife: false,
+		cjs: true,
+		mjs: true,
+		dts: false,
+		output: 'lib',
+		display: 'gitmars utils'
+	},
+	{
+		name: 'git',
+		pkgName: '@gitmars/git',
+		buildTask: ['type', 'lib'],
+		iife: false,
+		cjs: true,
+		mjs: true,
+		dts: false,
+		output: 'lib',
+		display: 'gitmars git'
+	},
+	{
+		name: 'cache',
+		pkgName: '@gitmars/cache',
+		buildTask: ['type', 'lib'],
+		iife: false,
+		cjs: true,
+		mjs: true,
+		dts: false,
+		output: 'lib',
+		display: 'gitmars cache'
+	},
+	{
+		name: 'go',
+		pkgName: '@gitmars/go',
+		buildTask: ['type', 'lib'],
+		iife: false,
+		cjs: true,
+		mjs: true,
+		dts: false,
+		output: 'lib',
+		display: 'gitmars go'
+	},
+	{
+		name: 'api',
 		pkgName: '@gitmars/api',
 		buildTask: ['type', 'lib'],
 		iife: false,
@@ -13,7 +57,7 @@ export const packages: PackageManifest[] = [
 		display: 'gitmars api'
 	},
 	{
-		name: 'core',
+		name: 'build',
 		pkgName: '@gitmars/build',
 		buildTask: ['type', 'lib'],
 		iife: false,
@@ -22,17 +66,6 @@ export const packages: PackageManifest[] = [
 		dts: false,
 		output: 'lib',
 		display: 'gitmars build'
-	},
-	{
-		name: 'core',
-		pkgName: '@gitmars/cache',
-		buildTask: ['type', 'lib'],
-		iife: false,
-		cjs: true,
-		mjs: true,
-		dts: false,
-		output: 'lib',
-		display: 'gitmars cache'
 	},
 	{
 		name: 'core',
@@ -46,29 +79,7 @@ export const packages: PackageManifest[] = [
 		display: 'gitmars核心程序'
 	},
 	{
-		name: 'core',
-		pkgName: '@gitmars/git',
-		buildTask: ['type', 'lib'],
-		iife: false,
-		cjs: true,
-		mjs: true,
-		dts: false,
-		output: 'lib',
-		display: 'gitmars git'
-	},
-	{
-		name: 'core',
-		pkgName: '@gitmars/go',
-		buildTask: ['type', 'lib'],
-		iife: false,
-		cjs: true,
-		mjs: true,
-		dts: false,
-		output: 'lib',
-		display: 'gitmars go'
-	},
-	{
-		name: 'core',
+		name: 'hook',
 		pkgName: '@gitmars/hook',
 		buildTask: ['type', 'lib'],
 		iife: false,
@@ -77,17 +88,6 @@ export const packages: PackageManifest[] = [
 		dts: false,
 		output: 'lib',
 		display: 'gitmars hook'
-	},
-	{
-		name: 'core',
-		pkgName: '@gitmars/utils',
-		buildTask: ['type', 'lib'],
-		iife: false,
-		cjs: true,
-		mjs: true,
-		dts: false,
-		output: 'lib',
-		display: 'gitmars utils'
 	},
 	{
 		name: 'gitmars',

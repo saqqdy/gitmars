@@ -2,10 +2,11 @@
 import { program } from 'commander'
 import sh from 'shelljs'
 import chalk from 'chalk'
-import { getConfig, isNeedUpgrade, queue, upgradeGitmars } from '@gitmars/core'
+import { isNeedUpgrade, queue, upgradeGitmars } from '@gitmars/core'
 import {
 	checkGitStatus,
 	fetch,
+	getConfig,
 	getCurrentBranch,
 	getIsGitProject,
 	getIsMergedTargetBranch,

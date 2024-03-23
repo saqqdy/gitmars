@@ -1,6 +1,5 @@
 export default {
 	name: 'zh-CN',
-	'The current directory is not a git project directory': '当前目录不是git项目目录',
 	'Successful Pushed': '推送成功',
 	'Processing complete': '处理完成',
 	'Command name cannot be empty': '指令名称不能为空',

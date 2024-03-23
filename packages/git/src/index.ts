@@ -20,5 +20,6 @@ export { default as checkGitStatus } from './checkGitStatus'
 export { default as getStashList } from './getStashList'
 export { default as fetch } from './fetch'
 export { default as readPkg } from './readPkg'
+export { default as getConfig } from './getConfig'
 
 export { default } from './index.default'

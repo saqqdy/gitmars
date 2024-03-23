@@ -55,7 +55,6 @@
 		"@gitmars/utils": "workspace:*",
 		"@jssj/request": "^1.1.0",
 		"chalk": "^4.1.2",
-		"cosmiconfig": "^9.0.0",
 		"js-cool": "^5.18.1",
 		"lodash-es": "^4.17.21",
 		"lodash-unified": "^1.0.3",

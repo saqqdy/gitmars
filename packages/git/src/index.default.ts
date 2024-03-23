@@ -20,6 +20,7 @@ import checkGitStatus from './checkGitStatus'
 import getStashList from './getStashList'
 import fetch from './fetch'
 import readPkg from './readPkg'
+import getConfig from './getConfig'
 
 export default {
 	getIsGitProject,
@@ -45,5 +46,6 @@ export default {
 	checkGitStatus,
 	getStashList,
 	fetch,
-	readPkg
+	readPkg,
+	getConfig
 }

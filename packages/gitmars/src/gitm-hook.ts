@@ -5,6 +5,7 @@ import chalk from 'chalk'
 import {
 	getBehindLogs,
 	getBranchesFromID,
+	getConfig,
 	getCurrentBranch,
 	getIsGitProject,
 	getIsMergeAction,
@@ -13,7 +14,6 @@ import {
 } from '@gitmars/git'
 import { createArgs } from '@gitmars/utils'
 import { init, remove } from '@gitmars/hook'
-import { getConfig } from '@gitmars/core'
 import type { GitmarsOptionOptionsType } from './types'
 import lang from './common/local'
 import hookConfig from './conf/hook'

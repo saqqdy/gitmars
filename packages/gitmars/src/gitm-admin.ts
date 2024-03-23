@@ -4,18 +4,18 @@ import { Command } from 'commander'
 import chalk from 'chalk'
 import { getType } from 'js-cool'
 import { getUserInfo } from '@gitmars/api'
-import { spawnSync } from '@gitmars/utils'
-import { getConfig, queue } from '@gitmars/core'
+import { createArgs, echo, spawnSync } from '@gitmars/utils'
+import { queue } from '@gitmars/core'
 import {
 	checkGitStatus,
 	fetch,
+	getConfig,
 	getCurrentBranch,
 	getGitConfig,
 	getIsBranchOrCommitExist,
 	getIsGitProject,
 	getIsMergedTargetBranch
 } from '@gitmars/git'
-import { createArgs, echo } from '@gitmars/utils'
 import type {
 	CommandType,
 	FetchDataType,

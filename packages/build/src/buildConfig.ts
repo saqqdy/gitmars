@@ -5,7 +5,7 @@ import request from '@jssj/request'
 import chalk from 'chalk'
 import { CACHE_PATH, isCacheExpired, updateCacheTime } from '@gitmars/cache'
 import { debug, isFileExist, removeFile, writeFile } from '@gitmars/utils'
-import { getConfig } from '@gitmars/core'
+import { getConfig } from '@gitmars/git'
 import type { ApolloConfigType, GitmarsConfigApisBuildConfigType, GitmarsConfigType } from './types'
 import lang from './lang'
 

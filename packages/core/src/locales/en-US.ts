@@ -1,7 +1,5 @@
 export default {
 	name: 'en-US',
-	'The current directory is not a git project directory':
-		'The current directory is not a git project directory',
 	'Successful Pushed': 'Successful Pushed',
 	'Processing complete': 'Processing complete',
 	'Command name cannot be empty': 'Command name cannot be empty',

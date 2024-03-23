@@ -1,6 +1,5 @@
 import { encodeUnicode } from '@gitmars/utils'
-import { getGitToken } from '@gitmars/git'
-import getConfig from './getConfig'
+import { getConfig, getGitToken } from '@gitmars/git'
 const config = getConfig()
 
 /**

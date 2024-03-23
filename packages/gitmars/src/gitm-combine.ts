@@ -4,9 +4,10 @@ import { program } from 'commander'
 import sh from 'shelljs'
 import chalk from 'chalk'
 import { getType } from 'js-cool'
-import { getConfig, isNeedUpgrade, queue, upgradeGitmars } from '@gitmars/core'
+import { isNeedUpgrade, queue, upgradeGitmars } from '@gitmars/core'
 import {
 	checkGitStatus,
+	getConfig,
 	getCurrentBranch,
 	getGitConfig,
 	getIsGitProject,

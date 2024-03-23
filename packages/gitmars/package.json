@@ -65,7 +65,6 @@
 		"ci-info": "^4.0.0",
 		"columnify": "^1.6.0",
 		"commander": "^11.1.0",
-		"cosmiconfig": "^9.0.0",
 		"dayjs": "^1.11.10",
 		"debug": "^4.3.4",
 		"inquirer": "^8.2.5",

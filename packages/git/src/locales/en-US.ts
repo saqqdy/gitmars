@@ -39,5 +39,9 @@ export default {
 	'Cleanup failed': 'Cleanup failed',
 	'git not found': 'git not found',
 	'There are a total of {length} staging records under this item, please clean it up regularly!':
-		'There are a total of {length} staging records under this item, please clean it up regularly!'
+		'There are a total of {length} staging records under this item, please clean it up regularly!',
+	'${message}; project: ${project}; path: ${pwd}':
+		'${message}; project: ${project}; path: ${pwd}',
+	'The current directory is not a git project directory':
+		'The current directory is not a git project directory'
 }

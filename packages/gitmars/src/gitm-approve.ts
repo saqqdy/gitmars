@@ -12,8 +12,8 @@ import {
 	getUserInfo,
 	updateMergeRequest
 } from '@gitmars/api'
-import { getGitConfig, getIsGitProject } from '@gitmars/git'
-import { getConfig, sendGroupMessage } from '@gitmars/core'
+import { getConfig, getGitConfig, getIsGitProject } from '@gitmars/git'
+import { sendGroupMessage } from '@gitmars/core'
 import { createArgs, echo } from '@gitmars/utils'
 import type { FetchDataType, GitmarsOptionOptionsType } from './types'
 import lang from './common/local'

@@ -1,7 +1,7 @@
 import sh from 'shelljs'
 import chalk from 'chalk'
 import request from '@jssj/request'
-import { getConfig } from '@gitmars/core'
+import { getConfig } from '@gitmars/git'
 import { debug } from '@gitmars/utils'
 import { getGitUser } from '@gitmars/git'
 import type { FetchDataType } from './types'
