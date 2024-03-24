@@ -23,3 +23,5 @@ export { default as readPkg } from './readPkg'
 export { default as getConfig } from './getConfig'
 
 export { default } from './index.default'
+export type * from './index.default'
+export const version = '__VERSION__' as string

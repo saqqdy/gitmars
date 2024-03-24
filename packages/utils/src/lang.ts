@@ -8,4 +8,5 @@ const locales: LanguageType[] = ['enUS', 'zhCN']
 let locale = (process.env.GITMARS_LANG || osLangSync()).replace('-', '') as LanguageType
 if (!locales.includes(locale)) locale = 'enUS'
 
+export type * from './local'
 export default useLocale(languages[locale])
