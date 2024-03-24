@@ -16,8 +16,8 @@ import {
 	searchBranches
 } from '@gitmars/git'
 import { createArgs, echo } from '@gitmars/utils'
-import type { GitLogKeysType } from '@gitmars/core'
-import type { CommandType, GitLogsType, GitmarsOptionOptionsType } from './types'
+import type { GitLogKeysType, GitLogsType } from '@gitmars/git'
+import type { CommandType, GitmarsOptionOptionsType } from './types'
 import copyConfig from './conf/copy'
 import lang from './common/local'
 
