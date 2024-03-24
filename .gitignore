@@ -52,3 +52,4 @@ stats.html
 
 #Electron-builder output
 dist_electron
+tsconfig.tsbuildinfo
