@@ -5,8 +5,11 @@ import lang from './lang'
 const { t } = lang
 
 export interface PromptConfigType {
+	// 配置参数
 	options: GitmarsOptionArgsType[] | GitmarsOptionOptionsType[]
+	// 校验器
 	validator?(val: string, opts: object, cb: any): void
+	// 参数转换
 	transform?(val: string, opts: object, cb: any): void
 }
 
@@ -38,9 +41,6 @@ export interface PromptOptionInputType {
  *
  * @param command - 指令名称
  * @param config - 配置
- * @param config.options - 配置参数
- * @param config.validator - 校验器
- * @param config.transform - 参数转换
  * @param type - 类型checkbox/input/list
  * @returns prompt - 返回prompt
  */

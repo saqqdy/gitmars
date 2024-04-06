@@ -83,9 +83,9 @@ program.action(async (type: string, name: string, opt: GitmBuildOption): Promise
 		// Verify the description for this commit
 		const reg =
 			getType(config.descriptionValidator) === 'regexp'
-				? config.descriptionValidator
+				? (config.descriptionValidator as RegExp)
 				: new RegExp(config.descriptionValidator)
-		isDescriptionCorrect = opt.description && reg.test(opt.description)
+		isDescriptionCorrect = Boolean(opt.description && reg.test(opt.description))
 	}
 	if (!type) {
 		// type和name都没传且当前分支是开发分支

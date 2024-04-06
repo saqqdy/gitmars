@@ -19,9 +19,15 @@ import getCommandMessage from './getCommandMessage'
 import checkGitStatus from './checkGitStatus'
 import getStashList from './getStashList'
 import fetch from './fetch'
+import prune from './prune'
 import readPkg from './readPkg'
 import getConfig from './getConfig'
 
+export type { GitProjectConfigType } from './getGitConfig'
+export type { GetGitLogsOption } from './getGitLogs'
+export type { GetGitLogsByCommitIDsOptions } from './getGitLogsByCommitIDs'
+export type { GitProjectRevParseType } from './getGitRevParse'
+export type { IsUpdatedInTimeConfigType } from './getIsUpdatedInTime'
 export type * from './types'
 export default {
 	version: '__VERSION__',
@@ -48,6 +54,7 @@ export default {
 	checkGitStatus,
 	getStashList,
 	fetch,
+	prune,
 	readPkg,
 	getConfig
 }

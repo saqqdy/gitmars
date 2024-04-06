@@ -15,13 +15,6 @@ export interface CommandNeedInput {
  *
  * @public
  * @param config - 配置
- * @param config.command - 指令名称
- * @param config.args - 指令参数
- * @param config.options - 指令传参
- * @param config.validatorOpts - 校验参数
- * @param config.validatorArgs - 校验传参
- * @param config.transformOpts - 参数值转换
- * @param config.transformArgs - 传参值转换
  * @returns result - 返回指令结果Promise
  */
 async function getCommand({

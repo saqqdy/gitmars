@@ -11,6 +11,13 @@ import {
 	getMergeRequestParticipants,
 	updateMergeRequest
 } from './mergeRequest'
+import {
+	createMergeRequestNotes,
+	deleteMergeRequestNotes,
+	getMergeRequestNotesDetail,
+	getMergeRequestNotesList,
+	updateMergeRequestNotes
+} from './mergeRequestNotes'
 
 export type * from './types'
 export default {
@@ -25,5 +32,10 @@ export default {
 	getMergeRequestDiffVersions,
 	acceptMergeRequest,
 	updateMergeRequest,
-	deleteMergeRequest
+	deleteMergeRequest,
+	createMergeRequestNotes,
+	deleteMergeRequestNotes,
+	getMergeRequestNotesDetail,
+	getMergeRequestNotesList,
+	updateMergeRequestNotes
 }

@@ -6,7 +6,7 @@ import chalk from 'chalk'
 import { createArgs } from '@gitmars/utils'
 import { runJenkins } from '@gitmars/build'
 import { type ApolloBranchList } from '@gitmars/build'
-import type { GitmarsOptionOptionsType } from '../types'
+import type { GitmarsOptionOptionsType } from './types'
 import lang from './common/local'
 import buildConfig from './conf/build'
 

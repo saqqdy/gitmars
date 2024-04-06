@@ -1,5 +1,4 @@
-const path = require('path')
-const pkg = require('../package.json')
+import pkg from '../package.json' assert { type: 'json' }
 
 export const banner =
 	'/*!\n' +
@@ -28,6 +27,7 @@ export const bannerText =
 	' saqqdy<https://github.com/saqqdy> \n' +
 	'Released under the MIT License.'
 
+export const version = pkg.version
 export const extensions = [
 	'.mjs',
 	'.js',
@@ -40,10 +40,5 @@ export const extensions = [
 	'.less',
 	'.css'
 ]
-
-export const alias = {
-	'@': path.resolve(__dirname, '../src'),
-	gitmars: path.resolve(__dirname, './')
-}
 
 export const jsexclude = /node_modules/

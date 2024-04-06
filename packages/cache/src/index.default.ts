@@ -11,6 +11,7 @@ import {
 } from './revertCache'
 import { cleanPkgInfo, getPkgInfo } from './pkgInfo'
 
+export type { TimestampType } from './cache'
 export type * from './types'
 export default {
 	version: '__VERSION__',

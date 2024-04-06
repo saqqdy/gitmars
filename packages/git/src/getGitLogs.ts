@@ -3,13 +3,21 @@ import GitLogsFormatter from './gitLogsFormatter'
 import type { GitLogKeysType, GitLogsType } from './types'
 
 export interface GetGitLogsOption {
+	// 限制显示最近多长时间的日志
 	lastet?: string
+	// 限制数量
 	limit?: number
+	// Attached parameters
 	params?: string
+	// Fields to be returned
 	keys?: GitLogKeysType[]
+	// 是否排除merge记录
 	noMerges?: boolean
+	// 筛选关键词
 	grep?: string
+	// 筛选提交人
 	author?: string
+	// 要查询的分支
 	branch?: string
 }
 
@@ -17,14 +25,6 @@ export interface GetGitLogsOption {
  * 获取日志
  *
  * @param option - Parameters
- * @param option.lastet - 限制显示最近多长时间的日志
- * @param option.limit - 限制数量
- * @param option.noMerges - 是否排除merge记录
- * @param option.params - Attached parameters
- * @param option.keys - Fields to be returned
- * @param option.grep - 筛选关键词
- * @param option.author - 筛选提交人
- * @param option.branch - 要查询的分支
  * @returns logsList - Return array
  */
 function getGitLogs(option: GetGitLogsOption = {}): GitLogsType[] {

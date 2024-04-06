@@ -5,6 +5,7 @@
 	"private": false,
 	"main": "./lib/index.js",
 	"module": "./lib/index.mjs",
+	"types": "./lib/index.d.ts",
 	"exports": {
 		".": {
 			"types": "./lib/index.d.ts",
@@ -26,10 +27,6 @@
 		"#lib/*": {
 			"require": "./lib/*.js",
 			"import": "./lib/*.mjs"
-		},
-		"#typings/*": {
-			"require": "./typings/*.d.ts",
-			"import": "./typings/*.d.ts"
 		}
 	},
 	"files": [
@@ -45,8 +42,7 @@
 		"lib": "lib",
 		"src": "src",
 		"cache": "cache",
-		"sh": "sh",
-		"typings": "typings"
+		"sh": "sh"
 	},
 	"dependencies": {
 		"@gitmars/build": "workspace:*",

@@ -13,7 +13,7 @@ const require = createRequire(import.meta.url)
  * 读取gitmars在线版本列表
  *
  * @param name - 需要查询的内容
- * @returns {Object} arr Return the configuration object
+ * @returns info - arr Return the configuration object
  */
 export async function getPkgInfo(name?: string): Promise<any | void> {
 	let packageInfo

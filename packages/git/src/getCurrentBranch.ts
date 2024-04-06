@@ -3,7 +3,7 @@ import { spawnSync } from '@gitmars/utils'
 /**
  * 获取当前分支
  *
- * @returns {String} Return name
+ * @returns - Return name
  */
 function getCurrentBranch(): string {
 	const { stdout } = spawnSync('git', ['symbolic-ref', '--short', '-q', 'HEAD'])

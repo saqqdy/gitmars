@@ -8,8 +8,6 @@ import getCurrentBranch from './getCurrentBranch'
  * @param branch - 待检测分支名
  * @param targetBranch - 目标分支
  * @param option - 参数
- * @param option.remote - 是否查询远程，默认：false
- * @param option.noMerges - 是否排除merges类型，默认：true
  * @returns isMergedTargetBranch - 是否合并过
  */
 function getIsMergedTargetBranch(
@@ -19,7 +17,9 @@ function getIsMergedTargetBranch(
 		remote = false,
 		noMerges = true
 	}: {
+		// 是否查询远程，默认：false
 		remote?: boolean
+		// 是否排除merges类型，默认：true
 		noMerges?: boolean
 	}
 ): boolean {

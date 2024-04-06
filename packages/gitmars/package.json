@@ -8,7 +8,7 @@
 	},
 	"exports": {
 		".": {
-			"types": "./typings/index.d.ts",
+			"types": "./lib/index.d.ts",
 			"import": "./lib/index.mjs"
 		},
 		"./lib": {
@@ -49,12 +49,12 @@
 		"bin": "bin",
 		"es": "es",
 		"lib": "lib",
-		"src": "src",
-		"typings": "typings"
+		"src": "src"
 	},
 	"dependencies": {
 		"@gitmars/api": "workspace:*",
 		"@gitmars/build": "workspace:*",
+		"@gitmars/cache": "workspace:*",
 		"@gitmars/core": "workspace:*",
 		"@gitmars/git": "workspace:*",
 		"@gitmars/go": "workspace:*",

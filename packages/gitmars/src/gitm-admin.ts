@@ -161,9 +161,9 @@ publishProgram.action(
 			// Verify the description for this commit
 			const reg =
 				getType(config.descriptionValidator) === 'regexp'
-					? config.descriptionValidator
+					? (config.descriptionValidator as RegExp)
 					: new RegExp(config.descriptionValidator)
-			isDescriptionCorrect = opt.description && reg.test(opt.description)
+			isDescriptionCorrect = Boolean(opt.description && reg.test(opt.description))
 		}
 		const isNeedCombineBugfixToRelease = !getIsMergedTargetBranch(
 			`origin/${config.bugfix}`,
@@ -933,9 +933,9 @@ updateProgram.action(
 			// Verify the description for this commit
 			const reg =
 				getType(config.descriptionValidator) === 'regexp'
-					? config.descriptionValidator
+					? (config.descriptionValidator as RegExp)
 					: new RegExp(config.descriptionValidator)
-			isDescriptionCorrect = opt.description && reg.test(opt.description)
+			isDescriptionCorrect = Boolean(opt.description && reg.test(opt.description))
 		}
 		if (opt.mode === 1) {
 			mode = ' --strategy-option ours'

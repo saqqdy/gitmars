@@ -1,9 +1,13 @@
 import type { GitmarsOptionType } from './types'
 
 export interface GoCleanConfigType {
+	// 删除option
 	delOptions?: string[]
+	// 必填option
 	requiredOptions?: string[]
+	// 删除参数
 	delArgs?: string[]
+	// 必填参数
 	requiredArgs?: string[]
 }
 
@@ -11,13 +15,9 @@ export interface GoCleanConfigType {
  * 清理参数
  *
  * @public
- * @param {object} config 配置
- * @param {object} sets 清理设置
- * @param {array} sets.delOptions 删除option
- * @param {array} sets.requiredOptions 必填option
- * @param {array} sets.delArgs 删除参数
- * @param {array} sets.requiredArgs 必填参数
- * @returns {object} result 返回config
+ * @param config - 配置
+ * @param sets - 清理设置
+ * @returns result - config
  */
 function cleanConfigSet(
 	config: GitmarsOptionType,

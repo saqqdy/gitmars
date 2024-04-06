@@ -60,7 +60,8 @@ for (const {
 	build,
 	cjs,
 	mjs,
-	browser
+	browser,
+	output = 'dist'
 	// target
 } of packages) {
 	if (build === false) continue
@@ -87,7 +88,7 @@ for (const {
 
 	configs.push({
 		input: join(PROJECT_ROOT, 'src', 'index.ts'),
-		file: join(PROJECT_ROOT, 'dist', 'index.esm-bundler.js'),
+		file: join(PROJECT_ROOT, output, 'index.esm-bundler.js'),
 		format: 'es',
 		external,
 		env: 'development'
@@ -98,7 +99,7 @@ for (const {
 		configs.push(
 			{
 				input: join(PROJECT_ROOT, 'src', 'index.ts'),
-				file: join(PROJECT_ROOT, 'dist', 'index.esm-browser.js'),
+				file: join(PROJECT_ROOT, output, 'index.esm-browser.js'),
 				format: 'es',
 				browser: true,
 				banner,
@@ -107,7 +108,7 @@ for (const {
 			},
 			{
 				input: join(PROJECT_ROOT, 'src', 'index.ts'),
-				file: join(PROJECT_ROOT, 'dist', 'index.esm-browser.prod.js'),
+				file: join(PROJECT_ROOT, output, 'index.esm-browser.prod.js'),
 				format: 'es',
 				browser: true,
 				minify: true,
@@ -122,7 +123,7 @@ for (const {
 	if (mjs !== false && !HAS_INDEX_MJS) {
 		configs.push({
 			input: join(PROJECT_ROOT, 'src', 'index.ts'),
-			file: join(PROJECT_ROOT, 'dist', 'index.mjs'),
+			file: join(PROJECT_ROOT, output, 'index.mjs'),
 			format: 'es',
 			external,
 			env: 'development'
@@ -133,7 +134,7 @@ for (const {
 	if (cjs !== false) {
 		configs.push({
 			input: join(PROJECT_ROOT, 'src', HAS_INDEX_DEFAULT ? 'index.default.ts' : 'index.ts'),
-			file: join(PROJECT_ROOT, 'dist', 'index.cjs.js'),
+			file: join(PROJECT_ROOT, output, 'index.cjs.js'),
 			format: 'cjs',
 			external,
 			env: 'development'
@@ -149,7 +150,7 @@ for (const {
 					'src',
 					HAS_INDEX_DEFAULT ? 'index.default.ts' : 'index.ts'
 				),
-				file: join(PROJECT_ROOT, 'dist', 'index.global.js'),
+				file: join(PROJECT_ROOT, output, 'index.global.js'),
 				format: 'iife',
 				iifeName,
 				globals,
@@ -163,7 +164,7 @@ for (const {
 					'src',
 					HAS_INDEX_DEFAULT ? 'index.default.ts' : 'index.ts'
 				),
-				file: join(PROJECT_ROOT, 'dist', 'index.global.prod.js'),
+				file: join(PROJECT_ROOT, output, 'index.global.prod.js'),
 				format: 'iife',
 				minify: true,
 				iifeName,
@@ -220,6 +221,14 @@ function createEntry(config: Config) {
 			'@pnpm/error',
 			'micromatch',
 			'lcid',
+			'chalk',
+			'cross-spawn',
+			'debug',
+			'lodash-es',
+			'lodash-unified',
+			'ora',
+			'os-lang',
+			'shelljs',
 			...packageNames
 		)
 		if (config.external) _config.external = _config.external.concat(config.external)

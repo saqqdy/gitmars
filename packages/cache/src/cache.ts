@@ -7,7 +7,7 @@ import lang from './lang'
 const { t } = lang
 const require = createRequire(import.meta.url)
 
-type TimestampType = Record<string, number> & {
+export type TimestampType = Record<string, number> & {
 	packageInfoTime?: number
 }
 

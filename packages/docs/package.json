@@ -20,8 +20,7 @@
 	"directories": {
 		"dist": "dist",
 		"es": "es",
-		"lib": "lib",
-		"typings": "typings"
+		"lib": "lib"
 	},
 	"dependencies": {
 		"js-cool": "^5.18.1"

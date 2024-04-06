@@ -15,3 +15,11 @@ export interface GitmarsOptionArgsType {
 	options?: Array<string | number>
 	value?: string
 }
+
+export interface TranslatePair {
+	[key: string]: string | string[] | TranslatePair
+}
+export interface Language extends Record<string, string | TranslatePair> {
+	name: string
+	// base?: TranslatePair
+}

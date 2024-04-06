@@ -211,6 +211,8 @@ export function remove(): void {
 	console.info('gitmars hooks removed')
 }
 
+export { default as run } from './run'
+
 // export default {
 // 	init,
 // 	remove,

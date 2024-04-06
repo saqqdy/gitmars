@@ -35,12 +35,20 @@ export interface GitmarsOptionOptionsType {
 }
 
 export interface GitmarsOptionType {
+	// 指令名称
 	command: string
+	// short command
 	short?: string | null
+	// 指令参数
 	args: GitmarsOptionArgsType[]
+	// 指令传参
 	options: GitmarsOptionOptionsType[]
+	// 校验参数
 	validatorOpts?(val: any, opts: object, cb: Function): void
+	// 校验传参
 	validatorArgs?(val: any, opts: object, cb: Function): void
+	// 参数值转换
 	transformOpts?(val: any, opts: object, cb: Function): void
+	// 传参值转换
 	transformArgs?(val: any, opts: object, cb: Function): void
 }

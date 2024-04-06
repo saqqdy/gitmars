@@ -13,8 +13,7 @@ import {
 	getIsMergedTargetBranch,
 	searchBranches
 } from '@gitmars/git'
-import { createArgs, echo } from '@gitmars/utils'
-import { spawnSync } from '@gitmars/core'
+import { createArgs, echo, spawnSync } from '@gitmars/utils'
 import type { GitmarsBranchType, GitmarsOptionOptionsType } from './types'
 import lang from './common/local'
 import cleanbranchConfig from './conf/cleanbranch'

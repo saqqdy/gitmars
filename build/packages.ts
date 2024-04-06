@@ -5,10 +5,9 @@ export const packages: PackageManifest[] = [
 		name: 'utils',
 		pkgName: '@gitmars/utils',
 		buildTask: ['type', 'lib'],
+		external: [],
 		iife: false,
-		cjs: true,
-		mjs: true,
-		dts: false,
+		browser: false,
 		output: 'lib',
 		display: 'gitmars utils'
 	},
@@ -17,9 +16,7 @@ export const packages: PackageManifest[] = [
 		pkgName: '@gitmars/git',
 		buildTask: ['type', 'lib'],
 		iife: false,
-		cjs: true,
-		mjs: true,
-		dts: false,
+		browser: false,
 		output: 'lib',
 		display: 'gitmars git'
 	},
@@ -28,9 +25,7 @@ export const packages: PackageManifest[] = [
 		pkgName: '@gitmars/hook',
 		buildTask: ['type', 'lib'],
 		iife: false,
-		cjs: true,
-		mjs: true,
-		dts: false,
+		browser: false,
 		output: 'lib',
 		display: 'gitmars hook'
 	},
@@ -39,9 +34,7 @@ export const packages: PackageManifest[] = [
 		pkgName: '@gitmars/cache',
 		buildTask: ['type', 'lib'],
 		iife: false,
-		cjs: true,
-		mjs: true,
-		dts: false,
+		browser: false,
 		output: 'lib',
 		display: 'gitmars cache'
 	},
@@ -50,9 +43,7 @@ export const packages: PackageManifest[] = [
 		pkgName: '@gitmars/go',
 		buildTask: ['type', 'lib'],
 		iife: false,
-		cjs: true,
-		mjs: true,
-		dts: false,
+		browser: false,
 		output: 'lib',
 		display: 'gitmars go'
 	},
@@ -61,9 +52,7 @@ export const packages: PackageManifest[] = [
 		pkgName: '@gitmars/api',
 		buildTask: ['type', 'lib'],
 		iife: false,
-		cjs: true,
-		mjs: true,
-		dts: false,
+		browser: false,
 		output: 'lib',
 		display: 'gitmars api'
 	},
@@ -72,9 +61,7 @@ export const packages: PackageManifest[] = [
 		pkgName: '@gitmars/build',
 		buildTask: ['type', 'lib'],
 		iife: false,
-		cjs: true,
-		mjs: true,
-		dts: false,
+		browser: false,
 		output: 'lib',
 		display: 'gitmars build'
 	},
@@ -83,9 +70,7 @@ export const packages: PackageManifest[] = [
 		pkgName: '@gitmars/core',
 		buildTask: ['type', 'lib'],
 		iife: false,
-		cjs: true,
-		mjs: true,
-		dts: false,
+		browser: false,
 		output: 'lib',
 		display: 'gitmars核心程序'
 	},
@@ -94,9 +79,7 @@ export const packages: PackageManifest[] = [
 		pkgName: 'gitmars',
 		buildTask: ['type', 'lib'],
 		iife: false,
-		cjs: false,
-		mjs: true,
-		dts: false,
+		browser: false,
 		output: 'lib',
 		display: '这是一个git工作流工具'
 	},
@@ -105,9 +88,22 @@ export const packages: PackageManifest[] = [
 		pkgName: '@gitmars/docs',
 		buildTask: 'docs',
 		iife: false,
-		mjs: false,
-		dts: false,
+		browser: false,
 		output: 'dist',
 		display: 'gitmars文档库'
 	}
 ]
+
+export const packageNames = packages.map(({ pkgName }) => pkgName)
+
+export function getPackages(name?: string | string[]) {
+	if (!name) return packages
+
+	const list = packages.filter(item => ([] as string[]).concat(name).includes(item.name))
+	if (list.length === 0) {
+		console.info(`no package founded`)
+		return packages
+	}
+
+	return list
+}

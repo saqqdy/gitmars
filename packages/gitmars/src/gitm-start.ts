@@ -64,7 +64,7 @@ program.action(async (type: string, name: string, opt: GitmBuildOption) => {
 		if (config.nameValidator) {
 			const reg =
 				getType(config.nameValidator) === 'regexp'
-					? config.nameValidator
+					? (config.nameValidator as RegExp)
 					: new RegExp(config.nameValidator)
 			if (!reg.test(name)) {
 				sh.echo(red(t('Branch name does not conform to specification')))

@@ -19,6 +19,7 @@ export { default as getCommandMessage } from './getCommandMessage'
 export { default as checkGitStatus } from './checkGitStatus'
 export { default as getStashList } from './getStashList'
 export { default as fetch } from './fetch'
+export { default as prune } from './prune'
 export { default as readPkg } from './readPkg'
 export { default as getConfig } from './getConfig'
 

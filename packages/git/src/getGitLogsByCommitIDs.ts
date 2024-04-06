@@ -3,8 +3,11 @@ import GitLogsFormatter from './gitLogsFormatter'
 import type { GitLogKeysType, GitLogsType } from './types'
 
 export interface GetGitLogsByCommitIDsOptions {
+	// commitID
 	commitIDs: string | string[]
+	// Attached parameters
 	params?: string
+	// Fields to be returned
 	keys: GitLogKeysType[]
 }
 
@@ -12,9 +15,6 @@ export interface GetGitLogsByCommitIDsOptions {
  * 获取日志
  *
  * @param option - Parameters
- * @param option.commitIDs - commitID
- * @param option.params - Attached parameters
- * @param option.keys - Fields to be returned
  * @returns logsList - Return array
  */
 function getGitLogsByCommitIDs({

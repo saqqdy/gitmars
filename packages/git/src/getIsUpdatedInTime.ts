@@ -4,8 +4,11 @@ import getGitLogs from './getGitLogs'
 import type { GitLogsType } from './types'
 
 export interface IsUpdatedInTimeConfigType {
+	// 最近几天的日志，可以是10s/2m/2h/3d/4M/5y
 	lastet: string
+	// 日志数量限制
 	limit?: number
+	// 目标分支
 	branch: string
 }
 
@@ -13,9 +16,6 @@ export interface IsUpdatedInTimeConfigType {
  * 获取一周内是否同步过上游分支代码
  *
  * @param option - Parameters
- * @param option.lastet - 最近几天的日志，可以是10s/2m/2h/3d/4M/5y
- * @param option.limit - 日志数量限制
- * @param option.branch - 目标分支
  * @returns isMergedTargetBranch - 是否合并过
  */
 function getIsUpdatedInTime({ lastet, limit, branch }: IsUpdatedInTimeConfigType): boolean {
