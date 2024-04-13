@@ -3,7 +3,8 @@ import { existsSync } from 'node:fs'
 import { createRequire } from 'node:module'
 import { fileURLToPath } from 'node:url'
 import type { InternalModuleFormat, OutputOptions, Plugin, RollupOptions } from 'rollup'
-import { getPackages, packageNames } from './packages'
+import { getBundlePackages, packageNames } from './packages'
+import type { Name } from './types'
 import {
 	babel,
 	commonjs,
@@ -47,7 +48,7 @@ const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)
 const require = createRequire(import.meta.url)
 
-const packages = getPackages(process.env.BUILD_PACKAGE)
+const packages = getBundlePackages(process.env.BUILD_PACKAGE as Name)
 const configs: Config[] = []
 
 for (const {
@@ -212,23 +213,33 @@ function createEntry(config: Config) {
 
 	if (!isGlobalBuild) {
 		_config.external.push(
-			'core-js',
+			'@jssj/request',
 			'@pkgjs/parseargs',
-			'js-cool',
+			'@pnpm/error',
+			'chalk',
+			'ci-info',
+			'columnify',
+			'commander',
+			'core-js',
+			'cosmiconfig',
+			'cross-spawn',
+			'dayjs',
+			'debug',
 			'fast-glob',
 			'find-up',
-			'load-yml',
-			'@pnpm/error',
-			'micromatch',
+			'inquirer',
+			'js-cool',
 			'lcid',
-			'chalk',
-			'cross-spawn',
-			'debug',
+			'load-yml',
 			'lodash-es',
 			'lodash-unified',
+			'micromatch',
+			'node-apollo',
 			'ora',
 			'os-lang',
+			'semver-diff',
 			'shelljs',
+			'slash',
 			...packageNames
 		)
 		if (config.external) _config.external = _config.external.concat(config.external)

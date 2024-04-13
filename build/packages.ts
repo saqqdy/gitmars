@@ -1,10 +1,11 @@
-import type { PackageManifest } from './types'
+import { intersect } from 'js-cool'
+import type { Name, PackageManifest, Task } from './types'
 
 export const packages: PackageManifest[] = [
 	{
 		name: 'utils',
 		pkgName: '@gitmars/utils',
-		buildTask: ['type', 'lib'],
+		buildTask: 'bundle',
 		external: [],
 		iife: false,
 		browser: false,
@@ -14,7 +15,7 @@ export const packages: PackageManifest[] = [
 	{
 		name: 'git',
 		pkgName: '@gitmars/git',
-		buildTask: ['type', 'lib'],
+		buildTask: 'bundle',
 		iife: false,
 		browser: false,
 		output: 'lib',
@@ -23,7 +24,7 @@ export const packages: PackageManifest[] = [
 	{
 		name: 'hook',
 		pkgName: '@gitmars/hook',
-		buildTask: ['type', 'lib'],
+		buildTask: 'bundle',
 		iife: false,
 		browser: false,
 		output: 'lib',
@@ -32,7 +33,7 @@ export const packages: PackageManifest[] = [
 	{
 		name: 'cache',
 		pkgName: '@gitmars/cache',
-		buildTask: ['type', 'lib'],
+		buildTask: 'bundle',
 		iife: false,
 		browser: false,
 		output: 'lib',
@@ -41,7 +42,7 @@ export const packages: PackageManifest[] = [
 	{
 		name: 'go',
 		pkgName: '@gitmars/go',
-		buildTask: ['type', 'lib'],
+		buildTask: 'bundle',
 		iife: false,
 		browser: false,
 		output: 'lib',
@@ -50,7 +51,7 @@ export const packages: PackageManifest[] = [
 	{
 		name: 'api',
 		pkgName: '@gitmars/api',
-		buildTask: ['type', 'lib'],
+		buildTask: 'bundle',
 		iife: false,
 		browser: false,
 		output: 'lib',
@@ -59,7 +60,7 @@ export const packages: PackageManifest[] = [
 	{
 		name: 'build',
 		pkgName: '@gitmars/build',
-		buildTask: ['type', 'lib'],
+		buildTask: 'bundle',
 		iife: false,
 		browser: false,
 		output: 'lib',
@@ -68,7 +69,7 @@ export const packages: PackageManifest[] = [
 	{
 		name: 'core',
 		pkgName: '@gitmars/core',
-		buildTask: ['type', 'lib'],
+		buildTask: 'bundle',
 		iife: false,
 		browser: false,
 		output: 'lib',
@@ -77,7 +78,7 @@ export const packages: PackageManifest[] = [
 	{
 		name: 'gitmars',
 		pkgName: 'gitmars',
-		buildTask: ['type', 'lib'],
+		buildTask: 'lib',
 		iife: false,
 		browser: false,
 		output: 'lib',
@@ -94,12 +95,69 @@ export const packages: PackageManifest[] = [
 	}
 ]
 
+export const names = packages.map(({ name }) => name)
 export const packageNames = packages.map(({ pkgName }) => pkgName)
+export const buildTasks = packages.reduce((acc, cur) => {
+	for (const item of ([] as Task[]).concat(cur.buildTask)) {
+		!acc.includes(item) && acc.push(item)
+	}
+	return acc
+}, [] as Task[])
 
+/**
+ * get package sets
+ */
+export function getPackages(name?: Name | Name[]): PackageManifest[]
+export function getPackages(name?: Task | Task[]): PackageManifest[]
 export function getPackages(name?: string | string[]) {
 	if (!name) return packages
+	if (typeof name === 'string') name = ([] as string[]).concat(name)
 
-	const list = packages.filter(item => ([] as string[]).concat(name).includes(item.name))
+	const list = packages.filter(item => {
+		if (intersect(buildTasks, name).length) {
+			// 传入task
+			return intersect(
+				typeof item.buildTask === 'string'
+					? ([] as Task[]).concat(item.buildTask)
+					: item.buildTask,
+				name
+			).length
+		}
+		// 传入name
+		return name.includes(item.name)
+	})
+	if (list.length === 0) {
+		console.info(`no package founded`)
+		return packages
+	}
+
+	return list
+}
+
+export function getLibPackages(name?: string | string[]) {
+	const list = packages.filter(item => {
+		const _names = typeof name === 'string' ? ([] as string[]).concat(name) : name
+		const _buildTask = typeof item.buildTask === 'string' ? [item.buildTask] : item.buildTask
+
+		if (!_names) return _buildTask.includes('lib')
+		return _buildTask.includes('lib') && _names.includes(item.name)
+	})
+	if (list.length === 0) {
+		console.info(`no package founded`)
+		return packages
+	}
+
+	return list
+}
+
+export function getBundlePackages(name?: string | string[]) {
+	const list = packages.filter(item => {
+		const _names = typeof name === 'string' ? ([] as string[]).concat(name) : name
+		const _buildTask = typeof item.buildTask === 'string' ? [item.buildTask] : item.buildTask
+
+		if (!_names) return _buildTask.includes('bundle')
+		return _buildTask.includes('bundle') && _names.includes(item.name)
+	})
 	if (list.length === 0) {
 		console.info(`no package founded`)
 		return packages

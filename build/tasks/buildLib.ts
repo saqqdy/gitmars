@@ -11,20 +11,20 @@ import {
 	alias,
 	banner as bannerPlugin,
 	commonjs,
-	dts as dtsPlugin,
+	// dts as dtsPlugin,
 	esbuild,
 	filesize,
 	json,
 	minify,
-	nodeExternals,
+	// nodeExternals,
 	nodeResolve,
 	shebang
 	// visual,
 } from '../plugins/index'
 import { PACKAGE } from '../utils/paths'
-import { packages } from '../packages'
+import { getLibPackages } from '../packages'
 
-let pkgs = packages.filter(({ buildTask }) => buildTask.includes('lib'))
+let pkgs = getLibPackages()
 const childBuildLibIndex = process.argv.indexOf('lib')
 
 if (childBuildLibIndex > -1) {
@@ -184,21 +184,19 @@ export async function buildLib() {
 				await Promise.all(writeOptions.map(option => bundle.write(option)))
 
 				// dts
-				if (dts !== false) {
-					const rollupDtsConfig = {
-						input,
-						plugins: [nodeExternals(), dtsPlugin],
-						external: [...externals, ...external]
-					}
-					const writeDtsOptions: OutputOptions[] = [
-						{
-							file: resolve(PACKAGE, name, 'lib', fn.replace(/\.ts$/, '.d.ts')),
-							format: 'es'
-						}
-					]
-					const dtsBundle = await rollup(rollupDtsConfig)
-					await Promise.all([writeDtsOptions.map(option => dtsBundle.write(option))])
-				}
+				// const rollupDtsConfig = {
+				// 	input,
+				// 	plugins: [nodeExternals(), dtsPlugin],
+				// 	external: [...externals, ...external]
+				// }
+				// const writeDtsOptions: OutputOptions[] = [
+				// 	{
+				// 		file: resolve(PACKAGE, name, 'lib', fn.replace(/\.ts$/, '.d.ts')),
+				// 		format: 'es'
+				// 	}
+				// ]
+				// const dtsBundle = await rollup(rollupDtsConfig)
+				// await Promise.all([writeDtsOptions.map(option => dtsBundle.write(option))])
 			}
 		}
 	)

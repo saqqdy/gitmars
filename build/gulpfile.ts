@@ -6,16 +6,14 @@ import { buildLib, copyLibFile, madgeLib } from './tasks/buildLib'
 import { buildApp } from './tasks/buildApp'
 import { buildDocs, copyMdFile } from './tasks/buildDocs'
 import { buildType } from './tasks/buildType'
-import { packages } from './packages'
+import { getLibPackages } from './packages'
+
+const pkgs = getLibPackages()
 
 export async function clean() {
-	let dirs: string[] = ['dist', 'es', 'lib']
-	packages.forEach(({ name }) => {
-		dirs = dirs.concat([
-			join('packages', name, 'dist'),
-			join('packages', name, 'es'),
-			join('packages', name, 'lib')
-		])
+	let dirs: string[] = ['dist', 'lib']
+	pkgs.forEach(({ name, output = 'dist' }) => {
+		dirs = dirs.concat([join('packages', name, output)])
 	})
 	await runExecSync(`rimraf ${dirs.join(' ')}`)
 }
