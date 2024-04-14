@@ -11,7 +11,7 @@ import { getLibPackages } from './packages'
 const pkgs = getLibPackages()
 
 export async function clean() {
-	let dirs: string[] = ['dist', 'lib']
+	let dirs: string[] = []
 	pkgs.forEach(({ name, output = 'dist' }) => {
 		dirs = dirs.concat([join('packages', name, output)])
 	})
@@ -22,7 +22,7 @@ export { default as app } from './tasks/buildApp'
 export { default as docs } from './tasks/buildDocs'
 export { default as type } from './tasks/buildType'
 export default series(
-	wrapDisplayName('clean:dist,es,lib', clean),
+	wrapDisplayName('clean output dirs', clean),
 	parallel(
 		wrapDisplayName('copy:md', copyMdFile),
 		wrapDisplayName('copy-lib:json,sh', copyLibFile)

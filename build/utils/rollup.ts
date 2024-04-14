@@ -19,11 +19,7 @@ export function generateExternal(
 			pkgs.push(...Object.keys(dependencies), ...Object.keys(devDependencies))
 		}
 		return [...new Set(pkgs)].some(
-			pkg =>
-				id === pkg ||
-				id.startsWith(`${pkg}/`) ||
-				(id !== input && id.includes(`packages/${name}`)) ||
-				externals.includes(id)
+			pkg => id === pkg || id.startsWith(`${pkg}/`) || externals.includes(id)
 		)
 		// return (
 		//     id.includes('node_modules') ||

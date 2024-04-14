@@ -3,46 +3,28 @@
 	"description": "gitmars utils",
 	"version": "6.4.0",
 	"private": false,
-	"main": "./lib/index.js",
-	"module": "./lib/index.mjs",
-	"types": "./lib/index.d.ts",
+	"main": "./dist/index.cjs.js",
+	"module": "./dist/index.esm-bundler.js",
+	"types": "./dist/index.d.ts",
 	"exports": {
 		".": {
-			"types": "./lib/index.d.ts",
-			"require": "./lib/index.js",
-			"import": "./lib/index.mjs"
+			"types": "./dist/index.d.ts",
+			"module": "./dist/index.esm-bundler.js",
+			"require": "./dist/index.cjs.js",
+			"import": "./dist/index.mjs"
 		},
-		"./*": {
-			"types": "./lib/*.d.ts",
-			"require": "./lib/*.js",
-			"import": "./lib/*.mjs"
-		},
-		"./lib/*": {
-			"types": "./lib/*.d.ts",
-			"require": "./lib/*.js",
-			"import": "./lib/*.mjs"
-		}
-	},
-	"imports": {
-		"#lib/*": {
-			"require": "./lib/*.js",
-			"import": "./lib/*.mjs"
-		}
+		"./*": "./*"
 	},
 	"files": [
-		"cache/.gitkeep",
-		"lib",
-		"sh",
+		"dist",
 		"typings",
 		"*.d.ts"
 	],
 	"scripts": {},
 	"directories": {
 		"bin": "bin",
-		"lib": "lib",
-		"src": "src",
-		"cache": "cache",
-		"sh": "sh"
+		"dist": "dist",
+		"src": "src"
 	},
 	"dependencies": {
 		"@gitmars/core": "workspace:*",

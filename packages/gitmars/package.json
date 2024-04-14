@@ -6,6 +6,7 @@
 	"bin": {
 		"gitm": "lib/gitm.mjs"
 	},
+	"type": "module",
 	"exports": {
 		".": {
 			"types": "./lib/index.d.ts",
@@ -47,7 +48,6 @@
 	},
 	"directories": {
 		"bin": "bin",
-		"es": "es",
 		"lib": "lib",
 		"src": "src"
 	},

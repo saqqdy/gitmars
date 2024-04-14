@@ -1,4 +1,4 @@
-import { resolve } from 'path'
+import { extname, resolve } from 'path'
 import { parallel, series } from 'gulp'
 import { rollup } from 'rollup'
 import type { OutputOptions } from 'rollup'
@@ -6,18 +6,19 @@ import glob from 'fast-glob'
 import { runExec, runSpawnSync } from '../utils/exec'
 import { wrapDisplayName } from '../utils/gulp'
 import { excludeFiles, generateExternal } from '../utils/rollup'
+import { version } from '../config'
 
 import {
-	alias,
-	banner as bannerPlugin,
+	// alias,
+	// banner as bannerPlugin,
 	commonjs,
-	// dts as dtsPlugin,
 	esbuild,
 	filesize,
 	json,
-	minify,
+	// minify,
 	// nodeExternals,
 	nodeResolve,
+	replace,
 	shebang
 	// visual,
 } from '../plugins/index'
@@ -49,17 +50,7 @@ export async function buildLib() {
 		'@gitmars/docs'
 	]
 	const builds = pkgs.map(
-		async ({
-			globals = {},
-			name,
-			external = [],
-			iife,
-			build,
-			cjs,
-			mjs,
-			dts,
-			exportType = 'auto'
-		}) => {
+		async ({ globals = {}, name, external = [], iife, build, cjs, mjs, output = 'dist' }) => {
 			if (build === false) return
 			const pkg = require(resolve(PACKAGE, name, 'package.json'))
 			const banner =
@@ -77,153 +68,160 @@ export async function buildLib() {
 				' saqqdy<https://github.com/saqqdy> \n' +
 				' * Released under the MIT License.\n' +
 				' */'
-			// const deps = Object.keys(pkg.dependencies || {})
-			const iifeGlobals = {
-				'js-cool': 'JsCool',
-				// 'lodash-unified': 'lodashUnified',
-				// 'lodash-es': 'lodashEs',
-				...globals
-			}
-			const iifeName = 'Gitmars'
+			// const iifeGlobals = {
+			// 	'js-cool': 'JsCool',
+			// 	// 'lodash-unified': 'lodashUnified',
+			// 	// 'lodash-es': 'lodashEs',
+			// 	...globals
+			// }
+			// const iifeName = 'Gitmars'
 			const fileList = excludeFiles(
 				glob.sync('**/*.ts', {
 					cwd: resolve(PACKAGE, name, 'src'),
 					ignore: ['node_modules'],
+					deep: 1,
 					// absolute: true,
 					onlyFiles: true
 				})
 			)
 
-			for (const fn of fileList) {
-				const input = resolve(PACKAGE, name, 'src', fn)
+			// for (const fn of fileList) {
+			// const input = resolve(PACKAGE, name, 'src', fn)
 
-				const writeOptions: OutputOptions[] = []
-				// output mjs
-				if (mjs !== false) {
-					writeOptions.push({
-						file: resolve(PACKAGE, name, 'lib', fn.replace(/\.ts$/, '.mjs')),
-						exports: exportType,
-						banner,
-						format: 'es'
-					})
-				}
-				// output cjs
-				if (cjs !== false) {
-					writeOptions.push({
-						file: resolve(PACKAGE, name, 'lib', fn.replace(/\.ts$/, '.js')),
-						exports: exportType,
-						banner,
-						format: 'cjs'
-					})
-				}
-				// output iife
-				if (iife !== false) {
-					writeOptions.push(
-						{
-							file: resolve(PACKAGE, name, 'dist', fn.replace(/\.ts$/, 'iife.js')),
-							format: 'iife',
-							exports: exportType,
-							name: iifeName,
-							extend: true,
-							globals: iifeGlobals,
-							banner,
-							plugins: [
-								// injectEslintSetsCore,
-							]
-						},
-						{
-							file: resolve(
-								PACKAGE,
-								name,
-								'dist',
-								fn.replace(/\.ts$/, 'iife.min.js')
-							),
-							format: 'iife',
-							exports: exportType,
-							name: iifeName,
-							extend: true,
-							globals: iifeGlobals,
-							plugins: [
-								// injectEslintSetsCore,
-								minify({
-									minify: true
-								}),
-								bannerPlugin(),
-								filesize
-							]
-						}
-					)
-				}
-
-				const rollupConfig = {
-					input,
-					plugins: [
-						alias({
-							entries: [
-								{
-									find: /^@\//,
-									replacement: resolve(PACKAGE, name, 'src')
-								},
-								{
-									find: /^#conf(.+)$/,
-									replacement: resolve(PACKAGE, name, 'src', 'conf') + '$1.mjs'
-								}
-							]
-						}),
-						nodeResolve(),
-						json,
-						commonjs,
-						shebang(),
-						esbuild(),
-						// target ? esbuild({ target }) : esbuild(),
-						filesize
-					],
-					external: generateExternal({ name, input }, [...externals, ...external])
-				}
-				const bundle = await rollup(rollupConfig)
-				await Promise.all(writeOptions.map(option => bundle.write(option)))
-
-				// dts
-				// const rollupDtsConfig = {
-				// 	input,
-				// 	plugins: [nodeExternals(), dtsPlugin],
-				// 	external: [...externals, ...external]
-				// }
-				// const writeDtsOptions: OutputOptions[] = [
-				// 	{
-				// 		file: resolve(PACKAGE, name, 'lib', fn.replace(/\.ts$/, '.d.ts')),
-				// 		format: 'es'
-				// 	}
-				// ]
-				// const dtsBundle = await rollup(rollupDtsConfig)
-				// await Promise.all([writeDtsOptions.map(option => dtsBundle.write(option))])
+			const writeOptions: OutputOptions[] = []
+			// output mjs
+			if (mjs !== false) {
+				writeOptions.push({
+					// file: resolve(PACKAGE, name, output, fn.replace(/\.ts$/, '.mjs')),
+					exports: 'auto',
+					extend: true,
+					dir: resolve(PACKAGE, name, output),
+					preserveModules: true,
+					entryFileNames: '[name].mjs',
+					preserveModulesRoot: resolve(PACKAGE, name, 'src'),
+					banner,
+					format: 'es'
+				})
 			}
+			// output cjs
+			// if (cjs !== false) {
+			// 	writeOptions.push({
+			// 		// file: resolve(PACKAGE, name, output, fn.replace(/\.ts$/, '.js')),
+			// 		exports: 'auto',
+			// 		extend: true,
+			// 		dir: resolve(PACKAGE, name, output),
+			// 		preserveModules: true,
+			// 		entryFileNames: '[name].js',
+			// 		preserveModulesRoot: resolve(PACKAGE, name, 'src'),
+			// 		banner,
+			// 		format: 'cjs'
+			// 	})
+			// }
+			// output iife
+			// if (iife !== false) {
+			// 	writeOptions.push(
+			// 		{
+			// 			file: resolve(PACKAGE, name, output, fn.replace(/\.ts$/, 'iife.js')),
+			// 			format: 'iife',
+			// 			exports: 'auto',
+			// 			name: iifeName,
+			// 			extend: true,
+			// 			globals: iifeGlobals,
+			// 			banner,
+			// 			plugins: [
+			// 				// injectEslintSetsCore,
+			// 			]
+			// 		},
+			// 		{
+			// 			file: resolve(PACKAGE, name, output, fn.replace(/\.ts$/, 'iife.min.js')),
+			// 			format: 'iife',
+			// 			exports: 'auto',
+			// 			name: iifeName,
+			// 			extend: true,
+			// 			globals: iifeGlobals,
+			// 			plugins: [
+			// 				// injectEslintSetsCore,
+			// 				minify({
+			// 					minify: true
+			// 				}),
+			// 				bannerPlugin(),
+			// 				filesize
+			// 			]
+			// 		}
+			// 	)
+			// }
+			const input: Record<string, string> = {}
+			fileList.forEach(file => {
+				input[file.slice(0, file.length - extname(file).length)] = resolve(
+					PACKAGE,
+					name,
+					'src',
+					file
+				)
+			})
+			const rollupConfig = {
+				input,
+				plugins: [
+					// alias({
+					// 	entries: [
+					// 		{
+					// 			find: /^@\//,
+					// 			replacement: resolve(PACKAGE, name, 'src')
+					// 		},
+					// 		{
+					// 			find: /^#conf(.+)$/,
+					// 			replacement: resolve(PACKAGE, name, 'src', 'conf') + '$1.mjs'
+					// 		}
+					// 	]
+					// }),
+					nodeResolve(),
+					replace({
+						preventAssignment: true,
+						__VERSION__: version
+					}),
+					json,
+					commonjs,
+					shebang(),
+					esbuild(),
+					// target ? esbuild({ target }) : esbuild(),
+					filesize
+				],
+				external: generateExternal({ name, input: '' }, [...externals, ...external]),
+				onwarn: (msg: any, warn: any) => {
+					if (!/Circular/.test(msg)) {
+						warn(msg)
+					}
+				}
+			}
+			const bundle = await rollup(rollupConfig)
+			await Promise.all(writeOptions.map(option => bundle.write(option)))
 		}
+		// }
 	)
 	await Promise.all(builds)
 }
 
 export async function madgeLib() {
-	for (const { name, output = 'lib' } of pkgs) {
+	for (const { name, output = 'dist' } of pkgs) {
 		await runExec(`npx madge ${output}/ -c`, resolve(PACKAGE, name))
 	}
 }
 
 export async function copyLibFile() {
-	for (const { name } of pkgs) {
+	for (const { name, output = 'dist' } of pkgs) {
 		await runExec(
 			`rsync -av --exclude="*.ts" ${resolve(PACKAGE, name, 'src')}/ ${resolve(
 				PACKAGE,
 				name,
-				'lib'
+				output
 			)}/`
 		)
 	}
 }
 
 export async function cleanDirs() {
-	for (const { name } of pkgs) {
-		await runSpawnSync(`rimraf lib dist`, resolve(PACKAGE, name))
+	for (const { name, output = 'dist' } of pkgs) {
+		await runSpawnSync(`rimraf ${output}`, resolve(PACKAGE, name))
 	}
 }
 

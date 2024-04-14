@@ -8,17 +8,16 @@ import { packages } from '../packages'
 const pkgs = packages.filter(({ buildTask }) => buildTask.includes('type'))
 
 export async function buildType() {
-	const builds = pkgs.map(async ({ name, build, dts }) => {
-		// Conflicts with dts=true
-		if (build === false || dts !== false) return
+	const builds = pkgs.map(async ({ name, build }) => {
+		if (build === false) return
 		await runSpawnSync(`npx tsc -p tsconfig.json`, resolve(PACKAGE, name))
 	})
 	await Promise.all(builds)
 }
 
 export async function cleanDirs() {
-	for (const { name } of pkgs) {
-		await runSpawnSync(`rimraf lib dist`, resolve(PACKAGE, name))
+	for (const { name, output = 'dist' } of pkgs) {
+		await runSpawnSync(`rimraf ${output}`, resolve(PACKAGE, name))
 	}
 }
 

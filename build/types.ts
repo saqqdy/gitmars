@@ -52,7 +52,7 @@ export interface PackageManifest {
 	browser?: boolean
 	bundler?: boolean
 	types?: boolean
-	output?: 'dist' | 'lib' | 'app' | 'es'
+	output?: string
 	extractTypes?: boolean
 	// target?: string // esbuild target
 }

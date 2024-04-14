@@ -9,7 +9,6 @@ export const packages: PackageManifest[] = [
 		external: [],
 		iife: false,
 		browser: false,
-		output: 'lib',
 		display: 'gitmars utils'
 	},
 	{
@@ -18,7 +17,6 @@ export const packages: PackageManifest[] = [
 		buildTask: 'bundle',
 		iife: false,
 		browser: false,
-		output: 'lib',
 		display: 'gitmars git'
 	},
 	{
@@ -27,7 +25,6 @@ export const packages: PackageManifest[] = [
 		buildTask: 'bundle',
 		iife: false,
 		browser: false,
-		output: 'lib',
 		display: 'gitmars hook'
 	},
 	{
@@ -36,7 +33,6 @@ export const packages: PackageManifest[] = [
 		buildTask: 'bundle',
 		iife: false,
 		browser: false,
-		output: 'lib',
 		display: 'gitmars cache'
 	},
 	{
@@ -45,7 +41,6 @@ export const packages: PackageManifest[] = [
 		buildTask: 'bundle',
 		iife: false,
 		browser: false,
-		output: 'lib',
 		display: 'gitmars go'
 	},
 	{
@@ -54,7 +49,6 @@ export const packages: PackageManifest[] = [
 		buildTask: 'bundle',
 		iife: false,
 		browser: false,
-		output: 'lib',
 		display: 'gitmars api'
 	},
 	{
@@ -63,7 +57,6 @@ export const packages: PackageManifest[] = [
 		buildTask: 'bundle',
 		iife: false,
 		browser: false,
-		output: 'lib',
 		display: 'gitmars build'
 	},
 	{
@@ -72,7 +65,6 @@ export const packages: PackageManifest[] = [
 		buildTask: 'bundle',
 		iife: false,
 		browser: false,
-		output: 'lib',
 		display: 'gitmars核心程序'
 	},
 	{
@@ -90,7 +82,6 @@ export const packages: PackageManifest[] = [
 		buildTask: 'docs',
 		iife: false,
 		browser: false,
-		output: 'dist',
 		display: 'gitmars文档库'
 	}
 ]

@@ -29,10 +29,13 @@ export const bannerText =
 
 export const version = pkg.version
 export const extensions = [
-	'.mjs',
 	'.js',
+	'.mjs',
+	'.cjs',
 	'.jsx',
 	'.ts',
+	'.mts',
+	'.cts',
 	'.tsx',
 	'.es6',
 	'.es',
