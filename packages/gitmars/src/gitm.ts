@@ -3,8 +3,7 @@ import { createRequire } from 'node:module'
 import { program } from 'commander'
 import sh from 'shelljs'
 import chalk from 'chalk'
-import { spawnSync } from '@gitmars/utils'
-import { echo } from '@gitmars/utils'
+import { echo, spawnSync } from '@gitmars/utils'
 // import { version } from '../package.json' assert { type: 'json' }
 import lang from './common/local'
 

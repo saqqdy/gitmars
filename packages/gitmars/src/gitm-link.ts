@@ -1,8 +1,7 @@
 #!/usr/bin/env ts-node
 import { program } from 'commander'
 import sh from 'shelljs'
-import { createArgs } from '@gitmars/utils'
-import { spawnSync } from '@gitmars/utils'
+import { createArgs, spawnSync } from '@gitmars/utils'
 import type { GitmarsOptionOptionsType } from './types'
 import linkConfig from './conf/link'
 import lang from './common/local'

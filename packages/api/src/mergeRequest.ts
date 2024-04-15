@@ -1,8 +1,7 @@
 import chalk from 'chalk'
 import request from '@jssj/request'
-import { getConfig } from '@gitmars/git'
+import { getConfig, getGitToken } from '@gitmars/git'
 import { debug } from '@gitmars/utils'
-import { getGitToken } from '@gitmars/git'
 import lang from './lang'
 
 const { t } = lang

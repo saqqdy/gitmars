@@ -1,7 +1,6 @@
 import sh from 'shelljs'
 import chalk from 'chalk'
-import { spawnSync } from '@gitmars/utils'
-import { debug } from '@gitmars/utils'
+import { debug, spawnSync } from '@gitmars/utils'
 import lang from './lang'
 
 const { t } = lang

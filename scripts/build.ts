@@ -90,8 +90,8 @@ async function build() {
 		}
 	)
 
-	consola.info('Gulp build lib => %s', packageName)
-	execSync(`pnpm run build:lib ${packageName || ''}`, {
+	consola.info('Gulp build => %s', packageName)
+	execSync(`pnpm run build ${packageName || ''}`, {
 		stdio: 'inherit'
 	})
 

@@ -1,6 +1,5 @@
 import type { SpawnOptions } from 'child_process'
-import { spawnSync } from '@gitmars/utils'
-import { debug } from '@gitmars/utils'
+import { debug, spawnSync } from '@gitmars/utils'
 import type { GitStatusInfoType } from './types'
 
 /**

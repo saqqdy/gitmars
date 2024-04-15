@@ -1,7 +1,7 @@
 {
 	"name": "@gitmars/docs",
 	"description": "gitmars文档库",
-	"version": "7.0.0-beta.1",
+	"version": "7.0.0-beta.2",
 	"private": false,
 	"files": [
 		"dist",
@@ -27,17 +27,17 @@
 	},
 	"devDependencies": {
 		"@eslint-sets/eslint-config-vue3": "^5.12.0",
-		"@types/markdown-it": "^13.0.7",
-		"@types/node": "^20.11.24",
+		"@types/markdown-it": "^14.0.1",
+		"@types/node": "^20.12.7",
 		"eslint": "^8.57.0",
-		"markdown-it": "^14.0.0",
+		"markdown-it": "^14.1.0",
 		"markdown-it-anchor": "^8.6.7",
 		"markdown-it-container": "^4.0.0",
 		"prettier": "^3.2.5",
 		"prettier-config-common": "^1.4.0",
 		"tsnd": "^1.1.0",
-		"typescript": "^5.3.3",
-		"vitepress": "1.0.0-rc.44"
+		"typescript": "^5.4.5",
+		"vitepress": "1.1.0"
 	},
 	"sideEffects": false,
 	"keywords": [
@@ -60,5 +60,8 @@
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org",
 		"access": "public"
-	}
+	},
+	"module": "./dist/index.esm-bundler.js",
+	"main": "./dist/index.cjs.js",
+	"types": "./dist/index.d.ts"
 }

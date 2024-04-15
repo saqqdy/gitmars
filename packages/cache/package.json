@@ -1,7 +1,7 @@
 {
 	"name": "@gitmars/cache",
 	"description": "gitmars cache",
-	"version": "7.0.0-beta.1",
+	"version": "7.0.0-beta.2",
 	"private": false,
 	"main": "./dist/index.cjs.js",
 	"module": "./dist/index.esm-bundler.js",
@@ -40,15 +40,15 @@
 	"devDependencies": {
 		"@eslint-sets/eslint-config-ts": "^5.12.0",
 		"@types/lodash-es": "^4.17.12",
-		"@types/node": "^20.11.24",
+		"@types/node": "^20.12.7",
 		"@types/shelljs": "^0.8.15",
 		"cross-env": "^7.0.3",
 		"eslint": "^8.57.0",
-		"madge": "^6.1.0",
+		"madge": "^7.0.0",
 		"prettier": "^3.2.5",
 		"prettier-config-common": "^1.4.0",
 		"tsnd": "^1.1.0",
-		"typescript": "^5.3.3"
+		"typescript": "^5.4.5"
 	},
 	"sideEffects": false,
 	"keywords": [

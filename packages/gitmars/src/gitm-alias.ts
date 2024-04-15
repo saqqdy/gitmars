@@ -1,8 +1,7 @@
 #!/usr/bin/env ts-node
 import { program } from 'commander'
 import chalk from 'chalk'
-import { createArgs, echo } from '@gitmars/utils'
-import { spawnSync } from '@gitmars/utils'
+import { createArgs, echo, spawnSync } from '@gitmars/utils'
 import type { GitmarsOptionOptionsType } from './types'
 import aliasConfig from './conf/alias'
 import lang from './common/local'
