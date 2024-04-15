@@ -5,7 +5,7 @@ import { wrapDisplayName } from '../utils/gulp'
 import { PACKAGE } from '../utils/paths'
 import { packages } from '../packages'
 
-const pkgs = packages.filter(({ buildTask }) => buildTask.includes('type'))
+const pkgs = packages.filter(({ buildTask }) => buildTask && buildTask.includes('type'))
 
 export async function buildType() {
 	const builds = pkgs.map(async ({ name, build }) => {

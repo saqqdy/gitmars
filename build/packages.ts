@@ -83,15 +83,22 @@ export const packages: PackageManifest[] = [
 		iife: false,
 		browser: false,
 		display: 'gitmars文档库'
+	},
+	{
+		name: 'monorepo',
+		pkgName: '@gitmars/monorepo',
+		build: false,
+		display: 'gitmars monorepo'
 	}
 ]
 
 export const names = packages.map(({ name }) => name)
 export const packageNames = packages.map(({ pkgName }) => pkgName)
 export const buildTasks = packages.reduce((acc, cur) => {
-	for (const item of ([] as Task[]).concat(cur.buildTask)) {
-		!acc.includes(item) && acc.push(item)
-	}
+	if (cur.buildTask)
+		for (const item of ([] as Task[]).concat(cur.buildTask)) {
+			!acc.includes(item) && acc.push(item)
+		}
 	return acc
 }, [] as Task[])
 
@@ -107,12 +114,15 @@ export function getPackages(name?: string | string[]) {
 	const list = packages.filter(item => {
 		if (intersect(buildTasks, name).length) {
 			// 传入task
-			return intersect(
-				typeof item.buildTask === 'string'
-					? ([] as Task[]).concat(item.buildTask)
-					: item.buildTask,
-				name
-			).length
+			return (
+				item.buildTask &&
+				intersect(
+					typeof item.buildTask === 'string'
+						? ([] as Task[]).concat(item.buildTask)
+						: item.buildTask,
+					name
+				).length
+			)
 		}
 		// 传入name
 		return name.includes(item.name)
@@ -126,9 +136,12 @@ export function getPackages(name?: string | string[]) {
 }
 
 export function getLibPackages(name?: string | string[]) {
+	const _names = typeof name === 'string' ? ([] as string[]).concat(name) : name
 	const list = packages.filter(item => {
-		const _names = typeof name === 'string' ? ([] as string[]).concat(name) : name
-		const _buildTask = typeof item.buildTask === 'string' ? [item.buildTask] : item.buildTask
+		const _buildTask =
+			item.buildTask && typeof item.buildTask === 'string'
+				? [item.buildTask]
+				: item.buildTask || []
 
 		if (!_names) return _buildTask.includes('lib')
 		return _buildTask.includes('lib') && _names.includes(item.name)
@@ -142,9 +155,12 @@ export function getLibPackages(name?: string | string[]) {
 }
 
 export function getBundlePackages(name?: string | string[]) {
+	const _names = typeof name === 'string' ? ([] as string[]).concat(name) : name
 	const list = packages.filter(item => {
-		const _names = typeof name === 'string' ? ([] as string[]).concat(name) : name
-		const _buildTask = typeof item.buildTask === 'string' ? [item.buildTask] : item.buildTask
+		const _buildTask =
+			item.buildTask && typeof item.buildTask === 'string'
+				? [item.buildTask]
+				: item.buildTask || []
 
 		if (!_names) return _buildTask.includes('bundle')
 		return _buildTask.includes('bundle') && _names.includes(item.name)

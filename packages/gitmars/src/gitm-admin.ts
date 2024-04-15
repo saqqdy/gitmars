@@ -1,5 +1,5 @@
 #!/usr/bin/env ts-node
-import { createRequire } from 'node:module'
+// import { createRequire } from 'node:module'
 import { Command } from 'commander'
 import chalk from 'chalk'
 import { getType } from 'js-cool'
@@ -26,7 +26,7 @@ import lang from './common/local'
 import adminConfig from './conf/admin'
 
 const { t } = lang
-const require = createRequire(import.meta.url)
+// const require = createRequire(import.meta.url)
 const { green, red, yellow } = chalk
 
 if (!getIsGitProject()) {
@@ -37,7 +37,8 @@ if (!getIsGitProject()) {
 const { appName } = getGitConfig()
 const config = getConfig()
 const userInfoApi = config.apis?.userInfo?.url || config.api
-const mergeRequestModule = require.resolve('@gitmars/core/lib/api/mergeRequest')
+// const mergeRequestModule = require.resolve('@gitmars/core/lib/api/mergeRequest')
+const mergeRequestModule = import.meta.resolve('@gitmars/api')
 const { approve, clean, create, publish, update } = adminConfig
 interface GitmBuildOption {
 	publish: {

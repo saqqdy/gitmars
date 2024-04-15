@@ -35,7 +35,7 @@ export interface PackageManifest {
 	name: Name
 	pkgName: PkgName
 	display: string
-	buildTask: BuildTask
+	buildTask?: BuildTask
 	addon?: boolean
 	author?: string
 	description?: string
