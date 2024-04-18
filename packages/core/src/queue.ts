@@ -1,4 +1,4 @@
-// import { createRequire } from 'node:module'
+import { createRequire } from 'node:module'
 import ora from 'ora'
 import { extend } from 'js-cool'
 import chalk from 'chalk'
@@ -10,7 +10,7 @@ import type { CommandMessageType, CommandType, CommandTypeCmd, QueueReturnsType 
 import lang from './lang'
 
 const { t } = lang
-// const require = createRequire(import.meta.url)
+const require = createRequire(import.meta.url)
 
 export interface WaitCallback {
 	(kill?: boolean): void
@@ -218,7 +218,7 @@ export function queue(list: Array<CommandType | string | string[]>): Promise<Que
 				let status = 0,
 					stdout,
 					stderr,
-					_execFunction = await import(cmd.module) // require(cmd.module)
+					_execFunction = require(cmd.module) // await import(cmd.module)
 				if (cmd.entry) _execFunction = _execFunction[cmd.entry]
 				try {
 					spinner.start(chalk.green(cfg.processing || t('Processing')))

@@ -1,5 +1,5 @@
 #!/usr/bin/env ts-node
-// import { createRequire } from 'node:module'
+import { createRequire } from 'node:module'
 import { program } from 'commander'
 import sh from 'shelljs'
 import chalk from 'chalk'
@@ -23,7 +23,7 @@ import { defaults } from './common/global'
 import combineConfig from './conf/combine'
 
 const { t } = lang
-// const require = createRequire(import.meta.url)
+const require = createRequire(import.meta.url)
 const { red, yellow } = chalk
 
 if (!getIsGitProject()) {
@@ -31,8 +31,8 @@ if (!getIsGitProject()) {
 	process.exit(1)
 }
 
-// const mergeRequestModule = require.resolve('@gitmars/core/lib/api/mergeRequest')
-const mergeRequestModule = import.meta.resolve('@gitmars/api')
+const mergeRequestModule = require.resolve('@gitmars/api')
+// const mergeRequestModule = import.meta.resolve('@gitmars/api')
 
 interface GitmBuildOption {
 	dev?: boolean
