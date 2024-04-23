@@ -60,6 +60,7 @@ export type ApolloBranchList = 'dev' | 'bug' | 'prod'
 export interface ApolloConfigProjectType {
 	name: string
 	project: string
+	token?: string
 	apps?: string[]
 }
 

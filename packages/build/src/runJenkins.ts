@@ -62,7 +62,7 @@ async function runJenkins({
 			{
 				line: cfg.line,
 				project: p.project,
-				token: cfg.token,
+				token: p.token || cfg.token,
 				app
 			}
 		)
