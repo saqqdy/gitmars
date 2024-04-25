@@ -87,17 +87,17 @@ function createPrompt(
 					name: opts.name,
 					message: `${
 						opts.description ||
-						t('Enter the value of parameter {{option}}', {
+						t('Enter the value of parameter {option}', {
 							option: opts.name
 						})
 					}${
 						!opts.required
 							? chalk.yellow(
-									t('(' + 'Not required{{{tips}}}' + ')', {
+									t('(' + 'Not required{tips}' + ')', {
 										tips:
 											'defaultValue' in opts && opts.defaultValue !== ''
 												? ', ' +
-													t('default "{{{defaultValue}}}"', {
+													t('default "{defaultValue}"', {
 														defaultValue: opts.defaultValue
 													})
 												: ''

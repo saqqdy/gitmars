@@ -88,7 +88,7 @@ export function queue(list: Array<CommandType | string | string[]>): Promise<Que
 					cfg.fail ||
 						msg.fail ||
 						t(
-							'An error has occurred! Command {{{command}}} execution failed, process exits',
+							'An error has occurred! Command {command} execution failed, process exits',
 							{
 								command: cmd as string
 							}
@@ -97,12 +97,9 @@ export function queue(list: Array<CommandType | string | string[]>): Promise<Que
 			)
 			cfg.postmsg &&
 				postMessage(
-					t(
-						'An error has occurred! Command {{{command}}} execution failed, process exits',
-						{
-							command: cmd as string
-						}
-					)
+					t('An error has occurred! Command {command} execution failed, process exits', {
+						command: cmd as string
+					})
 				)
 			rest.length > 0 &&
 				spinner.fail(
@@ -117,7 +114,7 @@ export function queue(list: Array<CommandType | string | string[]>): Promise<Que
 			const _message =
 				cfg.fail ||
 				msg.fail ||
-				t('Command {{{command}}} Execution failed', {
+				t('Command {command} Execution failed', {
 					command: cmd as string
 				})
 			_message && spinner.warn(chalk.yellow(_message))

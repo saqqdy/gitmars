@@ -60,13 +60,13 @@ ${getHookComment()}
 			const hook = fs.readFileSync(filename, 'utf-8')
 			// 合并
 			if (getHookType.isGhooks(hook)) {
-				console.info(t('Merge existing ghooks hooks: {{name}}', { name }))
+				console.info(t('Merge existing ghooks hooks: {name}', { name }))
 				return writeHook(filename, hookShell)
 			}
 			// 合并
 			if (getHookType.isPreCommit(hook)) {
 				console.info(
-					t('Merge existing pre-commit hooks: {{name}}', {
+					t('Merge existing pre-commit hooks: {name}', {
 						name
 					})
 				)
@@ -82,7 +82,7 @@ ${getHookComment()}
 			}
 			// 跳过
 			console.info(
-				t('Skip existing git hooks: {{name}}', {
+				t('Skip existing git hooks: {name}', {
 					name
 				})
 			)
