@@ -1,7 +1,7 @@
 {
 	"name": "@gitmars/monorepo",
 	"description": "这是一个git工作流工具",
-	"version": "7.0.0-beta.10",
+	"version": "7.0.0-beta.11",
 	"packageManager": "pnpm@8.7.4",
 	"main": "index.js",
 	"files": [

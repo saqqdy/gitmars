@@ -2,6 +2,7 @@
 import { program } from 'commander'
 import sh from 'shelljs'
 import chalk from 'chalk'
+import to from 'await-to-done'
 import { confirm } from '@inquirer/prompts'
 import { getGitRevParse, getIsGitProject } from '@gitmars/git'
 import { cleanCache, cleanPkgInfo } from '@gitmars/cache'
@@ -34,12 +35,14 @@ options.forEach((o: GitmarsOptionOptionsType) => {
 program.action(async (opt: GitmBuildOption) => {
 	if (getIsGitProject()) {
 		if (opt.force) {
-			const answer = await confirm({
-				message: t(
-					'You have entered --force, which will also clear the gitmars execution cache. Should I continue?'
-				),
-				default: false
-			})
+			const [, answer] = await to(
+				confirm({
+					message: t(
+						'You have entered --force, which will also clear the gitmars execution cache. Should I continue?'
+					),
+					default: false
+				})
+			)
 			if (!answer) {
 				sh.echo(green(t('exited')))
 				process.exit(0)

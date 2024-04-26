@@ -2,7 +2,7 @@
 	"name": "gitmars",
 	"description": "这是一个git工作流工具",
 	"type": "module",
-	"version": "7.0.0-beta.10",
+	"version": "7.0.0-beta.11",
 	"private": false,
 	"bin": {
 		"gitm": "lib/gitm.mjs"
@@ -62,6 +62,7 @@
 		"@gitmars/utils": "workspace:*",
 		"@inquirer/prompts": "^3.3.2",
 		"@jssj/request": "^1.1.0",
+		"await-to-done": "^1.0.2",
 		"chalk": "^4.1.2",
 		"ci-info": "^4.0.0",
 		"columnify": "^1.6.0",

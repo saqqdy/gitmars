@@ -3,6 +3,7 @@ import { program } from 'commander'
 import sh from 'shelljs'
 import { confirm, input, select } from '@inquirer/prompts'
 import chalk from 'chalk'
+import to from 'await-to-done'
 import { createArgs } from '@gitmars/utils'
 import { getGitConfig, getIsGitProject } from '@gitmars/git'
 import { runJenkins } from '@gitmars/build'
@@ -16,8 +17,8 @@ const { red, yellow } = chalk
 const { args, options } = buildConfig
 
 interface GitmBuildOption {
-	env: ApolloBranchList
-	app: string
+	env?: ApolloBranchList
+	app?: string
 	data?: string
 	confirm?: boolean
 }
@@ -47,54 +48,60 @@ program.action(async (project: string, opt: GitmBuildOption): Promise<void> => {
 		else project = await input({ message: t('Enter project name') })
 	}
 
-	if (!env)
-		env = await select({
-			message: t('Select the environment to build'),
-			choices: [
-				{
-					name: 'dev',
-					value: 'dev',
-					description: t('Test environment(alpha)')
-				},
-				{
-					name: 'bug',
-					value: 'bug',
-					description: t('Pre-release tag environment(bug)')
-				},
-				{
-					name: 'prod',
-					value: 'prod',
-					description: t('Pre-release prod environment(prod)')
-				}
-			]
-		})
+	if (!env) {
+		;[, env] = await to(
+			select({
+				message: t('Select the environment to build'),
+				choices: [
+					{
+						name: 'dev',
+						value: 'dev',
+						description: t('Test environment(alpha)')
+					},
+					{
+						name: 'bug',
+						value: 'bug',
+						description: t('Pre-release tag environment(bug)')
+					},
+					{
+						name: 'prod',
+						value: 'prod',
+						description: t('Pre-release prod environment(prod)')
+					}
+				]
+			})
+		)
+	}
 
-	if (!app)
-		app = await select({
-			message: t('Select the miniprogram to build'),
-			choices: [
-				{
-					name: 'weapp',
-					value: 'weapp'
-				},
-				{
-					name: 'alipay',
-					value: 'alipay'
-				},
-				{
-					name: 'tt',
-					value: 'tt'
-				},
-				{
-					name: 'dd',
-					value: 'dd'
-				},
-				{
-					name: 'swan',
-					value: 'swan'
-				}
-			]
-		})
+	if (!app) {
+		;[, app] = await to(
+			select<string>({
+				message: t('Select the miniprogram to build'),
+				choices: [
+					{
+						name: 'weapp',
+						value: 'weapp'
+					},
+					{
+						name: 'alipay',
+						value: 'alipay'
+					},
+					{
+						name: 'tt',
+						value: 'tt'
+					},
+					{
+						name: 'dd',
+						value: 'dd'
+					},
+					{
+						name: 'swan',
+						value: 'swan'
+					}
+				]
+			})
+		)
+	}
 
 	// 有opt.data时强制确认
 	if (!_confirm || (opt.data && opt.data !== '{}')) {
@@ -111,16 +118,15 @@ program.action(async (project: string, opt: GitmBuildOption): Promise<void> => {
 			message += `\n${t('Version Description')}: ${red(data.description)}`
 		if ('clean' in data)
 			message += `\n${t('Clean node modules (use with caution)')}: ${red(data.clean)}`
-
-		_confirm = await confirm({ message })
+		;[, _confirm] = await to(confirm({ message }))
 	}
 
 	if (!_confirm) sh.exit(1)
 	else
 		runJenkins({
-			env,
+			env: env!,
 			project,
-			app,
+			app: app!,
 			data: opt.data
 		})
 })

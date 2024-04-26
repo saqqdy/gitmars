@@ -4,6 +4,7 @@ import dayjs from 'dayjs'
 import { checkbox } from '@inquirer/prompts'
 import sh from 'shelljs'
 import chalk from 'chalk'
+import to from 'await-to-done'
 import { queue } from '@gitmars/core'
 import { getCurrentBranch, getIsGitProject } from '@gitmars/git'
 import { createArgs, echo } from '@gitmars/utils'
@@ -59,19 +60,21 @@ program.action(async (commitid: string[], opt: GitmBuildOption) => {
 		process.exit(0)
 	}
 	// 多条记录
-	const commitIDs = await checkbox({
-		message: t('Please select the undo record to restore'),
-		choices: revertCache.map(({ after }, index) => {
-			const _time = dayjs(after['%aI']).format('YYYY/MM/DD HH:mm')
-			return {
-				name: `${green(index + 1 + '.')} ${green(after['%s'])} | ${yellow(
-					after['%an']
-				)} | ${blue(_time)}`,
-				value: after['%H']!,
-				checked: false
-			}
+	const [, commitIDs = []] = await to(
+		checkbox({
+			message: t('Please select the undo record to restore'),
+			choices: revertCache.map(({ after }, index) => {
+				const _time = dayjs(after['%aI']).format('YYYY/MM/DD HH:mm')
+				return {
+					name: `${green(index + 1 + '.')} ${green(after['%s'])} | ${yellow(
+						after['%an']
+					)} | ${blue(_time)}`,
+					value: after['%H']!,
+					checked: false
+				}
+			})
 		})
-	})
+	)
 	// 没有选择任何记录
 	if (commitIDs.length === 0) {
 		echo(yellow(t('No logs selected, process has exited')))

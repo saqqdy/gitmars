@@ -477,7 +477,7 @@ gitm cp xxxxxx
 
 | 名称      | 简写 | 说明                               | 类型      | 可选值       | 传值必填 | 默认    |
 | --------- | ---- | ---------------------------------- | --------- | ------------ | -------- | ------- |
-| --env     | -e   | 要构建的环境                       | `String`  | dev/prod/bug | 是       | -       |
+| --env     | -e   | 要构建的环境                       | `String`  | dev/prod/bug | 否       | -       |
 | --app     | -a   | 需要构建的子项目                   | `String`  | -            | 否       | `all`   |
 | --data    | -d   | 需要传输的其他数据，传入JSON字符串 | `String`  | -            | 否       | '{}'    |
 | --confirm | -c   | 确认开始，为 true 时不显示确认框   | `Boolean` | -            | 否       | `false` |
@@ -523,11 +523,11 @@ gitm build
 
 | 名称          | 简写 | 说明                               | 类型      | 可选值                       | 传值必填 | 默认    |
 | ------------- | ---- | ---------------------------------- | --------- | ---------------------------- | -------- | ------- |
-| --env         | -e   | 要构建的环境                       | `String`  | dev/prod/bug                 | 是       | -       |
-| --api-env     |      | 要构建的API环境                    | `String`  | alpha/tag/release/production | 是       | -       |
+| --env         | -e   | 要构建的环境                       | `String`  | dev/prod/bug                 | 否       | -       |
+| --api-env     |      | 要构建的API环境                    | `String`  | alpha/tag/release/production | 否       | -       |
 | --miniprogram | -mp  | 生成体验版小程序                   | `String`  | -                            | 否       | -       |
-| --description | -des | 版本描述                           | `String`  | -                            | 是       | -       |
-| --app         | -a   | 需要构建的子项目                   | `String`  | weapp/alipay/tt/dd/swan      | 是       | `weapp` |
+| --description | -des | 版本描述                           | `String`  | -                            | 否       | -       |
+| --app         | -a   | 需要构建的子项目                   | `String`  | weapp/alipay/tt/dd/swan      | 否       | -       |
 | --data        | -d   | 需要传输的其他数据，传入JSON字符串 | `String`  | -                            | 否       | '{}'    |
 | --confirm     | -c   | 确认开始，为 true 时不显示确认框   | `Boolean` | -                            | 否       | `false` |
 

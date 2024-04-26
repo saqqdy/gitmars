@@ -4,6 +4,7 @@ import dayjs from 'dayjs'
 import { checkbox } from '@inquirer/prompts'
 import sh from 'shelljs'
 import chalk from 'chalk'
+import to from 'await-to-done'
 import { queue } from '@gitmars/core'
 import { getCurrentBranch, getGitLogs, getGitLogsByCommitIDs, getIsGitProject } from '@gitmars/git'
 import { createArgs, echo } from '@gitmars/utils'
@@ -202,19 +203,21 @@ program.action(async (commitid: string[], opt: GitmBuildOption) => {
 			process.exit(0)
 		} else {
 			// 多条记录
-			commitIDs = await checkbox<string>({
-				message: t('Please select the commit record to undo.'),
-				choices: logList.map((log, index) => {
-					const _time = dayjs(log['%aI']).format('YYYY/MM/DD HH:mm')
-					return {
-						name: `${green(index + 1 + '.')} ${green(log['%s'])} | ${yellow(
-							log['%an']
-						)} | ${blue(_time)}`,
-						value: log['%H']!,
-						checked: false
-					}
+			;[, commitIDs = []] = await to(
+				checkbox<string>({
+					message: t('Please select the commit record to undo.'),
+					choices: logList.map((log, index) => {
+						const _time = dayjs(log['%aI']).format('YYYY/MM/DD HH:mm')
+						return {
+							name: `${green(index + 1 + '.')} ${green(log['%s'])} | ${yellow(
+								log['%an']
+							)} | ${blue(_time)}`,
+							value: log['%H']!,
+							checked: false
+						}
+					})
 				})
-			})
+			)
 		}
 	}
 	// 没有选择任何记录

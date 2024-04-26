@@ -4,6 +4,7 @@ import chalk from 'chalk'
 import { checkbox, confirm } from '@inquirer/prompts'
 import ora from 'ora'
 import { waiting } from 'js-cool'
+import to from 'await-to-done'
 import {
 	fetch,
 	getConfig,
@@ -144,10 +145,12 @@ program.action(async (branches: string[], opt: GitmBuildOption) => {
 	const _willDeleteBranch: string[] = []
 	if (branches.length > 0) {
 		if (!opt.list && !opt.confirm) {
-			const answer = await confirm({
-				message: t('About to start batch deleting branches, do you want to continue?'),
-				default: false
-			})
+			const [, answer] = await to(
+				confirm({
+					message: t('About to start batch deleting branches, do you want to continue?'),
+					default: false
+				})
+			)
 			if (!answer) {
 				echo(green(t('exited')))
 				process.exit(0)
@@ -210,22 +213,24 @@ program.action(async (branches: string[], opt: GitmBuildOption) => {
 		if (_willDeleteBranch.length > 0) {
 			console.info('\r')
 			// Select the branch to clean
-			const selectBranches = await checkbox<string>({
-				message: yellow(
-					t(
-						'Find {total} branches merged over {branches} branch, please select the branch to clean up',
-						{
-							branches: targets.join(','),
-							total: String(_willDeleteBranch.length)
-						}
-					)
-				),
-				choices: _willDeleteBranch.map(item => ({
-					name: green(item),
-					value: item,
-					checked: true
-				}))
-			})
+			const [, selectBranches = []] = await to(
+				checkbox<string>({
+					message: yellow(
+						t(
+							'Find {total} branches merged over {branches} branch, please select the branch to clean up',
+							{
+								branches: targets.join(','),
+								total: String(_willDeleteBranch.length)
+							}
+						)
+					),
+					choices: _willDeleteBranch.map(item => ({
+						name: green(item),
+						value: item,
+						checked: true
+					}))
+				})
+			)
 			if (selectBranches.length === 0) {
 				echo(yellow(t('No branches were selected and the process has exited.')))
 				process.exit(0)

@@ -2,6 +2,7 @@
 import { program } from 'commander'
 import sh from 'shelljs'
 import chalk from 'chalk'
+import to from 'await-to-done'
 import { confirm } from '@inquirer/prompts'
 import { queue } from '@gitmars/core'
 import { getGitStatus, getIsGitProject } from '@gitmars/git'
@@ -43,12 +44,14 @@ program.action(async (opt: GitmBuildOption) => {
 	if (cmd.length > 0) {
 		// 检测是否有未提交的文件
 		if (sum.A.length > 0 || sum.D.length > 0 || sum.M.length > 0 || sum.UU.length > 0) {
-			const answer = await confirm({
-				message: t(
-					'A conflict has been detected in the merge branch and you need to run git add . Do you want to force the script to continue?'
-				),
-				default: false
-			})
+			const [, answer] = await to(
+				confirm({
+					message: t(
+						'A conflict has been detected in the merge branch and you need to run git add . Do you want to force the script to continue?'
+					),
+					default: false
+				})
+			)
 			if (!answer) {
 				sh.echo(green(t('exited')))
 				process.exit(0)

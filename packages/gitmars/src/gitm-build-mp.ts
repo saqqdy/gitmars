@@ -3,6 +3,7 @@ import { program } from 'commander'
 import sh from 'shelljs'
 import { confirm, input, select } from '@inquirer/prompts'
 import chalk from 'chalk'
+import to from 'await-to-done'
 import { createArgs } from '@gitmars/utils'
 import { getGitConfig, getIsGitProject } from '@gitmars/git'
 import { runJenkins } from '@gitmars/build'
@@ -16,8 +17,8 @@ const { red, yellow } = chalk
 const { args, options } = buildMpConfig
 
 interface GitmBuildMpOption {
-	env: ApolloBranchList
-	app: string
+	env?: ApolloBranchList
+	app?: string
 	data?: string
 	confirm?: boolean
 	build_api_env?: 'alpha' | 'tag' | 'release' | 'production'
@@ -41,7 +42,7 @@ options.forEach((o: GitmarsOptionOptionsType) => {
 // .option('--api-env [apiEnv]', t('Api environment to be built, optionally alpha, tag, release, production'), '')
 // .option('-mp, --miniprogram [miniprogram]', t('Generate experiential version of miniprogram'), '')
 // .option('-des, --description [description]', t('Enter the version description'), '')
-// .option('-a, --app [app]', t('Application to be built'), 'weapp')
+// .option('-a, --app [app]', t('Application to be built'), '')
 // .option('-d, --data <data>', t('Other data to be transferred'), '{}')
 // .option('-c, --confirm', t('Confirm start, do not show confirmation box when true'), false)
 program.action(async (project: string, opt: GitmBuildMpOption): Promise<void> => {
@@ -58,85 +59,99 @@ program.action(async (project: string, opt: GitmBuildMpOption): Promise<void> =>
 		else project = await input({ message: t('Enter project name') })
 	}
 
-	if (!env)
-		env = await select({
-			message: t('Select the environment to build'),
-			choices: [
-				{
-					name: 'dev',
-					value: 'dev',
-					description: t('Test environment(alpha)')
-				},
-				{
-					name: 'bug',
-					value: 'bug',
-					description: t('Pre-release tag environment(bug)')
-				},
-				{
-					name: 'prod',
-					value: 'prod',
-					description: t('Pre-release prod environment(prod)')
-				}
-			]
-		})
+	if (!env) {
+		;[, env] = await to(
+			select({
+				message: t('Select the environment to build'),
+				choices: [
+					{
+						name: 'dev',
+						value: 'dev',
+						description: t('Test environment(alpha)')
+					},
+					{
+						name: 'bug',
+						value: 'bug',
+						description: t('Pre-release tag environment(bug)')
+					},
+					{
+						name: 'prod',
+						value: 'prod',
+						description: t('Pre-release prod environment(prod)')
+					}
+				]
+			})
+		)
+	}
 
-	if (!app)
-		app = await select({
-			message: t('Select the miniprogram to build'),
-			choices: [
-				{
-					name: 'weapp',
-					value: 'weapp'
-				},
-				{
-					name: 'alipay',
-					value: 'alipay'
-				},
-				{
-					name: 'tt',
-					value: 'tt'
-				},
-				{
-					name: 'dd',
-					value: 'dd'
-				},
-				{
-					name: 'swan',
-					value: 'swan'
-				}
-			]
-		})
+	if (!app) {
+		;[, app] = await to(
+			select<string>({
+				message: t('Select the miniprogram to build'),
+				choices: [
+					{
+						name: 'weapp',
+						value: 'weapp'
+					},
+					{
+						name: 'alipay',
+						value: 'alipay'
+					},
+					{
+						name: 'tt',
+						value: 'tt'
+					},
+					{
+						name: 'dd',
+						value: 'dd'
+					},
+					{
+						name: 'swan',
+						value: 'swan'
+					}
+				]
+			})
+		)
+	}
 
-	if (!build_api_env)
-		build_api_env = await select({
-			message: t('Select the api environment to build'),
-			choices: [
-				{
-					name: 'alpha',
-					value: 'alpha',
-					description: t('Test environment(alpha)')
-				},
-				{
-					name: 'tag',
-					value: 'tag',
-					description: t('Pre-release tag environment(bug)')
-				},
-				{
-					name: 'release',
-					value: 'release',
-					description: t('Pre-release prod environment(prod)')
-				},
-				{
-					name: 'production',
-					value: 'production',
-					description: t('Production environment')
-				}
-			]
-		})
+	if (!build_api_env) {
+		;[, build_api_env] = await to(
+			select({
+				message: t('Select the api environment to build'),
+				choices: [
+					{
+						name: 'alpha',
+						value: 'alpha',
+						description: t('Test environment(alpha)')
+					},
+					{
+						name: 'tag',
+						value: 'tag',
+						description: t('Pre-release tag environment(bug)')
+					},
+					{
+						name: 'release',
+						value: 'release',
+						description: t('Pre-release prod environment(prod)')
+					},
+					{
+						name: 'production',
+						value: 'production',
+						description: t('Production environment')
+					}
+				]
+			})
+		)
+	}
 
-	if (!mini_program)
-		mini_program = await input({ message: t('Generate experiential version of miniprogram') })
-	if (!description) description = await input({ message: t('Enter the version description') })
+	if (!mini_program) {
+		;[, mini_program] = await to(
+			input({ message: t('Generate experiential version of miniprogram') })
+		)
+	}
+	if (!description) {
+		;[, description] = await to(input({ message: t('Enter the version description') }))
+	}
 
 	if (!_confirm) {
 		let message = `${yellow(t('Please double check the following build parameters'))}\n${t(
@@ -151,16 +166,15 @@ program.action(async (project: string, opt: GitmBuildMpOption): Promise<void> =>
 		if (description) message += `\n${t('Version Description')}: ${red(description)}`
 		if ('clean' in data)
 			message += `\n${t('Clean node modules (use with caution)')}: ${red(data.clean)}`
-
-		_confirm = await confirm({ message })
+		;[, _confirm] = await to(confirm({ message }))
 	}
 
 	if (!_confirm) sh.exit(1)
 	else
 		runJenkins({
-			env,
+			env: env!,
 			project,
-			app,
+			app: app!,
 			data: JSON.stringify({ ...data, build_api_env, mini_program, description })
 		})
 })

@@ -4,6 +4,7 @@ import dayjs from 'dayjs'
 import { checkbox, select } from '@inquirer/prompts'
 import sh from 'shelljs'
 import chalk from 'chalk'
+import to from 'await-to-done'
 import { queue } from '@gitmars/core'
 import {
 	checkGitStatus,
@@ -92,19 +93,21 @@ program.action(async (commitid: string[], opts: GitmBuildOption) => {
 		}
 	}
 	// 多条记录
-	const commitIDs = await checkbox<string>({
-		message: t('Please select the commit record to copy'),
-		choices: logList.map((log, index) => {
-			const _time = dayjs(log['%aI']).format('YYYY/MM/DD HH:mm')
-			return {
-				name: `${green(index + 1 + '.')} ${green(log['%s'])} | ${yellow(log['%an'])} | ${blue(
-					_time
-				)}`,
-				value: log['%H']!,
-				checked: false
-			}
+	const [, commitIDs = []] = await to(
+		checkbox<string>({
+			message: t('Please select the commit record to copy'),
+			choices: logList.map((log, index) => {
+				const _time = dayjs(log['%aI']).format('YYYY/MM/DD HH:mm')
+				return {
+					name: `${green(index + 1 + '.')} ${green(log['%s'])} | ${yellow(log['%an'])} | ${blue(
+						_time
+					)}`,
+					value: log['%H']!,
+					checked: false
+				}
+			})
 		})
-	})
+	)
 
 	// 没有选择任何记录
 	if (commitIDs.length === 0) {
@@ -112,10 +115,12 @@ program.action(async (commitid: string[], opts: GitmBuildOption) => {
 		process.exit(0)
 	}
 
-	const chooseBranch = await select({
-		message: t('Please select the target branch'),
-		choices: branches.map(item => ({ name: item, value: item }))
-	})
+	const [, chooseBranch] = await to(
+		select({
+			message: t('Please select the target branch'),
+			choices: branches.map(item => ({ name: item, value: item }))
+		})
+	)
 
 	cmd = [
 		`git checkout ${chooseBranch}`,

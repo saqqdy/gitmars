@@ -3,6 +3,7 @@ import { program } from 'commander'
 import dayjs from 'dayjs'
 import { checkbox, select } from '@inquirer/prompts'
 import chalk from 'chalk'
+import to from 'await-to-done'
 import {
 	acceptMergeRequest,
 	deleteMergeRequest,
@@ -61,56 +62,62 @@ program.action(async (opt: GitmBuildOption): Promise<void> => {
 		echo(yellow(t('No merge request record found, process has exited')))
 		process.exit(0)
 	}
-	const iids = await checkbox<number>({
-		message: t('Please select the merge request to be operated'),
-		choices: mrList.map(async (mr: any) => {
-			const { iid, author, source_branch, target_branch, merge_status, created_at } = mr
-			mr.notes = (
-				(await getMergeRequestNotesList({
-					iid
-				})) || []
-			).filter((note: any) => !note.system)
-			const disabled = merge_status !== 'can_be_merged'
-			const _time = dayjs(created_at).format('YYYY/MM/DD HH:mm')
-			return {
-				name: t(
-					'{id} request merge {source} to {target} {disabled} | {name} | {comments} | {time}',
-					{
-						id: green(iid + ': '),
-						source: green(source_branch),
-						target: green(target_branch),
-						disabled: disabled ? red(`[ ${t('Conflict or no need to merge')} ]`) : '',
-						name: yellow(author.name),
-						comments: green(
-							t('{length} comments', {
-								length: String(mr.notes.length)
-							})
-						),
-						time: blue(_time)
-					}
-				),
-				value: iid,
-				// disabled,
-				checked: false
-			}
+	const [, iids = []] = await to(
+		checkbox<number>({
+			message: t('Please select the merge request to be operated'),
+			choices: mrList.map(async (mr: any) => {
+				const { iid, author, source_branch, target_branch, merge_status, created_at } = mr
+				mr.notes = (
+					(await getMergeRequestNotesList({
+						iid
+					})) || []
+				).filter((note: any) => !note.system)
+				const disabled = merge_status !== 'can_be_merged'
+				const _time = dayjs(created_at).format('YYYY/MM/DD HH:mm')
+				return {
+					name: t(
+						'{id} request merge {source} to {target} {disabled} | {name} | {comments} | {time}',
+						{
+							id: green(iid + ': '),
+							source: green(source_branch),
+							target: green(target_branch),
+							disabled: disabled
+								? red(`[ ${t('Conflict or no need to merge')} ]`)
+								: '',
+							name: yellow(author.name),
+							comments: green(
+								t('{length} comments', {
+									length: String(mr.notes.length)
+								})
+							),
+							time: blue(_time)
+						}
+					),
+					value: iid,
+					// disabled,
+					checked: false
+				}
+			})
 		})
-	})
+	)
 	// no records
 	if (iids.length === 0) {
 		echo(yellow(t('No merge request record selected, process has exited')))
 		process.exit(0)
 	}
 
-	const accept = await select({
-		message: t('Please select the action below.'),
-		choices: [
-			{ name: t('View Details'), value: 1, description: 'Show diff' },
-			{ name: t('Passed'), value: 2 },
-			{ name: t('Not passed'), value: 3 },
-			{ name: t('Failed and deleted'), value: 4 },
-			{ name: t('Exit'), value: 5 }
-		]
-	})
+	const [, accept] = await to(
+		select({
+			message: t('Please select the action below.'),
+			choices: [
+				{ name: t('View Details'), value: 1, description: 'Show diff' },
+				{ name: t('Passed'), value: 2 },
+				{ name: t('Not passed'), value: 3 },
+				{ name: t('Failed and deleted'), value: 4 },
+				{ name: t('Exit'), value: 5 }
+			]
+		})
+	)
 
 	// start
 	for (const iid of iids) {

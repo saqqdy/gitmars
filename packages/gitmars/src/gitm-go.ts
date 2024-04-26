@@ -4,6 +4,7 @@ import sh from 'shelljs'
 import chalk from 'chalk'
 import { Separator, select } from '@inquirer/prompts'
 import { getProperty } from 'js-cool'
+import to from 'await-to-done'
 import { getCurrentBranch } from '@gitmars/git'
 import { createArgs } from '@gitmars/utils'
 import type { GitmarsOptionOptionsType } from './types'
@@ -49,38 +50,40 @@ program.action(async (command: string): Promise<void> => {
 		cmd()
 	} else {
 		// 选择指令
-		const command = await select<string>({
-			message: t('Please select the operation you want?'),
-			default: 'combine',
-			choices: [
-				new Separator(' === 1. ' + t('Gitmars Workflow') + ' === '),
-				{ name: 'combine', value: 'combine' },
-				{ name: 'end', value: 'end' },
-				{ name: 'update', value: 'update' },
-				{ name: 'build', value: 'build' },
-				{ name: 'start', value: 'start' },
-				{ name: 'undo', value: 'undo' },
-				{ name: 'redo', value: 'redo' },
-				{ name: 'admin.publish', value: 'admin.publish' },
-				{ name: 'admin.update', value: 'admin.update' },
-				{ name: 'admin.create', value: 'admin.create' },
-				{ name: 'admin.clean', value: 'admin.clean' },
-				new Separator(' === 2. ' + t('Advanced Tools') + ' === '),
-				{ name: 'branch', value: 'branch' },
-				{ name: 'copy', value: 'copy' },
-				{ name: 'get', value: 'get' },
-				{ name: 'save', value: 'save' },
-				{ name: 'cleanbranch', value: 'cleanbranch' },
-				{ name: 'clean', value: 'clean' },
-				{ name: 'revert', value: 'revert' },
-				{ name: 'link', value: 'link' },
-				{ name: 'unlink', value: 'unlink' },
-				{ name: 'postmsg', value: 'postmsg' },
-				new Separator(' === ' + t('Exit') + ' === '),
-				{ name: 'exit', value: 'exit' },
-				new Separator()
-			]
-		})
+		const [, command = ''] = await to(
+			select<string>({
+				message: t('Please select the operation you want?'),
+				default: 'combine',
+				choices: [
+					new Separator(' === 1. ' + t('Gitmars Workflow') + ' === '),
+					{ name: 'combine', value: 'combine' },
+					{ name: 'end', value: 'end' },
+					{ name: 'update', value: 'update' },
+					{ name: 'build', value: 'build' },
+					{ name: 'start', value: 'start' },
+					{ name: 'undo', value: 'undo' },
+					{ name: 'redo', value: 'redo' },
+					{ name: 'admin.publish', value: 'admin.publish' },
+					{ name: 'admin.update', value: 'admin.update' },
+					{ name: 'admin.create', value: 'admin.create' },
+					{ name: 'admin.clean', value: 'admin.clean' },
+					new Separator(' === 2. ' + t('Advanced Tools') + ' === '),
+					{ name: 'branch', value: 'branch' },
+					{ name: 'copy', value: 'copy' },
+					{ name: 'get', value: 'get' },
+					{ name: 'save', value: 'save' },
+					{ name: 'cleanbranch', value: 'cleanbranch' },
+					{ name: 'clean', value: 'clean' },
+					{ name: 'revert', value: 'revert' },
+					{ name: 'link', value: 'link' },
+					{ name: 'unlink', value: 'unlink' },
+					{ name: 'postmsg', value: 'postmsg' },
+					new Separator(' === ' + t('Exit') + ' === '),
+					{ name: 'exit', value: 'exit' },
+					new Separator()
+				]
+			})
+		)
 		if (command === 'exit') {
 			sh.echo(green(t('exited')))
 			process.exit(0)
