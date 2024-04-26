@@ -94,12 +94,12 @@ program.action(async (type: string, name: string, opt: GitmBuildOption): Promise
 	let _nameArr: string[] = [], // Branch name array
 		isDescriptionCorrect = true // Does the description of the reason for this submission meet the specification
 	if (!opt.dev && !opt.prod) {
-		sh.echo(t('Please enter the environment to sync to.'))
+		sh.echo(t('Enter the environment to sync to.'))
 		process.exit(1)
 	}
 	if (!status) process.exit(1)
 	if (opt.commit === true) {
-		sh.echo(red(t('Please enter the message to be submitted')))
+		sh.echo(red(t('Enter the message to be submitted')))
 		process.exit(1)
 	}
 	// When there is a descriptionValidator configured, the description information needs to be verified
@@ -130,7 +130,7 @@ program.action(async (type: string, name: string, opt: GitmBuildOption): Promise
 	} else if (!name) {
 		// passed type but not name
 		if (allow.includes(type)) {
-			sh.echo(t('Please enter branch name'))
+			sh.echo(t('Enter branch name'))
 			process.exit(1)
 		}
 		const branches = searchBranches({ type })

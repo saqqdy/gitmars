@@ -3,8 +3,8 @@ export default {
 	'Successful Pushed': 'Successful Pushed',
 	'Processing complete': 'Processing complete',
 	'Command name cannot be empty': 'Command name cannot be empty',
-	'Please enter gitm continue to continue after processing the issue in question':
-		'Please enter gitm continue to continue after processing the issue in question',
+	'Enter gitm continue to continue after processing the issue in question':
+		'Enter gitm continue to continue after processing the issue in question',
 	Message: 'Message',
 	Processing: 'Processing',
 	'No group message push address configured': 'No group message push address configured',
@@ -34,7 +34,8 @@ export default {
 	'Merge existing ghooks hooks: {name}': 'Merge existing ghooks hooks: {name}',
 	'Merge existing pre-commit hooks: {name}': 'Merge existing pre-commit hooks: {name}',
 	'Skip existing git hooks: {name}': 'Skip existing git hooks: {name}',
-	'Please enter the correct project name': 'Please enter the correct project name',
+	'Enter the correct project name': 'Enter the correct project name',
+	'Enter project name': 'Enter project name',
 	'Please configure the message sending api template address':
 		'Please configure the message sending api template address'
 }

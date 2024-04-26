@@ -104,9 +104,7 @@ export function queue(list: Array<CommandType | string | string[]>): Promise<Que
 			rest.length > 0 &&
 				spinner.fail(
 					chalk.red(
-						t(
-							'Please enter gitm continue to continue after processing the issue in question'
-						)
+						t('Enter gitm continue to continue after processing the issue in question')
 					)
 				)
 			process.exit(1)

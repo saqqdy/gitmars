@@ -35,7 +35,7 @@ export default {
 	'Cannot be deleted': 'Cannot be deleted',
 	'Analysis completed': 'Analysis completed',
 	Deleting: 'Deleting',
-	'Please enter branch name': 'Please enter branch name',
+	'Enter branch name': 'Enter branch name',
 	'Successfully deleted remote branch': 'Successfully deleted remote branch',
 	'Deletion failed, please contact administrator':
 		'Deletion failed, please contact administrator',
@@ -175,15 +175,15 @@ export default {
 	'Analysis complete, no branches to clean up': 'Analysis complete, no branches to clean up',
 	'Deletion complete, these branches have been cleaned up':
 		'Deletion complete, these branches have been cleaned up',
-	'Please enter the message to be submitted': 'Please enter the message to be submitted',
-	'Please enter the environment to sync to.': 'Please enter the environment to sync to.',
+	'Enter the message to be submitted': 'Enter the message to be submitted',
+	'Enter the environment to sync to.': 'Enter the environment to sync to.',
 	'Merge bugfix task branch, merge feature development branch, merge support branch':
 		'Merge bugfix task branch, merge feature development branch, merge support branch',
 	'Branch does not exist, please enter it correctly':
 		'Branch does not exist, please enter it correctly',
 	'This branch has not been synced for more than 1 week, please sync it at least once a week, execute: gitm update (-f)':
 		'This branch has not been synced for more than 1 week, please sync it at least once a week, execute: gitm update (-f)',
-	'Please enter the items to be configured': 'Please enter the items to be configured',
+	'Enter the items to be configured': 'Enter the items to be configured',
 	'Query single or all gitmars for configuration items':
 		'Query single or all gitmars for configuration items',
 	'A conflict has been detected in the merge branch and you need to run git add . Do you want to force the script to continue?':
@@ -217,27 +217,25 @@ export default {
 	'The local version is not behind the remote, you can push it directly':
 		'The local version is not behind the remote, you can push it directly',
 	'Set configuration items for gitmars': 'Set configuration items for gitmars',
-	'Please enter the available names': 'Please enter the available names',
-	'Please enter the Git username': 'Please enter the Git username',
-	'Please enter the Git email address': 'Please enter the Git email address',
-	'Please enter the correct email': 'Please enter the correct email',
-	'Please enter the branch name naming convention':
-		'Please enter the branch name naming convention',
-	'Please enter commit message rules': 'Please enter commit message rules',
-	'Please enter the message template': 'Please enter the message template',
-	'Please enter the message push address': 'Please enter the message push address',
-	'Please enter the URL': 'Please enter the URL',
-	'Please enter apollo configuration': 'Please enter apollo configuration',
-	'Please enter json': 'Please enter json',
-	'Please enter hooks configuration': 'Please enter hooks configuration',
-	'Please enter the query user permission interface':
-		'Please enter the query user permission interface',
-	'Please enter the git URL': 'Please enter the git URL',
-	'Please enter the git project ID, currently only gitlab is supported':
-		'Please enter the git project ID, currently only gitlab is supported',
+	'Enter the available names': 'Enter the available names',
+	'Enter the Git username': 'Enter the Git username',
+	'Enter the Git email address': 'Enter the Git email address',
+	'Enter the correct email': 'Enter the correct email',
+	'Enter the branch name naming convention': 'Enter the branch name naming convention',
+	'Enter commit message rules': 'Enter commit message rules',
+	'Enter the message template': 'Enter the message template',
+	'Enter the message push address': 'Enter the message push address',
+	'Enter the URL': 'Enter the URL',
+	'Enter apollo configuration': 'Enter apollo configuration',
+	'Enter json': 'Enter json',
+	'Enter hooks configuration': 'Enter hooks configuration',
+	'Enter the query user permission interface': 'Enter the query user permission interface',
+	'Enter the git URL': 'Enter the git URL',
+	'Enter the git project ID, currently only gitlab is supported':
+		'Enter the git project ID, currently only gitlab is supported',
 	'gitmars configured successfully': 'gitmars configured successfully',
 	'Installing plugins, e.g. @gitmars/core': 'Installing plugins, e.g. @gitmars/core',
-	'Please enter the plugin name': 'Please enter the plugin name',
+	'Enter the plugin name': 'Enter the plugin name',
 	'Incorrect version number entered, only supported: alpha, lite, beta, release, latest, next':
 		'Incorrect version number entered, only supported: alpha, lite, beta, release, latest, next',
 	'Link local package': 'Link local package',
@@ -418,7 +416,7 @@ export default {
 	'Current branch is {current}, I suspect you may want to do the following: ':
 		'Current branch is {current}, I suspect you may want to do the following: ',
 	'You have selected the {something} command': 'You have selected the {something} command',
-	'Please enter {branch} branch name': 'Please enter {branch} branch name',
+	'Enter {branch} branch name': 'Enter {branch} branch name',
 	'The branch was created successfully and is based on {source}. You have now switched to the {target} branch\nIf you need to test, please run: "{combine}"\nWhen development is complete, remember to run: "{end}"':
 		'The branch was created successfully and is based on {source}. You have now switched to the {target} branch\nIf you need to test, please run: "{combine}"\nWhen development is complete, remember to run: "{end}"',
 	'The {target} branch does not allow direct commits':
@@ -437,8 +435,8 @@ export default {
 		'Detected that {id} has failed to undo this record and has deleted the related logs',
 	'The record {id} was detected to have been recovered, and the related logs were deleted':
 		'The record {id} was detected to have been recovered, and the related logs were deleted',
-	'Please enter the comment content': 'Please enter the comment content',
-	'Please enter the available comments': 'Please enter the available comments',
+	'Enter the comment content': 'Enter the comment content',
+	'Enter the available comments': 'Enter the available comments',
 	'{length} comments': '{length} comments',
 	'{id} request merge {source} to {target} {disabled} | {name} | {comments} | {time}':
 		'{id} request merge {source} to {target} {disabled} | {name} | {comments} | {time}',

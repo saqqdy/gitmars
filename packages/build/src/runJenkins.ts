@@ -31,13 +31,13 @@ async function runJenkins({
 	const cfg: ApolloConfigBranchType = buildConfig[env]
 	debug('runJenkins-buildConfig', env, project, app, buildConfig)
 	if (!cfg) {
-		sh.echo(chalk.red(t('Please enter the correct environment name')))
+		sh.echo(chalk.red(t('Enter the correct environment name')))
 		process.exit(1)
 		return
 	}
 	const p = cfg.list.find(el => el.name === project)
 	if (!p) {
-		sh.echo(chalk.red('Please enter the correct project name'))
+		sh.echo(chalk.red('Enter the correct project name'))
 		process.exit(1)
 		return
 	}
@@ -45,7 +45,7 @@ async function runJenkins({
 		const appList = app.split(',')
 		for (const item of appList) {
 			if (!p.apps.includes(item)) {
-				sh.echo(chalk.red(t('Please enter the correct application name')))
+				sh.echo(chalk.red(t('Enter the correct application name')))
 				process.exit(1)
 				return
 			}

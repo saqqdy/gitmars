@@ -3,7 +3,7 @@ export default {
 	'Successful Pushed': '推送成功',
 	'Processing complete': '处理完成',
 	'Command name cannot be empty': '指令名称不能为空',
-	'Please enter gitm continue to continue after processing the issue in question':
+	'Enter gitm continue to continue after processing the issue in question':
 		'请处理相关问题之后输入gitm continue继续',
 	Message: '消息',
 	Processing: '正在处理',
@@ -32,6 +32,7 @@ export default {
 	'Merge existing ghooks hooks: {name}': '合并已存在的ghooks钩子: {name}',
 	'Merge existing pre-commit hooks: {name}': '合并已存在的pre-commit钩子: {name}',
 	'Skip existing git hooks: {name}': '跳过已存在的git钩子: {name}',
-	'Please enter the correct project name': '请输入正确的项目名称',
+	'Enter the correct project name': '输入正确的项目名称',
+	'Enter project name': '输入项目名称',
 	'Please configure the message sending api template address': '请配置消息发送api模板地址'
 }

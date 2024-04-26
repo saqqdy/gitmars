@@ -186,10 +186,10 @@ program.action(async (opt: GitmBuildOption): Promise<void> => {
 		} else if (accept === 2) {
 			// 评论
 			const note = await input({
-				message: t('Please enter the comment content'),
+				message: t('Enter the comment content'),
 				default: '',
 				transformer: (val: string) => val.trim(),
-				validate: (val: string) => (!val ? t('Please enter the available comments') : true)
+				validate: (val: string) => (!val ? t('Enter the available comments') : true)
 			})
 			!opt.quiet &&
 				sendGroupMessage(

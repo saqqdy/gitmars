@@ -33,7 +33,7 @@ options.forEach((o: GitmarsOptionOptionsType) => {
 // .option('-r, --registry <registry>', t('Use mirror address'), '')
 program.action((pluginName: string, version: PackageVersionTag | string, opt: GitmBuildOption) => {
 	if (!pluginName) {
-		echo(red(t('Please enter the plugin name')))
+		echo(red(t('Enter the plugin name')))
 		process.exit(1)
 	}
 	const spinner = ora()

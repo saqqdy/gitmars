@@ -50,7 +50,7 @@ program
 				process.exit(1)
 			}
 		} else {
-			sh.echo(t('Please enter the items to be configured'))
+			sh.echo(t('Enter the items to be configured'))
 			process.exit(1)
 		}
 	})

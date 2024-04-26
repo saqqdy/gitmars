@@ -33,55 +33,52 @@ program
 				prompts.push({
 					type: 'input',
 					name: key,
-					message: t('Please enter {branch} branch name', {
+					message: t('Enter {branch} branch name', {
 						branch: key
 					}),
 					default: () => key,
 					transformer: val => val.trim(),
-					validate: val =>
-						/^\w+$/.test(val) ? true : t('Please enter the available names')
+					validate: val => (/^\w+$/.test(val) ? true : t('Enter the available names'))
 				})
 			} else if (key === 'user') {
 				prompts.push({
 					type: 'input',
 					name: key,
-					message: t('Please enter the Git username'),
+					message: t('Enter the Git username'),
 					transformer: val => val.trim(),
 					validate: val =>
-						val === '' || /^\w+$/.test(val)
-							? true
-							: t('Please enter the available names')
+						val === '' || /^\w+$/.test(val) ? true : t('Enter the available names')
 				})
 			} else if (key === 'email') {
 				prompts.push({
 					type: 'input',
 					name: key,
-					message: t('Please enter the Git email address'),
+					message: t('Enter the Git email address'),
 					transformer: val => val.trim(),
 					validate: val =>
 						val === '' || /^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/.test(val)
 							? true
-							: t('Please enter the correct email')
+							: t('Enter the correct email')
 				})
 			} else if (key === 'nameValidator') {
 				prompts.push({
 					type: 'input',
 					name: key,
-					message: t('Please enter the branch name naming convention'),
+					message: t('Enter the branch name naming convention'),
 					transformer: val => val.trim()
 				})
 			} else if (key === 'descriptionValidator') {
 				prompts.push({
 					type: 'input',
 					name: key,
-					message: t('Please enter commit message rules'),
+					message: t('Enter commit message rules'),
 					transformer: val => val.trim()
 				})
 			} else if (key === 'msgTemplate') {
 				prompts.push({
 					type: 'input',
 					name: key,
-					message: t('Please enter the message template'),
+					message: t('Enter the message template'),
 					default: () => '${message}; project: ${project}; path: ${pwd}',
 					transformer: val => val.trim()
 				})
@@ -89,7 +86,7 @@ program
 				prompts.push({
 					type: 'editor',
 					name: key,
-					message: t('Please enter apollo configuration'),
+					message: t('Enter apollo configuration'),
 					default: () => `{
     "configServerUrl": "",
     "appId": "",
@@ -104,7 +101,7 @@ program
 							val = JSON.parse(val)
 							return true
 						} catch (e) {
-							return t('Please enter json')
+							return t('Enter json')
 						}
 					}
 				})
@@ -112,7 +109,7 @@ program
 				prompts.push({
 					type: 'editor',
 					name: key,
-					message: t('Please enter hooks configuration'),
+					message: t('Enter hooks configuration'),
 					default: () => `{
     "pre-commit": "",
     "pre-push": ""
@@ -122,7 +119,7 @@ program
 							val = JSON.parse(val)
 							return !!val
 						} catch (e) {
-							return t('Please enter json')
+							return t('Enter json')
 						}
 					}
 				})
@@ -130,34 +127,27 @@ program
 				prompts.push({
 					type: 'input',
 					name: key,
-					message: t('Please enter the query user permission interface'),
+					message: t('Enter the query user permission interface'),
 					transformer: val => val.trim(),
 					validate: val =>
-						val === '' || /^https?:\/\/[\S]*$/.test(val)
-							? true
-							: t('Please enter the URL')
+						val === '' || /^https?:\/\/[\S]*$/.test(val) ? true : t('Enter the URL')
 				})
 			} else if (key === 'gitHost') {
 				prompts.push({
 					type: 'input',
 					name: key,
-					message: t('Please enter the git URL'),
+					message: t('Enter the git URL'),
 					transformer: val => val.trim(),
 					validate: val =>
-						val === '' || /^https?:\/\/[\S]*$/.test(val)
-							? true
-							: t('Please enter the URL')
+						val === '' || /^https?:\/\/[\S]*$/.test(val) ? true : t('Enter the URL')
 				})
 			} else if (key === 'gitID') {
 				prompts.push({
 					type: 'input',
 					name: key,
-					message: t(
-						'Please enter the git project ID, currently only gitlab is supported'
-					),
+					message: t('Enter the git project ID, currently only gitlab is supported'),
 					transformer: val => val.trim(),
-					validate: val =>
-						val === '' || /^\d+$/.test(val) ? true : t('Please enter the URL')
+					validate: val => (val === '' || /^\d+$/.test(val) ? true : t('Enter the URL'))
 				})
 			}
 		})

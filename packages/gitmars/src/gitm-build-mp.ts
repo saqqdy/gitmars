@@ -4,6 +4,7 @@ import sh from 'shelljs'
 import { confirm, input, select } from '@inquirer/prompts'
 import chalk from 'chalk'
 import { createArgs } from '@gitmars/utils'
+import { getGitConfig, getIsGitProject } from '@gitmars/git'
 import { runJenkins } from '@gitmars/build'
 import { type ApolloBranchList } from '@gitmars/build'
 import type { GitmarsOptionOptionsType } from './types'
@@ -29,7 +30,7 @@ interface GitmBuildMpOption {
 program
 	.name('gitm build-mp')
 	.usage(
-		'<project> [-e --env [env]] [--api-env [apiEnv]] [-mp --miniprogram [miniprogram]] [-des --description [description]] [-a --app [app]] [-d --data <data>] [-c --confirm]'
+		'[project] [-e --env [env]] [--api-env [apiEnv]] [-mp --miniprogram [miniprogram]] [-des --description [description]] [-a --app [app]] [-d --data <data>] [-c --confirm]'
 	)
 	.description(t('buildMpJenkins'))
 if (args.length > 0) program.arguments(createArgs(args))
@@ -45,15 +46,20 @@ options.forEach((o: GitmarsOptionOptionsType) => {
 // .option('-c, --confirm', t('Confirm start, do not show confirmation box when true'), false)
 program.action(async (project: string, opt: GitmBuildMpOption): Promise<void> => {
 	const data = JSON.parse(opt.data || '{}')
-	let _env = opt.env,
-		_app = opt.app,
+	let env = opt.env,
+		app = opt.app,
 		_confirm = opt.confirm,
 		build_api_env = opt.build_api_env || data.build_api_env,
 		mini_program = opt.miniprogram || data.mini_program,
 		description = opt.description || data.description
 
-	if (!_env)
-		_env = await select({
+	if (!project) {
+		if (getIsGitProject()) project = getGitConfig().appName
+		else project = await input({ message: t('Enter project name') })
+	}
+
+	if (!env)
+		env = await select({
 			message: t('Select the environment to build'),
 			choices: [
 				{
@@ -74,8 +80,8 @@ program.action(async (project: string, opt: GitmBuildMpOption): Promise<void> =>
 			]
 		})
 
-	if (!_app)
-		_app = await select({
+	if (!app)
+		app = await select({
 			message: t('Select the miniprogram to build'),
 			choices: [
 				{
@@ -135,8 +141,8 @@ program.action(async (project: string, opt: GitmBuildMpOption): Promise<void> =>
 	if (!_confirm) {
 		let message = `${yellow(t('Please double check the following build parameters'))}\n${t(
 			'Project Name'
-		)}: ${red(project)}\n${t('Code Branch')}: ${red(opt.env)}\n${t('Build Application')}: ${red(
-			opt.app
+		)}: ${red(project)}\n${t('Code Branch')}: ${red(env)}\n${t('Build Application')}: ${red(
+			app
 		)}`
 
 		message += `\n${t('Interface Environment')}: ${red(build_api_env || 'production')}`
@@ -152,9 +158,9 @@ program.action(async (project: string, opt: GitmBuildMpOption): Promise<void> =>
 	if (!_confirm) sh.exit(1)
 	else
 		runJenkins({
-			env: opt.env,
+			env,
 			project,
-			app: opt.app,
+			app,
 			data: JSON.stringify({ ...data, build_api_env, mini_program, description })
 		})
 })

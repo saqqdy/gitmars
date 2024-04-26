@@ -107,7 +107,7 @@ program.action(async (type: string, name: string, opt: GitmBuildOption): Promise
 	} else if (!name) {
 		// 传了type没传name
 		if (allow.includes(type)) {
-			sh.echo(t('Please enter branch name'))
+			sh.echo(t('Enter branch name'))
 			process.exit(1)
 		}
 		const branches = searchBranches({ type })

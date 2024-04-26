@@ -7,7 +7,7 @@ export const cmdConfig: GitmarsOptionType = {
 	short: 'bd',
 	args: [
 		{
-			required: true,
+			required: false,
 			name: 'project',
 			variadic: false,
 			description: t('Project name')

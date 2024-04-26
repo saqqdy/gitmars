@@ -456,17 +456,18 @@ gitm cp xxxxxx
 
 > v5.3.0 增加data传值，支持传入额外的参数<br/>
 > v6.2.0 新增--confirm 参数
+> v7.0.0 版本调整为支持选择参数的形式，`project`参数取消必填限制
 
 该指令用于发起 Jenkins 构建，project 必传，app 名称可传入 all
 
-- 使用：`gitm build <project> [-e --env [env]] [-a --app [app]] [-d --data <data>] [-c --confirm]`
+- 使用：`gitm build [project] [-e --env [env]] [-a --app [app]] [-d --data <data>] [-c --confirm]`
 - 参数：
 
 <div class="table-prop">
 
-| 参数    | 说明           | 类型     | 可选值 | 必填 | 默认 |
-| ------- | -------------- | -------- | ------ | ---- | ---- |
-| project | 需要构建的项目 | `String` | -      | 是   | -    |
+| 参数    | 说明                                          | 类型     | 可选值 | 必填 | 默认 |
+| ------- | --------------------------------------------- | -------- | ------ | ---- | ---- |
+| project | 需要构建的项目，不传时，取git地址上的项目名称 | `String` | -      | 否   | -    |
 
 </div>
 
@@ -491,6 +492,12 @@ gitm cp xxxxxx
 gitm build gitmars --env dev --app app
 ```
 
+2. 自选参数形式
+
+```shell
+gitm build
+```
+
 ### gitm build-mp
 
 #### 短指令：gitm bdm
@@ -499,14 +506,14 @@ gitm build gitmars --env dev --app app
 
 该指令用于发起 Jenkins 构建小程序
 
-- 使用：`gitm build <project> [-e --env [env]] [--api-env [apiEnv]] [-mp --miniprogram [miniprogram]] [-des --description [description]] [-a --app [app]] [-d --data <data>] [-c --confirm]`
+- 使用：`gitm build-mp [project] [-e --env [env]] [--api-env [apiEnv]] [-mp --miniprogram [miniprogram]] [-des --description [description]] [-a --app [app]] [-d --data <data>] [-c --confirm]`
 - 参数：
 
 <div class="table-prop">
 
-| 参数    | 说明           | 类型     | 可选值 | 必填 | 默认 |
-| ------- | -------------- | -------- | ------ | ---- | ---- |
-| project | 需要构建的项目 | `String` | -      | 是   | -    |
+| 参数    | 说明                                          | 类型     | 可选值 | 必填 | 默认 |
+| ------- | --------------------------------------------- | -------- | ------ | ---- | ---- |
+| project | 需要构建的项目，不传时，取git地址上的项目名称 | `String` | -      | 否   | -    |
 
 </div>
 
@@ -531,13 +538,13 @@ gitm build gitmars --env dev --app app
 1. 构建 gitmars 的 app 应用
 
 ```shell
-gitm build gitmars --env dev --app weapp
+gitm build-mp gitmars --env dev --app weapp
 ```
 
 2. 自选参数形式
 
 ```shell
-gitm build gitmars
+gitm build-mp
 ```
 
 ### gitm branch
