@@ -47,7 +47,7 @@
 		"@node-kit/extra.fs": "^3.2.0",
 		"chalk": "^4.1.2",
 		"debug": "^4.3.4",
-		"inquirer": "^9.2.19",
+		"inquirer": "^8.2.6",
 		"js-cool": "^5.18.1",
 		"morgan": "^1.10.0",
 		"os-lang": "^3.2.0"

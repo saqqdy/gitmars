@@ -3,6 +3,8 @@
 		"@eslint-sets/eslint-config-ts": "latest",
 		"@eslint-sets/eslint-config-vue3": "latest",
 		"reinstaller": "latest",
+		"@inquirer/prompts": "3",
+		"inquirer": "8",
 		"eslint": "8"
 	},
 	"exclude": [

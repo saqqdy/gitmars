@@ -29,7 +29,7 @@
 	"dependencies": {
 		"@gitmars/utils": "workspace:*",
 		"chalk": "^4.1.2",
-		"inquirer": "^9.2.19",
+		"inquirer": "^8.2.6",
 		"lodash-es": "^4.17.21",
 		"lodash-unified": "^1.0.3",
 		"os-lang": "^3.2.0",
