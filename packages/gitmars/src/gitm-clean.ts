@@ -2,7 +2,7 @@
 import { program } from 'commander'
 import sh from 'shelljs'
 import chalk from 'chalk'
-import inquirer from 'inquirer'
+import { confirm } from '@inquirer/prompts'
 import { getGitRevParse, getIsGitProject } from '@gitmars/git'
 import { cleanCache, cleanPkgInfo } from '@gitmars/cache'
 import { createArgs, removeFile } from '@gitmars/utils'
@@ -34,21 +34,16 @@ options.forEach((o: GitmarsOptionOptionsType) => {
 program.action(async (opt: GitmBuildOption) => {
 	if (getIsGitProject()) {
 		if (opt.force) {
-			await inquirer
-				.prompt({
-					type: 'confirm',
-					name: 'value',
-					message: t(
-						'You have entered --force, which will also clear the gitmars execution cache. Should I continue?'
-					),
-					default: false
-				})
-				.then((answers: any) => {
-					if (!answers.value) {
-						sh.echo(green(t('exited')))
-						process.exit(0)
-					}
-				})
+			const answer = await confirm({
+				message: t(
+					'You have entered --force, which will also clear the gitmars execution cache. Should I continue?'
+				),
+				default: false
+			})
+			if (!answer) {
+				sh.echo(green(t('exited')))
+				process.exit(0)
+			}
 			removeFile([
 				{
 					name: t('gitmars command queue cache file'),

@@ -213,6 +213,7 @@ function createEntry(config: Config) {
 
 	if (!isGlobalBuild) {
 		_config.external.push(
+			'@inquirer/prompts',
 			'@jssj/request',
 			'@pkgjs/parseargs',
 			'@pnpm/error',

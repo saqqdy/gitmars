@@ -1,7 +1,7 @@
 #!/usr/bin/env ts-node
 import { program } from 'commander'
 import sh from 'shelljs'
-import inquirer from 'inquirer'
+import { confirm } from '@inquirer/prompts'
 import chalk from 'chalk'
 import { createArgs } from '@gitmars/utils'
 import { runJenkins } from '@gitmars/build'
@@ -37,10 +37,10 @@ options.forEach((o: GitmarsOptionOptionsType) => {
 // .option('-c, --confirm', t('Confirm start, do not show confirmation box when true'), false)
 program.action(async (project: string, opt: GitmBuildOption): Promise<void> => {
 	const data = JSON.parse(opt.data || '{}')
-	let confirm = opt.confirm
+	let _confirm = opt.confirm
 
 	// 有opt.data时强制确认
-	if (!confirm || (opt.data && opt.data !== '{}')) {
+	if (!_confirm || (opt.data && opt.data !== '{}')) {
 		let message = `${yellow(t('Please double check the following build parameters'))}\n${t(
 			'Project Name'
 		)}: ${red(project)}\n${t('Code Branch')}: ${red(opt.env)}\n${t('Build Application')}: ${red(
@@ -55,16 +55,10 @@ program.action(async (project: string, opt: GitmBuildOption): Promise<void> => {
 		if ('clean' in data)
 			message += `\n${t('Clean node modules (use with caution)')}: ${red(data.clean)}`
 
-		confirm = (
-			await inquirer.prompt({
-				type: 'confirm',
-				name: 'confirm',
-				message
-			})
-		).confirm
+		_confirm = await confirm({ message })
 	}
 
-	if (!confirm) sh.exit(1)
+	if (!_confirm) sh.exit(1)
 	else
 		runJenkins({
 			env: opt.env,

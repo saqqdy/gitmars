@@ -1,7 +1,7 @@
 #!/usr/bin/env ts-node
 import { program } from 'commander'
 import dayjs from 'dayjs'
-import inquirer from 'inquirer'
+import { checkbox, input, select } from '@inquirer/prompts'
 import columnify from 'columnify'
 import chalk from 'chalk'
 import { getGitConfig, getIsGitProject } from '@gitmars/git'
@@ -55,60 +55,56 @@ program.action(async (opt: GitmBuildOption): Promise<void> => {
 		echo(yellow(t('No merge request record found, process has exited')))
 		process.exit(0)
 	}
-	const prompt: any = [
-		{
-			type: 'checkbox',
-			message: t('Please select the merge request to be operated'),
-			name: 'iids',
-			choices: []
-		},
-		{
-			type: 'list',
-			message: t('Please select the action below.'),
-			name: 'accept',
-			choices: [t('View Details'), t('Comments'), t('Close'), t('Deleted'), t('Exit')],
-			when(answers: any) {
-				return answers.iids.length
+	const iids = await checkbox<number>({
+		message: t('Please select the merge request to be operated'),
+		choices: mrList.map((mr: any) => {
+			const { iid, author, source_branch, target_branch, merge_status, created_at } = mr
+			const disabled = merge_status !== 'can_be_merged'
+			const _time = dayjs(created_at).format('YYYY/MM/DD HH:mm')
+			return {
+				name: t(
+					'{id} request merge {source} to {target} {disabled} | {name} | {comments} | {time}',
+					{
+						id: green(iid + ': '),
+						source: green(source_branch),
+						target: green(target_branch),
+						disabled: disabled ? red(`[ ${t('Conflict or no need to merge')} ]`) : '',
+						name: yellow(author.name),
+						comments: green(
+							t('{length} comments', {
+								length: String(mr.notes.length)
+							})
+						),
+						time: blue(_time)
+					}
+				),
+				value: iid,
+				// disabled,
+				checked: false
 			}
-		}
-	]
-	mrList.forEach((mr: any) => {
-		const { iid, author, source_branch, target_branch, merge_status, created_at } = mr
-		const disabled = merge_status !== 'can_be_merged'
-		const _time = dayjs(created_at).format('YYYY/MM/DD HH:mm')
-		prompt[0].choices.push({
-			name: t(
-				'{id} request merge {source} to {target} {disabled} | {name} | {comments} | {time}',
-				{
-					id: green(iid + ': '),
-					source: green(source_branch),
-					target: green(target_branch),
-					disabled: disabled ? red(`[ ${t('Conflict or no need to merge')} ]`) : '',
-					name: yellow(author.name),
-					comments: green(
-						t('{length} comments', {
-							length: String(mr.notes.length)
-						})
-					),
-					time: blue(_time)
-				}
-			),
-			value: iid,
-			// disabled,
-			checked: false
 		})
 	})
-	const { iids, accept }: { iids: string[]; accept: string } = await inquirer.prompt(prompt)
-	// 没有选择任何记录
+	// no records
 	if (iids.length === 0) {
 		echo(yellow(t('No merge request record selected, process has exited')))
 		process.exit(0)
 	}
 
+	const accept = await select({
+		message: t('Please select the action below.'),
+		choices: [
+			{ name: t('View Details'), value: 1, description: 'Show diff' },
+			{ name: t('Comments'), value: 2 },
+			{ name: t('Close'), value: 3 },
+			{ name: t('Deleted'), value: 4 },
+			{ name: t('Exit'), value: 5 }
+		]
+	})
+
 	// 开始执行操作
 	for (const iid of iids) {
 		const { source_branch, target_branch } = mrList.find((item: any) => item.iid === iid)
-		if (accept === t('View Details')) {
+		if (accept === 1) {
 			const { changes, changes_count } = await getMergeRequestChanges({
 				iid
 			})
@@ -159,7 +155,7 @@ program.action(async (opt: GitmBuildOption): Promise<void> => {
 					columns: ['body', 'name', 'date']
 				})
 			)
-		} else if (accept === t('Deleted')) {
+		} else if (accept === 4) {
 			await deleteMergeRequest({ iid })
 			!opt.quiet &&
 				sendGroupMessage(
@@ -171,7 +167,7 @@ program.action(async (opt: GitmBuildOption): Promise<void> => {
 					})
 				)
 			echo(green(t('Merge request {id}: Deleted', { id: iid })))
-		} else if (accept === t('Close')) {
+		} else if (accept === 3) {
 			// 删除
 			await updateMergeRequest({
 				iid,
@@ -187,11 +183,9 @@ program.action(async (opt: GitmBuildOption): Promise<void> => {
 					})
 				)
 			echo(green(t('Merge request {id}: Closed', { id: iid })))
-		} else if (accept === t('Comments')) {
+		} else if (accept === 2) {
 			// 评论
-			const { note }: { note: string } = await inquirer.prompt({
-				type: 'input',
-				name: 'note',
+			const note = await input({
 				message: t('Please enter the comment content'),
 				default: '',
 				transformer: (val: string) => val.trim(),

@@ -1,7 +1,7 @@
 #!/usr/bin/env ts-node
 import { program } from 'commander'
 import dayjs from 'dayjs'
-import inquirer from 'inquirer'
+import { checkbox } from '@inquirer/prompts'
 import sh from 'shelljs'
 import chalk from 'chalk'
 import { queue } from '@gitmars/core'
@@ -202,23 +202,19 @@ program.action(async (commitid: string[], opt: GitmBuildOption) => {
 			process.exit(0)
 		} else {
 			// 多条记录
-			const prompt: any = {
-				type: 'checkbox',
+			commitIDs = await checkbox<string>({
 				message: t('Please select the commit record to undo.'),
-				name: 'commitIDs',
-				choices: []
-			}
-			logList.forEach((log, index) => {
-				const _time = dayjs(log['%aI']).format('YYYY/MM/DD HH:mm')
-				prompt.choices.push({
-					name: `${green(index + 1 + '.')} ${green(log['%s'])} | ${yellow(
-						log['%an']
-					)} | ${blue(_time)}`,
-					value: log['%H'],
-					checked: false
+				choices: logList.map((log, index) => {
+					const _time = dayjs(log['%aI']).format('YYYY/MM/DD HH:mm')
+					return {
+						name: `${green(index + 1 + '.')} ${green(log['%s'])} | ${yellow(
+							log['%an']
+						)} | ${blue(_time)}`,
+						value: log['%H']!,
+						checked: false
+					}
 				})
 			})
-			commitIDs = (await inquirer.prompt(prompt)).commitIDs
 		}
 	}
 	// 没有选择任何记录

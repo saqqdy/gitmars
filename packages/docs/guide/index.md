@@ -81,6 +81,7 @@ title: guide
 - 查看当前分支状态 [gitm status](../api/#gitm-status)
 - 升级 gitmars [gitm upgrade](../api/#gitm-upgrade)
 - 构建 Jenkins [gitm build](../api/#gitm-build)
+- 构建小程序 Jenkins [gitm build-mp](../api/#gitm-build-mp)
 - 解除软链接 [gitm unlink](../api/#gitm-unlink)
 - 软链接 [gitm link](../api/#gitm-link)
 - 清除缓存 [gitm clean](../api/#gitm-clean)

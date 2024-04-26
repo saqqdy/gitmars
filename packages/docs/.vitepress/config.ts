@@ -147,6 +147,10 @@ const sidebar = {
 					link: '/api/#gitm-build'
 				},
 				{
+					text: 'gitm build-mp',
+					link: '/api/#gitm-build-mp'
+				},
+				{
 					text: 'gitm branch',
 					link: '/api/#gitm-branch'
 				},

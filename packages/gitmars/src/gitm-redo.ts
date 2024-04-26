@@ -1,7 +1,7 @@
 #!/usr/bin/env ts-node
 import { program } from 'commander'
 import dayjs from 'dayjs'
-import inquirer from 'inquirer'
+import { checkbox } from '@inquirer/prompts'
 import sh from 'shelljs'
 import chalk from 'chalk'
 import { queue } from '@gitmars/core'
@@ -44,7 +44,6 @@ program.action(async (commitid: string[], opt: GitmBuildOption) => {
 	const current = getCurrentBranch()
 	let revertCache: RevertCacheType[] = getRevertCache(current),
 		cmd: Array<CommandType | string | string[]> = [],
-		commitIDs: string[] = [], // 需要恢复的commitID
 		mode = ''
 	mode = ' -m ' + Math.abs(Number(opt.mode || 1))
 	if (commitid.length > 0) {
@@ -60,23 +59,19 @@ program.action(async (commitid: string[], opt: GitmBuildOption) => {
 		process.exit(0)
 	}
 	// 多条记录
-	const prompt: any = {
-		type: 'checkbox',
+	const commitIDs = await checkbox({
 		message: t('Please select the undo record to restore'),
-		name: 'commitIDs',
-		choices: []
-	}
-	revertCache.forEach(({ after }, index) => {
-		const _time = dayjs(after['%aI']).format('YYYY/MM/DD HH:mm')
-		prompt.choices.push({
-			name: `${green(index + 1 + '.')} ${green(after['%s'])} | ${yellow(
-				after['%an']
-			)} | ${blue(_time)}`,
-			value: after['%H'],
-			checked: false
+		choices: revertCache.map(({ after }, index) => {
+			const _time = dayjs(after['%aI']).format('YYYY/MM/DD HH:mm')
+			return {
+				name: `${green(index + 1 + '.')} ${green(after['%s'])} | ${yellow(
+					after['%an']
+				)} | ${blue(_time)}`,
+				value: after['%H']!,
+				checked: false
+			}
 		})
 	})
-	commitIDs = (await inquirer.prompt(prompt)).commitIDs
 	// 没有选择任何记录
 	if (commitIDs.length === 0) {
 		echo(yellow(t('No logs selected, process has exited')))

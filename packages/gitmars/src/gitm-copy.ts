@@ -1,7 +1,7 @@
 #!/usr/bin/env ts-node
 import { program } from 'commander'
 import dayjs from 'dayjs'
-import inquirer from 'inquirer'
+import { checkbox, select } from '@inquirer/prompts'
 import sh from 'shelljs'
 import chalk from 'chalk'
 import { queue } from '@gitmars/core'
@@ -59,8 +59,7 @@ program.action(async (commitid: string[], opts: GitmBuildOption) => {
 	const current = getCurrentBranch()
 	const status = checkGitStatus()
 	let logList: GitLogsType[] = [],
-		cmd: Array<CommandType | string | string[]> = [],
-		commitIDs: string[] = [] // 需要执行的commitID
+		cmd: Array<CommandType | string | string[]> = []
 
 	if (!status) process.exit(1)
 	fetch()
@@ -93,35 +92,19 @@ program.action(async (commitid: string[], opts: GitmBuildOption) => {
 		}
 	}
 	// 多条记录
-	const prompt: any = [
-		{
-			type: 'checkbox',
-			message: t('Please select the commit record to copy'),
-			name: 'commitIDs',
-			choices: []
-		},
-		{
-			type: 'list',
-			message: t('Please select the target branch'),
-			name: 'branch',
-			choices: branches,
-			when(answers: any) {
-				return answers.commitIDs.length
+	const commitIDs = await checkbox<string>({
+		message: t('Please select the commit record to copy'),
+		choices: logList.map((log, index) => {
+			const _time = dayjs(log['%aI']).format('YYYY/MM/DD HH:mm')
+			return {
+				name: `${green(index + 1 + '.')} ${green(log['%s'])} | ${yellow(log['%an'])} | ${blue(
+					_time
+				)}`,
+				value: log['%H']!,
+				checked: false
 			}
-		}
-	]
-	logList.forEach((log, index) => {
-		const _time = dayjs(log['%aI']).format('YYYY/MM/DD HH:mm')
-		prompt[0].choices.push({
-			name: `${green(index + 1 + '.')} ${green(log['%s'])} | ${yellow(log['%an'])} | ${blue(
-				_time
-			)}`,
-			value: log['%H'],
-			checked: false
 		})
 	})
-	const answers = await inquirer.prompt(prompt)
-	commitIDs = answers.commitIDs
 
 	// 没有选择任何记录
 	if (commitIDs.length === 0) {
@@ -129,8 +112,13 @@ program.action(async (commitid: string[], opts: GitmBuildOption) => {
 		process.exit(0)
 	}
 
+	const chooseBranch = await select({
+		message: t('Please select the target branch'),
+		choices: branches.map(item => ({ name: item, value: item }))
+	})
+
 	cmd = [
-		`git checkout ${answers.branch}`,
+		`git checkout ${chooseBranch}`,
 		'git pull',
 		{
 			cmd: `git cherry-pick ${commitIDs.reverse().join(' ')}`,

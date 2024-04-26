@@ -69,6 +69,8 @@ export default {
 		'使用删除分支功能时，不能与查询分支功能混用',
 	'Project name': '项目名称',
 	'Build environment, optionally dev, prod, bug, all': '构建环境，可选dev、prod、bug、all',
+	'Build api environment, optionally alpha, tag, release, production':
+		'构建环境，可选alpha、tag、release、production',
 	'Force cleanup': '强制清理',
 	'Specify the branch to clean up': '指定要清理的分支',
 	'Show a list of branches that match the criteria': '显示符合条件的分支列表',
@@ -294,6 +296,8 @@ export default {
 	'New path': '新路径',
 	'Environment to be built, optionally dev, prod, bug, all':
 		'需要构建的环境，可选dev、prod、bug、all',
+	'Api environment to be built, optionally alpha, tag, release, production':
+		'需要构建的API环境，可选alpha、tag、release、production',
 	'Application to be built': '需要构建的应用',
 	'Clean gitmars cache': '清理gitmars缓存',
 	exited: '已退出',
@@ -420,5 +424,14 @@ export default {
 		'本次进程不会自动执行构建流程，请等待管理员审核代码后执行：gitm build {appName} -e prod -a {app} {data}',
 	'Push to templates only': '仅推送到模板',
 	'Use the {base} branch for posting on Thursday, Friday, and Sunday':
-		'周四周五周日发版使用{base}分支，请确认'
+		'周四周五周日发版使用{base}分支，请确认',
+	'Select the environment to build': '选择要构建的环境',
+	'Test environment(alpha)': '测试环境(alpha)',
+	'Pre-release tag environment(bug)': '预发布tag环境(bug)',
+	'Pre-release prod environment(prod)': '预发布prod环境(prod)',
+	'Production environment': '生产环境',
+	'Select the api environment to build': '选择要构建的API环境',
+	'Select the miniprogram to build': '选择小程序类型',
+	'Generate experiential version of miniprogram': '生成体验版小程序',
+	'Enter the version description': '输入版本描述'
 }

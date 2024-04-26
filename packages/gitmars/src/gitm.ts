@@ -61,6 +61,8 @@ program
 	.alias('ug')
 	.command('build', t('buildJenkins'))
 	.alias('bd')
+	.command('build-mp', t('buildMpJenkins'))
+	.alias('bdm')
 	.command('suggest', t('Action Tips'))
 	.alias('sg')
 	.command('approve', t('Handling remote merge requests'))
@@ -128,6 +130,8 @@ program.on('command:*', function (types: string[], opts: string[]) {
 		'ug',
 		'build',
 		'bd',
+		'build-mp',
+		'bdm',
 		'suggest',
 		'sg',
 		'approve',

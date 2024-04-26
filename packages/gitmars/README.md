@@ -101,6 +101,7 @@ yarn global add gitmars
 - 查看当前分支状态 [gitm status](http://www.saqqdy.com/gitmars/api/#gitm-status)
 - 升级 gitmars [gitm upgrade](http://www.saqqdy.com/gitmars/api/#gitm-upgrade)
 - 构建 Jenkins [gitm build](http://www.saqqdy.com/gitmars/api/#gitm-build)
+- 构建小程序 Jenkins [gitm build-mp](http://www.saqqdy.com/gitmars/api/#gitm-build-mp)
 - 解除软链接 [gitm unlink](http://www.saqqdy.com/gitmars/api/#gitm-unlink)
 - 软链接 [gitm link](http://www.saqqdy.com/gitmars/api/#gitm-link)
 - 清除缓存 [gitm clean](http://www.saqqdy.com/gitmars/api/#gitm-clean)
@@ -127,7 +128,7 @@ yarn global add gitmars
 
 | 参数    | 说明     | 类型   | 可选值                                                                                                                                                                                                                      | 必填 | 默认 |
 | ------- | -------- | ------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---- | ---- |
-| command | 指令名称 | String | combine、end、update、build、start、undo、redo、suggest、approve、review、admin.publish、admin.update、admin.create、admin.clean、admin.approve、branch、copy、get、save、cleanbranch、clean、revert、link、unlink、postmsg | 否   | -    |
+| command | 指令名称 | String | combine、end、update、build、build-mp、start、undo、redo、suggest、approve、review、admin.publish、admin.update、admin.create、admin.clean、admin.approve、branch、copy、get、save、cleanbranch、clean、revert、link、unlink、postmsg | 否   | -    |
 
 - 示例：
 

@@ -2,15 +2,14 @@
 	"packageTags": {
 		"@eslint-sets/eslint-config-ts": "latest",
 		"@eslint-sets/eslint-config-vue3": "latest",
-		"reinstaller": "latest"
+		"reinstaller": "latest",
+		"eslint": "8"
 	},
 	"exclude": [
 		"slash",
 		"lowdb",
 		"chalk",
-		"ora",
-		"inquirer",
-        "@types/inquirer"
+		"ora"
 	],
 	"packageManager": "pnpm",
 	"registry": "https://registry.npmmirror.com"

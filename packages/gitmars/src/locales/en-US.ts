@@ -79,6 +79,8 @@ export default {
 	'Project name': 'Project name',
 	'Build environment, optionally dev, prod, bug, all':
 		'Build environment, optionally dev, prod, bug, all',
+	'Build api environment, optionally alpha, tag, release, production':
+		'Build api environment, optionally alpha, tag, release, production',
 	'Force cleanup': 'Force cleanup',
 	'Specify the branch to clean up': 'Specify the branch to clean up',
 	'Show a list of branches that match the criteria':
@@ -324,6 +326,8 @@ export default {
 	'New path': 'New path',
 	'Environment to be built, optionally dev, prod, bug, all':
 		'Environment to be built, optionally dev, prod, bug, all',
+	'Api environment to be built, optionally alpha, tag, release, production':
+		'Api environment to be built, optionally alpha, tag, release, production',
 	'Application to be built': 'Application to be built',
 	'Clean gitmars cache': 'Clean gitmars cache',
 	exited: 'exited',
@@ -461,5 +465,14 @@ export default {
 		'This process will not automatically execute the build process, please wait for the administrator to review the code and execute it: gitm build {appName} -e prod -a {app} {data}',
 	'Push to templates only': 'Push to templates only',
 	'Use the {base} branch for posting on Thursday, Friday, and Sunday':
-		'Use the {base} branch for posting on Thursday, Friday, and Sunday'
+		'Use the {base} branch for posting on Thursday, Friday, and Sunday',
+	'Select the environment to build': 'Select the environment to build',
+	'Test environment(alpha)': 'Test environment(alpha)',
+	'Pre-release tag environment(bug)': 'Pre-release tag environment(bug)',
+	'Pre-release prod environment(prod)': 'Pre-release prod environment(prod)',
+	'Production environment': 'Production environment',
+	'Select the miniprogram to build': 'Select the miniprogram to build',
+	'Select the api environment to build': 'Select the api environment to build',
+	'Generate experiential version of miniprogram': 'Generate experiential version of miniprogram',
+	'Enter the version description': 'Enter the version description'
 }

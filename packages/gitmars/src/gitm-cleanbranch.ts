@@ -1,7 +1,7 @@
 #!/usr/bin/env ts-node
 import { program } from 'commander'
 import chalk from 'chalk'
-import inquirer from 'inquirer'
+import { checkbox, confirm } from '@inquirer/prompts'
 import ora from 'ora'
 import { waiting } from 'js-cool'
 import {
@@ -144,19 +144,14 @@ program.action(async (branches: string[], opt: GitmBuildOption) => {
 	const _willDeleteBranch: string[] = []
 	if (branches.length > 0) {
 		if (!opt.list && !opt.confirm) {
-			await inquirer
-				.prompt({
-					type: 'confirm',
-					name: 'value',
-					message: t('About to start batch deleting branches, do you want to continue?'),
-					default: false
-				})
-				.then((answers: any) => {
-					if (!answers.value) {
-						echo(green(t('exited')))
-						process.exit(0)
-					}
-				})
+			const answer = await confirm({
+				message: t('About to start batch deleting branches, do you want to continue?'),
+				default: false
+			})
+			if (!answer) {
+				echo(green(t('exited')))
+				process.exit(0)
+			}
 		}
 	} else {
 		echo(green(t('No branches were queried.')))
@@ -215,8 +210,7 @@ program.action(async (branches: string[], opt: GitmBuildOption) => {
 		if (_willDeleteBranch.length > 0) {
 			console.info('\r')
 			// Select the branch to clean
-			const prompt: any = {
-				type: 'checkbox',
+			const selectBranches = await checkbox<string>({
 				message: yellow(
 					t(
 						'Find {total} branches merged over {branches} branch, please select the branch to clean up',
@@ -226,25 +220,19 @@ program.action(async (branches: string[], opt: GitmBuildOption) => {
 						}
 					)
 				),
-				name: 'selectBranches',
-				choices: []
-			}
-			_willDeleteBranch.forEach(item => {
-				prompt.choices.push({
+				choices: _willDeleteBranch.map(item => ({
 					name: green(item),
 					value: item,
 					checked: true
-				})
+				}))
 			})
-			inquirer.prompt(prompt as any).then(({ selectBranches }: any) => {
-				if (selectBranches.length === 0) {
-					echo(yellow(t('No branches were selected and the process has exited.')))
-					process.exit(0)
-				}
-				selectBranches.forEach(async (branch: string) => {
-					// start deleting branch
-					await clean(branch)
-				})
+			if (selectBranches.length === 0) {
+				echo(yellow(t('No branches were selected and the process has exited.')))
+				process.exit(0)
+			}
+			selectBranches.forEach(async (branch: string) => {
+				// start deleting branch
+				await clean(branch)
 			})
 		} else {
 			echo(green(t('Analysis complete, no branches to clean up')))
