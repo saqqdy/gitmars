@@ -21,9 +21,23 @@ export const hookList = [
 	'post-rewrite',
 	'sendemail-validate'
 ]
-export const defaults: Record<string, string> & {
-	apolloConfig: string | Record<string, string>
-	hooks: string | Record<string, string>
+export const defaults: {
+	master: string
+	develop: string
+	release: string
+	bugfix: string
+	support: string
+	user: string
+	email: string
+	nameValidator: string
+	descriptionValidator: string
+	msgTemplate: string
+	apolloConfig: Record<string, unknown> | null
+	hooks: Record<string, unknown> | null
+	apis: Record<string, unknown> | null
+	api: string
+	gitHost: string
+	gitID: string
 } = {
 	master: 'master',
 	develop: 'dev',
@@ -35,8 +49,9 @@ export const defaults: Record<string, string> & {
 	nameValidator: '',
 	descriptionValidator: '',
 	msgTemplate: t('${message}; project: ${project}; path: ${pwd}'),
-	apolloConfig: '',
-	hooks: '',
+	apolloConfig: null,
+	hooks: null,
+	apis: null,
 	api: '',
 	gitHost: '',
 	gitID: ''

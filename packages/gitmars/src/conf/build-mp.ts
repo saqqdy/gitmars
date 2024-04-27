@@ -82,7 +82,7 @@ export const cmdConfig: GitmarsOptionType = {
 			long: '--app',
 			negate: false,
 			description: t('Build application'),
-			defaultValue: 'weapp',
+			defaultValue: '',
 			recommend: true,
 			options: ['weapp', 'alipay', 'tt', 'dd', 'swan'],
 			value: 'weapp'

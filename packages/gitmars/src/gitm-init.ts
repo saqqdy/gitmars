@@ -29,9 +29,14 @@ program
 	.action(async () => {
 		let key: keyof typeof defaults
 		for (key in defaults) {
-			let data = defaults[key]
-			if (['master', 'develop', 'release', 'bugfix', 'support'].includes(key)) {
-				;[, data = defaults[key]] = await to(
+			if (
+				key === 'master' ||
+				key === 'develop' ||
+				key === 'release' ||
+				key === 'bugfix' ||
+				key === 'support'
+			) {
+				const [, data] = await to(
 					input({
 						message: t('Enter {branch} branch name', {
 							branch: key
@@ -41,8 +46,9 @@ program
 						validate: val => (/^\w+$/.test(val) ? true : t('Enter the available names'))
 					})
 				)
+				defaults[key] = data || defaults[key]
 			} else if (key === 'user') {
-				;[, data = key] = await to(
+				const [, data] = await to(
 					input({
 						message: t('Enter the Git username'),
 						transformer: val => val.trim(),
@@ -50,8 +56,9 @@ program
 							val === '' || /^\w+$/.test(val) ? true : t('Enter the available names')
 					})
 				)
+				defaults[key] = data || defaults[key]
 			} else if (key === 'email') {
-				;[, data = key] = await to(
+				const [, data] = await to(
 					input({
 						message: t('Enter the Git email address'),
 						transformer: val => val.trim(),
@@ -61,30 +68,34 @@ program
 								: t('Enter the correct email')
 					})
 				)
+				defaults[key] = data || defaults[key]
 			} else if (key === 'nameValidator') {
-				;[, data = key] = await to(
+				const [, data] = await to(
 					input({
 						message: t('Enter the branch name naming convention'),
 						transformer: val => val.trim()
 					})
 				)
+				defaults[key] = data || defaults[key]
 			} else if (key === 'descriptionValidator') {
-				;[, data = key] = await to(
+				const [, data] = await to(
 					input({
 						message: t('Enter commit message rules'),
 						transformer: val => val.trim()
 					})
 				)
+				defaults[key] = data || defaults[key]
 			} else if (key === 'msgTemplate') {
-				;[, data = defaults[key]] = await to(
+				const [, data] = await to(
 					input({
 						message: t('Enter the message template'),
 						default: defaults[key],
 						transformer: val => val.trim()
 					})
 				)
+				defaults[key] = data || defaults[key]
 			} else if (key === 'apolloConfig') {
-				;[, data = defaults[key] as string] = await to(
+				const [, data] = await to(
 					editor({
 						message: t('Enter apollo configuration'),
 						default: `{
@@ -99,14 +110,15 @@ program
 							try {
 								val = JSON.parse(val)
 								return true
-							} catch (e) {
+							} catch {
 								return t('Enter json')
 							}
 						}
 					})
 				)
+				defaults[key] = data ? JSON.parse(data) : defaults[key]
 			} else if (key === 'hooks') {
-				;[, data = defaults[key] as string] = await to(
+				const [, data] = await to(
 					editor({
 						message: t('Enter hooks configuration'),
 						default: `{
@@ -117,14 +129,43 @@ program
 							try {
 								val = JSON.parse(val)
 								return !!val
-							} catch (e) {
+							} catch {
 								return t('Enter json')
 							}
 						}
 					})
 				)
+				defaults[key] = data ? JSON.parse(data) : defaults[key]
+			} else if (key === 'apis') {
+				const [, data] = await to(
+					editor({
+						message: t('Enter hooks configuration'),
+						default: `{
+	"buildConfig": {
+		"url": "",
+		"method": "get",
+		"params": {
+			"name": ""
+		}
+	},
+	"userInfo": {
+		"url": "",
+		"method": "get"
+	}
+}`,
+						validate: val => {
+							try {
+								val = JSON.parse(val)
+								return !!val
+							} catch {
+								return t('Enter json')
+							}
+						}
+					})
+				)
+				defaults[key] = data ? JSON.parse(data) : defaults[key]
 			} else if (key === 'api') {
-				;[, data = defaults[key]] = await to(
+				const [, data] = await to(
 					input({
 						message: t('Enter the query user permission interface'),
 						transformer: val => val.trim(),
@@ -132,8 +173,9 @@ program
 							val === '' || /^https?:\/\/[\S]*$/.test(val) ? true : t('Enter the URL')
 					})
 				)
+				defaults[key] = data || defaults[key]
 			} else if (key === 'gitHost') {
-				;[, data = defaults[key]] = await to(
+				const [, data] = await to(
 					input({
 						message: t('Enter the git URL'),
 						transformer: val => val.trim(),
@@ -141,8 +183,9 @@ program
 							val === '' || /^https?:\/\/[\S]*$/.test(val) ? true : t('Enter the URL')
 					})
 				)
+				defaults[key] = data || defaults[key]
 			} else if (key === 'gitID') {
-				;[, data = defaults[key]] = await to(
+				const [, data] = await to(
 					input({
 						message: t('Enter the git project ID, currently only gitlab is supported'),
 						transformer: val => val.trim(),
@@ -150,33 +193,17 @@ program
 							val === '' || /^\d+$/.test(val) ? true : t('Enter the URL')
 					})
 				)
+				defaults[key] = data || defaults[key]
 			}
-			defaults[key] = data
 		}
-		try {
-			defaults.apolloConfig = JSON.parse(defaults.apolloConfig as string) as Record<
-				string,
-				string
-			>
-			if (!defaults.apolloConfig.configServerUrl || !defaults.apolloConfig.token) {
-				defaults.apolloConfig = ''
-			}
-		} catch (e) {
-			defaults.apolloConfig = ''
+		if (
+			defaults.apolloConfig &&
+			(!defaults.apolloConfig.configServerUrl || !defaults.apolloConfig.token)
+		) {
+			defaults.apolloConfig = null
 		}
-		try {
-			let valid = false
-			defaults.hooks = JSON.parse(defaults.hooks as string) as Record<string, string>
-			hooks: for (const k in defaults.hooks as Record<string, string>) {
-				if (defaults.hooks[k]) {
-					valid = true
-					break hooks
-				}
-			}
-			if (!valid) defaults.hooks = ''
-		} catch (e) {
-			defaults.hooks = ''
-		}
+		if (defaults.hooks && Object.keys(defaults.hooks).some(k => !defaults.hooks?.[k]))
+			defaults.hooks = null
 		sh.echo(green(t('gitmars configured successfully')))
 		fs.writeFileSync(root + '/.gitmarsrc', JSON.stringify(defaults, null, 4), 'utf-8')
 		fs.chmodSync(root + '/.gitmarsrc', 0o0755)
