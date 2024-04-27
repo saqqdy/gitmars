@@ -1,7 +1,7 @@
 {
 	"name": "@gitmars/monorepo",
 	"description": "这是一个git工作流工具",
-	"version": "7.0.0-beta.12",
+	"version": "7.0.0-beta.14",
 	"packageManager": "pnpm@9.0.6",
 	"main": "index.js",
 	"files": [
@@ -14,7 +14,6 @@
 		"docs:build": "vitepress build packages/docs",
 		"docs:deploy": "pnpm build docs",
 		"prebuild": "[[ $CI = true ]] && npx pnpm install -r --store=node_modules/.pnpm-store || echo skipping pnpm install",
-		"gen:version": "tscjs scripts/version",
 		"lib": "sh scripts/lib.sh",
 		"build:bundle": "tscjs scripts/build",
 		"build:rollup": "cross-env NODE_OPTIONS=\"--max-old-space-size=6144\" rollup -c build/rollup.config.ts --configPlugin @rollup/plugin-typescript",
@@ -47,7 +46,6 @@
 		"@node-kit/extra.fs": "^3.2.0",
 		"chalk": "^4.1.2",
 		"debug": "^4.3.4",
-		"inquirer": "^8.2.6",
 		"js-cool": "^5.19.0",
 		"morgan": "^1.10.0",
 		"os-lang": "^3.2.0"
@@ -69,7 +67,6 @@
 		"@rollup/plugin-terser": "^0.4.4",
 		"@rollup/plugin-typescript": "^11.1.6",
 		"@types/gulp": "^4.0.17",
-		"@types/inquirer": "^9.0.7",
 		"@types/node": "^20.12.7",
 		"@types/rollup-plugin-css-only": "^3.1.3",
 		"@vitejs/plugin-vue": "^5.0.4",

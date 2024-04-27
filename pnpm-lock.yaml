@@ -20,9 +20,6 @@ importers:
       debug:
         specifier: ^4.3.4
         version: 4.3.4
-      inquirer:
-        specifier: ^8.2.6
-        version: 8.2.6
       js-cool:
         specifier: ^5.19.0
         version: 5.19.0
@@ -81,9 +78,6 @@ importers:
       '@types/gulp':
         specifier: ^4.0.17
         version: 4.0.17
-      '@types/inquirer':
-        specifier: ^9.0.7
-        version: 9.0.7
       '@types/node':
         specifier: ^20.12.7
         version: 20.12.7
@@ -558,9 +552,6 @@ importers:
       dayjs:
         specifier: ^1.11.10
         version: 1.11.10
-      inquirer:
-        specifier: ^8.2.6
-        version: 8.2.6
       js-cool:
         specifier: ^5.19.0
         version: 5.19.0
@@ -580,9 +571,6 @@ importers:
       '@types/columnify':
         specifier: ^1.5.4
         version: 1.5.4
-      '@types/inquirer':
-        specifier: ^9.0.7
-        version: 9.0.7
       '@types/node':
         specifier: ^20.12.7
         version: 20.12.7

@@ -2,7 +2,7 @@
 	"name": "gitmars",
 	"description": "这是一个git工作流工具",
 	"type": "module",
-	"version": "7.0.0-beta.12",
+	"version": "7.0.0-beta.14",
 	"private": false,
 	"bin": {
 		"gitm": "lib/gitm.mjs"
@@ -66,7 +66,6 @@
 		"columnify": "^1.6.0",
 		"commander": "^12.0.0",
 		"dayjs": "^1.11.10",
-		"inquirer": "^8.2.6",
 		"js-cool": "^5.19.0",
 		"ora": "^5.4.1",
 		"os-lang": "^3.2.0",
@@ -75,7 +74,6 @@
 	"devDependencies": {
 		"@eslint-sets/eslint-config-ts": "^5.12.0",
 		"@types/columnify": "^1.5.4",
-		"@types/inquirer": "^9.0.7",
 		"@types/node": "^20.12.7",
 		"@types/shelljs": "^0.8.15",
 		"cross-env": "^7.0.3",

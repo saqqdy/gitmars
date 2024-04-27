@@ -1,5 +1,4 @@
-import type { SpawnOptions, SpawnSyncReturns } from 'child_process'
-import type { QuestionCollection } from 'inquirer'
+import type { SpawnOptions } from 'child_process'
 
 export type AnyObject = Record<string, any>
 
@@ -116,20 +115,3 @@ export interface QueueConfigType extends SpawnOptions {
 	postmsg?: boolean
 	kill?: boolean
 }
-
-export interface QueueReturnsType
-	extends Partial<Pick<SpawnSyncReturns<string>, 'stdout' | 'stderr' | 'status'>> {
-	cfg: QueueConfigType
-	cmd: string | string[] | ModuleCommandType
-}
-
-export type InitInquirerPromptType = QuestionCollection<{
-	type: string
-	name: string
-	message: string
-	default?(): string
-	transformer?(val: any, answers: any, flags: any): any
-	validate?(val: any): string | boolean
-	when?(val: any): string | boolean
-	choices?: any
-}>

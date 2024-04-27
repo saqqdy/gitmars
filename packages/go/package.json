@@ -1,7 +1,7 @@
 {
 	"name": "@gitmars/go",
 	"description": "gitmars go",
-	"version": "7.0.0-beta.12",
+	"version": "7.0.0-beta.14",
 	"private": false,
 	"main": "./dist/index.cjs.js",
 	"module": "./dist/index.esm-bundler.js",

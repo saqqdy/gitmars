@@ -21,7 +21,10 @@ export const hookList = [
 	'post-rewrite',
 	'sendemail-validate'
 ]
-export const defaults = {
+export const defaults: Record<string, string> & {
+	apolloConfig: string | Record<string, string>
+	hooks: string | Record<string, string>
+} = {
 	master: 'master',
 	develop: 'dev',
 	release: 'release',
