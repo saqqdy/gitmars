@@ -37,8 +37,6 @@ if (childBuildLibIndex > -1) {
 export async function buildLib() {
 	const externals = [
 		'js-cool',
-		'lodash-unified',
-		'lodash-es',
 		'@gitmars/api',
 		'@gitmars/build',
 		'@gitmars/cache',
@@ -70,8 +68,6 @@ export async function buildLib() {
 				' */'
 			// const iifeGlobals = {
 			// 	'js-cool': 'JsCool',
-			// 	// 'lodash-unified': 'lodashUnified',
-			// 	// 'lodash-es': 'lodashEs',
 			// 	...globals
 			// }
 			// const iifeName = 'Gitmars'

@@ -232,8 +232,6 @@ function createEntry(config: Config) {
 			'js-cool',
 			'lcid',
 			'load-yml',
-			'lodash-es',
-			'lodash-unified',
 			'micromatch',
 			'node-apollo',
 			'ora',
