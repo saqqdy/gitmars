@@ -1,7 +1,7 @@
 {
 	"name": "@gitmars/utils",
 	"description": "gitmars utils",
-	"version": "7.0.0-beta.15",
+	"version": "7.0.0-beta.16",
 	"private": false,
 	"main": "./dist/index.cjs.js",
 	"module": "./dist/index.esm-bundler.js",
@@ -27,8 +27,8 @@
 		"src": "src"
 	},
 	"dependencies": {
-		"@gitmars/core": "workspace:*",
-		"@gitmars/git": "workspace:*",
+		"@gitmars/core": "7.0.0-beta.15",
+		"@gitmars/git": "7.0.0-beta.15",
 		"chalk": "^4.1.2",
 		"cross-spawn": "^7.0.3",
 		"debug": "^4.3.4",
