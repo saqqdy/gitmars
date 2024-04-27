@@ -1,7 +1,3 @@
 export default {
-	name: 'en-US',
-	'Gitmars package cache file': 'Gitmars package cache file',
-	'Cache time Map file': 'Cache time Map file',
-	'Please pass in the name': 'Please pass in the name',
-	'An error occurred': 'An error occurred'
+	name: 'en-US'
 }

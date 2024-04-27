@@ -7,6 +7,9 @@
 	"bin": {
 		"gitm": "lib/gitm.mjs"
 	},
+	"main": "./dist/index.cjs.js",
+	"module": "./dist/index.esm-bundler.js",
+	"types": "./dist/index.d.ts",
 	"exports": {
 		".": {
 			"types": "./lib/index.d.ts",
@@ -72,7 +75,7 @@
 		"shelljs": "^0.8.5"
 	},
 	"devDependencies": {
-		"@eslint-sets/eslint-config-ts": "^5.12.0",
+		"@eslint-sets/eslint-config-ts": "^5.13.0",
 		"@types/columnify": "^1.5.4",
 		"@types/node": "^20.12.7",
 		"@types/shelljs": "^0.8.15",
@@ -103,8 +106,5 @@
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org",
 		"access": "public"
-	},
-	"module": "./dist/index.esm-bundler.js",
-	"main": "./dist/index.cjs.js",
-	"types": "./dist/index.d.ts"
+	}
 }

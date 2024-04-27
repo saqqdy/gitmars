@@ -9,6 +9,7 @@ import undoConfig from '../conf/undo'
 import redoConfig from '../conf/redo'
 import branchConfig from '../conf/branch'
 import buildConfig from '../conf/build'
+import buildMpConfig from '../conf/build-mp'
 import startConfig from '../conf/start'
 import copyConfig from '../conf/copy'
 import getConfig from '../conf/get'
@@ -135,6 +136,14 @@ export const build = async () => {
 	const config = cleanConfigSet(buildConfig)
 	const command = 'build ' + (await getCommand(config))
 	debug('build', command)
+	spawnSync('gitm', command.split(' '), { stdio: 'inherit' })
+}
+
+// build-mp command
+export const buildMp = async () => {
+	const config = cleanConfigSet(buildMpConfig)
+	const command = 'build-mp ' + (await getCommand(config))
+	debug('build-mp', command)
 	spawnSync('gitm', command.split(' '), { stdio: 'inherit' })
 }
 

@@ -33,8 +33,8 @@ if (args.length > 0) program.arguments(createArgs(args))
 options.forEach((o: GitmarsOptionOptionsType) => {
 	program.option(o.flags, o.description, o.defaultValue)
 })
-// .option('-e, --env [env]', t('Environment to be built, optionally dev, prod, bug, all'), 'dev')
-// .option('-a, --app [app]', t('Application to be built'), 'all')
+// .option('-e, --env [env]', t('Environment to be built, optionally dev, prod, bug, all'), '')
+// .option('-a, --app [app]', t('Application to be built'), '')
 // .option('-d, --data <data>', t('Other data to be transferred'), '{}')
 // .option('-c, --confirm', t('Confirm start, do not show confirmation box when true'), false)
 program.action(async (project: string, opt: GitmBuildOption): Promise<void> => {

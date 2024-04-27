@@ -24,7 +24,7 @@ export const cmdConfig: GitmarsOptionType = {
 			long: '--env',
 			negate: false,
 			description: t('Build environment, optionally dev, prod, bug, all'),
-			defaultValue: 'dev',
+			defaultValue: '',
 			recommend: true,
 			options: ['dev', 'prod', 'bug', 'all'],
 			value: 'dev'
@@ -39,7 +39,7 @@ export const cmdConfig: GitmarsOptionType = {
 			long: '--app',
 			negate: false,
 			description: t('Build application'),
-			defaultValue: 'all',
+			defaultValue: '',
 			recommend: true,
 			value: 'all'
 		},
