@@ -113,7 +113,7 @@ export async function getProjectOption(
 	config?: ApolloConfigType
 ): Promise<ApolloConfigProjectType | undefined> {
 	if (!config) {
-		;[, config] = await to(getBuildConfig().then(res => res || undefined))
+		;[, config] = await to(getBuildConfig(false).then(res => res || undefined))
 	}
 	return config?.[env]?.list?.find(item => item.name === projectName)
 }
