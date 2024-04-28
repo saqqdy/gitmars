@@ -20,8 +20,21 @@ const { version } = require('../package.json')
  */
 export async function isNeedUpgrade(type?: VersionControlType): Promise<boolean> {
 	type ??= 'minor'
-	const { 'dist-tags': tags, versions } = await getPkgInfo()
-	debug('tags-versions', tags, versions)
+	const { 'dist-tags': tags } = await getPkgInfo()
+	let targetVersion = tags.latest,
+		isPreVer = false
+
+	if (version.includes('alpha')) {
+		targetVersion = tags.alpha
+		isPreVer = true
+	} else if (version.includes('beta')) {
+		targetVersion = tags.beta
+		isPreVer = true
+	} else if (version.includes('rc')) {
+		targetVersion = tags.rc
+		isPreVer = true
+	}
+	debug('tags-versions', tags, targetVersion)
 	// let compareVers = []
 	// if (version.indexOf('1.') === 0) {
 	//     // compareVers = versions.filter(
@@ -36,8 +49,9 @@ export async function isNeedUpgrade(type?: VersionControlType): Promise<boolean>
 	//     // return false
 	//     return parseFloat(tags.lite) > parseFloat(version)
 	// }
-	const semver = semverDiff(version, tags.latest)
+	const semver = semverDiff(version, targetVersion)
 	if (!type || !semver) return false
+	else if (isPreVer) return true
 	return (
 		(type === 'patch' &&
 			['prerelease', 'major', 'premajor', 'minor', 'preminor', 'patch', 'prepatch'].includes(
