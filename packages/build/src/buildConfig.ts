@@ -40,9 +40,10 @@ function getNamespace(params: GitmarsConfigApisBuildConfigType['params'] = {}): 
 /**
  * 读取构建配置
  *
+ * @param exitOnError - exit process when error occurred
  * @returns buildConfig - Return the configuration object
  */
-export async function getBuildConfig(): Promise<ApolloConfigType | undefined> {
+export async function getBuildConfig(exitOnError = true): Promise<ApolloConfigType | undefined> {
 	const config = getConfig() as GitmarsConfigType
 	const { apis = {} } = config
 	let NS, _buildConfig
@@ -54,8 +55,10 @@ export async function getBuildConfig(): Promise<ApolloConfigType | undefined> {
 		const { appId, clusterName } = config.apolloConfig
 		NS = getNamespace({ appId, clusterName })
 	} else {
-		sh.echo(chalk.red(t('Please configure apollo or buildConfigApi')))
-		process.exit(0)
+		if (exitOnError) {
+			sh.echo(chalk.red(t('Please configure apollo or buildConfigApi')))
+			process.exit(0)
+		}
 		return
 	}
 

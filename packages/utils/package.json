@@ -1,7 +1,7 @@
 {
 	"name": "@gitmars/utils",
 	"description": "gitmars utils",
-	"version": "7.0.0-beta.20",
+	"version": "7.0.0-beta.21",
 	"private": false,
 	"main": "./dist/index.cjs.js",
 	"module": "./dist/index.esm-bundler.js",

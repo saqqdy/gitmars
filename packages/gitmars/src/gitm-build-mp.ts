@@ -88,7 +88,7 @@ program.action(async (project: string, opt: GitmBuildMpOption): Promise<void> =>
 		)
 	}
 
-	const [, buildConfig] = await to(getBuildConfig())
+	const [, buildConfig] = await to(getBuildConfig(false))
 	const projectOption = await getProjectOption(project, env!, buildConfig)
 	if (!app) {
 		if (!buildConfig) {
