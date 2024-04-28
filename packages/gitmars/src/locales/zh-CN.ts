@@ -432,6 +432,7 @@ export default {
 	'Production environment': '生产环境',
 	'Select the api environment to build': '选择要构建的API环境',
 	'Select the miniprogram to build': '选择小程序类型',
+	'Enter the miniprogram to build': '输入小程序类型',
 	'Generate experiential version of miniprogram': '生成体验版小程序',
 	'Enter the version description': '输入版本描述'
 }

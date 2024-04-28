@@ -6,7 +6,7 @@ import chalk from 'chalk'
 import to from 'await-to-done'
 import { createArgs } from '@gitmars/utils'
 import { getGitConfig, getIsGitProject } from '@gitmars/git'
-import { runJenkins } from '@gitmars/build'
+import { getBuildConfig, runJenkins } from '@gitmars/build'
 import { type ApolloBranchList } from '@gitmars/build'
 import type { GitmarsOptionOptionsType } from './types'
 import lang from './common/local'
@@ -43,9 +43,15 @@ program.action(async (project: string, opt: GitmBuildOption): Promise<void> => {
 		app = opt.app,
 		_confirm = opt.confirm
 
+	const buildConfig = await getBuildConfig()
+
 	if (!project) {
 		if (getIsGitProject()) project = getGitConfig().appName
-		else project = await input({ message: t('Enter project name') })
+		else
+			project = await input({
+				message: t('Enter project name'),
+				transformer: val => val.trim()
+			})
 	}
 
 	if (!env) {
@@ -74,33 +80,26 @@ program.action(async (project: string, opt: GitmBuildOption): Promise<void> => {
 	}
 
 	if (!app) {
-		;[, app] = await to(
-			select<string>({
-				message: t('Select the miniprogram to build'),
-				choices: [
-					{
-						name: 'weapp',
-						value: 'weapp'
-					},
-					{
-						name: 'alipay',
-						value: 'alipay'
-					},
-					{
-						name: 'tt',
-						value: 'tt'
-					},
-					{
-						name: 'dd',
-						value: 'dd'
-					},
-					{
-						name: 'swan',
-						value: 'swan'
-					}
-				]
-			})
-		)
+		const projectOption = buildConfig?.[env!].list.find((item: any) => item.project === project)
+		if (!buildConfig) {
+			;[, app] = await to(
+				input({
+					message: t('Enter the miniprogram to build'),
+					transformer: val => val.trim()
+				})
+			)
+		} else if (projectOption && projectOption.apps) {
+			;[, app] = await to(
+				select<string>({
+					message: t('Select the miniprogram to build'),
+					choices: projectOption.apps.map(name => ({
+						name,
+						value: name
+					}))
+				})
+			)
+		}
+		// no apps means no-need to enter app name
 	}
 
 	// 有opt.data时强制确认

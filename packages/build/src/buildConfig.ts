@@ -35,7 +35,7 @@ function getNamespace(params: GitmarsConfigApisBuildConfigType['params'] = {}): 
  *
  * @returns buildConfig - Return the configuration object
  */
-export async function getBuildConfig(): Promise<ApolloConfigType | void> {
+export async function getBuildConfig(): Promise<ApolloConfigType | null> {
 	const config = getConfig() as GitmarsConfigType
 	const { apis = {} } = config
 	let NS, _buildConfig
@@ -49,7 +49,7 @@ export async function getBuildConfig(): Promise<ApolloConfigType | void> {
 	} else {
 		sh.echo(chalk.red(t('Please configure apollo or buildConfigApi')))
 		process.exit(0)
-		return
+		return null
 	}
 
 	const BUILD_CONFIG_TIME_NAME = `buildConfigTime-${NS}`
@@ -76,7 +76,7 @@ export async function getBuildConfig(): Promise<ApolloConfigType | void> {
 			try {
 				apolloConfig = JSON.parse(config.apolloConfig)
 			} catch {
-				return
+				return null
 			}
 		} else {
 			apolloConfig = config.apolloConfig

@@ -196,8 +196,8 @@ program.action(async (opt: GitmBuildOption): Promise<void> => {
 				input({
 					message: t('Enter the comment content'),
 					default: '',
-					transformer: (val: string) => val.trim(),
-					validate: (val: string) => (!val ? t('Enter the available comments') : true)
+					transformer: val => val.trim(),
+					validate: val => (!val ? t('Enter the available comments') : true)
 				})
 			)
 			!opt.quiet &&
