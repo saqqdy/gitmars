@@ -1,6 +1,5 @@
 import { execSync } from 'child_process'
 import { join, sep } from 'path'
-import consola from 'consola'
 import { clone } from 'js-cool'
 import { readJSONSync, writeJSONSync } from '@node-kit/extra.fs'
 import { version } from '../package.json'
@@ -14,7 +13,7 @@ export const PACKAGE = join(ROOT, 'packages')
 
 const REGISTRY_URL = 'https://registry.npmjs.org'
 const jsonMap: Record<string, any> = {}
-let command = `npm --registry=${REGISTRY_URL} publish --access public`
+let command = `pnpm --registry=${REGISTRY_URL} publish -r --access public`
 if (IS_DRY_RUN) command += ' --dry-run'
 
 if (version.includes('rc')) command += ' --tag release'
@@ -27,15 +26,10 @@ else if (IS_TEST) {
 
 transformPkgJson()
 
-for (const { name, pkgName } of packages) {
-	const dirName = name.replace(/\./g, sep)
-	const cwd = name === 'monorepo' ? ROOT : join(PACKAGE, dirName)
-	execSync(command, {
-		stdio: 'inherit',
-		cwd
-	})
-	consola.success(`Published ${pkgName}`)
-}
+execSync(command, {
+	stdio: 'inherit',
+	cwd: ROOT
+})
 
 transformPkgJson(true)
 
