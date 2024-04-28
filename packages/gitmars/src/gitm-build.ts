@@ -7,7 +7,7 @@ import to from 'await-to-done'
 import { createArgs } from '@gitmars/utils'
 import { getGitConfig, getIsGitProject } from '@gitmars/git'
 import { getBuildConfig, runJenkins } from '@gitmars/build'
-import { type ApolloBranchList } from '@gitmars/build'
+import type { ApolloBranchList, ApolloConfigProjectType } from '@gitmars/build'
 import type { GitmarsOptionOptionsType } from './types'
 import lang from './common/local'
 import buildConfig from './conf/build'
@@ -80,7 +80,9 @@ program.action(async (project: string, opt: GitmBuildOption): Promise<void> => {
 	}
 
 	if (!app) {
-		const projectOption = buildConfig?.[env!].list.find((item: any) => item.project === project)
+		const projectOption = buildConfig?.[env!].list.find(
+			(item: ApolloConfigProjectType) => item.name === project
+		)
 		if (!buildConfig) {
 			;[, app] = await to(
 				input({
