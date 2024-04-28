@@ -6,8 +6,8 @@ import chalk from 'chalk'
 import to from 'await-to-done'
 import { createArgs } from '@gitmars/utils'
 import { getGitConfig, getIsGitProject } from '@gitmars/git'
-import { getBuildConfig, runJenkins } from '@gitmars/build'
-import type { ApolloBranchList, ApolloConfigProjectType } from '@gitmars/build'
+import { getBuildConfig, getProjectOption, runJenkins } from '@gitmars/build'
+import type { ApolloBranchList } from '@gitmars/build'
 import type { GitmarsOptionOptionsType } from './types'
 import lang from './common/local'
 import buildConfig from './conf/build'
@@ -43,8 +43,6 @@ program.action(async (project: string, opt: GitmBuildOption): Promise<void> => {
 		app = opt.app,
 		_confirm = opt.confirm
 
-	const buildConfig = await getBuildConfig()
-
 	if (!project) {
 		if (getIsGitProject()) project = getGitConfig().appName
 		else
@@ -79,10 +77,9 @@ program.action(async (project: string, opt: GitmBuildOption): Promise<void> => {
 		)
 	}
 
+	const [, buildConfig] = await to(getBuildConfig())
+	const projectOption = await getProjectOption(project, env!, buildConfig)
 	if (!app) {
-		const projectOption = buildConfig?.[env!].list.find(
-			(item: ApolloConfigProjectType) => item.name === project
-		)
 		if (!buildConfig) {
 			;[, app] = await to(
 				input({
@@ -90,7 +87,7 @@ program.action(async (project: string, opt: GitmBuildOption): Promise<void> => {
 					transformer: val => val.trim()
 				})
 			)
-		} else if (projectOption && projectOption.apps) {
+		} else if (projectOption?.apps) {
 			;[, app] = await to(
 				select<string>({
 					message: t('Select the miniprogram to build'),

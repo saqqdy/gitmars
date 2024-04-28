@@ -3,10 +3,17 @@ import apollo from 'node-apollo'
 import sh from 'shelljs'
 import request from '@jssj/request'
 import chalk from 'chalk'
+import to from 'await-to-done'
 import { CACHE_PATH, isCacheExpired, updateCacheTime } from '@gitmars/cache'
 import { debug, isFileExist, removeFile, writeFile } from '@gitmars/utils'
 import { getConfig } from '@gitmars/git'
-import type { ApolloConfigType, GitmarsConfigApisBuildConfigType, GitmarsConfigType } from './types'
+import type {
+	ApolloBranchList,
+	ApolloConfigProjectType,
+	ApolloConfigType,
+	GitmarsConfigApisBuildConfigType,
+	GitmarsConfigType
+} from './types'
 import lang from './lang'
 
 const { t } = lang
@@ -35,7 +42,7 @@ function getNamespace(params: GitmarsConfigApisBuildConfigType['params'] = {}): 
  *
  * @returns buildConfig - Return the configuration object
  */
-export async function getBuildConfig(): Promise<ApolloConfigType | null> {
+export async function getBuildConfig(): Promise<ApolloConfigType | undefined> {
 	const config = getConfig() as GitmarsConfigType
 	const { apis = {} } = config
 	let NS, _buildConfig
@@ -49,7 +56,7 @@ export async function getBuildConfig(): Promise<ApolloConfigType | null> {
 	} else {
 		sh.echo(chalk.red(t('Please configure apollo or buildConfigApi')))
 		process.exit(0)
-		return null
+		return
 	}
 
 	const BUILD_CONFIG_TIME_NAME = `buildConfigTime-${NS}`
@@ -76,7 +83,7 @@ export async function getBuildConfig(): Promise<ApolloConfigType | null> {
 			try {
 				apolloConfig = JSON.parse(config.apolloConfig)
 			} catch {
-				return null
+				return
 			}
 		} else {
 			apolloConfig = config.apolloConfig
@@ -87,6 +94,25 @@ export async function getBuildConfig(): Promise<ApolloConfigType | null> {
 	await updateCacheTime(BUILD_CONFIG_TIME_NAME)
 	await writeFile(BUILD_CONFIG_PATH, JSON.stringify(_buildConfig))
 	return _buildConfig
+}
+
+/**
+ * 读取项目配置
+ *
+ * @param projectName - project name
+ * @param env - env type, ApolloBranchList
+ * @param config - build config, not required
+ * @returns buildConfig - Return the configuration object
+ */
+export async function getProjectOption(
+	projectName: string,
+	env: ApolloBranchList,
+	config?: ApolloConfigType
+): Promise<ApolloConfigProjectType | undefined> {
+	if (!config) {
+		;[, config] = await to(getBuildConfig().then(res => res || undefined))
+	}
+	return config?.[env]?.list?.find(item => item.name === projectName)
 }
 
 export function cleanBuildConfig() {
