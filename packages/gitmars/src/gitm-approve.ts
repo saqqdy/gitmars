@@ -62,42 +62,42 @@ program.action(async (opt: GitmBuildOption): Promise<void> => {
 		echo(yellow(t('No merge request record found, process has exited')))
 		process.exit(0)
 	}
+	const choices = []
+	for await (const mr of mrList) {
+		const { iid, author, source_branch, target_branch, merge_status, created_at } = mr
+		mr.notes = (
+			(await getMergeRequestNotesList({
+				iid
+			})) || []
+		).filter((note: any) => !note.system)
+		const disabled = merge_status !== 'can_be_merged'
+		const _time = dayjs(created_at).format('YYYY/MM/DD HH:mm')
+		choices.push({
+			name: t(
+				'{id} request merge {source} to {target} {disabled} | {name} | {comments} | {time}',
+				{
+					id: green(iid + ': '),
+					source: green(source_branch),
+					target: green(target_branch),
+					disabled: disabled ? red(`[ ${t('Conflict or no need to merge')} ]`) : '',
+					name: yellow(author.name),
+					comments: green(
+						t('{length} comments', {
+							length: String(mr.notes.length)
+						})
+					),
+					time: blue(_time)
+				}
+			),
+			value: iid,
+			// disabled,
+			checked: false
+		})
+	}
 	const [, iids = []] = await to(
 		checkbox<number>({
 			message: t('Please select the merge request to be operated'),
-			choices: mrList.map(async (mr: any) => {
-				const { iid, author, source_branch, target_branch, merge_status, created_at } = mr
-				mr.notes = (
-					(await getMergeRequestNotesList({
-						iid
-					})) || []
-				).filter((note: any) => !note.system)
-				const disabled = merge_status !== 'can_be_merged'
-				const _time = dayjs(created_at).format('YYYY/MM/DD HH:mm')
-				return {
-					name: t(
-						'{id} request merge {source} to {target} {disabled} | {name} | {comments} | {time}',
-						{
-							id: green(iid + ': '),
-							source: green(source_branch),
-							target: green(target_branch),
-							disabled: disabled
-								? red(`[ ${t('Conflict or no need to merge')} ]`)
-								: '',
-							name: yellow(author.name),
-							comments: green(
-								t('{length} comments', {
-									length: String(mr.notes.length)
-								})
-							),
-							time: blue(_time)
-						}
-					),
-					value: iid,
-					// disabled,
-					checked: false
-				}
-			})
+			choices
 		})
 	)
 	// no records
