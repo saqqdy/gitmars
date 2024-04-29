@@ -94,14 +94,14 @@ program.action(async (project: string, opt: GitmBuildMpOption): Promise<void> =>
 		if (!buildConfig) {
 			;[, app] = await to(
 				input({
-					message: t('Enter the miniprogram to build'),
+					message: t('Enter the application to build'),
 					transformer: val => val.trim()
 				})
 			)
 		} else if (projectOption?.apps) {
 			;[, app] = await to(
 				select<string>({
-					message: t('Select the miniprogram to build'),
+					message: t('Select the application to build'),
 					choices: projectOption.apps.map(name => ({
 						name,
 						value: name
