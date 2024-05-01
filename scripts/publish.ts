@@ -1,6 +1,7 @@
-import { execSync } from 'child_process'
+import { exec, execSync } from 'child_process'
+import { promisify } from 'node:util'
 import { join, sep } from 'path'
-import { clone } from 'js-cool'
+import { clone, awaitTo as to } from 'js-cool'
 import { readJSONSync, writeJSONSync } from '@node-kit/extra.fs'
 import { version } from '../package.json'
 import { packages } from '../build/packages'
@@ -26,12 +27,16 @@ else if (IS_TEST) {
 
 transformPkgJson()
 
-execSync(command, {
-	stdio: 'inherit',
-	cwd: ROOT
-})
-
-transformPkgJson(true)
+to(
+	promisify(exec)(command, {
+		cwd: ROOT,
+		timeout: 15000
+	})
+)
+	.then(([err]) => {
+		err && console.error(err)
+	})
+	.finally(() => transformPkgJson(true))
 
 function transformPkgJson(isFallback = false) {
 	for (const { name } of packages) {

@@ -161,8 +161,8 @@ export default {
 	'Merge bugfix task branch, merge feature development branch, merge support branch':
 		'合并bugfix任务分支、合并feature功能开发分支、合并support分支',
 	'Branch does not exist, please enter it correctly': '分支不存在，请正确输入',
-	'This branch has not been synced for more than 1 week, please sync it at least once a week, execute: gitm update (-f)':
-		'检测到该分支已经超过1周没有同步过主干代码了，请每周至少同步一次，执行：gitm update (-f)',
+	'The {source} branch has not updated its upstream branch code in over a week, please sync it at least once a week, execute: gitm update (-f)':
+		'{source}分支已经超过1周没有同步过主干分支代码了，请每周至少同步一次，执行：gitm update (-f)',
 	'Enter the items to be configured': '请输入要配置的项',
 	'Query single or all gitmars for configuration items': '查询单个或全部gitmars的配置项',
 	'A conflict has been detected in the merge branch and you need to run git add . Do you want to force the script to continue?':
@@ -372,8 +372,6 @@ export default {
 	'{id}: total {total} files changed': '{id}：一共变动了{total}个文件',
 	'Find {total} branches merged over {branches} branch, please select the branch to clean up':
 		'找到{total}条分支合并过{branches}分支，请选择要清理的分支',
-	'If you find multiple branches with names containing {type}, please enter the branch type':
-		'查询到多条名称包含{type}的分支，请输入分支类型',
 	'If your branch has not been merged into {target}, please merge it into the {target} branch first':
 		'检测到你的分支没有合并过{target}，请先合并到{target}分支',
 	'There are {length} staging records under this branch, and the most recent one is restored by default':
@@ -436,5 +434,8 @@ export default {
 	'Enter the application to build': '输入要构建子应用名称',
 	'Select the application to build': '选择要构建的子应用',
 	'Generate experiential version of miniprogram': '生成体验版小程序',
-	'Enter the version description': '输入版本描述'
+	'Enter the version description': '输入版本描述',
+	'Select branch for batch processing': '选择分支进行批处理',
+	'No pending branches, program exits': '没有待处理分支，程序退出',
+	'Merged branch: {info}': '已合并: {info}'
 }
