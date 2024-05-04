@@ -158,6 +158,7 @@ gitm start bugfix 1001 --tag 20211010
 
 > v2.11.0 新增`--description`传参
 > v5.3.0 增加data传值，支持传入额外的参数
+> v7.0.0 开始支持批量合并
 
 bugfix 分支和 feature 分支需要提交到 dev 或者预发布环境时使用 combine 指令来自动执行合并
 
@@ -244,12 +245,20 @@ gitm cb -pd --no-bugfix
 gitm combine -b --data '{"app_id":"xxxxxx"}'
 ```
 
+7. 批量选择feature分支进行合并
+
+```shell
+# 输入指令并按提示选择要合并的分支
+gitm cb feature -d
+```
+
 ### gitm end
 
 #### 短指令：gitm ed
 
 > v2.9.6 版本开始，`end`指令智能判断是否需要合并代码，不传`--no-combine`时，不需要合并的时候不会发起合并操作<br/>
 > v2.11.0 新增`--description`传参
+> v7.0.0 开始支持批量结束分支
 
 任务完成，合并并删除分支，这个操作会把 20001 这个分支代码合并到 bug 分支并删除 20001 分支(远程的 20001 分支也会同步删除)
 
@@ -297,6 +306,13 @@ gitm ed
 gitm end --no-combine
 # 以feature方式合并
 gitm end --as-feature
+```
+
+3. 批量选择feature分支进行清理
+
+```shell
+# 输入指令并按提示选择要清理的分支
+gitm end feature
 ```
 
 ### gitm update
