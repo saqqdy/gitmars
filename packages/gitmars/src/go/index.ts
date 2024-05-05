@@ -1,27 +1,26 @@
-import { spawnSync } from '@gitmars/core/lib/spawn'
-import { debug } from '@gitmars/core/lib/utils/debug'
-import getCurrentBranch from '@gitmars/core/lib/git/getCurrentBranch'
-import cleanConfigSet from '@gitmars/core/lib/go/cleanConfigSet'
-import getCommand from '@gitmars/core/lib/go/getCommand'
+import { debug, spawnSync } from '@gitmars/utils'
+import { getCurrentBranch } from '@gitmars/git'
+import { cleanConfigSet, getCommand } from '@gitmars/go'
 
-import combineConfig from '#lib/conf/combine'
-import endConfig from '#lib/conf/end'
-import updateConfig from '#lib/conf/update'
-import undoConfig from '#lib/conf/undo'
-import redoConfig from '#lib/conf/redo'
-import branchConfig from '#lib/conf/branch'
-import buildConfig from '#lib/conf/build'
-import startConfig from '#lib/conf/start'
-import copyConfig from '#lib/conf/copy'
-import getConfig from '#lib/conf/get'
-import saveConfig from '#lib/conf/save'
-import cleanbranchConfig from '#lib/conf/cleanbranch'
-import cleanConfig from '#lib/conf/clean'
-import revertConfig from '#lib/conf/revert'
-import linkConfig from '#lib/conf/link'
-import unlinkConfig from '#lib/conf/unlink'
-import postmsgConfig from '#lib/conf/postmsg'
-import adminConfig from '#lib/conf/admin'
+import combineConfig from '../conf/combine'
+import endConfig from '../conf/end'
+import updateConfig from '../conf/update'
+import undoConfig from '../conf/undo'
+import redoConfig from '../conf/redo'
+import branchConfig from '../conf/branch'
+import buildConfig from '../conf/build'
+import buildMpConfig from '../conf/build-mp'
+import startConfig from '../conf/start'
+import copyConfig from '../conf/copy'
+import getConfig from '../conf/get'
+import saveConfig from '../conf/save'
+import cleanbranchConfig from '../conf/cleanbranch'
+import cleanConfig from '../conf/clean'
+import revertConfig from '../conf/revert'
+import linkConfig from '../conf/link'
+import unlinkConfig from '../conf/unlink'
+import postmsgConfig from '../conf/postmsg'
+import adminConfig from '../conf/admin'
 
 const {
 	create: adminCreateConfig,
@@ -137,6 +136,14 @@ export const build = async () => {
 	const config = cleanConfigSet(buildConfig)
 	const command = 'build ' + (await getCommand(config))
 	debug('build', command)
+	spawnSync('gitm', command.split(' '), { stdio: 'inherit' })
+}
+
+// build-mp command
+export const buildMp = async () => {
+	const config = cleanConfigSet(buildMpConfig)
+	const command = 'build-mp ' + (await getCommand(config))
+	debug('build-mp', command)
 	spawnSync('gitm', command.split(' '), { stdio: 'inherit' })
 }
 

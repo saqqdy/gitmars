@@ -1,24 +1,26 @@
 #!/usr/bin/env ts-node
 import { program } from 'commander'
 import dayjs from 'dayjs'
-import inquirer from 'inquirer'
+import { checkbox, select } from '@inquirer/prompts'
 import sh from 'shelljs'
 import chalk from 'chalk'
-import { queue } from '@gitmars/core/lib/queue'
-import getIsGitProject from '@gitmars/core/lib/git/getIsGitProject'
-import getCurrentBranch from '@gitmars/core/lib/git/getCurrentBranch'
-import checkGitStatus from '@gitmars/core/lib/git/checkGitStatus'
-import fetch from '@gitmars/core/lib/git/fetch'
-import prune from '@gitmars/core/lib/git/prune'
-import getGitLogs from '@gitmars/core/lib/git/getGitLogs'
-import getGitLogsByCommitIDs from '@gitmars/core/lib/git/getGitLogsByCommitIDs'
-import searchBranches from '@gitmars/core/lib/git/searchBranches'
-import { createArgs } from '@gitmars/core/lib/utils/command'
-import echo from '@gitmars/core/lib/utils/echo'
-import type { GitLogKeysType } from '@gitmars/core/typings/core'
-import type { CommandType, GitLogsType, GitmarsOptionOptionsType } from '../typings/gitmars'
-import copyConfig from '#lib/conf/copy'
-import lang from '#lib/common/local'
+import to from 'await-to-done'
+import { queue } from '@gitmars/core'
+import {
+	checkGitStatus,
+	fetch,
+	getCurrentBranch,
+	getGitLogs,
+	getGitLogsByCommitIDs,
+	getIsGitProject,
+	prune,
+	searchBranches
+} from '@gitmars/git'
+import { createArgs, echo } from '@gitmars/utils'
+import type { GitLogKeysType, GitLogsType } from '@gitmars/git'
+import type { CommandType, GitmarsOptionOptionsType } from './types'
+import copyConfig from './conf/copy'
+import lang from './common/local'
 
 const { t } = lang
 const { blue, green, red, yellow } = chalk
@@ -58,8 +60,7 @@ program.action(async (commitid: string[], opts: GitmBuildOption) => {
 	const current = getCurrentBranch()
 	const status = checkGitStatus()
 	let logList: GitLogsType[] = [],
-		cmd: Array<CommandType | string | string[]> = [],
-		commitIDs: string[] = [] // 需要执行的commitID
+		cmd: Array<CommandType | string | string[]> = []
 
 	if (!status) process.exit(1)
 	fetch()
@@ -92,35 +93,21 @@ program.action(async (commitid: string[], opts: GitmBuildOption) => {
 		}
 	}
 	// 多条记录
-	const prompt: any = [
-		{
-			type: 'checkbox',
+	const [, commitIDs = []] = await to(
+		checkbox<string>({
 			message: t('Please select the commit record to copy'),
-			name: 'commitIDs',
-			choices: []
-		},
-		{
-			type: 'list',
-			message: t('Please select the target branch'),
-			name: 'branch',
-			choices: branches,
-			when(answers: any) {
-				return answers.commitIDs.length
-			}
-		}
-	]
-	logList.forEach((log, index) => {
-		const _time = dayjs(log['%aI']).format('YYYY/MM/DD HH:mm')
-		prompt[0].choices.push({
-			name: `${green(index + 1 + '.')} ${green(log['%s'])} | ${yellow(log['%an'])} | ${blue(
-				_time
-			)}`,
-			value: log['%H'],
-			checked: false
+			choices: logList.map((log, index) => {
+				const _time = dayjs(log['%aI']).format('YYYY/MM/DD HH:mm')
+				return {
+					name: `${green(index + 1 + '.')} ${green(log['%s'])} | ${yellow(log['%an'])} | ${blue(
+						_time
+					)}`,
+					value: log['%H']!,
+					checked: false
+				}
+			})
 		})
-	})
-	const answers = await inquirer.prompt(prompt)
-	commitIDs = answers.commitIDs
+	)
 
 	// 没有选择任何记录
 	if (commitIDs.length === 0) {
@@ -128,8 +115,15 @@ program.action(async (commitid: string[], opts: GitmBuildOption) => {
 		process.exit(0)
 	}
 
+	const [, chooseBranch] = await to(
+		select({
+			message: t('Please select the target branch'),
+			choices: branches.map(item => ({ name: item, value: item }))
+		})
+	)
+
 	cmd = [
-		`git checkout ${answers.branch}`,
+		`git checkout ${chooseBranch}`,
 		'git pull',
 		{
 			cmd: `git cherry-pick ${commitIDs.reverse().join(' ')}`,

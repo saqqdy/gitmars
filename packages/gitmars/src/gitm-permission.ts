@@ -2,10 +2,9 @@
 import { program } from 'commander'
 import sh from 'shelljs'
 import chalk from 'chalk'
-import getCurrentBranch from '@gitmars/core/lib/git/getCurrentBranch'
-import { spawnSync } from '@gitmars/core/lib/spawn'
-import getConfig from '@gitmars/core/lib/getConfig'
-import lang from '#lib/common/local'
+import { getConfig, getCurrentBranch } from '@gitmars/git'
+import { spawnSync } from '@gitmars/utils'
+import lang from './common/local'
 
 const { t } = lang
 const { red } = chalk

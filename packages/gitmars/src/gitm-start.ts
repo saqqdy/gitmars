@@ -3,15 +3,12 @@ import { program } from 'commander'
 import sh from 'shelljs'
 import chalk from 'chalk'
 import { getType } from 'js-cool'
-import { queue } from '@gitmars/core/lib/queue'
-import getIsGitProject from '@gitmars/core/lib/git/getIsGitProject'
-import checkGitStatus from '@gitmars/core/lib/git/checkGitStatus'
-import { createArgs } from '@gitmars/core/lib/utils/command'
-import getConfig from '@gitmars/core/lib/getConfig'
-import { isNeedUpgrade, upgradeGitmars } from '@gitmars/core/lib/versionControl'
-import type { CommandType, GitmarsOptionOptionsType } from '../typings/gitmars'
-import lang from '#lib/common/local'
-import startConfig from '#lib/conf/start'
+import { isNeedUpgrade, queue, upgradeGitmars } from '@gitmars/core'
+import { checkGitStatus, getConfig, getIsGitProject } from '@gitmars/git'
+import { createArgs } from '@gitmars/utils'
+import type { CommandType, GitmarsOptionOptionsType } from './types'
+import lang from './common/local'
+import startConfig from './conf/start'
 
 const { t } = lang
 const { green, red } = chalk
@@ -67,7 +64,7 @@ program.action(async (type: string, name: string, opt: GitmBuildOption) => {
 		if (config.nameValidator) {
 			const reg =
 				getType(config.nameValidator) === 'regexp'
-					? config.nameValidator
+					? (config.nameValidator as RegExp)
 					: new RegExp(config.nameValidator)
 			if (!reg.test(name)) {
 				sh.echo(red(t('Branch name does not conform to specification')))

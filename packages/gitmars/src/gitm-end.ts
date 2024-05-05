@@ -3,28 +3,31 @@ import { createRequire } from 'node:module'
 import { program } from 'commander'
 import sh from 'shelljs'
 import chalk from 'chalk'
+import { checkbox } from '@inquirer/prompts'
+import to from 'await-to-done'
 import { getType } from 'js-cool'
-import { queue } from '@gitmars/core/lib/queue'
-import getIsGitProject from '@gitmars/core/lib/git/getIsGitProject'
-import getCurrentBranch from '@gitmars/core/lib/git/getCurrentBranch'
-import getGitConfig from '@gitmars/core/lib/git/getGitConfig'
-import getIsMergedTargetBranch from '@gitmars/core/lib/git/getIsMergedTargetBranch'
-import getIsBranchOrCommitExist from '@gitmars/core/lib/git/getIsBranchOrCommitExist'
-import checkGitStatus from '@gitmars/core/lib/git/checkGitStatus'
-import searchBranches from '@gitmars/core/lib/git/searchBranches'
-import { createArgs } from '@gitmars/core/lib/utils/command'
-import { isNeedUpgrade, upgradeGitmars } from '@gitmars/core/lib/versionControl'
-import getConfig from '@gitmars/core/lib/getConfig'
-import getUserInfo from '@gitmars/core/lib/api/getUserInfo'
-import type { CommandType, FetchDataType, GitmarsOptionOptionsType } from '../typings/gitmars'
-import lang from '#lib/common/local'
-import { defaults } from '#lib/common/global'
-import endConfig from '#lib/conf/end'
+import { isNeedUpgrade, queue, upgradeGitmars } from '@gitmars/core'
+import {
+	checkGitStatus,
+	getConfig,
+	getCurrentBranch,
+	getGitConfig,
+	getIsBranchOrCommitExist,
+	getIsGitProject,
+	getIsMergedTargetBranch,
+	searchBranches
+} from '@gitmars/git'
+import { createArgs } from '@gitmars/utils'
+import { getUserInfo } from '@gitmars/api'
+import type { CommandType, FetchDataType, GitmarsOptionOptionsType } from './types'
+import lang from './common/local'
+import { defaults } from './common/global'
+import endConfig from './conf/end'
 
 const { t } = lang
 const require = createRequire(import.meta.url)
 const { args, options } = endConfig
-const { red } = chalk
+const { red, green } = chalk
 
 if (!getIsGitProject()) {
 	sh.echo(red(t('The current directory is not a git project directory')))
@@ -33,12 +36,24 @@ if (!getIsGitProject()) {
 
 const config = getConfig()
 const { appName } = getGitConfig()
-const mergeRequestModule = require.resolve('@gitmars/core/lib/api/mergeRequest')
+const mergeRequestModule = require.resolve('@gitmars/api')
+// const mergeRequestModule = import.meta.resolve('@gitmars/api')
 
 interface GitmBuildOption {
 	combine?: boolean
 	asFeature?: boolean
 	description?: string
+}
+
+export interface DevelopBranchStatusInfo {
+	branchName: string
+	type: string
+	name: string
+	isSafe: boolean
+	isRemoteBranchExist: boolean
+	isNeedCombineDevelop: boolean
+	isNeedCombineBase: boolean
+	isNeedCombineBugfix: boolean
 }
 
 /**
@@ -74,7 +89,8 @@ program.action(async (type: string, name: string, opt: GitmBuildOption): Promise
 	]
 	const { level, nickname = '' } = userInfoApi ? await getUserInfo() : ({} as FetchDataType)
 	const status = checkGitStatus()
-	let _nameArr: string[] = [], // 分支名称数组
+	let _branches: string[] = [], // Branches found
+		pendingBranches: DevelopBranchStatusInfo[] = [], // Batch pending branches
 		isDescriptionCorrect = true // Does the description of the reason for this submission meet the specification
 	if (!status) process.exit(1)
 	// When there is a descriptionValidator configured, the description information needs to be verified
@@ -82,12 +98,13 @@ program.action(async (type: string, name: string, opt: GitmBuildOption): Promise
 		// Verify the description for this commit
 		const reg =
 			getType(config.descriptionValidator) === 'regexp'
-				? config.descriptionValidator
+				? (config.descriptionValidator as RegExp)
 				: new RegExp(config.descriptionValidator)
-		isDescriptionCorrect = opt.description && reg.test(opt.description)
+		isDescriptionCorrect = Boolean(opt.description && reg.test(opt.description))
 	}
 	if (!type) {
-		// type和name都没传且当前分支是开发分支
+		// type and name are not passed and the current branch is a development branch.
+		let _nameArr
 		;[type, ..._nameArr] = getCurrentBranch().split('/')
 		name = _nameArr.join('/')
 		if (!name) {
@@ -102,72 +119,128 @@ program.action(async (type: string, name: string, opt: GitmBuildOption): Promise
 				)
 			process.exit(1)
 		}
-	} else if (!name) {
-		// 传了type没传name
-		if (allow.includes(type)) {
-			sh.echo(t('Please enter branch name'))
-			process.exit(1)
-		}
-		const branches = searchBranches({ type })
-		if (branches.length === 1) {
-			;[type, ..._nameArr] = branches[0].split('/')
-			name = _nameArr.join('/')
-		} else {
-			sh.echo(
-				branches.length > 1
-					? t(
-							'If you find multiple branches with names containing {type}, please enter the branch type',
-							{ type }
-						)
-					: red(t('Branch does not exist, please enter it correctly'))
-			)
-			process.exit(1)
-		}
 	}
 
-	if (type === 'feature' && opt.asFeature) {
+	// wrong type
+	if (!allow.includes(type)) {
+		sh.echo(red(t('type only allows input') + ': ' + JSON.stringify(allow)))
+		process.exit(1)
+	} else if (type === 'feature' && opt.asFeature) {
 		sh.echo(t('--as-feature is only used in the bugfix branch.'))
 		process.exit(1)
 	}
 
-	const isRemoteBranchExist = getIsBranchOrCommitExist(`${type}/${name}`, true)
-	if (allow.includes(type) && name) {
-		const base: string = opt.asFeature
-			? config.release
-			: type === 'bugfix'
-				? config.bugfix
-				: config.release
-		let cmd: Array<CommandType | string | string[]> = []
+	// Passed type but not name.
+	if (!name) {
+		_branches = searchBranches({ type })
+		if (!_branches.length) {
+			sh.echo(red(t('Branch does not exist, please enter it correctly')))
+			process.exit(1)
+		}
+	} else {
+		_branches = [type + '/' + name]
+	}
+
+	const base: string = opt.asFeature
+		? config.release
+		: type === 'bugfix'
+			? config.bugfix
+			: config.release
+	const cmd: Array<CommandType | string | string[]> = []
+	const branchesWithInfo: DevelopBranchStatusInfo[] = _branches.map(branchName => {
+		const [_type, ..._nameArr] = branchName.split('/')
+		const _name = _nameArr.join('/')
 		// Is it necessary to merge dev
-		const isNeedCombineDevelop = !getIsMergedTargetBranch(`${type}/${name}`, config.develop, {
+		const isNeedCombineDevelop = !getIsMergedTargetBranch(branchName, config.develop, {
 			remote: true
 		})
 		// Is it necessary to merge base
-		const isNeedCombineBase = !getIsMergedTargetBranch(`${type}/${name}`, base, {
+		const isNeedCombineBase = !getIsMergedTargetBranch(branchName, base, {
 			remote: true
 		})
-		// Is it necessary to merge bug
-		const isNeedCombineBugfix = !getIsMergedTargetBranch(`${type}/${name}`, config.bugfix, {
+		// Is it necessary to merge bug, only for support branch
+		const isNeedCombineBugfix = !getIsMergedTargetBranch(branchName, config.bugfix, {
 			remote: true
 		})
+		return {
+			branchName,
+			type: _type,
+			name: _name,
+			isSafe:
+				_type === config.support
+					? !isNeedCombineDevelop && !isNeedCombineBase && !isNeedCombineBugfix
+					: !isNeedCombineDevelop && !isNeedCombineBase,
+			isRemoteBranchExist: getIsBranchOrCommitExist(branchName, true),
+			isNeedCombineDevelop,
+			isNeedCombineBase,
+			isNeedCombineBugfix
+		}
+	})
+
+	if (branchesWithInfo.length === 1) pendingBranches = branchesWithInfo
+	else {
+		;[, pendingBranches = []] = await to(
+			checkbox<DevelopBranchStatusInfo>({
+				message: t('Select branch for batch processing'),
+				choices: branchesWithInfo.map(item => {
+					const _merged = []
+					if (!item.isNeedCombineDevelop) _merged.push(config.develop)
+					if (!item.isNeedCombineBase) _merged.push(base)
+					if (item.type === config.support && !item.isNeedCombineBugfix)
+						_merged.push(config.bugfix)
+
+					return {
+						name: t('{source}{info}', {
+							source: item.branchName,
+							info: _merged.length
+								? green(
+										' (' +
+											t(`Merged branch: {info}`, {
+												info: _merged.join('/')
+											}) +
+											')'
+									)
+								: ''
+						}),
+						value: item,
+						checked: item.isSafe
+					}
+				})
+			})
+		)
+	}
+
+	if (!pendingBranches.length) {
+		sh.echo(t('No pending branches, program exits'))
+		process.exit(0)
+	}
+
+	for (const {
+		branchName,
+		type,
+		isRemoteBranchExist,
+		isNeedCombineDevelop,
+		isNeedCombineBase,
+		isNeedCombineBugfix
+	} of pendingBranches) {
 		if (opt.combine && isNeedCombineDevelop) {
 			// 需要合并代码到dev
-			cmd = [
+			cmd.push(
 				'git fetch',
 				`git checkout ${config.develop}`,
 				'git pull',
 				{
-					cmd: `git merge --no-ff ${type}/${name}`,
+					cmd: `git merge --no-ff ${branchName}`,
 					config: {
 						again: false,
 						success: t('Merge {source} into {target} successfully', {
-							source: `${type}/${name}`,
+							source: branchName,
 							target: config.develop
 						}),
 						fail: t(
 							'An error occurred merging {source} to {target}, Please follow the instructions',
 							{
-								source: `${type}/${name}`,
+								source: branchName,
 								target: config.develop
 							}
 						)
@@ -181,28 +254,28 @@ program.action(async (type: string, name: string, opt: GitmBuildOption): Promise
 						fail: t('Push failed, please follow the prompts')
 					}
 				},
-				`git checkout ${type}/${name}`
-			]
+				`git checkout ${branchName}`
+			)
 		}
 		// support分支需要合到bugfix
 		if (type === 'support' && opt.combine && isNeedCombineBugfix) {
 			if (!level || level < 3) {
-				cmd = cmd.concat([
+				cmd.push(
 					'git fetch',
 					`git checkout ${config.bugfix}`,
 					'git pull',
 					{
-						cmd: `git merge --no-ff ${type}/${name}`,
+						cmd: `git merge --no-ff ${branchName}`,
 						config: {
 							again: false,
 							success: t('Merge {source} into {target} successfully', {
-								source: `${type}/${name}`,
+								source: branchName,
 								target: config.bugfix
 							}),
 							fail: t(
 								'An error occurred merging {source} to {target}, Please follow the instructions',
 								{
-									source: `${type}/${name}`,
+									source: branchName,
 									target: config.bugfix
 								}
 							)
@@ -216,8 +289,8 @@ program.action(async (type: string, name: string, opt: GitmBuildOption): Promise
 							fail: t('Push failed, please follow the prompts')
 						}
 					},
-					`git checkout ${type}/${name}`
-				])
+					`git checkout ${branchName}`
+				)
 			} else {
 				if (!isDescriptionCorrect) {
 					sh.echo(
@@ -229,9 +302,9 @@ program.action(async (type: string, name: string, opt: GitmBuildOption): Promise
 					)
 					process.exit(1)
 				}
-				cmd = cmd.concat([
+				cmd.push(
 					{
-						cmd: `git push --set-upstream origin ${type}/${name}`,
+						cmd: `git push --set-upstream origin ${branchName}`,
 						config: {
 							again: true,
 							success: t('Push remote and associate remote branch successfully'),
@@ -243,7 +316,7 @@ program.action(async (type: string, name: string, opt: GitmBuildOption): Promise
 							module: mergeRequestModule,
 							entry: 'createMergeRequest',
 							options: {
-								source_branch: `${type}/${name}`,
+								source_branch: branchName,
 								target_branch: config.bugfix,
 								description: opt.description
 							}
@@ -264,60 +337,54 @@ program.action(async (type: string, name: string, opt: GitmBuildOption): Promise
 							{
 								nickname,
 								app: appName,
-								source: `${type}/${name}`,
+								source: branchName,
 								target: config.bugfix
 							}
 						)}"`
 					]
-				])
+				)
 			}
 		}
 		if (!opt.combine || !isNeedCombineBase) {
 			// 不合并代码
-			cmd = cmd.concat([
-				`git checkout ${config.develop}`,
-				`git branch -D ${type}/${name}`,
-				{
-					cmd: 'git remote prune origin',
-					config: {
-						again: true,
-						success: t('Cleanup of remote branch was successful'),
-						fail: t('Failed to clean up remote branch, please follow the prompts')
-					}
+			cmd.push(`git checkout ${config.develop}`, `git branch -D ${branchName}`, {
+				cmd: 'git remote prune origin',
+				config: {
+					again: true,
+					success: t('Cleanup of remote branch was successful'),
+					fail: t('Failed to clean up remote branch, please follow the prompts')
 				}
-			])
+			})
 			// 判断远程是否存在分支
 			if (isRemoteBranchExist) {
-				cmd = cmd.concat([
-					{
-						cmd: `git push origin --delete ${type}/${name}`,
-						config: {
-							again: true,
-							success: t('Successfully deleted remote branch'),
-							fail: t('Deletion failed, please contact administrator')
-						}
+				cmd.push({
+					cmd: `git push origin --delete ${branchName}`,
+					config: {
+						again: true,
+						success: t('Successfully deleted remote branch'),
+						fail: t('Deletion failed, please contact administrator')
 					}
-				])
+				})
 			}
 		} else {
 			// 需要合并代码
 			if (!level || level < 3) {
-				cmd = cmd.concat([
+				cmd.push(
 					'git fetch',
 					`git checkout ${base}`,
 					'git pull',
 					{
-						cmd: `git merge --no-ff ${type}/${name}`,
+						cmd: `git merge --no-ff ${branchName}`,
 						config: {
 							again: false,
 							success: t('Merge {source} into {target} successfully', {
-								source: `${type}/${name}`,
+								source: branchName,
 								target: base
 							}),
 							fail: t(
 								'An error occurred merging {source} to {target}, Please follow the instructions',
 								{
-									source: `${type}/${name}`,
+									source: branchName,
 									target: base
 								}
 							)
@@ -332,7 +399,7 @@ program.action(async (type: string, name: string, opt: GitmBuildOption): Promise
 						}
 					},
 					`git checkout ${config.develop}`,
-					`git branch -D ${type}/${name}`,
+					`git branch -D ${branchName}`,
 					{
 						cmd: 'git remote prune origin',
 						config: {
@@ -341,19 +408,17 @@ program.action(async (type: string, name: string, opt: GitmBuildOption): Promise
 							fail: t('Failed to clean up remote branch, please follow the prompts')
 						}
 					}
-				])
+				)
 				// 判断远程是否存在分支
 				if (isRemoteBranchExist) {
-					cmd = cmd.concat([
-						{
-							cmd: `git push origin --delete ${type}/${name}`,
-							config: {
-								again: true,
-								success: t('Successfully deleted remote branch'),
-								fail: t('Deletion failed, please contact administrator')
-							}
+					cmd.push({
+						cmd: `git push origin --delete ${branchName}`,
+						config: {
+							again: true,
+							success: t('Successfully deleted remote branch'),
+							fail: t('Deletion failed, please contact administrator')
 						}
-					])
+					})
 				}
 			} else {
 				if (!isDescriptionCorrect) {
@@ -366,9 +431,9 @@ program.action(async (type: string, name: string, opt: GitmBuildOption): Promise
 					)
 					process.exit(1)
 				}
-				cmd = cmd.concat([
+				cmd.push(
 					{
-						cmd: `git push --set-upstream origin ${type}/${name}`,
+						cmd: `git push --set-upstream origin ${branchName}`,
 						config: {
 							again: true,
 							success: t('Push remote and associate remote branch successfully'),
@@ -380,7 +445,7 @@ program.action(async (type: string, name: string, opt: GitmBuildOption): Promise
 							module: mergeRequestModule,
 							entry: 'createMergeRequest',
 							options: {
-								source_branch: `${type}/${name}`,
+								source_branch: branchName,
 								target_branch: base,
 								description: opt.description
 							}
@@ -401,19 +466,17 @@ program.action(async (type: string, name: string, opt: GitmBuildOption): Promise
 							{
 								nickname,
 								app: appName,
-								source: `${type}/${name}`,
+								source: branchName,
 								target: base
 							}
 						)}"`
 					]
-				])
+				)
 			}
 		}
-		queue(cmd)
-	} else {
-		sh.echo(red(t('type only allows input') + ': ' + JSON.stringify(allow)))
-		process.exit(1)
 	}
+
+	queue(cmd)
 })
 program.parse(process.argv)
 export {}

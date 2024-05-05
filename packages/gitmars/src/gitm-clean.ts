@@ -2,17 +2,15 @@
 import { program } from 'commander'
 import sh from 'shelljs'
 import chalk from 'chalk'
-import inquirer from 'inquirer'
-import getGitRevParse from '@gitmars/core/lib/git/getGitRevParse'
-import getIsGitProject from '@gitmars/core/lib/git/getIsGitProject'
-import { removeFile } from '@gitmars/core/lib/utils/file'
-import { createArgs } from '@gitmars/core/lib/utils/command'
-import { cleanCache } from '@gitmars/core/lib/cache/cache'
-import { cleanPkgInfo } from '@gitmars/core/lib/utils/pkgInfo'
-import { cleanBuildConfig } from '@gitmars/core/lib/build/buildConfig'
-import type { GitmarsOptionOptionsType } from '../typings/gitmars'
-import lang from '#lib/common/local'
-import cleanConfig from '#lib/conf/clean'
+import to from 'await-to-done'
+import { confirm } from '@inquirer/prompts'
+import { getGitRevParse, getIsGitProject } from '@gitmars/git'
+import { cleanCache, cleanPkgInfo } from '@gitmars/cache'
+import { createArgs, removeFile } from '@gitmars/utils'
+import { cleanBuildConfig } from '@gitmars/build'
+import type { GitmarsOptionOptionsType } from './types'
+import lang from './common/local'
+import cleanConfig from './conf/clean'
 
 sh.config.silent = true
 
@@ -37,21 +35,18 @@ options.forEach((o: GitmarsOptionOptionsType) => {
 program.action(async (opt: GitmBuildOption) => {
 	if (getIsGitProject()) {
 		if (opt.force) {
-			await inquirer
-				.prompt({
-					type: 'confirm',
-					name: 'value',
+			const [, answer] = await to(
+				confirm({
 					message: t(
 						'You have entered --force, which will also clear the gitmars execution cache. Should I continue?'
 					),
 					default: false
 				})
-				.then((answers: any) => {
-					if (!answers.value) {
-						sh.echo(green(t('exited')))
-						process.exit(0)
-					}
-				})
+			)
+			if (!answer) {
+				sh.echo(green(t('exited')))
+				process.exit(0)
+			}
 			removeFile([
 				{
 					name: t('gitmars command queue cache file'),

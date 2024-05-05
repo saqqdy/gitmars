@@ -1,10 +1,10 @@
 #!/usr/bin/env ts-node
 import { program } from 'commander'
-import { createArgs } from '@gitmars/core/lib/utils/command'
-import run from '@gitmars/core/lib/hook/run'
-import type { GitmarsOptionOptionsType } from '../typings/gitmars'
-import lang from '#lib/common/local'
-import runConfig from '#lib/conf/run'
+import { createArgs } from '@gitmars/utils'
+import { run } from '@gitmars/hook'
+import type { GitmarsOptionOptionsType } from './types'
+import lang from './common/local'
+import runConfig from './conf/run'
 
 const { t } = lang
 const { args, options } = runConfig

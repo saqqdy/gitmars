@@ -1,4 +1,4 @@
-import lang from '#lib/common/local'
+import lang from '../common/local'
 
 const { t } = lang
 
@@ -21,7 +21,24 @@ export const hookList = [
 	'post-rewrite',
 	'sendemail-validate'
 ]
-export const defaults = {
+export const defaults: {
+	master: string
+	develop: string
+	release: string
+	bugfix: string
+	support: string
+	user: string
+	email: string
+	nameValidator: string
+	descriptionValidator: string
+	msgTemplate: string
+	apolloConfig: Record<string, unknown> | null
+	hooks: Record<string, unknown> | null
+	apis: Record<string, unknown> | null
+	api: string
+	gitHost: string
+	gitID: string
+} = {
 	master: 'master',
 	develop: 'dev',
 	release: 'release',
@@ -32,8 +49,9 @@ export const defaults = {
 	nameValidator: '',
 	descriptionValidator: '',
 	msgTemplate: t('${message}; project: ${project}; path: ${pwd}'),
-	apolloConfig: '',
-	hooks: '',
+	apolloConfig: null,
+	hooks: null,
+	apis: null,
 	api: '',
 	gitHost: '',
 	gitID: ''

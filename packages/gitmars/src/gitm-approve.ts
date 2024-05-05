@@ -1,26 +1,24 @@
 #!/usr/bin/env ts-node
 import { program } from 'commander'
 import dayjs from 'dayjs'
-import inquirer from 'inquirer'
+import { checkbox, select } from '@inquirer/prompts'
 import chalk from 'chalk'
-import getUserInfo from '@gitmars/core/lib/api/getUserInfo'
-import getIsGitProject from '@gitmars/core/lib/git/getIsGitProject'
-import getGitConfig from '@gitmars/core/lib/git/getGitConfig'
-import sendGroupMessage from '@gitmars/core/lib/sendGroupMessage'
-import { createArgs } from '@gitmars/core/lib/utils/command'
-import echo from '@gitmars/core/lib/utils/echo'
-import getConfig from '@gitmars/core/lib/getConfig'
+import to from 'await-to-done'
 import {
 	acceptMergeRequest,
 	deleteMergeRequest,
 	getMergeRequestChanges,
 	getMergeRequestList,
+	getMergeRequestNotesList,
+	getUserInfo,
 	updateMergeRequest
-} from '@gitmars/core/lib/api/mergeRequest'
-import { getMergeRequestNotesList } from '@gitmars/core/lib/api/mergeRequestNotes'
-import type { FetchDataType, GitmarsOptionOptionsType } from '../typings/gitmars'
-import lang from '#lib/common/local'
-import approveConfig from '#lib/conf/approve'
+} from '@gitmars/api'
+import { getConfig, getGitConfig, getIsGitProject } from '@gitmars/git'
+import { sendGroupMessage } from '@gitmars/core'
+import { createArgs, echo } from '@gitmars/utils'
+import type { FetchDataType, GitmarsOptionOptionsType } from './types'
+import lang from './common/local'
+import approveConfig from './conf/approve'
 
 const { t } = lang
 const { blue, cyan, green, magenta, red, yellow } = chalk
@@ -64,30 +62,8 @@ program.action(async (opt: GitmBuildOption): Promise<void> => {
 		echo(yellow(t('No merge request record found, process has exited')))
 		process.exit(0)
 	}
-	const prompt: any = [
-		{
-			type: 'checkbox',
-			message: t('Please select the merge request to be operated'),
-			name: 'iids',
-			choices: []
-		},
-		{
-			type: 'list',
-			message: t('Please select the action below.'),
-			name: 'accept',
-			choices: [
-				t('View Details'),
-				t('Passed'),
-				t('Not passed'),
-				t('Failed and deleted'),
-				t('Exit')
-			],
-			when(answers: any) {
-				return answers.iids.length
-			}
-		}
-	]
-	for (const mr of mrList) {
+	const choices = []
+	for await (const mr of mrList) {
 		const { iid, author, source_branch, target_branch, merge_status, created_at } = mr
 		mr.notes = (
 			(await getMergeRequestNotesList({
@@ -96,7 +72,7 @@ program.action(async (opt: GitmBuildOption): Promise<void> => {
 		).filter((note: any) => !note.system)
 		const disabled = merge_status !== 'can_be_merged'
 		const _time = dayjs(created_at).format('YYYY/MM/DD HH:mm')
-		prompt[0].choices.push({
+		choices.push({
 			name: t(
 				'{id} request merge {source} to {target} {disabled} | {name} | {comments} | {time}',
 				{
@@ -118,12 +94,30 @@ program.action(async (opt: GitmBuildOption): Promise<void> => {
 			checked: false
 		})
 	}
-	const { iids, accept } = await inquirer.prompt(prompt)
+	const [, iids = []] = await to(
+		checkbox<number>({
+			message: t('Please select the merge request to be operated'),
+			choices
+		})
+	)
 	// no records
 	if (iids.length === 0) {
 		echo(yellow(t('No merge request record selected, process has exited')))
 		process.exit(0)
 	}
+
+	const [, accept] = await to(
+		select({
+			message: t('Please select the action below.'),
+			choices: [
+				{ name: t('View Details'), value: 1, description: 'Show diff' },
+				{ name: t('Passed'), value: 2 },
+				{ name: t('Not passed'), value: 3 },
+				{ name: t('Failed and deleted'), value: 4 },
+				{ name: t('Exit'), value: 5 }
+			]
+		})
+	)
 
 	// start
 	for (const iid of iids) {
@@ -131,7 +125,7 @@ program.action(async (opt: GitmBuildOption): Promise<void> => {
 			(item: any) => item.iid === iid
 		)
 		const CAN_BE_MERGED = merge_status === 'can_be_merged'
-		if (accept === t('Passed')) {
+		if (accept === 2) {
 			if (!CAN_BE_MERGED) {
 				echo(
 					yellow(
@@ -151,7 +145,7 @@ program.action(async (opt: GitmBuildOption): Promise<void> => {
 					})
 				)
 			echo(green(t('Merge request {id}: Merged', { id: iid })))
-		} else if (accept === t('View Details')) {
+		} else if (accept === 1) {
 			const { changes, changes_count } = await getMergeRequestChanges({
 				iid
 			})
@@ -179,7 +173,7 @@ program.action(async (opt: GitmBuildOption): Promise<void> => {
 						.replace(/\n(\+.+)/g, (m: string, p1: string) => '\n' + green(p1))
 				)
 			}
-		} else if (accept === t('Failed and deleted')) {
+		} else if (accept === 4) {
 			await deleteMergeRequest({ iid })
 			!opt.quiet &&
 				sendGroupMessage(
@@ -191,7 +185,7 @@ program.action(async (opt: GitmBuildOption): Promise<void> => {
 					})
 				)
 			echo(green(t('Merge request {id}: Deleted', { id: iid })))
-		} else if (accept === t('Not passed')) {
+		} else if (accept === 3) {
 			// delete
 			await updateMergeRequest({
 				iid,

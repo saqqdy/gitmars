@@ -1,6 +1,5 @@
 {
 	"extends": "../../tsconfig.json",
-	"exclude": ["**/__tests__"],
 	"compilerOptions": {
 		"composite": true,
 		"target": "ESNext",
@@ -9,7 +8,7 @@
 		"declaration": true,
 		"emitDeclarationOnly": true,
 		"rootDir": "src",
-		"outDir": "lib",
+		"outDir": "temp",
 		"baseUrl": ".",
 		"paths": {
 			"#lib/*": ["./src/*"],

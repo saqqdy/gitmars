@@ -6,7 +6,7 @@ import { runExec, runExecSync, runSpawnSync } from '../utils/exec'
 import { PACKAGE, ROOT } from '../utils/paths'
 import { packages } from '../packages'
 
-const pkgs = packages.filter(({ buildTask }) => buildTask.includes('docs'))
+const pkgs = packages.filter(({ buildTask }) => buildTask && buildTask.includes('docs'))
 const os = platform()
 
 export async function buildDocs() {
@@ -33,8 +33,8 @@ export async function buildDocs() {
 }
 
 export async function deployDocs() {
-	const builds = pkgs.map(async ({ name }) => {
-		const RUN_PATH = resolve(PACKAGE, name, 'dist')
+	const builds = pkgs.map(async ({ name, output = 'dist' }) => {
+		const RUN_PATH = resolve(PACKAGE, name, output)
 		await runSpawnSync(`git init`, RUN_PATH, { stdio: 'ignore' })
 		await runSpawnSync(`git add .`, RUN_PATH)
 		const status = await runSpawnSync(`git status -s --no-column`, RUN_PATH, { stdio: 'pipe' })

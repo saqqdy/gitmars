@@ -1,5 +1,5 @@
-import type { GitmarsOptionType } from '../../typings/gitmars'
-// import lang from '#lib/common/local'
+import type { GitmarsOptionType } from '../types'
+// import lang from '../common/local'
 const t = (txt: string) => txt
 
 export const cmdConfig: GitmarsOptionType = {
@@ -7,7 +7,7 @@ export const cmdConfig: GitmarsOptionType = {
 	short: 'bd',
 	args: [
 		{
-			required: true,
+			required: false,
 			name: 'project',
 			variadic: false,
 			description: t('Project name')
@@ -24,7 +24,7 @@ export const cmdConfig: GitmarsOptionType = {
 			long: '--env',
 			negate: false,
 			description: t('Build environment, optionally dev, prod, bug, all'),
-			defaultValue: 'dev',
+			defaultValue: '',
 			recommend: true,
 			options: ['dev', 'prod', 'bug', 'all'],
 			value: 'dev'
@@ -39,7 +39,7 @@ export const cmdConfig: GitmarsOptionType = {
 			long: '--app',
 			negate: false,
 			description: t('Build application'),
-			defaultValue: 'all',
+			defaultValue: '',
 			recommend: true,
 			value: 'all'
 		},

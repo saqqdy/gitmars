@@ -2,12 +2,10 @@
 import { program } from 'commander'
 import ora from 'ora'
 import chalk from 'chalk'
-import { createArgs } from '@gitmars/core/lib/utils/command'
-import { spawnSync } from '@gitmars/core/lib/spawn'
-import echo from '@gitmars/core/lib/utils/echo'
-import type { GitmarsOptionOptionsType, PackageVersionTag } from '../typings/gitmars'
-import installConfig from '#lib/conf/install'
-import lang from '#lib/common/local'
+import { createArgs, echo, spawnSync } from '@gitmars/utils'
+import type { GitmarsOptionOptionsType, PackageVersionTag } from './types'
+import installConfig from './conf/install'
+import lang from './common/local'
 
 const { t } = lang
 const { green, red } = chalk
@@ -35,7 +33,7 @@ options.forEach((o: GitmarsOptionOptionsType) => {
 // .option('-r, --registry <registry>', t('Use mirror address'), '')
 program.action((pluginName: string, version: PackageVersionTag | string, opt: GitmBuildOption) => {
 	if (!pluginName) {
-		echo(red(t('Please enter the plugin name')))
+		echo(red(t('Enter the plugin name')))
 		process.exit(1)
 	}
 	const spinner = ora()

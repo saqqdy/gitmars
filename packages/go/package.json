@@ -1,0 +1,68 @@
+{
+	"name": "@gitmars/go",
+	"description": "gitmars go",
+	"version": "7.0.0-beta.24",
+	"private": false,
+	"main": "./dist/index.cjs.js",
+	"module": "./dist/index.esm-bundler.js",
+	"types": "./dist/index.d.ts",
+	"exports": {
+		".": {
+			"types": "./dist/index.d.ts",
+			"module": "./dist/index.esm-bundler.js",
+			"require": "./dist/index.cjs.js",
+			"import": "./dist/index.mjs"
+		},
+		"./*": "./*"
+	},
+	"files": [
+		"dist",
+		"typings",
+		"*.d.ts"
+	],
+	"scripts": {},
+	"directories": {
+		"bin": "bin",
+		"dist": "dist",
+		"src": "src"
+	},
+	"dependencies": {
+		"@gitmars/utils": "workspace:*",
+		"chalk": "^4.1.2",
+		"inquirer": "^8.2.6",
+		"os-lang": "^3.2.0"
+	},
+	"devDependencies": {
+		"@eslint-sets/eslint-config-ts": "^5.13.0",
+		"@types/inquirer": "^9.0.7",
+		"@types/node": "^20.12.7",
+		"cross-env": "^7.0.3",
+		"eslint": "^8.57.0",
+		"madge": "^7.0.0",
+		"prettier": "^3.2.5",
+		"prettier-config-common": "^1.4.0",
+		"tsnd": "^1.1.0",
+		"typescript": "^5.4.5"
+	},
+	"sideEffects": false,
+	"keywords": [
+		"gitmars",
+		"git",
+		"tool"
+	],
+	"license": "GPL-3.0",
+	"author": "saqqdy <https://github.com/saqqdy>",
+	"homepage": "https://github.com/saqqdy/gitmars/tree/master/packages/go#readme",
+	"bugs": {
+		"url": "https://github.com/saqqdy/gitmars/issues"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/saqqdy/gitmars.git",
+		"directory": "packages/go"
+	},
+	"publishConfig": {
+		"registry": "https://registry.npmjs.org",
+		"access": "public"
+	}
+}

@@ -2,15 +2,15 @@
 import { program } from 'commander'
 import sh from 'shelljs'
 import chalk from 'chalk'
-import inquirer from 'inquirer'
-import { queue } from '@gitmars/core/lib/queue'
-import getIsGitProject from '@gitmars/core/lib/git/getIsGitProject'
-import getGitStatus from '@gitmars/core/lib/git/getGitStatus'
-import { createArgs } from '@gitmars/core/lib/utils/command'
-import { cleanCommandCache, getCommandCache } from '@gitmars/core/lib/cache/commandCache'
-import type { CommandType, GitmarsOptionOptionsType } from '../typings/gitmars'
-import continueConfig from '#lib/conf/continue'
-import lang from '#lib/common/local'
+import to from 'await-to-done'
+import { confirm } from '@inquirer/prompts'
+import { queue } from '@gitmars/core'
+import { getGitStatus, getIsGitProject } from '@gitmars/git'
+import { createArgs } from '@gitmars/utils'
+import { cleanCommandCache, getCommandCache } from '@gitmars/cache'
+import type { CommandType, GitmarsOptionOptionsType } from './types'
+import continueConfig from './conf/continue'
+import lang from './common/local'
 
 const { t } = lang
 const { green, red, yellow } = chalk
@@ -44,21 +44,18 @@ program.action(async (opt: GitmBuildOption) => {
 	if (cmd.length > 0) {
 		// 检测是否有未提交的文件
 		if (sum.A.length > 0 || sum.D.length > 0 || sum.M.length > 0 || sum.UU.length > 0) {
-			await inquirer
-				.prompt({
-					type: 'confirm',
-					name: 'value',
+			const [, answer] = await to(
+				confirm({
 					message: t(
 						'A conflict has been detected in the merge branch and you need to run git add . Do you want to force the script to continue?'
 					),
 					default: false
 				})
-				.then((answers: any) => {
-					if (!answers.value) {
-						sh.echo(green(t('exited')))
-						process.exit(0)
-					}
-				})
+			)
+			if (!answer) {
+				sh.echo(green(t('exited')))
+				process.exit(0)
+			}
 		} else if (sum['??'].length > 0) {
 			sh.echo(yellow(t('An uncommitted file was detected, please be aware!')))
 		}

@@ -6,16 +6,14 @@ import { buildLib, copyLibFile, madgeLib } from './tasks/buildLib'
 import { buildApp } from './tasks/buildApp'
 import { buildDocs, copyMdFile } from './tasks/buildDocs'
 import { buildType } from './tasks/buildType'
-import { packages } from './packages'
+import { getLibPackages } from './packages'
+
+const pkgs = getLibPackages()
 
 export async function clean() {
-	let dirs: string[] = ['dist', 'es', 'lib']
-	packages.forEach(({ name }) => {
-		dirs = dirs.concat([
-			join('packages', name, 'dist'),
-			join('packages', name, 'es'),
-			join('packages', name, 'lib')
-		])
+	let dirs: string[] = []
+	pkgs.forEach(({ name, output = 'dist' }) => {
+		dirs = dirs.concat([join('packages', name, output)])
 	})
 	await runExecSync(`rimraf ${dirs.join(' ')}`)
 }
@@ -24,16 +22,13 @@ export { default as app } from './tasks/buildApp'
 export { default as docs } from './tasks/buildDocs'
 export { default as type } from './tasks/buildType'
 export default series(
-	wrapDisplayName('clean:dist,es,lib', clean),
+	wrapDisplayName('clean output dirs', clean),
 	parallel(
 		wrapDisplayName('copy:md', copyMdFile),
 		wrapDisplayName('copy-lib:json,sh', copyLibFile)
 	),
-	parallel(
-		wrapDisplayName('build:lib', buildLib),
-		wrapDisplayName('build:docs', buildDocs),
-		wrapDisplayName('build:type', buildType)
-	),
+	wrapDisplayName('build:type', buildType),
+	parallel(wrapDisplayName('build:lib', buildLib), wrapDisplayName('build:docs', buildDocs)),
 	parallel(wrapDisplayName('build:app', buildApp)),
 	parallel(wrapDisplayName('madge:lib', madgeLib))
 )

@@ -30,9 +30,9 @@ $ pnpm install @gitmars/core
 ## Usage
 
 ```js
-const getConfig = require('@gitmars/core/lib/getConfig')
+const { sendGroupMessage } = require('@gitmars/core')
 
-getConfig()
+sendGroupMessage()
 ```
 
 ## Issues & Support

@@ -163,7 +163,8 @@ apollo 构建项目配置参考
     "list": [
       {
         "name": "project1",
-        "project": "git_project1"
+        "project": "git_project1",
+        "token": "" // 这个token的优先级比上一层的token高
       },
       {
         "name": "project2",

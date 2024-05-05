@@ -2,12 +2,12 @@
 import { program } from 'commander'
 import sh from 'shelljs'
 import chalk from 'chalk'
-import { queue } from '@gitmars/core/lib/queue'
-import getIsGitProject from '@gitmars/core/lib/git/getIsGitProject'
-import { createArgs } from '@gitmars/core/lib/utils/command'
-import type { CommandType, GitmarsOptionOptionsType } from '../typings/gitmars'
-import lang from '#lib/common/local'
-import revertConfig from '#lib/conf/revert'
+import { queue } from '@gitmars/core'
+import { getIsGitProject } from '@gitmars/git'
+import { createArgs } from '@gitmars/utils'
+import type { CommandType, GitmarsOptionOptionsType } from './types'
+import lang from './common/local'
+import revertConfig from './conf/revert'
 
 const { t } = lang
 const { red, yellow } = chalk

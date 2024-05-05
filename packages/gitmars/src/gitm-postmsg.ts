@@ -1,10 +1,10 @@
 #!/usr/bin/env ts-node
 import { program } from 'commander'
-import sendGroupMessage from '@gitmars/core/lib/sendGroupMessage'
-import { createArgs } from '@gitmars/core/lib/utils/command'
-import type { GitmarsOptionOptionsType } from '../typings/gitmars'
-import lang from '#lib/common/local'
-import postmsgConfig from '#lib/conf/postmsg'
+import { sendGroupMessage } from '@gitmars/core'
+import { createArgs } from '@gitmars/utils'
+import type { GitmarsOptionOptionsType } from './types'
+import lang from './common/local'
+import postmsgConfig from './conf/postmsg'
 
 const { t } = lang
 const { args, options } = postmsgConfig

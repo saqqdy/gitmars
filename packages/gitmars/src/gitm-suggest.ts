@@ -3,11 +3,11 @@
 import { program } from 'commander'
 import sh from 'shelljs'
 import chalk from 'chalk'
-import { createArgs } from '@gitmars/core/lib/utils/command'
-import getIsGitProject from '@gitmars/core/lib/git/getIsGitProject'
-import type { GitmarsOptionOptionsType } from '../typings/gitmars'
-import lang from '#lib/common/local'
-import suggestConfig from '#lib/conf/suggest'
+import { createArgs } from '@gitmars/utils'
+import { getIsGitProject } from '@gitmars/git'
+import type { GitmarsOptionOptionsType } from './types'
+import lang from './common/local'
+import suggestConfig from './conf/suggest'
 
 const { t } = lang
 const { red } = chalk

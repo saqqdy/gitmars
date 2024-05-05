@@ -28,7 +28,7 @@ export default {
 	'Cannot be deleted': '不可删除',
 	'Analysis completed': '分析完成',
 	Deleting: '正在删除',
-	'Please enter branch name': '请输入分支名称',
+	'Enter branch name': '请输入分支名称',
 	'Successfully deleted remote branch': '成功删除远程分支',
 	'Deletion failed, please contact administrator': '删除失败，请联系管理员',
 	Uninstalling: '正在卸载',
@@ -69,6 +69,8 @@ export default {
 		'使用删除分支功能时，不能与查询分支功能混用',
 	'Project name': '项目名称',
 	'Build environment, optionally dev, prod, bug, all': '构建环境，可选dev、prod、bug、all',
+	'Build api environment, optionally alpha, tag, release, production':
+		'构建环境，可选alpha、tag、release、production',
 	'Force cleanup': '强制清理',
 	'Specify the branch to clean up': '指定要清理的分支',
 	'Show a list of branches that match the criteria': '显示符合条件的分支列表',
@@ -154,14 +156,14 @@ export default {
 	'No branches were selected and the process has exited.': '没有选择任何分支，进程已退出',
 	'Analysis complete, no branches to clean up': '分析完成，没有分支需要清理',
 	'Deletion complete, these branches have been cleaned up': '删除完成，这些分支已被清理',
-	'Please enter the message to be submitted': '请输入要提交的message',
-	'Please enter the environment to sync to.': '请输入需要同步到的环境',
+	'Enter the message to be submitted': '请输入要提交的message',
+	'Enter the environment to sync to.': '请输入需要同步到的环境',
 	'Merge bugfix task branch, merge feature development branch, merge support branch':
 		'合并bugfix任务分支、合并feature功能开发分支、合并support分支',
 	'Branch does not exist, please enter it correctly': '分支不存在，请正确输入',
-	'This branch has not been synced for more than 1 week, please sync it at least once a week, execute: gitm update (-f)':
-		'检测到该分支已经超过1周没有同步过主干代码了，请每周至少同步一次，执行：gitm update (-f)',
-	'Please enter the items to be configured': '请输入要配置的项',
+	'The {source} branch has not updated its upstream branch code in over a week, please sync it at least once a week, execute: gitm update (-f)':
+		'{source}分支已经超过1周没有同步过主干分支代码了，请每周至少同步一次，执行：gitm update (-f)',
+	'Enter the items to be configured': '请输入要配置的项',
 	'Query single or all gitmars for configuration items': '查询单个或全部gitmars的配置项',
 	'A conflict has been detected in the merge branch and you need to run git add . Do you want to force the script to continue?':
 		'检测到有未提交的文件，在合并分支的过程遇到冲突，需要在处理冲突后执行一下 git add . 和 git commit ,然后再执行 gitm continue。是否要强制继续执行脚本？',
@@ -192,25 +194,25 @@ export default {
 	'The local version is not behind the remote, you can push it directly':
 		'本地版本没有落后远程，可直接push',
 	'Set configuration items for gitmars': '设置gitmars的配置项',
-	'Please enter the available names': '请输入可用名称',
-	'Please enter the Git username': '请输入Git用户名',
-	'Please enter the Git email address': '请输入Git邮箱',
-	'Please enter the correct email': '请输入正确的邮箱',
-	'Please enter the branch name naming convention': '请输入分支名称命名规则',
-	'Please enter commit message rules': '请输入commit信息规则',
-	'Please enter the message template': '请输入消息模板',
-	'Please enter the message push address': '请输入消息推送地址',
-	'Please enter the URL': '请输入网址',
-	'Please enter apollo configuration': '请输入apollo配置',
-	'Please enter json': '请输入json',
-	'Please enter hooks configuration': '请输入hooks配置',
-	'Please enter the query user permission interface': '请输入查询用户权限接口',
-	'Please enter the git URL': '请输入git网址',
-	'Please enter the git project ID, currently only gitlab is supported':
+	'Enter the available names': '请输入可用名称',
+	'Enter the Git username': '请输入Git用户名',
+	'Enter the Git email address': '请输入Git邮箱',
+	'Enter the correct email': '请输入正确的邮箱',
+	'Enter the branch name naming convention': '请输入分支名称命名规则',
+	'Enter commit message rules': '请输入commit信息规则',
+	'Enter the message template': '请输入消息模板',
+	'Enter the message push address': '请输入消息推送地址',
+	'Enter the URL': '请输入网址',
+	'Enter apollo configuration': '请输入apollo配置',
+	'Enter json': '请输入json',
+	'Enter hooks configuration': '请输入hooks配置',
+	'Enter the query user permission interface': '请输入查询用户权限接口',
+	'Enter the git URL': '请输入git网址',
+	'Enter the git project ID, currently only gitlab is supported':
 		'请输入git项目ID，目前仅支持gitlab',
 	'gitmars configured successfully': 'gitmars配置成功',
 	'Installing plugins, e.g. @gitmars/core': '安装插件，例如：@gitmars/core',
-	'Please enter the plugin name': '请输入插件名称',
+	'Enter the plugin name': '请输入插件名称',
 	'Incorrect version number entered, only supported: alpha, lite, beta, release, latest, next':
 		'输入的版本号不正确，仅支持：alpha、lite、beta、release、latest、next',
 	'Link local package': '链接本地包',
@@ -294,6 +296,8 @@ export default {
 	'New path': '新路径',
 	'Environment to be built, optionally dev, prod, bug, all':
 		'需要构建的环境，可选dev、prod、bug、all',
+	'Api environment to be built, optionally alpha, tag, release, production':
+		'需要构建的API环境，可选alpha、tag、release、production',
 	'Application to be built': '需要构建的应用',
 	'Clean gitmars cache': '清理gitmars缓存',
 	exited: '已退出',
@@ -354,8 +358,6 @@ export default {
 	'{nickname} submitted a merge request for {source} branch to {target} branch in {app} project':
 		'{nickname}在{app}项目提交了{source}分支合并到{target}分支的merge请求',
 	'${message}; project: ${project}; path: ${pwd}': '${message}；项目：${project}；路径：${pwd}',
-	'There are a total of {length} staging records under this item, please clean it up regularly!':
-		'该项目下一共有{length}条暂存记录，请定期清理！',
 	'Deleting: {something}': '正在删除：{something}',
 	'Deleted successfully: {something}': '删除成功：{something}',
 	'Start analysis: {something}': '开始分析：{something}',
@@ -365,14 +367,11 @@ export default {
 	'Current branch: {something}': '当前分支：{something}',
 	'Processing failed, {name} soft link does not exist, please go to the local {name} root directory and execute: gitm link':
 		'处理失败，{name}软链不存在，请进入本地{name}根目录执行：gitm link',
-	'Processing: {something}': '正在处理：{something}',
 	'File write error occurred': '文件写入错误',
 	'Cleanup is complete': '清理完毕',
 	'{id}: total {total} files changed': '{id}：一共变动了{total}个文件',
 	'Find {total} branches merged over {branches} branch, please select the branch to clean up':
 		'找到{total}条分支合并过{branches}分支，请选择要清理的分支',
-	'If you find multiple branches with names containing {type}, please enter the branch type':
-		'查询到多条名称包含{type}的分支，请输入分支类型',
 	'If your branch has not been merged into {target}, please merge it into the {target} branch first':
 		'检测到你的分支没有合并过{target}，请先合并到{target}分支',
 	'There are {length} staging records under this branch, and the most recent one is restored by default':
@@ -382,7 +381,7 @@ export default {
 	'Current branch is {current}, I suspect you may want to do the following: ':
 		'当前分支{current}，我猜测你可能想做以下操作：',
 	'You have selected the {something} command': '你选择了{something}指令',
-	'Please enter {branch} branch name': '请输入{branch}分支名称',
+	'Enter {branch} branch name': '请输入{branch}分支名称',
 	'The branch was created successfully and is based on {source}. You have now switched to the {target} branch\nIf you need to test, please run: "{combine}"\nWhen development is complete, remember to run: "{end}"':
 		'分支创建成功，该分支基于{source}创建，您当前已经切换到{target}分支\n如果需要提测，请执行："{combine}"\n开发完成后，记得执行: "{end}"',
 	'The {target} branch does not allow direct commits': '{target}分支不允许直接提交',
@@ -399,8 +398,8 @@ export default {
 		'检测到{id}这条记录撤销失败，已删除相关日志',
 	'The record {id} was detected to have been recovered, and the related logs were deleted':
 		'检测到{id}这条记录已经被恢复了，已删除相关日志',
-	'Please enter the comment content': '请输入评论内容',
-	'Please enter the available comments': '请输入可用评论',
+	'Enter the comment content': '请输入评论内容',
+	'Enter the available comments': '请输入可用评论',
 	'{length} comments': '{length} 条评论',
 	'{id} request merge {source} to {target} {disabled} | {name} | {comments} | {time}':
 		'{id} 请求合并 {source} 到 {target} {disabled} | {name} | {comments} | {time}',
@@ -423,5 +422,20 @@ export default {
 		'本次进程不会自动执行构建流程，请等待管理员审核代码后执行：gitm build {appName} -e prod -a {app} {data}',
 	'Push to templates only': '仅推送到模板',
 	'Use the {base} branch for posting on Thursday, Friday, and Sunday':
-		'周四周五周日发版使用{base}分支，请确认'
+		'周四周五周日发版使用{base}分支，请确认',
+	'Select the environment to build': '选择要构建的环境',
+	'Test environment(alpha)': '测试环境(alpha)',
+	'Pre-release tag environment(bug)': '预发布tag环境(bug)',
+	'Pre-release prod environment(prod)': '预发布prod环境(prod)',
+	'Production environment': '生产环境',
+	'Select the api environment to build': '选择要构建的API环境',
+	'Select the miniprogram to build': '选择小程序类型',
+	'Enter the miniprogram to build': '输入小程序类型',
+	'Enter the application to build': '输入要构建子应用名称',
+	'Select the application to build': '选择要构建的子应用',
+	'Generate experiential version of miniprogram': '生成体验版小程序',
+	'Enter the version description': '输入版本描述',
+	'Select branch for batch processing': '选择分支进行批处理',
+	'No pending branches, program exits': '没有待处理分支，程序退出',
+	'Merged branch: {info}': '已合并: {info}'
 }

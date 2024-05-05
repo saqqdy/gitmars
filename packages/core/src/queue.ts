@@ -2,19 +2,12 @@ import { createRequire } from 'node:module'
 import ora from 'ora'
 import { extend } from 'js-cool'
 import chalk from 'chalk'
-import type {
-	CommandMessageType,
-	CommandType,
-	CommandTypeCmd,
-	QueueReturnsType
-} from '../typings/core'
-import { setCommandCache } from '#lib/cache/commandCache'
-import getCommandMessage from '#lib/git/getCommandMessage'
-import { setLog } from '#lib/cache/log'
-import { postMessage } from '#lib/utils/message'
-import { spawnSync } from '#lib/spawn'
-import { debug } from '#lib/utils/debug'
-import lang from '#lib/lang'
+import { setCommandCache, setLog } from '@gitmars/cache'
+import { getCommandMessage } from '@gitmars/git'
+import { debug, spawnSync } from '@gitmars/utils'
+import { postMessage } from './message'
+import type { CommandMessageType, CommandType, CommandTypeCmd, QueueReturnsType } from './types'
+import lang from './lang'
 
 const { t } = lang
 const require = createRequire(import.meta.url)
@@ -95,7 +88,7 @@ export function queue(list: Array<CommandType | string | string[]>): Promise<Que
 					cfg.fail ||
 						msg.fail ||
 						t(
-							'An error has occurred! Command {{{command}}} execution failed, process exits',
+							'An error has occurred! Command {command} execution failed, process exits',
 							{
 								command: cmd as string
 							}
@@ -104,19 +97,14 @@ export function queue(list: Array<CommandType | string | string[]>): Promise<Que
 			)
 			cfg.postmsg &&
 				postMessage(
-					t(
-						'An error has occurred! Command {{{command}}} execution failed, process exits',
-						{
-							command: cmd as string
-						}
-					)
+					t('An error has occurred! Command {command} execution failed, process exits', {
+						command: cmd as string
+					})
 				)
 			rest.length > 0 &&
 				spinner.fail(
 					chalk.red(
-						t(
-							'Please enter gitm continue to continue after processing the issue in question'
-						)
+						t('Enter gitm continue to continue after processing the issue in question')
 					)
 				)
 			process.exit(1)
@@ -124,7 +112,7 @@ export function queue(list: Array<CommandType | string | string[]>): Promise<Que
 			const _message =
 				cfg.fail ||
 				msg.fail ||
-				t('Command {{{command}}} Execution failed', {
+				t('Command {command} Execution failed', {
 					command: cmd as string
 				})
 			_message && spinner.warn(chalk.yellow(_message))
@@ -225,7 +213,7 @@ export function queue(list: Array<CommandType | string | string[]>): Promise<Que
 				let status = 0,
 					stdout,
 					stderr,
-					_execFunction = require(cmd.module)
+					_execFunction = require(cmd.module) // await import(cmd.module)
 				if (cmd.entry) _execFunction = _execFunction[cmd.entry]
 				try {
 					spinner.start(chalk.green(cfg.processing || t('Processing')))
@@ -248,9 +236,4 @@ export function queue(list: Array<CommandType | string | string[]>): Promise<Que
 			}
 		})
 	})
-}
-
-export default {
-	wait,
-	queue
 }

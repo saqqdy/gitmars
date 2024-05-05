@@ -46,9 +46,10 @@ yarn-error.log*
 *.njsproj
 *.sln
 *.sw*
-**/cache/*
-!**/cache/.gitkeep
+**/cache/cache/*
+!**/cache/cache/.gitkeep
 stats.html
 
 #Electron-builder output
 dist_electron
+tsconfig.tsbuildinfo

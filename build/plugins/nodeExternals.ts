@@ -1,8 +1,8 @@
-import { type ExternalsOptions, externals } from 'rollup-plugin-node-externals'
+import { type ExternalsOptions, nodeExternals } from 'rollup-plugin-node-externals'
 import type { Plugin } from 'rollup'
 
 export default (options: ExternalsOptions = {}): Plugin =>
-	externals(
+	nodeExternals(
 		Object.assign(
 			{
 				exclude: []

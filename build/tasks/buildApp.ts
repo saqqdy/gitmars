@@ -7,7 +7,7 @@ import { packages } from '../packages'
 
 export async function buildApp() {
 	const builds = packages
-		.filter(({ buildTask }) => buildTask.includes('app'))
+		.filter(({ buildTask }) => buildTask && buildTask.includes('app'))
 		.map(async ({ name }) => {
 			await runSpawnSync(`pnpm build`, resolve(PACKAGE, name))
 		})

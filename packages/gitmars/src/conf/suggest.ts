@@ -1,5 +1,5 @@
-import type { GitmarsOptionType } from '../../typings/gitmars'
-// import lang from '#lib/common/local'
+import type { GitmarsOptionType } from '../types'
+// import lang from '../common/local'
 // const t = (txt: string) => txt
 
 export const cmdConfig: GitmarsOptionType = {

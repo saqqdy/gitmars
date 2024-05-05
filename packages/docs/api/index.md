@@ -16,9 +16,9 @@ sidebarDepth: 2
 
 <div class="table-prop">
 
-| 参数    | 说明     | 类型     | 可选值                                                                                                                                                                                                                      | 必填 | 默认 |
-| ------- | -------- | -------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---- | ---- |
-| command | 指令名称 | `String` | combine、end、update、build、start、undo、redo、suggest、approve、review、admin.publish、admin.update、admin.create、admin.clean、admin.approve、branch、copy、get、save、cleanbranch、clean、revert、link、unlink、postmsg | 否   | -    |
+| 参数    | 说明     | 类型     | 可选值                                                                                                                                                                                                                                | 必填 | 默认 |
+| ------- | -------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---- | ---- |
+| command | 指令名称 | `String` | combine、end、update、build、build-mp、start、undo、redo、suggest、approve、review、admin.publish、admin.update、admin.create、admin.clean、admin.approve、branch、copy、get、save、cleanbranch、clean、revert、link、unlink、postmsg | 否   | -    |
 
 </div>
 
@@ -158,6 +158,7 @@ gitm start bugfix 1001 --tag 20211010
 
 > v2.11.0 新增`--description`传参
 > v5.3.0 增加data传值，支持传入额外的参数
+> v7.0.0 开始支持批量合并
 
 bugfix 分支和 feature 分支需要提交到 dev 或者预发布环境时使用 combine 指令来自动执行合并
 
@@ -244,12 +245,20 @@ gitm cb -pd --no-bugfix
 gitm combine -b --data '{"app_id":"xxxxxx"}'
 ```
 
+7. 批量选择feature分支进行合并
+
+```shell
+# 输入指令并按提示选择要合并的分支
+gitm cb feature -d
+```
+
 ### gitm end
 
 #### 短指令：gitm ed
 
 > v2.9.6 版本开始，`end`指令智能判断是否需要合并代码，不传`--no-combine`时，不需要合并的时候不会发起合并操作<br/>
 > v2.11.0 新增`--description`传参
+> v7.0.0 开始支持批量结束分支
 
 任务完成，合并并删除分支，这个操作会把 20001 这个分支代码合并到 bug 分支并删除 20001 分支(远程的 20001 分支也会同步删除)
 
@@ -297,6 +306,13 @@ gitm ed
 gitm end --no-combine
 # 以feature方式合并
 gitm end --as-feature
+```
+
+3. 批量选择feature分支进行清理
+
+```shell
+# 输入指令并按提示选择要清理的分支
+gitm end feature
 ```
 
 ### gitm update
@@ -456,17 +472,18 @@ gitm cp xxxxxx
 
 > v5.3.0 增加data传值，支持传入额外的参数<br/>
 > v6.2.0 新增--confirm 参数
+> v7.0.0 版本调整为支持选择参数的形式，`project`参数取消必填限制
 
 该指令用于发起 Jenkins 构建，project 必传，app 名称可传入 all
 
-- 使用：`gitm build <project> [-e --env [env]] [-a --app [app]] [-d --data <data>] [-c --confirm]`
+- 使用：`gitm build [project] [-e --env [env]] [-a --app [app]] [-d --data <data>] [-c --confirm]`
 - 参数：
 
 <div class="table-prop">
 
-| 参数    | 说明           | 类型     | 可选值 | 必填 | 默认 |
-| ------- | -------------- | -------- | ------ | ---- | ---- |
-| project | 需要构建的项目 | `String` | -      | 是   | -    |
+| 参数    | 说明                                          | 类型     | 可选值 | 必填 | 默认 |
+| ------- | --------------------------------------------- | -------- | ------ | ---- | ---- |
+| project | 需要构建的项目，不传时，取git地址上的项目名称 | `String` | -      | 否   | -    |
 
 </div>
 
@@ -476,8 +493,8 @@ gitm cp xxxxxx
 
 | 名称      | 简写 | 说明                               | 类型      | 可选值       | 传值必填 | 默认    |
 | --------- | ---- | ---------------------------------- | --------- | ------------ | -------- | ------- |
-| --env     | -e   | 要构建的环境                       | `String`  | dev/prod/bug | 是       | -       |
-| --app     | -a   | 需要构建的子项目                   | `String`  | -            | 否       | `all`   |
+| --env     | -e   | 要构建的环境                       | `String`  | dev/prod/bug | 否       | -       |
+| --app     | -a   | 需要构建的子项目                   | `String`  | -            | 否       | -       |
 | --data    | -d   | 需要传输的其他数据，传入JSON字符串 | `String`  | -            | 否       | '{}'    |
 | --confirm | -c   | 确认开始，为 true 时不显示确认框   | `Boolean` | -            | 否       | `false` |
 
@@ -489,6 +506,61 @@ gitm cp xxxxxx
 
 ```shell
 gitm build gitmars --env dev --app app
+```
+
+2. 自选参数形式
+
+```shell
+gitm build
+```
+
+### gitm build-mp
+
+#### 短指令：gitm bdm
+
+> v7.0.0 版本新增
+
+该指令用于发起 Jenkins 构建小程序
+
+- 使用：`gitm build-mp [project] [-e --env [env]] [--api-env [apiEnv]] [-mp --miniprogram [miniprogram]] [-des --description [description]] [-a --app [app]] [-d --data <data>] [-c --confirm]`
+- 参数：
+
+<div class="table-prop">
+
+| 参数    | 说明                                          | 类型     | 可选值 | 必填 | 默认 |
+| ------- | --------------------------------------------- | -------- | ------ | ---- | ---- |
+| project | 需要构建的项目，不传时，取git地址上的项目名称 | `String` | -      | 否   | -    |
+
+</div>
+
+- 传值：
+
+<div class="table-option">
+
+| 名称          | 简写 | 说明                               | 类型      | 可选值                       | 传值必填 | 默认    |
+| ------------- | ---- | ---------------------------------- | --------- | ---------------------------- | -------- | ------- |
+| --env         | -e   | 要构建的环境                       | `String`  | dev/prod/bug                 | 否       | -       |
+| --api-env     |      | 要构建的API环境                    | `String`  | alpha/tag/release/production | 否       | -       |
+| --miniprogram | -mp  | 生成体验版小程序                   | `String`  | -                            | 否       | -       |
+| --description | -des | 版本描述                           | `String`  | -                            | 否       | -       |
+| --app         | -a   | 需要构建的子项目                   | `String`  | weapp/alipay/tt/dd/swan      | 否       | -       |
+| --data        | -d   | 需要传输的其他数据，传入JSON字符串 | `String`  | -                            | 否       | '{}'    |
+| --confirm     | -c   | 确认开始，为 true 时不显示确认框   | `Boolean` | -                            | 否       | `false` |
+
+</div>
+
+- 示例：
+
+1. 构建 gitmars 的 app 应用
+
+```shell
+gitm build-mp gitmars --env dev --app weapp
+```
+
+2. 自选参数形式
+
+```shell
+gitm build-mp
 ```
 
 ### gitm branch

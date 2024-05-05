@@ -3,27 +3,27 @@ import { createRequire } from 'node:module'
 import { Command } from 'commander'
 import chalk from 'chalk'
 import { getType } from 'js-cool'
-import getUserInfo from '@gitmars/core/lib/api/getUserInfo'
-import { queue } from '@gitmars/core/lib/queue'
-import getIsBranchOrCommitExist from '@gitmars/core/lib/git/getIsBranchOrCommitExist'
-import getIsGitProject from '@gitmars/core/lib/git/getIsGitProject'
-import getCurrentBranch from '@gitmars/core/lib/git/getCurrentBranch'
-import getGitConfig from '@gitmars/core/lib/git/getGitConfig'
-import getIsMergedTargetBranch from '@gitmars/core/lib/git/getIsMergedTargetBranch'
-import checkGitStatus from '@gitmars/core/lib/git/checkGitStatus'
-import fetch from '@gitmars/core/lib/git/fetch'
-import { createArgs } from '@gitmars/core/lib/utils/command'
-import { spawnSync } from '@gitmars/core/lib/spawn'
-import echo from '@gitmars/core/lib/utils/echo'
-import getConfig from '@gitmars/core/lib/getConfig'
+import { getUserInfo } from '@gitmars/api'
+import { createArgs, echo, spawnSync } from '@gitmars/utils'
+import { queue } from '@gitmars/core'
+import {
+	checkGitStatus,
+	fetch,
+	getConfig,
+	getCurrentBranch,
+	getGitConfig,
+	getIsBranchOrCommitExist,
+	getIsGitProject,
+	getIsMergedTargetBranch
+} from '@gitmars/git'
 import type {
 	CommandType,
 	FetchDataType,
 	GitmarsMainBranchType,
 	GitmarsOptionOptionsType
-} from '../typings/gitmars'
-import lang from '#lib/common/local'
-import adminConfig from '#lib/conf/admin'
+} from './types'
+import lang from './common/local'
+import adminConfig from './conf/admin'
 
 const { t } = lang
 const require = createRequire(import.meta.url)
@@ -37,7 +37,8 @@ if (!getIsGitProject()) {
 const { appName } = getGitConfig()
 const config = getConfig()
 const userInfoApi = config.apis?.userInfo?.url || config.api
-const mergeRequestModule = require.resolve('@gitmars/core/lib/api/mergeRequest')
+const mergeRequestModule = require.resolve('@gitmars/api')
+// const mergeRequestModule = import.meta.resolve('@gitmars/api')
 const { approve, clean, create, publish, update } = adminConfig
 interface GitmBuildOption {
 	publish: {
@@ -161,9 +162,9 @@ publishProgram.action(
 			// Verify the description for this commit
 			const reg =
 				getType(config.descriptionValidator) === 'regexp'
-					? config.descriptionValidator
+					? (config.descriptionValidator as RegExp)
 					: new RegExp(config.descriptionValidator)
-			isDescriptionCorrect = opt.description && reg.test(opt.description)
+			isDescriptionCorrect = Boolean(opt.description && reg.test(opt.description))
 		}
 		const isNeedCombineBugfixToRelease = !getIsMergedTargetBranch(
 			`origin/${config.bugfix}`,
@@ -933,9 +934,9 @@ updateProgram.action(
 			// Verify the description for this commit
 			const reg =
 				getType(config.descriptionValidator) === 'regexp'
-					? config.descriptionValidator
+					? (config.descriptionValidator as RegExp)
 					: new RegExp(config.descriptionValidator)
-			isDescriptionCorrect = opt.description && reg.test(opt.description)
+			isDescriptionCorrect = Boolean(opt.description && reg.test(opt.description))
 		}
 		if (opt.mode === 1) {
 			mode = ' --strategy-option ours'

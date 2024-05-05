@@ -2,20 +2,21 @@
 import { program } from 'commander'
 import sh from 'shelljs'
 import chalk from 'chalk'
-import { queue } from '@gitmars/core/lib/queue'
-import getIsGitProject from '@gitmars/core/lib/git/getIsGitProject'
-import getCurrentBranch from '@gitmars/core/lib/git/getCurrentBranch'
-import getIsMergedTargetBranch from '@gitmars/core/lib/git/getIsMergedTargetBranch'
-import checkGitStatus from '@gitmars/core/lib/git/checkGitStatus'
-import fetch from '@gitmars/core/lib/git/fetch'
-import searchBranches from '@gitmars/core/lib/git/searchBranches'
-import { createArgs } from '@gitmars/core/lib/utils/command'
-import getConfig from '@gitmars/core/lib/getConfig'
-import { isNeedUpgrade, upgradeGitmars } from '@gitmars/core/lib/versionControl'
-import type { CommandType, GitmarsOptionOptionsType } from '../typings/gitmars'
-import { defaults } from '#lib/common/global'
-import updateConfig from '#lib/conf/update'
-import lang from '#lib/common/local'
+import { isNeedUpgrade, queue, upgradeGitmars } from '@gitmars/core'
+import {
+	checkGitStatus,
+	fetch,
+	getConfig,
+	getCurrentBranch,
+	getIsGitProject,
+	getIsMergedTargetBranch,
+	searchBranches
+} from '@gitmars/git'
+import { createArgs } from '@gitmars/utils'
+import type { CommandType, GitmarsOptionOptionsType } from './types'
+import { defaults } from './common/global'
+import updateConfig from './conf/update'
+import lang from './common/local'
 
 const { t } = lang
 const { red } = chalk

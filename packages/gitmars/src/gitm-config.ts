@@ -2,13 +2,11 @@
 import { program } from 'commander'
 import sh from 'shelljs'
 import chalk from 'chalk'
-import getIsGitProject from '@gitmars/core/lib/git/getIsGitProject'
-import getGitRevParse from '@gitmars/core/lib/git/getGitRevParse'
-import { writeFile } from '@gitmars/core/lib/utils/file'
-import getConfig from '@gitmars/core/lib/getConfig'
-import type { GitmarsConfigProperty } from '@gitmars/core/typings/core'
-import lang from '#lib/common/local'
-import { defaults } from '#lib/common/global'
+import { getConfig, getGitRevParse, getIsGitProject } from '@gitmars/git'
+import { writeFile } from '@gitmars/utils'
+import type { GitmarsConfigProperty } from '@gitmars/build'
+import lang from './common/local'
+import { defaults } from './common/global'
 
 const { t } = lang
 const { green, red } = chalk
@@ -52,7 +50,7 @@ program
 				process.exit(1)
 			}
 		} else {
-			sh.echo(t('Please enter the items to be configured'))
+			sh.echo(t('Enter the items to be configured'))
 			process.exit(1)
 		}
 	})

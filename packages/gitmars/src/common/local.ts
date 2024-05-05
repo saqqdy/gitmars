@@ -1,11 +1,11 @@
 import { osLangSync } from 'os-lang'
-import { type LocaleContext, useLocale } from '@gitmars/core/lib/utils/local'
-import * as languages from '#lib/locales/index'
+import { useLocale } from '@gitmars/utils'
+import * as languages from '../locales'
 
 export type LanguageType = Exclude<keyof typeof languages, 'default'>
 
 const locales: LanguageType[] = ['enUS', 'zhCN']
-let locale = (process.env.GITMARS_LANG || osLangSync()).replace('-', '') as LanguageType
-if (!locales.includes(locale)) locale = 'enUS'
+let localeName = (process.env.GITMARS_LANG || osLangSync()).replace('-', '') as LanguageType
+if (!locales.includes(localeName)) localeName = 'enUS'
 
-export default useLocale(languages[locale]) as LocaleContext
+export default useLocale(languages[localeName])

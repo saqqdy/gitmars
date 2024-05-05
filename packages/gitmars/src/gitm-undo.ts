@@ -1,26 +1,19 @@
 #!/usr/bin/env ts-node
 import { program } from 'commander'
 import dayjs from 'dayjs'
-import inquirer from 'inquirer'
+import { checkbox } from '@inquirer/prompts'
 import sh from 'shelljs'
 import chalk from 'chalk'
-import { queue } from '@gitmars/core/lib/queue'
-import getIsGitProject from '@gitmars/core/lib/git/getIsGitProject'
-import getGitLogs from '@gitmars/core/lib/git/getGitLogs'
-import getGitLogsByCommitIDs from '@gitmars/core/lib/git/getGitLogsByCommitIDs'
-import getCurrentBranch from '@gitmars/core/lib/git/getCurrentBranch'
-import { createArgs } from '@gitmars/core/lib/utils/command'
-import echo from '@gitmars/core/lib/utils/echo'
-import { addRevertCache, getRevertCache, setRevertCache } from '@gitmars/core/lib/cache/revertCache'
-import type { GitLogKeysType } from '@gitmars/core/typings/core'
-import type {
-	CommandType,
-	GitLogsType,
-	GitmarsOptionOptionsType,
-	RevertCacheType
-} from '../typings/gitmars'
-import lang from '#lib/common/local'
-import undoConfig from '#lib/conf/undo'
+import to from 'await-to-done'
+import { queue } from '@gitmars/core'
+import { getCurrentBranch, getGitLogs, getGitLogsByCommitIDs, getIsGitProject } from '@gitmars/git'
+import { createArgs, echo } from '@gitmars/utils'
+import { addRevertCache, getRevertCache, setRevertCache } from '@gitmars/cache'
+import type { RevertCacheType } from '@gitmars/cache'
+import type { GitLogKeysType, GitLogsType } from '@gitmars/git'
+import type { CommandType, GitmarsOptionOptionsType } from './types'
+import lang from './common/local'
+import undoConfig from './conf/undo'
 
 const { t } = lang
 const { blue, green, red, yellow } = chalk
@@ -210,23 +203,21 @@ program.action(async (commitid: string[], opt: GitmBuildOption) => {
 			process.exit(0)
 		} else {
 			// 多条记录
-			const prompt: any = {
-				type: 'checkbox',
-				message: t('Please select the commit record to undo.'),
-				name: 'commitIDs',
-				choices: []
-			}
-			logList.forEach((log, index) => {
-				const _time = dayjs(log['%aI']).format('YYYY/MM/DD HH:mm')
-				prompt.choices.push({
-					name: `${green(index + 1 + '.')} ${green(log['%s'])} | ${yellow(
-						log['%an']
-					)} | ${blue(_time)}`,
-					value: log['%H'],
-					checked: false
+			;[, commitIDs = []] = await to(
+				checkbox<string>({
+					message: t('Please select the commit record to undo.'),
+					choices: logList.map((log, index) => {
+						const _time = dayjs(log['%aI']).format('YYYY/MM/DD HH:mm')
+						return {
+							name: `${green(index + 1 + '.')} ${green(log['%s'])} | ${yellow(
+								log['%an']
+							)} | ${blue(_time)}`,
+							value: log['%H']!,
+							checked: false
+						}
+					})
 				})
-			})
-			commitIDs = (await inquirer.prompt(prompt)).commitIDs
+			)
 		}
 	}
 	// 没有选择任何记录

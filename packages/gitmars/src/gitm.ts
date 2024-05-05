@@ -3,10 +3,9 @@ import { createRequire } from 'node:module'
 import { program } from 'commander'
 import sh from 'shelljs'
 import chalk from 'chalk'
-import { spawnSync } from '@gitmars/core/lib/spawn'
-import echo from '@gitmars/core/lib/utils/echo'
+import { echo, spawnSync } from '@gitmars/utils'
 // import { version } from '../package.json' assert { type: 'json' }
-import lang from '#lib/common/local'
+import lang from './common/local'
 
 const { t } = lang
 const require = createRequire(import.meta.url)
@@ -62,6 +61,8 @@ program
 	.alias('ug')
 	.command('build', t('buildJenkins'))
 	.alias('bd')
+	.command('build-mp', t('buildMpJenkins'))
+	.alias('bdm')
 	.command('suggest', t('Action Tips'))
 	.alias('sg')
 	.command('approve', t('Handling remote merge requests'))
@@ -129,6 +130,8 @@ program.on('command:*', function (types: string[], opts: string[]) {
 		'ug',
 		'build',
 		'bd',
+		'build-mp',
+		'bdm',
 		'suggest',
 		'sg',
 		'approve',

@@ -1,22 +1,23 @@
 #!/usr/bin/env ts-node
 import { program } from 'commander'
 import chalk from 'chalk'
-import inquirer from 'inquirer'
+import { checkbox, confirm } from '@inquirer/prompts'
 import ora from 'ora'
 import { waiting } from 'js-cool'
-import getIsGitProject from '@gitmars/core/lib/git/getIsGitProject'
-import searchBranches from '@gitmars/core/lib/git/searchBranches'
-import getCurrentBranch from '@gitmars/core/lib/git/getCurrentBranch'
-import getIsMergedTargetBranch from '@gitmars/core/lib/git/getIsMergedTargetBranch'
-import getIsBranchOrCommitExist from '@gitmars/core/lib/git/getIsBranchOrCommitExist'
-import fetch from '@gitmars/core/lib/git/fetch'
-import { createArgs } from '@gitmars/core/lib/utils/command'
-import echo from '@gitmars/core/lib/utils/echo'
-import { spawnSync } from '@gitmars/core/lib/spawn'
-import getConfig from '@gitmars/core/lib/getConfig'
-import type { GitmarsBranchType, GitmarsOptionOptionsType } from '../typings/gitmars'
-import lang from '#lib/common/local'
-import cleanbranchConfig from '#lib/conf/cleanbranch'
+import to from 'await-to-done'
+import {
+	fetch,
+	getConfig,
+	getCurrentBranch,
+	getIsBranchOrCommitExist,
+	getIsGitProject,
+	getIsMergedTargetBranch,
+	searchBranches
+} from '@gitmars/git'
+import { createArgs, echo, spawnSync } from '@gitmars/utils'
+import type { GitmarsBranchType, GitmarsOptionOptionsType } from './types'
+import lang from './common/local'
+import cleanbranchConfig from './conf/cleanbranch'
 
 const { t } = lang
 const { green, red, yellow } = chalk
@@ -144,19 +145,16 @@ program.action(async (branches: string[], opt: GitmBuildOption) => {
 	const _willDeleteBranch: string[] = []
 	if (branches.length > 0) {
 		if (!opt.list && !opt.confirm) {
-			await inquirer
-				.prompt({
-					type: 'confirm',
-					name: 'value',
+			const [, answer] = await to(
+				confirm({
 					message: t('About to start batch deleting branches, do you want to continue?'),
 					default: false
 				})
-				.then((answers: any) => {
-					if (!answers.value) {
-						echo(green(t('exited')))
-						process.exit(0)
-					}
-				})
+			)
+			if (!answer) {
+				echo(green(t('exited')))
+				process.exit(0)
+			}
 		}
 	} else {
 		echo(green(t('No branches were queried.')))
@@ -215,36 +213,31 @@ program.action(async (branches: string[], opt: GitmBuildOption) => {
 		if (_willDeleteBranch.length > 0) {
 			console.info('\r')
 			// Select the branch to clean
-			const prompt: any = {
-				type: 'checkbox',
-				message: yellow(
-					t(
-						'Find {total} branches merged over {branches} branch, please select the branch to clean up',
-						{
-							branches: targets.join(','),
-							total: String(_willDeleteBranch.length)
-						}
-					)
-				),
-				name: 'selectBranches',
-				choices: []
+			const [, selectBranches = []] = await to(
+				checkbox<string>({
+					message: yellow(
+						t(
+							'Find {total} branches merged over {branches} branch, please select the branch to clean up',
+							{
+								branches: targets.join(','),
+								total: String(_willDeleteBranch.length)
+							}
+						)
+					),
+					choices: _willDeleteBranch.map(item => ({
+						name: green(item),
+						value: item,
+						checked: true
+					}))
+				})
+			)
+			if (selectBranches.length === 0) {
+				echo(yellow(t('No branches were selected and the process has exited.')))
+				process.exit(0)
 			}
-			_willDeleteBranch.forEach(item => {
-				prompt.choices.push({
-					name: green(item),
-					value: item,
-					checked: true
-				})
-			})
-			inquirer.prompt(prompt as any).then(({ selectBranches }: any) => {
-				if (selectBranches.length === 0) {
-					echo(yellow(t('No branches were selected and the process has exited.')))
-					process.exit(0)
-				}
-				selectBranches.forEach(async (branch: string) => {
-					// start deleting branch
-					await clean(branch)
-				})
+			selectBranches.forEach(async (branch: string) => {
+				// start deleting branch
+				await clean(branch)
 			})
 		} else {
 			echo(green(t('Analysis complete, no branches to clean up')))

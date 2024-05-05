@@ -3,10 +3,10 @@ import sh from 'shelljs'
 import chalk from 'chalk'
 import semverDiff from 'semver-diff'
 // import { version } from '../package.json' assert { type: 'json' }
-import type { VersionControlType } from '../typings/core'
-import { getPkgInfo } from '#lib/utils/pkgInfo'
-import { debug } from '#lib/utils/debug'
-import lang from '#lib/lang'
+import { getPkgInfo } from '@gitmars/cache'
+import { debug } from '@gitmars/utils'
+import type { VersionControlType } from './types'
+import lang from './lang'
 
 const { t } = lang
 const require = createRequire(import.meta.url)
@@ -20,8 +20,21 @@ const { version } = require('../package.json')
  */
 export async function isNeedUpgrade(type?: VersionControlType): Promise<boolean> {
 	type ??= 'minor'
-	const { 'dist-tags': tags, versions } = await getPkgInfo()
-	debug('tags-versions', tags, versions)
+	const { 'dist-tags': tags } = await getPkgInfo()
+	let tagVersion = tags.latest,
+		isPreVer = false
+
+	if (version.includes('alpha')) {
+		tagVersion = tags.alpha
+		isPreVer = true
+	} else if (version.includes('beta')) {
+		tagVersion = tags.beta
+		isPreVer = true
+	} else if (version.includes('rc')) {
+		tagVersion = tags.rc
+		isPreVer = true
+	}
+	debug('tags-versions', tags, tagVersion)
 	// let compareVers = []
 	// if (version.indexOf('1.') === 0) {
 	//     // compareVers = versions.filter(
@@ -37,7 +50,9 @@ export async function isNeedUpgrade(type?: VersionControlType): Promise<boolean>
 	//     return parseFloat(tags.lite) > parseFloat(version)
 	// }
 	const semver = semverDiff(version, tags.latest)
+	const semverTag = semverDiff(version, tagVersion)
 	if (!type || !semver) return false
+	else if (isPreVer && semverTag) return true
 	return (
 		(type === 'patch' &&
 			['prerelease', 'major', 'premajor', 'minor', 'preminor', 'patch', 'prepatch'].includes(
@@ -62,9 +77,4 @@ export function upgradeGitmars() {
 			)
 	)
 	process.exit(1)
-}
-
-export default {
-	isNeedUpgrade,
-	upgradeGitmars
 }
