@@ -33,7 +33,7 @@
 		"cosmiconfig": "^9.0.0",
 		"os-lang": "^3.2.0",
 		"shelljs": "^0.8.5",
-		"slash": "^3.0.0"
+		"slash": "^5.1.0"
 	},
 	"devDependencies": {
 		"@eslint-sets/eslint-config-ts": "^5.13.0",
