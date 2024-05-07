@@ -45,11 +45,14 @@ program.action(async (project: string, opt: GitmBuildOption): Promise<void> => {
 
 	if (!project) {
 		if (getIsGitProject()) project = getGitConfig().appName
-		else
-			project = await input({
-				message: t('Enter project name'),
-				transformer: val => val.trim()
-			})
+		else {
+			;[, project = ''] = await to(
+				input({
+					message: t('Enter project name'),
+					transformer: val => val.trim()
+				}).then(val => val.trim())
+			)
+		}
 	}
 
 	if (!env) {
@@ -85,7 +88,7 @@ program.action(async (project: string, opt: GitmBuildOption): Promise<void> => {
 				input({
 					message: t('Enter the application to build'),
 					transformer: val => val.trim()
-				})
+				}).then(val => val.trim())
 			)
 		} else if (projectOption?.apps) {
 			;[, app] = await to(

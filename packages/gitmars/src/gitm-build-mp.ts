@@ -56,11 +56,14 @@ program.action(async (project: string, opt: GitmBuildMpOption): Promise<void> =>
 
 	if (!project) {
 		if (getIsGitProject()) project = getGitConfig().appName
-		else
-			project = await input({
-				message: t('Enter project name'),
-				transformer: val => val.trim()
-			})
+		else {
+			;[, project = ''] = await to(
+				input({
+					message: t('Enter project name'),
+					transformer: val => val.trim()
+				}).then(val => val.trim())
+			)
+		}
 	}
 
 	if (!env) {
@@ -96,7 +99,7 @@ program.action(async (project: string, opt: GitmBuildMpOption): Promise<void> =>
 				input({
 					message: t('Enter the application to build'),
 					transformer: val => val.trim()
-				})
+				}).then(val => val.trim())
 			)
 		} else if (projectOption?.apps) {
 			;[, app] = await to(
@@ -147,7 +150,7 @@ program.action(async (project: string, opt: GitmBuildMpOption): Promise<void> =>
 			input({
 				message: t('Generate experiential version of miniprogram'),
 				transformer: val => val.trim()
-			})
+			}).then(val => val.trim())
 		)
 	}
 	if (!description) {
@@ -155,7 +158,7 @@ program.action(async (project: string, opt: GitmBuildMpOption): Promise<void> =>
 			input({
 				message: t('Enter the version description'),
 				transformer: val => val.trim()
-			})
+			}).then(val => val.trim())
 		)
 	}
 

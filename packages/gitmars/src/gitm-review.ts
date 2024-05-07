@@ -203,7 +203,7 @@ program.action(async (opt: GitmBuildOption): Promise<void> => {
 					default: '',
 					transformer: val => val.trim(),
 					validate: val => (!val ? t('Enter the available comments') : true)
-				})
+				}).then(val => val.trim())
 			)
 			!opt.quiet &&
 				sendGroupMessage(
