@@ -1,7 +1,7 @@
 {
 	"name": "@gitmars/monorepo",
 	"description": "这是一个git工作流工具",
-	"version": "7.0.0-beta.26",
+	"version": "7.0.0-beta.27",
 	"packageManager": "pnpm@9.0.6",
 	"main": "index.js",
 	"files": [
@@ -131,6 +131,18 @@
 			}
 		}
 	},
+	"workspaces": [
+		"packages/utils",
+		"packages/git",
+		"packages/hook",
+		"packages/cache",
+		"packages/go",
+		"packages/api",
+		"packages/build",
+		"packages/core",
+		"packages/gitmars",
+		"packages/docs"
+	],
 	"keywords": [
 		"gitmars",
 		"git",
