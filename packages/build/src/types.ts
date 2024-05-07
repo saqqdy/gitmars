@@ -62,6 +62,7 @@ export interface ApolloConfigProjectType {
 	project: string
 	token?: string
 	apps?: string[]
+	miniprogram?: string[]
 }
 
 export interface ApolloConfigBranchType {

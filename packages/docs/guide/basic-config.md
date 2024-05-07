@@ -169,7 +169,8 @@ apollo 构建项目配置参考
       {
         "name": "project2",
         "project": "git_project2",
-        "apps": ["all", "admin", "client"]
+        "apps": ["all", "admin", "client"],
+        "miniprogram": [{ "id": "id", "name": "小程序" }]
       }
     ]
   },
@@ -184,7 +185,8 @@ apollo 构建项目配置参考
       {
         "name": "project2",
         "project": "egg_project2_bug",
-        "apps": ["all", "admin", "client"]
+        "apps": ["all", "admin", "client"],
+        "miniprogram": [{ "id": "id", "name": "小程序" }]
       }
     ]
   },
@@ -199,7 +201,8 @@ apollo 构建项目配置参考
       {
         "name": "project2",
         "project": "git_project2_prod",
-        "apps": ["all", "admin", "client"]
+        "apps": ["all", "admin", "client"],
+        "miniprogram": [{ "id": "id", "name": "小程序" }]
       }
     ]
   }

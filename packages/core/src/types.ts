@@ -8,30 +8,6 @@ export type GitmarsBranchType = 'feature' | 'bugfix' | 'support'
 
 export type VersionControlType = 'patch' | 'minor' | 'major' | false
 
-export type ApolloBranchList = 'dev' | 'bug' | 'prod'
-
-export interface ApolloConfigProjectType {
-	name: string
-	project: string
-	apps?: string[]
-}
-
-export interface ApolloConfigBranchType {
-	line: string
-	token: string
-	list: ApolloConfigProjectType[]
-}
-
-export type ApolloConfigType = {
-	[props in ApolloBranchList]: ApolloConfigBranchType
-} & {
-	username: string
-	password: string
-	template: string // 不带参数
-	templateWithParam: string // 带参数
-	gitNotificationGroupUrl?: string | string[] // 推送群消息的api
-}
-
 export interface ModuleCommandType {
 	module: string
 	entry?: string

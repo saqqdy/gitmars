@@ -146,12 +146,21 @@ program.action(async (project: string, opt: GitmBuildMpOption): Promise<void> =>
 	}
 
 	if (!mini_program) {
-		;[, mini_program] = await to(
-			input({
-				message: t('Generate experiential version of miniprogram'),
-				transformer: val => val.trim()
-			}).then(val => val.trim())
-		)
+		if (!buildConfig) {
+			;[, mini_program] = await to(
+				input({
+					message: t('Generate experiential version of miniprogram'),
+					transformer: val => val.trim()
+				}).then(val => val.trim())
+			)
+		} else if (projectOption?.miniprogram) {
+			;[, mini_program] = await to(
+				select<string>({
+					message: t('Select the application to build'),
+					choices: projectOption.miniprogram
+				})
+			)
+		}
 	}
 	if (!description) {
 		;[, description] = await to(
