@@ -11,7 +11,7 @@ const { t } = lang
 const { green, red } = chalk
 const { args, options } = upgradeConfig
 
-interface GitmBuildOption {
+interface GitmUpgradeOption {
 	mirror?: boolean
 	client?: 'npm' | 'yarn' | 'pnpm' | 'cnpm' | string
 	registry?: string
@@ -31,7 +31,7 @@ options.forEach((o: GitmarsOptionOptionsType) => {
 // .option('-m, --mirror', t('Whether to use Taobao Mirror'), false)
 // .option('-c, --client [client]', t('The name of the client used to load the package'), 'npm')
 // .option('-r, --registry <registry]>', t('Use mirror address'), '')
-program.action(async (version: PackageVersionTag | string, opt: GitmBuildOption) => {
+program.action(async (version: PackageVersionTag | string, opt: GitmUpgradeOption) => {
 	const spinner = ora()
 	if (version) {
 		const match = version.match(/[0-9.]+$/)

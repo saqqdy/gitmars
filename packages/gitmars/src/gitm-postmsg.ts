@@ -9,7 +9,7 @@ import postmsgConfig from './conf/postmsg'
 const { t } = lang
 const { args, options } = postmsgConfig
 
-interface GitmBuildOption {
+interface GitmPostmsgOption {
 	url?: string
 }
 
@@ -25,7 +25,7 @@ options.forEach((o: GitmarsOptionOptionsType) => {
 	program.option(o.flags, o.description, o.defaultValue)
 })
 // .option('-u, --url [url]', t('The api address of the push message'), '')
-program.action((message: string, opt: GitmBuildOption) => {
+program.action((message: string, opt: GitmPostmsgOption) => {
 	sendGroupMessage(message, opt.url || '')
 })
 program.parse(process.argv)

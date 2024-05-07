@@ -39,7 +39,7 @@ const { appName } = getGitConfig()
 const mergeRequestModule = require.resolve('@gitmars/api')
 // const mergeRequestModule = import.meta.resolve('@gitmars/api')
 
-interface GitmBuildOption {
+interface GitmEndOption {
 	combine?: boolean
 	asFeature?: boolean
 	description?: string
@@ -74,7 +74,7 @@ options.forEach((o: GitmarsOptionOptionsType) => {
 // .option('--no-combine', t('Do not merge trunk branches (make sure the branch is live)'))
 // .option('--as-feature', t('bug branch merge to release'))
 // .option('--description [description]', t('Description of the reason for this commit'), '')
-program.action(async (type: string, name: string, opt: GitmBuildOption): Promise<void> => {
+program.action(async (type: string, name: string, opt: GitmEndOption): Promise<void> => {
 	const userInfoApi = config.apis?.userInfo?.url || config.api
 	// Detecting if it is necessary to upgrade
 	const needUpgrade = await isNeedUpgrade(config.versionControlType)

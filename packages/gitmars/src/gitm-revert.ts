@@ -18,7 +18,7 @@ if (!getIsGitProject()) {
 	process.exit(1)
 }
 
-interface GitmBuildOption {
+interface GitmRevertOption {
 	number?: number
 	mode?: 1 | 2 | ''
 }
@@ -37,7 +37,7 @@ options.forEach((o: GitmarsOptionOptionsType) => {
 // .arguments('[commitid]')
 // .option('-n, --number [number]', t('Undo the last commit (or undo the penultimate nth commit)'), '')
 // .option('-m, --mode [mode]', t('For undoing a merge record, the type to be passed in: 1 = keep current branch code, 2 = keep incoming code'), '')
-program.action((commitid: string, opt: GitmBuildOption) => {
+program.action((commitid: string, opt: GitmRevertOption) => {
 	const cmd: Array<CommandType | string | string[]> = []
 	let n = 'HEAD',
 		m = ''

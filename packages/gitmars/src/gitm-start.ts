@@ -21,7 +21,7 @@ if (!getIsGitProject()) {
 
 const config = getConfig()
 
-interface GitmBuildOption {
+interface GitmStartOption {
 	tag?: boolean
 }
 
@@ -41,7 +41,7 @@ options.forEach((o: GitmarsOptionOptionsType) => {
 	program.option(o.flags, o.description, o.defaultValue)
 })
 // .option('-t, --tag <tag>', t('Create branch from tag'), '')
-program.action(async (type: string, name: string, opt: GitmBuildOption) => {
+program.action(async (type: string, name: string, opt: GitmStartOption) => {
 	// 检测是否需要升级版本
 	const needUpgrade = await isNeedUpgrade(config.versionControlType)
 	needUpgrade && upgradeGitmars()

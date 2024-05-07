@@ -29,7 +29,7 @@ if (!getIsGitProject()) {
 
 const config = getConfig()
 
-interface GitmBuildOption {
+interface GitmUpdateOption {
 	useMerge?: boolean
 	useRebase?: boolean
 	all?: boolean
@@ -55,7 +55,7 @@ options.forEach((o: GitmarsOptionOptionsType) => {
 // .option('--use-rebase', t('Whether to use rebase method update, default method is merge'), false)
 // .option('-a --all', t('Update all local bugfix, feature, support branches'), false)
 // .option('-f, --force', t('Whether to force a merge request'), false)
-program.action(async (type: string | string[], name: string, opt: GitmBuildOption) => {
+program.action(async (type: string | string[], name: string, opt: GitmUpdateOption) => {
 	// Checking if a version upgrade is needed
 	const needUpgrade = await isNeedUpgrade(config.versionControlType)
 	needUpgrade && upgradeGitmars()

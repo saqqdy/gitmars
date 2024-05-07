@@ -31,7 +31,7 @@ if (!getIsGitProject()) {
 	process.exit(1)
 }
 
-interface GitmBuildOption {
+interface GitmCopyOption {
 	merges: boolean
 	lastet: string
 	limit: number
@@ -55,7 +55,7 @@ options.forEach((o: GitmarsOptionOptionsType) => {
 // .option('--no-merges', t('Whether to exclude merge's log'), false)
 // .option('--lastet [lastet]', t('Query logs after a certain time, fill in the format: 10s/2m/2h/3d/4M/5y'), '')
 // .option('--limit [limit]', t('The maximum number of logs to be queried'))
-program.action(async (commitid: string[], opts: GitmBuildOption) => {
+program.action(async (commitid: string[], opts: GitmCopyOption) => {
 	const keys: GitLogKeysType[] = ['%H', '%T', '%P', '%aI', '%an', '%s', '%b']
 	const current = getCurrentBranch()
 	const status = checkGitStatus()

@@ -31,7 +31,7 @@ if (!getIsGitProject()) {
 
 const { appName } = getGitConfig()
 
-interface GitmBuildOption {
+interface GitmReviewOption {
 	state: 'all' | 'opened' | 'closed' | 'merged'
 	quiet: boolean
 }
@@ -49,7 +49,7 @@ options.forEach((o: GitmarsOptionOptionsType) => {
 })
 // .option('--state [state]', t('Filter merge request status, there are 2 types: opened, closed, not passed then default all'), null)
 // .option('--quiet', t('Do not push the message'), false)
-program.action(async (opt: GitmBuildOption): Promise<void> => {
+program.action(async (opt: GitmReviewOption): Promise<void> => {
 	const mrList = await getMergeRequestList({ state: opt.state })
 	// 没有任何记录
 	if (mrList.length === 0) {

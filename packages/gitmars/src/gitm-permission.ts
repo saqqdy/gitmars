@@ -10,7 +10,7 @@ const { t } = lang
 const { red } = chalk
 const config = getConfig()
 
-interface GitmBuildOption {
+interface GitmPermissionOption {
 	noVerify?: boolean
 	dev?: boolean
 	release?: boolean
@@ -27,7 +27,7 @@ program
 	.option('--no-verify', t('Do you want to skip the check permission'), false)
 	.option('--dev', t('Whether to restrict dev commits'), false)
 	.option('--release', t('Whether to restrict release commits'), false)
-	.action((message: string, opt: GitmBuildOption) => {
+	.action((message: string, opt: GitmPermissionOption) => {
 		console.info('gitm permission is running')
 		const current = getCurrentBranch()
 		const allow = [config.master]
