@@ -14,7 +14,7 @@ export const PACKAGE = join(ROOT, 'packages')
 
 const REGISTRY_URL = 'https://registry.npmjs.org'
 const jsonMap: Record<string, any> = {}
-let command = `npm --registry=${REGISTRY_URL} publish --workspaces --access public`
+let command = `pnpm --registry=${REGISTRY_URL} publish -r --access public`
 if (IS_DRY_RUN) command += ' --dry-run'
 
 if (version.includes('rc')) command += ' --tag release'
