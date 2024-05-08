@@ -33,7 +33,7 @@ program
 	.usage(
 		'[project] [-e --env [env]] [--api-env [apiEnv]] [-mp --miniprogram [miniprogram]] [-des --description [description]] [-a --app [app]] [-d --data <data>] [-c --confirm]'
 	)
-	.description(t('buildMpJenkins'))
+	.description(t('Launching a jenkins build task of miniprogram'))
 if (args.length > 0) program.arguments(createArgs(args))
 options.forEach((o: GitmarsOptionOptionsType) => {
 	program.option(o.flags, o.description, o.defaultValue)

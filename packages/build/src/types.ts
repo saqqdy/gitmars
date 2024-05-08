@@ -57,12 +57,17 @@ export type GitmarsConfigProperty = keyof GitmarsConfigType
 
 export type ApolloBranchList = 'dev' | 'bug' | 'prod'
 
+export interface ApolloConfigProjectMiniprogram {
+	value: string
+	name: string
+}
+
 export interface ApolloConfigProjectType {
 	name: string
 	project: string
 	token?: string
 	apps?: string[]
-	miniprogram?: string[]
+	miniprogram?: ApolloConfigProjectMiniprogram[]
 }
 
 export interface ApolloConfigBranchType {
@@ -76,6 +81,9 @@ export type ApolloConfigType = {
 } & {
 	username: string
 	password: string
+	miniprogramDomain?: string
+	miniprogramToken?: string
+	miniprogramSession?: string
 	template: string // 不带参数
 	templateWithParam: string // 带参数
 	gitNotificationGroupUrl?: string | string[] // 推送群消息的api

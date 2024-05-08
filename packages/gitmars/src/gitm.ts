@@ -59,10 +59,12 @@ program
 	.alias('rt')
 	.command('upgrade', t('Upgrade gitmars'))
 	.alias('ug')
-	.command('build', t('buildJenkins'))
+	.command('build', t('Launching a jenkins build task'))
 	.alias('bd')
-	.command('build-mp', t('buildMpJenkins'))
+	.command('build-mp', t('Launching a jenkins build task of miniprogram'))
 	.alias('bdm')
+	.command('miniprogram', t('miniprogram command'))
+	.alias('mp')
 	.command('suggest', t('Action Tips'))
 	.alias('sg')
 	.command('approve', t('Handling remote merge requests'))
@@ -132,6 +134,8 @@ program.on('command:*', function (types: string[], opts: string[]) {
 		'bd',
 		'build-mp',
 		'bdm',
+		'miniprogram',
+		'mp',
 		'suggest',
 		'sg',
 		'approve',

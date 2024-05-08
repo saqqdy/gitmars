@@ -154,6 +154,9 @@ apollo 构建项目配置参考
 {
   "username": "jenkins_username",
   "password": "jenkins_password",
+  "miniprogramDomain": "miniprogram domain",
+  "miniprogramToken": "miniprogram token",
+  "miniprogramSession": "sessionID",
   "template": "http://www.jenkins.com/view/${line}/job/${project}/build?token=${token}", // 不带参数
   "templateWithParam": "http://www.jenkins.com/view/${line}/job/${project}/buildWithParameters?token=${token}&build_app=${app}", // 带参数
   "gitNotificationGroupUrl": "https://www.dingding.com/robot/webhook/send?type=0&token=xxxxxxxx", // 推送群消息的api

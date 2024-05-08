@@ -8,6 +8,7 @@ import { useLocale } from './local'
 import stringify from './stringify'
 import { decodeUnicode, encodeUnicode } from './unicode'
 import { spawn, spawnSync } from './spawn'
+import { generateQrcodeImage, printQrcode, readQrcode } from './qrcode'
 
 export { type GitmarsCacheFileDescriptionType } from './file'
 export type { LocaleContext, Translator, TranslatorOption } from './local'
@@ -33,5 +34,8 @@ export default {
 	encodeUnicode,
 	decodeUnicode,
 	spawn,
-	spawnSync
+	spawnSync,
+	readQrcode,
+	printQrcode,
+	generateQrcodeImage
 }

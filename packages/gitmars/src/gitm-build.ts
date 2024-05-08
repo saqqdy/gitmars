@@ -28,7 +28,7 @@ interface GitmBuildOption {
 program
 	.name('gitm build')
 	.usage('[project] [-e --env [env]] [-a --app [app]] [-d --data <data>] [-c --confirm]')
-	.description(t('buildJenkins'))
+	.description(t('Launching a jenkins build task'))
 if (args.length > 0) program.arguments(createArgs(args))
 options.forEach((o: GitmarsOptionOptionsType) => {
 	program.option(o.flags, o.description, o.defaultValue)

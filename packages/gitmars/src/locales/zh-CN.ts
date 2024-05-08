@@ -258,7 +258,8 @@ export default {
 	'Continue unfinished operations': '继续未完成的操作',
 	'Undo commit': '撤销提交',
 	'Upgrade gitmars': '升级gitmars',
-	buildJenkins: '构建Jenkins',
+	'Launching a jenkins build task': '发起Jenkins构建任务',
+	'Launching a jenkins build task of miniprogram': '发起Jenkins构建小程序任务',
 	'Action Tips': '操作建议',
 	'Handling remote merge requests': '处理远程合并请求',
 	'review remote code': 'review远程代码',
@@ -438,5 +439,7 @@ export default {
 	'Select the miniprogram to generate experiential version': '选择小程序生成体验版',
 	'Select branch for batch processing': '选择分支进行批处理',
 	'No pending branches, program exits': '没有待处理分支，程序退出',
-	'Merged branch: {info}': '已合并: {info}'
+	'Merged branch: {info}': '已合并: {info}',
+	'miniprogram command': '小程序指令',
+	'Name of miniprogram': '小程序名称'
 }
