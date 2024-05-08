@@ -156,7 +156,7 @@ program.action(async (project: string, opt: GitmBuildMpOption): Promise<void> =>
 		} else if (projectOption?.miniprogram) {
 			;[, mini_program] = await to(
 				select<string>({
-					message: t('Select the application to build'),
+					message: t('Select the miniprogram to generate experiential version'),
 					choices: projectOption.miniprogram
 				})
 			)

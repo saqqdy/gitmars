@@ -435,6 +435,7 @@ export default {
 	'Select the application to build': '选择要构建的子应用',
 	'Generate experiential version of miniprogram': '生成体验版小程序',
 	'Enter the version description': '输入版本描述',
+	'Select the miniprogram to generate experiential version': '选择小程序生成体验版',
 	'Select branch for batch processing': '选择分支进行批处理',
 	'No pending branches, program exits': '没有待处理分支，程序退出',
 	'Merged branch: {info}': '已合并: {info}'
