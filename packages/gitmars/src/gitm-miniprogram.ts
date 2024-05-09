@@ -5,11 +5,13 @@ import { Separator, confirm, input, select } from '@inquirer/prompts'
 import chalk from 'chalk'
 import dayjs from 'dayjs'
 import to from 'await-to-done'
+import { base64ToArrayBuffer } from 'js-cool'
 import { createArgs, printQrcode, readQrcode } from '@gitmars/utils'
 import {
 	bindTester,
 	getAuditStatus,
 	getAuthorizerListWithAllDetail,
+	getClientsConfig,
 	getPreAuthQrCode,
 	getTrialQrCode,
 	unbindTester,
@@ -42,6 +44,7 @@ program.action(async (miniprogram: string, opt: GitmMiniprogramOption): Promise<
 		// get auth qrcode
 		const authUrl = await getPreAuthQrCode()
 		await printQrcode(authUrl)
+		process.exit(0)
 	} else if (!miniprogram) {
 		const [, list = []] = await to(
 			getAuthorizerListWithAllDetail({ limit: 500 }).then(({ list }) => {
@@ -104,7 +107,13 @@ program.action(async (miniprogram: string, opt: GitmMiniprogramOption): Promise<
 		const [, data] = await to(getAuditStatus(miniprogram))
 		if (data) {
 			const colorList = ['bgGreen', 'bgRed', 'bgBlack', 'bgBlack', 'bgYellow'] as const
-			const tag = ['审核成功', '审核被拒绝', '审核中', '已撤回', '审核延后'][data.status]
+			const tag = [
+				t('Audit Successful'),
+				t('Audit Rejected'),
+				t('Audit in Progress'),
+				t('Withdrawn'),
+				t('Audit Delayed')
+			][data.status]
 			let txt = chalk[colorList[data.status]](tag)
 			if ([1, 4].includes(data.status) && data.reason) txt += ': ' + data.reason
 			if (data.time) txt += '\n' + dayjs(data.time).format('YYYY-MM-DD HH:mm')
@@ -125,13 +134,10 @@ program.action(async (miniprogram: string, opt: GitmMiniprogramOption): Promise<
 		//
 	} else if (action === 'trial_qrcode') {
 		const [, path = ''] = await to(
-			input({
-				message: t('Enter path of miniprogram'),
-				transformer: val => val.trim()
-			}).then(val => val.trim())
+			getClientsConfig(miniprogram).then(({ config }) => JSON.parse(config).path)
 		)
 		const [, codeImage = ''] = await to(getTrialQrCode({ path, authorizer_appid: miniprogram }))
-		printQrcode(await readQrcode(codeImage))
+		printQrcode(await readQrcode(base64ToArrayBuffer(codeImage)))
 	} else if (action === 'bind_tester') {
 		const [, wechatid = ''] = await to(
 			input({

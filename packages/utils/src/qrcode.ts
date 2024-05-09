@@ -10,7 +10,7 @@ const { t } = lang
  *
  * @param imagePath - image path
  */
-export async function readQrcode(imagePath: string): Promise<string> {
+export async function readQrcode(imagePath: any): Promise<string> {
 	return new Promise((resolve, reject) => {
 		Jimp.read(imagePath, function (err, image) {
 			if (err) {
