@@ -441,5 +441,18 @@ export default {
 	'No pending branches, program exits': '没有待处理分支，程序退出',
 	'Merged branch: {info}': '已合并: {info}',
 	'miniprogram command': '小程序指令',
-	'Name of miniprogram': '小程序名称'
+	'Name of miniprogram': '小程序名称',
+	Audit: '审核',
+	Common: '常规',
+	'Audit Status': '审核状态',
+	'Undo Audit': '撤回审核',
+	'Trial Qrcode': '体验二维码',
+	'Bind Tester': '绑定体验者',
+	'Unbind Tester': '解绑体验者',
+	'Name of miniprogram, used for fuzzy searches': '小程序名称，用于模糊搜索',
+	'Enter path of miniprogram': '输入小程序路径',
+	'Confirm undo audit': '是否确认撤回审核',
+	'Enter wechat account': '输入微信号',
+	'Implementation success': '执行成功',
+	'Enter wechat userstr': '输入微信号ID'
 }

@@ -5,7 +5,8 @@ const URL_PREFIX = '/api/component/weixin/mpManage'
 
 export interface GetAuditStatus extends WeiXinComponentCommonResult {
 	status: number
-	time: number
+	time?: number
+	reason?: string
 }
 /**
  * 获取代码审核状态
@@ -44,7 +45,7 @@ export function getTrialQrCode<T extends GetTrialQrCodeOptions>(options: T) {
 }
 
 /**
- * 获取体验二维码
+ * 撤回审核
  *
  * @param authorizer_appid - authorizer appid
  * @returns data

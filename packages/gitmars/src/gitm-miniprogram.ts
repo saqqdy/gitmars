@@ -1,58 +1,54 @@
 #!/usr/bin/env ts-node
 import { program } from 'commander'
-// import sh from 'shelljs'
-import { confirm, input, select } from '@inquirer/prompts'
-// import chalk from 'chalk'
+import sh from 'shelljs'
+import { Separator, confirm, input, select } from '@inquirer/prompts'
+import chalk from 'chalk'
+import dayjs from 'dayjs'
 import to from 'await-to-done'
-import { createArgs, printQrcode } from '@gitmars/utils'
-import { getAuthorizerListWithAllDetail, getPreAuthQrCode } from '@gitmars/api'
-// import { getGitConfig, getIsGitProject } from '@gitmars/git'
-// import { getBuildConfig, getProjectOption, runJenkins } from '@gitmars/build'
-// import type { ApolloBranchList } from '@gitmars/build'
+import { createArgs, printQrcode, readQrcode } from '@gitmars/utils'
+import {
+	bindTester,
+	getAuditStatus,
+	getAuthorizerListWithAllDetail,
+	getPreAuthQrCode,
+	getTrialQrCode,
+	unbindTester,
+	undoAudit
+} from '@gitmars/api'
 import type { GitmarsOptionOptionsType } from './types'
 import lang from './common/local'
 import miniprogramConfig from './conf/miniprogram'
 
 const { t } = lang
-// const { red, yellow } = chalk
 const { args, options } = miniprogramConfig
 
 interface GitmMiniprogramOption {
-	// env?: ApolloBranchList
-	// app?: string
-	// data?: string
-	// confirm?: boolean
-	// build_api_env?: 'alpha' | 'tag' | 'release' | 'production'
-	// miniprogram?: string
-	// description?: string
+	keyword?: string
 }
 /**
  * gitm miniprogram
  */
 program
 	.name('gitm miniprogram')
-	.usage(
-		'[miniprogram] [-e --env [env]] [--api-env [apiEnv]] [-mp --miniprogram [miniprogram]] [-des --description [description]] [-a --app [app]] [-d --data <data>] [-c --confirm]'
-	)
+	.usage('[miniprogram] [-k --keyword [keyword]]')
 	.description(t('miniprogram command'))
 if (args.length > 0) program.arguments(createArgs(args))
 options.forEach((o: GitmarsOptionOptionsType) => {
 	program.option(o.flags, o.description, o.defaultValue)
 })
-// .option('-e, --env [env]', t('Environment to be built, optionally dev, prod, bug, all'), '')
-// .option('--api-env [apiEnv]', t('Api environment to be built, optionally alpha, tag, release, production'), '')
-// .option('-mp, --miniprogram [miniprogram]', t('Generate experiential version of miniprogram'), '')
-// .option('-des, --description [description]', t('Enter the version description'), '')
-// .option('-a, --app [app]', t('Application to be built'), '')
-// .option('-d, --data <data>', t('Other data to be transferred'), '{}')
-// .option('-c, --confirm', t('Confirm start, do not show confirmation box when true'), false)
+// .option('-k, --keyword [keyword]', t('Name of miniprogram, used for fuzzy searches'), '')
 program.action(async (miniprogram: string, opt: GitmMiniprogramOption): Promise<void> => {
 	if (miniprogram === 'auth') {
 		// get auth qrcode
 		const authUrl = await getPreAuthQrCode()
 		await printQrcode(authUrl)
 	} else if (!miniprogram) {
-		const { list } = await getAuthorizerListWithAllDetail({ limit: -1 })
+		const [, list = []] = await to(
+			getAuthorizerListWithAllDetail({ limit: 500 }).then(({ list }) => {
+				if (!opt.keyword) return list
+				return list.filter(item => item.authorizer_info.nick_name.includes(opt.keyword!))
+			})
+		)
 		;[, miniprogram = ''] = await to(
 			select<string>({
 				message: t('Select the application to build'),
@@ -64,7 +60,101 @@ program.action(async (miniprogram: string, opt: GitmMiniprogramOption): Promise<
 		)
 	}
 
-	console.log(1001, miniprogram, opt)
+	if (!miniprogram) process.exit(0)
+
+	const [, action = ''] = await to(
+		select<string>({
+			message: t('Please select the operation you want?'),
+			choices: [
+				new Separator(' === 1. ' + t('Audit') + ' === '),
+				{
+					name: t('Audit Status'),
+					value: 'audit_status'
+				},
+				{
+					name: t('Undo Audit'),
+					value: 'undo_audit'
+				},
+				{
+					name: t('Submit Audit'),
+					value: 'submit_audit',
+					disabled: true
+				},
+				new Separator(' === 2. ' + t('Common') + ' === '),
+				{
+					name: t('Trial Qrcode'),
+					value: 'trial_qrcode'
+				},
+				{
+					name: t('Bind Tester'),
+					value: 'bind_tester'
+				},
+				{
+					name: t('Unbind Tester'),
+					value: 'unbind_tester'
+				},
+				new Separator(' === ' + t('Exit') + ' === '),
+				{ name: 'exit', value: 'exit' },
+				new Separator()
+			]
+		})
+	)
+
+	if (action === 'audit_status') {
+		const [, data] = await to(getAuditStatus(miniprogram))
+		if (data) {
+			const colorList = ['bgGreen', 'bgRed', 'bgBlack', 'bgBlack', 'bgYellow'] as const
+			const tag = ['审核成功', '审核被拒绝', '审核中', '已撤回', '审核延后'][data.status]
+			let txt = chalk[colorList[data.status]](tag)
+			if ([1, 4].includes(data.status) && data.reason) txt += ': ' + data.reason
+			if (data.time) txt += '\n' + dayjs(data.time).format('YYYY-MM-DD HH:mm')
+			sh.echo(txt)
+		}
+	} else if (action === 'undo_audit') {
+		const [, answer] = await to(
+			confirm({
+				message: t('Confirm undo audit'),
+				default: false
+			})
+		)
+		if (answer) {
+			await undoAudit(miniprogram)
+			sh.echo(chalk.green(t('Implementation success')))
+		}
+	} else if (action === 'submit_audit') {
+		//
+	} else if (action === 'trial_qrcode') {
+		const [, path = ''] = await to(
+			input({
+				message: t('Enter path of miniprogram'),
+				transformer: val => val.trim()
+			}).then(val => val.trim())
+		)
+		const [, codeImage = ''] = await to(getTrialQrCode({ path, authorizer_appid: miniprogram }))
+		printQrcode(await readQrcode(codeImage))
+	} else if (action === 'bind_tester') {
+		const [, wechatid = ''] = await to(
+			input({
+				message: t('Enter wechat account'),
+				transformer: val => val.trim()
+			}).then(val => val.trim())
+		)
+		if (wechatid) {
+			await bindTester({ wechatid, authorizer_appid: miniprogram })
+			sh.echo(chalk.green(t('Implementation success')))
+		}
+	} else if (action === 'unbind_tester') {
+		const [, userstr = ''] = await to(
+			input({
+				message: t('Enter wechat userstr'),
+				transformer: val => val.trim()
+			}).then(val => val.trim())
+		)
+		if (userstr) {
+			await unbindTester({ userstr, authorizer_appid: miniprogram })
+			sh.echo(chalk.green(t('Implementation success')))
+		}
+	}
 })
 program.parse(process.argv)
 export {}

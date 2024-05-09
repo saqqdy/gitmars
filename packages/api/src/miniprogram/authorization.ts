@@ -41,7 +41,7 @@ export interface GetAuthorizerListWithAllDetail {
 	total: number
 	list: GetAuthorizerListWithAllDetailItem[]
 	current: number
-	limit: number
+	limit: number // max is 500
 }
 /**
  * getAuthorizerListWithAllDetail

@@ -571,14 +571,14 @@ gitm build-mp
 
 该指令用于操作定制化小程序
 
-- 使用：`gitm miniprogram`
+- 使用：`gitm miniprogram [miniprogram] [-k --keyword [keyword]]`
 - 参数：
 
 <div class="table-prop">
 
-| 参数    | 说明                                          | 类型     | 可选值 | 必填 | 默认 |
-| ------- | --------------------------------------------- | -------- | ------ | ---- | ---- |
-| project | 需要构建的项目，不传时，取git地址上的项目名称 | `String` | -      | 否   | -    |
+| 参数        | 说明                                | 类型     | 可选值 | 必填               | 默认 |
+| ----------- | ----------------------------------- | -------- | ------ | ------------------ | ---- |
+| miniprogram | 小程序AppID，或者输入auth获取授权码 | `String` | -      | `auth` \| `String` | -    |
 
 </div>
 
@@ -586,30 +586,34 @@ gitm build-mp
 
 <div class="table-option">
 
-| 名称          | 简写 | 说明                               | 类型      | 可选值                       | 传值必填 | 默认    |
-| ------------- | ---- | ---------------------------------- | --------- | ---------------------------- | -------- | ------- |
-| --env         | -e   | 要构建的环境                       | `String`  | dev/prod/bug                 | 否       | -       |
-| --api-env     |      | 要构建的API环境                    | `String`  | alpha/tag/release/production | 否       | -       |
-| --miniprogram | -mp  | 生成体验版小程序                   | `String`  | -                            | 否       | -       |
-| --description | -des | 版本描述                           | `String`  | -                            | 否       | -       |
-| --app         | -a   | 需要构建的子项目                   | `String`  | weapp/alipay/tt/dd/swan      | 否       | -       |
-| --data        | -d   | 需要传输的其他数据，传入JSON字符串 | `String`  | -                            | 否       | '{}'    |
-| --confirm     | -c   | 确认开始，为 true 时不显示确认框   | `Boolean` | -                            | 否       | `false` |
+| 名称      | 简写 | 说明                     | 类型     | 可选值 | 传值必填 | 默认 |
+| --------- | ---- | ------------------------ | -------- | ------ | -------- | ---- |
+| --keyword | -k   | 小程序名称，用于模糊搜索 | `String` | -      | 否       | -    |
 
 </div>
 
 - 示例：
 
-1. 构建 gitmars 的 app 应用
+1. 获取授权码
 
 ```shell
-gitm miniprogram gitmars --env dev --app weapp
+gitm miniprogram auth
+# or
+gitm mp
 ```
 
-2. 自选参数形式
+2. 选择小程序进行操作
 
 ```shell
 gitm miniprogram
+# or
+gitm miniprogram --keyword 测试
+```
+
+2. 输入小程序AppID进行操作
+
+```shell
+gitm miniprogram xxxxxx
 ```
 
 ### gitm branch
