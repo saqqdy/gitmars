@@ -1,7 +1,7 @@
 {
 	"name": "@gitmars/go",
 	"description": "gitmars go",
-	"version": "7.0.0-beta.33",
+	"version": "7.0.0",
 	"private": false,
 	"main": "./dist/index.cjs.js",
 	"module": "./dist/index.esm-bundler.js",
@@ -35,7 +35,7 @@
 	"devDependencies": {
 		"@eslint-sets/eslint-config-ts": "^5.13.0",
 		"@types/inquirer": "^9.0.7",
-		"@types/node": "^20.12.7",
+		"@types/node": "^20.12.11",
 		"cross-env": "^7.0.3",
 		"eslint": "^8.57.0",
 		"madge": "^7.0.0",

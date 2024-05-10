@@ -1,7 +1,7 @@
 {
 	"name": "@gitmars/utils",
 	"description": "gitmars utils",
-	"version": "7.0.0-beta.33",
+	"version": "7.0.0",
 	"private": false,
 	"main": "./dist/index.cjs.js",
 	"module": "./dist/index.esm-bundler.js",
@@ -43,7 +43,7 @@
 		"@eslint-sets/eslint-config-ts": "^5.13.0",
 		"@types/cross-spawn": "^6.0.6",
 		"@types/debug": "^4.1.12",
-		"@types/node": "^20.12.7",
+		"@types/node": "^20.12.11",
 		"@types/qrcode": "^1.5.5",
 		"@types/shelljs": "^0.8.15",
 		"cross-env": "^7.0.3",
