@@ -183,7 +183,7 @@ export default {
 	'Recovery failed, please check for conflicts': '恢复失败，请检查冲突',
 	'The command you entered was not found and may not be supported at this time':
 		'您输入的指令没有找到，可能暂不支持',
-	'Please select the operation you want?': '请选择你想要的操作?',
+	'Select the operation you want?': '请选择你想要的操作?',
 	'Gitmars Workflow': 'Gitmars工作流',
 	'Advanced Tools': '高级工具',
 	'Detects that you are modifying code directly in the master branch':
@@ -446,6 +446,7 @@ export default {
 	Common: '常规',
 	'Audit Status': '审核状态',
 	'Undo Audit': '撤回审核',
+	'Submit Audit': '提交审核',
 	'Trial Qrcode': '体验二维码',
 	'Bind Tester': '绑定体验者',
 	'Unbind Tester': '解绑体验者',
@@ -455,8 +456,10 @@ export default {
 	'Audit in Progress': '审核中',
 	Withdrawn: '已撤回',
 	'Audit Delayed': '审核延后',
+	'Select miniprogram': '选择小程序',
 	'Confirm undo audit': '是否确认撤回审核',
 	'Enter wechat account': '输入微信号',
 	'Implementation success': '执行成功',
-	'Enter wechat userstr': '输入微信号ID'
+	'Select wechat account': '选择微信账号',
+	'Confirm unbind wechat account': '是否确认解绑体验者'
 }

@@ -13,6 +13,7 @@ import {
 	getAuthorizerListWithAllDetail,
 	getClientsConfig,
 	getPreAuthQrCode,
+	getTester,
 	getTrialQrCode,
 	unbindTester,
 	undoAudit
@@ -54,7 +55,7 @@ program.action(async (miniprogram: string, opt: GitmMiniprogramOption): Promise<
 		)
 		;[, miniprogram = ''] = await to(
 			select<string>({
-				message: t('Select the application to build'),
+				message: t('Select miniprogram'),
 				choices: list.map(({ authorizer_info: info, authorizer_appid }) => ({
 					name: info.nick_name,
 					value: authorizer_appid
@@ -67,7 +68,7 @@ program.action(async (miniprogram: string, opt: GitmMiniprogramOption): Promise<
 
 	const [, action = ''] = await to(
 		select<string>({
-			message: t('Please select the operation you want?'),
+			message: t('Select the operation you want?'),
 			choices: [
 				new Separator(' === 1. ' + t('Audit') + ' === '),
 				{
@@ -150,15 +151,27 @@ program.action(async (miniprogram: string, opt: GitmMiniprogramOption): Promise<
 			sh.echo(chalk.green(t('Implementation success')))
 		}
 	} else if (action === 'unbind_tester') {
+		const [, list = []] = await to(getTester(miniprogram))
 		const [, userstr = ''] = await to(
-			input({
-				message: t('Enter wechat userstr'),
-				transformer: val => val.trim()
-			}).then(val => val.trim())
+			select<string>({
+				message: t('Select wechat account'),
+				choices: list.map(({ userstr }) => ({
+					name: userstr,
+					value: userstr
+				}))
+			})
 		)
 		if (userstr) {
-			await unbindTester({ userstr, authorizer_appid: miniprogram })
-			sh.echo(chalk.green(t('Implementation success')))
+			const [, answer] = await to(
+				confirm({
+					message: t('Confirm unbind wechat account'),
+					default: false
+				})
+			)
+			if (answer) {
+				await unbindTester({ userstr, authorizer_appid: miniprogram })
+				sh.echo(chalk.green(t('Implementation success')))
+			}
 		}
 	}
 })
