@@ -90,6 +90,7 @@
 		"prepatch",
 		"promisify",
 		"pty",
+		"Qrcode",
 		"readdir",
 		"readme",
 		"readonly",

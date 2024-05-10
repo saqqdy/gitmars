@@ -1,7 +1,7 @@
 {
 	"name": "@gitmars/api",
 	"description": "gitmars api",
-	"version": "7.0.0-beta.24",
+	"version": "7.0.0",
 	"private": false,
 	"main": "./dist/index.cjs.js",
 	"module": "./dist/index.esm-bundler.js",
@@ -27,6 +27,7 @@
 		"src": "src"
 	},
 	"dependencies": {
+		"@gitmars/build": "workspace:*",
 		"@gitmars/core": "workspace:*",
 		"@gitmars/git": "workspace:*",
 		"@gitmars/utils": "workspace:*",
@@ -37,7 +38,7 @@
 	},
 	"devDependencies": {
 		"@eslint-sets/eslint-config-ts": "^5.13.0",
-		"@types/node": "^20.12.7",
+		"@types/node": "^20.12.11",
 		"@types/shelljs": "^0.8.15",
 		"cross-env": "^7.0.3",
 		"eslint": "^8.57.0",

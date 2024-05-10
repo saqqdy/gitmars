@@ -21,7 +21,7 @@ if (!getIsGitProject()) {
 	process.exit(1)
 }
 
-interface GitmBuildOption {
+interface GitmContinueOption {
 	list?: boolean
 }
 
@@ -34,7 +34,7 @@ options.forEach((o: GitmarsOptionOptionsType) => {
 	program.option(o.flags, o.description, o.defaultValue)
 })
 // .option('-l, --list', t('Show command queue'), false)
-program.action(async (opt: GitmBuildOption) => {
+program.action(async (opt: GitmContinueOption) => {
 	const sum = getGitStatus()
 	const cmd: Array<CommandType | string | string[]> = getCommandCache()
 	if (opt.list) {

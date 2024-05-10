@@ -10,6 +10,7 @@ import redoConfig from '../conf/redo'
 import branchConfig from '../conf/branch'
 import buildConfig from '../conf/build'
 import buildMpConfig from '../conf/build-mp'
+import miniprogramConfig from '../conf/miniprogram'
 import startConfig from '../conf/start'
 import copyConfig from '../conf/copy'
 import getConfig from '../conf/get'
@@ -144,6 +145,14 @@ export const buildMp = async () => {
 	const config = cleanConfigSet(buildMpConfig)
 	const command = 'build-mp ' + (await getCommand(config))
 	debug('build-mp', command)
+	spawnSync('gitm', command.split(' '), { stdio: 'inherit' })
+}
+
+// miniprogram command
+export const miniprogram = async () => {
+	const config = cleanConfigSet(miniprogramConfig)
+	const command = 'miniprogram ' + (await getCommand(config))
+	debug('miniprogram', command)
 	spawnSync('gitm', command.split(' '), { stdio: 'inherit' })
 }
 

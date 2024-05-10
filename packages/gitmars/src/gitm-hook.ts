@@ -28,7 +28,7 @@ if (!getIsGitProject()) {
 }
 
 const config = getConfig()
-interface GitmBuildOption {
+interface GitmHookOption {
 	noVerify: boolean
 	lastet: string
 	limit?: number
@@ -58,7 +58,7 @@ options.forEach((o: GitmarsOptionOptionsType) => {
 // .option('--limit [limit]', t('The maximum number of logs to be queried'))
 // .option('-t, --type <type>', t('Detection type'))
 // .option('--branch [branch]', t('Branch to query'))
-program.action(async (command: string, args: string[], opt: GitmBuildOption): Promise<void> => {
+program.action(async (command: string, args: string[], opt: GitmHookOption): Promise<void> => {
 	// 不检测直接返回
 	if (opt.noVerify) {
 		process.exit(0)

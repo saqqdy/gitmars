@@ -36,7 +36,7 @@ if (!getIsGitProject()) {
 const mergeRequestModule = require.resolve('@gitmars/api')
 // const mergeRequestModule = import.meta.resolve('@gitmars/api')
 
-interface GitmBuildOption {
+interface GitmCombineOption {
 	dev?: boolean
 	prod?: boolean
 	build?: boolean | string
@@ -88,7 +88,7 @@ options.forEach((o: GitmarsOptionOptionsType) => {
 // .option('--as-feature', t('bug branch merge to release'))
 // .option('-f, --force', t('Whether to force a merge request'), false)
 // .option('--data <data>', t('Other data to be transferred'), '{}')
-program.action(async (type: string, name: string, opt: GitmBuildOption): Promise<void> => {
+program.action(async (type: string, name: string, opt: GitmCombineOption): Promise<void> => {
 	const userInfoApi = config.apis?.userInfo?.url || config.api
 	// Detecting if a version upgrade is needed
 	const needUpgrade = await isNeedUpgrade(config.versionControlType)
@@ -301,19 +301,6 @@ program.action(async (type: string, name: string, opt: GitmBuildOption): Promise
 						target: config.develop
 					})
 				})
-			if (opt.build) {
-				cmd.push({
-					cmd: `gitm build ${appName} --confirm --env dev --app ${
-						opt.build === true ? 'all' : opt.build
-					} ${opt.data ? ' --data ' + opt.data : ''}`,
-					config: {
-						stdio: 'inherit',
-						again: false,
-						success: t('Pulling up the build was successful'),
-						fail: t('Failed to pull up the build')
-					}
-				})
-			}
 		}
 		// Start merging to prod
 		if (opt.prod) {
@@ -631,50 +618,65 @@ program.action(async (type: string, name: string, opt: GitmBuildOption): Promise
 					)
 				}
 			}
+		}
+	}
+
+	if (opt.build) {
+		if (opt.dev)
+			cmd.push({
+				cmd: `gitm build ${appName} --confirm --env dev --app ${
+					opt.build === true ? 'all' : opt.build
+				} ${opt.data ? ' --data ' + opt.data : ''}`,
+				config: {
+					stdio: 'inherit',
+					again: false,
+					success: t('Pulling up the build was successful'),
+					fail: t('Failed to pull up the build')
+				}
+			})
+		else if (opt.prod) {
 			// 仅支持构建bug
-			if (opt.build) {
-				if (!level || level < 3) {
-					if (type === 'bugfix') {
-						cmd.push({
-							cmd: `gitm build ${appName} --confirm --env bug --app ${
-								opt.build === true ? 'all' : opt.build
-							} ${opt.data ? ' --data ' + opt.data : ''}`,
-							config: {
-								stdio: 'inherit',
-								again: false,
-								success: t('Pulling up the build was successful'),
-								fail: t('Failed to pull up the build')
+			if (!level || level < 3) {
+				if (type === 'bugfix') {
+					cmd.push({
+						cmd: `gitm build ${appName} --confirm --env bug --app ${
+							opt.build === true ? 'all' : opt.build
+						} ${opt.data ? ' --data ' + opt.data : ''}`,
+						config: {
+							stdio: 'inherit',
+							again: false,
+							success: t('Pulling up the build was successful'),
+							fail: t('Failed to pull up the build')
+						}
+					})
+				}
+				// support分支要构建bug和release
+				if (type === 'support' && opt.noBugfix) {
+					cmd.push({
+						cmd: `gitm build ${appName} --confirm --env bug --app ${
+							opt.build === true ? 'all' : opt.build
+						} ${opt.data ? ' --data ' + opt.data : ''}`,
+						config: {
+							stdio: 'inherit',
+							again: false,
+							success: t('Pulling up the build was successful'),
+							fail: t('Failed to pull up the build')
+						}
+					})
+				}
+			} else {
+				sh.echo(
+					yellow(
+						t(
+							'This process will not automatically execute the build process, please wait for the administrator to review the code and execute it: gitm build {appName} -e prod -a {app} {data}',
+							{
+								appName,
+								app: opt.build === true ? 'all' : opt.build,
+								data: opt.data ? ' --data ' + opt.data : ''
 							}
-						})
-					}
-					// support分支要构建bug和release
-					if (type === 'support' && opt.noBugfix) {
-						cmd.push({
-							cmd: `gitm build ${appName} --confirm --env bug --app ${
-								opt.build === true ? 'all' : opt.build
-							} ${opt.data ? ' --data ' + opt.data : ''}`,
-							config: {
-								stdio: 'inherit',
-								again: false,
-								success: t('Pulling up the build was successful'),
-								fail: t('Failed to pull up the build')
-							}
-						})
-					}
-				} else {
-					sh.echo(
-						yellow(
-							t(
-								'This process will not automatically execute the build process, please wait for the administrator to review the code and execute it: gitm build {appName} -e prod -a {app} {data}',
-								{
-									appName,
-									app: opt.build === true ? 'all' : opt.build,
-									data: opt.data ? ' --data ' + opt.data : ''
-								}
-							)
 						)
 					)
-				}
+				)
 			}
 		}
 	}

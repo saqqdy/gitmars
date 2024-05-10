@@ -24,7 +24,7 @@ if (!getIsGitProject()) {
 	process.exit(1)
 }
 
-interface GitmBuildOption {
+interface GitmUndoOption {
 	mode: 1 | 2
 	merges: boolean
 	lastet: string
@@ -80,9 +80,9 @@ function getRevertCommitIDs(commitIDs: string[]): string[] {
  * 3. 有撤销记录，但已经恢复
  *
  * @param all - 是否清理全部，默认只清理当前分支
- * @param opt - option: GitmBuildOption
+ * @param opt - option: GitmUndoOption
  */
-function calculate(all = false, opt: GitmBuildOption) {
+function calculate(all = false, opt: GitmUndoOption) {
 	const keys = ['%H', '%T', '%P', '%aI', '%an', '%s', '%b'] as GitLogKeysType[]
 	const revertCache = getRevertCache()
 	const current = getCurrentBranch()
@@ -162,7 +162,7 @@ options.forEach((o: GitmarsOptionOptionsType) => {
 // .option('-m, --mode [mode]', t('For undoing a merge record, the type to be passed in: 1 = keep current branch code, 2 = keep incoming code'), null)
 // .option('--lastet [lastet]', t('Query logs after a certain time, fill in the format: 10s/2m/2h/3d/4M/5y'), '')
 // .option('--limit [limit]', t('The maximum number of logs to be queried'))
-program.action(async (commitid: string[], opt: GitmBuildOption) => {
+program.action(async (commitid: string[], opt: GitmUndoOption) => {
 	const keys: GitLogKeysType[] = ['%H', '%T', '%P', '%aI', '%an', '%s', '%b']
 	const current = getCurrentBranch()
 	let logList: GitLogsType[] = [],

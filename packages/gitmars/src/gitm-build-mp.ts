@@ -33,7 +33,7 @@ program
 	.usage(
 		'[project] [-e --env [env]] [--api-env [apiEnv]] [-mp --miniprogram [miniprogram]] [-des --description [description]] [-a --app [app]] [-d --data <data>] [-c --confirm]'
 	)
-	.description(t('buildMpJenkins'))
+	.description(t('Launching a jenkins build task of miniprogram'))
 if (args.length > 0) program.arguments(createArgs(args))
 options.forEach((o: GitmarsOptionOptionsType) => {
 	program.option(o.flags, o.description, o.defaultValue)
@@ -56,11 +56,14 @@ program.action(async (project: string, opt: GitmBuildMpOption): Promise<void> =>
 
 	if (!project) {
 		if (getIsGitProject()) project = getGitConfig().appName
-		else
-			project = await input({
-				message: t('Enter project name'),
-				transformer: val => val.trim()
-			})
+		else {
+			;[, project = ''] = await to(
+				input({
+					message: t('Enter project name'),
+					transformer: val => val.trim()
+				}).then(val => val.trim())
+			)
+		}
 	}
 
 	if (!env) {
@@ -96,7 +99,7 @@ program.action(async (project: string, opt: GitmBuildMpOption): Promise<void> =>
 				input({
 					message: t('Enter the application to build'),
 					transformer: val => val.trim()
-				})
+				}).then(val => val.trim())
 			)
 		} else if (projectOption?.apps) {
 			;[, app] = await to(
@@ -143,19 +146,28 @@ program.action(async (project: string, opt: GitmBuildMpOption): Promise<void> =>
 	}
 
 	if (!mini_program) {
-		;[, mini_program] = await to(
-			input({
-				message: t('Generate experiential version of miniprogram'),
-				transformer: val => val.trim()
-			})
-		)
+		if (!buildConfig) {
+			;[, mini_program] = await to(
+				input({
+					message: t('Generate experiential version of miniprogram'),
+					transformer: val => val.trim()
+				}).then(val => val.trim())
+			)
+		} else if (projectOption?.miniprogram) {
+			;[, mini_program] = await to(
+				select<string>({
+					message: t('Select the miniprogram to generate experiential version'),
+					choices: projectOption.miniprogram
+				})
+			)
+		}
 	}
 	if (!description) {
 		;[, description] = await to(
 			input({
 				message: t('Enter the version description'),
 				transformer: val => val.trim()
-			})
+			}).then(val => val.trim())
 		)
 	}
 

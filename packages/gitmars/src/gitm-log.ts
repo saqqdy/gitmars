@@ -19,7 +19,7 @@ if (!getIsGitProject()) {
 	process.exit(1)
 }
 
-interface GitmBuildOption {
+interface GitmLogOption {
 	lastet?: string
 	limit?: number
 	merges?: boolean
@@ -41,7 +41,7 @@ options.forEach((o: GitmarsOptionOptionsType) => {
 // .option('--no-merges', t('Whether to exclude merge's log'))
 // .option('--limit [limit]', t('The maximum number of logs to be queried'))
 // .option('--json', t('Whether to output logs in json format, default form'), false)
-program.action(async (branch: string, opt: GitmBuildOption) => {
+program.action(async (branch: string, opt: GitmLogOption) => {
 	const logs = getGitLogs({
 		lastet: opt.lastet,
 		limit: opt.limit,

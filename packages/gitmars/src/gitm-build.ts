@@ -28,7 +28,7 @@ interface GitmBuildOption {
 program
 	.name('gitm build')
 	.usage('[project] [-e --env [env]] [-a --app [app]] [-d --data <data>] [-c --confirm]')
-	.description(t('buildJenkins'))
+	.description(t('Launching a jenkins build task'))
 if (args.length > 0) program.arguments(createArgs(args))
 options.forEach((o: GitmarsOptionOptionsType) => {
 	program.option(o.flags, o.description, o.defaultValue)
@@ -45,11 +45,14 @@ program.action(async (project: string, opt: GitmBuildOption): Promise<void> => {
 
 	if (!project) {
 		if (getIsGitProject()) project = getGitConfig().appName
-		else
-			project = await input({
-				message: t('Enter project name'),
-				transformer: val => val.trim()
-			})
+		else {
+			;[, project = ''] = await to(
+				input({
+					message: t('Enter project name'),
+					transformer: val => val.trim()
+				}).then(val => val.trim())
+			)
+		}
 	}
 
 	if (!env) {
@@ -85,7 +88,7 @@ program.action(async (project: string, opt: GitmBuildOption): Promise<void> => {
 				input({
 					message: t('Enter the application to build'),
 					transformer: val => val.trim()
-				})
+				}).then(val => val.trim())
 			)
 		} else if (projectOption?.apps) {
 			;[, app] = await to(

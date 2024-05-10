@@ -40,7 +40,7 @@ const userInfoApi = config.apis?.userInfo?.url || config.api
 const mergeRequestModule = require.resolve('@gitmars/api')
 // const mergeRequestModule = import.meta.resolve('@gitmars/api')
 const { approve, clean, create, publish, update } = adminConfig
-interface GitmBuildOption {
+interface GitmAdminOption {
 	publish: {
 		combine?: boolean
 		useRebase?: boolean
@@ -149,7 +149,7 @@ publish.options.forEach((o: GitmarsOptionOptionsType) => {
 // .option('-f, --force', t('Whether to force a merge request'), false)
 // .option('-d --data <data>', t('Other data to be transferred'), '{}')
 publishProgram.action(
-	async (type: PublishOptsType, opt: GitmBuildOption['publish']): Promise<void> => {
+	async (type: PublishOptsType, opt: GitmAdminOption['publish']): Promise<void> => {
 		const { level, nickname = '' } = userInfoApi ? await getUserInfo() : ({} as FetchDataType)
 		const opts = ['bugfix', 'release', 'support'] // Permissible commands
 		const status = checkGitStatus()
@@ -921,7 +921,7 @@ update.options.forEach((o: GitmarsOptionOptionsType) => {
 // .option('--description [description]', t('Description of the reason for this commit'), '')
 // .option('-f, --force', t('Whether to force a merge request'), false)
 updateProgram.action(
-	async (type: GitmarsMainBranchType, opt: GitmBuildOption['update']): Promise<void> => {
+	async (type: GitmarsMainBranchType, opt: GitmAdminOption['update']): Promise<void> => {
 		const { level, nickname = '' } = userInfoApi ? await getUserInfo() : ({} as FetchDataType)
 		const opts = ['bugfix', 'release', 'support'] // Permissible commands
 		const base = type === 'release' ? config.master : config.release

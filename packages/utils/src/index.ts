@@ -8,6 +8,7 @@ export { useLocale } from './local'
 export { default as stringify } from './stringify'
 export { encodeUnicode, decodeUnicode } from './unicode'
 export { spawn, spawnSync } from './spawn'
+export { generateQrcodeImage, printQrcode, readQrcode } from './qrcode'
 
 export { default } from './index.default'
 export type * from './index.default'

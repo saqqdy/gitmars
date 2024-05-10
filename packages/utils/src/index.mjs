@@ -19,7 +19,10 @@ const {
 	encodeUnicode,
 	decodeUnicode,
 	spawn,
-	spawnSync
+	spawnSync,
+	generateQrcodeImage,
+	printQrcode,
+	readQrcode
 } = index
 
 export {
@@ -42,5 +45,8 @@ export {
 	encodeUnicode,
 	decodeUnicode,
 	spawn,
-	spawnSync
+	spawnSync,
+	generateQrcodeImage,
+	printQrcode,
+	readQrcode
 }

@@ -18,7 +18,7 @@ if (!getIsGitProject()) {
 	process.exit(1)
 }
 
-interface GitmBuildOption {
+interface GitmBranchOption {
 	key?: string
 	exclude?: string
 	include?: string
@@ -54,7 +54,7 @@ options.forEach((o: GitmarsOptionOptionsType) => {
 // .option('-d, --delete [branch]', t('Delete branch'), null)
 // .option('-D, --forcedelete [branch]', t('Force branch deletion'), null)
 // .option('-u, --upstream [upstream]', t('Set association with remote branches'))
-program.action((opt: GitmBuildOption): void => {
+program.action((opt: GitmBranchOption): void => {
 	const cmd: Array<CommandType | string | string[]> = []
 	const isBranchExist = getIsBranchOrCommitExist(opt.delete)
 	if (opt.delete) {

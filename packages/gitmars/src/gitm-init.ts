@@ -44,7 +44,7 @@ program
 						default: defaults[key],
 						transformer: val => val.trim(),
 						validate: val => (/^\w+$/.test(val) ? true : t('Enter the available names'))
-					})
+					}).then(val => val.trim())
 				)
 				defaults[key] = data || defaults[key]
 			} else if (key === 'user') {
@@ -54,7 +54,7 @@ program
 						transformer: val => val.trim(),
 						validate: val =>
 							val === '' || /^\w+$/.test(val) ? true : t('Enter the available names')
-					})
+					}).then(val => val.trim())
 				)
 				defaults[key] = data || defaults[key]
 			} else if (key === 'email') {
@@ -66,7 +66,7 @@ program
 							val === '' || /^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/.test(val)
 								? true
 								: t('Enter the correct email')
-					})
+					}).then(val => val.trim())
 				)
 				defaults[key] = data || defaults[key]
 			} else if (key === 'nameValidator') {
@@ -74,7 +74,7 @@ program
 					input({
 						message: t('Enter the branch name naming convention'),
 						transformer: val => val.trim()
-					})
+					}).then(val => val.trim())
 				)
 				defaults[key] = data || defaults[key]
 			} else if (key === 'descriptionValidator') {
@@ -82,7 +82,7 @@ program
 					input({
 						message: t('Enter commit message rules'),
 						transformer: val => val.trim()
-					})
+					}).then(val => val.trim())
 				)
 				defaults[key] = data || defaults[key]
 			} else if (key === 'msgTemplate') {
@@ -91,7 +91,7 @@ program
 						message: t('Enter the message template'),
 						default: defaults[key],
 						transformer: val => val.trim()
-					})
+					}).then(val => val.trim())
 				)
 				defaults[key] = data || defaults[key]
 			} else if (key === 'apolloConfig') {
@@ -171,7 +171,7 @@ program
 						transformer: val => val.trim(),
 						validate: val =>
 							val === '' || /^https?:\/\/[\S]*$/.test(val) ? true : t('Enter the URL')
-					})
+					}).then(val => val.trim())
 				)
 				defaults[key] = data || defaults[key]
 			} else if (key === 'gitHost') {
@@ -181,7 +181,7 @@ program
 						transformer: val => val.trim(),
 						validate: val =>
 							val === '' || /^https?:\/\/[\S]*$/.test(val) ? true : t('Enter the URL')
-					})
+					}).then(val => val.trim())
 				)
 				defaults[key] = data || defaults[key]
 			} else if (key === 'gitID') {
@@ -191,7 +191,7 @@ program
 						transformer: val => val.trim(),
 						validate: val =>
 							val === '' || /^\d+$/.test(val) ? true : t('Enter the URL')
-					})
+					}).then(val => val.trim())
 				)
 				defaults[key] = data || defaults[key]
 			}

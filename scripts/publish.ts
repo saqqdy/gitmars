@@ -13,8 +13,7 @@ export const ROOT = join(__dirname, '..')
 export const PACKAGE = join(ROOT, 'packages')
 
 const REGISTRY_URL = 'https://registry.npmjs.org'
-const jsonMap: Record<string, any> = {}
-let command = `pnpm --registry=${REGISTRY_URL} publish -r --access public`
+let command = `npm --registry=${REGISTRY_URL} publish --access public`
 if (IS_DRY_RUN) command += ' --dry-run'
 
 if (version.includes('rc')) command += ' --tag release'
@@ -25,58 +24,55 @@ else if (IS_TEST) {
 	process.exit(0)
 }
 
-transformPkgJson()
-
-to(
-	promisify(exec)(command, {
-		cwd: ROOT,
-		timeout: 15000
-	})
-)
-	.then(([err]) => {
-		err && console.error(err)
-	})
-	.finally(() => transformPkgJson(true))
-
-function transformPkgJson(isFallback = false) {
-	for (const { name } of packages) {
+;(async () => {
+	for await (const { name } of packages) {
 		const dirName = name.replace(/\./g, sep)
 		const cwd = name === 'monorepo' ? ROOT : join(PACKAGE, dirName)
 		const PKG_FILE = join(cwd, 'package.json')
-		if (!isFallback) {
-			jsonMap[name] = readJSONSync(PKG_FILE)!
-			const newPkgJson = clone(jsonMap[name])
-			for (const { pkgName: pkg } of packages) {
-				if (
-					pkg in ((newPkgJson.dependencies as Record<string, unknown>) || {}) &&
-					newPkgJson.dependencies[pkg].includes('workspace')
-				) {
-					newPkgJson.dependencies[pkg] = version
-				}
-				if (
-					pkg in ((newPkgJson.devDependencies as Record<string, unknown>) || {}) &&
-					newPkgJson.devDependencies[pkg].includes('workspace')
-				) {
-					newPkgJson.devDependencies[pkg] = version
-				}
-				if (
-					pkg in ((newPkgJson.peerDependencies as Record<string, unknown>) || {}) &&
-					newPkgJson.peerDependencies[pkg].includes('workspace')
-				) {
-					newPkgJson.peerDependencies[pkg] = version
-				}
+
+		const pkgJson: Record<string, any> = readJSONSync(PKG_FILE)!
+		const newPkgJson = clone(pkgJson)
+		for (const { pkgName: pkg } of packages) {
+			if (
+				pkg in ((newPkgJson.dependencies as Record<string, unknown>) || {}) &&
+				newPkgJson.dependencies[pkg].includes('workspace')
+			) {
+				newPkgJson.dependencies[pkg] = version
 			}
-			writeJSONSync(PKG_FILE, newPkgJson, {
-				encoding: 'utf8'
-			})
-		} else {
-			writeJSONSync(PKG_FILE, jsonMap[name], {
-				encoding: 'utf8'
-			})
+			if (
+				pkg in ((newPkgJson.devDependencies as Record<string, unknown>) || {}) &&
+				newPkgJson.devDependencies[pkg].includes('workspace')
+			) {
+				newPkgJson.devDependencies[pkg] = version
+			}
+			if (
+				pkg in ((newPkgJson.peerDependencies as Record<string, unknown>) || {}) &&
+				newPkgJson.peerDependencies[pkg].includes('workspace')
+			) {
+				newPkgJson.peerDependencies[pkg] = version
+			}
 		}
-		execSync(`npx prettier --write ${PKG_FILE}`, {
-			stdio: 'inherit',
-			cwd: ROOT
+		writeJSONSync(PKG_FILE, newPkgJson, {
+			encoding: 'utf8'
 		})
+
+		to(
+			promisify(exec)(command, {
+				cwd,
+				timeout: 30000
+			})
+		)
+			.then(([err]: any) => {
+				err && console.error(err.stderr!)
+			})
+			.finally(() => {
+				writeJSONSync(PKG_FILE, pkgJson, {
+					encoding: 'utf8'
+				})
+				execSync(`npx prettier --write ${PKG_FILE}`, {
+					stdio: 'inherit',
+					cwd
+				})
+			})
 	}
-}
+})()

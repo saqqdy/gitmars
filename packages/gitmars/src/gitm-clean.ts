@@ -19,7 +19,7 @@ const { green, yellow } = chalk
 const { args, options } = cleanConfig
 const { gitDir } = getGitRevParse()
 
-interface GitmBuildOption {
+interface GitmCleanOption {
 	force?: string
 }
 
@@ -32,7 +32,7 @@ options.forEach((o: GitmarsOptionOptionsType) => {
 	program.option(o.flags, o.description, o.defaultValue)
 })
 // .option('-f, --force', t('Force cleanup'), false)
-program.action(async (opt: GitmBuildOption) => {
+program.action(async (opt: GitmCleanOption) => {
 	if (getIsGitProject()) {
 		if (opt.force) {
 			const [, answer] = await to(

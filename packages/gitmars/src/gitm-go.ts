@@ -52,7 +52,7 @@ program.action(async (command: string): Promise<void> => {
 		// 选择指令
 		const [, command = ''] = await to(
 			select<string>({
-				message: t('Please select the operation you want?'),
+				message: t('Select the operation you want?'),
 				default: 'combine',
 				choices: [
 					new Separator(' === 1. ' + t('Gitmars Workflow') + ' === '),

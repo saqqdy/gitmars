@@ -23,7 +23,7 @@ if (!getIsGitProject()) {
 	process.exit(1)
 }
 
-interface GitmBuildOption {
+interface GitmRedoOption {
 	branch?: string
 	mode?: 1 | 2
 }
@@ -41,7 +41,7 @@ options.forEach((o: GitmarsOptionOptionsType) => {
 })
 // .arguments('[commitid...]')
 // .option('-m, --mode [mode]', t('For undoing a merge record, the type to be passed in: 1 = keep current branch code, 2 = keep incoming code'), null)
-program.action(async (commitid: string[], opt: GitmBuildOption) => {
+program.action(async (commitid: string[], opt: GitmRedoOption) => {
 	const current = getCurrentBranch()
 	let revertCache: RevertCacheType[] = getRevertCache(current),
 		cmd: Array<CommandType | string | string[]> = [],

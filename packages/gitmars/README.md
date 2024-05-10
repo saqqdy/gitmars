@@ -102,6 +102,7 @@ yarn global add gitmars
 - 升级 gitmars [gitm upgrade](http://www.saqqdy.com/gitmars/api/#gitm-upgrade)
 - 构建 Jenkins [gitm build](http://www.saqqdy.com/gitmars/api/#gitm-build)
 - 构建小程序 Jenkins [gitm build-mp](http://www.saqqdy.com/gitmars/api/#gitm-build-mp)
+- 小程序指令 [gitm miniprogram](http://www.saqqdy.com/gitmars/api/#gitm-miniprogram)
 - 解除软链接 [gitm unlink](http://www.saqqdy.com/gitmars/api/#gitm-unlink)
 - 软链接 [gitm link](http://www.saqqdy.com/gitmars/api/#gitm-link)
 - 清除缓存 [gitm clean](http://www.saqqdy.com/gitmars/api/#gitm-clean)
@@ -126,9 +127,9 @@ yarn global add gitmars
 - 使用：`gitm go`
 - 参数：
 
-| 参数    | 说明     | 类型   | 可选值                                                                                                                                                                                                                                | 必填 | 默认 |
-| ------- | -------- | ------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---- | ---- |
-| command | 指令名称 | String | combine、end、update、build、build-mp、start、undo、redo、suggest、approve、review、admin.publish、admin.update、admin.create、admin.clean、admin.approve、branch、copy、get、save、cleanbranch、clean、revert、link、unlink、postmsg | 否   | -    |
+| 参数    | 说明     | 类型   | 可选值                                                                                                                                                                                                                                             | 必填 | 默认 |
+| ------- | -------- | ------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---- | ---- |
+| command | 指令名称 | String | combine、end、update、build、build-mp、miniprogram、start、undo、redo、suggest、approve、review、admin.publish、admin.update、admin.create、admin.clean、admin.approve、branch、copy、get、save、cleanbranch、clean、revert、link、unlink、postmsg | 否   | -    |
 
 - 示例：
 

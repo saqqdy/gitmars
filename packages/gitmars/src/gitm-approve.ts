@@ -31,7 +31,7 @@ if (!getIsGitProject()) {
 
 const { appName } = getGitConfig()
 const config = getConfig()
-interface GitmBuildOption {
+interface GitmApproveOption {
 	state?: 'merged' | 'opened' | 'closed' | 'all'
 	quiet: boolean
 }
@@ -49,7 +49,7 @@ options.forEach((o: GitmarsOptionOptionsType) => {
 })
 // .option('--state [state]', t('Filter merge request status, there are 2 types: opened, closed, not passed then default all'), null)
 // .option('--quiet', t('Do not push the message'), false)
-program.action(async (opt: GitmBuildOption): Promise<void> => {
+program.action(async (opt: GitmApproveOption): Promise<void> => {
 	const userInfoApi = config.apis?.userInfo?.url || config.api
 	const { level, nickname = '' } = userInfoApi ? await getUserInfo() : ({} as FetchDataType)
 	if (level && level > 3) {

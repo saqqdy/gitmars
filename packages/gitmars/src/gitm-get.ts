@@ -18,7 +18,7 @@ if (!getIsGitProject()) {
 	process.exit(1)
 }
 
-interface GitmBuildOption {
+interface GitmGetOption {
 	keep?: boolean
 }
 
@@ -34,7 +34,7 @@ options.forEach((o: GitmarsOptionOptionsType) => {
 	program.option(o.flags, o.description, o.defaultValue)
 })
 // .option('-k, --keep [keep]', t('Keep staging area not deleted'), false)
-program.action((message: string, index: string, opt: GitmBuildOption) => {
+program.action((message: string, index: string, opt: GitmGetOption) => {
 	if (!message) message = getCurrentBranch()
 	const list = getStashList(message)
 	if (list.length === 0) {

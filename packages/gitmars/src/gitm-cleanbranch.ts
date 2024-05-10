@@ -30,7 +30,7 @@ if (!getIsGitProject()) {
 
 const config = getConfig()
 
-interface GitmBuildOption {
+interface GitmCleanbranchOption {
 	list?: boolean
 	type?: GitmarsBranchType
 	target?: string
@@ -96,7 +96,7 @@ options.forEach((o: GitmarsOptionOptionsType) => {
 // .option('-c, --confirm', t('Confirm start, do not show confirmation box when true'), false)
 // .option('-s, --strictly', t('Use strict mode'), false)
 // .option('--deadline [deadline]', t('Delete branch before fixed duration, fill in format: 10s/2m/2h/3d/4M/5y'), '15d') -----------------------
-program.action(async (branches: string[], opt: GitmBuildOption) => {
+program.action(async (branches: string[], opt: GitmCleanbranchOption) => {
 	const spinner = ora()
 	spinner.color = 'green'
 	const current = getCurrentBranch()

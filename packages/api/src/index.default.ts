@@ -18,6 +18,13 @@ import {
 	getMergeRequestNotesList,
 	updateMergeRequestNotes
 } from './mergeRequestNotes'
+import {
+	getAuditStatus,
+	getAuthorizerListWithAllDetail,
+	getPreAuthQrCode,
+	getTrialQrCode,
+	submitAudit
+} from './miniprogram'
 
 export type * from './types'
 export default {
@@ -33,9 +40,16 @@ export default {
 	acceptMergeRequest,
 	updateMergeRequest,
 	deleteMergeRequest,
+	// mergeRequestNotes
 	createMergeRequestNotes,
 	deleteMergeRequestNotes,
 	getMergeRequestNotesDetail,
 	getMergeRequestNotesList,
-	updateMergeRequestNotes
+	updateMergeRequestNotes,
+	// miniprogram
+	getAuthorizerListWithAllDetail,
+	getAuditStatus,
+	getTrialQrCode,
+	submitAudit,
+	getPreAuthQrCode
 }

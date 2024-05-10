@@ -44,20 +44,20 @@ export const packages: PackageManifest[] = [
 		display: 'gitmars go'
 	},
 	{
-		name: 'api',
-		pkgName: '@gitmars/api',
-		buildTask: 'bundle',
-		iife: false,
-		browser: false,
-		display: 'gitmars api'
-	},
-	{
 		name: 'build',
 		pkgName: '@gitmars/build',
 		buildTask: 'bundle',
 		iife: false,
 		browser: false,
 		display: 'gitmars build'
+	},
+	{
+		name: 'api',
+		pkgName: '@gitmars/api',
+		buildTask: 'bundle',
+		iife: false,
+		browser: false,
+		display: 'gitmars api'
 	},
 	{
 		name: 'core',

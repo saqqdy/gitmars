@@ -11,7 +11,7 @@ const { t } = lang
 const { green, red } = chalk
 const { args, options } = installConfig
 
-interface GitmBuildOption {
+interface GitmInstallOption {
 	mirror: boolean
 	client: 'npm' | 'yarn' | 'pnpm' | 'cnpm' | string
 	registry?: string
@@ -31,58 +31,62 @@ options.forEach((o: GitmarsOptionOptionsType) => {
 // .option('-m, --mirror', t('Whether to use Taobao Mirror'), false)
 // .option('-c, --client [client]', t('The name of the client used to load the package'), 'npm')
 // .option('-r, --registry <registry>', t('Use mirror address'), '')
-program.action((pluginName: string, version: PackageVersionTag | string, opt: GitmBuildOption) => {
-	if (!pluginName) {
-		echo(red(t('Enter the plugin name')))
-		process.exit(1)
-	}
-	const spinner = ora()
-	if (version) {
-		const match = version.match(/[0-9.]+$/)
-		if (match) version = match[0]
-		else if (!['alpha', 'lite', 'beta', 'release', 'latest', 'next'].includes(version)) {
-			console.error(
-				t(
-					'Incorrect version number entered, only supported: alpha, lite, beta, release, latest, next'
-				)
-			)
-			process.exit(0)
+program.action(
+	(pluginName: string, version: PackageVersionTag | string, opt: GitmInstallOption) => {
+		if (!pluginName) {
+			echo(red(t('Enter the plugin name')))
+			process.exit(1)
 		}
-	} else {
-		version = 'latest'
+		const spinner = ora()
+		if (version) {
+			const match = version.match(/[0-9.]+$/)
+			if (match) version = match[0]
+			else if (!['alpha', 'lite', 'beta', 'release', 'latest', 'next'].includes(version)) {
+				console.error(
+					t(
+						'Incorrect version number entered, only supported: alpha, lite, beta, release, latest, next'
+					)
+				)
+				process.exit(0)
+			}
+		} else {
+			version = 'latest'
+		}
+		let cmdAdd: [GitmInstallOption['client'], string[]]
+		switch (opt.client) {
+			case 'yarn':
+				cmdAdd = [opt.client, ['global', 'add', `${pluginName}@${version}`]]
+				break
+			case 'pnpm':
+				cmdAdd = [opt.client, ['add', '-g', `${pluginName}@${version}`]]
+				break
+			default:
+				// default npm or cnpm
+				cmdAdd = [opt.client, ['install', '-g', `${pluginName}@${version}`]]
+				break
+		}
+		// 这一行后面准备删掉
+		if (!opt.registry && opt.mirror) {
+			opt.registry = 'https://registry.npmmirror.com'
+		}
+		if (opt.registry) {
+			cmdAdd[1] = cmdAdd[1].concat(['-registry', opt.registry])
+		}
+		spinner.start(green(t('Installing')))
+		const install = spawnSync(...cmdAdd, {
+			stdio: 'ignore',
+			shell: process.platform === 'win32'
+		})
+		if (install.status === 0) {
+			spinner.succeed(green(t('Installation complete')))
+		} else {
+			spinner.fail(
+				red(t('There was an installation error, please contact the administrator'))
+			)
+		}
+		spinner.stop()
+		process.exit(0)
 	}
-	let cmdAdd: [GitmBuildOption['client'], string[]]
-	switch (opt.client) {
-		case 'yarn':
-			cmdAdd = [opt.client, ['global', 'add', `${pluginName}@${version}`]]
-			break
-		case 'pnpm':
-			cmdAdd = [opt.client, ['add', '-g', `${pluginName}@${version}`]]
-			break
-		default:
-			// default npm or cnpm
-			cmdAdd = [opt.client, ['install', '-g', `${pluginName}@${version}`]]
-			break
-	}
-	// 这一行后面准备删掉
-	if (!opt.registry && opt.mirror) {
-		opt.registry = 'https://registry.npmmirror.com'
-	}
-	if (opt.registry) {
-		cmdAdd[1] = cmdAdd[1].concat(['-registry', opt.registry])
-	}
-	spinner.start(green(t('Installing')))
-	const install = spawnSync(...cmdAdd, {
-		stdio: 'ignore',
-		shell: process.platform === 'win32'
-	})
-	if (install.status === 0) {
-		spinner.succeed(green(t('Installation complete')))
-	} else {
-		spinner.fail(red(t('There was an installation error, please contact the administrator')))
-	}
-	spinner.stop()
-	process.exit(0)
-})
+)
 program.parse(process.argv)
 export {}

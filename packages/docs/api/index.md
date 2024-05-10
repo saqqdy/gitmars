@@ -16,9 +16,9 @@ sidebarDepth: 2
 
 <div class="table-prop">
 
-| 参数    | 说明     | 类型     | 可选值                                                                                                                                                                                                                                | 必填 | 默认 |
-| ------- | -------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---- | ---- |
-| command | 指令名称 | `String` | combine、end、update、build、build-mp、start、undo、redo、suggest、approve、review、admin.publish、admin.update、admin.create、admin.clean、admin.approve、branch、copy、get、save、cleanbranch、clean、revert、link、unlink、postmsg | 否   | -    |
+| 参数    | 说明     | 类型     | 可选值                                                                                                                                                                                                                                             | 必填 | 默认 |
+| ------- | -------- | -------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---- | ---- |
+| command | 指令名称 | `String` | combine、end、update、build、build-mp、miniprogram、start、undo、redo、suggest、approve、review、admin.publish、admin.update、admin.create、admin.clean、admin.approve、branch、copy、get、save、cleanbranch、clean、revert、link、unlink、postmsg | 否   | -    |
 
 </div>
 
@@ -561,6 +561,59 @@ gitm build-mp gitmars --env dev --app weapp
 
 ```shell
 gitm build-mp
+```
+
+### gitm miniprogram
+
+#### 短指令：gitm mp
+
+> v7.0.0 版本新增
+
+该指令用于操作定制化小程序
+
+- 使用：`gitm miniprogram [miniprogram] [-k --keyword [keyword]]`
+- 参数：
+
+<div class="table-prop">
+
+| 参数        | 说明                                | 类型     | 可选值 | 必填               | 默认 |
+| ----------- | ----------------------------------- | -------- | ------ | ------------------ | ---- |
+| miniprogram | 小程序AppID，或者输入auth获取授权码 | `String` | -      | `auth` \| `String` | -    |
+
+</div>
+
+- 传值：
+
+<div class="table-option">
+
+| 名称      | 简写 | 说明                     | 类型     | 可选值 | 传值必填 | 默认 |
+| --------- | ---- | ------------------------ | -------- | ------ | -------- | ---- |
+| --keyword | -k   | 小程序名称，用于模糊搜索 | `String` | -      | 否       | -    |
+
+</div>
+
+- 示例：
+
+1. 获取授权码
+
+```shell
+gitm miniprogram auth
+# or
+gitm mp
+```
+
+2. 选择小程序进行操作
+
+```shell
+gitm miniprogram
+# or
+gitm miniprogram --keyword 测试
+```
+
+2. 输入小程序AppID进行操作
+
+```shell
+gitm miniprogram xxxxxx
 ```
 
 ### gitm branch

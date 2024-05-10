@@ -18,7 +18,7 @@ if (!getIsGitProject()) {
 	process.exit(1)
 }
 
-interface GitmBuildOption {
+interface GitmSaveOption {
 	force?: boolean
 }
 
@@ -34,7 +34,7 @@ options.forEach((o: GitmarsOptionOptionsType) => {
 	program.option(o.flags, o.description, o.defaultValue)
 })
 // .option('-f, --force', t('No version of the file is also staged, which will perform a git add .'), false)
-program.action((message: string, opt: GitmBuildOption) => {
+program.action((message: string, opt: GitmSaveOption) => {
 	if (!message) message = getCurrentBranch()
 	message = `${message}_cache_by_gitmars`
 	let cmd: Array<CommandType | string | string[]> = [
