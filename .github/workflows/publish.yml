@@ -29,6 +29,8 @@ jobs:
           cache: pnpm
 
       - run: echo ${{ matrix.node-version }}
+      - run: npm i -g npm@8
+      - run: node -v
       - run: npm -v
       - run: pnpm store path
       - run: pnpm install
