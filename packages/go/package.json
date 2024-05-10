@@ -28,7 +28,7 @@
 	},
 	"dependencies": {
 		"@gitmars/utils": "workspace:*",
-		"chalk": "^4.1.2",
+		"chalk": "^5.3.0",
 		"inquirer": "^8.2.6",
 		"os-lang": "^3.2.0"
 	},
