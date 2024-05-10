@@ -29,7 +29,7 @@
 	"dependencies": {
 		"@gitmars/utils": "workspace:*",
 		"chalk": "^4.1.2",
-		"inquirer": "^8.2.6",
+		"inquirer": "^9.2.20",
 		"os-lang": "^3.2.0"
 	},
 	"devDependencies": {
