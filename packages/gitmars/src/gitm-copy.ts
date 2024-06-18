@@ -35,6 +35,7 @@ interface GitmCopyOption {
 	merges: boolean
 	lastet: string
 	limit: number
+	push: boolean
 }
 
 /**
@@ -42,7 +43,7 @@ interface GitmCopyOption {
  */
 program
 	.name('gitm copy')
-	.usage('[commitid...] [--lastet [lastet]] [--limit [limit]] [--no-merges]')
+	.usage('[commitid...] [--lastet [lastet]] [--limit [limit]] [--no-merges] [-p --push]')
 	.description(
 		t(
 			'cherry-pick batch version, copy a record from a branch and merge it into the current branch'
@@ -55,6 +56,7 @@ options.forEach((o: GitmarsOptionOptionsType) => {
 // .option('--no-merges', t('Whether to exclude merge's log'), false)
 // .option('--lastet [lastet]', t('Query logs after a certain time, fill in the format: 10s/2m/2h/3d/4M/5y'), '')
 // .option('--limit [limit]', t('The maximum number of logs to be queried'))
+// .option('-p --push', t('Push target branch'))
 program.action(async (commitid: string[], opts: GitmCopyOption) => {
 	const keys: GitLogKeysType[] = ['%H', '%T', '%P', '%aI', '%an', '%s', '%b']
 	const current = getCurrentBranch()
@@ -132,9 +134,11 @@ program.action(async (commitid: string[], opts: GitmCopyOption) => {
 				success: t('Record merge successful'),
 				fail: t('Merge failed, please follow the instructions')
 			}
-		},
-		`git checkout ${current}`
+		}
 	]
+
+	if (opts.push) cmd.push('git push')
+	cmd.push(`git checkout ${current}`)
 
 	// 执行
 	queue(cmd)

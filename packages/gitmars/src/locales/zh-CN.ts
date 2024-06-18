@@ -461,5 +461,6 @@ export default {
 	'Enter wechat account': '输入微信号',
 	'Implementation success': '执行成功',
 	'Select wechat account': '选择微信账号',
-	'Confirm unbind wechat account': '是否确认解绑体验者'
+	'Confirm unbind wechat account': '是否确认解绑体验者',
+	'Push target branch': '推送目标分支到远程'
 }

@@ -421,10 +421,11 @@ gitm ct -l
 #### 短指令：gitm cp
 
 > v4.0.0 重构指令，改造成自选提交记录的方式
+> v7.1.0 增加`--push`传值，是否在copy之后推送目标分支到远程
 
 复制当前分支上的提交记录到目标分支
 
-- 使用：`gitm copy [commitid...]` 或者 `gitm copy [--lastet [lastet]] [--limit [limit]] [--no-merges]`
+- 使用：`gitm copy [commitid...]` 或者 `gitm copy [--lastet [lastet]] [--limit [limit]] [--no-merges] [-p -push]`
 - 参数：
 
 <div class="table-prop">
@@ -444,6 +445,7 @@ gitm ct -l
 | --no-merge | -    | 排除 merge 记录                                        | `Boolean` | -      | 否       | `false` |
 | --lastet   | -    | 查询在某个时间之后的日志，填写格式：10s/2m/2h/3d/4M/5y | `String`  | -      | 否       | '7d'    |
 | --limit    | -    | 最多查询的日志条数                                     | `Number`  | -      | 否       | 20      |
+| --push     | -p   | 推送目标分支到远程                                     | `boolean` | -      | 否       | `false` |
 
 </div>
 
