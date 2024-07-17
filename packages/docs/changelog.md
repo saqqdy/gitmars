@@ -1,5 +1,9 @@
 # 更新日志
 
+## 2024.07.17 v7.2.0
+
+1. `miniprogramToken` `miniprogramSession` 参数从git配置中取
+
 ## 2024.06.18 v7.1.0
 
 1. 增加`--push`传值，是否在copy之后推送目标分支到远程
