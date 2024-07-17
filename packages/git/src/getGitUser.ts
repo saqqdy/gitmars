@@ -65,7 +65,7 @@ export function getGitMiniprogramToken(throwOnError = true): string {
  * Get miniprogram session from git config
  *
  * @param throwOnError - throw on token is null, default: true
- * @returns - token
+ * @returns - session
  */
 export function getGitMiniprogramSession(throwOnError = true): string {
 	const { stdout } = spawnSync('git', ['config', 'user.miniprogramSession'])
