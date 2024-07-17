@@ -8,6 +8,8 @@ export default {
 	'If you need to staging files please run: gitm save --force\nWhen resuming: gitm get':
 		'如果需要暂存文件请执行: gitm save --force\n恢复时执行：gitm get',
 	'Please set git access token': '请设置git access token',
+	'Please set git miniprogram token': '请设置git小程序token',
+	'Please set git miniprogram session': '请设置git小程序session',
 	'Checkout branches now': '正在切换分支',
 	'Checkout branch successfully': '切换分支成功',
 	'Failed to checkout': '切换分支失败',

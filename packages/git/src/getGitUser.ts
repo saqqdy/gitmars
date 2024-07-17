@@ -43,3 +43,37 @@ export function getGitEmail(): string {
 	debug('git.email', stdout)
 	return stdout!
 }
+
+/**
+ * Get miniprogram token from git config
+ *
+ * @param throwOnError - throw on token is null, default: true
+ * @returns - token
+ */
+export function getGitMiniprogramToken(throwOnError = true): string {
+	const { stdout } = spawnSync('git', ['config', 'user.miniprogramToken'])
+	debug('git.miniprogramToken', stdout)
+
+	if (!stdout) {
+		sh.echo(chalk.red(t('Please set git miniprogram token')))
+		process.exit(1)
+	}
+	return stdout.trim()
+}
+
+/**
+ * Get miniprogram session from git config
+ *
+ * @param throwOnError - throw on token is null, default: true
+ * @returns - token
+ */
+export function getGitMiniprogramSession(throwOnError = true): string {
+	const { stdout } = spawnSync('git', ['config', 'user.miniprogramSession'])
+	debug('git.miniprogramSession', stdout)
+
+	if (!stdout) {
+		sh.echo(chalk.red(t('Please set git miniprogram session')))
+		process.exit(1)
+	}
+	return stdout.trim()
+}

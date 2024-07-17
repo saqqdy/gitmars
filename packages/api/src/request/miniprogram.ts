@@ -1,6 +1,7 @@
 import chalk from 'chalk'
 import request from '@jssj/request'
 import { debug } from '@gitmars/utils'
+import { getGitMiniprogramSession, getGitMiniprogramToken } from '@gitmars/git'
 import { getBuildConfig } from '@gitmars/build'
 import type { ApolloConfigType } from '@gitmars/build'
 
@@ -16,9 +17,11 @@ let buildConfig: ApolloConfigType
 export const post = async <P = unknown>(options: RequestConfig): Promise<P> => {
 	if (!buildConfig) buildConfig = (await getBuildConfig()) as ApolloConfigType
 	if (!options.url.startsWith('http')) options.url = buildConfig.miniprogramDomain + options.url
+	const miniprogramToken = getGitMiniprogramToken() || buildConfig.miniprogramToken
+	const miniprogramSession = getGitMiniprogramSession() || buildConfig.miniprogramSession
 	options.headers = Object.assign(options.headers || {}, {
-		Authorization: buildConfig.miniprogramToken,
-		cookie: `kop=${buildConfig.miniprogramSession}`
+		Authorization: miniprogramToken,
+		cookie: `kop=${miniprogramSession}`
 	})
 	return new Promise((resolve, reject) => {
 		request
@@ -35,9 +38,11 @@ export const post = async <P = unknown>(options: RequestConfig): Promise<P> => {
 export const get = async <P = unknown>(options: RequestConfig): Promise<P> => {
 	if (!buildConfig) buildConfig = (await getBuildConfig()) as ApolloConfigType
 	if (!options.url.startsWith('http')) options.url = buildConfig.miniprogramDomain + options.url
+	const miniprogramToken = getGitMiniprogramToken() || buildConfig.miniprogramToken
+	const miniprogramSession = getGitMiniprogramSession() || buildConfig.miniprogramSession
 	options.headers = Object.assign(options.headers || {}, {
-		Authorization: buildConfig.miniprogramToken,
-		cookie: `kop=${buildConfig.miniprogramSession}`
+		Authorization: miniprogramToken,
+		cookie: `kop=${miniprogramSession}`
 	})
 	return new Promise((resolve, reject) => {
 		request

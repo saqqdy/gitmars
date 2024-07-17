@@ -12,7 +12,13 @@ import getIsBranchOrCommitExist from './getIsBranchOrCommitExist'
 import getIsMergeAction from './getIsMergeAction'
 import getIsMergedTargetBranch from './getIsMergedTargetBranch'
 import getIsUpdatedInTime from './getIsUpdatedInTime'
-import { getGitEmail, getGitToken, getGitUser } from './getGitUser'
+import {
+	getGitEmail,
+	getGitMiniprogramSession,
+	getGitMiniprogramToken,
+	getGitToken,
+	getGitUser
+} from './getGitUser'
 import getBranchesFromID from './getBranchesFromID'
 import getGitStatus from './getGitStatus'
 import getCommandMessage from './getCommandMessage'
@@ -45,6 +51,8 @@ export default {
 	getIsMergeAction,
 	getIsMergedTargetBranch,
 	getIsUpdatedInTime,
+	getGitMiniprogramToken,
+	getGitMiniprogramSession,
 	getGitToken,
 	getGitUser,
 	getGitEmail,
