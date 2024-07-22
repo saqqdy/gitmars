@@ -63,7 +63,7 @@
 		"@gitmars/go": "workspace:*",
 		"@gitmars/hook": "workspace:*",
 		"@gitmars/utils": "workspace:*",
-		"@inquirer/prompts": "^3.3.2",
+		"@inquirer/prompts": "^5.3.0",
 		"await-to-done": "^1.0.2",
 		"chalk": "^4.1.2",
 		"columnify": "^1.6.0",
