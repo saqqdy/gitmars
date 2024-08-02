@@ -17,8 +17,8 @@ let buildConfig: ApolloConfigType
 export const post = async <P = unknown>(options: RequestConfig): Promise<P> => {
 	if (!buildConfig) buildConfig = (await getBuildConfig()) as ApolloConfigType
 	if (!options.url.startsWith('http')) options.url = buildConfig.miniprogramDomain + options.url
-	const miniprogramToken = getGitMiniprogramToken() || buildConfig.miniprogramToken
-	const miniprogramSession = getGitMiniprogramSession() || buildConfig.miniprogramSession
+	const miniprogramToken = getGitMiniprogramToken(false) || buildConfig.miniprogramToken
+	const miniprogramSession = getGitMiniprogramSession(false) || buildConfig.miniprogramSession
 	options.headers = Object.assign(options.headers || {}, {
 		Authorization: miniprogramToken,
 		cookie: `kop=${miniprogramSession}`
@@ -38,8 +38,8 @@ export const post = async <P = unknown>(options: RequestConfig): Promise<P> => {
 export const get = async <P = unknown>(options: RequestConfig): Promise<P> => {
 	if (!buildConfig) buildConfig = (await getBuildConfig()) as ApolloConfigType
 	if (!options.url.startsWith('http')) options.url = buildConfig.miniprogramDomain + options.url
-	const miniprogramToken = getGitMiniprogramToken() || buildConfig.miniprogramToken
-	const miniprogramSession = getGitMiniprogramSession() || buildConfig.miniprogramSession
+	const miniprogramToken = getGitMiniprogramToken(false) || buildConfig.miniprogramToken
+	const miniprogramSession = getGitMiniprogramSession(false) || buildConfig.miniprogramSession
 	options.headers = Object.assign(options.headers || {}, {
 		Authorization: miniprogramToken,
 		cookie: `kop=${miniprogramSession}`

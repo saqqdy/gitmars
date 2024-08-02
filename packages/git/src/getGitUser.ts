@@ -51,10 +51,10 @@ export function getGitEmail(): string {
  * @returns - token
  */
 export function getGitMiniprogramToken(throwOnError = true): string {
-	const { stdout } = spawnSync('git', ['config', 'user.miniprogramToken'])
+	const { stdout = '' } = spawnSync('git', ['config', 'user.miniprogramToken'])
 	debug('git.miniprogramToken', stdout)
 
-	if (!stdout) {
+	if (!stdout.trim() && throwOnError) {
 		sh.echo(chalk.red(t('Please set git miniprogram token')))
 		process.exit(1)
 	}
@@ -68,10 +68,10 @@ export function getGitMiniprogramToken(throwOnError = true): string {
  * @returns - session
  */
 export function getGitMiniprogramSession(throwOnError = true): string {
-	const { stdout } = spawnSync('git', ['config', 'user.miniprogramSession'])
+	const { stdout = '' } = spawnSync('git', ['config', 'user.miniprogramSession'])
 	debug('git.miniprogramSession', stdout)
 
-	if (!stdout) {
+	if (!stdout.trim() && throwOnError) {
 		sh.echo(chalk.red(t('Please set git miniprogram session')))
 		process.exit(1)
 	}

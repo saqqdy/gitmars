@@ -1,5 +1,9 @@
 # 更新日志
 
+## 2024.08.02 v7.3.0
+
+1. 修复 `miniprogramToken` `miniprogramSession` 参数必填问题
+
 ## 2024.07.17 v7.2.0
 
 1. `miniprogramToken` `miniprogramSession` 参数从git配置中取
