@@ -156,8 +156,8 @@ gitm start bugfix 1001 --tag 20211010
 
 #### 短指令：gitm cb
 
-> v2.11.0 新增`--description`传参
-> v5.3.0 增加data传值，支持传入额外的参数
+> v2.11.0 新增`--description`传参<br/>
+> v5.3.0 增加data传值，支持传入额外的参数<br/>
 > v7.0.0 开始支持批量合并
 
 bugfix 分支和 feature 分支需要提交到 dev 或者预发布环境时使用 combine 指令来自动执行合并
@@ -257,7 +257,7 @@ gitm cb feature -d
 #### 短指令：gitm ed
 
 > v2.9.6 版本开始，`end`指令智能判断是否需要合并代码，不传`--no-combine`时，不需要合并的时候不会发起合并操作<br/>
-> v2.11.0 新增`--description`传参
+> v2.11.0 新增`--description`传参<br/>
 > v7.0.0 开始支持批量结束分支
 
 任务完成，合并并删除分支，这个操作会把 20001 这个分支代码合并到 bug 分支并删除 20001 分支(远程的 20001 分支也会同步删除)
@@ -420,7 +420,7 @@ gitm ct -l
 
 #### 短指令：gitm cp
 
-> v4.0.0 重构指令，改造成自选提交记录的方式
+> v4.0.0 重构指令，改造成自选提交记录的方式<br/>
 > v7.1.0 增加`--push`传值，是否在copy之后推送目标分支到远程
 
 复制当前分支上的提交记录到目标分支
@@ -473,7 +473,7 @@ gitm cp xxxxxx
 #### 短指令：gitm bd
 
 > v5.3.0 增加data传值，支持传入额外的参数<br/>
-> v6.2.0 新增--confirm 参数
+> v6.2.0 新增--confirm 参数<br/>
 > v7.0.0 版本调整为支持选择参数的形式，`project`参数取消必填限制
 
 该指令用于发起 Jenkins 构建，project 必传，app 名称可传入 all
@@ -520,7 +520,7 @@ gitm build
 
 #### 短指令：gitm bdm
 
-> v7.0.0 版本新增
+> v7.0.0 版本新增<br/>
 > v7.4.0 增加生成版本类型的选择环节，增加输入baseInfo
 
 该指令用于发起 Jenkins 构建小程序
@@ -1063,7 +1063,7 @@ gitm cleanbranch --target release --strictly
 ### gitm log
 
 > v1.4.0 新增<br/>
-> v2.15.0 新增`--no-merges`传参
+> v2.15.0 新增`--no-merges`传参<br/>
 > v2.15.3 新增`--json`传值，是否以 json 格式输出日志，默认表格方式
 
 查询日志
@@ -1506,7 +1506,7 @@ gitm admin create release
 
 ### gitm admin publish
 
-> v2.11.0 新增`--description`传参
+> v2.11.0 新增`--description`传参<br/>
 > v5.3.0 publish增加data传值，支持传入额外的参数
 
 发布操作
