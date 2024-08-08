@@ -1,5 +1,9 @@
 # 更新日志
 
+## 2024.08.08 v7.4.0
+
+1. `build-mp` 增加生成版本类型的选择环节，增加输入baseInfo
+
 ## 2024.08.02 v7.3.0
 
 1. 修复 `miniprogramToken` `miniprogramSession` 参数必填问题

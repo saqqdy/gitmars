@@ -521,6 +521,7 @@ gitm build
 #### 短指令：gitm bdm
 
 > v7.0.0 版本新增
+> v7.4.0 增加生成版本类型的选择环节，增加输入baseInfo
 
 该指令用于发起 Jenkins 构建小程序
 

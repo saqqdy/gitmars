@@ -462,5 +462,14 @@ export default {
 	'Implementation success': '执行成功',
 	'Select wechat account': '选择微信账号',
 	'Confirm unbind wechat account': '是否确认解绑体验者',
-	'Push target branch': '推送目标分支到远程'
+	'Push target branch': '推送目标分支到远程',
+	'Select the type of version to be generated': '选择要生成的版本号类型',
+	'Type of version to generate': '生成版本类型',
+	'Do not generate new versions': '不生成新版本',
+	'Patch version(bug fixes, minor changes)': '补丁版本(bug修复，小改动)',
+	'Minor version(New Features)': '小版本(新特性)',
+	'Major version(Framework reorganization, major revamp)': '大版本(框架重构或大改版)',
+	"Enter the baseInfo to be extended, Leave it blank if you don't need it.":
+		'填写要扩展的baseInfo内容，如果不需要则留空',
+	'BaseInfo to be extended': '扩展数据'
 }

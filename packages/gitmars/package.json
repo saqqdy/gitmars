@@ -2,7 +2,7 @@
 	"name": "gitmars",
 	"description": "这是一个git工作流工具",
 	"type": "module",
-	"version": "7.3.0",
+	"version": "7.4.0",
 	"private": false,
 	"bin": {
 		"gitm": "lib/gitm.mjs"
