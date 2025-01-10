@@ -30,19 +30,19 @@
 		"@gitmars/utils": "workspace:*",
 		"chalk": "^4.1.2",
 		"inquirer": "^8.2.6",
-		"os-lang": "^3.2.0"
+		"os-lang": "^3.3.1"
 	},
 	"devDependencies": {
-		"@eslint-sets/eslint-config-ts": "^5.13.0",
+		"@eslint-sets/eslint-config-ts": "^5.14.0",
 		"@types/inquirer": "^9.0.7",
-		"@types/node": "^20.12.11",
+		"@types/node": "^22.10.5",
 		"cross-env": "^7.0.3",
-		"eslint": "^8.57.0",
-		"madge": "^7.0.0",
-		"prettier": "^3.2.5",
+		"eslint": "^8.57.1",
+		"madge": "^8.0.0",
+		"prettier": "^3.4.2",
 		"prettier-config-common": "^1.4.0",
 		"tsnd": "^1.1.0",
-		"typescript": "^5.4.5"
+		"typescript": "^5.7.3"
 	},
 	"sideEffects": false,
 	"keywords": [

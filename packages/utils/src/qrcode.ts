@@ -1,4 +1,4 @@
-import Jimp from 'jimp'
+import { Jimp } from 'jimp'
 import jsQR from 'jsqr'
 import * as QRCode from 'qrcode'
 import lang from './lang'
@@ -12,20 +12,18 @@ const { t } = lang
  */
 export async function readQrcode(imagePath: any): Promise<string> {
 	return new Promise((resolve, reject) => {
-		Jimp.read(imagePath, function (err, image) {
-			if (err) {
-				reject(err)
-				return
-			}
-			// @ts-expect-error: provisional program
-			const scanData = jsQR(image.bitmap.data, image.bitmap.width, image.bitmap.height)
+		Jimp.read(imagePath)
+			.then(image => {
+				// @ts-expect-error: provisional program
+				const scanData = jsQR(image.bitmap.data, image.bitmap.width, image.bitmap.height)
 
-			if (scanData) {
-				resolve(scanData.data)
-			} else {
-				reject(new Error(t('Failure to recognize the content of the QR code')))
-			}
-		})
+				if (scanData) {
+					resolve(scanData.data)
+				} else {
+					reject(new Error(t('Failure to recognize the content of the QR code')))
+				}
+			})
+			.catch(reject)
 	})
 }
 

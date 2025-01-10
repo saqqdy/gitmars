@@ -33,22 +33,22 @@
 		"@gitmars/git": "workspace:*",
 		"@gitmars/utils": "workspace:*",
 		"chalk": "^4.1.2",
-		"ci-info": "^4.0.0",
-		"js-cool": "^5.19.1",
-		"os-lang": "^3.2.0",
+		"ci-info": "^4.1.0",
+		"js-cool": "^5.23.0",
+		"os-lang": "^3.3.1",
 		"shelljs": "^0.8.5"
 	},
 	"devDependencies": {
-		"@eslint-sets/eslint-config-ts": "^5.13.0",
-		"@types/node": "^20.12.11",
+		"@eslint-sets/eslint-config-ts": "^5.14.0",
+		"@types/node": "^22.10.5",
 		"@types/shelljs": "^0.8.15",
 		"cross-env": "^7.0.3",
-		"eslint": "^8.57.0",
-		"madge": "^7.0.0",
-		"prettier": "^3.2.5",
+		"eslint": "^8.57.1",
+		"madge": "^8.0.0",
+		"prettier": "^3.4.2",
 		"prettier-config-common": "^1.4.0",
 		"tsnd": "^1.1.0",
-		"typescript": "^5.4.5"
+		"typescript": "^5.7.3"
 	},
 	"sideEffects": false,
 	"keywords": [
