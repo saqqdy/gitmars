@@ -471,5 +471,7 @@ export default {
 	'Major version(Framework reorganization, major revamp)': '大版本(框架重构或大改版)',
 	"Enter the baseInfo to be extended, Leave it blank if you don't need it.":
 		'填写要扩展的baseInfo内容，如果不需要则留空',
-	'BaseInfo to be extended': '扩展数据'
+	'BaseInfo to be extended': '扩展数据',
+	'Branch {target} already exists and has been switched to branch {target}':
+		'分支{target}已经存在，已切换到{target}'
 }

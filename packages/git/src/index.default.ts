@@ -25,6 +25,7 @@ import getCommandMessage from './getCommandMessage'
 import checkGitStatus from './checkGitStatus'
 import getStashList from './getStashList'
 import fetch from './fetch'
+import checkout from './checkout'
 import prune from './prune'
 import readPkg from './readPkg'
 import getConfig from './getConfig'
@@ -62,6 +63,7 @@ export default {
 	checkGitStatus,
 	getStashList,
 	fetch,
+	checkout,
 	prune,
 	readPkg,
 	getConfig

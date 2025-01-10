@@ -227,7 +227,7 @@ program.action(async (type: string, name: string, opt: GitmEndOption): Promise<v
 			// 需要合并代码到dev
 			cmd.push(
 				'git fetch',
-				`git checkout ${config.develop}`,
+				`git switch ${config.develop}`,
 				'git pull',
 				{
 					cmd: `git merge --no-ff ${branchName}`,
@@ -254,7 +254,7 @@ program.action(async (type: string, name: string, opt: GitmEndOption): Promise<v
 						fail: t('Push failed, please follow the prompts')
 					}
 				},
-				`git checkout ${branchName}`
+				`git switch ${branchName}`
 			)
 		}
 		// support分支需要合到bugfix
@@ -262,7 +262,7 @@ program.action(async (type: string, name: string, opt: GitmEndOption): Promise<v
 			if (!level || level < 3) {
 				cmd.push(
 					'git fetch',
-					`git checkout ${config.bugfix}`,
+					`git switch ${config.bugfix}`,
 					'git pull',
 					{
 						cmd: `git merge --no-ff ${branchName}`,
@@ -289,7 +289,7 @@ program.action(async (type: string, name: string, opt: GitmEndOption): Promise<v
 							fail: t('Push failed, please follow the prompts')
 						}
 					},
-					`git checkout ${branchName}`
+					`git switch ${branchName}`
 				)
 			} else {
 				if (!isDescriptionCorrect) {
@@ -347,7 +347,7 @@ program.action(async (type: string, name: string, opt: GitmEndOption): Promise<v
 		}
 		if (!opt.combine || !isNeedCombineBase) {
 			// 不合并代码
-			cmd.push(`git checkout ${config.develop}`, `git branch -D ${branchName}`, {
+			cmd.push(`git switch ${config.develop}`, `git branch -D ${branchName}`, {
 				cmd: 'git remote prune origin',
 				config: {
 					again: true,
@@ -371,7 +371,7 @@ program.action(async (type: string, name: string, opt: GitmEndOption): Promise<v
 			if (!level || level < 3) {
 				cmd.push(
 					'git fetch',
-					`git checkout ${base}`,
+					`git switch ${base}`,
 					'git pull',
 					{
 						cmd: `git merge --no-ff ${branchName}`,
@@ -398,7 +398,7 @@ program.action(async (type: string, name: string, opt: GitmEndOption): Promise<v
 							fail: t('Push failed, please follow the prompts')
 						}
 					},
-					`git checkout ${config.develop}`,
+					`git switch ${config.develop}`,
 					`git branch -D ${branchName}`,
 					{
 						cmd: 'git remote prune origin',

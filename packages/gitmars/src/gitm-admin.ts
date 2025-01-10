@@ -105,7 +105,7 @@ createProgram.action((type: GitmarsMainBranchType): void => {
 		// release pulls from master, others from release
 		const cmd = [
 			'git fetch',
-			`git checkout ${base}`,
+			`git switch ${base}`,
 			'git pull',
 			`git checkout -b ${config[type]} ${base}`
 		]
@@ -202,9 +202,9 @@ publishProgram.action(
 						isNeedCombineBugfixToRelease || opt.force
 							? [
 									'git fetch',
-									`git checkout ${config.bugfix}`,
+									`git switch ${config.bugfix}`,
 									'git pull',
-									`git checkout ${config.release}`,
+									`git switch ${config.release}`,
 									'git pull',
 									{
 										cmd: `git merge --no-ff ${config.bugfix}`,
@@ -249,9 +249,9 @@ publishProgram.action(
 							isNeedCombineSupportToRelease || opt.force
 								? [
 										'git fetch',
-										`git checkout ${config.support}`,
+										`git switch ${config.support}`,
 										'git pull',
-										`git checkout ${config.release}`,
+										`git switch ${config.release}`,
 										'git pull',
 										{
 											cmd: `git merge --no-ff ${config.support}`,
@@ -294,7 +294,7 @@ publishProgram.action(
 						.concat(
 							isNeedCombineSupportToBugfix || opt.force
 								? [
-										`git checkout ${config.bugfix}`,
+										`git switch ${config.bugfix}`,
 										'git pull',
 										{
 											cmd: `git merge --no-ff ${config.support}`,
@@ -338,9 +338,9 @@ publishProgram.action(
 						isNeedCombineReleaseToMaster || opt.force
 							? [
 									'git fetch',
-									`git checkout ${config.release}`,
+									`git switch ${config.release}`,
 									'git pull',
-									`git checkout ${config.master}`,
+									`git switch ${config.master}`,
 									'git pull',
 									{
 										cmd: `git merge --no-ff ${config.release}`,
@@ -581,7 +581,7 @@ publishProgram.action(
 					cmd[type] = cmd[type].concat(
 						isNeedCombine || opt.force
 							? [
-									`git checkout ${config.master}`,
+									`git switch ${config.master}`,
 									'git pull',
 									{
 										cmd: `git merge --no-ff ${config.bugfix}`,
@@ -752,9 +752,9 @@ publishProgram.action(
 					cmd[type] = cmd[type].concat(
 						isNeedCombine || opt.force
 							? [
-									`git checkout ${config.release}`,
+									`git switch ${config.release}`,
 									'git pull',
-									`git checkout ${config.bugfix}`,
+									`git switch ${config.bugfix}`,
 									{
 										cmd: `git pull origin ${config.bugfix} --rebase`,
 										config: { again: true }
@@ -800,9 +800,9 @@ publishProgram.action(
 						cmd[type] = cmd[type].concat(
 							isNeedCombine || opt.force
 								? [
-										`git checkout ${config.release}`,
+										`git switch ${config.release}`,
 										'git pull',
-										`git checkout ${config.bugfix}`,
+										`git switch ${config.bugfix}`,
 										'git pull',
 										{
 											cmd: `git merge --no-ff ${config.release}`,
@@ -894,7 +894,7 @@ publishProgram.action(
 			let key: keyof typeof cmd
 			// Back to current branch
 			for (key in cmd) {
-				cmd[key].push(`git checkout ${curBranch}`)
+				cmd[key].push(`git switch ${curBranch}`)
 			}
 			queue(cmd[type])
 		} else {
@@ -954,9 +954,9 @@ updateProgram.action(
 				if (!level || level < 4) {
 					cmd = [
 						'git fetch',
-						`git checkout ${base}`,
+						`git switch ${base}`,
 						'git pull',
-						`git checkout ${config[type]}`,
+						`git switch ${config[type]}`,
 						{
 							cmd: 'git pull',
 							config: { again: true }
@@ -1036,9 +1036,9 @@ updateProgram.action(
 				if (opt.useRebase) {
 					cmd = [
 						'git fetch',
-						`git checkout ${base}`,
+						`git switch ${base}`,
 						'git pull',
-						`git checkout ${config[type]}`,
+						`git switch ${config[type]}`,
 						{
 							cmd: `git pull origin ${config[type]} --rebase`,
 							config: { again: true }
@@ -1107,7 +1107,7 @@ cleanProgram.action((type: GitmarsMainBranchType): void => {
 			'git fetch',
 			'git checkout . -f',
 			'git clean -fd',
-			`git checkout ${config.master}`,
+			`git switch ${config.master}`,
 			`git branch -D ${config[type]}`,
 			{
 				cmd: 'git remote prune origin',
@@ -1118,14 +1118,14 @@ cleanProgram.action((type: GitmarsMainBranchType): void => {
 				}
 			},
 			'git fetch',
-			`git checkout ${config[type]}`,
+			`git switch ${config[type]}`,
 			'git pull'
 		]
 		if (type === 'master') {
 			cmd = [
-				'git checkout .',
+				'git switch .',
 				'git clean -fd',
-				`git checkout ${config.master}`,
+				`git switch ${config.master}`,
 				'git clean -fd',
 				'git fetch',
 				'git pull'

@@ -125,7 +125,7 @@ program.action(async (commitid: string[], opts: GitmCopyOption) => {
 	)
 
 	cmd = [
-		`git checkout ${chooseBranch}`,
+		`git switch ${chooseBranch}`,
 		'git pull',
 		{
 			cmd: `git cherry-pick ${commitIDs.reverse().join(' ')}`,
@@ -138,7 +138,7 @@ program.action(async (commitid: string[], opts: GitmCopyOption) => {
 	]
 
 	if (opts.push) cmd.push('git push')
-	cmd.push(`git checkout ${current}`)
+	cmd.push(`git switch ${current}`)
 
 	// 执行
 	queue(cmd)
