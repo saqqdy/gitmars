@@ -47,7 +47,7 @@
 		"chalk": "^4.1.2",
 		"debug": "^4.4.0",
 		"js-cool": "^5.23.0",
-		"morgan": "^1.10.0",
+		"morgan": "^1.10.1",
 		"os-lang": "^3.3.1"
 	},
 	"devDependencies": {
