@@ -27,8 +27,9 @@ export interface QueueConfigType extends SpawnOptions {
 	kill?: boolean
 }
 
-export interface GitmarsLogType
-	extends Partial<Pick<SpawnSyncReturns<string>, 'stdout' | 'stderr' | 'status'>> {
+export interface GitmarsLogType extends Partial<
+	Pick<SpawnSyncReturns<string>, 'stdout' | 'stderr' | 'status'>
+> {
 	command: string
 }
 

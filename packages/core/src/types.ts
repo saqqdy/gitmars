@@ -34,8 +34,9 @@ export interface QueueConfigType extends SpawnOptions {
 	kill?: boolean
 }
 
-export interface QueueReturnsType
-	extends Partial<Pick<SpawnSyncReturns<string>, 'stdout' | 'stderr' | 'status'>> {
+export interface QueueReturnsType extends Partial<
+	Pick<SpawnSyncReturns<string>, 'stdout' | 'stderr' | 'status'>
+> {
 	cfg: QueueConfigType
 	cmd: string | string[] | ModuleCommandType
 }
