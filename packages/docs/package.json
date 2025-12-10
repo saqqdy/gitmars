@@ -1,7 +1,7 @@
 {
 	"name": "@gitmars/docs",
 	"description": "gitmars文档库",
-	"version": "7.6.0",
+	"version": "7.7.0",
 	"private": false,
 	"files": [
 		"dist",
@@ -23,21 +23,21 @@
 		"lib": "lib"
 	},
 	"dependencies": {
-		"js-cool": "^5.23.0"
+		"js-cool": "^5.23.1"
 	},
 	"devDependencies": {
 		"@eslint-sets/eslint-config-vue3": "^5.14.0",
 		"@types/markdown-it": "^14.1.2",
-		"@types/node": "^22.10.5",
+		"@types/node": "^24.10.2",
 		"eslint": "^8.57.1",
 		"markdown-it": "^14.1.0",
 		"markdown-it-anchor": "^9.2.0",
 		"markdown-it-container": "^4.0.0",
-		"prettier": "^3.4.2",
+		"prettier": "^3.7.4",
 		"prettier-config-common": "^1.4.0",
 		"tsnd": "^1.1.0",
-		"typescript": "^5.7.3",
-		"vitepress": "1.5.0"
+		"typescript": "^5.9.3",
+		"vitepress": "1.6.4"
 	},
 	"sideEffects": false,
 	"keywords": [

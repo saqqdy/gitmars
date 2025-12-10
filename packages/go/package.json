@@ -1,7 +1,7 @@
 {
 	"name": "@gitmars/go",
 	"description": "gitmars go",
-	"version": "7.6.0",
+	"version": "7.7.0",
 	"private": false,
 	"main": "./dist/index.cjs.js",
 	"module": "./dist/index.esm-bundler.js",
@@ -34,15 +34,15 @@
 	},
 	"devDependencies": {
 		"@eslint-sets/eslint-config-ts": "^5.14.0",
-		"@types/inquirer": "^9.0.7",
-		"@types/node": "^22.10.5",
+		"@types/inquirer": "^9.0.9",
+		"@types/node": "^24.10.2",
 		"cross-env": "^7.0.3",
 		"eslint": "^8.57.1",
 		"madge": "^8.0.0",
-		"prettier": "^3.4.2",
+		"prettier": "^3.7.4",
 		"prettier-config-common": "^1.4.0",
 		"tsnd": "^1.1.0",
-		"typescript": "^5.7.3"
+		"typescript": "^5.9.3"
 	},
 	"sideEffects": false,
 	"keywords": [

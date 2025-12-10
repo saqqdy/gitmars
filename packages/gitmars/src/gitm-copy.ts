@@ -12,6 +12,7 @@ import {
 	getCurrentBranch,
 	getGitLogs,
 	getGitLogsByCommitIDs,
+	getIsBranchOrCommitExist,
 	getIsGitProject,
 	prune,
 	searchBranches
@@ -124,18 +125,16 @@ program.action(async (commitid: string[], opts: GitmCopyOption) => {
 		})
 	)
 
-	cmd = [
-		`git switch ${chooseBranch}`,
-		'git pull',
-		{
-			cmd: `git cherry-pick ${commitIDs.reverse().join(' ')}`,
-			config: {
-				again: false,
-				success: t('Record merge successful'),
-				fail: t('Merge failed, please follow the instructions')
-			}
+	cmd = [`git switch ${chooseBranch}`]
+	if (getIsBranchOrCommitExist(chooseBranch, true)) cmd.push(`git pull`)
+	cmd.push({
+		cmd: `git cherry-pick ${commitIDs.reverse().join(' ')}`,
+		config: {
+			again: false,
+			success: t('Record merge successful'),
+			fail: t('Merge failed, please follow the instructions')
 		}
-	]
+	})
 
 	if (opts.push) cmd.push('git push')
 	cmd.push(`git switch ${current}`)

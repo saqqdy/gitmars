@@ -1,7 +1,7 @@
 {
 	"name": "@gitmars/core",
 	"description": "gitmars核心程序",
-	"version": "7.6.0",
+	"version": "7.7.0",
 	"private": false,
 	"main": "./dist/index.cjs.js",
 	"module": "./dist/index.esm-bundler.js",
@@ -33,23 +33,23 @@
 		"@gitmars/utils": "workspace:*",
 		"@jssj/request": "^1.1.0",
 		"chalk": "^4.1.2",
-		"js-cool": "^5.23.0",
+		"js-cool": "^5.23.1",
 		"ora": "^5.4.1",
 		"os-lang": "^3.3.1",
-		"semver-diff": "^4.0.0",
+		"semver-diff": "^5.0.0",
 		"shelljs": "^0.8.5"
 	},
 	"devDependencies": {
 		"@eslint-sets/eslint-config-ts": "^5.14.0",
-		"@types/node": "^22.10.5",
-		"@types/shelljs": "^0.8.15",
+		"@types/node": "^24.10.2",
+		"@types/shelljs": "^0.8.17",
 		"cross-env": "^7.0.3",
 		"eslint": "^8.57.1",
 		"madge": "^8.0.0",
-		"prettier": "^3.4.2",
+		"prettier": "^3.7.4",
 		"prettier-config-common": "^1.4.0",
 		"tsnd": "^1.1.0",
-		"typescript": "^5.7.3"
+		"typescript": "^5.9.3"
 	},
 	"sideEffects": false,
 	"keywords": [
