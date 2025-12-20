@@ -265,7 +265,7 @@ program.action(async (type: string, name: string, opt: GitmCombineOption): Promi
 			if (isNeedCombineDevelop || opt.force)
 				cmd.push(
 					'git fetch',
-					`git checkout ${config.develop}`,
+					`git switch ${config.develop}`,
 					'git pull',
 					{
 						cmd: `git merge --no-ff ${branchName}`,
@@ -292,7 +292,7 @@ program.action(async (type: string, name: string, opt: GitmCombineOption): Promi
 							fail: t('Push failed, please follow the prompts')
 						}
 					},
-					`git checkout ${branchName}`
+					`git switch ${branchName}`
 				)
 			else
 				cmd.push({
@@ -336,7 +336,7 @@ program.action(async (type: string, name: string, opt: GitmCombineOption): Promi
 					if (isNeedCombineBase || opt.force)
 						cmd.push(
 							'git fetch',
-							`git checkout ${base}`,
+							`git switch ${base}`,
 							'git pull',
 							{
 								cmd: `git merge --no-ff ${branchName}`,
@@ -363,7 +363,7 @@ program.action(async (type: string, name: string, opt: GitmCombineOption): Promi
 									fail: t('Push failed, please follow the prompts')
 								}
 							},
-							`git checkout ${branchName}`
+							`git switch ${branchName}`
 						)
 					else
 						cmd.push({
@@ -432,7 +432,7 @@ program.action(async (type: string, name: string, opt: GitmCombineOption): Promi
 					if (isNeedCombineRelease || opt.force)
 						cmd.push(
 							'git fetch',
-							`git checkout ${config.release}`,
+							`git switch ${config.release}`,
 							'git pull',
 							{
 								cmd: `git merge --no-ff ${branchName}`,
@@ -459,7 +459,7 @@ program.action(async (type: string, name: string, opt: GitmCombineOption): Promi
 									fail: t('Push failed, please follow the prompts')
 								}
 							},
-							`git checkout ${branchName}`
+							`git switch ${branchName}`
 						)
 					else
 						cmd.push({
@@ -528,7 +528,7 @@ program.action(async (type: string, name: string, opt: GitmCombineOption): Promi
 					if (isNeedCombineBugfix || opt.force)
 						cmd.push(
 							'git fetch',
-							`git checkout ${config.bugfix}`,
+							`git switch ${config.bugfix}`,
 							'git pull',
 							{
 								cmd: `git merge --no-ff ${branchName}`,
@@ -555,7 +555,7 @@ program.action(async (type: string, name: string, opt: GitmCombineOption): Promi
 									fail: t('Push failed, please follow the prompts')
 								}
 							},
-							`git checkout ${branchName}`
+							`git switch ${branchName}`
 						)
 					else
 						cmd.push({

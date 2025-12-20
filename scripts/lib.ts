@@ -10,9 +10,9 @@ const path = require('path')
 const argv = process.argv.slice(2)
 const builder = require('esbuild')
 
-const readDir = entry => {
+const readDir = (entry: string) => {
 	const dirInfo = fs.readdirSync(entry)
-	dirInfo.forEach(fileName => {
+	dirInfo.forEach((fileName: string) => {
 		const name = path.join(entry, fileName)
 		const info = fs.statSync(name)
 		if (info.isDirectory()) {
@@ -22,7 +22,7 @@ const readDir = entry => {
 		}
 	})
 }
-function getInfo(url) {
+function getInfo(url: string) {
 	builder
 		.build({
 			entryPoints: [url],

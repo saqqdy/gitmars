@@ -2,7 +2,7 @@
 	"name": "gitmars",
 	"description": "这是一个git工作流工具",
 	"type": "module",
-	"version": "7.0.0",
+	"version": "7.7.0",
 	"private": false,
 	"bin": {
 		"gitm": "lib/gitm.mjs"
@@ -64,27 +64,27 @@
 		"@gitmars/hook": "workspace:*",
 		"@gitmars/utils": "workspace:*",
 		"@inquirer/prompts": "^3.3.2",
-		"await-to-done": "^1.0.2",
+		"await-to-done": "^1.1.1",
 		"chalk": "^4.1.2",
 		"columnify": "^1.6.0",
-		"commander": "^12.0.0",
-		"dayjs": "^1.11.11",
-		"js-cool": "^5.19.1",
+		"commander": "^12.1.0",
+		"dayjs": "^1.11.19",
+		"js-cool": "^5.23.1",
 		"ora": "^5.4.1",
-		"os-lang": "^3.2.0",
+		"os-lang": "^3.3.1",
 		"shelljs": "^0.8.5"
 	},
 	"devDependencies": {
-		"@eslint-sets/eslint-config-ts": "^5.13.0",
+		"@eslint-sets/eslint-config-ts": "^5.14.0",
 		"@types/columnify": "^1.5.4",
-		"@types/node": "^20.12.11",
-		"@types/shelljs": "^0.8.15",
+		"@types/node": "^24.10.2",
+		"@types/shelljs": "^0.8.17",
 		"cross-env": "^7.0.3",
-		"eslint": "^8.57.0",
-		"prettier": "^3.2.5",
+		"eslint": "^8.57.1",
+		"prettier": "^3.7.4",
 		"prettier-config-common": "^1.4.0",
 		"tsnd": "^1.1.0",
-		"typescript": "^5.4.5"
+		"typescript": "^5.9.3"
 	},
 	"sideEffects": false,
 	"keywords": [

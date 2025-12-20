@@ -12,13 +12,20 @@ export { default as getIsBranchOrCommitExist } from './getIsBranchOrCommitExist'
 export { default as getIsMergeAction } from './getIsMergeAction'
 export { default as getIsMergedTargetBranch } from './getIsMergedTargetBranch'
 export { default as getIsUpdatedInTime } from './getIsUpdatedInTime'
-export { getGitEmail, getGitToken, getGitUser } from './getGitUser'
+export {
+	getGitEmail,
+	getGitMiniprogramToken,
+	getGitMiniprogramSession,
+	getGitToken,
+	getGitUser
+} from './getGitUser'
 export { default as getBranchesFromID } from './getBranchesFromID'
 export { default as getGitStatus } from './getGitStatus'
 export { default as getCommandMessage } from './getCommandMessage'
 export { default as checkGitStatus } from './checkGitStatus'
 export { default as getStashList } from './getStashList'
 export { default as fetch } from './fetch'
+export { default as checkout } from './checkout'
 export { default as prune } from './prune'
 export { default as readPkg } from './readPkg'
 export { default as getConfig } from './getConfig'

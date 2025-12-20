@@ -52,7 +52,9 @@ program.action(async (project: string, opt: GitmBuildMpOption): Promise<void> =>
 		_confirm = opt.confirm,
 		build_api_env = opt.build_api_env || data.build_api_env,
 		mini_program = opt.miniprogram || data.mini_program,
-		description = opt.description || data.description
+		description = opt.description || data.description,
+		versionType = data.versionType,
+		baseInfo = data.baseInfo
 
 	if (!project) {
 		if (getIsGitProject()) project = getGitConfig().appName
@@ -162,10 +164,49 @@ program.action(async (project: string, opt: GitmBuildMpOption): Promise<void> =>
 			)
 		}
 	}
+	if (!versionType) {
+		;[, versionType] = await to(
+			select({
+				message: t('Select the type of version to be generated'),
+				choices: [
+					{
+						name: 'none',
+						value: 'none',
+						description: t('Do not generate new versions')
+					},
+					{
+						name: 'patch',
+						value: 'patch',
+						description: t('Patch version(bug fixes, minor changes)')
+					},
+					{
+						name: 'minor',
+						value: 'minor',
+						description: t('Minor version(New Features)')
+					},
+					{
+						name: 'major',
+						value: 'major',
+						description: t('Major version(Framework reorganization, major revamp)')
+					}
+				]
+			})
+		)
+	}
 	if (!description) {
 		;[, description] = await to(
 			input({
 				message: t('Enter the version description'),
+				transformer: val => val.trim()
+			}).then(val => val.trim())
+		)
+	}
+	if (!baseInfo) {
+		;[, baseInfo] = await to(
+			input({
+				message: t(
+					"Enter the baseInfo to be extended, Leave it blank if you don't need it."
+				),
 				transformer: val => val.trim()
 			}).then(val => val.trim())
 		)
@@ -181,7 +222,9 @@ program.action(async (project: string, opt: GitmBuildMpOption): Promise<void> =>
 		message += `\n${t('Interface Environment')}: ${red(build_api_env || 'production')}`
 		if (mini_program)
 			message += `\n${t('Experience version pushed to')}: ${red(mini_program || t('Push to templates only'))}`
+		if (versionType) message += `\n${t('Type of version to generate')}: ${red(versionType)}`
 		if (description) message += `\n${t('Version Description')}: ${red(description)}`
+		if (baseInfo) message += `\n${t('BaseInfo to be extended')}: ${red(baseInfo)}`
 		if ('clean' in data)
 			message += `\n${t('Clean node modules (use with caution)')}: ${red(data.clean)}`
 		;[, _confirm] = await to(confirm({ message }))
@@ -193,7 +236,14 @@ program.action(async (project: string, opt: GitmBuildMpOption): Promise<void> =>
 			env: env!,
 			project,
 			app: app!,
-			data: JSON.stringify({ ...data, build_api_env, mini_program, description })
+			data: JSON.stringify({
+				...data,
+				build_api_env,
+				mini_program,
+				versionType,
+				description,
+				baseInfo
+			})
 		})
 })
 program.parse(process.argv)

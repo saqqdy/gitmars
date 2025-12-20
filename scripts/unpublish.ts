@@ -8,13 +8,18 @@ versionText = versionText.replace(/\"/g, '')
 const versions = versionText.split(',')
 
 const REGISTRY_URL = 'https://registry.npmjs.org'
-const command = `npm --registry=${REGISTRY_URL} unpublish`
+// const command = `npm --registry=${REGISTRY_URL} unpublish`
+const command = `npm --registry=${REGISTRY_URL} deprecate`
 
 for (const { pkgName } of packages) {
 	for (const version of versions) {
-		execSync(`${command} ${pkgName}@${version}`, {
-			stdio: 'inherit'
-		})
+		execSync(
+			// `${command} ${pkgName}@${version}`,
+			`${command} ${pkgName}@${version} "This version is deprecated, please use the latest version"`,
+			{
+				stdio: 'inherit'
+			}
+		)
 		consola.success(`UnPublished ${pkgName}@${version}`)
 	}
 }

@@ -55,6 +55,18 @@ export const cmdConfig: GitmarsOptionType = {
 			negate: false,
 			description: t('The maximum number of logs to be queried'),
 			defaultValue: ''
+		},
+		{
+			flags: '-p, --push',
+			required: false,
+			optional: false,
+			variadic: false,
+			mandatory: false,
+			short: '-p',
+			long: '--push',
+			negate: false,
+			description: t('Push target branch'),
+			recommend: false
 		}
 	],
 	// validator opts

@@ -53,7 +53,7 @@ export async function isNeedUpgrade(type?: VersionControlType): Promise<boolean>
 	const semverTag = semverDiff(version, tagVersion)
 
 	if (!type) return false
-	if (isPreVer) return !!semverTag
+	if (isPreVer) return Boolean(semver || semverTag)
 	else if (!semver) return false
 	return (
 		(type === 'patch' &&

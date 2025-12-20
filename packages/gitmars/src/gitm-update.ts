@@ -119,9 +119,9 @@ program.action(async (type: string | string[], name: string, opt: GitmUpdateOpti
 		if (isNeedCombine || opt.force) {
 			cmd = cmd.concat([
 				'git fetch',
-				`git checkout ${base}`,
+				`git switch ${base}`,
 				'git pull',
-				`git checkout ${type}/${name}`
+				`git switch ${type}/${name}`
 			])
 			if (opt.useRebase) {
 				cmd.push({
