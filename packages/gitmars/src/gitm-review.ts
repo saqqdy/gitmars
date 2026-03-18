@@ -73,7 +73,7 @@ program.action(async (opt: GitmReviewOption): Promise<void> => {
 					id: green(iid + ': '),
 					source: green(source_branch),
 					target: green(target_branch),
-					disabled: disabled ? red(`[ ${t('Conflict or no need to merge')} ]`) : '',
+					disabled: disabled ? red(`[ ${t('There is a conflict or merge is not required')} ]`) : '',
 					name: yellow(author.name),
 					comments: green(
 						t('{length} comments', {

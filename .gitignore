@@ -1,55 +1,63 @@
-.DS_Store
-node_modules
-dist
-.temp
-lib
-es
-app
-packages/gitmars/es
-packages/gitmars/lib
-yarn.lock
-/.pnp
+# Dependencies
+node_modules/
+.pnp
 .pnp.js
-gitmarsconfig.json
-.gitmarsrc
 
+# Build output
+dist/
+lib/
+es/
+app/
+dist_electron/
+*.tsbuildinfo
+
+# Package specific build output
+packages/gitmars/es/
+packages/gitmars/lib/
+
+# Cache
+.temp/
+**/cache/cache/*
+!**/cache/cache/.gitkeep
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+yarn.lock
+
+# Testing
+coverage/
 /tests/e2e/reports/
 selenium-debug.log
+stats.html
 
-# local env files
-.DS_Store
+# Environment files
 .env.local
 .env.development.local
 .env.test.local
 .env.production.local
 
-*.bak
-*_bak
-*.bak.js
-*.bak.mjs
-*.http
-
-# testing
-/coverage
-
-# production
-
-# Log files
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-
-# Editor directories and files
-.idea
+# IDE and Editor
+.idea/
 *.suo
 *.ntvs*
 *.njsproj
 *.sln
 *.sw*
-**/cache/cache/*
-!**/cache/cache/.gitkeep
-stats.html
 
-#Electron-builder output
-dist_electron
-tsconfig.tsbuildinfo
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Project specific
+gitmarsconfig.json
+.gitmarsrc
+.claude/
+
+# Backup files
+*.bak
+*_bak
+*.bak.js
+*.bak.mjs
+*.http
