@@ -5,6 +5,70 @@ sidebarDepth: 2
 
 # API 参考
 
+欢迎使用 Gitmars API 参考文档。
+
+## 分类概览
+
+### [智能导航](#gitm-go)
+一条指令完成所有操作
+
+### [配置](#gitm-init)
+初始化和配置管理
+
+### [工作流](#gitm-start)
+分支创建、合并、更新等核心工作流
+
+### [效率工具](#gitm-copy)
+复制、构建、暂存等提效工具
+
+### [管理员](#gitm-admin-create)
+管理员专用命令
+
+## 命令索引
+
+| 命令 | 说明 |
+| ---- | ---- |
+| [gitm go](#gitm-go) | 智能导航指令 |
+| [gitm init](#gitm-init) | 初始化配置 |
+| [gitm config](#gitm-config) | 配置查询与设置 |
+| [gitm start](#gitm-start) | 创建分支 |
+| [gitm combine](#gitm-combine) | 分支阶段提测 |
+| [gitm end](#gitm-end) | 完成开发 |
+| [gitm update](#gitm-update) | 更新分支 |
+| [gitm continue](#gitm-continue) | 继续未完成的操作 |
+| [gitm copy](#gitm-copy) | cherry-pick 简化操作 |
+| [gitm build](#gitm-build) | 构建 Jenkins |
+| [gitm build-mp](#gitm-build-mp) | 构建小程序 Jenkins |
+| [gitm miniprogram](#gitm-miniprogram) | 小程序专用指令 |
+| [gitm branch](#gitm-branch) | 分支操作 |
+| [gitm revert](#gitm-revert) | 撤销提交 |
+| [gitm undo](#gitm-undo) | 撤回提交记录 |
+| [gitm redo](#gitm-redo) | 重做提交记录 |
+| [gitm save](#gitm-save) | 暂存文件 |
+| [gitm get](#gitm-get) | 恢复暂存文件 |
+| [gitm cleanbranch](#gitm-cleanbranch) | 清理分支 |
+| [gitm log](#gitm-log) | 查询日志 |
+| [gitm hook](#gitm-hook) | Git 钩子指令 |
+| [gitm run](#gitm-run) | Git 钩子运行指令 |
+| [gitm upgrade](#gitm-upgrade) | 升级 gitmars |
+| [gitm clean](#gitm-clean) | 清除缓存 |
+| [gitm suggest](#gitm-suggest) | Git 操作建议 |
+| [gitm approve](#gitm-approve) | 处理远程合并请求 |
+| [gitm review](#gitm-review) | 远程 review 代码 |
+| [gitm status](#gitm-status) | 查看分支状态 |
+| [gitm link](#gitm-link) | 软链接 |
+| [gitm unlink](#gitm-unlink) | 解除软链接 |
+| [gitm postmsg](#gitm-postmsg) | 推送消息 |
+| [gitm alias](#gitm-alias) | 安装和移除快捷方式 |
+| [gitm admin create](#gitm-admin-create) | 管理员创建主干分支 |
+| [gitm admin publish](#gitm-admin-publish) | 发布分支 |
+| [gitm admin update](#gitm-admin-update) | 更新主干分支代码 |
+| [gitm admin clean](#gitm-admin-clean) | 清理分支 |
+| [gitm permission](#gitm-permission) | 提交权限 |
+| [gitm version](#gitm-version) | 查看版本 |
+
+---
+
 ## 智能导航
 
 ### gitm go
