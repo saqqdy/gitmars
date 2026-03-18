@@ -34,10 +34,10 @@ interface GitmUndoOption {
 }
 
 /**
- * 检测要撤销的commit
+ * Check the commits to undo
  *
- * @param commitIDs - 提交ID
- * @param mode - 模式
+ * @param commitIDs - Commit IDs
+ * @param mode - Mode
  * @returns status - return status
  */
 function getRevertCommitIDs(commitIDs: string[]): string[] {
@@ -74,12 +74,12 @@ function getRevertCommitIDs(commitIDs: string[]): string[] {
 }
 
 /**
- * 清理撤销失败的记录
- * 1. 执行冲突导致失败，after = null
- * 2. 没有找到撤销记录
- * 3. 有撤销记录，但已经恢复
+ * Clean up failed undo records
+ * 1. Failed due to conflict, after = null
+ * 2. No undo record found
+ * 3. Has undo record but already restored
  *
- * @param all - 是否清理全部，默认只清理当前分支
+ * @param all - Whether to clean all, default only clean current branch
  * @param opt - option: GitmUndoOption
  */
 function calculate(all = false, opt: GitmUndoOption) {
@@ -92,7 +92,7 @@ function calculate(all = false, opt: GitmUndoOption) {
 		let _undoLogs = [],
 			_redoLogs = []
 		if (!after) {
-			// 没有after，尝试恢复
+			// No after, try to restore
 			const _logs = getGitLogs({
 				lastet: opt.lastet,
 				limit: opt.limit * 2,
@@ -121,9 +121,9 @@ function calculate(all = false, opt: GitmUndoOption) {
 				grep: after['%H']
 			})
 		}
-		// 不检测全部分支时，跳过非当前分支
+		// Skip non-current branches when not checking all branches
 		if (!all && current !== branch) continue
-		// 没有找到该记录的撤销记录 或 撤销的记录被恢复过
+		// No undo record found for this record or the undo record has been restored
 		if (_undoLogs.length === 0 || _redoLogs.length > 0) {
 			echo(
 				yellow(
@@ -167,7 +167,7 @@ program.action(async (commitid: string[], opt: GitmUndoOption) => {
 	const current = getCurrentBranch()
 	let logList: GitLogsType[] = [],
 		cmd: Array<CommandType | string | string[]> = [],
-		commitIDs: string[] = [], // 需要执行的commitID
+		commitIDs: string[] = [], // commitIDs to execute
 		mode = ''
 	if (opt.calc) {
 		calculate(false, opt)
@@ -180,19 +180,19 @@ program.action(async (commitid: string[], opt: GitmUndoOption) => {
 	if (!opt.limit) opt.limit = 20
 	mode = ' -m ' + Math.abs(Number(opt.mode || 1))
 	if (commitid.length > 0) {
-		// 传入了commitIDs
+		// commitIDs passed in
 		logList = getGitLogsByCommitIDs({ commitIDs: commitid, keys })
 	} else {
-		// 没有传入commitIDs，展示日志列表给用户选择
+		// No commitIDs passed, show log list for user to select
 		logList = getGitLogs({
 			lastet: opt.lastet,
 			limit: opt.limit,
 			noMerges: !opt.merges,
 			keys
 		})
-		// 没有查询到日志
+		// No logs found
 		if (logList.length === 0) {
-			// 没有查找到任何记录
+			// No records found
 			echo(
 				yellow(
 					t(
@@ -202,7 +202,7 @@ program.action(async (commitid: string[], opt: GitmUndoOption) => {
 			)
 			process.exit(0)
 		} else {
-			// 多条记录
+			// Multiple records
 			;[, commitIDs = []] = await to(
 				checkbox<string>({
 					message: t('Please select the commit record to undo.'),
@@ -220,21 +220,21 @@ program.action(async (commitid: string[], opt: GitmUndoOption) => {
 			)
 		}
 	}
-	// 没有选择任何记录
+	// No records selected
 	if (commitIDs.length === 0) {
 		echo(yellow(t('No commit record selected, process has exited')))
 		process.exit(0)
 	}
-	// 获取没有被undo过的记录
+	// Get records that haven't been undone
 	commitIDs = getRevertCommitIDs(commitIDs)
 	if (commitIDs.length === 0) {
 		echo(yellow(t('There are no revocable records, the process has exited')))
 		process.exit(0)
 	}
-	// 筛选被选择的记录
+	// Filter selected records
 	logList = logList.filter(log => commitIDs.some(id => log['%H']!.includes(id)))
 	cmd = logList.map(log => {
-		// 判断是否有merge的记录
+		// Check if there are merge records
 		// const isMergeLog = log['%P'].indexOf(' ') > -1
 		return {
 			cmd: `git revert -s --no-edit ${log['%H']}${mode}`,
@@ -247,7 +247,7 @@ program.action(async (commitid: string[], opt: GitmUndoOption) => {
 			}
 		}
 	})
-	// 先保存缓存
+	// Save cache first
 	const revertCacheList = logList.map(log => {
 		const cache = {
 			before: log,
@@ -266,7 +266,7 @@ program.action(async (commitid: string[], opt: GitmUndoOption) => {
 		return cache
 	})
 	addRevertCache(revertCacheList)
-	// 执行
+	// Execute
 	queue(cmd)
 		.then(() => {
 			calculate(false, opt)

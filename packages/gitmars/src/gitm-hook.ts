@@ -59,7 +59,7 @@ options.forEach((o: GitmarsOptionOptionsType) => {
 // .option('-t, --type <type>', t('Detection type'))
 // .option('--branch [branch]', t('Branch to query'))
 program.action(async (command: string, args: string[], opt: GitmHookOption): Promise<void> => {
-	// 不检测直接返回
+	// Skip check and return directly
 	if (opt.noVerify) {
 		process.exit(0)
 		return
@@ -79,7 +79,7 @@ program.action(async (command: string, args: string[], opt: GitmHookOption): Pro
 			config.bugfix
 		]
 		const current = getCurrentBranch()
-		// GIT_REFLOG_ACTION: 'merge feature/wu',   说明走的是pre-merge-commit钩子，没有冲突的时候才会走这里
+		// GIT_REFLOG_ACTION: 'merge feature/wu', indicates pre-merge-commit hook, this path is taken when there are no conflicts
 
 		// [1,2]
 		// pre-merge-commit
@@ -322,10 +322,10 @@ program.action(async (command: string, args: string[], opt: GitmHookOption): Pro
 		// 	'7d'
 		// ]
 		console.info(types, process.env, process.argv, getBranchesFromID('2080d17e'))
-		// 检测权限 command = hookName
-		// 检测类型对应上面的检测方法
+		// Check permission command = hookName
+		// Check type corresponds to the detection method above
 		if (current !== config.develop && mainBranches.includes(current) && types.includes('1')) {
-			// 分支合并主干分支之后，检测该分支是否合并过dev，没有合并过的，不允许继续执行commit
+			// After merging to main branch, check if the branch has merged dev, if not, prevent commit
 			const [command, branch] = process.env.GIT_REFLOG_ACTION
 				? process.env.GIT_REFLOG_ACTION.split(' ')
 				: []
@@ -355,7 +355,7 @@ program.action(async (command: string, args: string[], opt: GitmHookOption): Pro
 			}
 		}
 		if (mainBranches.includes(current) && types.includes('2')) {
-			// 分支合并主干分支之后，检测该分支是否同步过上游分支的代码，没有同步过的，不允许继续执行commit
+			// After merging to main branch, check if the branch has synced with upstream, if not, prevent commit
 			const [command, branch] = process.env.GIT_REFLOG_ACTION
 				? process.env.GIT_REFLOG_ACTION.split(' ')
 				: []
@@ -388,7 +388,7 @@ program.action(async (command: string, args: string[], opt: GitmHookOption): Pro
 			}
 		}
 		if (mainBranches.includes(current) && types.includes('3')) {
-			// 在主干分支执行push推送时，检测最后一次提交是否为merge记录，如果不是，提示不允许直接在主干分支做修改
+			// When pushing to main branch, check if the last commit is a merge record, if not, prevent direct modification on main branch
 			const isMergeAction = getIsMergeAction()
 			if (!isMergeAction) {
 				console.info(
@@ -409,17 +409,17 @@ program.action(async (command: string, args: string[], opt: GitmHookOption): Pro
 			// 		break aheadLog
 			// 	}
 			// }
-			// console.info('本地领先的记录', aheadLogs)
-			// console.info('本地落后的记录', behindLogs)
+			// console.info('Local ahead logs', aheadLogs)
+			// console.info('Local behind logs', behindLogs)
 			// if (isMerge) {
 			// 	process.exit(0)
 			// } else {
-			// 	sh.echo(red('不允许在主干分支直接更改代码提交，请联系管理员'))
+			// 	sh.echo(red('Direct modification on main branch is not allowed, please contact administrator'))
 			// 	process.exit(1)
 			// }
 		}
 		if (mainBranches.includes(current) && types.includes('4')) {
-			// 在主干分支执行push推送时，检测是否需要先执行pull
+			// When pushing to main branch, check if pull is needed first
 			const behindLogs = getBehindLogs()
 			if (!behindLogs.length) {
 				console.info(

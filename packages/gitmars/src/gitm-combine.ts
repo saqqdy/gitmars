@@ -426,7 +426,7 @@ program.action(async (type: string, name: string, opt: GitmCombineOption): Promi
 					)
 				}
 			}
-			// bugfix分支走release发布
+			// bugfix branch goes through release for publishing
 			if (type === 'bugfix' && opt.asFeature) {
 				if (!level || level < 3) {
 					if (isNeedCombineRelease || opt.force)
@@ -522,7 +522,7 @@ program.action(async (type: string, name: string, opt: GitmCombineOption): Promi
 					)
 				}
 			}
-			// support分支需要合到bugfix
+			// support branch needs to merge to bugfix
 			if (type === 'support' && opt.noBugfix) {
 				if (!level || level < 3) {
 					if (isNeedCombineBugfix || opt.force)
@@ -635,7 +635,7 @@ program.action(async (type: string, name: string, opt: GitmCombineOption): Promi
 				}
 			})
 		else if (opt.prod) {
-			// 仅支持构建bug
+			// Only support building bug environment
 			if (!level || level < 3) {
 				if (type === 'bugfix') {
 					cmd.push({
@@ -650,7 +650,7 @@ program.action(async (type: string, name: string, opt: GitmCombineOption): Promi
 						}
 					})
 				}
-				// support分支要构建bug和release
+				// support branch needs to build bug and release
 				if (type === 'support' && opt.noBugfix) {
 					cmd.push({
 						cmd: `gitm build ${appName} --confirm --env bug --app ${

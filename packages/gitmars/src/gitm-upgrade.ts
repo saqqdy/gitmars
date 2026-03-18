@@ -63,7 +63,7 @@ program.action(async (version: PackageVersionTag | string, opt: GitmUpgradeOptio
 			cmdDel = [opt.client, ['uninstall', '-g', 'gitmars']]
 			break
 	}
-	// 这一行后面准备删掉
+	// This line will be removed later
 	if (!opt.registry && opt.mirror) {
 		opt.registry = 'https://registry.npmmirror.com'
 	}

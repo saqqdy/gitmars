@@ -42,7 +42,7 @@ program.action(async (opt: GitmContinueOption) => {
 		process.exit(0)
 	}
 	if (cmd.length > 0) {
-		// 检测是否有未提交的文件
+		// Check for uncommitted files
 		if (sum.A.length > 0 || sum.D.length > 0 || sum.M.length > 0 || sum.UU.length > 0) {
 			const [, answer] = await to(
 				confirm({

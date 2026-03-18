@@ -37,7 +37,7 @@ program.action(async (command: string): Promise<void> => {
 		)
 	)
 	if (command) {
-		// 执行对应指令
+		// Execute the corresponding command
 		const cmd = getProperty(commands, command)
 		if (!cmd) {
 			sh.echo(
@@ -49,7 +49,7 @@ program.action(async (command: string): Promise<void> => {
 		}
 		cmd()
 	} else {
-		// 选择指令
+		// Select command
 		const [, command = ''] = await to(
 			select<string>({
 				message: t('Select the operation you want?'),
@@ -95,7 +95,7 @@ program.action(async (command: string): Promise<void> => {
 				})
 			)
 		)
-		// 执行对应指令
+		// Execute the corresponding command
 		getProperty(commands, command)()
 	}
 })
