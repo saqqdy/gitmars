@@ -12,13 +12,13 @@ module.exports = {
 						'last 2 versions',
 						'not ie < 11',
 						'not ie_mob < 11',
-						'not op_mini all'
-					]
+						'not op_mini all',
+					],
 				},
-				exclude: ['transform-regenerator']
-			}
+				exclude: ['transform-regenerator'],
+			},
 		],
-		'@babel/typescript'
+		'@babel/typescript',
 	],
 	env: {
 		es5: {
@@ -36,14 +36,14 @@ module.exports = {
 								'last 2 versions',
 								'not ie < 11',
 								'not ie_mob < 11',
-								'not op_mini all'
-							]
+								'not op_mini all',
+							],
 						},
-						exclude: ['transform-regenerator']
-					}
+						exclude: ['transform-regenerator'],
+					},
 				],
-				'@babel/typescript'
-			]
-		}
-	}
+				'@babel/typescript',
+			],
+		},
+	},
 }

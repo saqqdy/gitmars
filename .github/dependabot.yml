@@ -14,12 +14,12 @@ updates:
       - dependency-name: core-js
       - dependency-name: eslint
       - dependency-name: prettier
-      - dependency-name: '@babel/*'
-      - dependency-name: '@types/*'
+      - dependency-name: "@babel/*"
+      - dependency-name: "@types/*"
       - dependency-name: typescript
         versions: [4.x]
-      - dependency-name: '*'
-        update-types: ['version-update:semver-patch']
+      - dependency-name: "*"
+        update-types: ["version-update:semver-patch"]
 
   - package-ecosystem: npm # See documentation for possible values
     directory: /packages/api # Location of package manifests
@@ -30,12 +30,12 @@ updates:
       - dependency-name: core-js
       - dependency-name: eslint
       - dependency-name: prettier
-      - dependency-name: '@babel/*'
-      - dependency-name: '@types/*'
+      - dependency-name: "@babel/*"
+      - dependency-name: "@types/*"
       - dependency-name: typescript
         versions: [4.x]
-      - dependency-name: '*'
-        update-types: ['version-update:semver-patch']
+      - dependency-name: "*"
+        update-types: ["version-update:semver-patch"]
 
   - package-ecosystem: npm # See documentation for possible values
     directory: /packages/build # Location of package manifests
@@ -46,12 +46,12 @@ updates:
       - dependency-name: core-js
       - dependency-name: eslint
       - dependency-name: prettier
-      - dependency-name: '@babel/*'
-      - dependency-name: '@types/*'
+      - dependency-name: "@babel/*"
+      - dependency-name: "@types/*"
       - dependency-name: typescript
         versions: [4.x]
-      - dependency-name: '*'
-        update-types: ['version-update:semver-patch']
+      - dependency-name: "*"
+        update-types: ["version-update:semver-patch"]
 
   - package-ecosystem: npm # See documentation for possible values
     directory: /packages/cache # Location of package manifests
@@ -62,12 +62,12 @@ updates:
       - dependency-name: core-js
       - dependency-name: eslint
       - dependency-name: prettier
-      - dependency-name: '@babel/*'
-      - dependency-name: '@types/*'
+      - dependency-name: "@babel/*"
+      - dependency-name: "@types/*"
       - dependency-name: typescript
         versions: [4.x]
-      - dependency-name: '*'
-        update-types: ['version-update:semver-patch']
+      - dependency-name: "*"
+        update-types: ["version-update:semver-patch"]
 
   - package-ecosystem: npm # See documentation for possible values
     directory: /packages/core # Location of package manifests
@@ -78,12 +78,12 @@ updates:
       - dependency-name: core-js
       - dependency-name: eslint
       - dependency-name: prettier
-      - dependency-name: '@babel/*'
-      - dependency-name: '@types/*'
+      - dependency-name: "@babel/*"
+      - dependency-name: "@types/*"
       - dependency-name: typescript
         versions: [4.x]
-      - dependency-name: '*'
-        update-types: ['version-update:semver-patch']
+      - dependency-name: "*"
+        update-types: ["version-update:semver-patch"]
 
   - package-ecosystem: npm # See documentation for possible values
     directory: /packages/git # Location of package manifests
@@ -94,12 +94,12 @@ updates:
       - dependency-name: core-js
       - dependency-name: eslint
       - dependency-name: prettier
-      - dependency-name: '@babel/*'
-      - dependency-name: '@types/*'
+      - dependency-name: "@babel/*"
+      - dependency-name: "@types/*"
       - dependency-name: typescript
         versions: [4.x]
-      - dependency-name: '*'
-        update-types: ['version-update:semver-patch']
+      - dependency-name: "*"
+        update-types: ["version-update:semver-patch"]
 
   - package-ecosystem: npm # See documentation for possible values
     directory: /packages/go # Location of package manifests
@@ -110,12 +110,12 @@ updates:
       - dependency-name: core-js
       - dependency-name: eslint
       - dependency-name: prettier
-      - dependency-name: '@babel/*'
-      - dependency-name: '@types/*'
+      - dependency-name: "@babel/*"
+      - dependency-name: "@types/*"
       - dependency-name: typescript
         versions: [4.x]
-      - dependency-name: '*'
-        update-types: ['version-update:semver-patch']
+      - dependency-name: "*"
+        update-types: ["version-update:semver-patch"]
 
   - package-ecosystem: npm # See documentation for possible values
     directory: /packages/hook # Location of package manifests
@@ -126,12 +126,12 @@ updates:
       - dependency-name: core-js
       - dependency-name: eslint
       - dependency-name: prettier
-      - dependency-name: '@babel/*'
-      - dependency-name: '@types/*'
+      - dependency-name: "@babel/*"
+      - dependency-name: "@types/*"
       - dependency-name: typescript
         versions: [4.x]
-      - dependency-name: '*'
-        update-types: ['version-update:semver-patch']
+      - dependency-name: "*"
+        update-types: ["version-update:semver-patch"]
 
   - package-ecosystem: npm # See documentation for possible values
     directory: /packages/utils # Location of package manifests
@@ -142,12 +142,12 @@ updates:
       - dependency-name: core-js
       - dependency-name: eslint
       - dependency-name: prettier
-      - dependency-name: '@babel/*'
-      - dependency-name: '@types/*'
+      - dependency-name: "@babel/*"
+      - dependency-name: "@types/*"
       - dependency-name: typescript
         versions: [4.x]
-      - dependency-name: '*'
-        update-types: ['version-update:semver-patch']
+      - dependency-name: "*"
+        update-types: ["version-update:semver-patch"]
 
   - package-ecosystem: npm # See documentation for possible values
     directory: /packages/docs # Location of package manifests
@@ -158,12 +158,12 @@ updates:
       - dependency-name: core-js
       - dependency-name: eslint
       - dependency-name: prettier
-      - dependency-name: '@babel/*'
-      - dependency-name: '@types/*'
+      - dependency-name: "@babel/*"
+      - dependency-name: "@types/*"
       - dependency-name: typescript
         versions: [4.x]
-      - dependency-name: '*'
-        update-types: ['version-update:semver-patch']
+      - dependency-name: "*"
+        update-types: ["version-update:semver-patch"]
 
   - package-ecosystem: npm # See documentation for possible values
     directory: /packages/gitmars # Location of package manifests
@@ -174,9 +174,9 @@ updates:
       - dependency-name: core-js
       - dependency-name: eslint
       - dependency-name: prettier
-      - dependency-name: '@babel/*'
-      - dependency-name: '@types/*'
+      - dependency-name: "@babel/*"
+      - dependency-name: "@types/*"
       - dependency-name: typescript
         versions: [4.x]
-      - dependency-name: '*'
-        update-types: ['version-update:semver-patch']
+      - dependency-name: "*"
+        update-types: ["version-update:semver-patch"]
