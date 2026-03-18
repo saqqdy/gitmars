@@ -1,21 +1,28 @@
-import { exec, execSync, spawn, spawnSync } from 'child_process'
+import { exec, execSync, spawn, spawnSync } from 'node:child_process'
 import { ROOT } from '../utils/paths'
-import { wrapDisplayName } from './gulp'
 import echo from './echo'
+import { wrapDisplayName } from './gulp'
 
 export function runSpawn(command: string, cwd: string = ROOT) {
 	const [cmd, ...args] = command.split(' ')
+
 	return new Promise((resolve, reject) => {
 		const child = spawn(cmd, args, {
 			cwd,
 			stdio: 'inherit',
-			shell: process.platform === 'win32'
+			shell: process.platform === 'win32',
 		})
 		const onProcessExit = () => child.kill('SIGHUP')
+
 		child.on('close', code => {
 			process.removeListener('exit', onProcessExit)
 			if (code === 0) resolve(true)
-			else reject(new Error(`Command failed. \n Command: ${command} \n Code: ${code}`))
+			else
+				reject(
+					new Error(
+						`Command failed. \n Command: ${command} \n Code: ${code}`,
+					),
+				)
 		})
 		process.on('exit', onProcessExit)
 	})
@@ -24,16 +31,18 @@ export function runSpawn(command: string, cwd: string = ROOT) {
 export function runSpawnSync(
 	command: string,
 	cwd: string = ROOT,
-	option: Parameters<typeof spawnSync>[2] = {}
+	option: Parameters<typeof spawnSync>[2] = {},
 ) {
 	const [cmd, ...args] = command.split(' ')
+
 	return new Promise((resolve, reject) => {
 		const child = spawnSync(cmd, args, {
 			cwd,
 			stdio: 'inherit',
 			shell: process.platform === 'win32',
-			...option
+			...option,
 		})
+
 		if (child.status !== 0) {
 			reject(child.error)
 		} else {
@@ -51,7 +60,7 @@ export function runExec(command: string, cwd: string = ROOT) {
 		const child = exec(
 			command,
 			{
-				cwd
+				cwd,
 			},
 			(error, stdout, stderr) => {
 				if (error) {
@@ -64,9 +73,10 @@ export function runExec(command: string, cwd: string = ROOT) {
 						resolve(stdout)
 					}
 				}
-			}
+			},
 		)
 		const onProcessExit = () => child.kill('SIGHUP')
+
 		child.on('close', () => {
 			process.removeListener('exit', onProcessExit)
 		})
@@ -77,15 +87,16 @@ export function runExec(command: string, cwd: string = ROOT) {
 export function runExecSync(
 	command: string,
 	cwd: string = ROOT,
-	option: Parameters<typeof execSync>[1] = {}
+	option: Parameters<typeof execSync>[1] = {},
 ) {
 	return new Promise((resolve, reject) => {
 		try {
 			const stdout = execSync(command, {
 				cwd,
 				stdio: 'inherit',
-				...option
+				...option,
 			})
+
 			try {
 				resolve(stdout.toString())
 			} catch {
@@ -98,5 +109,7 @@ export function runExecSync(
 }
 
 export function runTask(command: string, cwd: string = ROOT) {
-	return wrapDisplayName(`running: ${command}`, () => runSpawnSync(command, cwd))
+	return wrapDisplayName(`running: ${command}`, () =>
+		runSpawnSync(command, cwd),
+	)
 }

@@ -1,10 +1,11 @@
-import { execSync } from 'child_process'
+import { execSync } from 'node:child_process'
 import consola from 'consola'
 import { packages } from '../build/packages'
+
 let [, , versionText] = process.argv
 
 if (!versionText) process.exit(1)
-versionText = versionText.replace(/\"/g, '')
+versionText = versionText.replace(/"/g, '')
 const versions = versionText.split(',')
 
 const REGISTRY_URL = 'https://registry.npmjs.org'
@@ -17,8 +18,8 @@ for (const { pkgName } of packages) {
 			// `${command} ${pkgName}@${version}`,
 			`${command} ${pkgName}@${version} "This version is deprecated, please use the latest version"`,
 			{
-				stdio: 'inherit'
-			}
+				stdio: 'inherit',
+			},
 		)
 		consola.success(`UnPublished ${pkgName}@${version}`)
 	}

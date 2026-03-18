@@ -2,7 +2,12 @@ import { dirname, join, resolve, sep } from 'node:path'
 import { existsSync } from 'node:fs'
 import { createRequire } from 'node:module'
 import { fileURLToPath } from 'node:url'
-import type { InternalModuleFormat, OutputOptions, Plugin, RollupOptions } from 'rollup'
+import type {
+	InternalModuleFormat,
+	OutputOptions,
+	Plugin,
+	RollupOptions,
+} from 'rollup'
 import { getBundlePackages, packageNames } from './packages'
 import type { Name } from './types'
 import {
@@ -15,7 +20,7 @@ import {
 	replace,
 	terser,
 	// typescript,
-	visual
+	visual,
 } from './plugins'
 
 export interface Config {
@@ -62,7 +67,7 @@ for (const {
 	cjs,
 	mjs,
 	browser,
-	output = 'dist'
+	output = 'dist',
 	// target
 } of packages) {
 	if (build === false) continue
@@ -70,29 +75,31 @@ for (const {
 	const PROJECT_ROOT = resolve(__dirname, '..', 'packages', dirName)
 	const pkg = require(join(PROJECT_ROOT, 'package.json'))
 	const HAS_INDEX_MJS = existsSync(join(PROJECT_ROOT, 'src', 'index.mjs'))
-	const HAS_INDEX_DEFAULT = existsSync(join(PROJECT_ROOT, 'src', 'index.default.ts'))
+	const HAS_INDEX_DEFAULT = existsSync(
+		join(PROJECT_ROOT, 'src', 'index.default.ts'),
+	)
 	const banner =
-		'/*!\n' +
-		' * ' +
-		pkg.name +
-		' v' +
-		pkg.version +
-		'\n' +
-		' * ' +
-		pkg.description +
-		'\n' +
-		' * (c) 2022-' +
-		new Date().getFullYear() +
-		' saqqdy<https://github.com/saqqdy> \n' +
-		' * Released under the MIT License.\n' +
-		' */'
+		`/*!\n` +
+		` * ${
+		pkg.name
+		} v${
+		pkg.version
+		}\n` +
+		` * ${
+		pkg.description
+		}\n` +
+		` * (c) 2022-${
+		new Date().getFullYear()
+		  } saqqdy<https://github.com/saqqdy> \n` +
+		  ` * Released under the MIT License.\n` +
+		  ` */`
 
 	configs.push({
 		input: join(PROJECT_ROOT, 'src', 'index.ts'),
 		file: join(PROJECT_ROOT, output, 'index.esm-bundler.js'),
 		format: 'es',
 		external,
-		env: 'development'
+		env: 'development',
 	})
 
 	// output browser
@@ -105,7 +112,7 @@ for (const {
 				browser: true,
 				banner,
 				external,
-				env: 'development'
+				env: 'development',
 			},
 			{
 				input: join(PROJECT_ROOT, 'src', 'index.ts'),
@@ -115,8 +122,8 @@ for (const {
 				minify: true,
 				banner,
 				external,
-				env: 'production'
-			}
+				env: 'production',
+			},
 		)
 	}
 
@@ -127,18 +134,22 @@ for (const {
 			file: join(PROJECT_ROOT, output, 'index.mjs'),
 			format: 'es',
 			external,
-			env: 'development'
+			env: 'development',
 		})
 	}
 
 	// output cjs
 	if (cjs !== false) {
 		configs.push({
-			input: join(PROJECT_ROOT, 'src', HAS_INDEX_DEFAULT ? 'index.default.ts' : 'index.ts'),
+			input: join(
+				PROJECT_ROOT,
+				'src',
+				HAS_INDEX_DEFAULT ? 'index.default.ts' : 'index.ts',
+			),
 			file: join(PROJECT_ROOT, output, 'index.cjs.js'),
 			format: 'cjs',
 			external,
-			env: 'development'
+			env: 'development',
 		})
 	}
 
@@ -149,7 +160,7 @@ for (const {
 				input: join(
 					PROJECT_ROOT,
 					'src',
-					HAS_INDEX_DEFAULT ? 'index.default.ts' : 'index.ts'
+					HAS_INDEX_DEFAULT ? 'index.default.ts' : 'index.ts',
 				),
 				file: join(PROJECT_ROOT, output, 'index.global.js'),
 				format: 'iife',
@@ -157,13 +168,13 @@ for (const {
 				globals,
 				banner,
 				externalUmd,
-				env: 'development'
+				env: 'development',
 			},
 			{
 				input: join(
 					PROJECT_ROOT,
 					'src',
-					HAS_INDEX_DEFAULT ? 'index.default.ts' : 'index.ts'
+					HAS_INDEX_DEFAULT ? 'index.default.ts' : 'index.ts',
 				),
 				file: join(PROJECT_ROOT, output, 'index.global.prod.js'),
 				format: 'iife',
@@ -172,8 +183,8 @@ for (const {
 				globals,
 				banner,
 				externalUmd,
-				env: 'production'
-			}
+				env: 'production',
+			},
 		)
 	}
 }
@@ -196,16 +207,17 @@ function createEntry(config: Config) {
 			exports: 'auto',
 			extend: true,
 			plugins: [],
-			globals: {}
+			globals: {},
 		},
 		onwarn: (msg: any, warn) => {
 			if (!/Circular/.test(msg)) {
 				warn(msg)
 			}
-		}
+		},
 	}
 
-	if (config.banner && (isGlobalBuild || config.browser)) _config.output.banner = config.banner
+	if (config.banner && (isGlobalBuild || config.browser))
+		_config.output.banner = config.banner
 
 	if (isGlobalBuild && config.iifeName) {
 		_config.output.name = config.iifeName
@@ -242,9 +254,10 @@ function createEntry(config: Config) {
 			'semver-diff',
 			'shelljs',
 			'slash',
-			...packageNames
+			...packageNames,
 		)
-		if (config.external) _config.external = _config.external.concat(config.external)
+		if (config.external)
+			_config.external = _config.external.concat(config.external)
 	} else if (config.externalUmd) {
 		_config.external = _config.external.concat(config.externalUmd)
 	}
@@ -254,10 +267,10 @@ function createEntry(config: Config) {
 	if (config.transpile !== false) {
 		_config.plugins.push(babel())
 		isTypeScript &&
-			_config.plugins.push(
-				esbuild()
-				// typescript()
-			)
+		_config.plugins.push(
+			esbuild(),
+			// typescript()
+		)
 	}
 
 	if (config.minify) {

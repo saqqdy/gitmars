@@ -1,31 +1,27 @@
 import pkg from '../package.json' assert { type: 'json' }
 
 export const banner =
-	'/*!\n' +
-	' * ' +
-	pkg.name +
-	' v' +
-	pkg.version +
-	'\n' +
-	' * ' +
-	pkg.description +
-	'\n' +
-	' * (c) 2021-' +
-	new Date().getFullYear() +
-	' saqqdy<https://github.com/saqqdy> \n' +
-	' * Released under the MIT License.\n' +
-	' */'
+	`/*!\n` +
+	` * ${
+	pkg.name
+	} v${
+	pkg.version
+	}\n` +
+	` * ${
+	pkg.description
+	}\n` +
+	` * (c) 2021-present saqqdy<https://github.com/saqqdy> \n` +
+	` * Released under the MIT License.\n` +
+	` */`
 export const bannerText =
-	pkg.name +
-	' v' +
-	pkg.version +
-	'\n' +
-	pkg.description +
-	'\n' +
-	'(c) 2021-' +
-	new Date().getFullYear() +
-	' saqqdy<https://github.com/saqqdy> \n' +
-	'Released under the MIT License.'
+	`${pkg.name
+	} v${
+	pkg.version
+	}\n${
+	pkg.description
+	}\n` +
+	`(c) 2021-present saqqdy<https://github.com/saqqdy> \n` +
+	`Released under the MIT License.`
 
 export const version = pkg.version
 export const extensions = [
@@ -41,7 +37,7 @@ export const extensions = [
 	'.es',
 	'.json',
 	'.less',
-	'.css'
+	'.css',
 ]
 
 export const jsexclude = /node_modules/

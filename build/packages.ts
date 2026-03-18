@@ -1,5 +1,5 @@
-import { intersect } from 'js-cool'
 import type { Name, PackageManifest, Task } from './types'
+import { intersect } from 'js-cool'
 
 export const packages: PackageManifest[] = [
 	{
@@ -9,7 +9,7 @@ export const packages: PackageManifest[] = [
 		external: [],
 		iife: false,
 		browser: false,
-		display: 'gitmars utils'
+		display: 'gitmars utils',
 	},
 	{
 		name: 'git',
@@ -17,7 +17,7 @@ export const packages: PackageManifest[] = [
 		buildTask: 'bundle',
 		iife: false,
 		browser: false,
-		display: 'gitmars git'
+		display: 'gitmars git',
 	},
 	{
 		name: 'hook',
@@ -25,7 +25,7 @@ export const packages: PackageManifest[] = [
 		buildTask: 'bundle',
 		iife: false,
 		browser: false,
-		display: 'gitmars hook'
+		display: 'gitmars hook',
 	},
 	{
 		name: 'cache',
@@ -33,7 +33,7 @@ export const packages: PackageManifest[] = [
 		buildTask: 'bundle',
 		iife: false,
 		browser: false,
-		display: 'gitmars cache'
+		display: 'gitmars cache',
 	},
 	{
 		name: 'go',
@@ -41,7 +41,7 @@ export const packages: PackageManifest[] = [
 		buildTask: 'bundle',
 		iife: false,
 		browser: false,
-		display: 'gitmars go'
+		display: 'gitmars go',
 	},
 	{
 		name: 'build',
@@ -49,7 +49,7 @@ export const packages: PackageManifest[] = [
 		buildTask: 'bundle',
 		iife: false,
 		browser: false,
-		display: 'gitmars build'
+		display: 'gitmars build',
 	},
 	{
 		name: 'api',
@@ -57,7 +57,7 @@ export const packages: PackageManifest[] = [
 		buildTask: 'bundle',
 		iife: false,
 		browser: false,
-		display: 'gitmars api'
+		display: 'gitmars api',
 	},
 	{
 		name: 'core',
@@ -65,7 +65,7 @@ export const packages: PackageManifest[] = [
 		buildTask: 'bundle',
 		iife: false,
 		browser: false,
-		display: 'gitmars核心程序'
+		display: 'gitmars核心程序',
 	},
 	{
 		name: 'gitmars',
@@ -74,7 +74,7 @@ export const packages: PackageManifest[] = [
 		iife: false,
 		browser: false,
 		output: 'lib',
-		display: '这是一个git工作流工具'
+		display: '这是一个git工作流工具',
 	},
 	{
 		name: 'docs',
@@ -82,14 +82,14 @@ export const packages: PackageManifest[] = [
 		buildTask: 'docs',
 		iife: false,
 		browser: false,
-		display: 'gitmars文档库'
+		display: 'gitmars文档库',
 	},
 	{
 		name: 'monorepo',
 		pkgName: '@gitmars/monorepo',
 		build: false,
-		display: 'gitmars monorepo'
-	}
+		display: 'gitmars monorepo',
+	},
 ]
 
 export const names = packages.map(({ name }) => name)
@@ -99,6 +99,7 @@ export const buildTasks = packages.reduce((acc, cur) => {
 		for (const item of ([] as Task[]).concat(cur.buildTask)) {
 			!acc.includes(item) && acc.push(item)
 		}
+
 	return acc
 }, [] as Task[])
 
@@ -117,18 +118,19 @@ export function getPackages(name?: string | string[]) {
 			return (
 				item.buildTask &&
 				intersect(
-					typeof item.buildTask === 'string'
-						? ([] as Task[]).concat(item.buildTask)
-						: item.buildTask,
-					name
+					typeof item.buildTask === 'string' ? ([] as Task[]).concat(item.buildTask) : item.buildTask,
+					name,
 				).length
 			)
 		}
+
 		// 传入name
 		return name.includes(item.name)
 	})
+
 	if (list.length === 0) {
 		console.info(`no package founded`)
+
 		return packages
 	}
 
@@ -136,18 +138,20 @@ export function getPackages(name?: string | string[]) {
 }
 
 export function getLibPackages(name?: string | string[]) {
-	const _names = typeof name === 'string' ? ([] as string[]).concat(name) : name
+	const _names =
+		typeof name === 'string' ? ([] as string[]).concat(name) : name
 	const list = packages.filter(item => {
 		const _buildTask =
-			item.buildTask && typeof item.buildTask === 'string'
-				? [item.buildTask]
-				: item.buildTask || []
+			item.buildTask && typeof item.buildTask === 'string' ? [item.buildTask] : item.buildTask || []
 
 		if (!_names) return _buildTask.includes('lib')
+
 		return _buildTask.includes('lib') && _names.includes(item.name)
 	})
+
 	if (list.length === 0) {
 		console.info(`no package founded`)
+
 		return packages
 	}
 
@@ -155,18 +159,20 @@ export function getLibPackages(name?: string | string[]) {
 }
 
 export function getBundlePackages(name?: string | string[]) {
-	const _names = typeof name === 'string' ? ([] as string[]).concat(name) : name
+	const _names =
+		typeof name === 'string' ? ([] as string[]).concat(name) : name
 	const list = packages.filter(item => {
 		const _buildTask =
-			item.buildTask && typeof item.buildTask === 'string'
-				? [item.buildTask]
-				: item.buildTask || []
+			item.buildTask && typeof item.buildTask === 'string' ? [item.buildTask] : item.buildTask || []
 
 		if (!_names) return _buildTask.includes('bundle')
+
 		return _buildTask.includes('bundle') && _names.includes(item.name)
 	})
+
 	if (list.length === 0) {
 		console.info(`no package founded`)
+
 		return packages
 	}
 

@@ -4,7 +4,7 @@ import { dest, src } from 'gulp'
 
 export function wrapDisplayName<T extends TaskFunction>(
 	displayName: string,
-	func: T
+	func: T,
 ): TaskFunction {
 	return Object.assign(func, { displayName })
 }

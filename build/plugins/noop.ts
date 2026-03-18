@@ -5,7 +5,7 @@ function noop() {
 		name: 'noop',
 		renderChunk(code: string) {
 			return { code }
-		}
+		},
 	}
 }
 

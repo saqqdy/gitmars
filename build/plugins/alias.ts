@@ -1,7 +1,7 @@
 import type { RollupAliasOptions } from '@rollup/plugin-alias'
+import type { Plugin } from 'rollup'
 import alias from '@rollup/plugin-alias'
 import { nodeResolve as resolve } from '@rollup/plugin-node-resolve'
-import type { Plugin } from 'rollup'
 
 export default (options: RollupAliasOptions = {}): Plugin =>
 	alias(
@@ -22,12 +22,12 @@ export default (options: RollupAliasOptions = {}): Plugin =>
 						'.es',
 						'.json',
 						'.less',
-						'.css'
+						'.css',
 					],
 					preferBuiltins: true,
-					exportConditions: ['node']
-				})
+					exportConditions: ['node'],
+				}),
 			},
-			options
-		)
+			options,
+		),
 	)

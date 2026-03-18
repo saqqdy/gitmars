@@ -1,4 +1,4 @@
-import { resolve } from 'path'
+import { resolve } from 'node:path'
 import { parallel, series } from 'gulp'
 import { wrapDisplayName } from '../utils/gulp'
 import { runSpawnSync } from '../utils/exec'
@@ -11,6 +11,7 @@ export async function buildApp() {
 		.map(async ({ name }) => {
 			await runSpawnSync(`pnpm build`, resolve(PACKAGE, name))
 		})
+
 	await Promise.all(builds)
 }
 
@@ -20,5 +21,5 @@ export async function buildApp() {
 
 export default series(
 	// wrapDisplayName('gen:version', genVersion),
-	parallel(wrapDisplayName('build:app', buildApp))
+	parallel(wrapDisplayName('build:app', buildApp)),
 )

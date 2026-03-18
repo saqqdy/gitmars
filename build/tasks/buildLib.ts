@@ -1,4 +1,4 @@
-import { extname, resolve } from 'path'
+import { extname, resolve } from 'node:path'
 import { parallel, series } from 'gulp'
 import { rollup } from 'rollup'
 import type { OutputOptions } from 'rollup'
@@ -19,7 +19,7 @@ import {
 	// nodeExternals,
 	nodeResolve,
 	replace,
-	shebang
+	shebang,
 	// visual,
 } from '../plugins/index'
 import { PACKAGE } from '../utils/paths'
@@ -30,6 +30,7 @@ const childBuildLibIndex = process.argv.indexOf('lib')
 
 if (childBuildLibIndex > -1) {
 	const [, packageKey, packageName] = process.argv.slice(childBuildLibIndex)
+
 	if (packageKey === '--package' && packageName)
 		pkgs = pkgs.filter(({ name }) => packageName.split(',').includes(name))
 }
@@ -45,27 +46,36 @@ export async function buildLib() {
 		'@gitmars/go',
 		'@gitmars/hook',
 		'@gitmars/utils',
-		'@gitmars/docs'
+		'@gitmars/docs',
 	]
 	const builds = pkgs.map(
-		async ({ globals = {}, name, external = [], iife, build, cjs, mjs, output = 'dist' }) => {
+		async ({
+			// globals = {},
+			name,
+			external = [],
+			// iife,
+			build,
+			// cjs,
+			mjs,
+			output = 'dist',
+		}) => {
 			if (build === false) return
 			const pkg = require(resolve(PACKAGE, name, 'package.json'))
 			const banner =
-				'/*!\n' +
-				' * ' +
-				pkg.name +
-				' v' +
-				pkg.version +
-				'\n' +
-				' * ' +
-				pkg.description +
-				'\n' +
-				' * (c) 2021-' +
-				new Date().getFullYear() +
-				' saqqdy<https://github.com/saqqdy> \n' +
-				' * Released under the MIT License.\n' +
-				' */'
+				`/*!\n` +
+				` * ${
+				pkg.name
+				} v${
+				pkg.version
+				}\n` +
+				` * ${
+				pkg.description
+				}\n` +
+				` * (c) 2021-${
+				new Date().getFullYear()
+				  } saqqdy<https://github.com/saqqdy> \n` +
+				  ` * Released under the MIT License.\n` +
+				  ` */`
 			// const iifeGlobals = {
 			// 	'js-cool': 'JsCool',
 			// 	...globals
@@ -77,14 +87,15 @@ export async function buildLib() {
 					ignore: ['node_modules'],
 					deep: 1,
 					// absolute: true,
-					onlyFiles: true
-				})
+					onlyFiles: true,
+				}),
 			)
 
 			// for (const fn of fileList) {
 			// const input = resolve(PACKAGE, name, 'src', fn)
 
 			const writeOptions: OutputOptions[] = []
+
 			// output mjs
 			if (mjs !== false) {
 				writeOptions.push({
@@ -96,7 +107,7 @@ export async function buildLib() {
 					entryFileNames: '[name].mjs',
 					preserveModulesRoot: resolve(PACKAGE, name, 'src'),
 					banner,
-					format: 'es'
+					format: 'es',
 				})
 			}
 			// output cjs
@@ -147,13 +158,10 @@ export async function buildLib() {
 			// 	)
 			// }
 			const input: Record<string, string> = {}
+
 			fileList.forEach(file => {
-				input[file.slice(0, file.length - extname(file).length)] = resolve(
-					PACKAGE,
-					name,
-					'src',
-					file
-				)
+				input[file.slice(0, file.length - extname(file).length)] =
+					resolve(PACKAGE, name, 'src', file)
 			})
 			const rollupConfig = {
 				input,
@@ -173,27 +181,34 @@ export async function buildLib() {
 					nodeResolve(),
 					replace({
 						preventAssignment: true,
-						__VERSION__: version
+						__VERSION__: version,
 					}),
 					json,
 					commonjs,
 					shebang(),
 					esbuild(),
 					// target ? esbuild({ target }) : esbuild(),
-					filesize
+					filesize,
 				],
-				external: generateExternal({ name, input: '' }, [...externals, ...external]),
+				external: generateExternal({ name, input: '' }, [
+					...externals,
+					...external,
+				]),
 				onwarn: (msg: any, warn: any) => {
 					if (!/Circular/.test(msg)) {
 						warn(msg)
 					}
-				}
+				},
 			}
 			const bundle = await rollup(rollupConfig)
-			await Promise.all(writeOptions.map(option => bundle.write(option)))
-		}
+
+			await Promise.all(
+				writeOptions.map(option => bundle.write(option)),
+			)
+		},
 		// }
 	)
+
 	await Promise.all(builds)
 }
 
@@ -209,8 +224,8 @@ export async function copyLibFile() {
 			`rsync -av --exclude="*.ts" ${resolve(PACKAGE, name, 'src')}/ ${resolve(
 				PACKAGE,
 				name,
-				output
-			)}/`
+				output,
+			)}/`,
 		)
 	}
 }
@@ -230,5 +245,5 @@ export default series(
 	// wrapDisplayName('gen:version', genVersion),
 	parallel(wrapDisplayName('build:lib', buildLib)),
 	parallel(wrapDisplayName('madge:lib', madgeLib)),
-	parallel(wrapDisplayName('copy:json,sh', copyLibFile))
+	parallel(wrapDisplayName('copy:json,sh', copyLibFile)),
 )

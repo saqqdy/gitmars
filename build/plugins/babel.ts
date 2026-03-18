@@ -1,5 +1,7 @@
-import _babel, { type RollupBabelInputPluginOptions } from '@rollup/plugin-babel'
 import type { Plugin } from 'rollup'
+import _babel, {
+	type RollupBabelInputPluginOptions,
+} from '@rollup/plugin-babel'
 import { extensions } from '../config'
 
 const babel = (options: RollupBabelInputPluginOptions = {}): Plugin =>
@@ -8,10 +10,10 @@ const babel = (options: RollupBabelInputPluginOptions = {}): Plugin =>
 			{
 				babelHelpers: 'bundled',
 				extensions,
-				exclude: [/node_modules[\\/]core-js/]
+				exclude: [/node_modules[\\/]core-js/],
 			},
-			options
-		)
+			options,
+		),
 	)
 
 export default babel

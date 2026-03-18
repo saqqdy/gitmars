@@ -1,6 +1,6 @@
 import type { RollupNodeResolveOptions } from '@rollup/plugin-node-resolve'
-import { nodeResolve as resolve } from '@rollup/plugin-node-resolve'
 import type { Plugin } from 'rollup'
+import { nodeResolve as resolve } from '@rollup/plugin-node-resolve'
 
 export default (options: RollupNodeResolveOptions = {}): Plugin =>
 	resolve(
@@ -16,11 +16,11 @@ export default (options: RollupNodeResolveOptions = {}): Plugin =>
 					'.es',
 					'.json',
 					'.less',
-					'.css'
+					'.css',
 				],
 				preferBuiltins: true,
-				exportConditions: ['node']
+				exportConditions: ['node'],
 			},
-			options
-		)
+			options,
+		),
 	)

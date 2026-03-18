@@ -1,18 +1,19 @@
-import { dirname, resolve } from 'path'
-import { fileURLToPath } from 'url'
-import { writeFileSync } from 'fs'
+import { dirname, resolve } from 'node:path'
+import { fileURLToPath } from 'node:url'
+import { writeFileSync } from 'node:fs'
 
-import a from '../a.json' assert { type: 'json' }
-import b from '../b.json' assert { type: 'json' }
+import a from '../a.json' with { type: 'json' }
+import b from '../b.json' with { type: 'json' }
 
-global.__filename = fileURLToPath(import.meta.url)
-global.__dirname = dirname(__filename)
+globalThis.__filename = fileURLToPath(import.meta.url)
+globalThis.__dirname = dirname(__filename)
 
 const cnPath = resolve(__dirname, '..', 'cn.json')
 const enPath = resolve(__dirname, '..', 'en.json')
 
 const cnJson = {}
 const enJson = {}
+
 b.forEach((key, index) => {
 	cnJson[key] = a[index]
 	enJson[key] = key

@@ -1,5 +1,5 @@
-import _terser, { type Options } from '@rollup/plugin-terser'
 import type { Plugin } from 'rollup'
+import _terser, { type Options } from '@rollup/plugin-terser'
 
 const terser = (options: Options = {}): Plugin =>
 	_terser(
@@ -9,8 +9,8 @@ const terser = (options: Options = {}): Plugin =>
 				// 	comments: false
 				// }
 			},
-			options
-		)
+			options,
+		),
 	)
 
 export default terser

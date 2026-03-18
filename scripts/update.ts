@@ -1,6 +1,6 @@
-import { resolve, sep } from 'path'
-import { execSync } from 'child_process'
-import { promises } from 'fs'
+import { resolve, sep } from 'node:path'
+import { execSync } from 'node:child_process'
+import { promises } from 'node:fs'
 import { readJSONSync, writeJSONSync } from '@node-kit/extra.fs'
 import { packages } from '../build/packages'
 import { version } from '../package.json'
@@ -12,20 +12,19 @@ async function updatePackageJSON() {
 		const packageRoot = resolve(__dirname, '..', 'packages', dirName)
 		const packageJSONPath = resolve(packageRoot, 'package.json')
 		const packageJSON = readJSONSync(packageJSONPath)!
+
 		packageJSON.version = version
 		packageJSON.description = display || packageJSON.description
 		packageJSON.author = 'saqqdy <https://github.com/saqqdy>'
 		packageJSON.bugs = {
-			url: 'https://github.com/saqqdy/gitmars/issues'
+			url: 'https://github.com/saqqdy/gitmars/issues',
 		}
 		packageJSON.homepage =
-			name === 'gitmars'
-				? 'https://www.saqqdy.com/gitmars'
-				: `https://github.com/saqqdy/gitmars/tree/master/packages/${name}#readme`
+			name === 'gitmars' ? 'https://www.saqqdy.com/gitmars' : `https://github.com/saqqdy/gitmars/tree/master/packages/${name}#readme`
 		packageJSON.repository = {
 			type: 'git',
 			url: 'git+https://github.com/saqqdy/gitmars.git',
-			directory: `packages/${name}`
+			directory: `packages/${name}`,
 		}
 		packageJSON.module = './dist/index.esm-bundler.js'
 		packageJSON.main = './dist/index.cjs.js'

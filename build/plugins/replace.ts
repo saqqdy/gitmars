@@ -1,5 +1,5 @@
-import _replace, { type RollupReplaceOptions } from '@rollup/plugin-replace'
 import type { Plugin } from 'rollup'
+import _replace, { type RollupReplaceOptions } from '@rollup/plugin-replace'
 import { version } from '../config'
 
 const replace = (options: RollupReplaceOptions = {}): Plugin =>
@@ -7,10 +7,10 @@ const replace = (options: RollupReplaceOptions = {}): Plugin =>
 		Object.assign(
 			{
 				preventAssignment: true,
-				__VERSION__: version
+				__VERSION__: version,
 			},
-			options
-		)
+			options,
+		),
 	)
 
 export default replace

@@ -1,8 +1,9 @@
 import { join, resolve, sep } from 'node:path'
-import assert from 'assert'
+import assert from 'node:assert'
 import { execSync } from 'node:child_process'
 import { existsSync, promises } from 'node:fs'
-import { type ParseArgsConfig, parseArgs } from 'node:util'
+// eslint-disable-next-line n/no-unsupported-features/node-builtins
+import { parseArgs, type ParseArgsConfig } from 'node:util'
 import consola from 'consola'
 import { cpSync } from '@node-kit/extra.fs'
 import { getBundlePackages } from '../build/packages'
@@ -13,16 +14,17 @@ const FILES_COPY_ROOT = ['LICENSE']
 
 const options: ParseArgsConfig['options'] = {
 	package: { type: 'string', short: 'p' },
-	watch: { type: 'boolean' }
+	watch: { type: 'boolean' },
 }
 const { values, positionals } = parseArgs({
 	args,
 	options,
-	allowPositionals: true
+	allowPositionals: true,
 })
 
 const watch = values.watch as boolean
 let packageName = positionals[0] || (values.package as string)
+
 try {
 	packageName = JSON.parse(packageName)
 } catch {}
@@ -38,12 +40,21 @@ async function buildMetaFiles() {
 		const packageRoot = resolve(__dirname, '..', 'packages', dirName)
 
 		for (const file of FILES_COPY_ROOT)
-			await promises.copyFile(resolve(rootDir, file), resolve(packageRoot, file))
+			await promises.copyFile(
+				resolve(rootDir, file),
+				resolve(packageRoot, file),
+			)
 	}
 }
 
 async function build() {
-	for (const { build, name, extractTypes, output = 'dist', buildTask } of packages) {
+	for (const {
+		build,
+		name,
+		extractTypes,
+		output = 'dist',
+		buildTask,
+	} of packages) {
 		const dirName = name.replace(/\./g, sep)
 		const cwd = resolve(__dirname, '..', 'packages', dirName)
 		const HAS_INDEX_MJS = existsSync(join(cwd, 'src', 'index.mjs'))
@@ -53,7 +64,7 @@ async function build() {
 		consola.info('Clean up in: packages/%s', dirName)
 		execSync(`rm-all temp ${output} types`, {
 			stdio: 'inherit',
-			cwd
+			cwd,
 		})
 
 		if (HAS_INDEX_MJS) {
@@ -68,31 +79,31 @@ async function build() {
 		consola.info('Create types: packages/%s', dirName)
 		execSync('tsc -p tsconfig.json', {
 			stdio: 'inherit',
-			cwd
+			cwd,
 		})
 		execSync('api-extractor run', {
 			stdio: 'inherit',
-			cwd
+			cwd,
 		})
 		execSync('rm-all temp', {
 			stdio: 'inherit',
-			cwd
+			cwd,
 		})
 	}
 
 	consola.info('Rollup build bundle => %s', packageName)
 	execSync(
 		`pnpm run build:rollup${watch ? ' --watch' : ''}${
-			packageName ? ' --environment BUILD_PACKAGE:' + packageName : ''
+			packageName ? ` --environment BUILD_PACKAGE:${packageName}` : ''
 		}`,
 		{
-			stdio: 'inherit'
-		}
+			stdio: 'inherit',
+		},
 	)
 
 	consola.info('Gulp build => %s', packageName)
 	execSync(`pnpm run build ${packageName || ''}`, {
-		stdio: 'inherit'
+		stdio: 'inherit',
 	})
 
 	// consola.info("Fix types");
