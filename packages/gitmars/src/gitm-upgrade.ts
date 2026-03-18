@@ -79,7 +79,7 @@ program.action(async (version: PackageVersionTag | string, opt: GitmUpgradeOptio
 		spinner.fail(
 			red(
 				t(
-					'There was an error uninstalling, please try running after manually removing: npm install -g gitmars'
+					'An error occurred uninstalling, please try running after manually removing: npm install -g gitmars'
 				)
 			)
 		)
@@ -99,7 +99,7 @@ program.action(async (version: PackageVersionTag | string, opt: GitmUpgradeOptio
 		})
 	} else {
 		spinner.fail(
-			red(t('There was an error installing, please try running: npm install -g gitmars'))
+			red(t('An error occurred installing, please try running: npm install -g gitmars'))
 		)
 	}
 	spinner.stop()

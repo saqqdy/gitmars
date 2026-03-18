@@ -42,7 +42,7 @@ program.action((message: string, opt: GitmSaveOption) => {
 			cmd: `git stash save "${message}"`,
 			config: {
 				success: t('File staging successful'),
-				fail: t('There was an error, please contact an administrator')
+				fail: t('An error occurred, please contact an administrator')
 			}
 		}
 	]
@@ -53,7 +53,7 @@ program.action((message: string, opt: GitmSaveOption) => {
 				cmd: `git stash save "${message}"`,
 				config: {
 					success: t('File staging successful'),
-					fail: t('There was an error, please contact an administrator')
+					fail: t('An error occurred, please contact an administrator')
 				}
 			}
 		]

@@ -204,7 +204,7 @@ program
 		}
 		if (defaults.hooks && Object.keys(defaults.hooks).some(k => !defaults.hooks?.[k]))
 			defaults.hooks = null
-		sh.echo(green(t('gitmars configured successfully')))
+		sh.echo(green(t('Gitmars configured successfully')))
 		fs.writeFileSync(root + '/.gitmarsrc', JSON.stringify(defaults, null, 4), 'utf-8')
 		fs.chmodSync(root + '/.gitmarsrc', 0o0755)
 	})

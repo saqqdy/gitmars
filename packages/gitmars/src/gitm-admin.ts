@@ -409,7 +409,7 @@ publishProgram.action(
 											again: true,
 											success: t('Successfully created merge request'),
 											fail: t(
-												'There was an error creating the merge request, please follow the instructions'
+												'An error occurred creating the merge request, please follow the prompts'
 											)
 										}
 									},
@@ -453,7 +453,7 @@ publishProgram.action(
 												again: true,
 												success: t('Successfully created merge request'),
 												fail: t(
-													'There was an error creating the merge request, please follow the instructions'
+													'An error occurred creating the merge request, please follow the prompts'
 												)
 											}
 										},
@@ -497,7 +497,7 @@ publishProgram.action(
 												again: true,
 												success: t('Successfully created merge request'),
 												fail: t(
-													'There was an error creating the merge request, please follow the instructions'
+													'An error occurred creating the merge request, please follow the prompts'
 												)
 											}
 										},
@@ -541,7 +541,7 @@ publishProgram.action(
 											again: true,
 											success: t('Successfully created merge request'),
 											fail: t(
-												'There was an error creating the merge request, please follow the instructions'
+												'An error occurred creating the merge request, please follow the prompts'
 											)
 										}
 									},
@@ -649,7 +649,7 @@ publishProgram.action(
 											again: true,
 											success: t('Successfully created merge request'),
 											fail: t(
-												'There was an error creating the merge request, please follow the instructions'
+												'An error occurred creating the merge request, please follow the prompts'
 											)
 										}
 									},
@@ -769,7 +769,7 @@ publishProgram.action(
 												target: config.bugfix
 											}),
 											fail: t(
-												'An error occurred merging {source} to {target}, please follow the instructions',
+												'An error occurred merging {source} to {target}, please follow the prompts',
 												{
 													source: config.release,
 													target: config.bugfix
@@ -869,7 +869,7 @@ publishProgram.action(
 									again: true,
 									success: t('Successfully created merge request'),
 									fail: t(
-										'There was an error creating the merge request, please follow the instructions'
+										'An error occurred creating the merge request, please follow the prompts'
 									)
 								}
 							},
@@ -971,7 +971,7 @@ updateProgram.action(
 									target: config[type]
 								}),
 								fail: t(
-									'An error occurred merging {source} to {target}, please follow the instructions',
+									'An error occurred merging {source} to {target}, please follow the prompts',
 									{
 										source: base,
 										target: config[type]
@@ -1014,7 +1014,7 @@ updateProgram.action(
 								again: true,
 								success: t('Successfully created merge request'),
 								fail: t(
-									'There was an error creating the merge request, please follow the instructions'
+									'An error occurred creating the merge request, please follow the prompts'
 								)
 							}
 						},
@@ -1053,7 +1053,7 @@ updateProgram.action(
 									target: config[type]
 								}),
 								fail: t(
-									'An error occurred merging {source} to {target}, please follow the instructions',
+									'An error occurred merging {source} to {target}, please follow the prompts',
 									{
 										source: base,
 										target: config[type]

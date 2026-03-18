@@ -49,11 +49,11 @@ program.action(async (opt: GitmCleanOption) => {
 			}
 			removeFile([
 				{
-					name: t('gitmars command queue cache file'),
+					name: t('Gitmars command queue cache file'),
 					url: gitDir + '/.gitmarscommands'
 				},
 				{
-					name: t('gitmars execution log file'),
+					name: t('Gitmars execution log file'),
 					url: gitDir + '/.gitmarslog'
 				}
 			])

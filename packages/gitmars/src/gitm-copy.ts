@@ -132,7 +132,7 @@ program.action(async (commitid: string[], opts: GitmCopyOption) => {
 		config: {
 			again: false,
 			success: t('Record merge successful'),
-			fail: t('Merge failed, please follow the instructions')
+			fail: t('Merge failed, please follow the prompts')
 		}
 	})
 

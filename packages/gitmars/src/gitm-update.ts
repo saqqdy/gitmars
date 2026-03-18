@@ -133,7 +133,7 @@ program.action(async (type: string | string[], name: string, opt: GitmUpdateOpti
 							target: `${type}/${name}`
 						}),
 						fail: t(
-							'An error occurred merging {source} to {target}, please follow the instructions',
+							'An error occurred merging {source} to {target}, please follow the prompts',
 							{
 								source: base,
 								target: `${type}/${name}`
@@ -151,7 +151,7 @@ program.action(async (type: string | string[], name: string, opt: GitmUpdateOpti
 							target: `${type}/${name}`
 						}),
 						fail: t(
-							'An error occurred merging {source} to {target}, please follow the instructions',
+							'An error occurred merging {source} to {target}, please follow the prompts',
 							{
 								source: base,
 								target: `${type}/${name}`

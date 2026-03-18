@@ -26,7 +26,7 @@ program.action((name: string) => {
 		// Create a soft link to the current package
 		const { status } = spawnSync(npmClient, ['link'])
 		if (status === 0) sh.echo(t('Processing completed'))
-		else sh.echo(t('There was an error'))
+		else sh.echo(t('An error occurred'))
 		process.exit(0)
 	} else if (isLink) {
 		sh.rm('-rf', `./node_modules/${name}`)

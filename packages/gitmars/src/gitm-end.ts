@@ -325,7 +325,7 @@ program.action(async (type: string, name: string, opt: GitmEndOption): Promise<v
 							again: true,
 							success: t('Successfully created merge request'),
 							fail: t(
-								'There was an error creating the merge request, please follow the instructions'
+								'An error occurred creating the merge request, please follow the prompts'
 							)
 						}
 					},
@@ -454,7 +454,7 @@ program.action(async (type: string, name: string, opt: GitmEndOption): Promise<v
 							again: true,
 							success: t('Successfully created merge request'),
 							fail: t(
-								'There was an error creating the merge request, please follow the instructions'
+								'An error occurred creating the merge request, please follow the prompts'
 							)
 						}
 					},

@@ -50,7 +50,7 @@ program.action((commitid: string, opt: GitmRevertOption) => {
 			config: {
 				again: true,
 				success: t('Successfully reverted'),
-				fail: t('An error has occurred, please follow the instructions')
+				fail: t('An error has occurred, please follow the prompts')
 			}
 		})
 	} else if (commitid) {
@@ -59,7 +59,7 @@ program.action((commitid: string, opt: GitmRevertOption) => {
 			config: {
 				again: true,
 				success: t('Successfully reverted'),
-				fail: t('An error has occurred, please follow the instructions')
+				fail: t('An error has occurred, please follow the prompts')
 			}
 		})
 	} else {

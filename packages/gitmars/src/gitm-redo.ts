@@ -89,7 +89,7 @@ program.action(async (commitid: string[], opt: GitmRedoOption) => {
 			success: t('Undo successfully: {something}', {
 				something: item.after['%s']!
 			}),
-			fail: t('An error has occurred, please follow the instructions')
+			fail: t('An error has occurred, please follow the prompts')
 		}
 	}))
 	// 执行

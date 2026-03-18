@@ -6,11 +6,11 @@ export default {
 	'The description of the reason for submission does not meet the specification':
 		'提交的原因描述不符合规范',
 	'Successfully reverted': '撤销成功',
-	'An error has occurred, please follow the instructions': '出错了，请根据提示处理',
+	'An error has occurred, please follow the prompts': '出错了，请根据提示处理',
 	'Commands do not meet the specifications': '指令不符合规范',
 	'Successfully created merge request': '成功创建合并请求',
 	'Push remote failed, please follow the prompts': '推送远程失败，请根据提示处理',
-	'There was an error creating the merge request, please follow the instructions':
+	'An error occurred creating the merge request, please follow the prompts':
 		'创建合并请求出错了，请根据提示处理',
 	'Push remote and associate remote branch successfully': '推送远程并关联远程分支成功',
 	'Pulling up the build was successful': '调起构建成功',
@@ -35,9 +35,9 @@ export default {
 	'Uninstallation complete': '卸载完成',
 	Installing: '正在安装',
 	'Installation complete': '安装完成',
-	'There was an error uninstalling, please try running after manually removing: npm install -g gitmars':
+	'An error occurred uninstalling, please try running after manually removing: npm install -g gitmars':
 		'卸载出错了，请尝试手动删除后运行：npm install -g gitmars',
-	'There was an error installing, please try running: npm install -g gitmars':
+	'An error occurred installing, please try running: npm install -g gitmars':
 		'安装出错了，请尝试运行：npm install -g gitmars',
 	'Branch Type': '分支类型',
 	'Please do not enter spaces': '请不要输入空格',
@@ -148,8 +148,8 @@ export default {
 		'分支查询、删除（注意该指令不用于创建分支，如需创建分支请走start流程）',
 	'You have entered --force, which will also clear the gitmars execution cache. Should I continue?':
 		'您输入了--force，将同时清理gitmars执行缓存。是否继续？',
-	'gitmars command queue cache file': 'gitmars指令队列缓存文件',
-	'gitmars execution log file': 'gitmars执行日志文件',
+	'Gitmars command queue cache file': 'Gitmars指令队列缓存文件',
+	'Gitmars execution log file': 'Gitmars执行日志文件',
 	'About to start batch deleting branches, do you want to continue?':
 		'即将开始批量删除分支，是否继续？',
 	'No branches were queried.': '没有查询到任何分支',
@@ -170,11 +170,11 @@ export default {
 	'An uncommitted file was detected, please be aware!': '检测到有未加入版本的文件，请留意！',
 	'There are no unexecuted commands in the queue': '队列里面没有未执行的指令',
 	'cherry-pick batch version, copy a record from a branch and merge it into the current branch':
-		'cherry-pick批量版本，从某个分支拷贝某条记录合并到当前分支',
+		'Cherry-pick批量版本，从某个分支拷贝某条记录合并到当前分支',
 	'Record merge successful': '记录合并成功',
-	'Merge failed, please follow the instructions': '合并失败，请根据提示处理',
+	'Merge failed, please follow the prompts': '合并失败，请根据提示处理',
 	'To make sure the copy is accurate, the keywords cannot be less than 4 words, please try to fill in the keywords completely':
-		'为确保copy准确，关键词不能少于4个字，请尽量完整填写关键词',
+		'为确保复制准确，关键词不能少于4个字，请尽量完整填写关键词',
 	'No records found': '没有找到任何记录',
 	'Merge bugfix task branch, merge feature function development branch, the corresponding branch will be deleted after the merge is completed':
 		'合并bugfix任务分支、合并feature功能开发分支，合并完成后将删除对应分支',
@@ -210,7 +210,7 @@ export default {
 	'Enter the git URL': '请输入git网址',
 	'Enter the git project ID, currently only gitlab is supported':
 		'请输入git项目ID，目前仅支持gitlab',
-	'gitmars configured successfully': 'gitmars配置成功',
+	'Gitmars configured successfully': 'Gitmars配置成功',
 	'Installing plugins, e.g. @gitmars/core': '安装插件，例如：@gitmars/core',
 	'Enter the plugin name': '请输入插件名称',
 	'Incorrect version number entered, only supported: alpha, lite, beta, release, latest, next':
@@ -262,7 +262,7 @@ export default {
 	'Launching a jenkins build task of miniprogram': '发起Jenkins构建小程序任务',
 	'Action Tips': '操作建议',
 	'Handling remote merge requests': '处理远程合并请求',
-	'Review remote code': 'review远程代码',
+	'Review remote code': '审查远程代码',
 	'View branch status': '查看分支状态',
 	'Launch web version of gitmars': '启动网页版gitmars',
 	'Unlink softlinks': '解除软链接',
@@ -270,10 +270,10 @@ export default {
 	'Clear cache': '清除缓存',
 	'Push Message': '推送消息',
 	'Commit Permissions': '提交权限',
-	'git hook directive': 'git钩子指令',
+	'Git hook directive': 'Git钩子指令',
 	'Withdraw commits on master branches': '撤回主干分支上的提交',
 	'Resume withdrawn code back online': '恢复撤回的代码重新上线',
-	'git hook run command': 'git钩子运行指令',
+	'Git hook run command': 'Git钩子运行指令',
 	'Query log': '查询日志',
 	'Intelligent guessing of the action you want to perform': '智能猜测你要执行的动作',
 	'Install and remove shortcuts': '安装和移除快捷方式',
@@ -306,15 +306,15 @@ export default {
 		'删除固定时长之前的分支，填写格式：10s/2m/2h/3d/4M/5y',
 	'Whether to sync to alpha test environment': '是否同步到alpha测试环境',
 	'Whether to sync to pre-release environment': '是否同步到预发布环境',
-	'commit information': 'commit信息',
-	'Need to add': '需要add',
+	'commit information': '提交信息',
+	'Need to add': '需要暂存',
 	'Do not sync to bug branch': '不同步到bug分支',
 	'Saved successfully': '保存成功',
 	'Please select the commit record to copy': '请选择要拷贝的提交记录',
 	'Please select the target branch': '请选择目标分支',
-	'There was an installation error, please contact the administrator': '安装出错了，请联系管理员',
+	'An installation error occurred, please contact the administrator': '安装出错了，请联系管理员',
 	'Processing completed': '处理完成',
-	'There was an error': '出错了',
+	'An error occurred': '出错了',
 	"Whether to exclude merge's log": '是否排除merge的日志',
 	'Whether to restrict dev commits': '是否限制dev提交',
 	'Whether to restrict release commits': '是否限制release提交',
@@ -323,7 +323,7 @@ export default {
 	Close: '关闭',
 	Deleted: '删除',
 	Submitted: '已提交',
-	'There was an error, please contact an administrator': '出错了，请联系管理员',
+	'An error occurred, please contact an administrator': '出错了，请联系管理员',
 	'Clean up all failed undo logs': '清理所有撤销失败的记录',
 	'Whether to exclude merge logs': '是否排除merge的日志',
 	'No eligible commit logs found, please relax the filtering conditions appropriately. The process has been exited':
@@ -336,7 +336,7 @@ export default {
 	'The {target} branch was created successfully and is based on {base}, you have now switched to {target}\nWhen you need to publish, remember to run: {command}':
 		'{target}分支创建成功，该分支基于{base}创建，您当前已经切换到{target}\n需要发版时，记得执行: {command}',
 	'Merge {source} into {target} successfully': '{source}合并到{target}成功',
-	'An error occurred merging {source} to {target}, Please follow the instructions':
+	'An error occurred merging {source} to {target}, please follow the prompts':
 		'{source}合并到{target}出错了，请根据提示处理',
 	'{app} item {source} merged to {target} request ID {id} has been merged':
 		'{app}项目{source}合并到{target}请求ID{id}已合并',
@@ -352,8 +352,6 @@ export default {
 	"Hey {nickname}, you don't have permission": '{nickname}同学，你的权限不足',
 	'{source} has been merged with {target}': '{source}已经合并过{target}',
 	'Merge {source} to {target} successfully': '{source}合并到{target}成功',
-	'An error occurred merging {source} to {target}, please follow the instructions':
-		'{source}合并到{target}出错了，请根据提示处理',
 	'Hey bro, what is the fuck are you doing by executing this command in the {type} branch?':
 		'骚年，你在{type}分支执行这个指令是什么骚操作？',
 	'{nickname} submitted a merge request for {source} branch to {target} branch in {app} project':
@@ -440,7 +438,7 @@ export default {
 	'Select branch for batch processing': '选择分支进行批处理',
 	'No pending branches, program exits': '没有待处理分支，程序退出',
 	'Merged branch: {info}': '已合并: {info}',
-	'miniprogram command': '小程序指令',
+	'Miniprogram command': '小程序指令',
 	'Name of miniprogram': '小程序名称',
 	Audit: '审核',
 	Common: '常规',

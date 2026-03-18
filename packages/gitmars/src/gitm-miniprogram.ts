@@ -34,7 +34,7 @@ interface GitmMiniprogramOption {
 program
 	.name('gitm miniprogram')
 	.usage('[miniprogram] [-k --keyword [keyword]]')
-	.description(t('miniprogram command'))
+	.description(t('Miniprogram command'))
 if (args.length > 0) program.arguments(createArgs(args))
 options.forEach((o: GitmarsOptionOptionsType) => {
 	program.option(o.flags, o.description, o.defaultValue)
