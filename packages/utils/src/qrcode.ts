@@ -20,7 +20,7 @@ export async function readQrcode(imagePath: any): Promise<string> {
 				if (scanData) {
 					resolve(scanData.data)
 				} else {
-					reject(new Error(t('Failure to recognize the content of the QR code')))
+					reject(new Error(t('Failed to recognize QR code content')))
 				}
 			})
 			.catch(reject)

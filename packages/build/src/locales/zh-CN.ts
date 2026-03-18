@@ -5,5 +5,5 @@ export default {
 	'Enter the correct environment name': '请输入正确的环境名称',
 	'Enter the correct application name': '请输入正确的应用名称',
 	'Please configure the Jenkins build address template': '请配置Jenkins构建地址模板',
-	'Successfully pulled up Jenkins build': '成功调起Jenkins构建'
+	'Jenkins build triggered successfully': '成功调起Jenkins构建'
 }

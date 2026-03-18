@@ -32,11 +32,11 @@ function getCommandMessage(cmd: string | string[]): CommandMessageType {
 		case 'commit':
 			msg.processing = t('Committing')
 			msg.success = t('Commit success')
-			msg.fail = t('Commit Failure')
+			msg.fail = t('Commit Failed')
 			break
 		case 'push':
 			msg.processing = t('Pushing')
-			msg.success = t('Successful Pushed')
+			msg.success = t('Successfully Pushed')
 			msg.fail = t('Push failed')
 			break
 		case 'cherry-pick':
@@ -46,18 +46,18 @@ function getCommandMessage(cmd: string | string[]): CommandMessageType {
 			break
 		case 'merge':
 			msg.processing = t('Merging branch')
-			msg.success = t('merge branch succeeded')
-			msg.fail = t('merge branch failed')
+			msg.success = t('Merge branch succeeded')
+			msg.fail = t('Merge branch failed')
 			break
 		case 'rebase':
-			msg.processing = t('working on rebase branch')
-			msg.success = t('rebase branch succeeded')
-			msg.fail = t('rebase branch failed')
+			msg.processing = t('Working on rebase branch')
+			msg.success = t('Rebase branch succeeded')
+			msg.fail = t('Rebase branch failed')
 			break
 		case 'revert':
 			msg.processing = t('Undoing code')
 			msg.success = t('Undoing success')
-			msg.fail = t('undo failed')
+			msg.fail = t('Undo failed')
 			break
 		case 'clean':
 			msg.processing = t('Cleaning up')

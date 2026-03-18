@@ -288,7 +288,7 @@ program.action(async (type: string, name: string, opt: GitmCombineOption): Promi
 						cmd: 'git push',
 						config: {
 							again: true,
-							success: t('Successful Pushed'),
+							success: t('Successfully Pushed'),
 							fail: t('Push failed, please follow the prompts')
 						}
 					},
@@ -359,7 +359,7 @@ program.action(async (type: string, name: string, opt: GitmCombineOption): Promi
 								cmd: 'git push',
 								config: {
 									again: true,
-									success: t('Successful Pushed'),
+									success: t('Successfully Pushed'),
 									fail: t('Push failed, please follow the prompts')
 								}
 							},
@@ -455,7 +455,7 @@ program.action(async (type: string, name: string, opt: GitmCombineOption): Promi
 								cmd: 'git push',
 								config: {
 									again: true,
-									success: t('Successful Pushed'),
+									success: t('Successfully Pushed'),
 									fail: t('Push failed, please follow the prompts')
 								}
 							},
@@ -551,7 +551,7 @@ program.action(async (type: string, name: string, opt: GitmCombineOption): Promi
 								cmd: 'git push',
 								config: {
 									again: true,
-									success: t('Successful Pushed'),
+									success: t('Successfully Pushed'),
 									fail: t('Push failed, please follow the prompts')
 								}
 							},

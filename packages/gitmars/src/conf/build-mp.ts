@@ -38,7 +38,7 @@ export const cmdConfig: GitmarsOptionType = {
 			short: '',
 			long: '--api-env',
 			negate: false,
-			description: t('Build api environment, optionally alpha, tag, release, production'),
+			description: t('API environment, optionally alpha, tag, release, production'),
 			defaultValue: '',
 			recommend: true,
 			options: ['alpha', 'tag', 'release', 'production'],

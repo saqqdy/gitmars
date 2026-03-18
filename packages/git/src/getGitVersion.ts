@@ -14,7 +14,7 @@ function getGitVersion(): string | void {
 	const { stdout } = spawnSync('git', ['--version'])
 	let version: string | string[] | null = stdout!.match(/[\d.?]+/g) as string[]
 	if (!version) {
-		sh.echo(chalk.yellow(t('git not found')))
+		sh.echo(chalk.yellow(t('Git not found')))
 		process.exit(1)
 		return
 	}

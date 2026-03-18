@@ -1,7 +1,7 @@
 export default {
 	name: 'zh-CN',
 	'The current directory is not a git project directory': '当前目录不是git项目目录',
-	'Successful Pushed': '推送成功',
+	'Successfully Pushed': '推送成功',
 	'Push failed, please follow the prompts': '推送失败，请根据提示处理',
 	'The description of the reason for submission does not meet the specification':
 		'提交的原因描述不符合规范',
@@ -23,7 +23,7 @@ export default {
 	'No merge request record selected, process has exited': '没有选择合并请求记录，进程已退出',
 	'Cleanup of remote branch was successful': '清理远程分支成功',
 	'Failed to clean up remote branch, please follow the prompts':
-		"清理远程分支失败，请根据提示处理'",
+		'清理远程分支失败，请根据提示处理',
 	'Starting analysis': '开始分析',
 	'Cannot be deleted': '不可删除',
 	'Analysis completed': '分析完成',
@@ -69,8 +69,8 @@ export default {
 		'使用删除分支功能时，不能与查询分支功能混用',
 	'Project name': '项目名称',
 	'Build environment, optionally dev, prod, bug, all': '构建环境，可选dev、prod、bug、all',
-	'Build api environment, optionally alpha, tag, release, production':
-		'构建环境，可选alpha、tag、release、production',
+	'API environment, optionally alpha, tag, release, production':
+		'构建API环境，可选alpha、tag、release、production',
 	'Force cleanup': '强制清理',
 	'Specify the branch to clean up': '指定要清理的分支',
 	'Show a list of branches that match the criteria': '显示符合条件的分支列表',
@@ -262,8 +262,8 @@ export default {
 	'Launching a jenkins build task of miniprogram': '发起Jenkins构建小程序任务',
 	'Action Tips': '操作建议',
 	'Handling remote merge requests': '处理远程合并请求',
-	'review remote code': 'review远程代码',
-	'view branch status': '查看分支状态',
+	'Review remote code': 'review远程代码',
+	'View branch status': '查看分支状态',
 	'Launch web version of gitmars': '启动网页版gitmars',
 	'Unlink softlinks': '解除软链接',
 	'Create soft links': '创建软链接',

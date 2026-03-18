@@ -231,7 +231,7 @@ publishProgram.action(
 										cmd: 'git push',
 										config: {
 											again: true,
-											success: t('Successful Pushed'),
+											success: t('Successfully Pushed'),
 											fail: t('Push failed, please follow the prompts')
 										}
 									}
@@ -277,7 +277,7 @@ publishProgram.action(
 											cmd: 'git push',
 											config: {
 												again: true,
-												success: t('Successful Pushed'),
+												success: t('Successfully Pushed'),
 												fail: t('Push failed, please follow the prompts')
 											}
 										}
@@ -320,7 +320,7 @@ publishProgram.action(
 											cmd: 'git push',
 											config: {
 												again: true,
-												success: t('Successful Pushed'),
+												success: t('Successfully Pushed'),
 												fail: t('Push failed, please follow the prompts')
 											}
 										}
@@ -366,7 +366,7 @@ publishProgram.action(
 										cmd: 'git push',
 										config: {
 											again: true,
-											success: t('Successful Pushed'),
+											success: t('Successfully Pushed'),
 											fail: t('Push failed, please follow the prompts')
 										}
 									}
@@ -607,7 +607,7 @@ publishProgram.action(
 										cmd: 'git push',
 										config: {
 											again: true,
-											success: t('Successful Pushed'),
+											success: t('Successfully Pushed'),
 											fail: t('Push failed, please follow the prompts')
 										}
 									}
@@ -781,7 +781,7 @@ publishProgram.action(
 										cmd: 'git push',
 										config: {
 											again: true,
-											success: t('Successful Pushed'),
+											success: t('Successfully Pushed'),
 											fail: t('Push failed, please follow the prompts')
 										}
 									}
@@ -829,7 +829,7 @@ publishProgram.action(
 											cmd: 'git push',
 											config: {
 												again: true,
-												success: t('Successful Pushed'),
+												success: t('Successfully Pushed'),
 												fail: t('Push failed, please follow the prompts')
 											}
 										}
@@ -983,7 +983,7 @@ updateProgram.action(
 							cmd: 'git push',
 							config: {
 								again: true,
-								success: t('Successful Pushed'),
+								success: t('Successfully Pushed'),
 								fail: t('Push failed, please follow the prompts')
 							}
 						}
@@ -1065,7 +1065,7 @@ updateProgram.action(
 							cmd: 'git push',
 							config: {
 								again: true,
-								success: t('Successful Pushed'),
+								success: t('Successfully Pushed'),
 								fail: t('Push failed, please follow the prompts')
 							}
 						}

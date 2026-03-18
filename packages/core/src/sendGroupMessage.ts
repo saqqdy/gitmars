@@ -38,7 +38,7 @@ async function sendGroupMessage(message: string, url = ''): Promise<void> {
 				headers: { 'Content-Type': 'application/json' }
 			})
 			.then(() => {
-				sh.echo(chalk.green(t('Sending message successfully')))
+				sh.echo(chalk.green(t('Message sent successfully')))
 			})
 	})
 }

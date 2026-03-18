@@ -86,7 +86,7 @@ async function runJenkins({
 			headers: { Authorization: auth }
 		})
 		.then(() => {
-			sh.echo(chalk.green(t('Successfully pulled up Jenkins build')))
+			sh.echo(chalk.green(t('Jenkins build triggered successfully')))
 		})
 }
 

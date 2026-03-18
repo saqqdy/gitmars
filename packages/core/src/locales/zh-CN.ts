@@ -1,6 +1,6 @@
 export default {
 	name: 'zh-CN',
-	'Successful Pushed': '推送成功',
+	'Successfully Pushed': '推送成功',
 	'Processing complete': '处理完成',
 	'Command name cannot be empty': '指令名称不能为空',
 	'Enter gitm continue to continue after processing the issue in question':
@@ -8,8 +8,8 @@ export default {
 	Message: '消息',
 	Processing: '正在处理',
 	'No group message push address configured': '没有配置群消息推送地址',
-	'Sending message successfully': '发送消息成功',
-	'Your version is detected as old, please upgrade before using':
+	'Message sent successfully': '发送消息成功',
+	'Your version is outdated, please upgrade before using':
 		'检测到你的版本比较古老，请升级之后再使用',
 	'\nMac users upgrade method: sudo gitm upgrade latest -m -c npm \nWindows users use PowerShell or CMD: gitm upgrade latest -m -c npm.cmd':
 		'\nMac用户升级方法：sudo gitm upgrade latest -m -c npm\nWindows用户使用PowerShell或CMD：gitm upgrade latest -m -c npm.cmd',

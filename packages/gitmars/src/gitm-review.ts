@@ -42,7 +42,7 @@ interface GitmReviewOption {
 program
 	.name('gitm review')
 	.usage('[--state [state]] [--quiet]')
-	.description(t('review remote code'))
+	.description(t('Review remote code'))
 if (args.length > 0) program.arguments(createArgs(args))
 options.forEach((o: GitmarsOptionOptionsType) => {
 	program.option(o.flags, o.description, o.defaultValue)
