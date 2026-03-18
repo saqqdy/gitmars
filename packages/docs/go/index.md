@@ -1,43 +1,28 @@
-# Go Command
+---
+sidebar: null
+---
 
-`gitm go` is a smart navigation command that helps you quickly execute common operations.
+## gitm go
 
-## Usage
+Smart navigation command - remember one command to access all features
 
-```shell
-gitm go [command]
-```
+- Usage: `gitm go [command]`
+- Arguments:
 
-## Available Commands
+<div class="table-prop">
 
-| Command | Description |
-| ------- | ----------- |
-| start | Create branch |
-| combine | Branch testing stage |
-| end | Finish development |
-| update | Update branch |
-| build | Build Jenkins |
-| build-mp | Build mini-program |
-| copy | Cherry-pick |
-| undo | Undo commit |
-| redo | Redo commit |
-| branch | Branch operations |
-| clean | Clear cache |
-| revert | Revert commit |
-| suggest | Git suggestions |
-| approve | Handle merge request |
-| review | Code review |
-| status | View status |
-| link | Create symlink |
-| unlink | Remove symlink |
-| postmsg | Post message |
+| Parameter | Description | Type | Options | Required | Default |
+| --------- | ----------- | ---- | ------- | -------- | ------- |
+| command | Command name | String | combine, end, update, build, build-mp, miniprogram, start, undo, redo, suggest, approve, review, admin.publish, admin.update, admin.create, admin.clean, admin.approve, branch, copy, get, save, revert, link, unlink, postmsg | No | - |
 
-## Example
+</div>
+
+- Example:
 
 ```shell
-# Quick build
 gitm go build
-
-# Quick copy
-gitm go copy abc123
 ```
+
+- Demo:
+
+![gitmars-go.gif](https://raw.githubusercontent.com/saqqdy/gitmars/master/static/img/gitmars-go.gif)

@@ -15,6 +15,15 @@ title: Introduction
 - **🔧 Flexible** - Multi-environment support for various Git branching models
 - **📖 Well Documented** - Detailed API documentation and examples
 
+## How It Works
+
+Monday-Wednesday: Release minor versions with bug fixes only, create bugfix/xxxx branches from bug branch. Thursday-Friday: Release major versions with new features and bug fixes, create feature/xxxx branches from release branch.
+
+```
+1. Each gitmars subcommand has help functionality, use gitm [command] --help
+2. <type> means required; [type] means optional; [-a --app [app]] where -a is shorthand
+```
+
 ## Quick Start
 
 ```shell
@@ -75,6 +84,8 @@ Monday to Wednesday: Release minor versions with bug fixes only, create bugfix/x
 | [gitm undo](/api/#gitm-undo) | Undo commit |
 | [gitm redo](/api/#gitm-redo) | Redo commit |
 | [gitm status](/api/#gitm-status) | View branch status |
+| [gitm cleanbranch](/api/#gitm-cleanbranch) | Clean branches |
+| [gitm upgrade](/api/#gitm-upgrade) | Upgrade gitmars |
 
 See [API Reference](/api/) for complete command list.
 

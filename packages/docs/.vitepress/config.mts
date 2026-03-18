@@ -33,7 +33,9 @@ export default defineConfig({
 						{
 							text: 'Guide',
 							items: [
-								{ text: 'Introduction', link: '/guide/' }
+								{ text: 'Introduction', link: '/guide/' },
+								{ text: 'Getting Started', link: '/guide/getting-start' },
+								{ text: 'Basic Config', link: '/guide/basic-config' }
 							]
 						}
 					],
@@ -69,10 +71,44 @@ export default defineConfig({
 							items: [
 								{ text: 'gitm copy', link: '/api/#gitm-copy' },
 								{ text: 'gitm build', link: '/api/#gitm-build' },
+								{ text: 'gitm build-mp', link: '/api/#gitm-build-mp' },
+								{ text: 'gitm miniprogram', link: '/api/#gitm-miniprogram' },
 								{ text: 'gitm branch', link: '/api/#gitm-branch' },
+								{ text: 'gitm revert', link: '/api/#gitm-revert' },
 								{ text: 'gitm undo', link: '/api/#gitm-undo' },
 								{ text: 'gitm redo', link: '/api/#gitm-redo' },
-								{ text: 'gitm status', link: '/api/#gitm-status' }
+								{ text: 'gitm save', link: '/api/#gitm-save' },
+								{ text: 'gitm get', link: '/api/#gitm-get' },
+								{ text: 'gitm cleanbranch', link: '/api/#gitm-cleanbranch' },
+								{ text: 'gitm log', link: '/api/#gitm-log' },
+								{ text: 'gitm hook', link: '/api/#gitm-hook' },
+								{ text: 'gitm run', link: '/api/#gitm-run' },
+								{ text: 'gitm upgrade', link: '/api/#gitm-upgrade' },
+								{ text: 'gitm clean', link: '/api/#gitm-clean' },
+								{ text: 'gitm suggest', link: '/api/#gitm-suggest' },
+								{ text: 'gitm approve', link: '/api/#gitm-approve' },
+								{ text: 'gitm review', link: '/api/#gitm-review' },
+								{ text: 'gitm status', link: '/api/#gitm-status' },
+								{ text: 'gitm link', link: '/api/#gitm-link' },
+								{ text: 'gitm unlink', link: '/api/#gitm-unlink' },
+								{ text: 'gitm postmsg', link: '/api/#gitm-postmsg' },
+								{ text: 'gitm alias', link: '/api/#gitm-alias' }
+							]
+						},
+						{
+							text: 'Administrator',
+							items: [
+								{ text: 'gitm admin create', link: '/api/#gitm-admin-create' },
+								{ text: 'gitm admin publish', link: '/api/#gitm-admin-publish' },
+								{ text: 'gitm admin update', link: '/api/#gitm-admin-update' },
+								{ text: 'gitm admin clean', link: '/api/#gitm-admin-clean' }
+							]
+						},
+						{
+							text: 'Other',
+							items: [
+								{ text: 'gitm permission', link: '/api/#gitm-permission' },
+								{ text: 'gitm version', link: '/api/#gitm-version' }
 							]
 						}
 					]
