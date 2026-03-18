@@ -1,18 +1,18 @@
 {
 	"extends": "../../tsconfig.json",
-	"exclude": ["__tests__", "../../temp", "dist", "node_modules"],
-	"include": ["**/*.ts", "**/*.mts", "typings", ".vitepress/**/*"],
 	"compilerOptions": {
 		"composite": true,
-		"removeComments": true,
-		"declaration": true,
-		"emitDeclarationOnly": true,
 		"target": "ESNext",
-		"outDir": "dist",
+		"lib": ["ESNext", "DOM", "DOM.Iterable"],
 		"module": "ESNext",
 		"moduleResolution": "bundler",
-		"lib": ["ESNext", "DOM", "DOM.Iterable"],
+		"declaration": true,
+		"emitDeclarationOnly": true,
+		"outDir": "dist",
+		"removeComments": true,
 		"sourceMap": false,
 		"skipLibCheck": true
-	}
+	},
+	"include": ["**/*.ts", "**/*.mts", "typings", ".vitepress/**/*"],
+	"exclude": ["__tests__", "../../temp", "dist", "node_modules"]
 }

@@ -5,5 +5,5 @@ import './style.css'
 
 export default {
 	extends: DefaultTheme,
-	Layout: () => h(DefaultTheme.Layout)
+	Layout: () => h(DefaultTheme.Layout),
 } satisfies Theme

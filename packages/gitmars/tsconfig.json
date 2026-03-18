@@ -3,16 +3,16 @@
 	"compilerOptions": {
 		"composite": true,
 		"target": "ESNext",
-		"module": "ESNext",
-		"sourceMap": true,
-		"declaration": true,
-		"emitDeclarationOnly": true,
-		"rootDir": "src",
-		"outDir": "temp",
 		"baseUrl": ".",
+		"rootDir": "src",
+		"module": "ESNext",
 		"paths": {
 			"#lib/*": ["./src/*"],
 			"#conf/*": ["./src/conf/*"]
-		}
+		},
+		"declaration": true,
+		"emitDeclarationOnly": true,
+		"outDir": "temp",
+		"sourceMap": true
 	}
 }

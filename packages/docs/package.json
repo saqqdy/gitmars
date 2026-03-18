@@ -1,8 +1,12 @@
 {
 	"name": "@gitmars/docs",
 	"description": "gitmars文档库",
+	"type": "module",
 	"version": "7.7.0",
 	"private": false,
+	"main": "./dist/index.cjs.js",
+	"module": "./dist/index.esm-bundler.js",
+	"types": "./dist/index.d.ts",
 	"files": [
 		"dist",
 		"typings",
@@ -12,11 +16,8 @@
 		"docs:dev": "vitepress dev .",
 		"docs:build": "vitepress build .",
 		"docs:serve": "vitepress serve .",
-		"eslint": "eslint --fix --ext .ts,.js ./",
-		"prettier": "prettier --write \"**/*.{js,ts,json,md}\"",
-		"prettier:docs": "prettier --write \"**/*.md\""
+		"lint": "eslint --fix ./"
 	},
-	"type": "module",
 	"directories": {
 		"dist": "dist",
 		"es": "es",
@@ -26,11 +27,9 @@
 		"js-cool": "^5.23.1"
 	},
 	"devDependencies": {
-		"@eslint-sets/eslint-config-vue3": "^5.14.0",
+		"@eslint-sets/eslint-config": "^6.2.0",
 		"@types/node": "^24.10.2",
-		"eslint": "^8.57.1",
-		"prettier": "^3.7.4",
-		"prettier-config-common": "^1.4.0",
+		"eslint": "^9.39.4",
 		"tsnd": "^1.1.0",
 		"typescript": "^5.9.3",
 		"vitepress": "1.6.4"
@@ -44,20 +43,17 @@
 	],
 	"license": "GPL-3.0",
 	"author": "saqqdy <https://github.com/saqqdy>",
+	"homepage": "https://github.com/saqqdy/gitmars/tree/master/packages/docs#readme",
+	"bugs": {
+		"url": "https://github.com/saqqdy/gitmars/issues"
+	},
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/saqqdy/gitmars.git",
 		"directory": "packages/docs"
 	},
-	"bugs": {
-		"url": "https://github.com/saqqdy/gitmars/issues"
-	},
-	"homepage": "https://github.com/saqqdy/gitmars/tree/master/packages/docs#readme",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org",
 		"access": "public"
-	},
-	"module": "./dist/index.esm-bundler.js",
-	"main": "./dist/index.cjs.js",
-	"types": "./dist/index.d.ts"
+	}
 }

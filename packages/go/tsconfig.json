@@ -3,13 +3,13 @@
 	"compilerOptions": {
 		// "composite": true,
 		"target": "ESNext",
+		"baseUrl": ".",
+		"rootDir": "src",
 		"module": "ESNext",
-		"sourceMap": true,
+		"paths": {},
 		"declaration": true,
 		"emitDeclarationOnly": true,
-		"rootDir": "src",
 		"outDir": "temp",
-		"baseUrl": ".",
-		"paths": {}
+		"sourceMap": true
 	}
 }

@@ -4,9 +4,7 @@ export default defineConfig({
 	title: 'Gitmars',
 	description: 'A Git Workflow Tool',
 	base: '/gitmars/',
-	head: [
-		['meta', { content: '#f56c2d', name: 'theme-color' }]
-	],
+	head: [['meta', { content: '#f56c2d', name: 'theme-color' }]],
 	outDir: 'dist',
 	cleanUrls: true,
 	locales: {
@@ -24,9 +22,9 @@ export default defineConfig({
 						text: 'Links',
 						items: [
 							{ text: 'GitHub', link: 'https://github.com/saqqdy/gitmars' },
-							{ text: 'NPM', link: 'https://www.npmjs.com/package/gitmars' }
-						]
-					}
+							{ text: 'NPM', link: 'https://www.npmjs.com/package/gitmars' },
+						],
+					},
 				],
 				sidebar: {
 					'/guide/': [
@@ -35,25 +33,25 @@ export default defineConfig({
 							items: [
 								{ text: 'Introduction', link: '/guide/' },
 								{ text: 'Getting Started', link: '/guide/getting-start' },
-								{ text: 'Basic Config', link: '/guide/basic-config' }
-							]
-						}
+								{ text: 'Basic Config', link: '/guide/basic-config' },
+							],
+						},
 					],
 					'/api/': [
 						{
 							text: 'API Reference',
-							items: [{ text: 'Overview', link: '/api/' }]
+							items: [{ text: 'Overview', link: '/api/' }],
 						},
 						{
 							text: 'Smart Navigation',
-							items: [{ text: 'gitm go', link: '/api/#gitm-go' }]
+							items: [{ text: 'gitm go', link: '/api/#gitm-go' }],
 						},
 						{
 							text: 'Configuration',
 							items: [
 								{ text: 'gitm init', link: '/api/#gitm-init' },
-								{ text: 'gitm config', link: '/api/#gitm-config' }
-							]
+								{ text: 'gitm config', link: '/api/#gitm-config' },
+							],
 						},
 						{
 							text: 'Workflow',
@@ -62,8 +60,8 @@ export default defineConfig({
 								{ text: 'gitm combine', link: '/api/#gitm-combine' },
 								{ text: 'gitm end', link: '/api/#gitm-end' },
 								{ text: 'gitm update', link: '/api/#gitm-update' },
-								{ text: 'gitm continue', link: '/api/#gitm-continue' }
-							]
+								{ text: 'gitm continue', link: '/api/#gitm-continue' },
+							],
 						},
 						{
 							text: 'Productivity',
@@ -92,54 +90,58 @@ export default defineConfig({
 								{ text: 'gitm link', link: '/api/#gitm-link' },
 								{ text: 'gitm unlink', link: '/api/#gitm-unlink' },
 								{ text: 'gitm postmsg', link: '/api/#gitm-postmsg' },
-								{ text: 'gitm alias', link: '/api/#gitm-alias' }
-							]
+								{ text: 'gitm alias', link: '/api/#gitm-alias' },
+							],
 						},
 						{
 							text: 'Administrator',
 							items: [
 								{ text: 'gitm admin create', link: '/api/#gitm-admin-create' },
-								{ text: 'gitm admin publish', link: '/api/#gitm-admin-publish' },
+								{
+									text: 'gitm admin publish',
+									link: '/api/#gitm-admin-publish',
+								},
 								{ text: 'gitm admin update', link: '/api/#gitm-admin-update' },
-								{ text: 'gitm admin clean', link: '/api/#gitm-admin-clean' }
-							]
+								{ text: 'gitm admin clean', link: '/api/#gitm-admin-clean' },
+							],
 						},
 						{
 							text: 'Other',
 							items: [
 								{ text: 'gitm permission', link: '/api/#gitm-permission' },
-								{ text: 'gitm version', link: '/api/#gitm-version' }
-							]
-						}
-					]
+								{ text: 'gitm version', link: '/api/#gitm-version' },
+							],
+						},
+					],
 				},
 				editLink: {
-					pattern: 'https://github.com/saqqdy/gitmars/edit/master/packages/docs/:path',
-					text: 'Edit this page on GitHub'
+					pattern:
+            'https://github.com/saqqdy/gitmars/edit/master/packages/docs/:path',
+					text: 'Edit this page on GitHub',
 				},
 				footer: {
 					message: 'Released under the GPL-3.0 License.',
-					copyright: 'Copyright © 2021-present saqqdy'
+					copyright: 'Copyright © 2021-present saqqdy',
 				},
 				lastUpdated: {
 					text: 'Last updated',
-					formatOptions: { dateStyle: 'medium', timeStyle: 'short' }
+					formatOptions: { dateStyle: 'medium', timeStyle: 'short' },
 				},
 				docFooter: {
 					prev: 'Previous',
-					next: 'Next'
+					next: 'Next',
 				},
 				outline: {
 					label: 'On this page',
-					level: [2, 3]
+					level: [2, 3],
 				},
 				returnToTopLabel: 'Return to top',
 				sidebarMenuLabel: 'Menu',
 				darkModeSwitchLabel: 'Theme',
 				darkModeSwitchTitle: 'Switch to dark theme',
 				lightModeSwitchTitle: 'Switch to light theme',
-				langMenuLabel: 'Language'
-			}
+				langMenuLabel: 'Language',
+			},
 		},
 		zh: {
 			label: '简体中文',
@@ -156,9 +158,9 @@ export default defineConfig({
 						text: '更多',
 						items: [
 							{ text: 'GitHub', link: 'https://github.com/saqqdy/gitmars' },
-							{ text: 'NPM', link: 'https://www.npmjs.com/package/gitmars' }
-						]
-					}
+							{ text: 'NPM', link: 'https://www.npmjs.com/package/gitmars' },
+						],
+					},
 				],
 				sidebar: {
 					'/zh/guide/': [
@@ -167,25 +169,25 @@ export default defineConfig({
 							items: [
 								{ text: '介绍', link: '/zh/guide/' },
 								{ text: '快速上手', link: '/zh/guide/getting-start' },
-								{ text: '基本配置', link: '/zh/guide/basic-config' }
-							]
-						}
+								{ text: '基本配置', link: '/zh/guide/basic-config' },
+							],
+						},
 					],
 					'/zh/api/': [
 						{
 							text: 'API 参考',
-							items: [{ text: '概览', link: '/zh/api/' }]
+							items: [{ text: '概览', link: '/zh/api/' }],
 						},
 						{
 							text: '智能导航',
-							items: [{ text: 'gitm go', link: '/zh/api/#gitm-go' }]
+							items: [{ text: 'gitm go', link: '/zh/api/#gitm-go' }],
 						},
 						{
 							text: '配置',
 							items: [
 								{ text: 'gitm init', link: '/zh/api/#gitm-init' },
-								{ text: 'gitm config', link: '/zh/api/#gitm-config' }
-							]
+								{ text: 'gitm config', link: '/zh/api/#gitm-config' },
+							],
 						},
 						{
 							text: '工作流',
@@ -194,8 +196,8 @@ export default defineConfig({
 								{ text: 'gitm combine', link: '/zh/api/#gitm-combine' },
 								{ text: 'gitm end', link: '/zh/api/#gitm-end' },
 								{ text: 'gitm update', link: '/zh/api/#gitm-update' },
-								{ text: 'gitm continue', link: '/zh/api/#gitm-continue' }
-							]
+								{ text: 'gitm continue', link: '/zh/api/#gitm-continue' },
+							],
 						},
 						{
 							text: '效率',
@@ -224,62 +226,72 @@ export default defineConfig({
 								{ text: 'gitm link', link: '/zh/api/#gitm-link' },
 								{ text: 'gitm unlink', link: '/zh/api/#gitm-unlink' },
 								{ text: 'gitm postmsg', link: '/zh/api/#gitm-postmsg' },
-								{ text: 'gitm alias', link: '/zh/api/#gitm-alias' }
-							]
+								{ text: 'gitm alias', link: '/zh/api/#gitm-alias' },
+							],
 						},
 						{
 							text: '管理员',
 							items: [
-								{ text: 'gitm admin create', link: '/zh/api/#gitm-admin-create' },
-								{ text: 'gitm admin publish', link: '/zh/api/#gitm-admin-publish' },
-								{ text: 'gitm admin update', link: '/zh/api/#gitm-admin-update' },
-								{ text: 'gitm admin clean', link: '/zh/api/#gitm-admin-clean' }
-							]
+								{
+									text: 'gitm admin create',
+									link: '/zh/api/#gitm-admin-create',
+								},
+								{
+									text: 'gitm admin publish',
+									link: '/zh/api/#gitm-admin-publish',
+								},
+								{
+									text: 'gitm admin update',
+									link: '/zh/api/#gitm-admin-update',
+								},
+								{ text: 'gitm admin clean', link: '/zh/api/#gitm-admin-clean' },
+							],
 						},
 						{
 							text: '其他',
 							items: [
 								{ text: 'gitm permission', link: '/zh/api/#gitm-permission' },
-								{ text: 'gitm version', link: '/zh/api/#gitm-version' }
-							]
-						}
-					]
+								{ text: 'gitm version', link: '/zh/api/#gitm-version' },
+							],
+						},
+					],
 				},
 				editLink: {
-					pattern: 'https://github.com/saqqdy/gitmars/edit/master/packages/docs/:path',
-					text: '在 GitHub 上编辑此页'
+					pattern:
+            'https://github.com/saqqdy/gitmars/edit/master/packages/docs/:path',
+					text: '在 GitHub 上编辑此页',
 				},
 				footer: {
 					message: '基于 GPL-3.0 许可发布',
-					copyright: '版权所有 © 2021-present saqqdy'
+					copyright: '版权所有 © 2021-present saqqdy',
 				},
 				lastUpdated: {
 					text: '最后更新于',
-					formatOptions: { dateStyle: 'medium', timeStyle: 'short' }
+					formatOptions: { dateStyle: 'medium', timeStyle: 'short' },
 				},
 				docFooter: {
 					prev: '上一页',
-					next: '下一页'
+					next: '下一页',
 				},
 				outline: {
 					label: '页面导航',
-					level: [2, 3]
+					level: [2, 3],
 				},
 				returnToTopLabel: '回到顶部',
 				sidebarMenuLabel: '菜单',
 				darkModeSwitchLabel: '主题',
 				darkModeSwitchTitle: '切换到深色模式',
 				lightModeSwitchTitle: '切换到浅色模式',
-				langMenuLabel: '语言'
-			}
-		}
+				langMenuLabel: '语言',
+			},
+		},
 	},
 	themeConfig: {
 		logo: '/logo.svg',
 		siteTitle: 'Gitmars',
 		socialLinks: [
-			{ icon: 'github', link: 'https://github.com/saqqdy/gitmars' }
+			{ icon: 'github', link: 'https://github.com/saqqdy/gitmars' },
 		],
-		search: { provider: 'local' }
-	}
+		search: { provider: 'local' },
+	},
 })
