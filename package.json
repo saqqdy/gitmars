@@ -104,7 +104,8 @@
 		"eslint": ">=9.0.0"
 	},
 	"engines": {
-		"node": ">= 14.15.0"
+		"node": ">= 14.15.0",
+		"pnpm": ">= 9.0.0"
 	},
 	"resolutions": {
 		"fsevents": ">= 2.0.0"

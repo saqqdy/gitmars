@@ -2,7 +2,10 @@ import eslintSets from '@eslint-sets/eslint-config'
 
 export default eslintSets({
 	ignores: [
-		// 'packages/**',
+		'packages/**/lib',
+		'packages/**/dist',
+		'packages/**/es',
+		'packages/docs/.vitepress',
 	],
 	markdown: false,
 	rules: {
@@ -15,4 +18,5 @@ export default eslintSets({
 	},
 	stylistic: { indent: 'tab' },
 	typescript: true,
+	vue: true,
 })
