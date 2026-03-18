@@ -2,7 +2,7 @@ import eslintSets from '@eslint-sets/eslint-config'
 
 export default eslintSets({
 	ignores: [
-		'packages/**',
+		// 'packages/**',
 	],
 	markdown: false,
 	rules: {
@@ -11,6 +11,7 @@ export default eslintSets({
 		'perfectionist/sort-named-exports': 'off',
 		'perfectionist/sort-objects': 'off',
 		'ts/no-require-imports': 'off',
+		'yml/file-extension': 'off',
 	},
 	stylistic: { indent: 'tab' },
 	typescript: true,

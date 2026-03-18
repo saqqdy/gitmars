@@ -1,6 +1,8 @@
 import eslintSets from '@eslint-sets/eslint-config'
 
 export default eslintSets({
+	markdown: false,
+	lib: true,
 	typescript: true,
 	ignores: ['lib', 'dist', 'es'],
 	rules: {
