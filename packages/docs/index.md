@@ -1,19 +1,19 @@
 ---
 layout: home
 title: Gitmars
-titleTemplate: 这是一个git工作流工具
+titleTemplate: A Git Workflow Tool
 
 hero:
   name: Gitmars
-  text: Git 工作流利器
-  tagline: 上手简单，功能强大，性能优异。封装了大量高级技巧，让你解放双手，提升工作效率
+  text: Git Workflow Tool
+  tagline: Simple to use, powerful features, excellent performance. Automate your git workflow and boost productivity
   image: /logo.svg
   actions:
     - theme: brand
-      text: 开始使用
+      text: Get Started
       link: /guide/
     - theme: alt
-      text: API 参考
+      text: API Reference
       link: /api/
     - theme: alt
       text: GitHub
@@ -21,23 +21,23 @@ hero:
 
 features:
   - icon: 🚀
-    title: 高效
-    details: 执行动作之后自动切分支、自动拉代码，大幅提升开发效率
+    title: Efficient
+    details: Auto branch switching, auto pull, and more to boost development efficiency
   - icon: 🧠
-    title: 智能
-    details: 智能检测当前可执行的指令，智能导航，无需记忆复杂命令
+    title: Smart
+    details: Intelligent command detection and navigation, no need to memorize complex commands
   - icon: 🛡️
-    title: 安全
-    details: 内建操作检测方法，主动防止不合规操作，保护代码安全
+    title: Safe
+    details: Built-in operation detection to prevent non-compliant operations
   - icon: 📦
-    title: 开箱即用
-    details: 零配置即可使用，支持自定义配置满足团队需求
+    title: Zero Config
+    details: Works out of the box, supports custom configuration for team needs
   - icon: 🔧
-    title: 灵活配置
-    details: 支持多环境配置，适配各种 Git 分支模型和工作流
+    title: Flexible
+    details: Multi-environment support, adapts to various Git branching models
   - icon: 📖
-    title: 文档完善
-    details: 详细的 API 文档和使用示例，快速上手无压力
+    title: Well Documented
+    details: Detailed API documentation and examples for quick start
 ---
 
 <style>

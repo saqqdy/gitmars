@@ -1,90 +1,87 @@
 ---
-title: 介绍
+title: Introduction
 ---
 
-# 介绍
+# Introduction
 
-**Gitmars** 是一个高效的 Git 工作流工具，专为团队协作和高频发版场景设计。
+**Gitmars** is an efficient Git workflow tool designed for team collaboration and high-frequency release scenarios.
 
-## 为什么选择 Gitmars？
+## Why Gitmars?
 
-- **🚀 高效** - 执行动作后自动切分支、自动拉代码，大幅提升开发效率
-- **🧠 智能** - 智能检测可执行的指令，智能导航，无需记忆复杂命令
-- **🛡️ 安全** - 内建操作检测方法，主动防止不合规操作
-- **📦 开箱即用** - 零配置即可使用，支持自定义配置满足团队需求
-- **🔧 灵活配置** - 支持多环境配置，适配各种 Git 分支模型
-- **📖 文档完善** - 详细的 API 文档和使用示例
+- **🚀 Efficient** - Auto branch switching and code pulling after actions
+- **🧠 Smart** - Intelligent command detection and navigation
+- **🛡️ Safe** - Built-in operation detection to prevent non-compliant operations
+- **📦 Zero Config** - Works out of the box with customizable settings
+- **🔧 Flexible** - Multi-environment support for various Git branching models
+- **📖 Well Documented** - Detailed API documentation and examples
 
-## 快速示例
+## Quick Start
 
 ```shell
-# 安装
-# 注意：Windows 用户需要先安装 Python
+# Install
+# Note: Windows users need to install Python first
 npm install -g gitmars
-# 或者
+# or
 yarn global add gitmars
 
-# 创建 gitmars 配置文件
+# Create gitmars config
 cd my-project
 gitm init
 
-# 创建功能分支，自动切到新分支
+# Create feature branch
 gitm start feature 10000
 
-# 合并 feature/10000 分支到 develop 分支
+# Merge feature/10000 to develop
 gitm combine -d
 
-# 开发完成结束分支
+# Finish development
 gitm end
 ```
 
-## 工作流模式
+## Workflow Models
 
-### 双主干分支发版模式
+### Dual Main Branch Model
 
-![双主干分支](https://raw.githubusercontent.com/saqqdy/gitmars/master/static/img/gitmars-branch.png)
+![Dual Main Branch](https://raw.githubusercontent.com/saqqdy/gitmars/master/static/img/gitmars-branch.png)
 
-周一至周三发布小版本，只修复 bug 不涉及功能迭代，从 bug 线拉取 bugfix/xxxx 分支，开发完成后提测合并到 bug 分支。周四至周五发布大版本，包含新功能和 bug 修复，从 release 线拉取 feature/xxxx 分支，开发完成后合并到 release 分支。
+Monday to Wednesday: Release minor versions with bug fixes only, create bugfix/xxxx branches from bug branch. Thursday to Friday: Release major versions with new features and bug fixes, create feature/xxxx branches from release branch.
 
-### 单主干分支发版模式
+### Single Main Branch Model
 
-![单主干分支](https://raw.githubusercontent.com/saqqdy/gitmars/master/static/img/gitmars-branch2.png)
+![Single Main Branch](https://raw.githubusercontent.com/saqqdy/gitmars/master/static/img/gitmars-branch2.png)
 
-## 环境支持
+## Environment Support
 
-| 环境 | 支持情况 |
-| ---- | -------- |
+| Environment | Support |
+| ----------- | ------- |
 | macOS | ✅ |
 | Linux | ✅ |
-| Windows | ✅ (需要 Python) |
+| Windows | ✅ (requires Python) |
 | Node.js | ✅ >= 14 |
 
-## 功能列表
+## Commands
 
-| 命令 | 说明 |
-| ---- | ---- |
-| [gitm init](/api/#gitm-init) | 初始化配置 |
-| [gitm config](/api/#gitm-config) | 查看/设置配置项 |
-| [gitm start](/api/#gitm-start) | 创建分支 |
-| [gitm combine](/api/#gitm-combine) | 分支阶段提测 |
-| [gitm end](/api/#gitm-end) | 完成开发 |
-| [gitm update](/api/#gitm-update) | 更新分支 |
-| [gitm go](/api/#gitm-go) | 智能导航 |
-| [gitm copy](/api/#gitm-copy) | cherry-pick 简化操作 |
-| [gitm branch](/api/#gitm-branch) | 分支操作 |
-| [gitm undo](/api/#gitm-undo) | 撤销提交 |
-| [gitm redo](/api/#gitm-redo) | 重做提交 |
-| [gitm revert](/api/#gitm-revert) | 撤销提交 |
-| [gitm status](/api/#gitm-status) | 查看分支状态 |
-| [gitm cleanbranch](/api/#gitm-cleanbranch) | 清理分支 |
-| [gitm upgrade](/api/#gitm-upgrade) | 升级 gitmars |
+| Command | Description |
+| ------- | ----------- |
+| [gitm init](/api/#gitm-init) | Initialize config |
+| [gitm config](/api/#gitm-config) | View/set config |
+| [gitm start](/api/#gitm-start) | Create branch |
+| [gitm combine](/api/#gitm-combine) | Branch testing stage |
+| [gitm end](/api/#gitm-end) | Finish development |
+| [gitm update](/api/#gitm-update) | Update branch |
+| [gitm go](/api/#gitm-go) | Smart navigation |
+| [gitm copy](/api/#gitm-copy) | Cherry-pick simplified |
+| [gitm branch](/api/#gitm-branch) | Branch operations |
+| [gitm undo](/api/#gitm-undo) | Undo commit |
+| [gitm redo](/api/#gitm-redo) | Redo commit |
+| [gitm status](/api/#gitm-status) | View branch status |
 
-查看 [API 参考](/api/) 获取完整命令列表。
+See [API Reference](/api/) for complete command list.
 
-## 为什么不用 GitFlow？
+## Why Not GitFlow?
 
-GitFlow 工作流不支持高频率发版，而 Gitmars 专为高频发版场景设计，支持双主干和单主干两种发版模式。
+GitFlow doesn't support high-frequency releases. Gitmars is designed for such scenarios with dual and single main branch models.
 
-## 许可证
+## License
 
 [GPL-3.0 License](https://github.com/saqqdy/gitmars/blob/master/LICENSE)

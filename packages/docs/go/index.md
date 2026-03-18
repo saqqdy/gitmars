@@ -1,28 +1,43 @@
----
-sidebar: null
----
+# Go Command
 
-## gitm go
+`gitm go` is a smart navigation command that helps you quickly execute common operations.
 
-智能导航指令，只记一条指令就能完成所有功能使用
-
-- 使用：`gitm go [command]`
-- 参数：
-
-<div class="table-prop">
-
-| 参数    | 说明     | 类型   | 可选值                                                                                                                                                                                                                         | 必填 | 默认 |
-| ------- | -------- | ------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---- | ---- |
-| command | 指令名称 | String | combine、end、update、build、build-mp、miniprogram、start、undo、redo、suggest、approve、review、admin.publish、admin.update、admin.create、admin.clean、admin.approve、branch、copy、get、save、revert、link、unlink、postmsg | 否   | -    |
-
-</div>
-
-- 示例：
+## Usage
 
 ```shell
-gitm go build
+gitm go [command]
 ```
 
-- 演示：
+## Available Commands
 
-![gitmars-go.gif](https://raw.githubusercontent.com/saqqdy/gitmars/master/static/img/gitmars-go.gif)
+| Command | Description |
+| ------- | ----------- |
+| start | Create branch |
+| combine | Branch testing stage |
+| end | Finish development |
+| update | Update branch |
+| build | Build Jenkins |
+| build-mp | Build mini-program |
+| copy | Cherry-pick |
+| undo | Undo commit |
+| redo | Redo commit |
+| branch | Branch operations |
+| clean | Clear cache |
+| revert | Revert commit |
+| suggest | Git suggestions |
+| approve | Handle merge request |
+| review | Code review |
+| status | View status |
+| link | Create symlink |
+| unlink | Remove symlink |
+| postmsg | Post message |
+
+## Example
+
+```shell
+# Quick build
+gitm go build
+
+# Quick copy
+gitm go copy abc123
+```
