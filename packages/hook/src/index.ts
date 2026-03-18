@@ -1,13 +1,13 @@
-import fs from 'fs'
-import path from 'path'
-import sh from 'shelljs'
+import fs from 'node:fs'
+import path from 'node:path'
+import { getConfig, getGitRevParse, getGitVersion } from '@gitmars/git'
 import chalk from 'chalk'
 import ciInfo from 'ci-info'
 import { compareVersion } from 'js-cool'
-import { getConfig, getGitRevParse, getGitVersion } from '@gitmars/git'
+import sh from 'shelljs'
 import getHookComment from './getHookComment'
-import getHookType from './getHookType'
 import getHookShell from './getHookShell'
+import getHookType from './getHookType'
 import getLocalShell from './getLocalShell'
 import lang from './lang'
 
@@ -29,7 +29,7 @@ const hookList = [
 	'push-to-checkout',
 	'pre-auto-gc',
 	'post-rewrite',
-	'sendemail-validate'
+	'sendemail-validate',
 ]
 const { gitHookDir, prefix } = getGitRevParse()
 const gitVersion = getGitVersion()
@@ -47,6 +47,7 @@ export function createHooks(dir: string = gitHookDir): void {
 		fs.chmodSync(filename, 0o0755)
 	}
 	const hooks = hookList.map((hookName: string) => path.join(dir, hookName))
+
 	hooks.forEach((filename: string) => {
 		const hookShell = `#!/bin/sh
 # gitmars
@@ -55,21 +56,25 @@ ${getHookComment()}
 
 . "$(dirname "$0")/gitmars.sh"`
 		const name = path.basename(filename)
+
 		// 检查hook文件是否已存在
 		if (fs.existsSync(filename)) {
 			const hook = fs.readFileSync(filename, 'utf-8')
+
 			// 合并
 			if (getHookType.isGhooks(hook)) {
 				console.info(t('Merge existing ghooks hooks: {name}', { name }))
+
 				return writeHook(filename, hookShell)
 			}
 			// 合并
 			if (getHookType.isPreCommit(hook)) {
 				console.info(
 					t('Merge existing pre-commit hooks: {name}', {
-						name
-					})
+						name,
+					}),
 				)
+
 				return writeHook(filename, hookShell)
 			}
 			// 更新
@@ -83,9 +88,10 @@ ${getHookComment()}
 			// 跳过
 			console.info(
 				t('Skip existing git hooks: {name}', {
-					name
-				})
+					name,
+				}),
 			)
+
 			return
 		}
 		// 如果不存在钩子，创建
@@ -101,12 +107,15 @@ ${getHookComment()}
  */
 export function removeHooks(dir: string = gitHookDir): boolean | void {
 	const hooks = hookList.map((hookName: string) => path.join(dir, hookName))
+
 	hooks
 		.filter((filename: string) => {
 			if (fs.existsSync(filename)) {
 				const hook = fs.readFileSync(filename, 'utf-8')
+
 				return getHookType.isGitmars(hook)
 			}
+
 			return false
 		})
 		.forEach((filename: string) => {
@@ -121,6 +130,7 @@ export function removeHooks(dir: string = gitHookDir): boolean | void {
  */
 export function createHookShell(dir: string = gitHookDir): void {
 	const filename = path.join(dir, 'gitmars.sh')
+
 	fs.writeFileSync(filename, getHookShell(), 'utf-8')
 	fs.chmodSync(filename, 0o0755)
 }
@@ -132,6 +142,7 @@ export function createHookShell(dir: string = gitHookDir): void {
  */
 export function removeHookShell(dir: string = gitHookDir): void {
 	const filename = path.join(dir, 'gitmars.sh')
+
 	if (fs.existsSync(filename)) fs.unlinkSync(filename)
 }
 
@@ -145,9 +156,10 @@ export function removeHookShell(dir: string = gitHookDir): void {
 export function createLocalShell(
 	dir: string = gitHookDir,
 	pmName: string,
-	relativeUserPkgDir: string
+	relativeUserPkgDir: string,
 ): void {
 	const filename = path.join(dir, 'gitmars.local.sh')
+
 	fs.writeFileSync(filename, getLocalShell(pmName, relativeUserPkgDir), 'utf-8')
 	fs.chmodSync(filename, 0o0755)
 }
@@ -159,6 +171,7 @@ export function createLocalShell(
  */
 export function removeLocalShell(dir: string = gitHookDir): void {
 	const filename = path.join(dir, 'gitmars.local.sh')
+
 	if (fs.existsSync(filename)) fs.unlinkSync(filename)
 }
 
@@ -167,9 +180,11 @@ export function removeLocalShell(dir: string = gitHookDir): void {
  */
 export function init(): void {
 	const gitVersionIsNew = gitVersion && compareVersion(gitVersion, '2.13.0') > -1
+
 	// 集成环境不安装
 	if (ciInfo.isCI && config.skipCI) {
 		console.info(t('Continuous integration environment, skip hook installation'))
+
 		return
 	}
 	// 如果没有hooks文件夹，创建
@@ -179,8 +194,8 @@ export function init(): void {
 	if (['1', 'true'].includes(process.env.GITMARS_SKIP_HOOKS || '')) {
 		sh.echo(
 			chalk.yellow(
-				t('Environment variable GITMARS_SKIP_HOOKS already exists, skip installation')
-			)
+				t('Environment variable GITMARS_SKIP_HOOKS already exists, skip installation'),
+			),
 		)
 		process.exit(0)
 	}
@@ -188,10 +203,10 @@ export function init(): void {
 	if (!gitVersionIsNew) {
 		sh.echo(
 			chalk.yellow(
-				t('Gitmars requires Git version 2.13.0 or higher, current version') +
-					': ' +
-					gitVersion
-			)
+				`${t('Gitmars requires Git version 2.13.0 or higher, current version')
+					}: ${
+					gitVersion}`,
+			),
 		)
 		process.exit(0)
 	}

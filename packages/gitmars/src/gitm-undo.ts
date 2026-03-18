@@ -1,17 +1,16 @@
-#!/usr/bin/env ts-node
-import { program } from 'commander'
-import dayjs from 'dayjs'
-import { checkbox } from '@inquirer/prompts'
-import sh from 'shelljs'
-import chalk from 'chalk'
-import to from 'await-to-done'
-import { queue } from '@gitmars/core'
-import { getCurrentBranch, getGitLogs, getGitLogsByCommitIDs, getIsGitProject } from '@gitmars/git'
-import { createArgs, echo } from '@gitmars/utils'
-import { addRevertCache, getRevertCache, setRevertCache } from '@gitmars/cache'
 import type { RevertCacheType } from '@gitmars/cache'
 import type { GitLogKeysType, GitLogsType } from '@gitmars/git'
 import type { CommandType, GitmarsOptionOptionsType } from './types'
+import { addRevertCache, getRevertCache, setRevertCache } from '@gitmars/cache'
+import { queue } from '@gitmars/core'
+import { getCurrentBranch, getGitLogs, getGitLogsByCommitIDs, getIsGitProject } from '@gitmars/git'
+import { createArgs, echo } from '@gitmars/utils'
+import { checkbox } from '@inquirer/prompts'
+import to from 'await-to-done'
+import chalk from 'chalk'
+import { program } from 'commander'
+import dayjs from 'dayjs'
+import sh from 'shelljs'
 import lang from './common/local'
 import undoConfig from './conf/undo'
 
@@ -44,32 +43,33 @@ function getRevertCommitIDs(commitIDs: string[]): string[] {
 	const revertCache = getRevertCache()
 	const current = getCurrentBranch()
 	let len = commitIDs.length
+
 	while (len--) {
 		const _before = revertCache.findIndex(
 			(item: RevertCacheType) =>
-				item.branch === current && item.before['%H'] === commitIDs[len]
+				item.branch === current && item.before['%H'] === commitIDs[len],
 		)
 		const _after = revertCache.findIndex(
 			(item: RevertCacheType) =>
-				item.branch === current && item.after['%H'] === commitIDs[len]
+				item.branch === current && item.after['%H'] === commitIDs[len],
 		)
+
 		if (_before > -1 || _after > -1) {
 			echo(
 				yellow(
-					_before > -1
-						? t(
-								'Detected {id} This record has been revert once, please check if there is an error',
-								{ id: commitIDs[len] }
-							)
-						: t(
-								'The record {id} is detected as a revert record, please use the "gitm redo" operation',
-								{ id: commitIDs[len] }
-							)
-				)
+					_before > -1 ? t(
+						'Detected {id} This record has been revert once, please check if there is an error',
+						{ id: commitIDs[len] },
+					) : t(
+						'The record {id} is detected as a revert record, please use the "gitm redo" operation',
+						{ id: commitIDs[len] },
+					),
+				),
 			)
 			commitIDs.splice(len, 1)
 		}
 	}
+
 	return commitIDs
 }
 
@@ -87,10 +87,12 @@ function calculate(all = false, opt: GitmUndoOption) {
 	const revertCache = getRevertCache()
 	const current = getCurrentBranch()
 	let len = revertCache.length
+
 	while (len--) {
 		const { before, after, branch } = revertCache[len]
 		let _undoLogs = [],
 			_redoLogs = []
+
 		if (!after) {
 			// No after, try to restore
 			const _logs = getGitLogs({
@@ -99,8 +101,9 @@ function calculate(all = false, opt: GitmUndoOption) {
 				noMerges: true,
 				keys,
 				branch,
-				grep: before['%H']
+				grep: before['%H'],
 			})
+
 			if (_logs && _logs.length > 0) revertCache[len].after = _logs[0]
 		}
 		_undoLogs = getGitLogs({
@@ -109,7 +112,7 @@ function calculate(all = false, opt: GitmUndoOption) {
 			noMerges: true,
 			keys,
 			branch,
-			grep: before['%H']
+			grep: before['%H'],
 		})
 		if (after) {
 			_redoLogs = getGitLogs({
@@ -118,7 +121,7 @@ function calculate(all = false, opt: GitmUndoOption) {
 				noMerges: true,
 				keys,
 				branch,
-				grep: after['%H']
+				grep: after['%H'],
 			})
 		}
 		// Skip non-current branches when not checking all branches
@@ -127,16 +130,14 @@ function calculate(all = false, opt: GitmUndoOption) {
 		if (_undoLogs.length === 0 || _redoLogs.length > 0) {
 			echo(
 				yellow(
-					_undoLogs.length === 0
-						? t(
-								'Detected that {id} has failed to undo this record and has deleted the related logs',
-								{ id: revertCache[len].before['%H']! }
-							)
-						: t(
-								'The record {id} was detected to have been recovered, and the related logs were deleted',
-								{ id: revertCache[len].before['%H']! }
-							)
-				)
+					_undoLogs.length === 0 ? t(
+						'Detected that {id} has failed to undo this record and has deleted the related logs',
+						{ id: revertCache[len].before['%H']! },
+					) : t(
+						'The record {id} was detected to have been recovered, and the related logs were deleted',
+						{ id: revertCache[len].before['%H']! },
+					),
+				),
 			)
 			revertCache.splice(len, 1)
 		}
@@ -169,16 +170,19 @@ program.action(async (commitid: string[], opt: GitmUndoOption) => {
 		cmd: Array<CommandType | string | string[]> = [],
 		commitIDs: string[] = [], // commitIDs to execute
 		mode = ''
+
 	if (opt.calc) {
 		calculate(false, opt)
+
 		return
 	}
 	if (opt.calcAll) {
 		calculate(true, opt)
+
 		return
 	}
 	if (!opt.limit) opt.limit = 20
-	mode = ' -m ' + Math.abs(Number(opt.mode || 1))
+	mode = ` -m ${Math.abs(Number(opt.mode || 1))}`
 	if (commitid.length > 0) {
 		// commitIDs passed in
 		logList = getGitLogsByCommitIDs({ commitIDs: commitid, keys })
@@ -188,7 +192,7 @@ program.action(async (commitid: string[], opt: GitmUndoOption) => {
 			lastet: opt.lastet,
 			limit: opt.limit,
 			noMerges: !opt.merges,
-			keys
+			keys,
 		})
 		// No logs found
 		if (logList.length === 0) {
@@ -196,9 +200,9 @@ program.action(async (commitid: string[], opt: GitmUndoOption) => {
 			echo(
 				yellow(
 					t(
-						'No eligible commit logs found, please relax the filtering conditions appropriately. The process has been exited'
-					)
-				)
+						'No eligible commit logs found, please relax the filtering conditions appropriately. The process has been exited',
+					),
+				),
 			)
 			process.exit(0)
 		} else {
@@ -208,15 +212,16 @@ program.action(async (commitid: string[], opt: GitmUndoOption) => {
 					message: t('Please select the commit record to undo.'),
 					choices: logList.map((log, index) => {
 						const _time = dayjs(log['%aI']).format('YYYY/MM/DD HH:mm')
+
 						return {
-							name: `${green(index + 1 + '.')} ${green(log['%s'])} | ${yellow(
-								log['%an']
+							name: `${green(`${index + 1}.`)} ${green(log['%s'])} | ${yellow(
+								log['%an'],
 							)} | ${blue(_time)}`,
 							value: log['%H']!,
-							checked: false
+							checked: false,
 						}
-					})
-				})
+					}),
+				}),
 			)
 		}
 	}
@@ -241,10 +246,10 @@ program.action(async (commitid: string[], opt: GitmUndoOption) => {
 			config: {
 				again: false,
 				success: t('Undo successfully: {something}', {
-					something: log['%s']!
+					something: log['%s']!,
 				}),
-				fail: t('An error has occurred, please follow the prompts')
-			}
+				fail: t('An error has occurred, please follow the prompts'),
+			},
 		}
 	})
 	// Save cache first
@@ -252,7 +257,7 @@ program.action(async (commitid: string[], opt: GitmUndoOption) => {
 		const cache = {
 			before: log,
 			after: null as any,
-			branch: current
+			branch: current,
 		}
 		const _logs = getGitLogs({
 			lastet: opt.lastet,
@@ -260,11 +265,14 @@ program.action(async (commitid: string[], opt: GitmUndoOption) => {
 			noMerges: true,
 			keys,
 			branch: current,
-			grep: log['%H']
+			grep: log['%H'],
 		})
+
 		if (_logs.length > 0) cache.after = _logs[0]
+
 		return cache
 	})
+
 	addRevertCache(revertCacheList)
 	// Execute
 	queue(cmd)

@@ -1,14 +1,13 @@
-#!/usr/bin/env ts-node
-import { program } from 'commander'
-import sh from 'shelljs'
-import { confirm, input, select } from '@inquirer/prompts'
-import chalk from 'chalk'
-import to from 'await-to-done'
-import { createArgs } from '@gitmars/utils'
-import { getGitConfig, getIsGitProject } from '@gitmars/git'
-import { getBuildConfig, getProjectOption, runJenkins } from '@gitmars/build'
 import type { ApolloBranchList } from '@gitmars/build'
 import type { GitmarsOptionOptionsType } from './types'
+import { getBuildConfig, getProjectOption, runJenkins } from '@gitmars/build'
+import { getGitConfig, getIsGitProject } from '@gitmars/git'
+import { createArgs } from '@gitmars/utils'
+import { confirm, input, select } from '@inquirer/prompts'
+import to from 'await-to-done'
+import chalk from 'chalk'
+import { program } from 'commander'
+import sh from 'shelljs'
 import lang from './common/local'
 import buildConfig from './conf/build'
 
@@ -49,8 +48,8 @@ program.action(async (project: string, opt: GitmBuildOption): Promise<void> => {
 			;[, project = ''] = await to(
 				input({
 					message: t('Enter project name'),
-					transformer: val => val.trim()
-				}).then(val => val.trim())
+					transformer: val => val.trim(),
+				}).then(val => val.trim()),
 			)
 		}
 	}
@@ -63,32 +62,33 @@ program.action(async (project: string, opt: GitmBuildOption): Promise<void> => {
 					{
 						name: 'dev',
 						value: 'dev',
-						description: t('Test environment(alpha)')
+						description: t('Test environment(alpha)'),
 					},
 					{
 						name: 'bug',
 						value: 'bug',
-						description: t('Pre-release tag environment(bug)')
+						description: t('Pre-release tag environment(bug)'),
 					},
 					{
 						name: 'prod',
 						value: 'prod',
-						description: t('Pre-release prod environment(prod)')
-					}
-				]
-			})
+						description: t('Pre-release prod environment(prod)'),
+					},
+				],
+			}),
 		)
 	}
 
 	const [, buildConfig] = await to(getBuildConfig(false))
 	const projectOption = await getProjectOption(project, env!, buildConfig)
+
 	if (!app) {
 		if (!buildConfig) {
 			;[, app] = await to(
 				input({
 					message: t('Enter the application to build'),
-					transformer: val => val.trim()
-				}).then(val => val.trim())
+					transformer: val => val.trim(),
+				}).then(val => val.trim()),
 			)
 		} else if (projectOption?.apps) {
 			;[, app] = await to(
@@ -96,9 +96,9 @@ program.action(async (project: string, opt: GitmBuildOption): Promise<void> => {
 					message: t('Select the application to build'),
 					choices: projectOption.apps.map(name => ({
 						name,
-						value: name
-					}))
-				})
+						value: name,
+					})),
+				}),
 			)
 		}
 		// no apps means no-need to enter app name
@@ -107,9 +107,9 @@ program.action(async (project: string, opt: GitmBuildOption): Promise<void> => {
 	// 有opt.data时强制确认
 	if (!_confirm || (opt.data && opt.data !== '{}')) {
 		let message = `${yellow(t('Please double check the following build parameters'))}\n${t(
-			'Project Name'
+			'Project Name',
 		)}: ${red(project)}\n${t('Code Branch')}: ${red(env)}\n${t('Build Application')}: ${red(
-			app
+			app,
 		)}`
 
 		if ('build_api_env' in data)
@@ -129,7 +129,7 @@ program.action(async (project: string, opt: GitmBuildOption): Promise<void> => {
 			env: env!,
 			project,
 			app: app!,
-			data: opt.data
+			data: opt.data,
 		})
 })
 program.parse(process.argv)

@@ -12,14 +12,14 @@ export const cmdConfig: GitmarsOptionType = {
 			variadic: false,
 			description: t('Branch Type'),
 			options: ['feature', 'bugfix', 'support'],
-			value: ''
+			value: '',
 		},
 		{
 			required: true,
 			name: 'name',
 			variadic: false,
-			description: t('Branch name (without feature/bugfix prefix)')
-		}
+			description: t('Branch name (without feature/bugfix prefix)'),
+		},
 	],
 	options: [
 		{
@@ -33,9 +33,9 @@ export const cmdConfig: GitmarsOptionType = {
 			negate: false,
 			description: t('Create branch from tag'),
 			defaultValue: '',
-			recommend: false
-		}
-	]
+			recommend: false,
+		},
+	],
 }
 
 export { cmdConfig as default }

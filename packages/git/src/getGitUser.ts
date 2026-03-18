@@ -1,6 +1,6 @@
+import { debug, spawnSync } from '@gitmars/utils'
 import chalk from 'chalk'
 import sh from 'shelljs'
-import { debug, spawnSync } from '@gitmars/utils'
 import lang from './lang'
 
 const { t } = lang
@@ -13,12 +13,14 @@ const { t } = lang
  */
 export function getGitToken(throwOnError = true): string {
 	const { stdout } = spawnSync('git', ['config', 'user.token'])
+
 	debug('git.token', stdout)
 
 	if (!stdout) {
 		sh.echo(chalk.red(t('Please set git access token')))
 		process.exit(1)
 	}
+
 	return stdout
 }
 
@@ -29,7 +31,9 @@ export function getGitToken(throwOnError = true): string {
  */
 export function getGitUser(): string {
 	const { stdout } = spawnSync('git', ['config', 'user.name'])
+
 	debug('git.user', stdout)
+
 	return stdout!
 }
 
@@ -40,7 +44,9 @@ export function getGitUser(): string {
  */
 export function getGitEmail(): string {
 	const { stdout } = spawnSync('git', ['config', 'user.email'])
+
 	debug('git.email', stdout)
+
 	return stdout!
 }
 
@@ -52,12 +58,14 @@ export function getGitEmail(): string {
  */
 export function getGitMiniprogramToken(throwOnError = true): string {
 	const { stdout = '' } = spawnSync('git', ['config', 'user.miniprogramToken'])
+
 	debug('git.miniprogramToken', stdout)
 
 	if (!stdout.trim() && throwOnError) {
 		sh.echo(chalk.red(t('Please set git miniprogram token')))
 		process.exit(1)
 	}
+
 	return stdout.trim()
 }
 
@@ -69,11 +77,13 @@ export function getGitMiniprogramToken(throwOnError = true): string {
  */
 export function getGitMiniprogramSession(throwOnError = true): string {
 	const { stdout = '' } = spawnSync('git', ['config', 'user.miniprogramSession'])
+
 	debug('git.miniprogramSession', stdout)
 
 	if (!stdout.trim() && throwOnError) {
 		sh.echo(chalk.red(t('Please set git miniprogram session')))
 		process.exit(1)
 	}
+
 	return stdout.trim()
 }

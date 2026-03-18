@@ -14,17 +14,17 @@ function getIsMergedTargetBranch(
 	targetBranch = 'dev',
 	{
 		remote = false,
-		noMerges = true
+		noMerges = true,
 	}: {
 		// 是否查询远程，默认：false
 		remote?: boolean
 		// 是否排除merges类型，默认：true
 		noMerges?: boolean
-	}
+	},
 ): boolean {
 	if (!branch) branch = getCurrentBranch() || ''
 	if (remote && !targetBranch.includes('origin')) {
-		targetBranch = 'origin/' + targetBranch
+		targetBranch = `origin/${targetBranch}`
 	}
 	const { stdout } = spawnSync('git', [
 		'log',
@@ -32,9 +32,11 @@ function getIsMergedTargetBranch(
 		'--format=%h',
 		branch,
 		`^${targetBranch}`,
-		'--'
+		'--',
 	])
+
 	debug('getIsMergedTargetBranch', stdout)
+
 	return !stdout || !/[a-zA-Z0-9]+/.test(stdout)
 }
 

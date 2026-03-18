@@ -10,8 +10,8 @@ export const cmdConfig: GitmarsOptionType = {
 			required: false,
 			name: 'miniprogram',
 			variadic: false,
-			description: t('Name of miniprogram')
-		}
+			description: t('Name of miniprogram'),
+		},
 	],
 	options: [
 		{
@@ -26,9 +26,9 @@ export const cmdConfig: GitmarsOptionType = {
 			description: t('Name of miniprogram, used for fuzzy searches'),
 			defaultValue: '',
 			recommend: true,
-			value: ''
-		}
-	]
+			value: '',
+		},
+	],
 }
 
 export { cmdConfig as default }

@@ -1,7 +1,7 @@
-import chalk from 'chalk'
-import request from '@jssj/request'
 import { getConfig, getGitToken } from '@gitmars/git'
 import { debug } from '@gitmars/utils'
+import request from '@jssj/request'
+import chalk from 'chalk'
 import lang from './lang'
 
 const { t } = lang
@@ -19,7 +19,7 @@ const token = getGitToken()
 export async function createMergeRequestNotes({
 	iid,
 	body,
-	created_at
+	created_at,
 }: {
 	iid: number | string
 	body: string
@@ -28,19 +28,20 @@ export async function createMergeRequestNotes({
 	const params = {
 		body,
 		created_at,
-		private_token: token
+		private_token: token,
 	}
 	const fetchData = await request.post({
 		url: `${MERGE_REQUESTS_NOTES_URL}/${iid}/notes`,
-		data: params
+		data: params,
 	})
+
 	debug('fetchData', fetchData)
 	if (fetchData && 'message' in fetchData) {
-		const message = fetchData.message
-			? [].concat(fetchData.message).join('')
-			: t('The request reported an error')
+		const message = fetchData.message ? [].concat(fetchData.message).join('') : t('The request reported an error')
+
 		return Promise.reject(chalk.red(message))
 	}
+
 	return fetchData
 }
 
@@ -53,7 +54,7 @@ export async function createMergeRequestNotes({
 export async function getMergeRequestNotesList({
 	iid,
 	sort = 'desc',
-	order_by = 'created_at'
+	order_by = 'created_at',
 }: {
 	iid: number | string
 	sort?: 'asc' | 'desc'
@@ -62,19 +63,20 @@ export async function getMergeRequestNotesList({
 	const params = {
 		sort,
 		order_by,
-		private_token: token
+		private_token: token,
 	}
 	const fetchData = await request.get({
 		url: `${MERGE_REQUESTS_NOTES_URL}/${iid}/notes`,
-		data: params
+		data: params,
 	})
+
 	debug('fetchData', fetchData)
 	if (fetchData && 'message' in fetchData) {
-		const message = fetchData.message
-			? [].concat(fetchData.message).join('')
-			: t('The request reported an error')
+		const message = fetchData.message ? [].concat(fetchData.message).join('') : t('The request reported an error')
+
 		return Promise.reject(chalk.red(message))
 	}
+
 	return fetchData
 }
 
@@ -86,25 +88,26 @@ export async function getMergeRequestNotesList({
  */
 export async function getMergeRequestNotesDetail({
 	id,
-	iid
+	iid,
 }: {
 	id: number | string
 	iid: number | string
 }) {
 	const params = {
-		private_token: token
+		private_token: token,
 	}
 	const fetchData = await request.get({
 		url: `${MERGE_REQUESTS_NOTES_URL}/${iid}/notes/${id}`,
-		data: params
+		data: params,
 	})
+
 	debug('fetchData', fetchData)
 	if (fetchData && 'message' in fetchData) {
-		const message = fetchData.message
-			? [].concat(fetchData.message).join('')
-			: t('The request reported an error')
+		const message = fetchData.message ? [].concat(fetchData.message).join('') : t('The request reported an error')
+
 		return Promise.reject(chalk.red(message))
 	}
+
 	return fetchData
 }
 
@@ -117,7 +120,7 @@ export async function getMergeRequestNotesDetail({
 export async function updateMergeRequestNotes({
 	id,
 	iid,
-	body
+	body,
 }: {
 	id: number | string
 	iid: number | string
@@ -127,17 +130,18 @@ export async function updateMergeRequestNotes({
 		url: `${MERGE_REQUESTS_NOTES_URL}/${iid}/notes/${id}`,
 		data: {
 			body,
-			private_token: token
+			private_token: token,
 		},
-		options: { error: true }
+		options: { error: true },
 	})
+
 	debug('fetchData', fetchData)
 	if (fetchData && 'message' in fetchData) {
-		const message = fetchData.message
-			? [].concat(fetchData.message).join('')
-			: t('The request reported an error')
+		const message = fetchData.message ? [].concat(fetchData.message).join('') : t('The request reported an error')
+
 		return Promise.reject(chalk.red(message))
 	}
+
 	return fetchData
 }
 
@@ -149,26 +153,27 @@ export async function updateMergeRequestNotes({
  */
 export async function deleteMergeRequestNotes({
 	id,
-	iid
+	iid,
 }: {
 	id: number | string
 	iid: number | string
 }) {
 	const params = {
-		private_token: token
+		private_token: token,
 	}
 	const fetchData = await request.delete({
 		url: `${MERGE_REQUESTS_NOTES_URL}/${iid}/notes/${id}`,
 		data: params,
-		options: { error: true }
+		options: { error: true },
 	})
+
 	debug('fetchData', fetchData)
 	if (fetchData && 'message' in fetchData) {
-		const message = fetchData.message
-			? [].concat(fetchData.message).join('')
-			: t('The request reported an error')
+		const message = fetchData.message ? [].concat(fetchData.message).join('') : t('The request reported an error')
+
 		return Promise.reject(chalk.red(message))
 	}
+
 	return fetchData
 }
 
@@ -177,5 +182,5 @@ export default {
 	getMergeRequestNotesList,
 	getMergeRequestNotesDetail,
 	updateMergeRequestNotes,
-	deleteMergeRequestNotes
+	deleteMergeRequestNotes,
 }

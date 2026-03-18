@@ -12,5 +12,6 @@ export default function stringify(str: string): string {
 	if (isWin32() && NEED_STRINGIFY.some(item => str.includes(item))) {
 		return JSON.stringify(str)
 	}
+
 	return str
 }

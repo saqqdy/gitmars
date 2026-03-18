@@ -17,7 +17,7 @@ export const cmdConfig: GitmarsOptionType = {
 			long: '--key',
 			negate: false,
 			description: t('Query branch for keywords'),
-			defaultValue: null
+			defaultValue: null,
 		},
 		{
 			flags: '--exclude [exclude]',
@@ -30,7 +30,7 @@ export const cmdConfig: GitmarsOptionType = {
 			negate: false,
 			description: t('Exclude keywords'),
 			defaultValue: '',
-			value: ''
+			value: '',
 		},
 		{
 			flags: '--include [include]',
@@ -43,7 +43,7 @@ export const cmdConfig: GitmarsOptionType = {
 			negate: false,
 			description: t('Include keywords'),
 			defaultValue: '',
-			value: ''
+			value: '',
 		},
 		{
 			flags: '-r, --remote',
@@ -55,9 +55,9 @@ export const cmdConfig: GitmarsOptionType = {
 			long: '--remote',
 			negate: false,
 			description: t(
-				'Whether to query remote branches (change to delete remote branches in deletes mode) Default is local only'
+				'Whether to query remote branches (change to delete remote branches in deletes mode) Default is local only',
 			),
-			defaultValue: false
+			defaultValue: false,
 		},
 		{
 			flags: '-t, --type [type]',
@@ -69,11 +69,11 @@ export const cmdConfig: GitmarsOptionType = {
 			long: '--type',
 			negate: false,
 			description: t(
-				'The type of branch to query, there are 3 types: feature, bugfix, support, if not pass then query all'
+				'The type of branch to query, there are 3 types: feature, bugfix, support, if not pass then query all',
 			),
 			defaultValue: null,
 			options: ['feature', 'bugfix', 'support'],
-			value: ''
+			value: '',
 		},
 		{
 			flags: '-d, --delete [branch]',
@@ -85,7 +85,7 @@ export const cmdConfig: GitmarsOptionType = {
 			long: '--delete',
 			negate: false,
 			description: t('Delete branch'),
-			defaultValue: null
+			defaultValue: null,
 		},
 		{
 			flags: '-D, --forcedelete [branch]',
@@ -97,7 +97,7 @@ export const cmdConfig: GitmarsOptionType = {
 			long: '--forcedelete',
 			negate: false,
 			description: t('Force branch deletion'),
-			defaultValue: null
+			defaultValue: null,
 		},
 		{
 			flags: '-u, --upstream [upstream]',
@@ -108,26 +108,27 @@ export const cmdConfig: GitmarsOptionType = {
 			short: '-u',
 			long: '--upstream',
 			negate: false,
-			description: t('Set association with remote branches')
-		}
+			description: t('Set association with remote branches'),
+		},
 	],
 	// validator opts
 	validatorOpts: (val, opts, cb) => {
 		if (
 			val.includes('--upstream') &&
 			(val.includes('--key') ||
-				val.includes('--remote') ||
-				val.includes('--type') ||
-				val.includes('--delete') ||
-				val.includes('--forcedelete'))
+			  val.includes('--remote') ||
+			  val.includes('--type') ||
+			  val.includes('--delete') ||
+			  val.includes('--forcedelete'))
 		) {
 			cb(
 				new Error(
 					t(
-						'When using the bind/unbind remote branch function, it cannot be mixed with other functions.'
-					)
-				)
+						'When using the bind/unbind remote branch function, it cannot be mixed with other functions.',
+					),
+				),
 			)
+
 			return
 		}
 		if (
@@ -137,10 +138,11 @@ export const cmdConfig: GitmarsOptionType = {
 			cb(
 				new Error(
 					t(
-						'When using the delete branch function, it cannot be mixed with the query branch function.'
-					)
-				)
+						'When using the delete branch function, it cannot be mixed with the query branch function.',
+					),
+				),
 			)
+
 			return
 		}
 		cb()
@@ -156,7 +158,7 @@ export const cmdConfig: GitmarsOptionType = {
 	// transform args
 	transformArgs: (val, opts, cb) => {
 		cb()
-	}
+	},
 }
 
 export { cmdConfig as default }

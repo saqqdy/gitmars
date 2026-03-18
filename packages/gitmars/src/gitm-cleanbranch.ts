@@ -1,10 +1,4 @@
-#!/usr/bin/env ts-node
-import { program } from 'commander'
-import chalk from 'chalk'
-import { checkbox, confirm } from '@inquirer/prompts'
-import ora from 'ora'
-import { waiting } from 'js-cool'
-import to from 'await-to-done'
+import type { GitmarsBranchType, GitmarsOptionOptionsType } from './types'
 import {
 	fetch,
 	getConfig,
@@ -12,10 +6,15 @@ import {
 	getIsBranchOrCommitExist,
 	getIsGitProject,
 	getIsMergedTargetBranch,
-	searchBranches
+	searchBranches,
 } from '@gitmars/git'
 import { createArgs, echo, spawnSync } from '@gitmars/utils'
-import type { GitmarsBranchType, GitmarsOptionOptionsType } from './types'
+import { checkbox, confirm } from '@inquirer/prompts'
+import to from 'await-to-done'
+import chalk from 'chalk'
+import { program } from 'commander'
+import { waiting } from 'js-cool'
+import ora from 'ora'
 import lang from './common/local'
 import cleanbranchConfig from './conf/cleanbranch'
 
@@ -55,21 +54,23 @@ function getIsMergedTarget(
 	targets: string | string[],
 	{
 		remote,
-		noMerges
+		noMerges,
 	}: {
 		remote?: boolean
 		noMerges?: boolean
-	}
+	},
 ) {
-	branch = remote ? 'origin/' + branch : branch
+	branch = remote ? `origin/${branch}` : branch
 	if (typeof targets === 'string') targets = [targets]
 	for (const target of targets) {
 		const isMerged = getIsMergedTargetBranch(branch, target, {
 			remote,
-			noMerges
+			noMerges,
 		})
+
 		if (!isMerged) return false
 	}
+
 	return true
 }
 
@@ -79,7 +80,7 @@ function getIsMergedTarget(
 program
 	.name('gitm cleanbranch')
 	.usage(
-		'[branches...] [-l --list [list]] [-k --key [keyword]] [--exclude [exclude]] [--include [include]] [-t --type [type]] [--target [target]] [-r --remote] [-c --confirm] [-s --strictly]'
+		'[branches...] [-l --list [list]] [-k --key [keyword]] [--exclude [exclude]] [--include [include]] [-t --type [type]] [--target [target]] [-r --remote] [-c --confirm] [-s --strictly]',
 	)
 	.description(t('Clean up merged feature branches'))
 if (args.length > 0) program.arguments(createArgs(args))
@@ -98,6 +99,7 @@ options.forEach((o: GitmarsOptionOptionsType) => {
 // .option('--deadline [deadline]', t('Delete branch before fixed duration, fill in format: 10s/2m/2h/3d/4M/5y'), '15d') -----------------------
 program.action(async (branches: string[], opt: GitmCleanbranchOption) => {
 	const spinner = ora()
+
 	spinner.color = 'green'
 	const current = getCurrentBranch()
 
@@ -105,15 +107,16 @@ program.action(async (branches: string[], opt: GitmCleanbranchOption) => {
 	async function clean(branch: string) {
 		const removeLocal = getIsBranchOrCommitExist(branch)
 		const removeRemote = opt.remote && getIsBranchOrCommitExist(branch, true)
+
 		if (removeLocal || removeRemote) {
 			spinner.start(green(t('Deleting: {something}', { something: branch })))
 			await waiting(200)
 			spinner.succeed(
 				green(
 					t('Deleted successfully: {something}', {
-						something: branch
-					})
-				)
+						something: branch,
+					}),
+				),
 			)
 		}
 		// Clean up only branches that have been combined with dev and release
@@ -131,6 +134,7 @@ program.action(async (branches: string[], opt: GitmCleanbranchOption) => {
 	}
 
 	const targets = opt.target ? opt.target.split(',') : [config.develop, config.release]
+
 	fetch()
 	// No branch is passed in for the specified query
 	if (branches.length === 0) {
@@ -139,18 +143,20 @@ program.action(async (branches: string[], opt: GitmCleanbranchOption) => {
 			type: opt.type,
 			key: opt.key,
 			exclude: opt.exclude,
-			include: opt.include
+			include: opt.include,
 		})
 	}
 	const _willDeleteBranch: string[] = []
+
 	if (branches.length > 0) {
 		if (!opt.list && !opt.confirm) {
 			const [, answer] = await to(
 				confirm({
 					message: t('About to start batch deleting branches, do you want to continue?'),
-					default: false
-				})
+					default: false,
+				}),
 			)
+
 			if (!answer) {
 				echo(green(t('exited')))
 				process.exit(0)
@@ -164,7 +170,7 @@ program.action(async (branches: string[], opt: GitmCleanbranchOption) => {
 		// Skip main Branches
 		if (
 			[config.master, config.develop, config.release, config.bugfix, config.support].includes(
-				branch
+				branch,
 			)
 		) {
 			continue
@@ -172,21 +178,22 @@ program.action(async (branches: string[], opt: GitmCleanbranchOption) => {
 		spinner.start(
 			green(
 				t('Start analysis: {something}', {
-					something: branch
-				})
-			)
+					something: branch,
+				}),
+			),
 		)
 		const isMerged = getIsMergedTarget(branch, targets, {
 			remote: opt.remote,
-			noMerges: !opt.strictly
+			noMerges: !opt.strictly,
 		})
+
 		if (!isMerged) {
 			spinner.fail(
 				red(
 					t('Cannot be deleted: {something}', {
-						something: branch
-					})
-				)
+						something: branch,
+					}),
+				),
 			)
 			continue
 		}
@@ -196,9 +203,9 @@ program.action(async (branches: string[], opt: GitmCleanbranchOption) => {
 		spinner.succeed(
 			green(
 				t('Analysis completed: {something}', {
-					something: branch
-				})
-			)
+					something: branch,
+				}),
+			),
 		)
 		if (opt.list) {
 			continue
@@ -220,17 +227,18 @@ program.action(async (branches: string[], opt: GitmCleanbranchOption) => {
 							'Find {total} branches merged over {branches} branch, please select the branch to clean up',
 							{
 								branches: targets.join(','),
-								total: String(_willDeleteBranch.length)
-							}
-						)
+								total: String(_willDeleteBranch.length),
+							},
+						),
 					),
 					choices: _willDeleteBranch.map(item => ({
 						name: green(item),
 						value: item,
-						checked: true
-					}))
-				})
+						checked: true,
+					})),
+				}),
 			)
+
 			if (selectBranches.length === 0) {
 				echo(yellow(t('No branches were selected and the process has exited.')))
 				process.exit(0)
@@ -245,10 +253,10 @@ program.action(async (branches: string[], opt: GitmCleanbranchOption) => {
 	} else {
 		echo(
 			green(
-				t('Deletion complete, these branches have been cleaned up') +
-					': ' +
-					_willDeleteBranch.join(' ')
-			)
+				`${t('Deletion complete, these branches have been cleaned up')
+					}: ${
+					_willDeleteBranch.join(' ')}`,
+			),
 		)
 	}
 })

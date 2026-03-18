@@ -1,12 +1,4 @@
-#!/usr/bin/env ts-node
-import { program } from 'commander'
-import sh from 'shelljs'
-import { Separator, confirm, input, select } from '@inquirer/prompts'
-import chalk from 'chalk'
-import dayjs from 'dayjs'
-import to from 'await-to-done'
-import { base64ToArrayBuffer } from 'js-cool'
-import { createArgs, printQrcode, readQrcode } from '@gitmars/utils'
+import type { GitmarsOptionOptionsType } from './types'
 import {
 	bindTester,
 	getAuditStatus,
@@ -16,9 +8,16 @@ import {
 	getTester,
 	getTrialQrCode,
 	unbindTester,
-	undoAudit
+	undoAudit,
 } from '@gitmars/api'
-import type { GitmarsOptionOptionsType } from './types'
+import { createArgs, printQrcode, readQrcode } from '@gitmars/utils'
+import { confirm, input, select, Separator } from '@inquirer/prompts'
+import to from 'await-to-done'
+import chalk from 'chalk'
+import { program } from 'commander'
+import dayjs from 'dayjs'
+import { base64ToArrayBuffer } from 'js-cool'
+import sh from 'shelljs'
 import lang from './common/local'
 import miniprogramConfig from './conf/miniprogram'
 
@@ -44,23 +43,26 @@ program.action(async (miniprogram: string, opt: GitmMiniprogramOption): Promise<
 	if (miniprogram === 'auth') {
 		// get auth qrcode
 		const authUrl = await getPreAuthQrCode()
+
 		await printQrcode(authUrl)
 		process.exit(0)
 	} else if (!miniprogram) {
 		const [, list = []] = await to(
 			getAuthorizerListWithAllDetail({ limit: 500 }).then(({ list }) => {
 				if (!opt.keyword) return list
+
 				return list.filter(item => item.authorizer_info.nick_name.includes(opt.keyword!))
-			})
+			}),
 		)
+
 		;[, miniprogram = ''] = await to(
 			select<string>({
 				message: t('Select miniprogram'),
 				choices: list.map(({ authorizer_info: info, authorizer_appid }) => ({
 					name: info.nick_name,
-					value: authorizer_appid
-				}))
-			})
+					value: authorizer_appid,
+				})),
+			}),
 		)
 	}
 
@@ -70,42 +72,43 @@ program.action(async (miniprogram: string, opt: GitmMiniprogramOption): Promise<
 		select<string>({
 			message: t('Select the operation you want?'),
 			choices: [
-				new Separator(' === 1. ' + t('Audit') + ' === '),
+				new Separator(` === 1. ${t('Audit')} === `),
 				{
 					name: t('Audit Status'),
-					value: 'audit_status'
+					value: 'audit_status',
 				},
 				{
 					name: t('Undo Audit'),
-					value: 'undo_audit'
+					value: 'undo_audit',
 				},
 				{
 					name: t('Submit Audit'),
 					value: 'submit_audit',
-					disabled: true
+					disabled: true,
 				},
-				new Separator(' === 2. ' + t('Common') + ' === '),
+				new Separator(` === 2. ${t('Common')} === `),
 				{
 					name: t('Trial Qrcode'),
-					value: 'trial_qrcode'
+					value: 'trial_qrcode',
 				},
 				{
 					name: t('Bind Tester'),
-					value: 'bind_tester'
+					value: 'bind_tester',
 				},
 				{
 					name: t('Unbind Tester'),
-					value: 'unbind_tester'
+					value: 'unbind_tester',
 				},
-				new Separator(' === ' + t('Exit') + ' === '),
+				new Separator(` === ${t('Exit')} === `),
 				{ name: 'exit', value: 'exit' },
-				new Separator()
-			]
-		})
+				new Separator(),
+			],
+		}),
 	)
 
 	if (action === 'audit_status') {
 		const [, data] = await to(getAuditStatus(miniprogram))
+
 		if (data) {
 			const colorList = ['bgGreen', 'bgRed', 'bgBlack', 'bgBlack', 'bgYellow'] as const
 			const tag = [
@@ -113,20 +116,22 @@ program.action(async (miniprogram: string, opt: GitmMiniprogramOption): Promise<
 				t('Audit Rejected'),
 				t('Audit in Progress'),
 				t('Withdrawn'),
-				t('Audit Delayed')
+				t('Audit Delayed'),
 			][data.status]
 			let txt = chalk[colorList[data.status]](tag)
-			if ([1, 4].includes(data.status) && data.reason) txt += ': ' + data.reason
-			if (data.time) txt += '\n' + dayjs(data.time).format('YYYY-MM-DD HH:mm')
+
+			if ([1, 4].includes(data.status) && data.reason) txt += `: ${data.reason}`
+			if (data.time) txt += `\n${dayjs(data.time).format('YYYY-MM-DD HH:mm')}`
 			sh.echo(txt)
 		}
 	} else if (action === 'undo_audit') {
 		const [, answer] = await to(
 			confirm({
 				message: t('Confirm undo audit'),
-				default: false
-			})
+				default: false,
+			}),
 		)
+
 		if (answer) {
 			await undoAudit(miniprogram)
 			sh.echo(chalk.green(t('Implementation success')))
@@ -135,17 +140,19 @@ program.action(async (miniprogram: string, opt: GitmMiniprogramOption): Promise<
 		//
 	} else if (action === 'trial_qrcode') {
 		const [, path = ''] = await to(
-			getClientsConfig(miniprogram).then(({ config }) => JSON.parse(config).path)
+			getClientsConfig(miniprogram).then(({ config }) => JSON.parse(config).path),
 		)
 		const [, codeImage = ''] = await to(getTrialQrCode({ path, authorizer_appid: miniprogram }))
+
 		printQrcode(await readQrcode(base64ToArrayBuffer(codeImage)))
 	} else if (action === 'bind_tester') {
 		const [, wechatid = ''] = await to(
 			input({
 				message: t('Enter wechat account'),
-				transformer: val => val.trim()
-			}).then(val => val.trim())
+				transformer: val => val.trim(),
+			}).then(val => val.trim()),
 		)
+
 		if (wechatid) {
 			await bindTester({ wechatid, authorizer_appid: miniprogram })
 			sh.echo(chalk.green(t('Implementation success')))
@@ -157,17 +164,19 @@ program.action(async (miniprogram: string, opt: GitmMiniprogramOption): Promise<
 				message: t('Select wechat account'),
 				choices: list.map(({ userstr }) => ({
 					name: userstr,
-					value: userstr
-				}))
-			})
+					value: userstr,
+				})),
+			}),
 		)
+
 		if (userstr) {
 			const [, answer] = await to(
 				confirm({
 					message: t('Confirm unbind wechat account'),
-					default: false
-				})
+					default: false,
+				}),
 			)
+
 			if (answer) {
 				await unbindTester({ userstr, authorizer_appid: miniprogram })
 				sh.echo(chalk.green(t('Implementation success')))

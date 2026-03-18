@@ -16,13 +16,14 @@ export const cmdConfig: GitmarsMultiOptionType = {
 				validator: (val, opts, cb) => {
 					if (/\s+/.test(val)) {
 						cb(new Error(t('Please do not enter spaces')))
+
 						return
 					}
 					cb()
 				},
 				// transformer: null,
-				description: t('Branch Type')
-			}
+				description: t('Branch Type'),
+			},
 		],
 		options: [],
 		// validator opts
@@ -40,7 +41,7 @@ export const cmdConfig: GitmarsMultiOptionType = {
 		// transform args
 		transformArgs: (val, opts, cb) => {
 			cb()
-		}
+		},
 	},
 	publish: {
 		command: 'publish',
@@ -53,6 +54,7 @@ export const cmdConfig: GitmarsMultiOptionType = {
 				validator: (val, opts, cb) => {
 					if (/\s+/.test(val)) {
 						cb(new Error(t('Please do not enter spaces')))
+
 						return
 					}
 					cb()
@@ -60,8 +62,8 @@ export const cmdConfig: GitmarsMultiOptionType = {
 				// transformer: null,
 				description: t('Branch Type'),
 				options: ['release', 'bugfix'],
-				value: ''
-			}
+				value: '',
+			},
 		],
 		options: [
 			{
@@ -75,7 +77,7 @@ export const cmdConfig: GitmarsMultiOptionType = {
 				negate: false,
 				description: t('Whether to sync the release code to the bug'),
 				defaultValue: false,
-				recommend: false
+				recommend: false,
 			},
 			{
 				flags: '--use-rebase',
@@ -87,7 +89,7 @@ export const cmdConfig: GitmarsMultiOptionType = {
 				negate: false,
 				description: t('Whether to update using rebase method, default merge'),
 				defaultValue: false,
-				recommend: false
+				recommend: false,
 			},
 			{
 				flags: '-p, --prod',
@@ -100,7 +102,7 @@ export const cmdConfig: GitmarsMultiOptionType = {
 				negate: false,
 				description: t('Whether to merge bugs to master when publishing bug branches'),
 				defaultValue: false,
-				recommend: false
+				recommend: false,
 			},
 			{
 				flags: '-b, --build [build]',
@@ -112,7 +114,7 @@ export const cmdConfig: GitmarsMultiOptionType = {
 				long: '--build',
 				negate: false,
 				description: t('Build application'),
-				recommend: true
+				recommend: true,
 			},
 			{
 				flags: '--postmsg',
@@ -124,7 +126,7 @@ export const cmdConfig: GitmarsMultiOptionType = {
 				negate: false,
 				description: t('Send Message'),
 				defaultValue: false,
-				recommend: false
+				recommend: false,
 			},
 			{
 				flags: '--description [description]',
@@ -136,7 +138,7 @@ export const cmdConfig: GitmarsMultiOptionType = {
 				negate: false,
 				description: t('Description of the reason for this commit'),
 				defaultValue: '',
-				recommend: false
+				recommend: false,
 			},
 			{
 				flags: '-f, --force',
@@ -148,7 +150,7 @@ export const cmdConfig: GitmarsMultiOptionType = {
 				long: '--force',
 				negate: false,
 				description: t('Whether to force a merge request'),
-				recommend: false
+				recommend: false,
 			},
 			{
 				flags: '-d, --data <data>',
@@ -162,17 +164,18 @@ export const cmdConfig: GitmarsMultiOptionType = {
 				description: t('Other data to be transferred'),
 				defaultValue: '{}',
 				recommend: true,
-				value: '{}'
-			}
+				value: '{}',
+			},
 		],
 		// validator opts
 		validatorOpts: (val, opts, cb) => {
 			if (val.includes('--combine') && val.includes('--prod')) {
 				cb(
 					new Error(
-						t('You cannot select both "Merge release to bug" and "Merge bug to master"')
-					)
+						t('You cannot select both "Merge release to bug" and "Merge bug to master"'),
+					),
 				)
+
 				return
 			}
 			cb()
@@ -188,7 +191,7 @@ export const cmdConfig: GitmarsMultiOptionType = {
 		// transform args
 		transformArgs: (val, opts, cb) => {
 			cb()
-		}
+		},
 	},
 	update: {
 		command: 'update',
@@ -201,13 +204,14 @@ export const cmdConfig: GitmarsMultiOptionType = {
 				validator: (val, opts, cb) => {
 					if (/\s+/.test(val)) {
 						cb(new Error(t('Please do not enter spaces')))
+
 						return
 					}
 					cb()
 				},
 				// transformer: null,
-				description: t('Branch Type')
-			}
+				description: t('Branch Type'),
+			},
 		],
 		options: [
 			{
@@ -220,7 +224,7 @@ export const cmdConfig: GitmarsMultiOptionType = {
 				negate: false,
 				description: t('Whether to update using rebase method, default merge'),
 				defaultValue: false,
-				recommend: false
+				recommend: false,
 			},
 			{
 				flags: '-m, --mode [mode]',
@@ -232,10 +236,10 @@ export const cmdConfig: GitmarsMultiOptionType = {
 				long: '--mode',
 				negate: false,
 				description: t(
-					'In case of a conflict, whether to keep the incoming code or the current code; 1=use current 2=use incoming; default is 0=handle manually. This parameter must not be used with --use-rebase'
+					'In case of a conflict, whether to keep the incoming code or the current code; 1=use current 2=use incoming; default is 0=handle manually. This parameter must not be used with --use-rebase',
 				),
 				defaultValue: 0,
-				recommend: false
+				recommend: false,
 			},
 			{
 				flags: '--postmsg',
@@ -247,7 +251,7 @@ export const cmdConfig: GitmarsMultiOptionType = {
 				negate: false,
 				description: t('Send Message'),
 				defaultValue: false,
-				recommend: false
+				recommend: false,
 			},
 			{
 				flags: '--description [description]',
@@ -259,7 +263,7 @@ export const cmdConfig: GitmarsMultiOptionType = {
 				negate: false,
 				description: t('Description of the reason for this commit'),
 				defaultValue: '',
-				recommend: false
+				recommend: false,
 			},
 			{
 				flags: '-f, --force',
@@ -271,8 +275,8 @@ export const cmdConfig: GitmarsMultiOptionType = {
 				long: '--force',
 				negate: false,
 				description: t('Whether to force a merge request'),
-				recommend: false
-			}
+				recommend: false,
+			},
 		],
 		// validator opts
 		validatorOpts: (val, opts, cb) => {
@@ -289,7 +293,7 @@ export const cmdConfig: GitmarsMultiOptionType = {
 		// transform args
 		transformArgs: (val, opts, cb) => {
 			cb()
-		}
+		},
 	},
 	clean: {
 		command: 'clean',
@@ -302,13 +306,14 @@ export const cmdConfig: GitmarsMultiOptionType = {
 				validator: (val, opts, cb) => {
 					if (/\s+/.test(val)) {
 						cb(new Error(t('Please do not enter spaces')))
+
 						return
 					}
 					cb()
 				},
 				// transformer: null,
-				description: t('Branch Type')
-			}
+				description: t('Branch Type'),
+			},
 		],
 		options: [],
 		// validator opts
@@ -326,7 +331,7 @@ export const cmdConfig: GitmarsMultiOptionType = {
 		// transform args
 		transformArgs: (val, opts, cb) => {
 			cb()
-		}
+		},
 	},
 	approve: {
 		command: 'approve',
@@ -348,8 +353,8 @@ export const cmdConfig: GitmarsMultiOptionType = {
 		// transform args
 		transformArgs: (val, opts, cb) => {
 			cb()
-		}
-	}
+		},
+	},
 }
 
 export { cmdConfig as default }

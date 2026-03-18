@@ -13,13 +13,14 @@ export const cmdConfig: GitmarsOptionType = {
 			validator: (val, opts, cb) => {
 				if (/\s+/.test(val)) {
 					cb(new Error(t('Please do not enter spaces')))
+
 					return
 				}
 				cb()
 			},
 			// transformer: null,
-			description: t('Version number')
-		}
+			description: t('Version number'),
+		},
 	],
 	options: [
 		{
@@ -32,7 +33,7 @@ export const cmdConfig: GitmarsOptionType = {
 			long: '--mirror',
 			negate: false,
 			description: t('Whether to use Taobao Mirror'),
-			defaultValue: false
+			defaultValue: false,
 		},
 		{
 			flags: '-c, --client [client]',
@@ -46,7 +47,7 @@ export const cmdConfig: GitmarsOptionType = {
 			description: t('The name of the client used to load the package'),
 			defaultValue: 'npm',
 			recommend: true,
-			value: 'npm'
+			value: 'npm',
 		},
 		{
 			flags: '-r, --registry <registry>',
@@ -60,8 +61,8 @@ export const cmdConfig: GitmarsOptionType = {
 			description: t('Use mirror address'),
 			defaultValue: '',
 			recommend: true,
-			value: 'https://registry.npmmirror.com'
-		}
+			value: 'https://registry.npmmirror.com',
+		},
 	],
 	// validator opts
 	validatorOpts: (val, opts, cb) => {
@@ -78,7 +79,7 @@ export const cmdConfig: GitmarsOptionType = {
 	// transform args
 	transformArgs: (val, opts, cb) => {
 		cb()
-	}
+	},
 }
 
 export { cmdConfig as default }

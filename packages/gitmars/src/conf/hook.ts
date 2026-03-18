@@ -9,13 +9,13 @@ export const cmdConfig: GitmarsOptionType = {
 		{
 			required: false,
 			name: 'command',
-			variadic: false
+			variadic: false,
 		},
 		{
 			required: false,
 			name: 'args',
-			variadic: true
-		}
+			variadic: true,
+		},
 	],
 	options: [
 		{
@@ -27,7 +27,7 @@ export const cmdConfig: GitmarsOptionType = {
 			long: '--no-verify',
 			negate: true,
 			description: t('Do you want to skip the check permission'),
-			defaultValue: false
+			defaultValue: false,
 		},
 		{
 			flags: '--lastet [lastet]',
@@ -39,9 +39,9 @@ export const cmdConfig: GitmarsOptionType = {
 			long: '--lastet',
 			negate: false,
 			description: t(
-				'Query logs after a certain time, fill in the format: 10s/2m/2h/3d/4M/5y'
+				'Query logs after a certain time, fill in the format: 10s/2m/2h/3d/4M/5y',
 			),
-			defaultValue: ''
+			defaultValue: '',
 		},
 		{
 			flags: '--limit [limit]',
@@ -53,7 +53,7 @@ export const cmdConfig: GitmarsOptionType = {
 			long: '--limit',
 			negate: false,
 			description: t('The maximum number of logs to be queried'),
-			defaultValue: ''
+			defaultValue: '',
 		},
 		{
 			flags: '-t, --type <type>',
@@ -65,7 +65,7 @@ export const cmdConfig: GitmarsOptionType = {
 			long: '--type',
 			negate: false,
 			description: t('Detection type'),
-			defaultValue: ''
+			defaultValue: '',
 		},
 		{
 			flags: '--branch [branch]',
@@ -77,9 +77,9 @@ export const cmdConfig: GitmarsOptionType = {
 			long: '--branch',
 			negate: false,
 			description: t('Branch to query'),
-			defaultValue: ''
-		}
-	]
+			defaultValue: '',
+		},
+	],
 }
 
 export { cmdConfig as default }

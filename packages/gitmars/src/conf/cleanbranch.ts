@@ -13,8 +13,8 @@ export const cmdConfig: GitmarsOptionType = {
 			validator: (val, opts, cb) => {
 				cb()
 			},
-			description: t('Specify the branch to clean up')
-		}
+			description: t('Specify the branch to clean up'),
+		},
 	],
 	options: [
 		{
@@ -28,7 +28,7 @@ export const cmdConfig: GitmarsOptionType = {
 			negate: false,
 			description: t('Show a list of branches that match the criteria'),
 			defaultValue: false,
-			value: true
+			value: true,
 		},
 		{
 			flags: '-t, --type [type]',
@@ -40,11 +40,11 @@ export const cmdConfig: GitmarsOptionType = {
 			long: '--type',
 			negate: false,
 			description: t(
-				'The type of branch, there are 3 types: feature, bugfix, support, default all if not passed'
+				'The type of branch, there are 3 types: feature, bugfix, support, default all if not passed',
 			),
 			defaultValue: null,
 			options: ['feature', 'bugfix', 'support'],
-			value: ''
+			value: '',
 		},
 		{
 			flags: '--target [target]',
@@ -56,10 +56,10 @@ export const cmdConfig: GitmarsOptionType = {
 			long: '--target',
 			negate: false,
 			description: t(
-				'The name of the target branch that needs to be tested for merging, default is develop and release if not passed'
+				'The name of the target branch that needs to be tested for merging, default is develop and release if not passed',
 			),
 			defaultValue: null,
-			value: 'dev,release'
+			value: 'dev,release',
 		},
 		{
 			flags: '-k, --key [keyword]',
@@ -71,7 +71,7 @@ export const cmdConfig: GitmarsOptionType = {
 			long: '--key',
 			negate: false,
 			description: t('Query branch for keywords'),
-			defaultValue: null
+			defaultValue: null,
 		},
 		{
 			flags: '--exclude [exclude]',
@@ -84,7 +84,7 @@ export const cmdConfig: GitmarsOptionType = {
 			negate: false,
 			description: t('Exclude keywords'),
 			defaultValue: '',
-			value: ''
+			value: '',
 		},
 		{
 			flags: '--include [include]',
@@ -97,7 +97,7 @@ export const cmdConfig: GitmarsOptionType = {
 			negate: false,
 			description: t('Include keywords'),
 			defaultValue: '',
-			value: ''
+			value: '',
 		},
 		// {
 		//     flags: '--deadline [deadline]',
@@ -122,9 +122,9 @@ export const cmdConfig: GitmarsOptionType = {
 			long: '--remote',
 			negate: false,
 			description: t(
-				'Whether to clean up remote branches, default is clean up local branches'
+				'Whether to clean up remote branches, default is clean up local branches',
 			),
-			defaultValue: false
+			defaultValue: false,
 		},
 		{
 			flags: '--strictly',
@@ -137,7 +137,7 @@ export const cmdConfig: GitmarsOptionType = {
 			negate: false,
 			description: t('Use strict mode'),
 			defaultValue: false,
-			recommend: false
+			recommend: false,
 		},
 		{
 			flags: '-c, --confirm',
@@ -149,8 +149,8 @@ export const cmdConfig: GitmarsOptionType = {
 			long: '--confirm',
 			negate: false,
 			description: t('Confirm start, do not show confirmation box when true'),
-			defaultValue: false
-		}
+			defaultValue: false,
+		},
 	],
 	// validator opts
 	validatorOpts: (val, opts, cb) => {
@@ -167,7 +167,7 @@ export const cmdConfig: GitmarsOptionType = {
 	// transform args
 	transformArgs: (val, opts, cb) => {
 		cb()
-	}
+	},
 }
 
 export { cmdConfig as default }

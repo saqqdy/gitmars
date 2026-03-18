@@ -1,16 +1,15 @@
-#!/usr/bin/env ts-node
-import { program } from 'commander'
-import sh from 'shelljs'
-import chalk from 'chalk'
-import { Separator, select } from '@inquirer/prompts'
-import { getProperty } from 'js-cool'
-import to from 'await-to-done'
+import type { GitmarsOptionOptionsType } from './types'
 import { getCurrentBranch } from '@gitmars/git'
 import { createArgs } from '@gitmars/utils'
-import type { GitmarsOptionOptionsType } from './types'
+import { select, Separator } from '@inquirer/prompts'
+import to from 'await-to-done'
+import chalk from 'chalk'
+import { program } from 'commander'
+import { getProperty } from 'js-cool'
+import sh from 'shelljs'
 import lang from './common/local'
-import * as commands from './go/index'
 import goConfig from './conf/go'
+import * as commands from './go/index'
 
 const { t } = lang
 const { green, red } = chalk
@@ -29,21 +28,23 @@ options.forEach((o: GitmarsOptionOptionsType) => {
 })
 program.action(async (command: string): Promise<void> => {
 	const current = getCurrentBranch()
+
 	sh.echo(
 		green(
 			t('Current branch is {current}, I suspect you may want to do the following: ', {
-				current
-			})
-		)
+				current,
+			}),
+		),
 	)
 	if (command) {
 		// Execute the corresponding command
 		const cmd = getProperty(commands, command)
+
 		if (!cmd) {
 			sh.echo(
 				red(
-					t('The command you entered was not found and may not be supported at this time')
-				)
+					t('The command you entered was not found and may not be supported at this time'),
+				),
 			)
 			process.exit(1)
 		}
@@ -55,7 +56,7 @@ program.action(async (command: string): Promise<void> => {
 				message: t('Select the operation you want?'),
 				default: 'combine',
 				choices: [
-					new Separator(' === 1. ' + t('Gitmars Workflow') + ' === '),
+					new Separator(` === 1. ${t('Gitmars Workflow')} === `),
 					{ name: 'combine', value: 'combine' },
 					{ name: 'end', value: 'end' },
 					{ name: 'update', value: 'update' },
@@ -67,7 +68,7 @@ program.action(async (command: string): Promise<void> => {
 					{ name: 'admin.update', value: 'admin.update' },
 					{ name: 'admin.create', value: 'admin.create' },
 					{ name: 'admin.clean', value: 'admin.clean' },
-					new Separator(' === 2. ' + t('Advanced Tools') + ' === '),
+					new Separator(` === 2. ${t('Advanced Tools')} === `),
 					{ name: 'branch', value: 'branch' },
 					{ name: 'copy', value: 'copy' },
 					{ name: 'get', value: 'get' },
@@ -78,12 +79,13 @@ program.action(async (command: string): Promise<void> => {
 					{ name: 'link', value: 'link' },
 					{ name: 'unlink', value: 'unlink' },
 					{ name: 'postmsg', value: 'postmsg' },
-					new Separator(' === ' + t('Exit') + ' === '),
+					new Separator(` === ${t('Exit')} === `),
 					{ name: 'exit', value: 'exit' },
-					new Separator()
-				]
-			})
+					new Separator(),
+				],
+			}),
 		)
+
 		if (command === 'exit') {
 			sh.echo(green(t('exited')))
 			process.exit(0)
@@ -91,9 +93,9 @@ program.action(async (command: string): Promise<void> => {
 		sh.echo(
 			green(
 				t('You have selected the {something} command', {
-					something: command
-				})
-			)
+					something: command,
+				}),
+			),
 		)
 		// Execute the corresponding command
 		getProperty(commands, command)()

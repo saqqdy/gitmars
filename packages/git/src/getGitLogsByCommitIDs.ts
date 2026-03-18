@@ -1,6 +1,6 @@
+import type { GitLogKeysType, GitLogsType } from './types'
 import { debug, spawnSync } from '@gitmars/utils'
 import GitLogsFormatter from './gitLogsFormatter'
-import type { GitLogKeysType, GitLogsType } from './types'
 
 export interface GetGitLogsByCommitIDsOptions {
 	// commitID
@@ -20,7 +20,7 @@ export interface GetGitLogsByCommitIDsOptions {
 function getGitLogsByCommitIDs({
 	commitIDs,
 	params = '',
-	keys
+	keys,
 }: GetGitLogsByCommitIDsOptions): GitLogsType[] {
 	if (typeof commitIDs === 'string') commitIDs = [commitIDs]
 	const formatter = new GitLogsFormatter()
@@ -29,9 +29,11 @@ function getGitLogsByCommitIDs({
 		...commitIDs,
 		'--name-only',
 		`--pretty=format:${formatter.getFormat(keys)}`,
-		...params.split(' ')
+		...params.split(' '),
 	])
+
 	debug('getGitLogsByCommitIDs', stdout)
+
 	return formatter.getLogs(stdout!)
 }
 

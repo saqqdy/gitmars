@@ -1,4 +1,4 @@
-import type { SpawnOptions, SpawnSyncReturns } from 'child_process'
+import type { SpawnOptions, SpawnSyncReturns } from 'node:child_process'
 
 export type ValueOf<T> = T extends ReadonlyArray<any> ? T[number] : T[keyof T]
 

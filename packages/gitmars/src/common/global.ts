@@ -19,7 +19,7 @@ export const hookList = [
 	'push-to-checkout',
 	'pre-auto-gc',
 	'post-rewrite',
-	'sendemail-validate'
+	'sendemail-validate',
 ]
 export const defaults: {
 	master: string
@@ -54,7 +54,7 @@ export const defaults: {
 	apis: null,
 	api: '',
 	gitHost: '',
-	gitID: ''
+	gitID: '',
 }
 
 export default { hookList, defaults }

@@ -1,11 +1,10 @@
-#!/usr/bin/env ts-node
-import { program } from 'commander'
-import sh from 'shelljs'
-import chalk from 'chalk'
+import type { GitmarsOptionOptionsType } from './types'
 import { queue } from '@gitmars/core'
 import { getCurrentBranch, getIsGitProject, getStashList } from '@gitmars/git'
 import { createArgs } from '@gitmars/utils'
-import type { GitmarsOptionOptionsType } from './types'
+import chalk from 'chalk'
+import { program } from 'commander'
+import sh from 'shelljs'
 import lang from './common/local'
 import getConfig from './conf/get'
 
@@ -37,6 +36,7 @@ options.forEach((o: GitmarsOptionOptionsType) => {
 program.action((message: string, index: string, opt: GitmGetOption) => {
 	if (!message) message = getCurrentBranch()
 	const list = getStashList(message)
+
 	if (list.length === 0) {
 		sh.echo(yellow(t('There are no files staged in this branch!')))
 		process.exit(0)
@@ -46,9 +46,9 @@ program.action((message: string, index: string, opt: GitmGetOption) => {
 			yellow(
 				t(
 					'There are {length} staging records under this branch, and the most recent one is restored by default',
-					{ length: String(list.length) }
-				)
-			)
+					{ length: String(list.length) },
+				),
+			),
 		)
 	}
 	if (list.length > 2) {
@@ -56,9 +56,9 @@ program.action((message: string, index: string, opt: GitmGetOption) => {
 			yellow(
 				t(
 					'There are {length} staging records under this branch, please clean up unnecessary staging records regularly',
-					{ length: String(list.length) }
-				)
-			)
+					{ length: String(list.length) },
+				),
+			),
 		)
 	}
 	queue([
@@ -67,10 +67,10 @@ program.action((message: string, index: string, opt: GitmGetOption) => {
 			config: {
 				again: opt.keep ? false : `git stash drop ${list[Number(index) || 0].key}`,
 				success: t('File recovery successful'),
-				fail: t('Recovery failed, please check for conflicts')
-			}
+				fail: t('Recovery failed, please check for conflicts'),
+			},
 		},
-		'git reset -q HEAD -- .'
+		'git reset -q HEAD -- .',
 	])
 })
 program.parse(process.argv)

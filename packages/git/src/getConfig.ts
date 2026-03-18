@@ -1,8 +1,8 @@
-import { statSync } from 'fs'
-import { cosmiconfigSync } from 'cosmiconfig'
-import { debug, echo } from '@gitmars/utils'
-import getGitRevParse from './getGitRevParse'
 import type { GitmarsConfigExtend } from './types'
+import { statSync } from 'node:fs'
+import { debug, echo } from '@gitmars/utils'
+import { cosmiconfigSync } from 'cosmiconfig'
+import getGitRevParse from './getGitRevParse'
 import lang from './lang'
 
 const { t } = lang
@@ -21,7 +21,7 @@ const defaults = {
 	hooks: '',
 	api: '',
 	gitHost: '',
-	gitID: ''
+	gitID: '',
 }
 
 /**
@@ -33,14 +33,16 @@ const defaults = {
  */
 function getConfig(pathName?: string, moduleName = 'gitmars'): GitmarsConfigExtend {
 	let info
+
 	if (!pathName) {
 		const { root } = getGitRevParse()
+
 		if (!root) {
 			echo(t('The current directory is not a git project directory'))
 			process.exit(1)
 		}
 		try {
-			pathName = root + '/gitmarsconfig.json'
+			pathName = `${root}/gitmarsconfig.json`
 			info = statSync(pathName)
 		} catch (err) {
 			pathName = root
@@ -48,19 +50,24 @@ function getConfig(pathName?: string, moduleName = 'gitmars'): GitmarsConfigExte
 	}
 	debug('getConfig', pathName, info)
 	const defaultSet = {
-		skipCI: true
+		skipCI: true,
 	}
 	const explorer = cosmiconfigSync(moduleName)
+
 	if (!info) info = statSync(pathName)
 	if (info.isDirectory()) {
 		// Importing a directory
 		const { config = {}, filepath = '' } = explorer.search(pathName) || {}
+
 		debug('getConfig-config', config, filepath)
+
 		return Object.assign({}, defaults, defaultSet, config, { filepath })
 	} else {
 		// Importing a file
 		const { config = {}, filepath = '' } = explorer.load(pathName) || {}
+
 		debug('getConfig-config', config, filepath)
+
 		return Object.assign({}, defaults, defaultSet, config, { filepath })
 	}
 }

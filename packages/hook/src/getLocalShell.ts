@@ -1,4 +1,5 @@
 import getHookComment from './getHookComment'
+
 const hookComment = getHookComment()
 
 /**

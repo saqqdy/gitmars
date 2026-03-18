@@ -1,5 +1,5 @@
-import chalk from 'chalk'
 import type { GitmarsOptionArgsType, GitmarsOptionOptionsType } from './types'
+import chalk from 'chalk'
 import lang from './lang'
 
 const { t } = lang
@@ -8,9 +8,9 @@ export interface PromptConfigType {
 	// 配置参数
 	options: GitmarsOptionArgsType[] | GitmarsOptionOptionsType[]
 	// 校验器
-	validator?(val: string, opts: object, cb: any): void
+	validator?: (val: string, opts: object, cb: any) => void
 	// 参数转换
-	transform?(val: string, opts: object, cb: any): void
+	transform?: (val: string, opts: object, cb: any) => void
 }
 
 export interface PromptOptionCheckboxChoicesType {
@@ -24,15 +24,15 @@ export interface PromptOptionCheckboxType {
 	type: string
 	message: string
 	choices: PromptOptionCheckboxChoicesType[]
-	validate(answer: any): string | boolean
+	validate: (answer: any) => string | boolean
 }
 
 export interface PromptOptionInputType {
 	name: string
 	type: string
 	message: string
-	transformer?(val: any, answers: any, flags: any): any
-	validate(answer: any): string | boolean
+	transformer?: (val: any, answers: any, flags: any) => any
+	validate: (answer: any) => string | boolean
 	defaultValue?: any
 }
 
@@ -48,7 +48,7 @@ function createPrompt(
 	command: string,
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	{ options, validator, transform }: PromptConfigType,
-	type: string
+	type: string,
 ) {
 	if (type === 'checkbox') {
 		if (!options.length) return null
@@ -60,24 +60,30 @@ function createPrompt(
 			validate: answer => {
 				if (validator) {
 					let msg: string | boolean = true
+
 					validator(answer, options, (err: Error) => {
 						if (err) msg = err.message
 					})
+
 					return msg
 				}
+
 				return true
-			}
+			},
 		}
+
 		;(options as GitmarsOptionOptionsType[]).forEach(option => {
 			promptOpt.choices.push({
 				name: option.description || '',
 				value: option.long,
-				checked: option.recommend || false
+				checked: option.recommend || false,
 			})
 		})
+
 		return promptOpt as any
 	} else if (type === 'input') {
 		const list: PromptOptionInputType[] = []
+
 		;(options as GitmarsOptionArgsType[]).forEach(
 			({ validator: childValidator, transformer, ...opts }) => {
 				// 优先使用每个参数设置的校验
@@ -88,22 +94,18 @@ function createPrompt(
 					message: `${
 						opts.description ||
 						t('Enter the value of parameter {option}', {
-							option: opts.name
+							option: opts.name,
 						})
 					}${
-						!opts.required
-							? chalk.yellow(
-									t('(' + 'Not required{tips}' + ')', {
-										tips:
-											'defaultValue' in opts && opts.defaultValue !== ''
-												? ', ' +
+						!opts.required ? chalk.yellow(
+							t('(' + 'Not required{tips}' + ')', {
+								tips:
+											'defaultValue' in opts && opts.defaultValue !== '' ? `, ${
 													t('default "{defaultValue}"', {
-														defaultValue: opts.defaultValue
-													})
-												: ''
-									})
-								)
-							: ''
+														defaultValue: opts.defaultValue,
+													})}` : '',
+							}),
+						) : ''
 					}`,
 					transformer: (val: string, answers: object, flags: any) => {
 						if (!transformer) {
@@ -114,23 +116,27 @@ function createPrompt(
 					},
 					validate: (val): string | boolean => {
 						let msg: string | boolean = true
+
 						if (!val && opts.required) {
 							msg = t('Please fill in') + opts.description
 						}
 						validator &&
-							msg === true &&
-							validator(val, opts, (err: Error) => {
-								if (err) msg = err.message
-							})
+						msg === true &&
+						validator(val, opts, (err: Error) => {
+							if (err) msg = err.message
+						})
+
 						return msg
-					}
+					},
 				}
+
 				if ('defaultValue' in opts && opts.defaultValue !== '') {
 					cfg.defaultValue = opts.defaultValue
 				}
 				list.push(cfg)
-			}
+			},
 		)
+
 		return list as any
 	}
 }

@@ -11,7 +11,8 @@ const { t } = lang
  */
 function getCommandMessage(cmd: string | string[]): CommandMessageType {
 	const msg = {} as CommandMessageType
-	const arr = cmd instanceof Array ? cmd : cmd.replace(/[\s]+/g, ' ').split(' ')
+	const arr = Array.isArray(cmd) ? cmd : cmd.replace(/\s+/g, ' ').split(' ')
+
 	if (arr.length < 2 || arr[0] !== 'git') return msg
 	switch (arr[1]) {
 		case 'checkout':
@@ -68,6 +69,7 @@ function getCommandMessage(cmd: string | string[]): CommandMessageType {
 		default:
 			break
 	}
+
 	return msg
 }
 

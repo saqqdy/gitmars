@@ -7,6 +7,7 @@ import { spawnSync } from '@gitmars/utils'
  */
 function getCurrentBranch(): string {
 	const { stdout } = spawnSync('git', ['symbolic-ref', '--short', '-q', 'HEAD'])
+
 	return stdout || ''
 }
 

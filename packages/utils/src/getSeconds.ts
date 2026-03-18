@@ -7,6 +7,7 @@
 function getSeconds(str: string): number | null {
 	const match = String(str).match(/^(\d+)([a-zA-Z]+)$/)
 	let time
+
 	if (!match) return null
 	time = +match[1]
 	switch (match[2]) {
@@ -31,7 +32,8 @@ function getSeconds(str: string): number | null {
 		default:
 			break
 	}
-	return parseInt(String(Date.now() / 1000 - time))
+
+	return Number.parseInt(String(Date.now() / 1000 - time))
 }
 
 export default getSeconds

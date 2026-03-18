@@ -1,9 +1,8 @@
-#!/usr/bin/env ts-node
-import { program } from 'commander'
-import chalk from 'chalk'
-import ora from 'ora'
-import { createArgs, spawnSync } from '@gitmars/utils'
 import type { GitmarsOptionOptionsType, PackageVersionTag } from './types'
+import { createArgs, spawnSync } from '@gitmars/utils'
+import chalk from 'chalk'
+import { program } from 'commander'
+import ora from 'ora'
 import lang from './common/local'
 import upgradeConfig from './conf/upgrade'
 
@@ -33,14 +32,16 @@ options.forEach((o: GitmarsOptionOptionsType) => {
 // .option('-r, --registry <registry]>', t('Use mirror address'), '')
 program.action(async (version: PackageVersionTag | string, opt: GitmUpgradeOption) => {
 	const spinner = ora()
+
 	if (version) {
 		const match = version.match(/[0-9.]+$/)
+
 		if (match) version = match[0]
 		else if (!['alpha', 'lite', 'beta', 'release', 'latest', 'next'].includes(version)) {
 			console.error(
 				t(
-					'Incorrect version number entered, only supported: alpha, lite, beta, release, latest, next'
-				)
+					'Incorrect version number entered, only supported: alpha, lite, beta, release, latest, next',
+				),
 			)
 			process.exit(0)
 		}
@@ -48,6 +49,7 @@ program.action(async (version: PackageVersionTag | string, opt: GitmUpgradeOptio
 		version = 'latest'
 	}
 	let cmdAdd: any[], cmdDel: any[]
+
 	switch (opt.client) {
 		case 'yarn':
 			cmdAdd = [opt.client, ['global', 'add', `gitmars@${version}`]]
@@ -73,15 +75,16 @@ program.action(async (version: PackageVersionTag | string, opt: GitmUpgradeOptio
 	spinner.start(green(t('Uninstalling')))
 	const uninstall = spawnSync(cmdDel[0], cmdDel[1], {
 		stdio: 'ignore',
-		shell: process.platform === 'win32' /*, env: { detached: true } */
+		shell: process.platform === 'win32', /* , env: { detached: true } */
 	})
+
 	if (uninstall.status !== 0) {
 		spinner.fail(
 			red(
 				t(
-					'An error occurred uninstalling, please try running after manually removing: npm install -g gitmars'
-				)
-			)
+					'An error occurred uninstalling, please try running after manually removing: npm install -g gitmars',
+				),
+			),
 		)
 		process.exit(0)
 	}
@@ -89,17 +92,18 @@ program.action(async (version: PackageVersionTag | string, opt: GitmUpgradeOptio
 	spinner.start(green(t('Installing')))
 	const install = spawnSync(cmdAdd[0], cmdAdd[1], {
 		stdio: 'ignore',
-		shell: process.platform === 'win32' /*, env: { detached: true } */
+		shell: process.platform === 'win32', /* , env: { detached: true } */
 	})
+
 	if (install.status === 0) {
 		spinner.succeed(green(t('Installation complete')))
 		spawnSync('gitm', ['-v'], {
 			stdio: 'inherit',
-			shell: process.platform === 'win32' /*, env: { detached: true } */
+			shell: process.platform === 'win32', /* , env: { detached: true } */
 		})
 	} else {
 		spinner.fail(
-			red(t('An error occurred installing, please try running: npm install -g gitmars'))
+			red(t('An error occurred installing, please try running: npm install -g gitmars')),
 		)
 	}
 	spinner.stop()

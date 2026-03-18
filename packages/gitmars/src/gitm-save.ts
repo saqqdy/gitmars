@@ -1,11 +1,10 @@
-#!/usr/bin/env ts-node
-import { program } from 'commander'
-import sh from 'shelljs'
-import chalk from 'chalk'
+import type { CommandType, GitmarsOptionOptionsType } from './types'
 import { queue } from '@gitmars/core'
 import { getCurrentBranch, getIsGitProject } from '@gitmars/git'
 import { createArgs } from '@gitmars/utils'
-import type { CommandType, GitmarsOptionOptionsType } from './types'
+import chalk from 'chalk'
+import { program } from 'commander'
+import sh from 'shelljs'
 import lang from './common/local'
 import saveConfig from './conf/save'
 
@@ -42,10 +41,11 @@ program.action((message: string, opt: GitmSaveOption) => {
 			cmd: `git stash save "${message}"`,
 			config: {
 				success: t('File staging successful'),
-				fail: t('An error occurred, please contact an administrator')
-			}
-		}
+				fail: t('An error occurred, please contact an administrator'),
+			},
+		},
 	]
+
 	if (opt.force) {
 		cmd = [
 			'git add .',
@@ -53,9 +53,9 @@ program.action((message: string, opt: GitmSaveOption) => {
 				cmd: `git stash save "${message}"`,
 				config: {
 					success: t('File staging successful'),
-					fail: t('An error occurred, please contact an administrator')
-				}
-			}
+					fail: t('An error occurred, please contact an administrator'),
+				},
+			},
 		]
 	}
 	queue(cmd)

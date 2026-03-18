@@ -1,6 +1,6 @@
-import type { SpawnOptions } from 'child_process'
-import { debug, spawnSync } from '@gitmars/utils'
+import type { SpawnOptions } from 'node:child_process'
 import type { GitStatusInfoType } from './types'
+import { debug, spawnSync } from '@gitmars/utils'
 
 /**
  * 获取分支状态
@@ -16,16 +16,19 @@ function getGitStatus(config: SpawnOptions = {}): GitStatusInfoType {
 		D: [],
 		M: [],
 		UU: [],
-		'??': []
+		'??': [],
 	}
+
 	if (list.length === 0) return sum
 	list.forEach((str: string) => {
 		const arr: string[] = str.trim().replace(/\s+/g, ' ').split(' ')
 		const type = arr.splice(0, 1)[0] as keyof GitStatusInfoType
+
 		if (!sum[type]) sum[type] = []
 		sum[type].push(arr.join(' '))
 	})
 	debug('getGitStatus', sum)
+
 	return sum
 }
 

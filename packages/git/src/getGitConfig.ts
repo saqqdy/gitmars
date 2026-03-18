@@ -1,5 +1,5 @@
-import slash from 'slash'
 import { debug, spawnSync } from '@gitmars/utils'
+import slash from 'slash'
 
 export interface GitProjectConfigType {
 	gitUrl: string
@@ -14,25 +14,27 @@ export interface GitProjectConfigType {
  */
 function getGitConfig(cwd: string = process.cwd()): GitProjectConfigType {
 	const { stdout } = spawnSync('git', ['config', '--local', '--get', 'remote.origin.url'], {
-		cwd
+		cwd,
 	})
 	const [gitUrl] = stdout!
 		.split('\n')
 		.map((s: string) => s.trim())
 		.map(slash)
+
 	debug('getGitConfig', {
 		gitUrl,
 		appName: gitUrl
 			.replace(/\.git\/?$/, '')
 			.split('/')
-			.reverse()[0]
+			.reverse()[0],
 	})
+
 	return {
 		gitUrl,
 		appName: gitUrl
 			.replace(/\.git\/?$/, '')
 			.split('/')
-			.reverse()[0]
+			.reverse()[0],
 	}
 }
 

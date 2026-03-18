@@ -10,8 +10,8 @@ export const cmdConfig: GitmarsOptionType = {
 			required: true,
 			name: 'action',
 			variadic: false,
-			description: t('Execute method')
-		}
+			description: t('Execute method'),
+		},
 	],
 	options: [],
 	// validator opts
@@ -29,7 +29,7 @@ export const cmdConfig: GitmarsOptionType = {
 	// transform args
 	transformArgs: (val, opts, cb) => {
 		cb()
-	}
+	},
 }
 
 export { cmdConfig as default }

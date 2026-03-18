@@ -8,6 +8,7 @@ import { format } from 'node:util'
  */
 function echo(message: string): void {
 	let output = format(message)
+
 	output += '\n'
 	process.stdout.write(output)
 }

@@ -11,14 +11,17 @@ import getCurrentBranch from './getCurrentBranch'
  */
 function getBehindLogs(): string[] {
 	const current = getCurrentBranch()
+
 	fetch()
 	const { stdout } = spawnSync('git', [
 		'log',
 		`${current}..origin/${current}`,
 		'--pretty',
-		'format:%p'
+		'format:%p',
 	])
+
 	debug('getBehindLogs', stdout)
+
 	return stdout ? stdout.split('\n') : []
 }
 

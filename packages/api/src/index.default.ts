@@ -9,21 +9,21 @@ import {
 	getMergeRequestDiffVersions,
 	getMergeRequestList,
 	getMergeRequestParticipants,
-	updateMergeRequest
+	updateMergeRequest,
 } from './mergeRequest'
 import {
 	createMergeRequestNotes,
 	deleteMergeRequestNotes,
 	getMergeRequestNotesDetail,
 	getMergeRequestNotesList,
-	updateMergeRequestNotes
+	updateMergeRequestNotes,
 } from './mergeRequestNotes'
 import {
 	getAuditStatus,
 	getAuthorizerListWithAllDetail,
 	getPreAuthQrCode,
 	getTrialQrCode,
-	submitAudit
+	submitAudit,
 } from './miniprogram'
 
 export type * from './types'
@@ -51,5 +51,5 @@ export default {
 	getAuditStatus,
 	getTrialQrCode,
 	submitAudit,
-	getPreAuthQrCode
+	getPreAuthQrCode,
 }

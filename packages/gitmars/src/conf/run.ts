@@ -9,16 +9,16 @@ export const cmdConfig: GitmarsOptionType = {
 		{
 			required: false,
 			name: 'command',
-			variadic: false
+			variadic: false,
 		},
 		{
 			required: false,
 			name: 'args',
 			variadic: true,
-			description: t('Parameter list')
-		}
+			description: t('Parameter list'),
+		},
 	],
-	options: []
+	options: [],
 }
 
 export { cmdConfig as default }

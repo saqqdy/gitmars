@@ -1,5 +1,5 @@
-import { debug } from '@gitmars/utils'
 import type { GitLogKeysType, GitLogsType } from './types'
+import { debug } from '@gitmars/utils'
 
 class GitLogsFormatter {
 	keys: GitLogKeysType[] = [
@@ -60,7 +60,7 @@ class GitLogsFormatter {
 		'%gE',
 		'%gs',
 		'%(trailers:key=Signed-off-by)',
-		'%(trailers:key=Reviewed-by)'
+		'%(trailers:key=Reviewed-by)',
 	]
 
 	format = ''
@@ -80,6 +80,7 @@ class GitLogsFormatter {
 		if (keys && keys.length) this.keys = keys
 		this.format = `-start-${this.keys.join(',=')}-end-`
 		debug('GitLogsFormatter-format', this.format, keys)
+
 		return this.format
 	}
 
@@ -90,15 +91,18 @@ class GitLogsFormatter {
 	 */
 	getLogs(stdout: string): GitLogsType[] {
 		const list: GitLogsType[] = []
+
 		if (stdout) {
 			const match =
 				stdout
-					.replace(/(?:^-start-)|(?:-end-$)/g, '')
+					.replace(/^-start-|-end-$/g, '')
 					.replace(/-end-([.\n]+)-start-/g, '-split-')
 					.split('-split-') || []
+
 			for (const log of match) {
 				const args = log.split(',=')
 				const map: GitLogsType = {}
+
 				this.keys.forEach((key, i) => {
 					map[key] = args[i]
 				})
@@ -106,6 +110,7 @@ class GitLogsFormatter {
 			}
 		}
 		debug('GitLogsFormatter-logs', stdout)
+
 		return list
 	}
 }

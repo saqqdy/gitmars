@@ -1,9 +1,8 @@
-#!/usr/bin/env ts-node
 import { createRequire } from 'node:module'
+import { echo, spawnSync } from '@gitmars/utils'
+import chalk from 'chalk'
 import { program } from 'commander'
 import sh from 'shelljs'
-import chalk from 'chalk'
-import { echo, spawnSync } from '@gitmars/utils'
 // import { version } from '../package.json' assert { type: 'json' }
 import lang from './common/local'
 
@@ -18,16 +17,16 @@ if (!sh.which('git')) {
 }
 program.version(
 	'	\n' +
-		' e88~~   ,e,   d8                                         \n' +
-		'd888      "  _d88__ 888-~88e-~88e   /~~~8e  888-~  d88~ \n' +
-		'8888 __  888  888   888  888  888       88b 888    C888   \n' +
-		'8888   | 888  888   888  888  888  e88~-888 888     Y88b  \n' +
-		'Y888   | 888  888   888  888  888 C888  888 888      888D \n' +
-		' "88__/  888  "88_/ 888  888  888  "88_-888 888    _88P  \n' +
-		'                                                          \n' +
-		`v${version}, powered by saqqdy\n`,
+	' e88~~   ,e,   d8                                         \n' +
+	'd888      "  _d88__ 888-~88e-~88e   /~~~8e  888-~  d88~ \n' +
+	'8888 __  888  888   888  888  888       88b 888    C888   \n' +
+	'8888   | 888  888   888  888  888  e88~-888 888     Y88b  \n' +
+	'Y888   | 888  888   888  888  888 C888  888 888      888D \n' +
+	' "88__/  888  "88_/ 888  888  888  "88_-888 888    _88P  \n' +
+	'                                                          \n' +
+	`v${version}, powered by saqqdy\n`,
 	'-v, --version',
-	t('View gitmars version number')
+	t('View gitmars version number'),
 )
 
 program
@@ -51,7 +50,7 @@ program
 	.alias('gt')
 	.command('cleanbranch', t('Clean up merged feature branches'))
 	.alias('clb')
-	.command('copy <id>', t("Simplify git's cherry-pick operation"))
+	.command('copy <id>', t('Simplify git\'s cherry-pick operation'))
 	.alias('cp')
 	.command('continue', t('Continue unfinished operations'))
 	.alias('ct')
@@ -90,11 +89,11 @@ program
 	.alias('i')
 	.command(
 		'admin <command>',
-		t('Administrator functions, including actions for bugfixing and releasing release branches')
+		t('Administrator functions, including actions for bugfixing and releasing release branches'),
 	)
 
 // 自定义帮助
-program.on('--help', function () {
+program.on('--help', () => {
 	echo(t('Use Case'))
 	echo('  $ gitm init')
 	echo('  $ gitm --help')
@@ -102,7 +101,7 @@ program.on('--help', function () {
 })
 
 // 映射不存在的指令
-program.on('command:*', function (types: string[], opts: string[]) {
+program.on('command:*', (types: string[], opts: string[]) => {
 	const cmd = [
 		'init',
 		'config',
@@ -159,20 +158,22 @@ program.on('command:*', function (types: string[], opts: string[]) {
 		'alias',
 		'install',
 		'i',
-		'admin'
+		'admin',
 	]
+
 	if (!cmd.includes(types[0])) {
 		opts = opts.map(type =>
-			type.indexOf('-') === 0 || /^\w+$/.test(type) ? type : '"' + type + '"'
+			type.indexOf('-') === 0 || /^\w+$/.test(type) ? type : `"${type}"`,
 		)
 		const arr = types.concat(opts)
+
 		echo(
 			green(
 				t(
 					'Gitmars does not provide the command "gitm {command}", it has been passed through to git for execution, here are the results',
-					{ command: types[0] }
-				)
-			)
+					{ command: types[0] },
+				),
+			),
 		)
 		spawnSync('git', arr, { stdio: 'inherit' })
 	}

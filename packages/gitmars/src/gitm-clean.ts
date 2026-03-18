@@ -1,14 +1,13 @@
-#!/usr/bin/env ts-node
+import type { GitmarsOptionOptionsType } from './types'
+import { cleanBuildConfig } from '@gitmars/build'
+import { cleanCache, cleanPkgInfo } from '@gitmars/cache'
+import { getGitRevParse, getIsGitProject } from '@gitmars/git'
+import { createArgs, removeFile } from '@gitmars/utils'
+import { confirm } from '@inquirer/prompts'
+import to from 'await-to-done'
+import chalk from 'chalk'
 import { program } from 'commander'
 import sh from 'shelljs'
-import chalk from 'chalk'
-import to from 'await-to-done'
-import { confirm } from '@inquirer/prompts'
-import { getGitRevParse, getIsGitProject } from '@gitmars/git'
-import { cleanCache, cleanPkgInfo } from '@gitmars/cache'
-import { createArgs, removeFile } from '@gitmars/utils'
-import { cleanBuildConfig } from '@gitmars/build'
-import type { GitmarsOptionOptionsType } from './types'
 import lang from './common/local'
 import cleanConfig from './conf/clean'
 
@@ -38,11 +37,12 @@ program.action(async (opt: GitmCleanOption) => {
 			const [, answer] = await to(
 				confirm({
 					message: t(
-						'You have entered --force, which will also clear the gitmars execution cache. Should I continue?'
+						'You have entered --force, which will also clear the gitmars execution cache. Should I continue?',
 					),
-					default: false
-				})
+					default: false,
+				}),
 			)
+
 			if (!answer) {
 				sh.echo(green(t('exited')))
 				process.exit(0)
@@ -50,12 +50,12 @@ program.action(async (opt: GitmCleanOption) => {
 			removeFile([
 				{
 					name: t('Gitmars command queue cache file'),
-					url: gitDir + '/.gitmarscommands'
+					url: `${gitDir}/.gitmarscommands`,
 				},
 				{
 					name: t('Gitmars execution log file'),
-					url: gitDir + '/.gitmarslog'
-				}
+					url: `${gitDir}/.gitmarslog`,
+				},
 			])
 		}
 	} else {

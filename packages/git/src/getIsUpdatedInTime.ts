@@ -1,7 +1,7 @@
+import type { GitLogsType } from './types'
 import { debug } from '@gitmars/utils'
 import getCurrentBranch from './getCurrentBranch'
 import getGitLogs from './getGitLogs'
-import type { GitLogsType } from './types'
 
 export interface IsUpdatedInTimeConfigType {
 	// 最近几天的日志，可以是10s/2m/2h/3d/4M/5y
@@ -27,19 +27,21 @@ function getIsUpdatedInTime({ lastet, limit, branch }: IsUpdatedInTimeConfigType
 		lastet,
 		limit,
 		branch,
-		noMerges: true
+		noMerges: true,
 	})
 	const currentLogs = getGitLogs({
 		lastet,
 		limit,
 		branch: current,
-		noMerges: true
+		noMerges: true,
 	})
+
 	mainLogs.forEach((log: GitLogsType) => {
 		mainVers.push(log['%H']!)
 	})
 	currentLogs.forEach((log: GitLogsType) => {
 		const arr = log['%P'] ? log['%P'].split(' ') : []
+
 		arr.forEach((item: string) => {
 			currentVers.push(item)
 		})
@@ -51,6 +53,7 @@ function getIsUpdatedInTime({ lastet, limit, branch }: IsUpdatedInTimeConfigType
 			break mainVer
 		}
 	}
+
 	return isUpdated
 }
 

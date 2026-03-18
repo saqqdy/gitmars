@@ -20,11 +20,11 @@ export async function getClientsConfig(appID: string) {
 	return get<GetClientsConfig>({
 		url: `${URL_PREFIX}/configuration/getConfig`,
 		data: {
-			appID
-		}
+			appID,
+		},
 	})
 }
 
 export default {
-	getClientsConfig
+	getClientsConfig,
 }

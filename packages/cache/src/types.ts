@@ -1,5 +1,5 @@
-import type { SpawnOptions, SpawnSyncReturns } from 'child_process'
 import type { GitLogsType } from '@gitmars/git'
+import type { SpawnOptions, SpawnSyncReturns } from 'node:child_process'
 
 export interface ModuleCommandType {
 	module: string

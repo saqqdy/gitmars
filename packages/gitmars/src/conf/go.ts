@@ -32,12 +32,12 @@ export const cmdConfig: GitmarsOptionType = {
 				'revert',
 				'link',
 				'unlink',
-				'postmsg'
+				'postmsg',
 			],
-			value: ''
-		}
+			value: '',
+		},
 	],
-	options: []
+	options: [],
 }
 
 export { cmdConfig as default }

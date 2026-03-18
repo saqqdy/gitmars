@@ -13,13 +13,14 @@ export const cmdConfig: GitmarsOptionType = {
 			validator: (val, opts, cb) => {
 				if (/\s+/.test(val)) {
 					cb(new Error(t('Please do not enter spaces')))
+
 					return
 				}
 				cb()
 			},
 			// transformer: null,
-			description: t('Name of the package')
-		}
+			description: t('Name of the package'),
+		},
 		// {
 		//     required: true,
 		//     name: 'path',
@@ -35,7 +36,7 @@ export const cmdConfig: GitmarsOptionType = {
 		//     description: t('Path of package')
 		// }
 	],
-	options: []
+	options: [],
 }
 
 export { cmdConfig as default }

@@ -1,5 +1,5 @@
-import { get, post } from '../request/miniprogram'
 import type { WeiXinComponentCommonResult } from '../types'
+import { get, post } from '../request/miniprogram'
 
 const URL_PREFIX = '/api/component/weixin/mpManage'
 
@@ -18,8 +18,8 @@ export function getAuditStatus(authorizer_appid: string) {
 	return post<GetAuditStatus>({
 		url: `${URL_PREFIX}/code/getAuditStatus`,
 		data: {
-			authorizer_appid
-		}
+			authorizer_appid,
+		},
 	})
 }
 
@@ -35,12 +35,13 @@ export interface GetTrialQrCodeOptions {
  */
 export function getTrialQrCode<T extends GetTrialQrCodeOptions>(options: T) {
 	const { authorizer_appid, path = '' } = options || {}
+
 	return get<string>({
 		url: `${URL_PREFIX}/code/getTrialQrCode`,
 		data: {
 			authorizer_appid,
-			path
-		}
+			path,
+		},
 	})
 }
 
@@ -54,8 +55,8 @@ export function undoAudit(authorizer_appid: string) {
 	return get<WeiXinComponentCommonResult>({
 		url: `${URL_PREFIX}/code/undoAudit`,
 		data: {
-			authorizer_appid
-		}
+			authorizer_appid,
+		},
 	})
 }
 
@@ -86,7 +87,7 @@ export interface SubmitAudit extends WeiXinComponentCommonResult {
 export function submitAudit<T extends SubmitAuditOptions>(options: T) {
 	return post<SubmitAudit>({
 		url: `${URL_PREFIX}/code/submitAudit`,
-		data: options || {}
+		data: options || {},
 	})
 }
 
@@ -104,8 +105,8 @@ export function getTester(authorizer_appid: string) {
 		url: `${URL_PREFIX}/member/getTester`,
 		data: {
 			authorizer_appid,
-			action: 'get_experiencer'
-		}
+			action: 'get_experiencer',
+		},
 	})
 }
 
@@ -121,12 +122,13 @@ export interface BindTesterOptions {
  */
 export function bindTester<T extends BindTesterOptions>(options: T) {
 	const { authorizer_appid, wechatid } = options || {}
+
 	return post<string>({
 		url: `${URL_PREFIX}/member/bindTester`,
 		data: {
 			authorizer_appid,
-			wechatid
-		}
+			wechatid,
+		},
 	})
 }
 
@@ -142,12 +144,13 @@ export interface UnbindTesterOptions {
  */
 export function unbindTester<T extends UnbindTesterOptions>(options: T) {
 	const { authorizer_appid, userstr } = options || {}
+
 	return post<string>({
 		url: `${URL_PREFIX}/member/unbindTester`,
 		data: {
 			authorizer_appid,
-			userstr
-		}
+			userstr,
+		},
 	})
 }
 
@@ -158,5 +161,5 @@ export default {
 	submitAudit,
 	getTester,
 	bindTester,
-	unbindTester
+	unbindTester,
 }

@@ -1,11 +1,6 @@
-#!/usr/bin/env ts-node
+import type { CommandType, FetchDataType, GitmarsOptionOptionsType } from './types'
 import { createRequire } from 'node:module'
-import { program } from 'commander'
-import sh from 'shelljs'
-import chalk from 'chalk'
-import { checkbox } from '@inquirer/prompts'
-import to from 'await-to-done'
-import { getType } from 'js-cool'
+import { getUserInfo } from '@gitmars/api'
 import { isNeedUpgrade, queue, upgradeGitmars } from '@gitmars/core'
 import {
 	checkGitStatus,
@@ -15,13 +10,17 @@ import {
 	getIsGitProject,
 	getIsMergedTargetBranch,
 	getIsUpdatedInTime,
-	searchBranches
+	searchBranches,
 } from '@gitmars/git'
 import { createArgs } from '@gitmars/utils'
-import { getUserInfo } from '@gitmars/api'
-import type { CommandType, FetchDataType, GitmarsOptionOptionsType } from './types'
-import lang from './common/local'
+import { checkbox } from '@inquirer/prompts'
+import to from 'await-to-done'
+import chalk from 'chalk'
+import { program } from 'commander'
+import { getType } from 'js-cool'
+import sh from 'shelljs'
 import { defaults } from './common/global'
+import lang from './common/local'
 import combineConfig from './conf/combine'
 
 const { t } = lang
@@ -69,10 +68,10 @@ const config = getConfig()
 program
 	.name('gitm combine')
 	.usage(
-		'[type] [name] [-d --dev] [-p --prod] [-b --build [app]] [-a --add] [-m --commit <commit>] [--data <data>] [--description [description]] [--as-feature] [--no-bugfix] [-f --force]'
+		'[type] [name] [-d --dev] [-p --prod] [-b --build [app]] [-a --add] [-m --commit <commit>] [--data <data>] [--description [description]] [--as-feature] [--no-bugfix] [-f --force]',
 	)
 	.description(
-		t('Merge bugfix task branch, merge feature development branch, merge support branch')
+		t('Merge bugfix task branch, merge feature development branch, merge support branch'),
 	)
 if (args.length > 0) program.arguments(createArgs(args))
 options.forEach((o: GitmarsOptionOptionsType) => {
@@ -92,6 +91,7 @@ program.action(async (type: string, name: string, opt: GitmCombineOption): Promi
 	const userInfoApi = config.apis?.userInfo?.url || config.api
 	// Detecting if a version upgrade is needed
 	const needUpgrade = await isNeedUpgrade(config.versionControlType)
+
 	needUpgrade && upgradeGitmars()
 	const allow = ['bugfix', 'feature', 'support'] // Permissible commands
 	const deny = [
@@ -99,13 +99,14 @@ program.action(async (type: string, name: string, opt: GitmCombineOption): Promi
 		defaults.develop,
 		defaults.release,
 		defaults.bugfix,
-		defaults.support
+		defaults.support,
 	]
 	const { level, nickname = '' } = userInfoApi ? await getUserInfo() : ({} as FetchDataType)
 	const status = !opt.add && opt.commit === '' ? checkGitStatus() : true
 	let _branches: string[] = [], // Branches found
 		pendingBranches: DevelopBranchStatusInfo[] = [], // Batch pending branches
 		isDescriptionCorrect = true // Does the description of the reason for this submission meet the specification
+
 	if (!opt.dev && !opt.prod) {
 		sh.echo(t('Enter the environment to sync to.'))
 		process.exit(1)
@@ -119,33 +120,33 @@ program.action(async (type: string, name: string, opt: GitmCombineOption): Promi
 	if (config.descriptionValidator) {
 		// Verify the description for this commit
 		const reg =
-			getType(config.descriptionValidator) === 'regexp'
-				? (config.descriptionValidator as RegExp)
-				: new RegExp(config.descriptionValidator)
+			getType(config.descriptionValidator) === 'regexp' ? (config.descriptionValidator as RegExp) : new RegExp(config.descriptionValidator)
+
 		isDescriptionCorrect = Boolean(opt.description && reg.test(opt.description))
 	}
 	if (!type) {
 		// type and name are not passed and the current branch is a development branch
 		let _nameArr
+
 		;[type, ..._nameArr] = getCurrentBranch().split('/')
 		name = _nameArr.join('/')
 		if (!name) {
 			deny.includes(type) &&
-				sh.echo(
-					red(
-						t(
-							'Hey bro, what is the fuck are you doing by executing this command in the {type} branch?',
-							{ type }
-						)
-					)
-				)
+			sh.echo(
+				red(
+					t(
+						'Hey bro, what is the fuck are you doing by executing this command in the {type} branch?',
+						{ type },
+					),
+				),
+			)
 			process.exit(1)
 		}
 	}
 
 	// wrong type
 	if (!allow.includes(type)) {
-		sh.echo(red(t('type only allows input') + ': ' + JSON.stringify(allow)))
+		sh.echo(red(`${t('type only allows input')}: ${JSON.stringify(allow)}`))
 		process.exit(1)
 	} else if (type === 'feature' && opt.asFeature) {
 		sh.echo(t('--as-feature is only used in the bugfix branch.'))
@@ -160,7 +161,7 @@ program.action(async (type: string, name: string, opt: GitmCombineOption): Promi
 			process.exit(1)
 		}
 	} else {
-		_branches = [type + '/' + name]
+		_branches = [`${type}/${name}`]
 	}
 
 	const base: string = type === 'bugfix' ? config.bugfix : config.release
@@ -170,20 +171,21 @@ program.action(async (type: string, name: string, opt: GitmCombineOption): Promi
 		const _name = _nameArr.join('/')
 		// Is it necessary to merge dev
 		const isNeedCombineDevelop = !getIsMergedTargetBranch(branchName, config.develop, {
-			remote: true
+			remote: true,
 		})
 		// Is it necessary to merge base
 		const isNeedCombineBase = !getIsMergedTargetBranch(branchName, base, {
-			remote: true
+			remote: true,
 		})
 		// Is it necessary to merge release
 		const isNeedCombineRelease = !getIsMergedTargetBranch(branchName, config.release, {
-			remote: true
+			remote: true,
 		})
 		// Is it necessary to merge bug
 		const isNeedCombineBugfix = !getIsMergedTargetBranch(branchName, config.bugfix, {
-			remote: true
+			remote: true,
 		})
+
 		return {
 			branchName,
 			type: _type,
@@ -191,7 +193,7 @@ program.action(async (type: string, name: string, opt: GitmCombineOption): Promi
 			isNeedCombineDevelop,
 			isNeedCombineBase,
 			isNeedCombineRelease,
-			isNeedCombineBugfix
+			isNeedCombineBugfix,
 		}
 	})
 
@@ -202,27 +204,27 @@ program.action(async (type: string, name: string, opt: GitmCombineOption): Promi
 				message: t('Select branch for batch processing'),
 				choices: branchesWithInfo.map(item => {
 					const _merged = []
+
 					if (!item.isNeedCombineDevelop) _merged.push(config.develop)
 					if (!item.isNeedCombineRelease) _merged.push(config.release)
 					if (!item.isNeedCombineBugfix) _merged.push(config.bugfix)
+
 					return {
 						name: t('{source}{info}', {
 							source: item.branchName,
-							info: _merged.length
-								? green(
-										' (' +
-											t(`Merged branch: {info}`, {
-												info: _merged.join('/')
-											}) +
-											')'
-									)
-								: ''
+							info: _merged.length ? green(
+								` (${
+									t(`Merged branch: {info}`, {
+										info: _merged.join('/'),
+									})
+											})`,
+							) : '',
 						}),
 						value: item,
-						checked: false
+						checked: false,
 					}
-				})
-			})
+				}),
+			}),
 		)
 	}
 
@@ -244,7 +246,7 @@ program.action(async (type: string, name: string, opt: GitmCombineOption): Promi
 		isNeedCombineDevelop,
 		isNeedCombineBase,
 		isNeedCombineRelease,
-		isNeedCombineBugfix
+		isNeedCombineBugfix,
 	} of pendingBranches) {
 		// Get whether the upstream branch code has been synchronized within a week
 		if (!getIsUpdatedInTime({ lastet: '7d', limit: 1000, branch: base })) {
@@ -253,10 +255,10 @@ program.action(async (type: string, name: string, opt: GitmCombineOption): Promi
 					t(
 						'The {source} branch has not updated its upstream branch code in over a week, please sync it at least once a week, execute: gitm update (-f)',
 						{
-							source: branchName
-						}
-					)
-				)
+							source: branchName,
+						},
+					),
+				),
 			)
 		}
 
@@ -273,33 +275,33 @@ program.action(async (type: string, name: string, opt: GitmCombineOption): Promi
 							again: false,
 							success: t('Merge {source} into {target} successfully', {
 								source: branchName,
-								target: config.develop
+								target: config.develop,
 							}),
 							fail: t(
 								'An error occurred merging {source} to {target}, Please follow the instructions',
 								{
 									source: branchName,
-									target: config.develop
-								}
-							)
-						}
+									target: config.develop,
+								},
+							),
+						},
 					},
 					{
 						cmd: 'git push',
 						config: {
 							again: true,
 							success: t('Successfully Pushed'),
-							fail: t('Push failed, please follow the prompts')
-						}
+							fail: t('Push failed, please follow the prompts'),
+						},
 					},
-					`git switch ${branchName}`
+					`git switch ${branchName}`,
 				)
 			else
 				cmd.push({
 					message: t('{source} has been merged with {target}', {
 						source: branchName,
-						target: config.develop
-					})
+						target: config.develop,
+					}),
 				})
 		}
 		// Start merging to prod
@@ -310,9 +312,9 @@ program.action(async (type: string, name: string, opt: GitmCombineOption): Promi
 					yellow(
 						t(
 							'If your branch has not been merged into {target}, please merge it into the {target} branch first',
-							{ target: config.develop }
-						)
-					)
+							{ target: config.develop },
+						),
+					),
 				)
 				process.exit(1)
 			}
@@ -321,14 +323,15 @@ program.action(async (type: string, name: string, opt: GitmCombineOption): Promi
 			if (!opt.noBugfix && !opt.asFeature) {
 				// noBugfix - do not merge to bug branch
 				const weekday = new Date().getDay()
+
 				// Thursday Friday Sunday merge code into bugfix branch prompts warnings
 				if ([0, 4, 5].includes(weekday) && base === config.bugfix) {
 					sh.echo(
 						yellow(
 							t('Use the {base} branch for posting on Thursday, Friday, and Sunday', {
-								base: config.release
-							})
-						)
+								base: config.release,
+							}),
+						),
 					)
 				}
 
@@ -344,42 +347,42 @@ program.action(async (type: string, name: string, opt: GitmCombineOption): Promi
 									again: false,
 									success: t('Merge {source} into {target} successfully', {
 										source: branchName,
-										target: base
+										target: base,
 									}),
 									fail: t(
 										'An error occurred merging {source} to {target}, Please follow the instructions',
 										{
 											source: branchName,
-											target: base
-										}
-									)
-								}
+											target: base,
+										},
+									),
+								},
 							},
 							{
 								cmd: 'git push',
 								config: {
 									again: true,
 									success: t('Successfully Pushed'),
-									fail: t('Push failed, please follow the prompts')
-								}
+									fail: t('Push failed, please follow the prompts'),
+								},
 							},
-							`git switch ${branchName}`
+							`git switch ${branchName}`,
 						)
 					else
 						cmd.push({
 							message: t('{source} has been merged with {target}', {
 								source: branchName,
-								target: base
-							})
+								target: base,
+							}),
 						})
 				} else {
 					if (!isDescriptionCorrect) {
 						sh.echo(
 							red(
 								t(
-									'The description of the reason for submission does not meet the specification'
-								)
-							)
+									'The description of the reason for submission does not meet the specification',
+								),
+							),
 						)
 						process.exit(1)
 					}
@@ -389,8 +392,8 @@ program.action(async (type: string, name: string, opt: GitmCombineOption): Promi
 							config: {
 								again: true,
 								success: t('Push remote and associate remote branch successfully'),
-								fail: t('Push remote failed, please follow the prompts')
-							}
+								fail: t('Push remote failed, please follow the prompts'),
+							},
 						},
 						{
 							cmd: {
@@ -399,16 +402,16 @@ program.action(async (type: string, name: string, opt: GitmCombineOption): Promi
 								options: {
 									source_branch: branchName,
 									target_branch: base,
-									description: opt.description
-								}
+									description: opt.description,
+								},
 							},
 							config: {
 								again: true,
 								success: t('Successfully created merge request'),
 								fail: t(
-									'An error occurred creating the merge request, please follow the prompts'
-								)
-							}
+									'An error occurred creating the merge request, please follow the prompts',
+								),
+							},
 						},
 						[
 							'gitm',
@@ -419,10 +422,10 @@ program.action(async (type: string, name: string, opt: GitmCombineOption): Promi
 									nickname,
 									app: appName,
 									source: branchName,
-									target: base
-								}
-							)}"`
-						]
+									target: base,
+								},
+							)}"`,
+						],
 					)
 				}
 			}
@@ -440,42 +443,42 @@ program.action(async (type: string, name: string, opt: GitmCombineOption): Promi
 									again: false,
 									success: t('Merge {source} into {target} successfully', {
 										source: branchName,
-										target: config.release
+										target: config.release,
 									}),
 									fail: t(
 										'An error occurred merging {source} to {target}, Please follow the instructions',
 										{
 											source: branchName,
-											target: config.release
-										}
-									)
-								}
+											target: config.release,
+										},
+									),
+								},
 							},
 							{
 								cmd: 'git push',
 								config: {
 									again: true,
 									success: t('Successfully Pushed'),
-									fail: t('Push failed, please follow the prompts')
-								}
+									fail: t('Push failed, please follow the prompts'),
+								},
 							},
-							`git switch ${branchName}`
+							`git switch ${branchName}`,
 						)
 					else
 						cmd.push({
 							message: t('{source} has been merged with {target}', {
 								source: branchName,
-								target: config.release
-							})
+								target: config.release,
+							}),
 						})
 				} else {
 					if (!isDescriptionCorrect) {
 						sh.echo(
 							red(
 								t(
-									'The description of the reason for submission does not meet the specification'
-								)
-							)
+									'The description of the reason for submission does not meet the specification',
+								),
+							),
 						)
 						process.exit(1)
 					}
@@ -485,8 +488,8 @@ program.action(async (type: string, name: string, opt: GitmCombineOption): Promi
 							config: {
 								again: true,
 								success: t('Push remote and associate remote branch successfully'),
-								fail: t('Push remote failed, please follow the prompts')
-							}
+								fail: t('Push remote failed, please follow the prompts'),
+							},
 						},
 						{
 							cmd: {
@@ -495,16 +498,16 @@ program.action(async (type: string, name: string, opt: GitmCombineOption): Promi
 								options: {
 									source_branch: branchName,
 									target_branch: config.release,
-									description: opt.description
-								}
+									description: opt.description,
+								},
 							},
 							config: {
 								again: true,
 								success: t('Successfully created merge request'),
 								fail: t(
-									'An error occurred creating the merge request, please follow the prompts'
-								)
-							}
+									'An error occurred creating the merge request, please follow the prompts',
+								),
+							},
 						},
 						[
 							'gitm',
@@ -515,10 +518,10 @@ program.action(async (type: string, name: string, opt: GitmCombineOption): Promi
 									nickname,
 									app: appName,
 									source: branchName,
-									target: config.release
-								}
-							)}"`
-						]
+									target: config.release,
+								},
+							)}"`,
+						],
 					)
 				}
 			}
@@ -536,42 +539,42 @@ program.action(async (type: string, name: string, opt: GitmCombineOption): Promi
 									again: false,
 									success: t('Merge {source} into {target} successfully', {
 										source: branchName,
-										target: config.bugfix
+										target: config.bugfix,
 									}),
 									fail: t(
 										'An error occurred merging {source} to {target}, Please follow the instructions',
 										{
 											source: branchName,
-											target: config.bugfix
-										}
-									)
-								}
+											target: config.bugfix,
+										},
+									),
+								},
 							},
 							{
 								cmd: 'git push',
 								config: {
 									again: true,
 									success: t('Successfully Pushed'),
-									fail: t('Push failed, please follow the prompts')
-								}
+									fail: t('Push failed, please follow the prompts'),
+								},
 							},
-							`git switch ${branchName}`
+							`git switch ${branchName}`,
 						)
 					else
 						cmd.push({
 							message: t('{source} has been merged with {target}', {
 								source: branchName,
-								target: config.bugfix
-							})
+								target: config.bugfix,
+							}),
 						})
 				} else {
 					if (!isDescriptionCorrect) {
 						sh.echo(
 							red(
 								t(
-									'The description of the reason for submission does not meet the specification'
-								)
-							)
+									'The description of the reason for submission does not meet the specification',
+								),
+							),
 						)
 						process.exit(1)
 					}
@@ -581,8 +584,8 @@ program.action(async (type: string, name: string, opt: GitmCombineOption): Promi
 							config: {
 								again: true,
 								success: t('Push remote and associate remote branch successfully'),
-								fail: t('Push remote failed, please follow the prompts')
-							}
+								fail: t('Push remote failed, please follow the prompts'),
+							},
 						},
 						{
 							cmd: {
@@ -591,16 +594,16 @@ program.action(async (type: string, name: string, opt: GitmCombineOption): Promi
 								options: {
 									source_branch: branchName,
 									target_branch: config.bugfix,
-									description: opt.description
-								}
+									description: opt.description,
+								},
 							},
 							config: {
 								again: true,
 								success: t('Successfully created merge request'),
 								fail: t(
-									'An error occurred creating the merge request, please follow the prompts'
-								)
-							}
+									'An error occurred creating the merge request, please follow the prompts',
+								),
+							},
 						},
 						[
 							'gitm',
@@ -611,10 +614,10 @@ program.action(async (type: string, name: string, opt: GitmCombineOption): Promi
 									nickname,
 									app: appName,
 									source: branchName,
-									target: config.bugfix
-								}
-							)}"`
-						]
+									target: config.bugfix,
+								},
+							)}"`,
+						],
 					)
 				}
 			}
@@ -626,13 +629,13 @@ program.action(async (type: string, name: string, opt: GitmCombineOption): Promi
 			cmd.push({
 				cmd: `gitm build ${appName} --confirm --env dev --app ${
 					opt.build === true ? 'all' : opt.build
-				} ${opt.data ? ' --data ' + opt.data : ''}`,
+				} ${opt.data ? ` --data ${opt.data}` : ''}`,
 				config: {
 					stdio: 'inherit',
 					again: false,
 					success: t('Pulling up the build was successful'),
-					fail: t('Failed to pull up the build')
-				}
+					fail: t('Failed to pull up the build'),
+				},
 			})
 		else if (opt.prod) {
 			// Only support building bug environment
@@ -641,13 +644,13 @@ program.action(async (type: string, name: string, opt: GitmCombineOption): Promi
 					cmd.push({
 						cmd: `gitm build ${appName} --confirm --env bug --app ${
 							opt.build === true ? 'all' : opt.build
-						} ${opt.data ? ' --data ' + opt.data : ''}`,
+						} ${opt.data ? ` --data ${opt.data}` : ''}`,
 						config: {
 							stdio: 'inherit',
 							again: false,
 							success: t('Pulling up the build was successful'),
-							fail: t('Failed to pull up the build')
-						}
+							fail: t('Failed to pull up the build'),
+						},
 					})
 				}
 				// support branch needs to build bug and release
@@ -655,13 +658,13 @@ program.action(async (type: string, name: string, opt: GitmCombineOption): Promi
 					cmd.push({
 						cmd: `gitm build ${appName} --confirm --env bug --app ${
 							opt.build === true ? 'all' : opt.build
-						} ${opt.data ? ' --data ' + opt.data : ''}`,
+						} ${opt.data ? ` --data ${opt.data}` : ''}`,
 						config: {
 							stdio: 'inherit',
 							again: false,
 							success: t('Pulling up the build was successful'),
-							fail: t('Failed to pull up the build')
-						}
+							fail: t('Failed to pull up the build'),
+						},
 					})
 				}
 			} else {
@@ -672,10 +675,10 @@ program.action(async (type: string, name: string, opt: GitmCombineOption): Promi
 							{
 								appName,
 								app: opt.build === true ? 'all' : opt.build,
-								data: opt.data ? ' --data ' + opt.data : ''
-							}
-						)
-					)
+								data: opt.data ? ` --data ${opt.data}` : '',
+							},
+						),
+					),
 				)
 			}
 		}

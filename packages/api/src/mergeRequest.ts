@@ -1,7 +1,7 @@
-import chalk from 'chalk'
-import request from '@jssj/request'
 import { getConfig, getGitToken } from '@gitmars/git'
 import { debug } from '@gitmars/utils'
+import request from '@jssj/request'
+import chalk from 'chalk'
 import lang from './lang'
 
 const { t } = lang
@@ -19,7 +19,7 @@ const token = getGitToken()
 export async function createMergeRequest({
 	source_branch,
 	target_branch,
-	description
+	description,
 }: {
 	source_branch: string
 	target_branch: string
@@ -35,20 +35,22 @@ export async function createMergeRequest({
 		source_branch,
 		target_branch,
 		title: `Merge branch '${source_branch}' into '${target_branch}'`,
-		private_token: token
+		private_token: token,
 	}
+
 	if (description) params.description = description
 	const fetchData = await request.post({
 		url: MERGE_REQUESTS_URL,
-		data: params
+		data: params,
 	})
+
 	debug('fetchData', fetchData)
 	if (fetchData && 'message' in fetchData) {
-		const message = fetchData.message
-			? [].concat(fetchData.message).join('')
-			: t('The request reported an error')
+		const message = fetchData.message ? [].concat(fetchData.message).join('') : t('The request reported an error')
+
 		return Promise.reject(chalk.red(message))
 	}
+
 	return fetchData
 }
 
@@ -59,25 +61,26 @@ export async function createMergeRequest({
  * @returns command
  */
 export async function getMergeRequestList({
-	state = 'opened'
+	state = 'opened',
 }: {
 	state?: 'merged' | 'opened' | 'closed' | 'all'
 }) {
 	const params = {
 		state,
-		private_token: token
+		private_token: token,
 	}
 	const fetchData = await request.get({
 		url: MERGE_REQUESTS_URL,
-		data: params
+		data: params,
 	})
+
 	debug('fetchData', fetchData)
 	if (fetchData && 'message' in fetchData) {
-		const message = fetchData.message
-			? [].concat(fetchData.message).join('')
-			: t('The request reported an error')
+		const message = fetchData.message ? [].concat(fetchData.message).join('') : t('The request reported an error')
+
 		return Promise.reject(chalk.red(message))
 	}
+
 	return fetchData
 }
 
@@ -89,19 +92,20 @@ export async function getMergeRequestList({
  */
 export async function getMergeRequestCommits({ iid }: { iid: number | string }) {
 	const params = {
-		private_token: token
+		private_token: token,
 	}
 	const fetchData = await request.get({
 		url: `${MERGE_REQUESTS_URL}/${iid}/commits`,
-		data: params
+		data: params,
 	})
+
 	debug('fetchData', fetchData)
 	if (fetchData && 'message' in fetchData) {
-		const message = fetchData.message
-			? [].concat(fetchData.message).join('')
-			: t('The request reported an error')
+		const message = fetchData.message ? [].concat(fetchData.message).join('') : t('The request reported an error')
+
 		return Promise.reject(chalk.red(message))
 	}
+
 	return fetchData
 }
 
@@ -113,19 +117,20 @@ export async function getMergeRequestCommits({ iid }: { iid: number | string }) 
  */
 export async function getMergeRequestCloseIssues({ iid }: { iid: number | string }) {
 	const params = {
-		private_token: token
+		private_token: token,
 	}
 	const fetchData = await request.get({
 		url: `${MERGE_REQUESTS_URL}/${iid}/closes_issues`,
-		data: params
+		data: params,
 	})
+
 	debug('fetchData', fetchData)
 	if (fetchData && 'message' in fetchData) {
-		const message = fetchData.message
-			? [].concat(fetchData.message).join('')
-			: t('The request reported an error')
+		const message = fetchData.message ? [].concat(fetchData.message).join('') : t('The request reported an error')
+
 		return Promise.reject(chalk.red(message))
 	}
+
 	return fetchData
 }
 
@@ -137,19 +142,20 @@ export async function getMergeRequestCloseIssues({ iid }: { iid: number | string
  */
 export async function getMergeRequestParticipants({ iid }: { iid: number | string }) {
 	const params = {
-		private_token: token
+		private_token: token,
 	}
 	const fetchData = await request.get({
 		url: `${MERGE_REQUESTS_URL}/${iid}/participants`,
-		data: params
+		data: params,
 	})
+
 	debug('fetchData', fetchData)
 	if (fetchData && 'message' in fetchData) {
-		const message = fetchData.message
-			? [].concat(fetchData.message).join('')
-			: t('The request reported an error')
+		const message = fetchData.message ? [].concat(fetchData.message).join('') : t('The request reported an error')
+
 		return Promise.reject(chalk.red(message))
 	}
+
 	return fetchData
 }
 
@@ -161,19 +167,20 @@ export async function getMergeRequestParticipants({ iid }: { iid: number | strin
  */
 export async function getMergeRequestChanges({ iid }: { iid: number | string }) {
 	const params = {
-		private_token: token
+		private_token: token,
 	}
 	const fetchData = await request.get({
 		url: `${MERGE_REQUESTS_URL}/${iid}/changes`,
-		data: params
+		data: params,
 	})
+
 	debug('fetchData', fetchData)
 	if (fetchData && 'message' in fetchData) {
-		const message = fetchData.message
-			? [].concat(fetchData.message).join('')
-			: t('The request reported an error')
+		const message = fetchData.message ? [].concat(fetchData.message).join('') : t('The request reported an error')
+
 		return Promise.reject(chalk.red(message))
 	}
+
 	return fetchData
 }
 
@@ -185,19 +192,20 @@ export async function getMergeRequestChanges({ iid }: { iid: number | string }) 
  */
 export async function getMergeRequestDiffVersions({ iid }: { iid: number | string }) {
 	const params = {
-		private_token: token
+		private_token: token,
 	}
 	const fetchData = await request.get({
 		url: `${MERGE_REQUESTS_URL}/${iid}/versions`,
-		data: params
+		data: params,
 	})
+
 	debug('fetchData', fetchData)
 	if (fetchData && 'message' in fetchData) {
-		const message = fetchData.message
-			? [].concat(fetchData.message).join('')
-			: t('The request reported an error')
+		const message = fetchData.message ? [].concat(fetchData.message).join('') : t('The request reported an error')
+
 		return Promise.reject(chalk.red(message))
 	}
+
 	return fetchData
 }
 
@@ -209,21 +217,23 @@ export async function getMergeRequestDiffVersions({ iid }: { iid: number | strin
  */
 export async function acceptMergeRequest({ iid }: { iid: number | string }) {
 	const params = {
-		private_token: token
+		private_token: token,
 	}
 	const fetchData = await request.put({
 		url: `${MERGE_REQUESTS_URL}/${iid}/merge`,
 		data: params,
-		options: { error: true }
+		options: { error: true },
 	})
+
 	debug('fetchData', fetchData)
 	if (fetchData && 'message' in fetchData) {
-		const message = fetchData.message
-			? [].concat(fetchData.message).join('')
-			: t('The request reported an error')
+		const message = fetchData.message ? [].concat(fetchData.message).join('') : t('The request reported an error')
+
 		if (message === '500 Internal Server Error') return true
+
 		return Promise.reject(chalk.red(message))
 	}
+
 	return fetchData
 }
 
@@ -235,7 +245,7 @@ export async function acceptMergeRequest({ iid }: { iid: number | string }) {
  */
 export async function updateMergeRequest({
 	iid,
-	data = {}
+	data = {},
 }: {
 	iid: number | string
 	data: Record<string, unknown> & {
@@ -246,16 +256,18 @@ export async function updateMergeRequest({
 	const fetchData = await request.put({
 		url: `${MERGE_REQUESTS_URL}/${iid}`,
 		data,
-		options: { error: true }
+		options: { error: true },
 	})
+
 	debug('fetchData', fetchData)
 	if (fetchData && 'message' in fetchData) {
-		const message = fetchData.message
-			? [].concat(fetchData.message).join('')
-			: t('The request reported an error')
+		const message = fetchData.message ? [].concat(fetchData.message).join('') : t('The request reported an error')
+
 		if (message === '500 Internal Server Error') return true
+
 		return Promise.reject(chalk.red(message))
 	}
+
 	return fetchData
 }
 
@@ -267,21 +279,23 @@ export async function updateMergeRequest({
  */
 export async function deleteMergeRequest({ iid }: { iid: number | string }) {
 	const params = {
-		private_token: token
+		private_token: token,
 	}
 	const fetchData = await request.delete({
 		url: `${MERGE_REQUESTS_URL}/${iid}`,
 		data: params,
-		options: { error: true }
+		options: { error: true },
 	})
+
 	debug('fetchData', fetchData)
 	if (fetchData && 'message' in fetchData) {
-		const message = fetchData.message
-			? [].concat(fetchData.message).join('')
-			: t('The request reported an error')
+		const message = fetchData.message ? [].concat(fetchData.message).join('') : t('The request reported an error')
+
 		if (message === '500 Internal Server Error') return true
+
 		return Promise.reject(chalk.red(message))
 	}
+
 	return fetchData
 }
 
@@ -295,5 +309,5 @@ export default {
 	getMergeRequestDiffVersions,
 	acceptMergeRequest,
 	updateMergeRequest,
-	deleteMergeRequest
+	deleteMergeRequest,
 }

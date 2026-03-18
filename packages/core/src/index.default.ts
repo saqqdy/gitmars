@@ -15,5 +15,5 @@ export default {
 	wait,
 	sendGroupMessage,
 	isNeedUpgrade,
-	upgradeGitmars
+	upgradeGitmars,
 }

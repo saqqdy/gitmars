@@ -1,10 +1,9 @@
-#!/usr/bin/env ts-node
-import { program } from 'commander'
-import columnify from 'columnify'
-import chalk from 'chalk'
+import type { GitmarsOptionOptionsType, GitStatusInfoType } from './types'
 import { getCurrentBranch, getGitStatus, getIsGitProject } from '@gitmars/git'
 import { createArgs, echo } from '@gitmars/utils'
-import type { GitStatusInfoType, GitmarsOptionOptionsType } from './types'
+import chalk from 'chalk'
+import columnify from 'columnify'
+import { program } from 'commander'
 import lang from './common/local'
 import statusConfig from './conf/status'
 
@@ -34,18 +33,19 @@ program.action(() => {
 		status.A.length,
 		status.M.length,
 		status.D.length,
-		status.UU.length
+		status.UU.length,
 	)
+
 	while (num--) {
 		data.unshift({
 			added: yellow(status.A[num] || ''),
 			modified: green(status.M[num] || ''),
 			deleted: red(status.D[num] || ''),
 			unmerged: red(status.UU),
-			untracked: cyan(status['??'][num] || '')
+			untracked: cyan(status['??'][num] || ''),
 		})
 	}
-	echo(green(t('Current branch: {something}', { something: current }) + '\n'))
+	echo(green(`${t('Current branch: {something}', { something: current })}\n`))
 	echo(columnify(data))
 })
 program.parse(process.argv)

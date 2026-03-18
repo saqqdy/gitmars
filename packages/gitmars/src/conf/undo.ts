@@ -14,8 +14,8 @@ export const cmdConfig: GitmarsOptionType = {
 				cb()
 			},
 			// transformer: null,
-			description: t('ID of the undo needed')
-		}
+			description: t('ID of the undo needed'),
+		},
 	],
 	options: [
 		{
@@ -28,9 +28,9 @@ export const cmdConfig: GitmarsOptionType = {
 			long: '--lastet',
 			negate: false,
 			description: t(
-				'Query logs after a certain time, fill in the format: 10s/2m/2h/3d/4M/5y'
+				'Query logs after a certain time, fill in the format: 10s/2m/2h/3d/4M/5y',
 			),
-			defaultValue: ''
+			defaultValue: '',
 		},
 		{
 			flags: '--no-merges',
@@ -42,7 +42,7 @@ export const cmdConfig: GitmarsOptionType = {
 			negate: true,
 			description: t('Whether to exclude merge records'),
 			defaultValue: true,
-			recommend: false
+			recommend: false,
 		},
 		{
 			flags: '-m, --mode [mode]',
@@ -54,11 +54,11 @@ export const cmdConfig: GitmarsOptionType = {
 			long: '--mode',
 			negate: false,
 			description: t(
-				'For undoing a merge record, the type to be passed in: 1 = keep current branch code, 2 = keep incoming code'
+				'For undoing a merge record, the type to be passed in: 1 = keep current branch code, 2 = keep incoming code',
 			),
 			defaultValue: null,
 			options: [1, 2],
-			value: null
+			value: null,
 		},
 		{
 			flags: '--limit [limit]',
@@ -70,7 +70,7 @@ export const cmdConfig: GitmarsOptionType = {
 			long: '--limit',
 			negate: false,
 			description: t('The maximum number of logs to be queried'),
-			defaultValue: ''
+			defaultValue: '',
 		},
 		{
 			flags: '--calc',
@@ -81,7 +81,7 @@ export const cmdConfig: GitmarsOptionType = {
 			long: '--calc',
 			negate: false,
 			description: t('Clean up the current branch undo failure log'),
-			recommend: false
+			recommend: false,
 		},
 		{
 			flags: '--calcAll',
@@ -92,13 +92,14 @@ export const cmdConfig: GitmarsOptionType = {
 			long: '--calcAll',
 			negate: false,
 			description: t('Clean up all branch undo failures'),
-			recommend: false
-		}
+			recommend: false,
+		},
 	],
 	// validator opts
 	validatorOpts: (val, opts, cb) => {
 		if ((val.includes('--calc') || val.includes('--calcAll')) && val.length > 1) {
 			cb(new Error(t('--calc and --calcAll can only be used individually')))
+
 			return
 		}
 		cb()
@@ -114,7 +115,7 @@ export const cmdConfig: GitmarsOptionType = {
 	// transform args
 	transformArgs: (val, opts, cb) => {
 		cb()
-	}
+	},
 }
 
 export { cmdConfig as default }

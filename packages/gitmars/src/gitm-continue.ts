@@ -1,16 +1,15 @@
-#!/usr/bin/env ts-node
-import { program } from 'commander'
-import sh from 'shelljs'
-import chalk from 'chalk'
-import to from 'await-to-done'
-import { confirm } from '@inquirer/prompts'
+import type { CommandType, GitmarsOptionOptionsType } from './types'
+import { cleanCommandCache, getCommandCache } from '@gitmars/cache'
 import { queue } from '@gitmars/core'
 import { getGitStatus, getIsGitProject } from '@gitmars/git'
 import { createArgs } from '@gitmars/utils'
-import { cleanCommandCache, getCommandCache } from '@gitmars/cache'
-import type { CommandType, GitmarsOptionOptionsType } from './types'
-import continueConfig from './conf/continue'
+import { confirm } from '@inquirer/prompts'
+import to from 'await-to-done'
+import chalk from 'chalk'
+import { program } from 'commander'
+import sh from 'shelljs'
 import lang from './common/local'
+import continueConfig from './conf/continue'
 
 const { t } = lang
 const { green, red, yellow } = chalk
@@ -37,6 +36,7 @@ options.forEach((o: GitmarsOptionOptionsType) => {
 program.action(async (opt: GitmContinueOption) => {
 	const sum = getGitStatus()
 	const cmd: Array<CommandType | string | string[]> = getCommandCache()
+
 	if (opt.list) {
 		console.info(cmd)
 		process.exit(0)
@@ -47,11 +47,12 @@ program.action(async (opt: GitmContinueOption) => {
 			const [, answer] = await to(
 				confirm({
 					message: t(
-						'A conflict has been detected in the merge branch and you need to run git add . Do you want to force the script to continue?'
+						'A conflict has been detected in the merge branch and you need to run git add . Do you want to force the script to continue?',
 					),
-					default: false
-				})
+					default: false,
+				}),
 			)
+
 			if (!answer) {
 				sh.echo(green(t('exited')))
 				process.exit(0)

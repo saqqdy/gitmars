@@ -1,9 +1,9 @@
-import sh from 'shelljs'
+import { getConfig, getGitConfig, getGitRevParse } from '@gitmars/git'
 import chalk from 'chalk'
 import { mapTemplate } from 'js-cool'
-import { getConfig, getGitConfig, getGitRevParse } from '@gitmars/git'
-import sendGroupMessage from './sendGroupMessage'
+import sh from 'shelljs'
 import lang from './lang'
+import sendGroupMessage from './sendGroupMessage'
 
 const { t } = lang
 
@@ -19,6 +19,7 @@ export function getMessage(type: string): string {
 	const config = getConfig()
 	const d = new Date()
 	let str = ''
+
 	switch (type) {
 		case 'time':
 			str = d.toLocaleString()
@@ -39,6 +40,7 @@ export function getMessage(type: string): string {
 		default:
 			break
 	}
+
 	return str
 }
 
@@ -49,13 +51,17 @@ export function getMessage(type: string): string {
  */
 export async function postMessage(msg = ''): Promise<void> {
 	const config = getConfig()
+
 	if (!config.msgTemplate) {
 		sh.echo(chalk.red(t('Please configure the message sending api template address')))
+
 		return
 	}
 	const message = mapTemplate(config.msgTemplate, (key: string) => {
 		if (key === 'message') return msg
+
 		return getMessage(key)
 	})
+
 	message && (await sendGroupMessage(message))
 }

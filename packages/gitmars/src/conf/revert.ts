@@ -14,8 +14,8 @@ export const cmdConfig: GitmarsOptionType = {
 				cb()
 			},
 			// transformer: null,
-			description: t('ID of the undo needed')
-		}
+			description: t('ID of the undo needed'),
+		},
 	],
 	options: [
 		{
@@ -28,7 +28,7 @@ export const cmdConfig: GitmarsOptionType = {
 			long: '--number',
 			negate: false,
 			description: t('Undo the last commit (or undo the penultimate nth commit)'),
-			defaultValue: ''
+			defaultValue: '',
 		},
 		{
 			flags: '-m, --mode [mode]',
@@ -40,12 +40,12 @@ export const cmdConfig: GitmarsOptionType = {
 			long: '--mode',
 			negate: false,
 			description: t(
-				'For undoing a merge record, the type to be passed in: 1 = keep current branch code, 2 = keep incoming code'
+				'For undoing a merge record, the type to be passed in: 1 = keep current branch code, 2 = keep incoming code',
 			),
 			defaultValue: '',
 			options: ['1', '2'],
-			value: '1'
-		}
+			value: '1',
+		},
 	],
 	// validator opts
 	validatorOpts: (val, opts, cb) => {
@@ -62,7 +62,7 @@ export const cmdConfig: GitmarsOptionType = {
 	// transform args
 	transformArgs: (val, opts, cb) => {
 		cb()
-	}
+	},
 }
 
 export { cmdConfig as default }

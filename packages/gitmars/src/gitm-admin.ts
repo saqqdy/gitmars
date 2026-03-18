@@ -1,10 +1,11 @@
-#!/usr/bin/env ts-node
+import type {
+	CommandType,
+	FetchDataType,
+	GitmarsMainBranchType,
+	GitmarsOptionOptionsType,
+} from './types'
 import { createRequire } from 'node:module'
-import { Command } from 'commander'
-import chalk from 'chalk'
-import { getType } from 'js-cool'
 import { getUserInfo } from '@gitmars/api'
-import { createArgs, echo, spawnSync } from '@gitmars/utils'
 import { queue } from '@gitmars/core'
 import {
 	checkGitStatus,
@@ -14,14 +15,12 @@ import {
 	getGitConfig,
 	getIsBranchOrCommitExist,
 	getIsGitProject,
-	getIsMergedTargetBranch
+	getIsMergedTargetBranch,
 } from '@gitmars/git'
-import type {
-	CommandType,
-	FetchDataType,
-	GitmarsMainBranchType,
-	GitmarsOptionOptionsType
-} from './types'
+import { createArgs, echo, spawnSync } from '@gitmars/utils'
+import chalk from 'chalk'
+import { Command } from 'commander'
+import { getType } from 'js-cool'
 import lang from './common/local'
 import adminConfig from './conf/admin'
 
@@ -40,6 +39,7 @@ const userInfoApi = config.apis?.userInfo?.url || config.api
 const mergeRequestModule = require.resolve('@gitmars/api')
 // const mergeRequestModule = import.meta.resolve('@gitmars/api')
 const { approve, clean, create, publish, update } = adminConfig
+
 interface GitmAdminOption {
 	publish: {
 		combine?: boolean
@@ -75,7 +75,8 @@ const createProgram = program
 	.name('gitm admin')
 	.usage('<command> <type>')
 	.description(t('Create bugfix, release, develop and support branches'))
-	.command('create ' + createArgs(create.args))
+	.command(`create ${createArgs(create.args)}`)
+
 create.options.forEach((o: GitmarsOptionOptionsType) => {
 	createProgram.option(o.flags, o.description, o.defaultValue)
 })
@@ -86,6 +87,7 @@ createProgram.action((type: GitmarsMainBranchType): void => {
 	const status = checkGitStatus()
 	const hasBase = getIsBranchOrCommitExist(base)
 	const exits = getIsBranchOrCommitExist(config[type])
+
 	if (!status) process.exit(1)
 	if (!hasBase) {
 		echo(red(t('{base} branch does not exist, please create a {base} branch first', { base })))
@@ -95,9 +97,9 @@ createProgram.action((type: GitmarsMainBranchType): void => {
 		echo(
 			red(
 				t('The {branch} branch already exists and does not need to be created again', {
-					branch: config[type]
-				})
-			)
+					branch: config[type],
+				}),
+			),
 		)
 		process.exit(1)
 	}
@@ -107,8 +109,9 @@ createProgram.action((type: GitmarsMainBranchType): void => {
 			'git fetch',
 			`git switch ${base}`,
 			'git pull',
-			`git checkout -b ${config[type]} ${base}`
+			`git checkout -b ${config[type]} ${base}`,
 		]
+
 		queue(cmd).then((data: any[]) => {
 			if (data[3].status === 0) {
 				echo(
@@ -117,14 +120,14 @@ createProgram.action((type: GitmarsMainBranchType): void => {
 						{
 							target: config[type],
 							base,
-							command: green('gitm admin publish ' + config[type])
-						}
-					)
+							command: green(`gitm admin publish ${config[type]}`),
+						},
+					),
 				)
 			}
 		})
 	} else {
-		echo(red(t('type only allows input') + ': ' + opts.join(',')))
+		echo(red(`${t('type only allows input')}: ${opts.join(',')}`))
 		process.exit(1)
 	}
 })
@@ -132,10 +135,11 @@ createProgram.action((type: GitmarsMainBranchType): void => {
 const publishProgram = program
 	.name('gitm admin')
 	.usage(
-		'<command> <type> [--description [description]] [-c --combine] [--use-rebase] [-p --prod] [-b --build [app]] [-d --data <data>] [--postmsg] [-f --force]'
+		'<command> <type> [--description [description]] [-c --combine] [--use-rebase] [-p --prod] [-b --build [app]] [-d --data <data>] [--postmsg] [-f --force]',
 	)
 	.description(t('Release bugfix, release, support branches'))
-	.command('publish ' + createArgs(publish.args))
+	.command(`publish ${createArgs(publish.args)}`)
+
 publish.options.forEach((o: GitmarsOptionOptionsType) => {
 	publishProgram.option(o.flags, o.description, o.defaultValue)
 })
@@ -155,37 +159,38 @@ publishProgram.action(
 		const status = checkGitStatus()
 		const curBranch = await getCurrentBranch()
 		let isDescriptionCorrect = true // Does the description of the reason for this submission meet the specification
+
 		if (!status) process.exit(1)
 		fetch()
 		// When there is a descriptionValidator configured, the description information needs to be verified
 		if (config.descriptionValidator) {
 			// Verify the description for this commit
 			const reg =
-				getType(config.descriptionValidator) === 'regexp'
-					? (config.descriptionValidator as RegExp)
-					: new RegExp(config.descriptionValidator)
+				getType(config.descriptionValidator) === 'regexp' ? (config.descriptionValidator as RegExp) : new RegExp(config.descriptionValidator)
+
 			isDescriptionCorrect = Boolean(opt.description && reg.test(opt.description))
 		}
 		const isNeedCombineBugfixToRelease = !getIsMergedTargetBranch(
 			`origin/${config.bugfix}`,
 			config.release,
-			{ remote: true }
+			{ remote: true },
 		)
 		const isNeedCombineSupportToRelease = !getIsMergedTargetBranch(
 			`origin/${config.support}`,
 			config.release,
-			{ remote: true }
+			{ remote: true },
 		)
 		const isNeedCombineSupportToBugfix = !getIsMergedTargetBranch(
 			`origin/${config.support}`,
 			config.bugfix,
-			{ remote: true }
+			{ remote: true },
 		)
 		const isNeedCombineReleaseToMaster = !getIsMergedTargetBranch(
 			`origin/${config.release}`,
 			config.master,
-			{ remote: true }
+			{ remote: true },
 		)
+
 		if (opts.includes(type)) {
 			/**
 			 * bugfix -> master/release
@@ -196,12 +201,12 @@ publishProgram.action(
 			let cmd: {
 				[prop in PublishOptsType]: Array<CommandType | string | string[]>
 			}
+
 			if (!level || level < 4) {
 				cmd = {
 					bugfix:
-						isNeedCombineBugfixToRelease || opt.force
-							? [
-									'git fetch',
+						isNeedCombineBugfixToRelease || opt.force ? [
+							'git fetch',
 									`git switch ${config.bugfix}`,
 									'git pull',
 									`git switch ${config.release}`,
@@ -215,40 +220,38 @@ publishProgram.action(
 												'Merge {source} into {target} successfully',
 												{
 													source: config.bugfix,
-													target: config.release
-												}
+													target: config.release,
+												},
 											),
 											fail: t(
 												'An error occurred merging {source} to {target}, Please follow the instructions',
 												{
 													source: config.bugfix,
-													target: config.release
-												}
-											)
-										}
+													target: config.release,
+												},
+											),
+										},
 									},
 									{
 										cmd: 'git push',
 										config: {
 											again: true,
 											success: t('Successfully Pushed'),
-											fail: t('Push failed, please follow the prompts')
-										}
-									}
-								]
-							: [
-									{
-										message: t('{source} has been merged with {target}', {
-											source: config.bugfix,
-											target: config.release
-										})
-									}
-								],
+											fail: t('Push failed, please follow the prompts'),
+										},
+									},
+						] : [
+							{
+								message: t('{source} has been merged with {target}', {
+									source: config.bugfix,
+									target: config.release,
+								}),
+							},
+						],
 					support: ([] as Array<CommandType | string | string[]>)
 						.concat(
-							isNeedCombineSupportToRelease || opt.force
-								? [
-										'git fetch',
+							isNeedCombineSupportToRelease || opt.force ? [
+								'git fetch',
 										`git switch ${config.support}`,
 										'git pull',
 										`git switch ${config.release}`,
@@ -261,39 +264,37 @@ publishProgram.action(
 													'Merge {source} into {target} successfully',
 													{
 														source: config.support,
-														target: config.release
-													}
+														target: config.release,
+													},
 												),
 												fail: t(
 													'An error occurred merging {source} to {target}, Please follow the instructions',
 													{
 														source: config.support,
-														target: config.release
-													}
-												)
-											}
+														target: config.release,
+													},
+												),
+											},
 										},
 										{
 											cmd: 'git push',
 											config: {
 												again: true,
 												success: t('Successfully Pushed'),
-												fail: t('Push failed, please follow the prompts')
-											}
-										}
-									]
-								: [
-										{
-											message: t('{source} has been merged with {target}', {
-												source: config.support,
-												target: config.release
-											})
-										}
-									]
+												fail: t('Push failed, please follow the prompts'),
+											},
+										},
+							] : [
+								{
+									message: t('{source} has been merged with {target}', {
+										source: config.support,
+										target: config.release,
+									}),
+								},
+							],
 						)
 						.concat(
-							isNeedCombineSupportToBugfix || opt.force
-								? [
+							isNeedCombineSupportToBugfix || opt.force ? [
 										`git switch ${config.bugfix}`,
 										'git pull',
 										{
@@ -304,40 +305,38 @@ publishProgram.action(
 													'Merge {source} into {target} successfully',
 													{
 														source: config.support,
-														target: config.bugfix
-													}
+														target: config.bugfix,
+													},
 												),
 												fail: t(
 													'An error occurred merging {source} to {target}, Please follow the instructions',
 													{
 														source: config.support,
-														target: config.bugfix
-													}
-												)
-											}
+														target: config.bugfix,
+													},
+												),
+											},
 										},
 										{
 											cmd: 'git push',
 											config: {
 												again: true,
 												success: t('Successfully Pushed'),
-												fail: t('Push failed, please follow the prompts')
-											}
-										}
-									]
-								: [
-										{
-											message: t('{source} has been merged with {target}', {
-												source: config.support,
-												target: config.bugfix
-											})
-										}
-									]
+												fail: t('Push failed, please follow the prompts'),
+											},
+										},
+							] : [
+								{
+									message: t('{source} has been merged with {target}', {
+										source: config.support,
+										target: config.bugfix,
+									}),
+								},
+							],
 						),
 					release:
-						isNeedCombineReleaseToMaster || opt.force
-							? [
-									'git fetch',
+						isNeedCombineReleaseToMaster || opt.force ? [
+							'git fetch',
 									`git switch ${config.release}`,
 									'git pull',
 									`git switch ${config.master}`,
@@ -350,223 +349,214 @@ publishProgram.action(
 												'Merge {source} into {target} successfully',
 												{
 													source: config.release,
-													target: config.master
-												}
+													target: config.master,
+												},
 											),
 											fail: t(
 												'An error occurred merging {source} to {target}, Please follow the instructions',
 												{
 													source: config.release,
-													target: config.master
-												}
-											)
-										}
+													target: config.master,
+												},
+											),
+										},
 									},
 									{
 										cmd: 'git push',
 										config: {
 											again: true,
 											success: t('Successfully Pushed'),
-											fail: t('Push failed, please follow the prompts')
-										}
-									}
-								]
-							: [
-									{
-										message: t('{source} has been merged with {target}', {
-											source: config.release,
-											target: config.master
-										})
-									}
-								]
+											fail: t('Push failed, please follow the prompts'),
+										},
+									},
+						] : [
+							{
+								message: t('{source} has been merged with {target}', {
+									source: config.release,
+									target: config.master,
+								}),
+							},
+						],
 				}
 			} else {
 				if (!isDescriptionCorrect) {
 					echo(
 						red(
 							t(
-								'The description of the reason for submission does not meet the specification'
-							)
-						)
+								'The description of the reason for submission does not meet the specification',
+							),
+						),
 					)
 					process.exit(1)
 				}
 				cmd = {
 					bugfix:
-						isNeedCombineBugfixToRelease || opt.force
-							? [
-									{
-										cmd: {
-											module: mergeRequestModule,
-											entry: 'createMergeRequest',
-											options: {
-												source_branch: config.bugfix,
-												target_branch: config.release,
-												description: opt.description
-											}
-										},
-										config: {
-											again: true,
-											success: t('Successfully created merge request'),
-											fail: t(
-												'An error occurred creating the merge request, please follow the prompts'
-											)
-										}
+						isNeedCombineBugfixToRelease || opt.force ? [
+							{
+								cmd: {
+									module: mergeRequestModule,
+									entry: 'createMergeRequest',
+									options: {
+										source_branch: config.bugfix,
+										target_branch: config.release,
+										description: opt.description,
 									},
-									[
-										'gitm',
-										'postmsg',
+								},
+								config: {
+									again: true,
+									success: t('Successfully created merge request'),
+									fail: t(
+										'An error occurred creating the merge request, please follow the prompts',
+									),
+								},
+							},
+							[
+								'gitm',
+								'postmsg',
 										`"${t(
 											'{nickname} submitted a merge request for {source} branch to {target} branch in {app} project',
 											{
 												nickname,
 												app: appName,
 												source: config.bugfix,
-												target: config.release
-											}
-										)}"`
-									]
-								]
-							: [
-									{
-										message: t('{source} has been merged with {target}', {
-											source: config.bugfix,
-											target: config.release
-										})
-									}
-								],
+												target: config.release,
+											},
+										)}"`,
+							],
+						] : [
+							{
+								message: t('{source} has been merged with {target}', {
+									source: config.bugfix,
+									target: config.release,
+								}),
+							},
+						],
 					support: ([] as Array<CommandType | string | string[]>)
 						.concat(
-							isNeedCombineSupportToRelease || opt.force
-								? [
-										{
-											cmd: {
-												module: mergeRequestModule,
-												entry: 'createMergeRequest',
-												options: {
-													source_branch: config.support,
-													target_branch: config.release,
-													description: opt.description
-												}
-											},
-											config: {
-												again: true,
-												success: t('Successfully created merge request'),
-												fail: t(
-													'An error occurred creating the merge request, please follow the prompts'
-												)
-											}
+							isNeedCombineSupportToRelease || opt.force ? [
+								{
+									cmd: {
+										module: mergeRequestModule,
+										entry: 'createMergeRequest',
+										options: {
+											source_branch: config.support,
+											target_branch: config.release,
+											description: opt.description,
 										},
-										[
-											'gitm',
-											'postmsg',
+									},
+									config: {
+										again: true,
+										success: t('Successfully created merge request'),
+										fail: t(
+											'An error occurred creating the merge request, please follow the prompts',
+										),
+									},
+								},
+								[
+									'gitm',
+									'postmsg',
 											`"${t(
 												'{nickname} submitted a merge request for {source} branch to {target} branch in {app} project',
 												{
 													nickname,
 													app: appName,
 													source: config.support,
-													target: config.release
-												}
-											)}"`
-										]
-									]
-								: [
-										{
-											message: t('{source} has been merged with {target}', {
-												source: config.support,
-												target: config.release
-											})
-										}
-									]
+													target: config.release,
+												},
+											)}"`,
+								],
+							] : [
+								{
+									message: t('{source} has been merged with {target}', {
+										source: config.support,
+										target: config.release,
+									}),
+								},
+							],
 						)
 						.concat(
-							isNeedCombineSupportToBugfix || opt.force
-								? [
-										{
-											cmd: {
-												module: mergeRequestModule,
-												entry: 'createMergeRequest',
-												options: {
-													source_branch: config.support,
-													target_branch: config.bugfix,
-													description: opt.description
-												}
-											},
-											config: {
-												again: true,
-												success: t('Successfully created merge request'),
-												fail: t(
-													'An error occurred creating the merge request, please follow the prompts'
-												)
-											}
+							isNeedCombineSupportToBugfix || opt.force ? [
+								{
+									cmd: {
+										module: mergeRequestModule,
+										entry: 'createMergeRequest',
+										options: {
+											source_branch: config.support,
+											target_branch: config.bugfix,
+											description: opt.description,
 										},
-										[
-											'gitm',
-											'postmsg',
+									},
+									config: {
+										again: true,
+										success: t('Successfully created merge request'),
+										fail: t(
+											'An error occurred creating the merge request, please follow the prompts',
+										),
+									},
+								},
+								[
+									'gitm',
+									'postmsg',
 											`"${t(
 												'{nickname} submitted a merge request for {source} branch to {target} branch in {app} project',
 												{
 													nickname,
 													app: appName,
 													source: config.support,
-													target: config.bugfix
-												}
-											)}"`
-										]
-									]
-								: [
-										{
-											message: t('{source} has been merged with {target}', {
-												source: config.support,
-												target: config.bugfix
-											})
-										}
-									]
+													target: config.bugfix,
+												},
+											)}"`,
+								],
+							] : [
+								{
+									message: t('{source} has been merged with {target}', {
+										source: config.support,
+										target: config.bugfix,
+									}),
+								},
+							],
 						),
 					release:
-						isNeedCombineReleaseToMaster || opt.force
-							? [
-									{
-										cmd: {
-											module: mergeRequestModule,
-											entry: 'createMergeRequest',
-											options: {
-												source_branch: config.release,
-												target_branch: config.master,
-												description: opt.description
-											}
-										},
-										config: {
-											again: true,
-											success: t('Successfully created merge request'),
-											fail: t(
-												'An error occurred creating the merge request, please follow the prompts'
-											)
-										}
+						isNeedCombineReleaseToMaster || opt.force ? [
+							{
+								cmd: {
+									module: mergeRequestModule,
+									entry: 'createMergeRequest',
+									options: {
+										source_branch: config.release,
+										target_branch: config.master,
+										description: opt.description,
 									},
-									[
-										'gitm',
-										'postmsg',
+								},
+								config: {
+									again: true,
+									success: t('Successfully created merge request'),
+									fail: t(
+										'An error occurred creating the merge request, please follow the prompts',
+									),
+								},
+							},
+							[
+								'gitm',
+								'postmsg',
 										`"${t(
 											'{nickname} submitted a merge request for {source} branch to {target} branch in {app} project',
 											{
 												nickname,
 												app: appName,
 												source: config.release,
-												target: config.master
-											}
-										)}"`
-									]
-								]
-							: [
-									{
-										message: t('{source} has been merged with {target}', {
-											source: config.release,
-											target: config.master
-										})
-									}
-								]
+												target: config.master,
+											},
+										)}"`,
+							],
+						] : [
+							{
+								message: t('{source} has been merged with {target}', {
+									source: config.release,
+									target: config.master,
+								}),
+							},
+						],
 				}
 			}
 			// Publish the bug branch and sync to master
@@ -575,12 +565,12 @@ publishProgram.action(
 				const isNeedCombine = !getIsMergedTargetBranch(
 					`origin/${config.bugfix}`,
 					config.master,
-					{ remote: true }
+					{ remote: true },
 				)
+
 				if (!level || level < 4) {
 					cmd[type] = cmd[type].concat(
-						isNeedCombine || opt.force
-							? [
+						isNeedCombine || opt.force ? [
 									`git switch ${config.master}`,
 									'git pull',
 									{
@@ -591,90 +581,87 @@ publishProgram.action(
 												'Merge {source} into {target} successfully',
 												{
 													source: config.bugfix,
-													target: config.master
-												}
+													target: config.master,
+												},
 											),
 											fail: t(
 												'An error occurred merging {source} to {target}, Please follow the instructions',
 												{
 													source: config.bugfix,
-													target: config.master
-												}
-											)
-										}
+													target: config.master,
+												},
+											),
+										},
 									},
 									{
 										cmd: 'git push',
 										config: {
 											again: true,
 											success: t('Successfully Pushed'),
-											fail: t('Push failed, please follow the prompts')
-										}
-									}
-								]
-							: [
-									{
-										message: t('{source} has been merged with {target}', {
-											source: config.bugfix,
-											target: config.master
-										})
-									}
-								]
+											fail: t('Push failed, please follow the prompts'),
+										},
+									},
+						] : [
+							{
+								message: t('{source} has been merged with {target}', {
+									source: config.bugfix,
+									target: config.master,
+								}),
+							},
+						],
 					)
 				} else {
 					if (!isDescriptionCorrect) {
 						echo(
 							red(
 								t(
-									'The description of the reason for submission does not meet the specification'
-								)
-							)
+									'The description of the reason for submission does not meet the specification',
+								),
+							),
 						)
 						process.exit(1)
 					}
 					cmd[type] = cmd[type].concat(
-						isNeedCombine || opt.force
-							? [
-									{
-										cmd: {
-											module: mergeRequestModule,
-											entry: 'createMergeRequest',
-											options: {
-												source_branch: config.bugfix,
-												target_branch: config.master,
-												description: opt.description
-											}
-										},
-										config: {
-											again: true,
-											success: t('Successfully created merge request'),
-											fail: t(
-												'An error occurred creating the merge request, please follow the prompts'
-											)
-										}
+						isNeedCombine || opt.force ? [
+							{
+								cmd: {
+									module: mergeRequestModule,
+									entry: 'createMergeRequest',
+									options: {
+										source_branch: config.bugfix,
+										target_branch: config.master,
+										description: opt.description,
 									},
-									[
-										'gitm',
-										'postmsg',
+								},
+								config: {
+									again: true,
+									success: t('Successfully created merge request'),
+									fail: t(
+										'An error occurred creating the merge request, please follow the prompts',
+									),
+								},
+							},
+							[
+								'gitm',
+								'postmsg',
 										`"${t(
 											'{nickname} submitted a merge request for {source} branch to {target} branch in {app} project',
 											{
 												nickname,
 												app: appName,
 												source: config.bugfix,
-												target: config.master
-											}
-										)}"`
-									]
-								]
-							: [
-									{
-										message: t('{source} has been merged with {target}', {
-											source: config.bugfix,
-											target: config.master
-										})
-									}
-								]
+												target: config.master,
+											},
+										)}"`,
+							],
+						] : [
+							{
+								message: t('{source} has been merged with {target}', {
+									source: config.bugfix,
+									target: config.master,
+								}),
+							},
+						],
 					)
 				}
 				if (opt.build) {
@@ -683,14 +670,14 @@ publishProgram.action(
 							{
 								cmd: `gitm build ${appName} --confirm --env bug --app ${
 									opt.build === true ? 'all' : opt.build
-								} ${opt.data ? ' --data ' + opt.data : ''}`,
+								} ${opt.data ? ` --data ${opt.data}` : ''}`,
 								config: {
 									stdio: 'inherit',
 									again: false,
 									success: t('Pulling up the build was successful'),
-									fail: t('Failed to pull up the build')
-								}
-							}
+									fail: t('Failed to pull up the build'),
+								},
+							},
 						])
 					} else {
 						echo(
@@ -700,10 +687,10 @@ publishProgram.action(
 									{
 										appName,
 										app: opt.build === true ? 'all' : opt.build,
-										data: opt.data ? ' --data ' + opt.data : ''
-									}
-								)
-							)
+										data: opt.data ? ` --data ${opt.data}` : '',
+									},
+								),
+							),
 						)
 					}
 				}
@@ -715,14 +702,14 @@ publishProgram.action(
 						{
 							cmd: `gitm build ${appName} --confirm --env prod --app ${
 								opt.build === true ? 'all' : opt.build
-							} ${opt.data ? ' --data ' + opt.data : ''}`,
+							} ${opt.data ? ` --data ${opt.data}` : ''}`,
 							config: {
 								stdio: 'inherit',
 								again: false,
 								success: t('Pulling up the build was successful'),
-								fail: t('Failed to pull up the build')
-							}
-						}
+								fail: t('Failed to pull up the build'),
+							},
+						},
 					])
 				} else {
 					echo(
@@ -732,10 +719,10 @@ publishProgram.action(
 								{
 									appName,
 									app: opt.build === true ? 'all' : opt.build,
-									data: opt.data ? ' --data ' + opt.data : ''
-								}
-							)
-						)
+									data: opt.data ? ` --data ${opt.data}` : '',
+								},
+							),
+						),
 					)
 				}
 			}
@@ -745,19 +732,19 @@ publishProgram.action(
 				const isNeedCombine = !getIsMergedTargetBranch(
 					`origin/${config.release}`,
 					config.bugfix,
-					{ remote: true }
+					{ remote: true },
 				)
+
 				// use rebase
 				if (opt.useRebase) {
 					cmd[type] = cmd[type].concat(
-						isNeedCombine || opt.force
-							? [
+						isNeedCombine || opt.force ? [
 									`git switch ${config.release}`,
 									'git pull',
 									`git switch ${config.bugfix}`,
 									{
 										cmd: `git pull origin ${config.bugfix} --rebase`,
-										config: { again: true }
+										config: { again: true },
 									},
 									{
 										cmd: `git rebase ${config.release}`,
@@ -766,40 +753,38 @@ publishProgram.action(
 											postmsg: opt.postmsg,
 											success: t('Merge {source} to {target} successfully', {
 												source: config.release,
-												target: config.bugfix
+												target: config.bugfix,
 											}),
 											fail: t(
 												'An error occurred merging {source} to {target}, please follow the prompts',
 												{
 													source: config.release,
-													target: config.bugfix
-												}
-											)
-										}
+													target: config.bugfix,
+												},
+											),
+										},
 									},
 									{
 										cmd: 'git push',
 										config: {
 											again: true,
 											success: t('Successfully Pushed'),
-											fail: t('Push failed, please follow the prompts')
-										}
-									}
-								]
-							: [
-									{
-										message: t('{source} has been merged with {target}', {
-											source: config.release,
-											target: config.bugfix
-										})
-									}
-								]
+											fail: t('Push failed, please follow the prompts'),
+										},
+									},
+						] : [
+							{
+								message: t('{source} has been merged with {target}', {
+									source: config.release,
+									target: config.bugfix,
+								}),
+							},
+						],
 					)
 				} else {
 					if (!level || level < 4) {
 						cmd[type] = cmd[type].concat(
-							isNeedCombine || opt.force
-								? [
+							isNeedCombine || opt.force ? [
 										`git switch ${config.release}`,
 										'git pull',
 										`git switch ${config.bugfix}`,
@@ -813,44 +798,43 @@ publishProgram.action(
 													'Merge {source} into {target} successfully',
 													{
 														source: config.release,
-														target: config.bugfix
-													}
+														target: config.bugfix,
+													},
 												),
 												fail: t(
 													'An error occurred merging {source} to {target}, Please follow the instructions',
 													{
 														source: config.release,
-														target: config.bugfix
-													}
-												)
-											}
+														target: config.bugfix,
+													},
+												),
+											},
 										},
 										{
 											cmd: 'git push',
 											config: {
 												again: true,
 												success: t('Successfully Pushed'),
-												fail: t('Push failed, please follow the prompts')
-											}
-										}
-									]
-								: [
-										{
-											message: t('{source} has been merged with {target}', {
-												source: config.release,
-												target: config.bugfix
-											})
-										}
-									]
+												fail: t('Push failed, please follow the prompts'),
+											},
+										},
+							] : [
+								{
+									message: t('{source} has been merged with {target}', {
+										source: config.release,
+										target: config.bugfix,
+									}),
+								},
+							],
 						)
 					} else {
 						if (!isDescriptionCorrect) {
 							echo(
 								red(
 									t(
-										'The description of the reason for submission does not meet the specification'
-									)
-								)
+										'The description of the reason for submission does not meet the specification',
+									),
+								),
 							)
 							process.exit(1)
 						}
@@ -862,16 +846,16 @@ publishProgram.action(
 									options: {
 										source_branch: config.release,
 										target_branch: config.bugfix,
-										description: opt.description
-									}
+										description: opt.description,
+									},
 								},
 								config: {
 									again: true,
 									success: t('Successfully created merge request'),
 									fail: t(
-										'An error occurred creating the merge request, please follow the prompts'
-									)
-								}
+										'An error occurred creating the merge request, please follow the prompts',
+									),
+								},
 							},
 							[
 								'gitm',
@@ -882,35 +866,37 @@ publishProgram.action(
 										nickname,
 										app: appName,
 										source: config.release,
-										target: config.bugfix
-									}
-								)}"`
-							]
+										target: config.bugfix,
+									},
+								)}"`,
+							],
 						])
 					}
 				}
 			}
 			// eslint-disable-next-line one-var
 			let key: keyof typeof cmd
+
 			// Back to current branch
 			for (key in cmd) {
 				cmd[key].push(`git switch ${curBranch}`)
 			}
 			queue(cmd[type])
 		} else {
-			echo(red(t('type only allows input') + ': ' + opts.join(',')))
+			echo(red(`${t('type only allows input')}: ${opts.join(',')}`))
 			process.exit(1)
 		}
-	}
+	},
 )
 
 const updateProgram = program
 	.name('gitm admin')
 	.usage(
-		'<command> <type> [-m --mode [mode]] [--description [description]] [--use-rebase] [--postmsg] [-f --force]'
+		'<command> <type> [-m --mode [mode]] [--description [description]] [--use-rebase] [--postmsg] [-f --force]',
 	)
 	.description(t('Update bugfix, release, support branch code'))
-	.command('update ' + createArgs(update.args))
+	.command(`update ${createArgs(update.args)}`)
+
 update.options.forEach((o: GitmarsOptionOptionsType) => {
 	updateProgram.option(o.flags, o.description, o.defaultValue)
 })
@@ -928,14 +914,14 @@ updateProgram.action(
 		const status = checkGitStatus()
 		let mode = '', // Which code to keep in case of conflict
 			isDescriptionCorrect = true // Does the description of the reason for this submission meet the specification
+
 		if (!status) process.exit(1)
 		// When there is a descriptionValidator configured, the description information needs to be verified
 		if (config.descriptionValidator) {
 			// Verify the description for this commit
 			const reg =
-				getType(config.descriptionValidator) === 'regexp'
-					? (config.descriptionValidator as RegExp)
-					: new RegExp(config.descriptionValidator)
+				getType(config.descriptionValidator) === 'regexp' ? (config.descriptionValidator as RegExp) : new RegExp(config.descriptionValidator)
+
 			isDescriptionCorrect = Boolean(opt.description && reg.test(opt.description))
 		}
 		if (opt.mode === 1) {
@@ -947,9 +933,10 @@ updateProgram.action(
 		if (opts.includes(type)) {
 			// Is it necessary to merge
 			const isNeedCombine = !getIsMergedTargetBranch(`origin/${base}`, config[type], {
-				remote: true
+				remote: true,
 			})
 			let cmd
+
 			if (isNeedCombine || opt.force) {
 				if (!level || level < 4) {
 					cmd = [
@@ -959,7 +946,7 @@ updateProgram.action(
 						`git switch ${config[type]}`,
 						{
 							cmd: 'git pull',
-							config: { again: true }
+							config: { again: true },
 						},
 						{
 							cmd: `git merge --no-ff ${base}${mode}`,
@@ -968,34 +955,34 @@ updateProgram.action(
 								postmsg: opt.postmsg,
 								success: t('Merge {source} to {target} successfully', {
 									source: base,
-									target: config[type]
+									target: config[type],
 								}),
 								fail: t(
 									'An error occurred merging {source} to {target}, please follow the prompts',
 									{
 										source: base,
-										target: config[type]
-									}
-								)
-							}
+										target: config[type],
+									},
+								),
+							},
 						},
 						{
 							cmd: 'git push',
 							config: {
 								again: true,
 								success: t('Successfully Pushed'),
-								fail: t('Push failed, please follow the prompts')
-							}
-						}
+								fail: t('Push failed, please follow the prompts'),
+							},
+						},
 					]
 				} else {
 					if (!isDescriptionCorrect) {
 						echo(
 							red(
 								t(
-									'The description of the reason for submission does not meet the specification'
-								)
-							)
+									'The description of the reason for submission does not meet the specification',
+								),
+							),
 						)
 						process.exit(1)
 					}
@@ -1007,16 +994,16 @@ updateProgram.action(
 								options: {
 									source_branch: base,
 									target_branch: config[type],
-									description: opt.description
-								}
+									description: opt.description,
+								},
 							},
 							config: {
 								again: true,
 								success: t('Successfully created merge request'),
 								fail: t(
-									'An error occurred creating the merge request, please follow the prompts'
-								)
-							}
+									'An error occurred creating the merge request, please follow the prompts',
+								),
+							},
 						},
 						[
 							'gitm',
@@ -1027,10 +1014,10 @@ updateProgram.action(
 									nickname,
 									app: appName,
 									source: base,
-									target: config[type]
-								}
-							)}"`
-						]
+									target: config[type],
+								},
+							)}"`,
+						],
 					]
 				}
 				if (opt.useRebase) {
@@ -1041,7 +1028,7 @@ updateProgram.action(
 						`git switch ${config[type]}`,
 						{
 							cmd: `git pull origin ${config[type]} --rebase`,
-							config: { again: true }
+							config: { again: true },
 						},
 						{
 							cmd: `git rebase ${base}`,
@@ -1050,25 +1037,25 @@ updateProgram.action(
 								postmsg: opt.postmsg,
 								success: t('Merge {source} to {target} successfully', {
 									source: base,
-									target: config[type]
+									target: config[type],
 								}),
 								fail: t(
 									'An error occurred merging {source} to {target}, please follow the prompts',
 									{
 										source: base,
-										target: config[type]
-									}
-								)
-							}
+										target: config[type],
+									},
+								),
+							},
 						},
 						{
 							cmd: 'git push',
 							config: {
 								again: true,
 								success: t('Successfully Pushed'),
-								fail: t('Push failed, please follow the prompts')
-							}
-						}
+								fail: t('Push failed, please follow the prompts'),
+							},
+						},
 					]
 				}
 			} else {
@@ -1076,24 +1063,25 @@ updateProgram.action(
 					{
 						message: t('{source} has been merged with {target}', {
 							source: base,
-							target: config[type]
-						})
-					}
+							target: config[type],
+						}),
+					},
 				]
 			}
 			queue(cmd)
 		} else {
-			echo(red(t('type only allows input') + ': ' + opts.join(',')))
+			echo(red(`${t('type only allows input')}: ${opts.join(',')}`))
 			process.exit(1)
 		}
-	}
+	},
 )
 
 const cleanProgram = program
 	.name('gitm admin')
 	.usage('<command> <type>')
 	.description(t('Build cleanup job'))
-	.command('clean ' + createArgs(clean.args))
+	.command(`clean ${createArgs(clean.args)}`)
+
 clean.options.forEach((o: GitmarsOptionOptionsType) => {
 	cleanProgram.option(o.flags, o.description, o.defaultValue)
 })
@@ -1101,6 +1089,7 @@ clean.options.forEach((o: GitmarsOptionOptionsType) => {
 cleanProgram.action((type: GitmarsMainBranchType): void => {
 	const opts = ['bugfix', 'release', 'develop', 'master'] // Permissible commands
 	const status = checkGitStatus()
+
 	if (!status) process.exit(1)
 	if (opts.includes(type)) {
 		let cmd = [
@@ -1114,13 +1103,14 @@ cleanProgram.action((type: GitmarsMainBranchType): void => {
 				config: {
 					again: true,
 					success: t('Cleanup of remote branch was successful'),
-					fail: t('Failed to clean up remote branch, please follow the prompts')
-				}
+					fail: t('Failed to clean up remote branch, please follow the prompts'),
+				},
 			},
 			'git fetch',
 			`git switch ${config[type]}`,
-			'git pull'
+			'git pull',
 		]
+
 		if (type === 'master') {
 			cmd = [
 				'git switch .',
@@ -1128,12 +1118,12 @@ cleanProgram.action((type: GitmarsMainBranchType): void => {
 				`git switch ${config.master}`,
 				'git clean -fd',
 				'git fetch',
-				'git pull'
+				'git pull',
 			]
 		}
 		queue(cmd)
 	} else {
-		echo(red(t('type only allows input') + ': ' + opts.join(',')))
+		echo(red(`${t('type only allows input')}: ${opts.join(',')}`))
 		process.exit(1)
 	}
 })
@@ -1142,7 +1132,8 @@ const approveProgram = program
 	.name('gitm admin')
 	.usage('[type] [-k --key [keyword]]')
 	.description(t('Approve merge request'))
-	.command('approve ' + createArgs(approve.args))
+	.command(`approve ${createArgs(approve.args)}`)
+
 approve.options.forEach((o: GitmarsOptionOptionsType) => {
 	approveProgram.option(o.flags, o.description, o.defaultValue)
 })

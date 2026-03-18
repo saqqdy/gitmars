@@ -17,9 +17,9 @@ export const cmdConfig: GitmarsOptionType = {
 			long: '--list',
 			negate: false,
 			description: t('Show command queue'),
-			defaultValue: false
-		}
-	]
+			defaultValue: false,
+		},
+	],
 }
 
 export { cmdConfig as default }

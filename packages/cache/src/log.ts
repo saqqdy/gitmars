@@ -1,7 +1,7 @@
-import sh from 'shelljs'
+import type { GitmarsLogType } from './types'
 import { getGitRevParse } from '@gitmars/git'
 import { removeFile } from '@gitmars/utils'
-import type { GitmarsLogType } from './types'
+import sh from 'shelljs'
 import lang from './lang'
 
 const { t } = lang
@@ -13,13 +13,13 @@ const { gitDir } = getGitRevParse()
  * @param log - 错误日志
  */
 export function setLog(log: GitmarsLogType): void {
-	sh.touch(gitDir + '/.gitmarslog')
+	sh.touch(`${gitDir}/.gitmarslog`)
 	sh.sed(
 		'-i',
-		// eslint-disable-next-line no-control-regex
-		/[\s\S\n\r\x0A\x0D]*/,
+
+		/[\s\S]*/,
 		encodeURIComponent(JSON.stringify(log)),
-		gitDir + '/.gitmarslog'
+		`${gitDir}/.gitmarslog`,
 	)
 }
 
@@ -29,6 +29,6 @@ export function setLog(log: GitmarsLogType): void {
 export function cleanLog() {
 	removeFile({
 		name: t('Gitmars package cache file'),
-		url: gitDir + '/.gitmarslog'
+		url: `${gitDir}/.gitmarslog`,
 	})
 }

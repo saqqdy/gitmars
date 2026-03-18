@@ -1,16 +1,15 @@
-#!/usr/bin/env ts-node
-import { program } from 'commander'
-import dayjs from 'dayjs'
-import { checkbox } from '@inquirer/prompts'
-import sh from 'shelljs'
-import chalk from 'chalk'
-import to from 'await-to-done'
+import type { RevertCacheType } from '@gitmars/cache'
+import type { CommandType, GitmarsOptionOptionsType } from './types'
+import { delRevertCache, getRevertCache } from '@gitmars/cache'
 import { queue } from '@gitmars/core'
 import { getCurrentBranch, getIsGitProject } from '@gitmars/git'
 import { createArgs, echo } from '@gitmars/utils'
-import { delRevertCache, getRevertCache } from '@gitmars/cache'
-import type { RevertCacheType } from '@gitmars/cache'
-import type { CommandType, GitmarsOptionOptionsType } from './types'
+import { checkbox } from '@inquirer/prompts'
+import to from 'await-to-done'
+import chalk from 'chalk'
+import { program } from 'commander'
+import dayjs from 'dayjs'
+import sh from 'shelljs'
 import lang from './common/local'
 import redoConfig from './conf/redo'
 
@@ -46,11 +45,12 @@ program.action(async (commitid: string[], opt: GitmRedoOption) => {
 	let revertCache: RevertCacheType[] = getRevertCache(current),
 		cmd: Array<CommandType | string | string[]> = [],
 		mode = ''
-	mode = ' -m ' + Math.abs(Number(opt.mode || 1))
+
+	mode = ` -m ${Math.abs(Number(opt.mode || 1))}`
 	if (commitid.length > 0) {
 		// 传入了commitIDs
 		revertCache = revertCache.filter(item =>
-			commitid.some(id => item.after['%H']!.includes(id))
+			commitid.some(id => item.after['%H']!.includes(id)),
 		)
 	}
 	// 没有查询到日志
@@ -65,16 +65,18 @@ program.action(async (commitid: string[], opt: GitmRedoOption) => {
 			message: t('Please select the undo record to restore'),
 			choices: revertCache.map(({ after }, index) => {
 				const _time = dayjs(after['%aI']).format('YYYY/MM/DD HH:mm')
+
 				return {
-					name: `${green(index + 1 + '.')} ${green(after['%s'])} | ${yellow(
-						after['%an']
+					name: `${green(`${index + 1}.`)} ${green(after['%s'])} | ${yellow(
+						after['%an'],
 					)} | ${blue(_time)}`,
 					value: after['%H']!,
-					checked: false
+					checked: false,
 				}
-			})
-		})
+			}),
+		}),
 	)
+
 	// 没有选择任何记录
 	if (commitIDs.length === 0) {
 		echo(yellow(t('No logs selected, process has exited')))
@@ -87,10 +89,10 @@ program.action(async (commitid: string[], opt: GitmRedoOption) => {
 		config: {
 			again: false,
 			success: t('Undo successfully: {something}', {
-				something: item.after['%s']!
+				something: item.after['%s']!,
 			}),
-			fail: t('An error has occurred, please follow the prompts')
-		}
+			fail: t('An error has occurred, please follow the prompts'),
+		},
 	}))
 	// 执行
 	queue(cmd).then(() => {

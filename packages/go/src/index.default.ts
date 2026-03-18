@@ -10,5 +10,5 @@ export default {
 	version: '__VERSION__',
 	cleanConfigSet,
 	createPrompt,
-	getCommand
+	getCommand,
 }

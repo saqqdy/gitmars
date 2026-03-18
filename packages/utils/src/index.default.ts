@@ -5,10 +5,10 @@ import { isFileExist, removeFile, writeFile, writeFileSync } from './file'
 import getSeconds from './getSeconds'
 import isWin32 from './isWin32'
 import { useLocale } from './local'
+import { generateQrcodeImage, printQrcode, readQrcode } from './qrcode'
+import { spawn, spawnSync } from './spawn'
 import stringify from './stringify'
 import { decodeUnicode, encodeUnicode } from './unicode'
-import { spawn, spawnSync } from './spawn'
-import { generateQrcodeImage, printQrcode, readQrcode } from './qrcode'
 
 export { type GitmarsCacheFileDescriptionType } from './file'
 export type { LocaleContext, Translator, TranslatorOption } from './local'
@@ -37,5 +37,5 @@ export default {
 	spawnSync,
 	readQrcode,
 	printQrcode,
-	generateQrcodeImage
+	generateQrcodeImage,
 }

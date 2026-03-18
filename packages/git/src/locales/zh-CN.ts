@@ -43,5 +43,5 @@ export default {
 	'There are a total of {length} staging records under this item, please clean it up regularly!':
 		'该项目下一共有{length}条暂存记录，请定期清理！',
 	'${message}; project: ${project}; path: ${pwd}': '${message}；项目：${project}；路径：${pwd}',
-	'The current directory is not a git project directory': '当前目录不是Git项目目录'
+	'The current directory is not a git project directory': '当前目录不是Git项目目录',
 }

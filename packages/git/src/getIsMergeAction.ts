@@ -7,9 +7,10 @@ import getGitLogs from './getGitLogs'
  */
 function getIsMergeAction(): boolean {
 	const currentLogs = getGitLogs({
-		limit: 1
+		limit: 1,
 	})
 	const p = currentLogs[0]['%P'] ? currentLogs[0]['%P'].split(' ') : []
+
 	return p.length > 1
 }
 

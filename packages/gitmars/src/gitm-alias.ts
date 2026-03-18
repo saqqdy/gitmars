@@ -1,15 +1,15 @@
-#!/usr/bin/env ts-node
-import { program } from 'commander'
-import chalk from 'chalk'
-import { createArgs, echo, spawnSync } from '@gitmars/utils'
 import type { GitmarsOptionOptionsType } from './types'
-import aliasConfig from './conf/alias'
+import { createArgs, echo, spawnSync } from '@gitmars/utils'
+import chalk from 'chalk'
+import { program } from 'commander'
 import lang from './common/local'
+import aliasConfig from './conf/alias'
 
 const { t } = lang
 const { red } = chalk
 const { args, options } = aliasConfig
 const actions = ['init', 'remove'] as const
+
 type Module = (typeof actions)[number]
 interface Action {
 	(): void
@@ -53,8 +53,9 @@ program.action((action: Module) => {
 		rs: 'reset',
 		rsh: 'reset --hard',
 		rss: 'reset --soft',
-		rb: 'rebase'
+		rb: 'rebase',
 	} as const
+
 	type Short = keyof typeof alias
 
 	const cmd: Record<Module, Action> = {
@@ -67,8 +68,9 @@ program.action((action: Module) => {
 			for (const short in alias) {
 				spawnSync('git', ['config', '--global', '--unset', `alias.${short}`])
 			}
-		}
+		},
 	}
+
 	cmd[action]()
 })
 program.parse(process.argv)

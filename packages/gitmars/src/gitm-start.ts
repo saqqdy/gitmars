@@ -1,18 +1,17 @@
-#!/usr/bin/env ts-node
-import { program } from 'commander'
-import sh from 'shelljs'
-import chalk from 'chalk'
-import { getType } from 'js-cool'
+import type { CommandType, GitmarsOptionOptionsType } from './types'
 import { isNeedUpgrade, queue, upgradeGitmars } from '@gitmars/core'
 import {
 	checkGitStatus,
 	checkout,
 	getConfig,
 	getIsBranchOrCommitExist,
-	getIsGitProject
+	getIsGitProject,
 } from '@gitmars/git'
 import { createArgs } from '@gitmars/utils'
-import type { CommandType, GitmarsOptionOptionsType } from './types'
+import chalk from 'chalk'
+import { program } from 'commander'
+import { getType } from 'js-cool'
+import sh from 'shelljs'
 import lang from './common/local'
 import startConfig from './conf/start'
 
@@ -39,8 +38,8 @@ program
 	.usage('<type> <name> [-t --tag <tag>]')
 	.description(
 		t(
-			'Create bugfix task branch, create feature development branch, support framework support branch'
-		)
+			'Create bugfix task branch, create feature development branch, support framework support branch',
+		),
 	)
 if (args.length > 0) program.arguments(createArgs(args))
 options.forEach((o: GitmarsOptionOptionsType) => {
@@ -50,12 +49,14 @@ options.forEach((o: GitmarsOptionOptionsType) => {
 program.action(async (type: string, name: string, opt: GitmStartOption) => {
 	// 检测是否需要升级版本
 	const needUpgrade = await isNeedUpgrade(config.versionControlType)
+
 	needUpgrade && upgradeGitmars()
 	const opts = ['bugfix', 'feature', 'support'] // Permissible commands
 	const status = checkGitStatus()
+
 	if (!status) process.exit(1)
 	if (!opts.includes(type)) {
-		sh.echo(red(t('type only allows input') + ': ' + JSON.stringify(opts)))
+		sh.echo(red(`${t('type only allows input')}: ${JSON.stringify(opts)}`))
 		process.exit(1)
 	}
 	// 指定从tag拉取分支时，仅支持创建bugfix分支
@@ -63,18 +64,17 @@ program.action(async (type: string, name: string, opt: GitmStartOption) => {
 		sh.echo(
 			red(
 				t(
-					'Specify that only bugfix branch creation is supported when pulling branches from tag'
-				)
-			)
+					'Specify that only bugfix branch creation is supported when pulling branches from tag',
+				),
+			),
 		)
 		process.exit(1)
 	}
 	// Verification of branch name specification
 	if (config.nameValidator) {
 		const reg =
-			getType(config.nameValidator) === 'regexp'
-				? (config.nameValidator as RegExp)
-				: new RegExp(config.nameValidator)
+			getType(config.nameValidator) === 'regexp' ? (config.nameValidator as RegExp) : new RegExp(config.nameValidator)
+
 		if (!reg.test(name)) {
 			sh.echo(red(t('Branch name does not conform to specification')))
 			process.exit(1)
@@ -84,8 +84,8 @@ program.action(async (type: string, name: string, opt: GitmStartOption) => {
 	if (getIsBranchOrCommitExist(`${type}/${name}`)) {
 		sh.echo(
 			t('Branch {target} already exists and has been switched to branch {target}', {
-				target: `${type}/${name}`
-			})
+				target: `${type}/${name}`,
+			}),
 		)
 		checkout(`${type}/${name}`)
 		process.exit(0)
@@ -93,16 +93,9 @@ program.action(async (type: string, name: string, opt: GitmStartOption) => {
 	// replace '/'
 	name = name.replace(/^\//, '')
 	// feature is pulled from the release, bugfix is pulled from the bug, and support is pulled from the master branch
-	const base = opt.tag
-		? opt.tag
-		: type === 'bugfix'
-			? config.bugfix
-			: type === 'support'
-				? config.master
-				: config.release
-	const cmd: Array<CommandType | string | string[]> = opt.tag
-		? ['git fetch', `git checkout -b ${type}/${name} ${base}`]
-		: ['git fetch', `git switch ${base}`, 'git pull', `git checkout -b ${type}/${name} ${base}`]
+	const base = opt.tag ? opt.tag : type === 'bugfix' ? config.bugfix : type === 'support' ? config.master : config.release
+	const cmd: Array<CommandType | string | string[]> = opt.tag ? ['git fetch', `git checkout -b ${type}/${name} ${base}`] : ['git fetch', `git switch ${base}`, 'git pull', `git checkout -b ${type}/${name} ${base}`]
+
 	queue(cmd).then((data: any) => {
 		if ((opt.tag && data[1].status === 0) || (!opt.tag && data[3].status === 0)) {
 			sh.echo(
@@ -111,10 +104,10 @@ program.action(async (type: string, name: string, opt: GitmStartOption) => {
 					{
 						source: String(base),
 						target: name,
-						combine: green('gitm combine ' + type + ' ' + name),
-						end: green('gitm end ' + type + ' ' + name)
-					}
-				)
+						combine: green(`gitm combine ${type} ${name}`),
+						end: green(`gitm end ${type} ${name}`),
+					},
+				),
 			)
 		}
 	})

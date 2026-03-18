@@ -34,6 +34,7 @@ export async function readQrcode(imagePath: any): Promise<string> {
  */
 export async function printQrcode(content: string) {
 	const terminalStr = await QRCode.toString(content, { type: 'terminal', small: true })
+
 	console.info(terminalStr)
 }
 
@@ -46,6 +47,6 @@ export async function printQrcode(content: string) {
 export async function generateQrcodeImage(path: string, content: string) {
 	await QRCode.toFile(path, content, {
 		errorCorrectionLevel: 'L',
-		type: 'png'
+		type: 'png',
 	})
 }

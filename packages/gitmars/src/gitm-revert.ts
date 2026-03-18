@@ -1,11 +1,10 @@
-#!/usr/bin/env ts-node
-import { program } from 'commander'
-import sh from 'shelljs'
-import chalk from 'chalk'
+import type { CommandType, GitmarsOptionOptionsType } from './types'
 import { queue } from '@gitmars/core'
 import { getIsGitProject } from '@gitmars/git'
 import { createArgs } from '@gitmars/utils'
-import type { CommandType, GitmarsOptionOptionsType } from './types'
+import chalk from 'chalk'
+import { program } from 'commander'
+import sh from 'shelljs'
 import lang from './common/local'
 import revertConfig from './conf/revert'
 
@@ -41,17 +40,19 @@ program.action((commitid: string, opt: GitmRevertOption) => {
 	const cmd: Array<CommandType | string | string[]> = []
 	let n = 'HEAD',
 		m = ''
-	if (opt.mode) m = ' -m ' + Math.abs(Number(opt.mode))
+
+	if (opt.mode) m = ` -m ${Math.abs(Number(opt.mode))}`
 	if (opt.number) {
 		const num = Math.abs(Number(opt.number))
-		if (num > 1) n += '~' + (num - 1)
+
+		if (num > 1) n += `~${num - 1}`
 		cmd.push({
 			cmd: `git revert ${n}${m}`,
 			config: {
 				again: true,
 				success: t('Successfully reverted'),
-				fail: t('An error has occurred, please follow the prompts')
-			}
+				fail: t('An error has occurred, please follow the prompts'),
+			},
 		})
 	} else if (commitid) {
 		cmd.push({
@@ -59,8 +60,8 @@ program.action((commitid: string, opt: GitmRevertOption) => {
 			config: {
 				again: true,
 				success: t('Successfully reverted'),
-				fail: t('An error has occurred, please follow the prompts')
-			}
+				fail: t('An error has occurred, please follow the prompts'),
+			},
 		})
 	} else {
 		sh.echo(yellow(t('Commands do not meet the specifications')))

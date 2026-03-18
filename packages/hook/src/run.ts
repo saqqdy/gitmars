@@ -1,11 +1,12 @@
-import { spawnSync } from '@gitmars/utils'
-import { getConfig } from '@gitmars/git'
 import type { ShellCode } from './types'
+import { getConfig } from '@gitmars/git'
+import { spawnSync } from '@gitmars/utils'
 import checkGitDirEnv from './checkGitDirEnv'
 import lang from './lang'
 
 const { t } = lang
 const config = getConfig()
+
 function getCommand(cwd: string, hookName: string) {
 	return config && config.hooks && config.hooks[hookName]
 }
@@ -23,14 +24,14 @@ function runCommand(cwd: string, hookName: string, cmd: string, env: any) {
 	const { status } = spawnSync('sh', ['-c', cmd], {
 		cwd,
 		env: Object.assign(Object.assign({}, process.env), env),
-		stdio: 'inherit'
+		stdio: 'inherit',
 	})
+
 	if (status !== 0) {
 		const noVerifyMessage = ['commit-msg', 'pre-commit', 'pre-rebase', 'pre-push'].includes(
-			hookName
-		)
-			? '(add --no-verify to bypass)'
-			: '(cannot be bypassed with --no-verify due to Git specs)'
+			hookName,
+		) ? '(add --no-verify to bypass)' : '(cannot be bypassed with --no-verify due to Git specs)'
+
 		console.info(`gitmars > ${hookName} hook failed ${noVerifyMessage}`)
 	}
 	// If shell exits with 127 it means that some command was not found.
@@ -39,6 +40,7 @@ function runCommand(cwd: string, hookName: string, cmd: string, env: any) {
 	if (status === 127) {
 		return 1
 	}
+
 	return status || 0
 }
 /**
@@ -50,15 +52,14 @@ function start(
 	// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 	// @ts-expect-error
 	[, , hookName = '', ...GITMARS_GIT_PARAMS],
-	{ cwd = process.cwd() } = {}
+	{ cwd = process.cwd() } = {},
 ): ShellCode {
 	const command = getCommand(cwd, hookName)
 	// Add GITMARS_GIT_PARAMS to env
 	const env = {} as any
+
 	if (
-		GITMARS_GIT_PARAMS === null || GITMARS_GIT_PARAMS === undefined
-			? undefined
-			: GITMARS_GIT_PARAMS.length
+		GITMARS_GIT_PARAMS === null || GITMARS_GIT_PARAMS === undefined ? undefined : GITMARS_GIT_PARAMS.length
 	) {
 		env.GITMARS_GIT_PARAMS = GITMARS_GIT_PARAMS.join(' ')
 	}
@@ -67,6 +68,7 @@ function start(
 		// @ts-expect-error
 		return runCommand(cwd, hookName, command, env)
 	}
+
 	return 0
 }
 
@@ -74,6 +76,7 @@ async function run(command: string, args: string[]) {
 	checkGitDirEnv()
 	try {
 		const status = await start(command ? [command, args] : (process.argv as string[]))
+
 		process.exit(status)
 	} catch (err) {
 		console.info(t('Gitmars > Unknown error! Please contact Wu Feng'), err)

@@ -1,11 +1,11 @@
+import type { VersionControlType } from './types'
 import { createRequire } from 'node:module'
-import sh from 'shelljs'
-import chalk from 'chalk'
-import semverDiff from 'semver-diff'
 // import { version } from '../package.json' assert { type: 'json' }
 import { getPkgInfo } from '@gitmars/cache'
 import { debug } from '@gitmars/utils'
-import type { VersionControlType } from './types'
+import chalk from 'chalk'
+import semverDiff from 'semver-diff'
+import sh from 'shelljs'
 import lang from './lang'
 
 const { t } = lang
@@ -55,14 +55,15 @@ export async function isNeedUpgrade(type?: VersionControlType): Promise<boolean>
 	if (!type) return false
 	if (isPreVer) return Boolean(semver || semverTag)
 	else if (!semver) return false
+
 	return (
 		(type === 'patch' &&
-			['prerelease', 'major', 'premajor', 'minor', 'preminor', 'patch', 'prepatch'].includes(
-				semver
-			)) ||
-		(type === 'minor' &&
-			['prerelease', 'major', 'premajor', 'minor', 'preminor'].includes(semver)) ||
-		(type === 'major' && ['prerelease', 'major', 'premajor'].includes(semver))
+		  ['prerelease', 'major', 'premajor', 'minor', 'preminor', 'patch', 'prepatch'].includes(
+		  	semver,
+		  )) ||
+		  (type === 'minor' &&
+		    ['prerelease', 'major', 'premajor', 'minor', 'preminor'].includes(semver)) ||
+		    (type === 'major' && ['prerelease', 'major', 'premajor'].includes(semver))
 	)
 }
 
@@ -72,11 +73,11 @@ export async function isNeedUpgrade(type?: VersionControlType): Promise<boolean>
 export function upgradeGitmars() {
 	sh.echo(
 		chalk.red(t('Your version is outdated, please upgrade before using')) +
-			chalk.green(
-				t(
-					'\nMac users upgrade method: sudo gitm upgrade latest -m -c npm \nWindows users use PowerShell or CMD: gitm upgrade latest -m -c npm.cmd'
-				)
-			)
+		chalk.green(
+			t(
+				'\nMac users upgrade method: sudo gitm upgrade latest -m -c npm \nWindows users use PowerShell or CMD: gitm upgrade latest -m -c npm.cmd',
+			),
+		),
 	)
 	process.exit(1)
 }

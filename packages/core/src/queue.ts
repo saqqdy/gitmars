@@ -1,13 +1,13 @@
+import type { CommandMessageType, CommandType, CommandTypeCmd, QueueReturnsType } from './types'
 import { createRequire } from 'node:module'
-import ora from 'ora'
-import { extend } from 'js-cool'
-import chalk from 'chalk'
 import { setCommandCache, setLog } from '@gitmars/cache'
 import { getCommandMessage } from '@gitmars/git'
 import { debug, spawnSync } from '@gitmars/utils'
-import { postMessage } from './message'
-import type { CommandMessageType, CommandType, CommandTypeCmd, QueueReturnsType } from './types'
+import chalk from 'chalk'
+import { extend } from 'js-cool'
+import ora from 'ora'
 import lang from './lang'
+import { postMessage } from './message'
 
 const { t } = lang
 const require = createRequire(import.meta.url)
@@ -28,7 +28,7 @@ export interface QueueStartFunction {
  */
 export function wait(
 	list: Array<CommandType | string | string[] | string[]>,
-	fun: QueueStartFunction
+	fun: QueueStartFunction,
 ) {
 	// 最后一条指令，执行完成之后退出递归
 	if (list.length === 0) {
@@ -51,9 +51,11 @@ export function wait(
  */
 export function queue(list: Array<CommandType | string | string[]>): Promise<QueueReturnsType[]> {
 	const spinner = ora()
+
 	// 处理脚本执行成功
 	function onSuccess(msg: CommandMessageType, cfg: CommandTypeCmd['config'], cb?: WaitCallback) {
 		const _message = cfg.success || msg.success || t('Processing complete')
+
 		if (_message) {
 			spinner.succeed(chalk.green(_message))
 			cfg.postmsg && postMessage(_message)
@@ -67,12 +69,13 @@ export function queue(list: Array<CommandType | string | string[]>): Promise<Que
 		err: any,
 		msg: CommandMessageType,
 		cfg: CommandTypeCmd['config'],
-		cb?: WaitCallback
+		cb?: WaitCallback,
 	) {
 		if (cfg.kill) {
 			// If the current instruction is executed with an error and setting up the instruction requires an interrupt, the interrupt recursion
 			cb && cb(true) // Callback and interrupt execution
 			const rest = extend(true, [], list) as unknown as Array<CommandType | string | string[]>
+
 			if (!cfg.again) {
 				rest.shift()
 			} else if (cfg.again !== true) {
@@ -86,41 +89,44 @@ export function queue(list: Array<CommandType | string | string[]>): Promise<Que
 			spinner.fail(
 				chalk.red(
 					cfg.fail ||
-						msg.fail ||
-						t(
-							'An error has occurred! Command {command} execution failed, process exits',
-							{
-								command: cmd as string
-							}
-						)
-				)
+					msg.fail ||
+					t(
+						'An error has occurred! Command {command} execution failed, process exits',
+						{
+							command: cmd as string,
+						},
+					),
+				),
 			)
 			cfg.postmsg &&
-				postMessage(
-					t('An error has occurred! Command {command} execution failed, process exits', {
-						command: cmd as string
-					})
-				)
+			postMessage(
+				t('An error has occurred! Command {command} execution failed, process exits', {
+					command: cmd as string,
+				}),
+			)
 			rest.length > 0 &&
-				spinner.fail(
-					chalk.red(
-						t('Enter gitm continue to continue after processing the issue in question')
-					)
-				)
+			spinner.fail(
+				chalk.red(
+					t('Enter gitm continue to continue after processing the issue in question'),
+				),
+			)
 			process.exit(1)
 		} else {
 			const _message =
 				cfg.fail ||
 				msg.fail ||
 				t('Command {command} Execution failed', {
-					command: cmd as string
+					command: cmd as string,
 				})
+
 			_message && spinner.warn(chalk.yellow(_message))
 			cb && cb() // 回调，继续执行下一条
 		}
 	}
+
 	return new Promise((resolve, reject) => {
 		const returns: QueueReturnsType[] = []
+
 		if (list.length === 0) reject(new Error(t('Command name cannot be empty')))
 		list = extend(true, [], list) as unknown as Array<CommandType | string | string[]>
 		wait(list, async (command?: CommandType | string | string[], cb?: WaitCallback) => {
@@ -128,11 +134,12 @@ export function queue(list: Array<CommandType | string | string[]>): Promise<Que
 					stdio: 'ignore',
 					postmsg: false,
 					kill: true,
-					again: false // Whether the instruction execution needs to be re-executed after interruption, similar to the instruction after conflict resolution, no longer need to repeat the execution
+					again: false, // Whether the instruction execution needs to be re-executed after interruption, similar to the instruction after conflict resolution, no longer need to repeat the execution
 				},
 				cmd,
 				message
-			if (command instanceof Array) cmd = command
+
+			if (Array.isArray(command)) cmd = command
 			else if (command instanceof Object) {
 				// Incoming objects: { cmd: '', config: {} }
 				if ('message' in command) {
@@ -159,28 +166,30 @@ export function queue(list: Array<CommandType | string | string[]>): Promise<Que
 					stdout: '',
 					stderr: '',
 					cfg,
-					cmd: ''
+					cmd: '',
 				})
 				onSuccess(
 					{
-						success: message
+						success: message,
 					},
 					cfg,
-					cb
+					cb,
 				)
 			} else if (!cmd) {
 				spinner.stop()
 				// Only one instruction, no need to return array
 				resolve(returns)
-			} else if (cmd instanceof Array || typeof cmd === 'string') {
+			} else if (Array.isArray(cmd) || typeof cmd === 'string') {
 				const [client, ...argv] =
-					cmd instanceof Array ? cmd : cmd.replace(/\s+/g, ' ').split(' ')
+					Array.isArray(cmd) ? cmd : cmd.replace(/\s+/g, ' ').split(' ')
 				// cmd is a string
 				const msg = getCommandMessage(cmd)
+
 				spinner.start(chalk.green(cfg.processing || msg.processing || t('Processing')))
 				const program = spawnSync(client, argv, cfg)
 				const { status, stderr } = program
 				let { stdout } = program
+
 				debug('queue-result', cmd, stdout)
 				try {
 					stdout = JSON.parse(stdout!)
@@ -192,14 +201,14 @@ export function queue(list: Array<CommandType | string | string[]>): Promise<Que
 					stdout,
 					stderr,
 					cfg,
-					cmd
+					cmd,
 				})
 				if (status !== 0) {
 					setLog({
 						command: command as string,
 						status,
 						stdout,
-						stderr
+						stderr,
 					})
 				}
 				if (status !== 0) {
@@ -214,6 +223,7 @@ export function queue(list: Array<CommandType | string | string[]>): Promise<Que
 					stdout,
 					stderr,
 					_execFunction = require(cmd.module) // await import(cmd.module)
+
 				if (cmd.entry) _execFunction = _execFunction[cmd.entry]
 				try {
 					spinner.start(chalk.green(cfg.processing || t('Processing')))
@@ -231,7 +241,7 @@ export function queue(list: Array<CommandType | string | string[]>): Promise<Que
 					stdout,
 					stderr,
 					cfg,
-					cmd
+					cmd,
 				})
 			}
 		})

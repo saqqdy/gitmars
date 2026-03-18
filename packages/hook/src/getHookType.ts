@@ -30,5 +30,5 @@ export default {
 	isGitmars,
 	isYorkie,
 	isGhooks,
-	isPreCommit
+	isPreCommit,
 }

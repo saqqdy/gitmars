@@ -1,4 +1,4 @@
-import type { SpawnOptions, SpawnSyncOptions, SpawnSyncReturns } from 'child_process'
+import type { SpawnOptions, SpawnSyncOptions, SpawnSyncReturns } from 'node:child_process'
 import crossSpawn from 'cross-spawn'
 import { debug } from './debug'
 import stringify from './stringify'
@@ -14,9 +14,10 @@ import stringify from './stringify'
 export function spawn(
 	client: string,
 	argv: string[],
-	options: SpawnOptions = {}
+	options: SpawnOptions = {},
 ): Partial<SpawnSyncReturns<string>> {
 	let len = argv.length
+
 	while (len--) {
 		!argv[len] && argv.splice(len, 1)
 	}
@@ -26,17 +27,19 @@ export function spawn(
 		{
 			// stdio: 'inherit',
 			shell: process.platform === 'win32',
-			...options
-		}
+			...options,
+		},
 	)
+
 	debug('spawn', client, argv)
+
 	return {
 		pid: program.pid,
 		stdout: program.stdout ? program.stdout.toString().replace(/\s+$/, '') : '',
 		stderr: program.stderr ? program.stderr.toString() : '',
 		status: program.status,
 		signal: program.signal,
-		error: program.error
+		error: program.error,
 	}
 }
 
@@ -51,9 +54,10 @@ export function spawn(
 export function spawnSync(
 	client: string,
 	argv: string[],
-	options: SpawnSyncOptions = {}
+	options: SpawnSyncOptions = {},
 ): Partial<SpawnSyncReturns<string>> {
 	let len = argv.length
+
 	while (len--) {
 		!argv[len] && argv.splice(len, 1)
 	}
@@ -63,16 +67,18 @@ export function spawnSync(
 		{
 			// stdio: 'inherit',
 			shell: process.platform === 'win32',
-			...options
-		}
+			...options,
+		},
 	)
+
 	debug('spawnSync', client, argv)
+
 	return {
 		pid: program.pid,
 		stdout: program.stdout ? program.stdout.toString().replace(/\s+$/, '') : '',
 		stderr: program.stderr ? program.stderr.toString() : '',
 		status: program.status,
 		signal: program.signal,
-		error: program.error
+		error: program.error,
 	}
 }

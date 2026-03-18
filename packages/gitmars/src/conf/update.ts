@@ -12,14 +12,14 @@ export const cmdConfig: GitmarsOptionType = {
 			variadic: false,
 			description: t('Branch Type'),
 			options: ['feature', 'bugfix', 'support'],
-			value: ''
+			value: '',
 		},
 		{
 			required: false,
 			name: 'name',
 			variadic: false,
-			description: t('Branch name (without feature/bugfix prefix)')
-		}
+			description: t('Branch name (without feature/bugfix prefix)'),
+		},
 	],
 	options: [
 		{
@@ -33,7 +33,7 @@ export const cmdConfig: GitmarsOptionType = {
 			description: t('Use merge to update (default merge)'),
 			defaultValue: true,
 			value: true,
-			recommend: true
+			recommend: true,
 		},
 		{
 			flags: '--use-rebase',
@@ -45,7 +45,7 @@ export const cmdConfig: GitmarsOptionType = {
 			negate: false,
 			description: t('Update with rebase (default merge)'),
 			defaultValue: false,
-			recommend: true
+			recommend: true,
 		},
 		{
 			flags: '-a --all',
@@ -58,7 +58,7 @@ export const cmdConfig: GitmarsOptionType = {
 			negate: false,
 			description: t('Update all local bugfix, feature, support branches'),
 			defaultValue: false,
-			recommend: false
+			recommend: false,
 		},
 		{
 			flags: '-f, --force',
@@ -70,9 +70,9 @@ export const cmdConfig: GitmarsOptionType = {
 			long: '--force',
 			negate: false,
 			description: t('Whether to force a merge request'),
-			recommend: false
-		}
-	]
+			recommend: false,
+		},
+	],
 }
 
 export { cmdConfig as default }

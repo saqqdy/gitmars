@@ -10,8 +10,8 @@ export const cmdConfig: GitmarsOptionType = {
 			required: false,
 			name: 'project',
 			variadic: false,
-			description: t('Project name')
-		}
+			description: t('Project name'),
+		},
 	],
 	options: [
 		{
@@ -27,7 +27,7 @@ export const cmdConfig: GitmarsOptionType = {
 			defaultValue: '',
 			recommend: true,
 			options: ['dev', 'prod', 'bug', 'all'],
-			value: 'dev'
+			value: 'dev',
 		},
 		{
 			flags: '-a, --app [app]',
@@ -41,7 +41,7 @@ export const cmdConfig: GitmarsOptionType = {
 			description: t('Build application'),
 			defaultValue: '',
 			recommend: true,
-			value: 'all'
+			value: 'all',
 		},
 		{
 			flags: '-d, --data <data>',
@@ -55,7 +55,7 @@ export const cmdConfig: GitmarsOptionType = {
 			description: t('Other data to be transferred'),
 			defaultValue: '{}',
 			recommend: true,
-			value: '{}'
+			value: '{}',
 		},
 		{
 			flags: '-c, --confirm',
@@ -67,9 +67,9 @@ export const cmdConfig: GitmarsOptionType = {
 			long: '--confirm',
 			negate: false,
 			description: t('Confirm start, do not show confirmation box when true'),
-			defaultValue: false
-		}
-	]
+			defaultValue: false,
+		},
+	],
 }
 
 export { cmdConfig as default }

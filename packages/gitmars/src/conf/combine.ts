@@ -12,14 +12,14 @@ export const cmdConfig: GitmarsOptionType = {
 			variadic: false,
 			description: t('Branch Type'),
 			options: ['feature', 'bugfix', 'support'],
-			value: ''
+			value: '',
 		},
 		{
 			required: false,
 			name: 'name',
 			variadic: false,
-			description: t('Branch name (without feature/bugfix prefix)')
-		}
+			description: t('Branch name (without feature/bugfix prefix)'),
+		},
 	],
 	options: [
 		{
@@ -34,7 +34,7 @@ export const cmdConfig: GitmarsOptionType = {
 			description: t('Sync to dev environment'),
 			defaultValue: false,
 			value: true,
-			recommend: true // Custom value: whether to check by default
+			recommend: true, // Custom value: whether to check by default
 		},
 		{
 			flags: '-p, --prod',
@@ -48,7 +48,7 @@ export const cmdConfig: GitmarsOptionType = {
 			description: t('Sync to prod environment'),
 			defaultValue: false,
 			value: false,
-			recommend: false
+			recommend: false,
 		},
 		{
 			flags: '-b, --build [build]',
@@ -61,7 +61,7 @@ export const cmdConfig: GitmarsOptionType = {
 			negate: false,
 			description: t('Build application'),
 			value: 'all',
-			recommend: true
+			recommend: true,
 		},
 		{
 			flags: '-m, --commit <commit>',
@@ -74,7 +74,7 @@ export const cmdConfig: GitmarsOptionType = {
 			negate: false,
 			description: t('Execute commit, information required'),
 			defaultValue: '',
-			recommend: false
+			recommend: false,
 		},
 		{
 			flags: '--description [description]',
@@ -86,7 +86,7 @@ export const cmdConfig: GitmarsOptionType = {
 			negate: false,
 			description: t('Description of the reason for this commit'),
 			defaultValue: '',
-			recommend: false
+			recommend: false,
 		},
 		{
 			flags: '-a, --add',
@@ -99,7 +99,7 @@ export const cmdConfig: GitmarsOptionType = {
 			negate: false,
 			description: t('Execute add'),
 			defaultValue: false,
-			recommend: false
+			recommend: false,
 		},
 		{
 			flags: '--no-bugfix',
@@ -111,7 +111,7 @@ export const cmdConfig: GitmarsOptionType = {
 			negate: true,
 			description: t('bug branch merge to release without merging to bug branch'),
 			defaultValue: true,
-			recommend: false
+			recommend: false,
 		},
 		{
 			flags: '--as-feature',
@@ -122,7 +122,7 @@ export const cmdConfig: GitmarsOptionType = {
 			long: '--as-feature',
 			negate: false,
 			description: t('bug branch merge to release'),
-			recommend: false
+			recommend: false,
 		},
 		{
 			flags: '-f, --force',
@@ -134,7 +134,7 @@ export const cmdConfig: GitmarsOptionType = {
 			long: '--force',
 			negate: false,
 			description: t('Whether to force a merge request'),
-			recommend: false
+			recommend: false,
 		},
 		{
 			flags: '--data <data>',
@@ -147,13 +147,14 @@ export const cmdConfig: GitmarsOptionType = {
 			description: t('Other data to be transferred'),
 			defaultValue: '{}',
 			recommend: true,
-			value: '{}'
-		}
+			value: '{}',
+		},
 	],
 	// validator opts
 	validatorOpts: (val, opts, cb) => {
 		if (!val.includes('--dev') && !val.includes('--prod')) {
 			cb(new Error(t('Merge dev or prod must choose at least one')))
+
 			return
 		}
 		if (
@@ -161,6 +162,7 @@ export const cmdConfig: GitmarsOptionType = {
 			(!val.includes('--add') && val.includes('--commit'))
 		) {
 			cb(new Error(t('add and commit need to be selected at the same time')))
+
 			return
 		}
 		cb()
@@ -176,7 +178,7 @@ export const cmdConfig: GitmarsOptionType = {
 	// transform args
 	transformArgs: (val, opts, cb) => {
 		cb()
-	}
+	},
 }
 
 export { cmdConfig as default }

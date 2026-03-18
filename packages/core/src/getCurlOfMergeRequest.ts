@@ -1,5 +1,6 @@
-import { encodeUnicode } from '@gitmars/utils'
 import { getConfig, getGitToken } from '@gitmars/git'
+import { encodeUnicode } from '@gitmars/utils'
+
 const config = getConfig()
 
 /**
@@ -11,13 +12,15 @@ const config = getConfig()
 function getCurlOfMergeRequest({
 	source_branch,
 	target_branch,
-	description
+	description,
 }: Record<string, string | undefined>): string {
 	let des = ''
 	const token = getGitToken()
+
 	if (description) {
 		des = `,\u005C"description\u005C":\u005C"${encodeUnicode(description)}\u005C"`
 	}
+
 	return `curl -i -H "Content-Type: application/json" -X POST -d "{\u005C"source_branch\u005C":\u005C"${source_branch}\u005C",\u005C"target_branch\u005C":\u005C"${target_branch}\u005C",\u005C"private_token\u005C":\u005C"${token}\u005C",\u005C"title\u005C":\u005C"Merge branch '${source_branch}' into '${target_branch}'\u005C"${des}}" "${config.gitHost}/api/v4/projects/${config.gitID}/merge_requests"`
 }
 

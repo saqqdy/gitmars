@@ -1,14 +1,13 @@
-#!/usr/bin/env ts-node
-import { program } from 'commander'
-import dayjs from 'dayjs'
-import columnify from 'columnify'
-import chalk from 'chalk'
-import { getGitLogs, getIsGitProject } from '@gitmars/git'
-import { createArgs, echo } from '@gitmars/utils'
 import type { GitLogsType } from '@gitmars/git'
 import type { GitmarsOptionOptionsType } from './types'
-import logConfig from './conf/log'
+import { getGitLogs, getIsGitProject } from '@gitmars/git'
+import { createArgs, echo } from '@gitmars/utils'
+import chalk from 'chalk'
+import columnify from 'columnify'
+import { program } from 'commander'
+import dayjs from 'dayjs'
 import lang from './common/local'
+import logConfig from './conf/log'
 
 const { t } = lang
 const { blue, cyan, green, red, yellow } = chalk
@@ -46,8 +45,9 @@ program.action(async (branch: string, opt: GitmLogOption) => {
 		lastet: opt.lastet,
 		limit: opt.limit,
 		branch,
-		noMerges: !opt.merges
+		noMerges: !opt.merges,
 	})
+
 	if (opt.json) {
 		console.info(logs)
 	} else {
@@ -57,8 +57,9 @@ program.action(async (branch: string, opt: GitmLogOption) => {
 			title: green(log['%s']),
 			// author: yellow(`${log['%an']}<${log['%ae']}>`),
 			author: yellow(log['%an']),
-			date: blue(dayjs(log['%aI']).format('YYYY/MM/DD HH:mm:ss'))
+			date: blue(dayjs(log['%aI']).format('YYYY/MM/DD HH:mm:ss')),
 		}))
+
 		echo(columnify(data))
 	}
 	process.exit(0)

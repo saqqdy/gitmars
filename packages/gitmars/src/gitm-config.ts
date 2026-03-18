@@ -1,12 +1,11 @@
-#!/usr/bin/env ts-node
-import { program } from 'commander'
-import sh from 'shelljs'
-import chalk from 'chalk'
+import type { GitmarsConfigProperty } from '@gitmars/build'
 import { getConfig, getGitRevParse, getIsGitProject } from '@gitmars/git'
 import { writeFile } from '@gitmars/utils'
-import type { GitmarsConfigProperty } from '@gitmars/build'
-import lang from './common/local'
+import chalk from 'chalk'
+import { program } from 'commander'
+import sh from 'shelljs'
 import { defaults } from './common/global'
+import lang from './common/local'
 
 const { t } = lang
 const { green, red } = chalk
@@ -27,9 +26,11 @@ program
 	.description(t('Set configuration items for gitmars'))
 	.action(async (option: any, value: string): Promise<void> => {
 		let { filepath } = config
+
 		if (!filepath) {
 			const { root } = getGitRevParse()
-			filepath = root + '/.gitmarsrc'
+
+			filepath = `${root}/.gitmarsrc`
 		}
 		if (value) {
 			if (Object.keys(defaults).includes(option)) {
@@ -43,9 +44,9 @@ program
 				sh.echo(
 					red(
 						t('The configuration item {option} is not supported', {
-							option
-						})
-					)
+							option,
+						}),
+					),
 				)
 				process.exit(1)
 			}

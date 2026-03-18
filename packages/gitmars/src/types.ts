@@ -1,4 +1,4 @@
-import type { SpawnOptions } from 'child_process'
+import type { SpawnOptions } from 'node:child_process'
 
 export type AnyObject = Record<string, any>
 
@@ -26,8 +26,8 @@ export interface GitmarsOptionArgsType {
 	required: boolean
 	name: string
 	variadic: boolean
-	validator?(val: string, opts: object, cb: Function): void
-	transformer?(val: string, answers: object, flags: object, options: GitmarsOptionArgsType): void
+	validator?: (val: string, opts: object, cb: Function) => void
+	transformer?: (val: string, answers: object, flags: object, options: GitmarsOptionArgsType) => void
 	description?: string
 	defaultValue?: any
 	options?: Array<string | number>
@@ -48,14 +48,14 @@ export interface GitmarsOptionOptionsType {
 	value?: any
 	recommend?: boolean
 	options?: Array<string | number>
-	validator?(val: string, opts: object, cb: Function): void
-	transformer?(
+	validator?: (val: string, opts: object, cb: Function) => void
+	transformer?: (
 		val: string,
 		answers: object,
 		flags: object,
-		options: GitmarsOptionOptionsType
-	): void
-	when?(answers: object): void
+		options: GitmarsOptionOptionsType,
+	) => void
+	when?: (answers: object) => void
 }
 
 export interface GitmarsOptionType {
@@ -63,10 +63,10 @@ export interface GitmarsOptionType {
 	short?: string | null
 	args: GitmarsOptionArgsType[]
 	options: GitmarsOptionOptionsType[]
-	validatorOpts?(val: any, opts: object, cb: Function): void
-	validatorArgs?(val: any, opts: object, cb: Function): void
-	transformOpts?(val: any, opts: object, cb: Function): void
-	transformArgs?(val: any, opts: object, cb: Function): void
+	validatorOpts?: (val: any, opts: object, cb: Function) => void
+	validatorArgs?: (val: any, opts: object, cb: Function) => void
+	transformOpts?: (val: any, opts: object, cb: Function) => void
+	transformArgs?: (val: any, opts: object, cb: Function) => void
 }
 
 export interface GitmarsMultiOptionType {

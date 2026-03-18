@@ -10,8 +10,8 @@ export const cmdConfig: GitmarsOptionType = {
 			required: false,
 			name: 'project',
 			variadic: false,
-			description: t('Project name')
-		}
+			description: t('Project name'),
+		},
 	],
 	options: [
 		{
@@ -27,7 +27,7 @@ export const cmdConfig: GitmarsOptionType = {
 			defaultValue: '',
 			recommend: true,
 			options: ['dev', 'prod', 'bug'],
-			value: 'dev'
+			value: 'dev',
 		},
 		{
 			flags: '--api-env [apiEnv]',
@@ -42,7 +42,7 @@ export const cmdConfig: GitmarsOptionType = {
 			defaultValue: '',
 			recommend: true,
 			options: ['alpha', 'tag', 'release', 'production'],
-			value: 'production'
+			value: 'production',
 		},
 		{
 			flags: '-mp, --miniprogram [miniprogram]',
@@ -56,7 +56,7 @@ export const cmdConfig: GitmarsOptionType = {
 			description: t('Generate experiential version of miniprogram'),
 			defaultValue: '',
 			recommend: true,
-			value: ''
+			value: '',
 		},
 		{
 			flags: '-des, --description [description]',
@@ -70,7 +70,7 @@ export const cmdConfig: GitmarsOptionType = {
 			description: t('Enter the version description'),
 			defaultValue: '',
 			recommend: true,
-			value: ''
+			value: '',
 		},
 		{
 			flags: '-a, --app [app]',
@@ -85,7 +85,7 @@ export const cmdConfig: GitmarsOptionType = {
 			defaultValue: '',
 			recommend: true,
 			options: ['weapp', 'alipay', 'tt', 'dd', 'swan'],
-			value: 'weapp'
+			value: 'weapp',
 		},
 		{
 			flags: '-d, --data <data>',
@@ -99,7 +99,7 @@ export const cmdConfig: GitmarsOptionType = {
 			description: t('Other data to be transferred'),
 			defaultValue: '{}',
 			recommend: true,
-			value: '{}'
+			value: '{}',
 		},
 		{
 			flags: '-c, --confirm',
@@ -111,9 +111,9 @@ export const cmdConfig: GitmarsOptionType = {
 			long: '--confirm',
 			negate: false,
 			description: t('Confirm start, do not show confirmation box when true'),
-			defaultValue: false
-		}
-	]
+			defaultValue: false,
+		},
+	],
 }
 
 export { cmdConfig as default }

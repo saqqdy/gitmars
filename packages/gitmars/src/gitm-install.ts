@@ -1,11 +1,10 @@
-#!/usr/bin/env ts-node
+import type { GitmarsOptionOptionsType, PackageVersionTag } from './types'
+import { createArgs, echo, spawnSync } from '@gitmars/utils'
+import chalk from 'chalk'
 import { program } from 'commander'
 import ora from 'ora'
-import chalk from 'chalk'
-import { createArgs, echo, spawnSync } from '@gitmars/utils'
-import type { GitmarsOptionOptionsType, PackageVersionTag } from './types'
-import installConfig from './conf/install'
 import lang from './common/local'
+import installConfig from './conf/install'
 
 const { t } = lang
 const { green, red } = chalk
@@ -38,14 +37,16 @@ program.action(
 			process.exit(1)
 		}
 		const spinner = ora()
+
 		if (version) {
 			const match = version.match(/[0-9.]+$/)
+
 			if (match) version = match[0]
 			else if (!['alpha', 'lite', 'beta', 'release', 'latest', 'next'].includes(version)) {
 				console.error(
 					t(
-						'Incorrect version number entered, only supported: alpha, lite, beta, release, latest, next'
-					)
+						'Incorrect version number entered, only supported: alpha, lite, beta, release, latest, next',
+					),
 				)
 				process.exit(0)
 			}
@@ -53,6 +54,7 @@ program.action(
 			version = 'latest'
 		}
 		let cmdAdd: [GitmInstallOption['client'], string[]]
+
 		switch (opt.client) {
 			case 'yarn':
 				cmdAdd = [opt.client, ['global', 'add', `${pluginName}@${version}`]]
@@ -75,18 +77,19 @@ program.action(
 		spinner.start(green(t('Installing')))
 		const install = spawnSync(...cmdAdd, {
 			stdio: 'ignore',
-			shell: process.platform === 'win32'
+			shell: process.platform === 'win32',
 		})
+
 		if (install.status === 0) {
 			spinner.succeed(green(t('Installation complete')))
 		} else {
 			spinner.fail(
-				red(t('There was an installation error, please contact the administrator'))
+				red(t('There was an installation error, please contact the administrator')),
 			)
 		}
 		spinner.stop()
 		process.exit(0)
-	}
+	},
 )
 program.parse(process.argv)
 export {}

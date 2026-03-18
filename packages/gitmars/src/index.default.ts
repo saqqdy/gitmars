@@ -1,4 +1,4 @@
 export type * from './types'
 export default {
-	version: '__VERSION__'
+	version: '__VERSION__',
 }

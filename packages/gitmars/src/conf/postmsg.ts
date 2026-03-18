@@ -9,8 +9,8 @@ export const cmdConfig: GitmarsOptionType = {
 		{
 			required: true,
 			name: 'message',
-			variadic: false
-		}
+			variadic: false,
+		},
 	],
 	options: [
 		{
@@ -23,8 +23,8 @@ export const cmdConfig: GitmarsOptionType = {
 			long: '--url',
 			negate: false,
 			description: t('The api address of the push message'),
-			defaultValue: ''
-		}
+			defaultValue: '',
+		},
 	],
 	// validator opts
 	validatorOpts: (val, opts, cb) => {
@@ -41,7 +41,7 @@ export const cmdConfig: GitmarsOptionType = {
 	// transform args
 	transformArgs: (val, opts, cb) => {
 		cb()
-	}
+	},
 }
 
 export { cmdConfig as default }

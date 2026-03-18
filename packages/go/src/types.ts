@@ -2,8 +2,8 @@ export interface GitmarsOptionArgsType {
 	required: boolean
 	name: string
 	variadic: boolean
-	validator?(val: string, opts: object, cb: Function): void
-	transformer?(val: string, answers: object, flags: object, options: GitmarsOptionArgsType): void
+	validator?: (val: string, opts: object, cb: Function) => void
+	transformer?: (val: string, answers: object, flags: object, options: GitmarsOptionArgsType) => void
 	description?: string
 	defaultValue?: any
 	options?: Array<string | number>
@@ -24,14 +24,14 @@ export interface GitmarsOptionOptionsType {
 	value?: any
 	recommend?: boolean
 	options?: Array<string | number>
-	validator?(val: string, opts: object, cb: Function): void
-	transformer?(
+	validator?: (val: string, opts: object, cb: Function) => void
+	transformer?: (
 		val: string,
 		answers: object,
 		flags: object,
-		options: GitmarsOptionOptionsType
-	): void
-	when?(answers: object): void
+		options: GitmarsOptionOptionsType,
+	) => void
+	when?: (answers: object) => void
 }
 
 export interface GitmarsOptionType {
@@ -44,11 +44,11 @@ export interface GitmarsOptionType {
 	// 指令传参
 	options: GitmarsOptionOptionsType[]
 	// 校验参数
-	validatorOpts?(val: any, opts: object, cb: Function): void
+	validatorOpts?: (val: any, opts: object, cb: Function) => void
 	// 校验传参
-	validatorArgs?(val: any, opts: object, cb: Function): void
+	validatorArgs?: (val: any, opts: object, cb: Function) => void
 	// 参数值转换
-	transformOpts?(val: any, opts: object, cb: Function): void
+	transformOpts?: (val: any, opts: object, cb: Function) => void
 	// 传参值转换
-	transformArgs?(val: any, opts: object, cb: Function): void
+	transformArgs?: (val: any, opts: object, cb: Function) => void
 }

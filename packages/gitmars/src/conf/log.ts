@@ -9,8 +9,8 @@ export const cmdConfig: GitmarsOptionType = {
 		{
 			required: false,
 			name: 'branch',
-			variadic: false
-		}
+			variadic: false,
+		},
 	],
 	options: [
 		{
@@ -23,9 +23,9 @@ export const cmdConfig: GitmarsOptionType = {
 			long: '--lastet',
 			negate: false,
 			description: t(
-				'Query logs after a certain time, fill in the format: 10s/2m/2h/3d/4M/5y'
+				'Query logs after a certain time, fill in the format: 10s/2m/2h/3d/4M/5y',
 			),
-			defaultValue: ''
+			defaultValue: '',
 		},
 		{
 			flags: '--no-merges',
@@ -37,7 +37,7 @@ export const cmdConfig: GitmarsOptionType = {
 			negate: true,
 			description: t('Whether to exclude merge records'),
 			defaultValue: true,
-			recommend: false
+			recommend: false,
 		},
 		{
 			flags: '--limit [limit]',
@@ -49,7 +49,7 @@ export const cmdConfig: GitmarsOptionType = {
 			long: '--limit',
 			negate: false,
 			description: t('The maximum number of logs to be queried'),
-			defaultValue: ''
+			defaultValue: '',
 		},
 		{
 			flags: '--json',
@@ -61,9 +61,9 @@ export const cmdConfig: GitmarsOptionType = {
 			long: '--json',
 			negate: false,
 			description: t('Whether to output logs in json format, default form'),
-			defaultValue: false
-		}
-	]
+			defaultValue: false,
+		},
+	],
 }
 
 export { cmdConfig as default }

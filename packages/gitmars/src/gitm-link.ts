@@ -1,10 +1,9 @@
-#!/usr/bin/env ts-node
+import type { GitmarsOptionOptionsType } from './types'
+import { createArgs, spawnSync } from '@gitmars/utils'
 import { program } from 'commander'
 import sh from 'shelljs'
-import { createArgs, spawnSync } from '@gitmars/utils'
-import type { GitmarsOptionOptionsType } from './types'
-import linkConfig from './conf/link'
 import lang from './common/local'
+import linkConfig from './conf/link'
 
 const { t } = lang
 const { args, options } = linkConfig
@@ -22,9 +21,11 @@ program.action((name: string) => {
 	const isLink = sh.test('-L', `./node_modules/${name}`)
 	const isExist = sh.test('-e', `./node_modules/${name}`)
 	const npmClient = sh.which('yarn') ? 'yarn' : 'npm'
+
 	if (!name) {
 		// Create a soft link to the current package
 		const { status } = spawnSync(npmClient, ['link'])
+
 		if (status === 0) sh.echo(t('Processing completed'))
 		else sh.echo(t('An error occurred'))
 		process.exit(0)
@@ -35,13 +36,14 @@ program.action((name: string) => {
 	}
 	// sh.ln('-s', path, `./node_modules/${name}`)
 	const { status } = spawnSync(npmClient, ['link', name])
+
 	if (status === 0) sh.echo(t('Processing completed'))
 	else {
 		sh.echo(
 			t(
 				'Processing failed, {name} soft link does not exist, please go to the local {name} root directory and execute: gitm link',
-				{ name }
-			)
+				{ name },
+			),
 		)
 	}
 })

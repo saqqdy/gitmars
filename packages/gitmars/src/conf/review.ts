@@ -17,11 +17,11 @@ export const cmdConfig: GitmarsOptionType = {
 			long: '--state',
 			negate: false,
 			description: t(
-				'Filter merge request status, there are 2 types: opened, closed, not passed then default all'
+				'Filter merge request status, there are 2 types: opened, closed, not passed then default all',
 			),
 			defaultValue: 'opened',
 			options: ['opened', 'closed', 'merged', 'all'],
-			value: 'opened'
+			value: 'opened',
 		},
 		{
 			flags: '--quiet',
@@ -33,8 +33,8 @@ export const cmdConfig: GitmarsOptionType = {
 			long: '--quiet',
 			negate: false,
 			description: t('Do not push the message'),
-			defaultValue: false
-		}
+			defaultValue: false,
+		},
 	],
 	// validator opts
 	validatorOpts: (val, opts, cb) => {
@@ -51,7 +51,7 @@ export const cmdConfig: GitmarsOptionType = {
 	// transform args
 	transformArgs: (val, opts, cb) => {
 		cb()
-	}
+	},
 }
 
 export { cmdConfig as default }

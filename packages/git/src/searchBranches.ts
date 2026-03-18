@@ -17,12 +17,15 @@ export interface SearchBranchesMapType {
 function searchBranches(opt: any = {}): string[] {
 	const { key, type, remote = false, exclude, include } = opt
 	let { path } = opt
+
 	if (!path) {
 		if (remote) {
 			const { gitUrl } = getGitConfig()
+
 			path = gitUrl
 		} else {
 			const { root } = getGitRevParse()
+
 			path = root
 		}
 	}
@@ -32,17 +35,20 @@ function searchBranches(opt: any = {}): string[] {
 		'--quiet',
 		// '--sort',
 		// 'version:refname',
-		path
+		path,
 	])
+
 	debug('searchBranches', { key, type, remote, exclude, include, path }, stdout)
 	const arr = stdout ? stdout.split('\n') : []
 	const map: SearchBranchesMapType = {
 		heads: [],
 		tags: [],
-		others: []
+		others: [],
 	}
+
 	for (const el of arr) {
-		const match = el.match(/^\w+[\s]+refs\/(heads|remotes|tags)\/([\w-\/]+)$/)
+		const match = el.match(/^\w+\s+refs\/(heads|remotes|tags)\/([\w-/]+)$/)
+
 		if (!match) continue
 		switch (match[1]) {
 			case 'heads':
@@ -63,9 +69,10 @@ function searchBranches(opt: any = {}): string[] {
 	if (type) {
 		const _types = type.split(',')
 		const temp: string[] = []
+
 		map.heads.forEach(item => {
 			types: for (const t of _types) {
-				if (['bugfix', 'feature', 'support'].includes(t) && item.includes(t + '/')) {
+				if (['bugfix', 'feature', 'support'].includes(t) && item.includes(`${t}/`)) {
 					temp.push(item)
 					break types
 				}
@@ -76,11 +83,13 @@ function searchBranches(opt: any = {}): string[] {
 	// Regular Exclusion
 	if (exclude) {
 		const reg = new RegExp(exclude)
+
 		map.heads = map.heads.filter(el => !reg.test(el))
 	}
 	// The regular rule contains
 	if (include) {
 		const reg = new RegExp(include)
+
 		map.heads = map.heads.filter(el => reg.test(el))
 	}
 	// Filter by keyword
@@ -88,6 +97,7 @@ function searchBranches(opt: any = {}): string[] {
 		map.heads = map.heads.filter(el => el.includes(key))
 	}
 	debug('searchBranches', map.heads)
+
 	return map.heads
 }
 

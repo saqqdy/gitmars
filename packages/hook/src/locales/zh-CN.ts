@@ -1,3 +1,3 @@
 export default {
-	name: 'zh-CN'
+	name: 'zh-CN',
 }

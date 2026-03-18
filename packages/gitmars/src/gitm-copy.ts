@@ -1,10 +1,5 @@
-#!/usr/bin/env ts-node
-import { program } from 'commander'
-import dayjs from 'dayjs'
-import { checkbox, select } from '@inquirer/prompts'
-import sh from 'shelljs'
-import chalk from 'chalk'
-import to from 'await-to-done'
+import type { GitLogKeysType, GitLogsType } from '@gitmars/git'
+import type { CommandType, GitmarsOptionOptionsType } from './types'
 import { queue } from '@gitmars/core'
 import {
 	checkGitStatus,
@@ -15,13 +10,17 @@ import {
 	getIsBranchOrCommitExist,
 	getIsGitProject,
 	prune,
-	searchBranches
+	searchBranches,
 } from '@gitmars/git'
 import { createArgs, echo } from '@gitmars/utils'
-import type { GitLogKeysType, GitLogsType } from '@gitmars/git'
-import type { CommandType, GitmarsOptionOptionsType } from './types'
-import copyConfig from './conf/copy'
+import { checkbox, select } from '@inquirer/prompts'
+import to from 'await-to-done'
+import chalk from 'chalk'
+import { program } from 'commander'
+import dayjs from 'dayjs'
+import sh from 'shelljs'
 import lang from './common/local'
+import copyConfig from './conf/copy'
 
 const { t } = lang
 const { blue, green, red, yellow } = chalk
@@ -47,8 +46,8 @@ program
 	.usage('[commitid...] [--lastet [lastet]] [--limit [limit]] [--no-merges] [-p --push]')
 	.description(
 		t(
-			'cherry-pick batch version, copy a record from a branch and merge it into the current branch'
-		)
+			'cherry-pick batch version, copy a record from a branch and merge it into the current branch',
+		),
 	)
 if (args.length > 0) program.arguments(createArgs(args))
 options.forEach((o: GitmarsOptionOptionsType) => {
@@ -80,7 +79,7 @@ program.action(async (commitid: string[], opts: GitmCopyOption) => {
 			lastet: opts.lastet,
 			limit: opts.limit,
 			noMerges: !opts.merges,
-			keys
+			keys,
 		})
 		// 没有查询到日志
 		if (logList.length === 0) {
@@ -88,9 +87,9 @@ program.action(async (commitid: string[], opts: GitmCopyOption) => {
 			echo(
 				yellow(
 					t(
-						'No eligible commit logs found, please relax the filtering conditions appropriately. The process has been exited'
-					)
-				)
+						'No eligible commit logs found, please relax the filtering conditions appropriately. The process has been exited',
+					),
+				),
 			)
 			process.exit(0)
 		}
@@ -101,15 +100,16 @@ program.action(async (commitid: string[], opts: GitmCopyOption) => {
 			message: t('Please select the commit record to copy'),
 			choices: logList.map((log, index) => {
 				const _time = dayjs(log['%aI']).format('YYYY/MM/DD HH:mm')
+
 				return {
-					name: `${green(index + 1 + '.')} ${green(log['%s'])} | ${yellow(log['%an'])} | ${blue(
-						_time
+					name: `${green(`${index + 1}.`)} ${green(log['%s'])} | ${yellow(log['%an'])} | ${blue(
+						_time,
 					)}`,
 					value: log['%H']!,
-					checked: false
+					checked: false,
 				}
-			})
-		})
+			}),
+		}),
 	)
 
 	// 没有选择任何记录
@@ -121,8 +121,8 @@ program.action(async (commitid: string[], opts: GitmCopyOption) => {
 	const [, chooseBranch] = await to(
 		select({
 			message: t('Please select the target branch'),
-			choices: branches.map(item => ({ name: item, value: item }))
-		})
+			choices: branches.map(item => ({ name: item, value: item })),
+		}),
 	)
 
 	cmd = [`git switch ${chooseBranch}`]
@@ -132,8 +132,8 @@ program.action(async (commitid: string[], opts: GitmCopyOption) => {
 		config: {
 			again: false,
 			success: t('Record merge successful'),
-			fail: t('Merge failed, please follow the prompts')
-		}
+			fail: t('Merge failed, please follow the prompts'),
+		},
 	})
 
 	if (opts.push) cmd.push('git push')

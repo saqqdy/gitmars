@@ -1,6 +1,6 @@
+import type { GitLogKeysType, GitLogsType } from './types'
 import { debug, getSeconds, spawnSync } from '@gitmars/utils'
 import GitLogsFormatter from './gitLogsFormatter'
-import type { GitLogKeysType, GitLogsType } from './types'
 
 export interface GetGitLogsOption {
 	// 限制显示最近多长时间的日志
@@ -31,14 +31,17 @@ function getGitLogs(option: GetGitLogsOption = {}): GitLogsType[] {
 	const { lastet, limit, params = '', keys = [], noMerges = false, grep, author, branch } = option
 	const formatter = new GitLogsFormatter()
 	let argv = ['log', branch || '', '--date-order', `--pretty=format:${formatter.getFormat(keys)}`]
-	if (limit) argv.push('-' + limit)
+
+	if (limit) argv.push(`-${limit}`)
 	if (lastet) argv = argv.concat(['--since', String(getSeconds(lastet) || '')])
 	if (grep) argv = argv.concat(['--grep', grep])
 	if (author) argv = argv.concat(['--author', author])
 	if (noMerges) argv.push('--no-merges')
 	if (params) argv = argv.concat(params.split(' '))
 	const { stdout } = spawnSync('git', argv)
+
 	debug('getGitLogs', stdout)
+
 	return formatter.getLogs(stdout!)
 }
 

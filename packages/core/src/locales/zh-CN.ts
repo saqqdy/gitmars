@@ -34,5 +34,5 @@ export default {
 	'Skip existing git hooks: {name}': '跳过已存在的git钩子: {name}',
 	'Enter the correct project name': '输入正确的项目名称',
 	'Enter project name': '输入项目名称',
-	'Please configure the message sending api template address': '请配置消息发送api模板地址'
+	'Please configure the message sending api template address': '请配置消息发送api模板地址',
 }

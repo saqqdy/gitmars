@@ -1,7 +1,4 @@
-#!/usr/bin/env ts-node
-import { program } from 'commander'
-import sh from 'shelljs'
-import chalk from 'chalk'
+import type { GitmarsOptionOptionsType } from './types'
 import {
 	getBehindLogs,
 	getBranchesFromID,
@@ -10,11 +7,13 @@ import {
 	getIsGitProject,
 	getIsMergeAction,
 	getIsMergedTargetBranch,
-	getIsUpdatedInTime
+	getIsUpdatedInTime,
 } from '@gitmars/git'
-import { createArgs } from '@gitmars/utils'
 import { init, remove } from '@gitmars/hook'
-import type { GitmarsOptionOptionsType } from './types'
+import { createArgs } from '@gitmars/utils'
+import chalk from 'chalk'
+import { program } from 'commander'
+import sh from 'shelljs'
 import lang from './common/local'
 import hookConfig from './conf/hook'
 
@@ -28,6 +27,7 @@ if (!getIsGitProject()) {
 }
 
 const config = getConfig()
+
 interface GitmHookOption {
 	noVerify: boolean
 	lastet: string
@@ -45,7 +45,7 @@ interface GitmHookOption {
 program
 	.name('gitm hook')
 	.usage(
-		'[command] [args...] [--no-verify] [--lastet [lastet]] [--limit [limit]] [-t --type <type>] [--branch [branch]]'
+		'[command] [args...] [--no-verify] [--lastet [lastet]] [--limit [limit]] [-t --type <type>] [--branch [branch]]',
 	)
 	.description('git hooks')
 if (args.length > 0) program.arguments(createArgs(args))
@@ -62,6 +62,7 @@ program.action(async (command: string, args: string[], opt: GitmHookOption): Pro
 	// Skip check and return directly
 	if (opt.noVerify) {
 		process.exit(0)
+
 		return
 	}
 
@@ -76,7 +77,7 @@ program.action(async (command: string, args: string[], opt: GitmHookOption): Pro
 			config.develop,
 			config.release,
 			config.support,
-			config.bugfix
+			config.bugfix,
 		]
 		const current = getCurrentBranch()
 		// GIT_REFLOG_ACTION: 'merge feature/wu', indicates pre-merge-commit hook, this path is taken when there are no conflicts
@@ -326,20 +327,20 @@ program.action(async (command: string, args: string[], opt: GitmHookOption): Pro
 		// Check type corresponds to the detection method above
 		if (current !== config.develop && mainBranches.includes(current) && types.includes('1')) {
 			// After merging to main branch, check if the branch has merged dev, if not, prevent commit
-			const [command, branch] = process.env.GIT_REFLOG_ACTION
-				? process.env.GIT_REFLOG_ACTION.split(' ')
-				: []
+			const [command, branch] = process.env.GIT_REFLOG_ACTION ? process.env.GIT_REFLOG_ACTION.split(' ') : []
+
 			if (command === 'merge') {
 				const isMergedBranch = getIsMergedTargetBranch(branch, config.develop, {
-					remote: true
+					remote: true,
 				})
+
 				if (!isMergedBranch) {
 					console.info(
 						red(
 							t('Your branch was detected as not having merged {target}', {
-								target: config.develop
-							})
-						)
+								target: config.develop,
+							}),
+						),
 					)
 					process.exit(0)
 				} else {
@@ -347,42 +348,42 @@ program.action(async (command: string, args: string[], opt: GitmHookOption): Pro
 						green(
 							t('{source} branch has merged {target} branch', {
 								source: branch,
-								target: config.develop
-							})
-						)
+								target: config.develop,
+							}),
+						),
 					)
 				}
 			}
 		}
 		if (mainBranches.includes(current) && types.includes('2')) {
 			// After merging to main branch, check if the branch has synced with upstream, if not, prevent commit
-			const [command, branch] = process.env.GIT_REFLOG_ACTION
-				? process.env.GIT_REFLOG_ACTION.split(' ')
-				: []
+			const [command, branch] = process.env.GIT_REFLOG_ACTION ? process.env.GIT_REFLOG_ACTION.split(' ') : []
 			const branchPrefix = branch.split('/')[0]
+
 			// ['bugfix', 'feature', 'support'].includes(branchPrefix)
 			if (command === 'merge') {
 				const isUpdatedInTime = getIsUpdatedInTime({
 					lastet: opt.lastet,
-					branch
+					branch,
 				})
+
 				if (!isUpdatedInTime) {
 					console.info(
 						red(
 							t(
 								'Detected that you have not update codes from {source} branch in 1 week',
-								{ source: branchPrefix }
-							)
-						)
+								{ source: branchPrefix },
+							),
+						),
 					)
 					process.exit(0)
 				} else {
 					console.info(
 						green(
 							t('The {source} branch has updated from main branch', {
-								source: branch
-							})
-						)
+								source: branch,
+							}),
+						),
 					)
 				}
 			}
@@ -390,9 +391,10 @@ program.action(async (command: string, args: string[], opt: GitmHookOption): Pro
 		if (mainBranches.includes(current) && types.includes('3')) {
 			// When pushing to main branch, check if the last commit is a merge record, if not, prevent direct modification on main branch
 			const isMergeAction = getIsMergeAction()
+
 			if (!isMergeAction) {
 				console.info(
-					red(t('Detects that you are modifying code directly in the master branch'))
+					red(t('Detects that you are modifying code directly in the master branch')),
 				)
 				process.exit(0)
 			} else {
@@ -421,16 +423,17 @@ program.action(async (command: string, args: string[], opt: GitmHookOption): Pro
 		if (mainBranches.includes(current) && types.includes('4')) {
 			// When pushing to main branch, check if pull is needed first
 			const behindLogs = getBehindLogs()
+
 			if (!behindLogs.length) {
 				console.info(
 					t(
-						'Your local branch version is lagging behind the remote branch, please perform a pull first.'
-					)
+						'Your local branch version is lagging behind the remote branch, please perform a pull first.',
+					),
 				)
 				process.exit(0)
 			} else {
 				console.info(
-					green(t('The local version is not behind the remote, you can push it directly'))
+					green(t('The local version is not behind the remote, you can push it directly')),
 				)
 			}
 		}

@@ -1,7 +1,7 @@
-import fs from 'fs'
-import sh from 'shelljs'
-import ora from 'ora'
+import fs from 'node:fs'
 import chalk from 'chalk'
+import ora from 'ora'
+import sh from 'shelljs'
 import lang from './lang'
 
 sh.config.silent = true
@@ -34,7 +34,7 @@ export function writeFile(url: string, data: string): Promise<Error | boolean> {
 export function writeFileSync(url: string, data: string, options?: any): void {
 	fs.writeFileSync(url, data, {
 		mode: 0o0755,
-		...options
+		...options,
 	})
 }
 
@@ -55,20 +55,22 @@ export function isFileExist(filePath: string): boolean {
  * @param files - Array of files to be cleaned. type: GitmarsCacheFileDescriptionType
  */
 export function removeFile(
-	files: GitmarsCacheFileDescriptionType | GitmarsCacheFileDescriptionType[]
+	files: GitmarsCacheFileDescriptionType | GitmarsCacheFileDescriptionType[],
 ) {
 	const spinner = ora()
+
 	if (!Array.isArray(files)) files = [files]
 	for (const file of files) {
 		file.name &&
-			spinner.start(
-				chalk.green(
-					t('Processing: {something}', {
-						something: file.name
-					})
-				)
-			)
+		spinner.start(
+			chalk.green(
+				t('Processing: {something}', {
+					something: file.name,
+				}),
+			),
+		)
 		const fileExist = isFileExist(file.url)
+
 		if (fileExist) {
 			sh.rm(file.url)
 			file.name && spinner.succeed(chalk.green(t('{name} deleted', { name: file.name })))

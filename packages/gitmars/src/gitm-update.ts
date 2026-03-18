@@ -1,7 +1,4 @@
-#!/usr/bin/env ts-node
-import { program } from 'commander'
-import sh from 'shelljs'
-import chalk from 'chalk'
+import type { CommandType, GitmarsOptionOptionsType } from './types'
 import { isNeedUpgrade, queue, upgradeGitmars } from '@gitmars/core'
 import {
 	checkGitStatus,
@@ -10,13 +7,15 @@ import {
 	getCurrentBranch,
 	getIsGitProject,
 	getIsMergedTargetBranch,
-	searchBranches
+	searchBranches,
 } from '@gitmars/git'
 import { createArgs } from '@gitmars/utils'
-import type { CommandType, GitmarsOptionOptionsType } from './types'
+import chalk from 'chalk'
+import { program } from 'commander'
+import sh from 'shelljs'
 import { defaults } from './common/global'
-import updateConfig from './conf/update'
 import lang from './common/local'
+import updateConfig from './conf/update'
 
 const { t } = lang
 const { red } = chalk
@@ -44,8 +43,8 @@ program
 	.usage('[type] [name] [--use-merge] [--use-rebase] [-a --all] [-f --force]')
 	.description(
 		t(
-			'Update bug task branch, update feature function development branch, framework adjustment branch support'
-		)
+			'Update bug task branch, update feature function development branch, framework adjustment branch support',
+		),
 	)
 if (args.length > 0) program.arguments(createArgs(args))
 options.forEach((o: GitmarsOptionOptionsType) => {
@@ -58,6 +57,7 @@ options.forEach((o: GitmarsOptionOptionsType) => {
 program.action(async (type: string | string[], name: string, opt: GitmUpdateOption) => {
 	// Checking if a version upgrade is needed
 	const needUpgrade = await isNeedUpgrade(config.versionControlType)
+
 	needUpgrade && upgradeGitmars()
 	const allow = ['bugfix', 'feature', 'support'] // Permissible commands
 	const deny = [
@@ -65,12 +65,13 @@ program.action(async (type: string | string[], name: string, opt: GitmUpdateOpti
 		defaults.develop,
 		defaults.release,
 		defaults.bugfix,
-		defaults.support
+		defaults.support,
 	]
 	const status = checkGitStatus()
 	let cmds: Array<CommandType | string | string[]> = [],
 		branchList: string[] = [],
 		_nameArr: string[] = [] // Array of branch names
+
 	if (!status) process.exit(1)
 	fetch()
 	if (opt.all) {
@@ -80,33 +81,34 @@ program.action(async (type: string | string[], name: string, opt: GitmUpdateOpti
 	} else if (!type || !name) {
 		// type或name没传
 		const current = getCurrentBranch()
+
 		;[type, ..._nameArr] = current.split('/')
 		name = _nameArr.join('/')
 		if (!name) {
 			deny.includes(type) &&
-				sh.echo(
-					red(
-						t(
-							'Hey bro, what is the fuck are you doing by executing this command in the {type} branch?',
-							{ type }
-						)
-					)
-				)
+			sh.echo(
+				red(
+					t(
+						'Hey bro, what is the fuck are you doing by executing this command in the {type} branch?',
+						{ type },
+					),
+				),
+			)
 			process.exit(1)
 		}
 		if (!allow.includes(type as string)) {
 			// type is not legal
-			sh.echo(red(t('type only allows input') + ': ' + JSON.stringify(allow)))
+			sh.echo(red(`${t('type only allows input')}: ${JSON.stringify(allow)}`))
 			process.exit(1)
 		}
 		branchList = branchList.concat(current)
 	} else if (!allow.includes(type as string)) {
 		// 传了type和name，但是不合法
-		sh.echo(red(t('type only allows input') + ': ' + JSON.stringify(allow)))
+		sh.echo(red(`${t('type only allows input')}: ${JSON.stringify(allow)}`))
 		process.exit(1)
 	} else {
 		// type and name are passed
-		branchList = [type + '/' + name]
+		branchList = [`${type}/${name}`]
 	}
 	branchList.forEach((branch: string) => {
 		// feature is pulled from the release, bugfix is pulled from the bug, and support is pulled from the master branch
@@ -116,12 +118,13 @@ program.action(async (type: string | string[], name: string, opt: GitmUpdateOpti
 			type === 'bugfix' ? config.bugfix : type === 'support' ? config.master : config.release
 		const isNeedCombine = !getIsMergedTargetBranch(base, `${type}/${name}`, { remote: true })
 		let cmd: Array<CommandType | string | string[]> = []
+
 		if (isNeedCombine || opt.force) {
 			cmd = cmd.concat([
 				'git fetch',
 				`git switch ${base}`,
 				'git pull',
-				`git switch ${type}/${name}`
+				`git switch ${type}/${name}`,
 			])
 			if (opt.useRebase) {
 				cmd.push({
@@ -130,16 +133,16 @@ program.action(async (type: string | string[], name: string, opt: GitmUpdateOpti
 						again: false,
 						success: t('Merge {source} to {target} successfully', {
 							source: base,
-							target: `${type}/${name}`
+							target: `${type}/${name}`,
 						}),
 						fail: t(
 							'An error occurred merging {source} to {target}, please follow the prompts',
 							{
 								source: base,
-								target: `${type}/${name}`
-							}
-						)
-					}
+								target: `${type}/${name}`,
+							},
+						),
+					},
 				})
 			} else {
 				cmd.push({
@@ -148,16 +151,16 @@ program.action(async (type: string | string[], name: string, opt: GitmUpdateOpti
 						again: false,
 						success: t('Merge {source} to {target} successfully', {
 							source: base,
-							target: `${type}/${name}`
+							target: `${type}/${name}`,
 						}),
 						fail: t(
 							'An error occurred merging {source} to {target}, please follow the prompts',
 							{
 								source: base,
-								target: `${type}/${name}`
-							}
-						)
-					}
+								target: `${type}/${name}`,
+							},
+						),
+					},
 				})
 			}
 		} else {
@@ -165,9 +168,9 @@ program.action(async (type: string | string[], name: string, opt: GitmUpdateOpti
 				{
 					message: t('{source} has been merged with {target}', {
 						source: base,
-						target: `${type}/${name}`
-					})
-				}
+						target: `${type}/${name}`,
+					}),
+				},
 			]
 		}
 

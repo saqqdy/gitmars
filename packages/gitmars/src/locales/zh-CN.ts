@@ -142,7 +142,7 @@ export default {
 	'No merge request record found, process has exited': '没有发现合并请求记录，进程已退出',
 	'Please select the action below.': '请选择下面的操作',
 	'There is a conflict or merge is not required': '有冲突或不需要合并',
-	"Requests that can't be merged can't be clicked for review and approval":
+	'Requests that can\'t be merged can\'t be clicked for review and approval':
 		'不能合并的请求不能点审核通过',
 	'Branch query, delete (note that this command is not used to create a branch, if you want to create a branch please go through the start process)':
 		'分支查询、删除（注意该指令不用于创建分支，如需创建分支请走start流程）',
@@ -253,7 +253,7 @@ export default {
 	'Staging current branch files': '暂存当前分支文件',
 	'Restore the most recently staged file in the staging area': '恢复暂存区最近一次暂存的文件',
 	'Clean up merged feature branches': '清理合并过的功能分支',
-	"Simplify git's cherry-pick operation": '简化git的cherry-pick操作',
+	'Simplify git\'s cherry-pick operation': '简化git的cherry-pick操作',
 	'Merge code': '合并代码',
 	'Continue unfinished operations': '继续未完成的操作',
 	'Undo commit': '撤销提交',
@@ -315,7 +315,7 @@ export default {
 	'An installation error occurred, please contact the administrator': '安装出错了，请联系管理员',
 	'Processing completed': '处理完成',
 	'An error occurred': '出错了',
-	"Whether to exclude merge's log": '是否排除merge的日志',
+	'Whether to exclude merge\'s log': '是否排除merge的日志',
 	'Whether to restrict dev commits': '是否限制dev提交',
 	'Whether to restrict release commits': '是否限制release提交',
 	'No recoverable undo logs found, process exited': '没有找到可恢复的撤销记录，进程已退出',
@@ -349,7 +349,7 @@ export default {
 	'Merge request {id}: Merged': '合并请求{id}：已合并',
 	'Merge request {id}: Deleted': '合并请求{id}：已删除',
 	'Merge request {id}: Closed': '合并请求{id}：已关闭',
-	"Hey {nickname}, you don't have permission": '{nickname}同学，你的权限不足',
+	'Hey {nickname}, you don\'t have permission': '{nickname}同学，你的权限不足',
 	'{source} has been merged with {target}': '{source}已经合并过{target}',
 	'Merge {source} to {target} successfully': '{source}合并到{target}成功',
 	'Hey bro, what is the fuck are you doing by executing this command in the {type} branch?':
@@ -467,9 +467,9 @@ export default {
 	'Patch version(bug fixes, minor changes)': '补丁版本(bug修复，小改动)',
 	'Minor version(New Features)': '小版本(新特性)',
 	'Major version(Framework reorganization, major revamp)': '大版本(框架重构或大改版)',
-	"Enter the baseInfo to be extended, Leave it blank if you don't need it.":
+	'Enter the baseInfo to be extended, Leave it blank if you don\'t need it.':
 		'填写要扩展的baseInfo内容，如果不需要则留空',
 	'BaseInfo to be extended': '扩展数据',
 	'Branch {target} already exists and has been switched to branch {target}':
-		'分支{target}已经存在，已切换到{target}'
+		'分支{target}已经存在，已切换到{target}',
 }

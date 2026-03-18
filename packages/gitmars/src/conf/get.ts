@@ -13,12 +13,13 @@ export const cmdConfig: GitmarsOptionType = {
 			validator: (val, opts, cb) => {
 				if (/\s+/.test(val)) {
 					cb(new Error(t('Please do not enter spaces')))
+
 					return
 				}
 				cb()
 			},
 			// transformer: null,
-			description: t('AccessKeyword')
+			description: t('AccessKeyword'),
 		},
 		{
 			required: false,
@@ -26,8 +27,8 @@ export const cmdConfig: GitmarsOptionType = {
 			variadic: false,
 			// validator: null,
 			// transformer: null,
-			description: t('Serial Number')
-		}
+			description: t('Serial Number'),
+		},
 	],
 	options: [
 		{
@@ -40,8 +41,8 @@ export const cmdConfig: GitmarsOptionType = {
 			long: '--keep',
 			negate: false,
 			description: t('Keep staging area not deleted'),
-			defaultValue: false
-		}
+			defaultValue: false,
+		},
 	],
 	// validator opts
 	validatorOpts: (val, opts, cb) => {
@@ -58,7 +59,7 @@ export const cmdConfig: GitmarsOptionType = {
 	// transform args
 	transformArgs: (val, opts, cb) => {
 		cb()
-	}
+	},
 }
 
 export { cmdConfig as default }

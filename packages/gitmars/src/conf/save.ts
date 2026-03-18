@@ -13,13 +13,14 @@ export const cmdConfig: GitmarsOptionType = {
 			validator: (val, opts, cb) => {
 				if (/\s+/.test(val)) {
 					cb(new Error(t('Please do not enter spaces')))
+
 					return
 				}
 				cb()
 			},
 			// transformer: null,
-			description: t('AccessKeyword')
-		}
+			description: t('AccessKeyword'),
+		},
 	],
 	options: [
 		{
@@ -32,8 +33,8 @@ export const cmdConfig: GitmarsOptionType = {
 			long: '--force',
 			negate: false,
 			description: t('No version of the file is also staged, which will perform a git add .'),
-			defaultValue: false
-		}
+			defaultValue: false,
+		},
 	],
 	// validator opts
 	validatorOpts: (val, opts, cb) => {
@@ -50,7 +51,7 @@ export const cmdConfig: GitmarsOptionType = {
 	// transform args
 	transformArgs: (val, opts, cb) => {
 		cb()
-	}
+	},
 }
 
 export { cmdConfig as default }

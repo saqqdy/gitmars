@@ -1,15 +1,15 @@
-import { CACHE_PATH } from './paths'
 import { cleanCache, isCacheExpired, updateCacheTime } from './cache'
-import { cleanLog, setLog } from './log'
 import { cleanCommandCache, getCommandCache, setCommandCache } from './commandCache'
+import { cleanLog, setLog } from './log'
+import { CACHE_PATH } from './paths'
+import { cleanPkgInfo, getPkgInfo } from './pkgInfo'
 import {
 	addRevertCache,
 	cleanRevertCache,
 	delRevertCache,
 	getRevertCache,
-	setRevertCache
+	setRevertCache,
 } from './revertCache'
-import { cleanPkgInfo, getPkgInfo } from './pkgInfo'
 
 export type { TimestampType } from './cache'
 export type * from './types'
@@ -30,5 +30,5 @@ export default {
 	delRevertCache,
 	cleanRevertCache,
 	getPkgInfo,
-	cleanPkgInfo
+	cleanPkgInfo,
 }

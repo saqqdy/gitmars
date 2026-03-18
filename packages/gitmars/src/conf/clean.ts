@@ -17,8 +17,8 @@ export const cmdConfig: GitmarsOptionType = {
 			long: '--force',
 			negate: false,
 			description: t('Force cleanup'),
-			defaultValue: false
-		}
+			defaultValue: false,
+		},
 	],
 	// validator opts
 	validatorOpts: (val, opts, cb) => {
@@ -35,7 +35,7 @@ export const cmdConfig: GitmarsOptionType = {
 	// transform args
 	transformArgs: (val, opts, cb) => {
 		cb()
-	}
+	},
 }
 
 export { cmdConfig as default }

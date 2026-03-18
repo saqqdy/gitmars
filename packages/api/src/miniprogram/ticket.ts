@@ -11,10 +11,10 @@ const URL_PREFIX = '/api/component/weixin/ticket'
 export function getPreAuthQrCode(): Promise<string> {
 	return post({
 		url: `${URL_PREFIX}/getPreAuthQrCode`,
-		data: {}
+		data: {},
 	})
 }
 
 export default {
-	getPreAuthQrCode
+	getPreAuthQrCode,
 }

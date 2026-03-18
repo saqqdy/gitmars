@@ -50,19 +50,20 @@ export interface GetAuthorizerListWithAllDetail {
  * @returns data
  */
 export async function getAuthorizerListWithAllDetail<
-	T extends GetAuthorizerListWithAllDetailOptions
+	T extends GetAuthorizerListWithAllDetailOptions,
 >(options?: T) {
 	const { current = 1, limit = 50, keyword } = options || {}
+
 	return post<GetAuthorizerListWithAllDetail>({
 		url: `${URL_PREFIX}/getAuthorizerListWithAllDetail`,
 		data: {
 			current,
 			limit,
-			keyword
-		}
+			keyword,
+		},
 	})
 }
 
 export default {
-	getAuthorizerListWithAllDetail
+	getAuthorizerListWithAllDetail,
 }

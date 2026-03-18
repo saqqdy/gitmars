@@ -1,13 +1,12 @@
-#!/usr/bin/env ts-node
-import { program } from 'commander'
-import sh from 'shelljs'
-import chalk from 'chalk'
+import type { CommandType, GitmarsBranchType, GitmarsOptionOptionsType } from './types'
 import { queue } from '@gitmars/core'
 import { getIsBranchOrCommitExist, getIsGitProject, searchBranches } from '@gitmars/git'
 import { createArgs } from '@gitmars/utils'
-import type { CommandType, GitmarsBranchType, GitmarsOptionOptionsType } from './types'
-import branchConfig from './conf/branch'
+import chalk from 'chalk'
+import { program } from 'commander'
+import sh from 'shelljs'
 import lang from './common/local'
+import branchConfig from './conf/branch'
 
 const { t } = lang
 const { green, red } = chalk
@@ -35,12 +34,12 @@ interface GitmBranchOption {
 program
 	.name('gitm branch')
 	.usage(
-		'[-k --key [keyword]] [-t --type [type]] [-d --delete [branch]] [--exclude [exclude]] [--include [include]] [-r --remote [remote]] [-D --forcedelete [branch]] [-u --upstream [upstream]]'
+		'[-k --key [keyword]] [-t --type [type]] [-d --delete [branch]] [--exclude [exclude]] [--include [include]] [-r --remote [remote]] [-D --forcedelete [branch]] [-u --upstream [upstream]]',
 	)
 	.description(
 		t(
-			'Branch query, delete (note that this command is not used to create a branch, if you want to create a branch please go through the start process)'
-		)
+			'Branch query, delete (note that this command is not used to create a branch, if you want to create a branch please go through the start process)',
+		),
 	)
 if (args.length > 0) program.arguments(createArgs(args))
 options.forEach((o: GitmarsOptionOptionsType) => {
@@ -57,6 +56,7 @@ options.forEach((o: GitmarsOptionOptionsType) => {
 program.action((opt: GitmBranchOption): void => {
 	const cmd: Array<CommandType | string | string[]> = []
 	const isBranchExist = getIsBranchOrCommitExist(opt.delete)
+
 	if (opt.delete) {
 		// delete branches
 		if (isBranchExist) cmd.push(`git branch -d ${opt.delete}`)
@@ -66,8 +66,8 @@ program.action((opt: GitmBranchOption): void => {
 			config: {
 				again: true,
 				success: t('Cleanup of remote branch was successful'),
-				fail: t('Failed to clean up remote branch, please follow the prompts')
-			}
+				fail: t('Failed to clean up remote branch, please follow the prompts'),
+			},
 		})
 	} else if (opt.forcedelete) {
 		// force delete branches
@@ -78,8 +78,8 @@ program.action((opt: GitmBranchOption): void => {
 			config: {
 				again: true,
 				success: t('Cleanup of remote branch was successful'),
-				fail: t('Failed to clean up remote branch, please follow the prompts')
-			}
+				fail: t('Failed to clean up remote branch, please follow the prompts'),
+			},
 		})
 	} else if (opt.upstream) {
 		if (typeof opt.upstream === 'string') {
@@ -96,9 +96,11 @@ program.action((opt: GitmBranchOption): void => {
 			type: opt.type,
 			key: opt.key,
 			exclude: opt.exclude,
-			include: opt.include
+			include: opt.include,
 		})
+
 		sh.echo(green(branches.join('\n')))
+
 		return
 	}
 	queue(cmd)

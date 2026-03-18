@@ -1,9 +1,8 @@
-#!/usr/bin/env ts-node
-import { program } from 'commander'
-import sh from 'shelljs'
-import chalk from 'chalk'
 import { getConfig, getCurrentBranch } from '@gitmars/git'
 import { spawnSync } from '@gitmars/utils'
+import chalk from 'chalk'
+import { program } from 'commander'
+import sh from 'shelljs'
 import lang from './common/local'
 
 const { t } = lang
@@ -32,9 +31,11 @@ program
 		const current = getCurrentBranch()
 		const allow = [config.master]
 		const { stdout } = spawnSync('git', ['show'])
+
 		if (opt.dev) allow.push(config.develop)
 		if (opt.release) allow.push(config.release)
 		const index = allow.indexOf(current)
+
 		if (
 			index > -1 &&
 			!opt.noVerify &&
@@ -45,9 +46,9 @@ program
 			sh.echo(
 				red(
 					t('The {target} branch does not allow direct commits', {
-						target: allow[index]
-					})
-				)
+						target: allow[index],
+					}),
+				),
 			)
 			process.exit(1)
 		} else {

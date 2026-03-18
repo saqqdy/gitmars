@@ -1,19 +1,19 @@
-import { createRequire } from 'node:module'
-import apollo from 'node-apollo'
-import sh from 'shelljs'
-import request from '@jssj/request'
-import chalk from 'chalk'
-import to from 'await-to-done'
-import { CACHE_PATH, isCacheExpired, updateCacheTime } from '@gitmars/cache'
-import { debug, isFileExist, removeFile, writeFile } from '@gitmars/utils'
-import { getConfig } from '@gitmars/git'
 import type {
 	ApolloBranchList,
 	ApolloConfigProjectType,
 	ApolloConfigType,
 	GitmarsConfigApisBuildConfigType,
-	GitmarsConfigType
+	GitmarsConfigType,
 } from './types'
+import { createRequire } from 'node:module'
+import { CACHE_PATH, isCacheExpired, updateCacheTime } from '@gitmars/cache'
+import { getConfig } from '@gitmars/git'
+import { debug, isFileExist, removeFile, writeFile } from '@gitmars/utils'
+import request from '@jssj/request'
+import to from 'await-to-done'
+import chalk from 'chalk'
+import apollo from 'node-apollo'
+import sh from 'shelljs'
 import lang from './lang'
 
 const { t } = lang
@@ -28,12 +28,14 @@ const require = createRequire(import.meta.url)
 function getNamespace(params: GitmarsConfigApisBuildConfigType['params'] = {}): string {
 	const names = []
 	const keys = Object.keys(params).sort((a, b) => a.length - b.length)
+
 	for (const key of keys) {
 		if (params[key] && typeof params[key] === 'string') {
 			names.push(params[key])
 		}
 	}
 	if (names.length) return names.join('-')
+
 	return 'gitmars'
 }
 
@@ -47,23 +49,27 @@ export async function getBuildConfig(exitOnError = true): Promise<ApolloConfigTy
 	const config = getConfig() as GitmarsConfigType
 	const { apis = {} } = config
 	let NS, _buildConfig
+
 	debug('getBuildConfig', config)
 
 	if (apis.buildConfig) {
 		NS = getNamespace(apis.buildConfig.params || {})
 	} else if (config.apolloConfig) {
 		const { appId, clusterName } = config.apolloConfig
+
 		NS = getNamespace({ appId, clusterName })
 	} else {
 		if (exitOnError) {
 			sh.echo(chalk.red(t('Please configure apollo or buildConfigApi')))
 			process.exit(0)
 		}
+
 		return
 	}
 
 	const BUILD_CONFIG_TIME_NAME = `buildConfigTime-${NS}`
 	const BUILD_CONFIG_PATH = `${CACHE_PATH}/buildConfig-${NS}.json`
+
 	// 有配置文件且没有过期，返回配置
 	if (!isCacheExpired(BUILD_CONFIG_TIME_NAME) && isFileExist(BUILD_CONFIG_PATH)) {
 		return require(BUILD_CONFIG_PATH)
@@ -72,15 +78,17 @@ export async function getBuildConfig(exitOnError = true): Promise<ApolloConfigTy
 	if (apis.buildConfig) {
 		// 优先使用api获取配置
 		const { url, method = 'get', params = {} } = apis.buildConfig
+
 		_buildConfig =
 			(
 				await request[method]({
 					url,
-					data: params
+					data: params,
 				})
 			).data || {}
 	} else if (config.apolloConfig) {
 		let apolloConfig
+
 		// 如果传入的是json字符串，转json
 		if (typeof config.apolloConfig === 'string') {
 			try {
@@ -96,6 +104,7 @@ export async function getBuildConfig(exitOnError = true): Promise<ApolloConfigTy
 
 	await updateCacheTime(BUILD_CONFIG_TIME_NAME)
 	await writeFile(BUILD_CONFIG_PATH, JSON.stringify(_buildConfig))
+
 	return _buildConfig
 }
 
@@ -110,11 +119,12 @@ export async function getBuildConfig(exitOnError = true): Promise<ApolloConfigTy
 export async function getProjectOption(
 	projectName: string,
 	env: ApolloBranchList,
-	config?: ApolloConfigType
+	config?: ApolloConfigType,
 ): Promise<ApolloConfigProjectType | undefined> {
 	if (!config) {
 		;[, config] = await to(getBuildConfig(false).then(res => res || undefined))
 	}
+
 	return config?.[env]?.list?.find(item => item.name === projectName)
 }
 
@@ -122,10 +132,10 @@ export function cleanBuildConfig() {
 	removeFile([
 		{
 			name: t('Jenkins build configuration cache file'),
-			url: CACHE_PATH + '/buildConfig*.json'
+			url: `${CACHE_PATH}/buildConfig*.json`,
 		},
 		{
-			url: CACHE_PATH + '/buildConfig.txt'
-		}
+			url: `${CACHE_PATH}/buildConfig.txt`,
+		},
 	])
 }

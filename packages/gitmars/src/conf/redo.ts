@@ -14,8 +14,8 @@ export const cmdConfig: GitmarsOptionType = {
 				cb()
 			},
 			// transformer: null,
-			description: t('The undo log to be restored')
-		}
+			description: t('The undo log to be restored'),
+		},
 	],
 	options: [
 		{
@@ -28,12 +28,12 @@ export const cmdConfig: GitmarsOptionType = {
 			long: '--mode',
 			negate: false,
 			description: t(
-				'For undoing a merge record, the type to be passed in: 1 = keep current branch code, 2 = keep incoming code'
+				'For undoing a merge record, the type to be passed in: 1 = keep current branch code, 2 = keep incoming code',
 			),
 			defaultValue: null,
 			options: [1, 2],
-			value: null
-		}
+			value: null,
+		},
 	],
 	// validator opts
 	validatorOpts: (val, opts, cb) => {
@@ -50,7 +50,7 @@ export const cmdConfig: GitmarsOptionType = {
 	// transform args
 	transformArgs: (val, opts, cb) => {
 		cb()
-	}
+	},
 }
 
 export { cmdConfig as default }

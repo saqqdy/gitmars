@@ -1,11 +1,10 @@
-#!/usr/bin/env ts-node
 /* eslint-disable @typescript-eslint/no-unused-vars */
+import type { GitmarsOptionOptionsType } from './types'
+import { getIsGitProject } from '@gitmars/git'
+import { createArgs } from '@gitmars/utils'
+import chalk from 'chalk'
 import { program } from 'commander'
 import sh from 'shelljs'
-import chalk from 'chalk'
-import { createArgs } from '@gitmars/utils'
-import { getIsGitProject } from '@gitmars/git'
-import type { GitmarsOptionOptionsType } from './types'
 import lang from './common/local'
 import suggestConfig from './conf/suggest'
 

@@ -10,10 +10,10 @@
 // }
 // export const readPkg = readPkg
 
-import { readFileSync } from 'fs'
-import { resolve } from 'path'
-import getGitRevParse from './getGitRevParse'
 import type { AnyObject } from './types'
+import { readFileSync } from 'node:fs'
+import { resolve } from 'node:path'
+import getGitRevParse from './getGitRevParse'
 
 /**
  * 读取配置
@@ -24,10 +24,12 @@ import type { AnyObject } from './types'
 function readPkg(dir?: string): AnyObject {
 	if (!dir) {
 		const { root } = getGitRevParse()
+
 		dir = root
 	}
 	const pkgFile = resolve(dir, 'package.json')
 	const pkgStr = readFileSync(pkgFile, 'utf-8')
+
 	return JSON.parse(pkgStr)
 }
 

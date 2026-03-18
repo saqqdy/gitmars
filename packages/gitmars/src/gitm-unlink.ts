@@ -1,8 +1,7 @@
-#!/usr/bin/env ts-node
+import type { GitmarsOptionOptionsType } from './types'
+import { createArgs, spawnSync } from '@gitmars/utils'
 import { program } from 'commander'
 import sh from 'shelljs'
-import { createArgs, spawnSync } from '@gitmars/utils'
-import type { GitmarsOptionOptionsType } from './types'
 import lang from './common/local'
 import unlinkConfig from './conf/unlink'
 
@@ -21,6 +20,7 @@ program.action((name: string) => {
 	const isLink = sh.test('-L', `./node_modules/${name}`)
 	const isExist = sh.test('-e', `./node_modules/${name}_bak`)
 	const npmClient = sh.which('yarn') ? 'yarn' : 'npm'
+
 	if (!name) {
 		// 解除当前包的软链
 		spawnSync(npmClient, ['unlink'])

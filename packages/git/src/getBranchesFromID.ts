@@ -14,9 +14,11 @@ function getBranchesFromID(commitID: string, remote = false): string[] {
 		'--contains',
 		commitID,
 		'--format',
-		'%(refname:short)'
+		'%(refname:short)',
 	])
+
 	debug('getBranchesFromID', stdout)
+
 	return stdout ? stdout.split('\n') : []
 }
 

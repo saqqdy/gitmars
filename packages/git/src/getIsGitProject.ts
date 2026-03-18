@@ -7,7 +7,9 @@ import { debug, spawnSync } from '@gitmars/utils'
  */
 function getIsGitProject(): boolean {
 	const { stdout } = spawnSync('git', ['rev-parse', '--is-inside-work-tree'])
+
 	debug('getIsGitProject', stdout, stdout!.includes('true'))
+
 	return stdout!.includes('true')
 }
 

@@ -22,7 +22,7 @@ const {
 	spawnSync,
 	generateQrcodeImage,
 	printQrcode,
-	readQrcode
+	readQrcode,
 } = index
 
 export {
@@ -48,5 +48,5 @@ export {
 	spawnSync,
 	generateQrcodeImage,
 	printQrcode,
-	readQrcode
+	readQrcode,
 }

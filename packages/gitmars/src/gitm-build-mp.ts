@@ -1,14 +1,13 @@
-#!/usr/bin/env ts-node
-import { program } from 'commander'
-import sh from 'shelljs'
-import { confirm, input, select } from '@inquirer/prompts'
-import chalk from 'chalk'
-import to from 'await-to-done'
-import { createArgs } from '@gitmars/utils'
-import { getGitConfig, getIsGitProject } from '@gitmars/git'
-import { getBuildConfig, getProjectOption, runJenkins } from '@gitmars/build'
 import type { ApolloBranchList } from '@gitmars/build'
 import type { GitmarsOptionOptionsType } from './types'
+import { getBuildConfig, getProjectOption, runJenkins } from '@gitmars/build'
+import { getGitConfig, getIsGitProject } from '@gitmars/git'
+import { createArgs } from '@gitmars/utils'
+import { confirm, input, select } from '@inquirer/prompts'
+import to from 'await-to-done'
+import chalk from 'chalk'
+import { program } from 'commander'
+import sh from 'shelljs'
 import lang from './common/local'
 import buildMpConfig from './conf/build-mp'
 
@@ -31,7 +30,7 @@ interface GitmBuildMpOption {
 program
 	.name('gitm build-mp')
 	.usage(
-		'[project] [-e --env [env]] [--api-env [apiEnv]] [-mp --miniprogram [miniprogram]] [-des --description [description]] [-a --app [app]] [-d --data <data>] [-c --confirm]'
+		'[project] [-e --env [env]] [--api-env [apiEnv]] [-mp --miniprogram [miniprogram]] [-des --description [description]] [-a --app [app]] [-d --data <data>] [-c --confirm]',
 	)
 	.description(t('Launching a jenkins build task of miniprogram'))
 if (args.length > 0) program.arguments(createArgs(args))
@@ -62,8 +61,8 @@ program.action(async (project: string, opt: GitmBuildMpOption): Promise<void> =>
 			;[, project = ''] = await to(
 				input({
 					message: t('Enter project name'),
-					transformer: val => val.trim()
-				}).then(val => val.trim())
+					transformer: val => val.trim(),
+				}).then(val => val.trim()),
 			)
 		}
 	}
@@ -76,32 +75,33 @@ program.action(async (project: string, opt: GitmBuildMpOption): Promise<void> =>
 					{
 						name: 'dev',
 						value: 'dev',
-						description: t('Test environment(alpha)')
+						description: t('Test environment(alpha)'),
 					},
 					{
 						name: 'bug',
 						value: 'bug',
-						description: t('Pre-release tag environment(bug)')
+						description: t('Pre-release tag environment(bug)'),
 					},
 					{
 						name: 'prod',
 						value: 'prod',
-						description: t('Pre-release prod environment(prod)')
-					}
-				]
-			})
+						description: t('Pre-release prod environment(prod)'),
+					},
+				],
+			}),
 		)
 	}
 
 	const [, buildConfig] = await to(getBuildConfig(false))
 	const projectOption = await getProjectOption(project, env!, buildConfig)
+
 	if (!app) {
 		if (!buildConfig) {
 			;[, app] = await to(
 				input({
 					message: t('Enter the application to build'),
-					transformer: val => val.trim()
-				}).then(val => val.trim())
+					transformer: val => val.trim(),
+				}).then(val => val.trim()),
 			)
 		} else if (projectOption?.apps) {
 			;[, app] = await to(
@@ -109,9 +109,9 @@ program.action(async (project: string, opt: GitmBuildMpOption): Promise<void> =>
 					message: t('Select the application to build'),
 					choices: projectOption.apps.map(name => ({
 						name,
-						value: name
-					}))
-				})
+						value: name,
+					})),
+				}),
 			)
 		}
 		// no apps means no-need to enter app name
@@ -125,25 +125,25 @@ program.action(async (project: string, opt: GitmBuildMpOption): Promise<void> =>
 					{
 						name: 'alpha',
 						value: 'alpha',
-						description: t('Test environment(alpha)')
+						description: t('Test environment(alpha)'),
 					},
 					{
 						name: 'tag',
 						value: 'tag',
-						description: t('Pre-release tag environment(bug)')
+						description: t('Pre-release tag environment(bug)'),
 					},
 					{
 						name: 'release',
 						value: 'release',
-						description: t('Pre-release prod environment(prod)')
+						description: t('Pre-release prod environment(prod)'),
 					},
 					{
 						name: 'production',
 						value: 'production',
-						description: t('Production environment')
-					}
-				]
-			})
+						description: t('Production environment'),
+					},
+				],
+			}),
 		)
 	}
 
@@ -152,15 +152,15 @@ program.action(async (project: string, opt: GitmBuildMpOption): Promise<void> =>
 			;[, mini_program] = await to(
 				input({
 					message: t('Generate experiential version of miniprogram'),
-					transformer: val => val.trim()
-				}).then(val => val.trim())
+					transformer: val => val.trim(),
+				}).then(val => val.trim()),
 			)
 		} else if (projectOption?.miniprogram) {
 			;[, mini_program] = await to(
 				select<string>({
 					message: t('Select the miniprogram to generate experiential version'),
-					choices: projectOption.miniprogram
-				})
+					choices: projectOption.miniprogram,
+				}),
 			)
 		}
 	}
@@ -172,51 +172,51 @@ program.action(async (project: string, opt: GitmBuildMpOption): Promise<void> =>
 					{
 						name: 'none',
 						value: 'none',
-						description: t('Do not generate new versions')
+						description: t('Do not generate new versions'),
 					},
 					{
 						name: 'patch',
 						value: 'patch',
-						description: t('Patch version(bug fixes, minor changes)')
+						description: t('Patch version(bug fixes, minor changes)'),
 					},
 					{
 						name: 'minor',
 						value: 'minor',
-						description: t('Minor version(New Features)')
+						description: t('Minor version(New Features)'),
 					},
 					{
 						name: 'major',
 						value: 'major',
-						description: t('Major version(Framework reorganization, major revamp)')
-					}
-				]
-			})
+						description: t('Major version(Framework reorganization, major revamp)'),
+					},
+				],
+			}),
 		)
 	}
 	if (!description) {
 		;[, description] = await to(
 			input({
 				message: t('Enter the version description'),
-				transformer: val => val.trim()
-			}).then(val => val.trim())
+				transformer: val => val.trim(),
+			}).then(val => val.trim()),
 		)
 	}
 	if (!baseInfo) {
 		;[, baseInfo] = await to(
 			input({
 				message: t(
-					"Enter the baseInfo to be extended, Leave it blank if you don't need it."
+					'Enter the baseInfo to be extended, Leave it blank if you don\'t need it.',
 				),
-				transformer: val => val.trim()
-			}).then(val => val.trim())
+				transformer: val => val.trim(),
+			}).then(val => val.trim()),
 		)
 	}
 
 	if (!_confirm) {
 		let message = `${yellow(t('Please double check the following build parameters'))}\n${t(
-			'Project Name'
+			'Project Name',
 		)}: ${red(project)}\n${t('Code Branch')}: ${red(env)}\n${t('Build Application')}: ${red(
-			app
+			app,
 		)}`
 
 		message += `\n${t('Interface Environment')}: ${red(build_api_env || 'production')}`
@@ -242,8 +242,8 @@ program.action(async (project: string, opt: GitmBuildMpOption): Promise<void> =>
 				mini_program,
 				versionType,
 				description,
-				baseInfo
-			})
+				baseInfo,
+			}),
 		})
 })
 program.parse(process.argv)

@@ -1,7 +1,7 @@
-import sh from 'shelljs'
+import type { CommandType } from './types'
 import { getGitRevParse } from '@gitmars/git'
 import { isFileExist } from '@gitmars/utils'
-import type { CommandType } from './types'
+import sh from 'shelljs'
 
 /**
  * 获取未执行脚本列表
@@ -11,15 +11,18 @@ import type { CommandType } from './types'
 export function getCommandCache() {
 	const { gitDir } = getGitRevParse()
 	let arr: string[] = []
-	if (isFileExist(gitDir + '/.gitmarscommands')) {
+
+	if (isFileExist(`${gitDir}/.gitmarscommands`)) {
 		const result = sh
-			.cat(gitDir + '/.gitmarscommands')
+			.cat(`${gitDir}/.gitmarscommands`)
 			.stdout.split('\n')[0]
 			.replace(/(^\n*)|(\n*$)/g, '')
 			.replace(/\n{2,}/g, '\n')
 			.replace(/\r/g, '')
+
 		arr = JSON.parse(decodeURIComponent(result))
 	}
+
 	return arr
 }
 
@@ -30,13 +33,14 @@ export function getCommandCache() {
  */
 export function setCommandCache(rest: Array<CommandType | string | string[]>): void {
 	const { gitDir } = getGitRevParse()
-	sh.touch(gitDir + '/.gitmarscommands')
+
+	sh.touch(`${gitDir}/.gitmarscommands`)
 	sh.sed(
 		'-i',
-		// eslint-disable-next-line no-control-regex
-		/[\s\S\n\r\x0A\x0D]*/,
+
+		/[\s\S]*/,
 		encodeURIComponent(JSON.stringify(rest)),
-		gitDir + '/.gitmarscommands'
+		`${gitDir}/.gitmarscommands`,
 	)
 }
 
