@@ -32,7 +32,7 @@
 		"@gitmars/core": "workspace:*",
 		"@gitmars/git": "workspace:*",
 		"@gitmars/utils": "workspace:*",
-		"chalk": "^4.1.2",
+		"chalk": "^5.6.2",
 		"ci-info": "^4.3.1",
 		"js-cool": "^5.23.1",
 		"os-lang": "^3.3.1",
