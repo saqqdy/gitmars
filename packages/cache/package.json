@@ -39,7 +39,7 @@
 		"@eslint-sets/eslint-config": "^6.2.0",
 		"@types/node": "^24.10.2",
 		"@types/shelljs": "^0.8.17",
-		"cross-env": "^7.0.3",
+		"cross-env": "^10.1.0",
 		"eslint": "^9.39.4",
 		"madge": "^8.0.0",
 		"tsnd": "^1.1.0",
