@@ -16,15 +16,7 @@ export default eslintSets({
 		'ts/no-require-imports': 'off',
 		'yml/file-extension': 'off',
 		'no-labels': 'off',
-		"n/hashbang": ["error", {
-        "convertPath": null,
-        "ignoreUnpublished": false,
-        "additionalExecutables": [],
-        "executableMap": {
-            ".ts": "ts-node",
-            ".js": "node"
-        }
-    }],
+		'n/hashbang': 'off',
 		'no-restricted-syntax': [
 			'error',
 			'TSEnumDeclaration[const=true]',
