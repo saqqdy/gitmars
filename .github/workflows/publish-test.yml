@@ -1,76 +1,75 @@
 name: npm-publish-test
 
 on:
-  push:
-    branches: [master]
+    push:
+        branches: [master]
+
+concurrency:
+    group: publish-test-${{ github.ref }}
+    cancel-in-progress: true
 
 jobs:
-  publish-gpr:
-    runs-on: ubuntu-latest
-    permissions:
-      packages: write
-      contents: read
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
+    publish-gpr:
+        runs-on: ubuntu-latest
+        permissions:
+            id-token: write
+            packages: write
+            contents: read
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v4
+              with:
+                  fetch-depth: 0
 
-      - name: Install pnpm
-        uses: pnpm/action-setup@v2
+            - name: Install pnpm
+              uses: pnpm/action-setup@v4
+              with:
+                  version: 9
 
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
-        with:
-          node-version: 18
-          registry-url: https://registry.npmmirror.com
-          cache: pnpm
+            - name: Use Node.js
+              uses: actions/setup-node@v4
+              with:
+                  node-version: 22
+                  registry-url: https://registry.npmjs.org
+                  cache: pnpm
 
-      - run: echo ${{ matrix.node-version }}
-      - run: npm i -g npm@8
-      - run: node -v
-      - run: npm -v
-      - run: pnpm store path
-      - run: pnpm install
+            - name: Setup
+              run: |
+                  node -v
+                  pnpm -v
+                  pnpm install --frozen-lockfile
 
-      # - run: npx changelogithub --no-group
-      #   continue-on-error: true
-      #   env:
-      #     NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
+            - name: Build
+              run: pnpm dist
+              env:
+                  NODE_OPTIONS: --max-old-space-size=6144
 
-      # - run: git config --global user.email "saqqdy@qq.com"
-      # - run: git config --global user.name "saqqdy"
+            - name: Gen .npmrc
+              run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" >> ./.npmrc
 
-      - run: pnpm dist
-        env:
-          NODE_OPTIONS: --max-old-space-size=6144
+            - name: Publish (test)
+              run: pnpm pub --test
+              env:
+                  NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+                  NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
-      - name: Gen .npmrc
-        run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" >> ./.npmrc
-
-      - run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" >> ./packages/api/.npmrc
-      - run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" >> ./packages/build/.npmrc
-      - run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" >> ./packages/cache/.npmrc
-      - run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" >> ./packages/core/.npmrc
-      - run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" >> ./packages/git/.npmrc
-      - run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" >> ./packages/go/.npmrc
-      - run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" >> ./packages/hook/.npmrc
-      - run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" >> ./packages/utils/.npmrc
-      - run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" >> ./packages/gitmars/.npmrc
-      - run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" >> ./packages/docs/.npmrc
-
-      - run: pnpm pub --test
-        env:
-          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
-
-      - run: curl -X PUT -d "sync_upstream=true" "https://registry-direct.npmmirror.com/@gitmars/monorepo/sync"
-      - run: curl -X PUT -d "sync_upstream=true" "https://registry-direct.npmmirror.com/@gitmars/api/sync"
-      - run: curl -X PUT -d "sync_upstream=true" "https://registry-direct.npmmirror.com/@gitmars/build/sync"
-      - run: curl -X PUT -d "sync_upstream=true" "https://registry-direct.npmmirror.com/@gitmars/cache/sync"
-      - run: curl -X PUT -d "sync_upstream=true" "https://registry-direct.npmmirror.com/@gitmars/core/sync"
-      - run: curl -X PUT -d "sync_upstream=true" "https://registry-direct.npmmirror.com/@gitmars/git/sync"
-      - run: curl -X PUT -d "sync_upstream=true" "https://registry-direct.npmmirror.com/@gitmars/go/sync"
-      - run: curl -X PUT -d "sync_upstream=true" "https://registry-direct.npmmirror.com/@gitmars/hook/sync"
-      - run: curl -X PUT -d "sync_upstream=true" "https://registry-direct.npmmirror.com/@gitmars/utils/sync"
-      - run: curl -X PUT -d "sync_upstream=true" "https://registry-direct.npmmirror.com/gitmars/sync"
-      - run: curl -X PUT -d "sync_upstream=true" "https://registry-direct.npmmirror.com/@gitmars/docs/sync"
+            - name: Sync to npmmirror
+              if: always()
+              run: |
+                  PACKAGES=(
+                      "@gitmars/monorepo"
+                      "@gitmars/api"
+                      "@gitmars/build"
+                      "@gitmars/cache"
+                      "@gitmars/core"
+                      "@gitmars/git"
+                      "@gitmars/go"
+                      "@gitmars/hook"
+                      "@gitmars/utils"
+                      "gitmars"
+                      "@gitmars/docs"
+                  )
+                  for pkg in "${PACKAGES[@]}"; do
+                      echo "Syncing $pkg..."
+                      curl -sSL -X PUT -d "sync_upstream=true" "https://registry-direct.npmmirror.com/$pkg/sync" || true
+                  done
