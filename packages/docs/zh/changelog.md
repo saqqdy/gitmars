@@ -2,13 +2,15 @@
 
 ## 2026.03.19 v7.8.0
 
-1. 子项目 devDependencies 迁移到 pnpm `catalog:` 格式，统一管理版本
-2. 在 `pnpm-workspace.yaml` 中添加 `catalog` 配置，统一依赖版本
-3. 发布脚本从 `npm publish` 改为 `pnpm publish`，自动转换 workspace 协议
-4. GitHub Actions 工作流添加 `NPM_TOKEN` 环境变量
-5. 修复多个文件的 lint 错误
-6. 提取公共 `AnyFunction` 类型用于回调函数签名
-7. 升级依赖包
+1. 修复 `import ... with { type: 'json' }` 语法的构建兼容性问题
+2. 迁移 ESLint 配置到 `@eslint-sets/eslint-config`
+4. 子项目 devDependencies 迁移到 pnpm `catalog:` 格式，统一管理版本
+5. 在 `pnpm-workspace.yaml` 中添加 `catalog` 配置，统一依赖版本
+6. 发布脚本从 `npm publish` 改为 `pnpm publish`，自动转换 workspace 协议
+7. 修复多个文件的 lint 错误
+8. 提取公共 `AnyFunction` 类型用于回调函数签名
+9. 优化 README 文档结构
+10. 升级依赖包
 
 ## 2025.12.10 v7.7.0
 
