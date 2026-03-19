@@ -4,13 +4,15 @@
 
 1. Fixed build compatibility issue with `import ... with { type: 'json' }` syntax
 2. Migrated ESLint configuration to `@eslint-sets/eslint-config`
-4. Migrated sub-package devDependencies to use pnpm `catalog:` format for centralized version management
-5. Added `catalog` configuration to `pnpm-workspace.yaml` for unified dependency versions
-6. Changed publish script from `npm publish` to `pnpm publish` for automatic workspace protocol conversion
-7. Fixed lint errors across multiple files
-8. Extracted common `AnyFunction` type for callback function signatures
-9. Optimized README documentation structure
-10. Upgraded dependencies
+3. Migrated sub-package devDependencies to use pnpm `catalog:` format for centralized version management
+4. Added `catalog` configuration to `pnpm-workspace.yaml` for unified dependency versions
+5. Changed publish script from `npm publish` to `pnpm publish` for automatic workspace protocol conversion
+6. Fixed lint errors across multiple files
+7. Extracted common `AnyFunction` type for callback function signatures
+8. Optimized README documentation structure
+9. Upgraded dependencies
+10. Expanded test coverage for `@gitmars/git` package from 5.4% to 82.67%
+11. Added comprehensive tests for git functions: getConfig, readPkg, searchBranches, getAheadLogs, getBehindLogs, getBranchesFromID, getGitLogs, getGitLogsByCommitIDs, checkout, fetch, prune, checkGitStatus, getStashList, getCommandMessage, getIsMergeAction, getIsMergedTargetBranch, getIsUpdatedInTime
 
 ## 2025.12.10 v7.7.0
 
