@@ -1,7 +1,7 @@
 {
 	"name": "@gitmars/go",
 	"description": "gitmars go",
-	"version": "7.7.0",
+	"version": "7.8.0",
 	"private": false,
 	"main": "./dist/index.cjs.js",
 	"module": "./dist/index.esm-bundler.js",
@@ -33,14 +33,14 @@
 		"os-lang": "^3.3.1"
 	},
 	"devDependencies": {
-		"@eslint-sets/eslint-config": "^6.2.0",
+		"@eslint-sets/eslint-config": "catalog:",
 		"@types/inquirer": "^9.0.9",
-		"@types/node": "^24.10.2",
-		"cross-env": "^7.0.3",
-		"eslint": "^9.39.4",
-		"madge": "^8.0.0",
-		"tsnd": "^1.1.0",
-		"typescript": "^5.9.3"
+		"@types/node": "catalog:",
+		"cross-env": "catalog:",
+		"eslint": "catalog:",
+		"madge": "catalog:",
+		"tsnd": "catalog:",
+		"typescript": "catalog:"
 	},
 	"sideEffects": false,
 	"keywords": [

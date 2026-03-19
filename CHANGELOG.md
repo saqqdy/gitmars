@@ -1,824 +1,839 @@
-# 更新日志
+# Changelog
+
+## 2026.03.19 v7.8.0
+
+1. Migrated sub-package devDependencies to use pnpm `catalog:` format for centralized version management
+2. Added `catalog` configuration to `pnpm-workspace.yaml` for unified dependency versions
+3. Changed publish script from `npm publish` to `pnpm publish` for automatic workspace protocol conversion
+4. Added `NPM_TOKEN` environment variable to GitHub Actions workflow
+5. Fixed lint errors across multiple files:
+   - Removed mixed spaces/tabs indentation
+   - Fixed unused variables and parameters
+   - Replaced `Function` type with `AnyFunction` interface
+   - Fixed labeled statements usage
+   - Used `fs.promises.writeFile` instead of callback-based `fs.writeFile`
+6. Extracted common `AnyFunction` type for callback function signatures
+7. Upgraded dependencies
 
 ## 2025.12.10 v7.7.0
 
-1. 优化 `gitm copy`
-2. 升级依赖包
+1. Optimized `gitm copy`
+2. Upgraded dependencies
 
 ## 2025.01.10 v7.6.0
 
-1. 改用 `git switch`
-2. 优化 `gitm start` 创建分支流程
-3. 升级依赖包
+1. Switched to `git switch`
+2. Optimized `gitm start` branch creation flow
+3. Upgraded dependencies
 
 ## 2024.08.08 v7.4.0
 
-1. `build-mp` 增加生成版本类型的选择环节，增加输入baseInfo
+1. `build-mp` added version type selection step, added baseInfo input
 
 ## 2024.08.02 v7.3.0
 
-1. 修复 `miniprogramToken` `miniprogramSession` 参数必填问题
+1. Fixed `miniprogramToken` `miniprogramSession` required parameter issue
 
 ## 2024.07.17 v7.2.0
 
-1. `miniprogramToken` `miniprogramSession` 参数从git配置中取
+1. `miniprogramToken` `miniprogramSession` parameters now read from git config
 
 ## 2024.06.18 v7.1.0
 
-1. 增加`--push`传值，是否在copy之后推送目标分支到远程
+1. Added `--push` parameter to push target branch to remote after copy
 
 ## 2024.05.10 v7.0.1
 
-1. 修复版本控制BUG
+1. Fixed version control bug
 
 ## 2024.05.10 v7.0.0
 
-1. 重构项目，合理规划代码
-2. 新增`build-mp`指令构建小程序
-3. 新增`miniprogram`指令操作小程序
-4. `end` `combine` 指令支持批量操作
-5. `build`指令改造成可选参数形式，project参数取消必填限制
-6. 构建配置支持在list里面设置token
-7. 清理不需要的依赖包
-8. 升级依赖包
+1. Refactored project, reorganized code structure
+2. Added `build-mp` command for building miniprograms
+3. Added `miniprogram` command for operating miniprograms
+4. `end` and `combine` commands now support batch operations
+5. `build` command refactored to optional parameters, project parameter no longer required
+6. Build config now supports setting token in list
+7. Cleaned up unnecessary dependencies
+8. Upgraded dependencies
 
 ## 2024.03.17 v6.4.0
 
-1. 优化提示信息
-2. 升级依赖包
+1. Optimized prompts
+2. Upgraded dependencies
 
 ## 2024.03.01 v6.3.0
 
-1. `admin` `combine` 指令增加构建提示
-2. 升级依赖包
+1. `admin` and `combine` commands added build prompts
+2. Upgraded dependencies
 
 ## 2024.02.02 v6.2.0
 
-1. `build`指令增加`--confirm`参数，为 true 时不显示确认框
+1. `build` command added `--confirm` parameter, skip confirmation when true
 
 ## 2024.02.01 v6.1.0
 
-1. build指令增加参数确认环节
-2. 移除构建参数转码
-3. 升级依赖包
+1. Added parameter confirmation step to build command
+2. Removed build parameter encoding
+3. Upgraded dependencies
 
 ## 2024.01.08 v6.0.0
 
-1. 移除 `server` `ui` 两个子项目
-2. 6.0.0 版本开始`token`从git config里面取`user.token`，接口不需要再返回token
-3. 弃用 `gitm merge` 指令
-4. 升级依赖包
+1. Removed `server` and `ui` sub-projects
+2. From v6.0.0, `token` is read from git config `user.token`, API no longer needs to return token
+3. Deprecated `gitm merge` command
+4. Upgraded dependencies
 
 ## 2023.09.09 v5.3.0
 
-1. `combine` `admin publish` `build` 指令传参增加 `--data`，用来传入其他自定义构建参数
-2. 修复 `upgrade` 使用registry不生效的问题
-3. 移除 `compareVersion` 方法，改用js-cool提供的compareVersion方法
-4. 升级依赖包
+1. `combine`, `admin publish`, `build` commands added `--data` parameter for custom build parameters
+2. Fixed `upgrade` not working with registry
+3. Removed `compareVersion` method, using js-cool's compareVersion instead
+4. Upgraded dependencies
 
 ## 2023.08.16 v5.2.0
 
-1. 修复一些问题
-2. 升级依赖包
+1. Fixed some issues
+2. Upgraded dependencies
 
 ## 2023.07.03 v5.1.6
 
-1. 使用 [os-lang](https://githun.com/saqqdy/os-lang) 获取系统语言
-2. 升级依赖包
+1. Using [os-lang](https://github.com/saqqdy/os-lang) to get system language
+2. Upgraded dependencies
 
 ## 2023.05.31 v5.1.5
 
-1. 修复 bug 优化体验
-2. 升级依赖包
+1. Fixed bugs and improved experience
+2. Upgraded dependencies
 
 ## 2023.03.26 v5.1.3
 
-1. 使用 [userdir](https://githun.com/saqqdy/userdir)
-2. 修复类型输出
-3. 升级依赖包
+1. Using [userdir](https://github.com/saqqdy/userdir)
+2. Fixed type output
+3. Upgraded dependencies
 
 ## 2023.02.17 v5.1.1
 
-1. 修复`spawnSync`解析指令出错问题
-2. 版本控制兼顾到 `prerelease` `premajor` `preminor` `prepatch` 版本
-3. 构建输出 gitmars 类型文件
-4. 升级依赖包
+1. Fixed `spawnSync` command parsing error
+2. Version control now supports `prerelease`, `premajor`, `preminor`, `prepatch` versions
+3. Build outputs gitmars type files
+4. Upgraded dependencies
 
 ## 2023.02.04 v5.0.0
 
-1. 全面改用 rollup v3.0
-2. 配置参数新增 `versionControlType` 用于控制强制更新版本的类型，传入 false 则不强制更新
-3. 升级依赖包，开始使用 commander v10，reinstaller v2
+1. Fully migrated to rollup v3.0
+2. Added `versionControlType` config parameter for controlling forced update version type, pass false to disable
+3. Upgraded dependencies, now using commander v10, reinstarter v2
 
 ## 2023.01.14 v4.1.1
 
-1. 升级依赖包
+1. Upgraded dependencies
 
 ## 2023.01.05 v4.1.0
 
-1. 增加`stringify` `isWin32` 两个方法，处理 windows 环境脚本兼容问题
-2. 修复`getIsMergedTargetBranch`在 windows 下的兼容问题
-3. 升级 spawn 和 spawnSync 处理 windows 环境脚本兼容问题
+1. Added `stringify` and `isWin32` methods to handle Windows environment script compatibility
+2. Fixed `getIsMergedTargetBranch` compatibility issue on Windows
+3. Upgraded spawn and spawnSync to handle Windows environment script compatibility
 
 ## 2023.01.05 v4.0.4
 
-1. 修复`getIsMergedTargetBranch`在 windows 下的兼容问题
+1. Fixed `getIsMergedTargetBranch` compatibility issue on Windows
 
 ## 2023.01.04 v4.0.3
 
-1. 修复`getIsMergedTargetBranch`在 windows 下的兼容问题
-2. os-local 降级
+1. Fixed `getIsMergedTargetBranch` compatibility issue on Windows
+2. Downgraded os-local
 
 ## 2023.01.02 v4.0.1
 
-1. 开始使用[reinstaller](https://github.com/saqqdy/reinstaller)
+1. Started using [reinstaller](https://github.com/saqqdy/reinstaller)
 
 ## 2022.12.30 v4.0.0
 
-1. 适配多语言，目前支持`zh-CN` `en-US`
-2. `getIsMergedTargetBranch` 方法更改入参方式，新增 strictly，更换默认的判断方式
-3. 全面改用 esm 规范，放弃支持 node12 及以下版本
-4. config 配置取消`msgUrl`项
-5. 修复`update`指令判断是否需要合并不准确的 bug
-6. global 从 core 迁出，移到 gitmars 下面
-7. 重构`copy`指令，改造成自选提交记录的方式
-8. 新增`prune`方法
-9. 修复`checkGitStatus`方法 bug
-10. 移除`lastet` `limit` 默认值设置
-11. 依赖包升级
+1. Added multi-language support, currently supports `zh-CN` and `en-US`
+2. `getIsMergedTargetBranch` method changed parameter passing, added strictly, changed default judgment method
+3. Fully migrated to ESM specification, dropped support for node12 and below
+4. Removed `msgUrl` from config
+5. Fixed `update` command inaccurate merge detection bug
+6. Moved global from core to gitmars
+7. Refactored `copy` command to self-select commit records
+8. Added `prune` method
+9. Fixed `checkGitStatus` method bug
+10. Removed default values for `lastet` and `limit`
+11. Upgraded dependencies
 
 ## 2022.08.22 v3.3.5
 
-1. `combine` `update` `admin publish` `admin update`指增加`--force`，强制发起合并请求
+1. `combine`, `update`, `admin publish`, `admin update` commands added `--force` to force merge request
 
 ## 2022.08.14 v3.3.4
 
-1. `postmsg`指令支持脱离 git 目录使用
+1. `postmsg` command now works outside git directory
 
 ## 2022.08.12 v3.3.3
 
-1. 修复`admin`指令合并判断不准确的遗留问题
-2. 新增`fetch`公共方法
+1. Fixed remaining `admin` command merge detection issues
+2. Added `fetch` public method
 
 ## 2022.08.12 v3.3.2
 
-1. 修复构建流程导致 gitm-ui 无法运
+1. Fixed build process causing gitm-ui to not run
 
 ## 2022.08.11 v3.3.1
 
-1. 修复`admin`指令合并判断不准确的问题
+1. Fixed `admin` command inaccurate merge detection
 
 ## 2022.08.09 v3.3.0
 
-1. `combine` `update` `admin`指令增加合并判断，不需要合并时不再合并
-2. 升级依赖包版本
+1. `combine`, `update`, `admin` commands added merge detection, no longer merge when not needed
+2. Upgraded dependencies
 
 ## 2022.07.19 v3.2.0
 
-1. 修复`gitm get`指令取不到对应暂存内容问题
-2. 修复`gitm undo`指令报错
-3. 完善 typescript 类型
+1. Fixed `gitm get` command not finding corresponding stash content
+2. Fixed `gitm undo` command error
+3. Improved typescript types
 
 ## 2022.07.03 v3.1.0
 
-1. 更新 versionControl 策略,正式弃用 lite 通道
+1. Updated versionControl strategy, officially deprecated lite channel
 
 ## 2022.06.12 v3.0.1
 
-1. 优化体验
-2. 修复一些问题
+1. Improved experience
+2. Fixed some issues
 
 ## 2022.06.10 v3.0.0
 
-1. monorepo 改造，拆分成`core` `gitmars` `server` `ui` `docs`五个子项目
-2. 放开`alias` 指令只能在 git 项目下面执行的限制
-3. 升级依赖包版本
+1. Monorepo refactoring, split into `core`, `gitmars`, `server`, `ui`, `docs` sub-projects
+2. Removed restriction that `alias` command only works in git projects
+3. Upgraded dependencies
 
 ## 2022.04.07 v2.18.1
 
-1. 删除分支自动执行`git remote prune origin`清理记录
-2. 升级依赖包
+1. Deleting branches now auto-executes `git remote prune origin` to clean records
+2. Upgraded dependencies
 
 ## 2022.03.24 v2.18.0
 
-1. 新增`gitm alias`指令，初始化：`git alias init`，移除：`git alias remove`
-2. 新增别名指令使用 gitmars，可使用`git mars xxx` 或 `git flow xxx`，均等价于`gitm xxx`
-3. config 配置增加`apis`，原`config.api`迁移到`config.apis.userInfo`
-4. 新增`config.apis.buildConfig`接口配置，用于读取构建配置，优先级高于`config.apolloConfig`
-5. 升级依赖包
+1. Added `gitm alias` command, init: `git alias init`, remove: `git alias remove`
+2. Added alias commands to use gitmars, can use `git mars xxx` or `git flow xxx`, both equivalent to `gitm xxx`
+3. Added `apis` to config, original `config.api` moved to `config.apis.userInfo`
+4. Added `config.apis.buildConfig` API config for reading build config, higher priority than `config.apolloConfig`
+5. Upgraded dependencies
 
 ## 2022.02.24 v2.17.0
 
-1. 新增`level=3`审核员权限，审核员有合并权限可以执行`admin publish`动作，但是与管理员不同的是审核员提交代码会推送到远程。原开发者权限调整为 4
+1. Added `level=3` reviewer permission, reviewers have merge permission and can execute `admin publish`, but unlike admins, reviewers push code to remote. Developer permission adjusted to 4
 
 ## 2022.02.24 v2.16.6
 
-1. 优化取项目名称的逻辑
+1. Optimized project name extraction logic
 
 ## 2021.12.27 v2.16.5
 
-1. `approve` `review`指令增加`--quiet`，移除`--postmsg`，默认发送消息
+1. `approve` and `review` commands added `--quiet`, removed `--postmsg`, now send messages by default
 
 ## 2021.12.27 v2.16.4
 
-1. 扩展`request`方法支持 gzip
+1. Extended `request` method to support gzip
 
 ## 2021.12.23 v2.16.3
 
-1. `approve`指令优化批量操作体验
+1. Optimized `approve` command batch operation experience
 
 ## 2021.12.23 v2.16.2
 
-1. `approve`指令增加显示评论数量
-2. 提示语调整
+1. `approve` command now shows comment count
+2. Adjusted prompts
 
 ## 2021.12.20 v2.16.0
 
-### 功能
+### Features
 
-1. 新增`approve`指令用于审批远程合并请求，支持差异预览，新增`gitm admin approve`指令，引用`approve`指令
-2. 新增`review`指令用于 review 代码，提交 review 记录
-3. 扩展`request`方法支持`PUT` `DELETE`
+1. Added `approve` command for approving remote merge requests, supports diff preview, added `gitm admin approve` command
+2. Added `review` command for code review, submits review records
+3. Extended `request` method to support `PUT` and `DELETE`
 
-### 优化
+### Improvements
 
-1. 修复`service`缓存问题
-2. 优化文档
+1. Fixed `service` cache issue
+2. Optimized documentation
 
 ## 2021.12.14 v2.15.4
 
-1. 新增`status`指令查看当前分支状态
+1. Added `status` command to view current branch status
 
 ## 2021.12.13 v2.15.3
 
-1. `log`指令增加`--json`传值，是否以 json 格式输出日志，默认表格方式
+1. `log` command added `--json` parameter for JSON output, defaults to table
 
 ## 2021.12.12 v2.15.2
 
-1. 新增`debug`方法，开启 debug 功能
+1. Added `debug` method, enable debug functionality
 
 ## 2021.12.11 v2.15.1
 
-1. `gitm ui`增加支持`undo`和`redo`
-2. `gitm go`增加支持`undo`和`redo`
+1. `gitm ui` now supports `undo` and `redo`
+2. `gitm go` now supports `undo` and `redo`
 
 ## 2021.12.06 v2.15.0
 
-### 功能
+### Features
 
-1. 改用性能更好的原生脚本执行器，替代 shelljs 的`sh.exec`
-2. 新增`undo`指令，用于撤回代码
-3. 新增`redo`指令，用于恢复撤销的代码
-4. `cleanbranch`指令流程优化，预览之后可选择分支进行清理
-5. `undo`指令新增`--no-merges` `--limit` `--lastet` `--calc` `--calcAll`传参
-6. `log`指令增加`--no-merges`传参，用于排除 merge 记录
-7. `process.exit`替换`sh.exit`
+1. Switched to native script executor for better performance, replacing shelljs `sh.exec`
+2. Added `undo` command for reverting code
+3. Added `redo` command for restoring reverted code
+4. Optimized `cleanbranch` command flow, can select branches to clean after preview
+5. `undo` command added `--no-merges`, `--limit`, `--lastet`, `--calc`, `--calcAll` parameters
+6. `log` command added `--no-merges` parameter to exclude merge records
+7. Replaced `sh.exit` with `process.exit`
 
-### 优化
+### Improvements
 
-1. 优化读取`git log`的体验
-2. 新增`echo` `gitLogsFormatter` `revertCache` `writeFileSync`等方法
-3. 移除`filterBranch`方法
-4. 完善`typescript`类型
+1. Optimized `git log` reading experience
+2. Added `echo`, `gitLogsFormatter`, `revertCache`, `writeFileSync` methods
+3. Removed `filterBranch` method
+4. Improved `typescript` types
 
 ## 2021.12.02 v2.14.6
 
-1. 替换调起构建和推送群消息的`curl`脚本，处理 win7 不能执行 curl 的兼容问题
+1. Replaced `curl` scripts for build and group message, handled win7 curl compatibility issue
 
 ## 2021.12.02 v2.14.5
 
-1. `queue`方法扩展支持 promise 函数
-2. 替换创建远程合并请求的`curl`脚本，处理 win7 不能执行 curl 的兼容问题
-3. 解决脚本队列`continue`缓存保存失败的问题
-4. 解决`circular dependency`问题
+1. Extended `queue` method to support promise functions
+2. Replaced `curl` script for creating remote merge requests, handled win7 curl compatibility issue
+3. Fixed script queue `continue` cache save failure issue
+4. Fixed `circular dependency` issue
 
 ## 2021.11.30 v2.14.4
 
-1. 替换`curl`脚本，处理 win7 不能执行 curl 的兼容问题
-2. 封装`request`方法
+1. Replaced `curl` scripts, handled win7 curl compatibility issue
+2. Encapsulated `request` method
 
 ## 2021.11.28 v2.14.3
 
-1. `cleanbranch`指令不再主动切换分支
-2. `log`指令体验优化
+1. `cleanbranch` command no longer auto-switches branches
+2. Optimized `log` command experience
 
 ## 2021.11.27 v2.14.2
 
-1. `cleanbranch`指令优化提示信息
-2. `ui`界面支持`cleanbranch`/`admin publish`/`clean`/`log`四个指令
+1. Optimized `cleanbranch` command prompts
+2. `ui` interface now supports `cleanbranch`/`admin publish`/`clean`/`log` commands
 
 ## 2021.11.26 v2.14.1
 
-1. 优化代码
-2. 开源协议换成`GPL-3.0`
+1. Optimized code
+2. Changed license to `GPL-3.0`
 
 ## 2021.11.26 v2.14.0
 
-1. 重构核心代码
-2. `cleanbranch`指令放开仅支持二级分支的限制
+1. Refactored core code
+2. `cleanbranch` command removed restriction on secondary branches only
 
 ## 2021.11.22 v2.13.9
 
-1. `cleanbranch`指令增加`--key`传参，传递筛选关键词
-2. `cleanbranch`指令新增`--include`传参，用于正则筛选分支
-3. `cleanbranch`指令`--except`传参更改为`--exclude`，用法不变
+1. `cleanbranch` command added `--key` parameter for filter keywords
+2. `cleanbranch` command added `--include` parameter for regex branch filtering
+3. `cleanbranch` command changed `--except` to `--exclude`, usage unchanged
 
 ## 2021.11.21 v2.13.8
 
-1. 优化脚本执行提示，增加`processing`状态提示
-2. `clean`指令不再清理 gitmars 配置，`--force`传参改为是否要删除执行缓存
-3. 优化`upgrade`指令流程
-4. 优化`clean`指令体验
+1. Optimized script execution prompts, added `processing` status
+2. `clean` command no longer cleans gitmars config, `--force` now deletes execution cache
+3. Optimized `upgrade` command flow
+4. Optimized `clean` command experience
 
 ## 2021.11.20 v2.13.7
 
-1. `cleanbranch`指令增加`branches`参数，用于指定清理分支，多个分支空格隔开
-2. `cleanbranch`指令增加`--target`传参，用于指定需要判断是否合过的目标分支，多个分支逗号隔开，默认：develop,release
-3. 优化提示
+1. `cleanbranch` command added `branches` parameter to specify branches to clean, multiple branches separated by spaces
+2. `cleanbranch` command added `--target` parameter for target branches to check merge status, multiple branches separated by commas, default: develop,release
+3. Optimized prompts
 
 ## 2021.11.20 v2.13.6
 
-1. `cleanbranch`指令兼容旧版本 git
+1. `cleanbranch` command compatible with older git versions
 
 ## 2021.11.19 v2.13.5
 
-1. `cleanbranch`指令增加`--confirm`参数，为 true 时不显示确认框
-2. 修复判断不准确的问题
+1. `cleanbranch` command added `--confirm` parameter, skip confirmation when true
+2. Fixed inaccurate detection issue
 
 ## 2021.11.19 v2.13.3
 
-1. `cleanbranch`指令放开权限控制
-2. `go`指令支持 cleanbranch
+1. `cleanbranch` command removed permission control
+2. `go` command now supports cleanbranch
 
 ## 2021.11.19 v2.13.2
 
-1. `searchBranches`方法改进，删除`local`参数
-2. 纠正 branchs 单词错误
+1. Improved `searchBranches` method, removed `local` parameter
+2. Corrected branchs spelling error
 
 ## 2021.11.19 v2.13.1
 
-1. `cleanbranch`指令增加`--list`参数，删除前可以先预览
-2. `cleanbranch`指令流程优化，加上了动效和提示
-3. `cleanbranch`增加短指令`gitm clb`
-4. `cleanbranch`指令增加权限控制，仅管理员以上的级别（level < 3）可执行
-5. `cleanbranch`指令执行前自动切分支
+1. `cleanbranch` command added `--list` parameter to preview before deleting
+2. Optimized `cleanbranch` command flow with animations and prompts
+3. `cleanbranch` added short command `gitm clb`
+4. `cleanbranch` command added permission control, only admin level and above (level < 3) can execute
+5. `cleanbranch` command auto-switches branches before execution
 
 ## 2021.11.18 v2.13.0
 
-1. 新增`cleanbranch`指令，清理合并过的功能分支
-2. `searchBranches`方法改进，支持多类型查找，增加`local`参数和`exclude`正则排除
+1. Added `cleanbranch` command to clean merged feature branches
+2. Improved `searchBranches` method, supports multi-type search, added `local` parameter and `exclude` regex
 
 ## 2021.11.18 v2.12.8
 
-1. `go`指令支持 clean 方法
-2. `clean`指令流程优化
+1. `go` command now supports clean method
+2. Optimized `clean` command flow
 
 ## 2021.11.17 v2.12.7
 
-1. 修复`start`指令从 tag 创建分支报 code 不存在的问题
+1. Fixed `start` command code not found when creating branch from tag
 
 ## 2021.11.16 v2.12.6
 
-1. 构建配置支持保存多个了
-2. `clean`指令支持清理`packageInfo`缓存
+1. Build config now supports saving multiple configs
+2. `clean` command now cleans `packageInfo` cache
 
 ## 2021.11.14 v2.12.5
 
-1. `continue`指令执行前检测是否遗忘了 commit 代码
+1. `continue` command now checks for forgotten commit code before execution
 
 ## 2021.11.12 v2.12.3
 
-1. 解决 Windows 环境`UI`界面的`xterm`运行报错问题
+1. Fixed Windows environment `UI` interface `xterm` runtime error
 
 ## 2021.11.11 v2.12.2
 
-1. 运行构建支持多应用逗号隔开
+1. Build now supports multiple apps separated by commas
 
 ## 2021.11.11 v2.12.1
 
-1. `copy`指令去掉执行推送动作
+1. `copy` command removed push action
 
 ## 2021.11.10 v2.12.0
 
-### 功能
+### Features
 
-1. `combine` `end` `start` `update`指令加上了版本检测，解决碎片化问题
-2. `apollo`配置缓存方案调整
-3. 新增`packageInfo`缓存
+1. `combine`, `end`, `start`, `update` commands added version detection to solve fragmentation issue
+2. Adjusted `apollo` config caching scheme
+3. Added `packageInfo` cache
 
-### 优化
+### Improvements
 
-1. typescript 类型完善
-2. `apollo`读配置方案优化
+1. Improved typescript types
+2. Optimized `apollo` config reading scheme
 
 ## 2021.11.08 v2.11.1
 
-1. 修复是否合并过`dev`分支判断不准确的问题
+1. Fixed inaccurate `dev` branch merge detection
 
 ## 2021.11.08 v2.11.0
 
-### 功能
+### Features
 
-1. 增加全局配置`descriptionValidator`，用于校验提交的原因描述，支持输入正则表达式和正则字符串
-2. `combine` `end` `admin.publish` `admin.update`这几个需要调起远程合并请求的方法增加`--description`传参，增加校验
+1. Added global config `descriptionValidator` for validating commit reason description, supports regex and regex string
+2. `combine`, `end`, `admin.publish`, `admin.update` methods added `--description` parameter with validation
 
-### 优化
+### Improvements
 
-1. 抽离出生成 shell 脚本的方法
+1. Extracted shell script generation method
 
 ## 2021.11.06 v2.10.2
 
-### 功能
+### Features
 
-1. `upgrade`指令增加`--registry`和`--client`传参，用于指定镜像地址和执行客户端
+1. `upgrade` command added `--registry` and `--client` parameters for specifying mirror address and client
 
 ## 2021.11.05 v2.10.1
 
-### 优化
+### Improvements
 
-1. `combine`和`end`指令判断是否合并过 dev 默认使用远程分支
+1. `combine` and `end` commands now use remote branches by default to check if merged to dev
 
 ## 2021.11.02 v2.10.0
 
-### 功能
+### Features
 
-1. `copy`指令使用方式调整，from 参数改成`--source`传参。使用：`gitm copy [commitid...]` 或者 `gitm copy [-s --source [source]] [-k --key [keyword]] [-a --author [author]]`
-2. `copy`指令在使用模糊查询批量 copy 时，`--key`参数必传，且不能少于 3 个字
+1. `copy` command usage adjusted, from parameter changed to `--source`. Usage: `gitm copy [commitid...]` or `gitm copy [-s --source [source]] [-k --key [keyword]] [-a --author [author]]`
+2. `copy` command now requires `--key` parameter for fuzzy batch copy, minimum 3 characters
 
-### 优化
+### Improvements
 
-1. `continue`指令在执行成功后清理执行缓存
+1. `continue` command now cleans execution cache after successful execution
 
 ## 2021.10.31 v2.9.7
 
-1. 调整数据库存放位置，避免升级之后数据丢失
-2. `log`指令开放更多日志详情
+1. Adjusted database storage location to prevent data loss after upgrade
+2. `log` command now exposes more log details
 
 ## 2021.10.30 v2.9.6
 
-1. `end`指令智能判断是否需要合并代码，不传`--no-combine`时，不需要合并的时候不会发起合并操作
-2. `getIsMergedDevBranch`改为`getIsMergedTargetBranch`，新增`remote`参数
-3. 抽象`getIsBranchOrCommitExist`方法的判断分支或 commit 是否存在
+1. `end` command now intelligently determines whether to merge code, won't merge when not needed without `--no-combine`
+2. `getIsMergedDevBranch` changed to `getIsMergedTargetBranch`, added `remote` parameter
+3. Abstracted `getIsBranchOrCommitExist` method for checking branch or commit existence
 
 ## 2021.10.29 v2.9.5
 
-1. 优化`getIsUpdatedInTime`方法的判断策略
+1. Optimized `getIsUpdatedInTime` method detection strategy
 
 ## 2021.10.28 v2.9.4
 
-1. 新增`nameValidator`配置参数，用于校验分支名合法性，支持输入正则表达式和正则字符串
-2. 分支名支持输入斜杠：`gitm start feature saqqdy/10000`
+1. Added `nameValidator` config parameter for validating branch name, supports regex and regex string
+2. Branch name now supports slashes: `gitm start feature saqqdy/10000`
 
 ## 2021.10.28 v2.9.3
 
-1. 修复自定义端口启动`UI`不生效的问题
+1. Fixed custom port `UI` startup not working
 
 ## 2021.10.25 v2.9.2
 
-1. `ui`指令增加`--port`参数，自定义端口号
+1. `ui` command added `--port` parameter for custom port number
 
 ## 2021.10.24 v2.9.1
 
-1. 依赖包升级
-2. 完善文档
+1. Upgraded dependencies
+2. Improved documentation
 
 ## 2021.10.23 v2.9.0
 
-1. `go`指令增加`command`参数，直接进入对应的指令
-2. 完善每个指令的 help 提示信息
-3. 完善 type 类型
+1. `go` command added `command` parameter to directly enter corresponding command
+2. Improved help prompts for each command
+3. Improved type definitions
 
 ## 2021.10.22 v2.8.9
 
-1. 完善 UI 界面创建分支的功能
-2. 优化用户体验
+1. Improved UI interface branch creation functionality
+2. Optimized user experience
 
 ## 2021.10.22 v2.8.8
 
-1. 解决跨平台脚本转义问题
+1. Fixed cross-platform script escaping issue
 
 ## 2021.10.22 v2.8.6
 
-1. `gitm ui`执行后自动打开浏览器
+1. `gitm ui` now auto-opens browser
 
 ## 2021.10.21 v2.8.5
 
-1. 修复是否合并过`dev`判断不准确的问题
+1. Fixed inaccurate `dev` merge detection
 
 ## 2021.10.20 v2.8.3
 
-1. 解决判断是否合过 dev 的 BUG
-2. 解决方法导出方式错误
+1. Fixed `dev` merge detection bug
+2. Fixed method export error
 
 ## 2021.10.20 v2.8.0
 
-1. `start`指令支持从 tag 创建 bugfix 分支
+1. `start` command now supports creating bugfix branch from tag
 
 ## 2021.10.19 v2.7.0
 
-1. 纠正`log`和`hook`指令参数错误：`latest`改成`lastet`
-2. `combine`指令新增是否同步过 dev 分支判断，没有同步过的不允许合 prod
-3. `combine`指令新增是否超过 1 周没有同步过主干代码判断
+1. Corrected `log` and `hook` command parameter error: changed `latest` to `lastet`
+2. `combine` command added `dev` branch sync check, won't allow prod merge if not synced
+3. `combine` command added check for not syncing main branch code for over 1 week
 
 ## 2021.10.18 v2.6.5
 
-1. 优化`ui`用户体验
-2. `end`指令删除分支时加上了判断
-3. 修复几个配置 BUG
+1. Optimized `ui` user experience
+2. `end` command now has checks when deleting branches
+3. Fixed some config bugs
 
 ## 2021.10.18 v2.6.4
 
-1. 修复`end`指令`--no-combine`参数不生效的问题
+1. Fixed `end` command `--no-combine` parameter not working
 
 ## 2021.10.17 v2.6.3
 
-1. `ui`界面优化，task 和工作流分拆成 2 个 Terminal，互不干扰
-2. 体验和样式优化
+1. Optimized `ui` interface, split task and workflow into 2 Terminals
+2. Optimized experience and styles
 
 ## 2021.10.16 v2.6.2
 
-1. 修复`ui`的几个 bug
+1. Fixed several `ui` bugs
 
 ## 2021.10.15 v2.6.1
 
-1. `end`指令增加`--as-feature`和`--no-combine`参数
-2. 依赖包升级
-3. 优化代码
+1. `end` command added `--as-feature` and `--no-combine` parameters
+2. Upgraded dependencies
+3. Optimized code
 
 ## 2021.09.17 v2.6.0
 
-1. typescript 重构`server`
-2. `get`指令优化
+1. Refactored `server` with typescript
+2. Optimized `get` command
 
 ## 2021.09.12 v2.5.1
 
-1. `upgrade`指令的`version`参数支持输入 tag 名称：`alpha`、`beta`、`release`、`lite`、`latest`、`next`、`x.x.x`，默认值为`latest`
+1. `upgrade` command `version` parameter now supports tag names: `alpha`, `beta`, `release`, `lite`, `latest`, `next`, `x.x.x`, default `latest`
 
 ## 2021.09.12 v2.5.0
 
-1. typescript 重构项目
-2. 清理`bin`目录减小 npm 包体积
-3. 修复`upgrade`执行报错
+1. Refactored project with typescript
+2. Cleaned `bin` directory to reduce npm package size
+3. Fixed `upgrade` execution error
 
 ## 2021.09.04 v2.4.0
 
-1. `gitm ui`迁移到`vue3+vite+typescript`框架
-2. 清理`static`目录减小 npm 包体积
+1. Migrated `gitm ui` to `vue3+vite+typescript` framework
+2. Cleaned `static` directory to reduce npm package size
 
 ## 2021.08.28 v2.3.0
 
-1. 调整`link`/`unlink`使用方式
-2. 减小`npm`包体积
+1. Adjusted `link`/`unlink` usage
+2. Reduced npm package size
 
 ## 2021.08.25 v2.2.10
 
-1. 调整构建配置的存放目录
-2. 指令加上运行环境校验
-3. 依赖包升级
+1. Adjusted build config storage directory
+2. Added runtime environment checks to commands
+3. Upgraded dependencies
 
 ## 2021.08.20 v2.2.9
 
-1. `gitm end`指令同步删除远程分支
-2. `branch`指令开放删除远程分支功能
-3. `go`指令新增支持`link`/`unlink`/`postmsg`
+1. `gitm end` command now deletes remote branch
+2. `branch` command now supports deleting remote branches
+3. `go` command now supports `link`/`unlink`/`postmsg`
 
 ## 2021.08.10 v2.2.8
 
-1. 解决`postmsg`中文乱码问题
+1. Fixed `postmsg` Chinese encoding issue
 
 ## 2021.08.10 v2.2.7
 
-1. 发起`git`操作请求时发送群消息通知
-2. `postmsg`指令支持配置自定义消息通知`url`
+1. Send group message notification when making git operation requests
+2. `postmsg` command supports custom message notification `url`
 
 ## 2021.08.05 v2.2.6
 
-1. 修复`windows`发起合并请求失败的问题
+1. Fixed `windows` merge request failure issue
 
 ## 2021.07.22 v2.2.5
 
-1. 修复无合并权限调不了`dev`构建的问题
-2. 弃用`babel`拥抱`esbuild`
-3. 清理不需要的依赖包，修复了几处代码问题
+1. Fixed build issue without merge permission
+2. Deprecated `babel`, using `esbuild`
+3. Cleaned unnecessary dependencies, fixed code issues
 
 ## 2021.07.15 v2.2.4
 
-1. 修复无合并权限调起了构建的问题
+1. Fixed build being triggered without merge permission
 
 ## 2021.07.04 v2.2.3
 
-1. `gitm update`支持`--all`一键升级本地所有分支
-2. `gitm update`改为默认使用`merge`方式更新代码，新增`--use-rebase`参数
-3. 新增一个搜索分支的方法，提升搜索性能
+1. `gitm update` supports `--all` to update all local branches at once
+2. `gitm update` now uses `merge` by default, added `--use-rebase` parameter
+3. Added branch search method for better performance
 
 ## 2021.05.29 v2.2.2
 
-1. 整理文档
+1. Organized documentation
 
 ## 2021.05.15 v2.2.1
 
-1. 整理代码
+1. Organized code
 
 ## 2021.05.15 v2.2.0
 
-1. `gitmars UI`界面启动方式优化
-2. 依赖包升级
-3. 修复一些 BUG
+1. Optimized `gitmars UI` interface startup
+2. Upgraded dependencies
+3. Fixed some bugs
 
 ## 2021.05.03 v2.1.0
 
-1. `go`指令新增支持 `admin.create`/`admin.update`/`admin.clean`/`branch`/`get`/`save`/`copy`/`revert` 这些指令
-2. 参数验证优先使用子选项的配置
+1. `go` command now supports `admin.create`/`admin.update`/`admin.clean`/`branch`/`get`/`save`/`copy`/`revert`
+2. Parameter validation now uses sub-option config first
 
 ## 2021.04.27 v2.0.3
 
-1. 新增`admin`指令自动创建`merge`请求,优化判断逻辑
+1. Added `admin` command auto-creates `merge` request, optimized logic
 
 ## 2021.03.27 v2.0.2
 
-1. 新增`gitm ui`指令，启动 UI 界面
-2. 新增无 git 权限自动调起合并请求的功能，需要配置`api`、`gitHost`、`gitID`，具体配置查阅：[Gitmars 基本配置](http://www.saqqdy.com/gitmars/guide/basic-config.html)
-3. 升级`checkBranch`、`searchBranches`、`getCurrentBranch`方法，执行更加高效
-4. 取消强制配置 api
-5. `git config`和`git init`加入对`api`/`gitHost`/`gitID`参数设置的支持
+1. Added `gitm ui` command to start UI interface
+2. Added auto merge request for no git permission, need to configure `api`, `gitHost`, `gitID`
+3. Upgraded `checkBranch`, `searchBranches`, `getCurrentBranch` methods for better performance
+4. Removed forced api config
+5. `git config` and `git init` now support `api`/`gitHost`/`gitID` parameter settings
 
 ## 2021.1.29 v1.4.2
 
-1. 依赖包升级
-2. 解决 bug
+1. Upgraded dependencies
+2. Fixed bugs
 
 ## 2021.1.11 v1.4.1
 
-1. 升级获取 `config` 的方法,升级更新 `config` 的方法
-2. 优化读取 `gitmars` 配置和 git 配置的方式
-3. 更改配置方式，逐步弃用 `gitmarsconfig.json`，改用`.gitmarsrc`
-4. 修复 `Apollo` 配置问题
+1. Upgraded get `config` method, upgraded update `config` method
+2. Optimized reading `gitmars` config and git config
+3. Changed config method, deprecating `gitmarsconfig.json`, using `.gitmarsrc`
+4. Fixed `Apollo` config issue
 
 ## 2020.12.29 v1.4.0
 
-1. 新增 `go` 指令，免去记指令的烦恼，目前支持 `admin.publish`/`build`/`combine`/`end`/`start`/`update` 这些指令
+1. Added `go` command, supports `admin.publish`/`build`/`combine`/`end`/`start`/`update`
 
 ## 2020.10.16 v1.3.6
 
-1. 新增 `postmsg` 指令用于推送消息
+1. Added `postmsg` command for pushing messages
 
 ## 2020.08.14 v1.3.4
 
-1. `bugfix` 分支使用`--as-feature` 合并时不主动和 `bug` 线
-2. 指令配置抽离，为 `gitmars ui` 做准备
+1. `bugfix` branch with `--as-feature` no longer auto-merges to `bug` line
+2. Extracted command config, preparing for `gitmars ui`
 
 ## 2020.08.14 v1.3.3
 
-1. 更换获取当前分支状态的方法
+1. Changed method to get current branch status
 
 ## 2020.08.02 v1.3.2
 
-1. 更换获取当前分支名称的方式，解决 Windows 环境兼容问题
+1. Changed method to get current branch name, fixed Windows compatibility
 
 ## 2020.07.23 v1.3.1
 
-1. 优化 `link`/`unlink`，兼容 Windows 系统
+1. Optimized `link`/`unlink` for Windows compatibility
 
 ## 2020.07.22 v1.3.0
 
-1. 新增 `link` 指令，用来创建本地包软链接
+1. Added `link` command for creating local package symlinks
 
 ## 2020.07.07 v1.2.9
 
-1. `combine` 指令判断 `status` 优化
-2. 依赖包升级
+1. Optimized `combine` command `status` check
+2. Upgraded dependencies
 
 ## 2020.07.07 v1.2.8
 
-1. 修复 `jenkins` 调不起 BUG
+1. Fixed `jenkins` not starting bug
 
 ## 2020.06.30 v1.2.7
 
-1. 升级 `combine`/`end`/`update` 指令，分支名称可以不传，默认合并/结束/更新当前分支
-2. `combine` 指令新增`-a` 和`-m` 参数，传入可自动执行 `add` 和 `commit`
-3. 文档升级
+1. Upgraded `combine`/`end`/`update` commands, branch name is optional, defaults to current branch
+2. `combine` command added `-a` and `-m` parameters for auto `add` and `commit`
+3. Upgraded documentation
 
 ## 2020.06.27 v1.2.6
 
-1. 升级 `upgrade` 指令，Windows 用户终于能用上升级指令了！
+1. Upgraded `upgrade` command, Windows users can now use upgrade command!
 
 ## 2020.06.27 v1.2.5
 
-1. 升级 `get`/`save` 指令，暂存区“绑定”git 分支，新增高级用法
-2. 修复 `config` 指令 bug
-3. 修复 `continue` 指令 bug
+1. Upgraded `get`/`save` commands, stash now "bound" to git branch, added advanced usage
+2. Fixed `config` command bug
+3. Fixed `continue` command bug
 
 ## 2020.06.16 v1.2.4
 
-1. 修复在 node v14 版本下的兼容问题
-2. 修复包缺失 BUG
-3. 代码转 ES5 发布
+1. Fixed compatibility issue with node v14
+2. Fixed missing package bug
+3. Code transpiled to ES5 for publishing
 
 ## 2020.05.29 v1.2.2
 
-1. 新增 `build` 指令调起 Jenkins 构建
-2. `combine` 和 `admin publish` 指令新增`--build` 参数，在合并完代码时调起 Jenkins 构建
-3. 构建配置从远程获取并缓存 24 小时，过期或者执行 `gitm clean` 后会自动重新请求配置
-4. 优化代码结构，清理冗余操作，提升性能
-5. 修复历史 BUG
+1. Added `build` command to trigger Jenkins build
+2. `combine` and `admin publish` commands added `--build` parameter to trigger Jenkins build after merging
+3. Build config fetched from remote and cached for 24 hours, auto-refreshed after expiration or `gitm clean`
+4. Optimized code structure, cleaned redundant operations, improved performance
+5. Fixed historical bugs
 
 ## 2020.05.21 v1.1.2
 
-1. 修复 `permission` 偶尔判断不准确的问题（重要）
+1. Fixed `permission` occasional inaccurate detection (important)
 
 ## 2020.05.19 v1.1.1
 
-1. 增加 `clean` 指令用来清除 gitmars 缓存和配置文件
-2. `upgrade` 指令增加 `version` 参数支持升级指定版本
+1. Added `clean` command to clear gitmars cache and config files
+2. `upgrade` command added `version` parameter for upgrading to specific version
 
 ## 2020.05.19 v1.1.0
 
-1. 新增 `permission` 指令，用来限制 `master` 分支直接提交的错误操作
-2. 优化执行逻辑，允许在子目录运行 `gitm`
-3. 优化日志功能和执行时的输出信息，不再输出大段乱码
+1. Added `permission` command to restrict direct commits to `master` branch
+2. Optimized execution logic, allows running `gitm` in subdirectories
+3. Optimized logging and execution output, no more large garbled text
 
 ## 2020.05.15 v1.0.20
 
-1. 修复 `copy` 指令 BUG
+1. Fixed `copy` command bug
 
 ## 2020.05.13 v1.0.19
 
-1. `update` 指令新增`--use-merge` 配置
-2. `admin` 指令`--rebase` 配置调整为`--use-rebase`
+1. `update` command added `--use-merge` config
+2. `admin` command `--rebase` config changed to `--use-rebase`
 
 ## 2020.05.11 v1.0.18
 
-1. `copy` 指令去除关键词限制
-2. 版本升级指令优化
-3. 指令运行提示优化
+1. `copy` command removed keyword limit
+2. Optimized version upgrade command
+3. Optimized command execution prompts
 
 ## 2020.04.28 v1.0.17
 
-1. `combine` 指令新增`--as-feature` 配置，`bugfix` 分支特殊情况需要合并到 `release` 时，传入`--as-feature`
+1. `combine` command added `--as-feature` config, pass `--as-feature` when `bugfix` branch needs to merge to `release`
 
 ## 2020.04.17 v1.0.16
 
-1. 优化消息提示
+1. Optimized message prompts
 
 ## 2020.04.08 v1.0.15
 
-1. 优化指令
-2. 新增支持 `postmsg` 的指令
+1. Optimized commands
+2. Added `postmsg` support to commands
 
 ## 2020.04.08 v1.0.14
 
-1. `combine` 指令合并 `support` 类型的分支时允许传入`--no-bugfix` 不合并到 `bug` 分支
-2. 新增 `postmsg` 开关
-3. 优化指令执行消息提示
+1. `combine` command allows `--no-bugfix` when merging `support` type branches to not merge to `bug` branch
+2. Added `postmsg` switch
+3. Optimized command execution message prompts
 
 ## 2020.04.02 v1.0.13
 
-1. `gitm branch`支持设置与远程分支关联
-2. 新增 `upgrade` 方法
+1. `gitm branch` supports setting remote branch association
+2. Added `upgrade` method
 
 ## 2020.03.31 v1.0.12
 
-1. `start` 指令创建分支自动拉取最新代码
+1. `start` command now auto-pulls latest code when creating branch
 
 ## 2020.03.27 v1.0.11
 
-1. 更新 `bugfix` 和 `release` 分支支持强制使用传入代码或当前代码
-2. 推送消息支持模板配置。目前支持参数：`message`、`time`、`project`、`pwd`(执行目录)、`user`(本地配置的用户名)。默认模板：`${message}；项目：${project}；路径：${pwd}`
+1. Updated `bugfix` and `release` branch support for forcing use of incoming or current code
+2. Message push supports template config. Supported params: `message`, `time`, `project`, `pwd`(execution directory), `user`(local config username). Default template: `${message}; Project: ${project}; Path: ${pwd}`
 
 ## 2020.03.25 v1.0.10
 
-1. 加入了消息推送
-2. 切换分支判断有未加入版本的文件时不再阻止运行
-3. `admin` 方法优化
+1. Added message push
+2. No longer blocks execution when switching branches with unversioned files
+3. Optimized `admin` method
 
 ## 2020.03.22 v1.0.9
 
-1. 调整 `admin` 合并策略
-2. 修复部分 Windows 兼容问题
+1. Adjusted `admin` merge strategy
+2. Fixed some Windows compatibility issues
 
 ## 2020.03.18 v1.0.8
 
-1. 新增对 `support` 分支支持
+1. Added `support` branch support
 
 ## 2020.03.08 v1.0.7
 
-1. 优化 `gitm revert` 功能
-2. 优化指令执行提示方式
+1. Optimized `gitm revert` functionality
+2. Optimized command execution prompt method
 
 ## 2020.03.04 v1.0.6
 
-1. `admin` 新增 `clean` 指令，用于 Jenkins 构建时候清理分支
-2. 更新 `readme`
+1. `admin` added `clean` command for Jenkins build branch cleanup
+2. Updated `readme`
 
 ## 2020.03.02 v1.0.5
 
-1. 新增 `continue` 和 `branch` 方法;
-2. 改进执行执行主程序;
-3. 加入 `log`;
-4. 改进 `copy` 功能;
-5. 修改部分 BUG;
-6. 指令执行方法优化;
-7. 代码优化;
-8. 完善 `readme`;
-9. 完善 `end` 和 `start` 功能;
-10. 完善 `admin` 功能：`update`、`create`、`publish`
+1. Added `continue` and `branch` methods
+2. Improved execution main program
+3. Added `log`
+4. Improved `copy` functionality
+5. Fixed some bugs
+6. Optimized command execution methods
+7. Optimized code
+8. Improved `readme`
+9. Improved `end` and `start` functionality
+10. Improved `admin` functionality: `update`, `create`, `publish`

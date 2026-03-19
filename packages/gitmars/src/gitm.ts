@@ -3,7 +3,7 @@ import { echo, spawnSync } from '@gitmars/utils'
 import chalk from 'chalk'
 import { program } from 'commander'
 import sh from 'shelljs'
-// import { version } from '../package.json' assert { type: 'json' }
+// import { version } from '../package.json' with { type: 'json' }
 import lang from './common/local'
 
 const { t } = lang

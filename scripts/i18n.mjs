@@ -2,7 +2,7 @@ import { dirname, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { readdirSync, readFileSync, statSync, writeFileSync } from 'node:fs'
 import { createRequire } from 'node:module'
-// import lang from '../packages/gitmars/src/locales/zh-CN.json' assert { type: 'json' }
+// import lang from '../packages/gitmars/src/locales/zh-CN.json' with { type: 'json' }
 const require = createRequire(import.meta.url)
 
 globalThis.__filename = fileURLToPath(import.meta.url)

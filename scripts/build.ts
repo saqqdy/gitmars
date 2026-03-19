@@ -4,7 +4,7 @@ import { execSync } from 'node:child_process'
 import { existsSync, promises } from 'node:fs'
 // eslint-disable-next-line n/no-unsupported-features/node-builtins
 import { parseArgs, type ParseArgsConfig } from 'node:util'
-import consola from 'consola'
+import { consola } from 'consola'
 import { cpSync } from '@node-kit/extra.fs'
 import { getBundlePackages } from '../build/packages'
 

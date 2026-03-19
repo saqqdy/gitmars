@@ -44,7 +44,7 @@ function getConfig(pathName?: string, moduleName = 'gitmars'): GitmarsConfigExte
 		try {
 			pathName = `${root}/gitmarsconfig.json`
 			info = statSync(pathName)
-		} catch (err) {
+		} catch {
 			pathName = root
 		}
 	}

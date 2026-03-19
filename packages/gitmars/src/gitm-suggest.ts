@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import type { GitmarsOptionOptionsType } from './types'
 import { getIsGitProject } from '@gitmars/git'
 import { createArgs } from '@gitmars/utils'
@@ -33,6 +32,8 @@ options.forEach((o: GitmarsOptionOptionsType) => {
 	program.option(o.flags, o.description, o.defaultValue)
 })
 // .option('-k, --keep [keep]', t('Keep staging area not deleted'), false)
-program.action((message: string, index: string, opt: GitmSuggestOption) => {})
+program.action((message: string, index: string, opt: GitmSuggestOption) => {
+	console.info(message, index, opt)
+})
 program.parse(process.argv)
 export {}

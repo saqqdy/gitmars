@@ -8,7 +8,7 @@ export interface GitmarsOptionArgsType {
 	required: boolean
 	name: string
 	variadic: boolean
-	validator?: (val: string, opts: object, cb: Function) => void
+	validator?: (val: string, opts: object, cb: AnyFunction) => void
 	transformer?: (val: string, answers: object, flags: object, options: GitmarsOptionArgsType) => void
 	description?: string
 	defaultValue?: any

@@ -1,5 +1,15 @@
 # Changelog
 
+## 2026.03.19 v7.8.0
+
+1. Migrated sub-package devDependencies to use pnpm `catalog:` format for centralized version management
+2. Added `catalog` configuration to `pnpm-workspace.yaml` for unified dependency versions
+3. Changed publish script from `npm publish` to `pnpm publish` for automatic workspace protocol conversion
+4. Added `NPM_TOKEN` environment variable to GitHub Actions workflow
+5. Fixed lint errors across multiple files
+6. Extracted common `AnyFunction` type for callback function signatures
+7. Upgraded dependencies
+
 ## 2025.12.10 v7.7.0
 
 1. Optimized `gitm copy`

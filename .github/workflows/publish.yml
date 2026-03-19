@@ -28,20 +28,9 @@ jobs:
           registry-url: https://registry.npmmirror.com
           cache: pnpm
 
-      - run: echo ${{ matrix.node-version }}
-      - run: npm i -g npm@8
       - run: node -v
-      - run: npm -v
-      - run: pnpm store path
+      - run: pnpm -v
       - run: pnpm install
-
-      # - run: npx changelogithub --no-group
-      #   continue-on-error: true
-      #   env:
-      #     NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
-
-      # - run: git config --global user.email "saqqdy@qq.com"
-      # - run: git config --global user.name "saqqdy"
 
       - run: pnpm dist
         env:
@@ -50,20 +39,10 @@ jobs:
       - name: Gen .npmrc
         run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" >> ./.npmrc
 
-      - run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" >> ./packages/api/.npmrc
-      - run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" >> ./packages/build/.npmrc
-      - run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" >> ./packages/cache/.npmrc
-      - run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" >> ./packages/core/.npmrc
-      - run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" >> ./packages/git/.npmrc
-      - run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" >> ./packages/go/.npmrc
-      - run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" >> ./packages/hook/.npmrc
-      - run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" >> ./packages/utils/.npmrc
-      - run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" >> ./packages/gitmars/.npmrc
-      - run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" >> ./packages/docs/.npmrc
-
       - run: pnpm pub
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
+          NPM_TOKEN: ${{secrets.NPM_TOKEN}}
 
       - run: curl -X PUT -d "sync_upstream=true" "https://registry-direct.npmmirror.com/@gitmars/monorepo/sync"
       - run: curl -X PUT -d "sync_upstream=true" "https://registry-direct.npmmirror.com/@gitmars/api/sync"

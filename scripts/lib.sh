@@ -16,7 +16,7 @@ function getdir() {
     done
 }
 
-npx prettier --write bin
+npx eslint --fix bin
 rimraf lib
 mkdir -p lib
 mkdir -p lib/conf

@@ -112,6 +112,7 @@ program
 }`,
 						validate: val => {
 							try {
+								// eslint-disable-next-line unused-imports/no-unused-vars
 								val = JSON.parse(val)
 
 								return true

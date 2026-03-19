@@ -15,6 +15,13 @@ export default eslintSets({
 		'perfectionist/sort-objects': 'off',
 		'ts/no-require-imports': 'off',
 		'yml/file-extension': 'off',
+		'no-labels': 'off',
+		'no-restricted-syntax': [
+			'error',
+			'TSEnumDeclaration[const=true]',
+			'TSExportAssignment',
+		],
+		'no-template-curly-in-string': 'off',
 	},
 	stylistic: { indent: 'tab' },
 	typescript: true,

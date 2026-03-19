@@ -4,6 +4,33 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+catalogs:
+  default:
+    '@eslint-sets/eslint-config':
+      specifier: ^6.2.0
+      version: 6.2.0
+    '@types/node':
+      specifier: ^24.10.2
+      version: 24.10.2
+    '@types/shelljs':
+      specifier: ^0.8.17
+      version: 0.8.17
+    cross-env:
+      specifier: ^7.0.3
+      version: 7.0.3
+    eslint:
+      specifier: ^9.39.4
+      version: 9.39.4
+    madge:
+      specifier: ^8.0.0
+      version: 8.0.0
+    tsnd:
+      specifier: ^1.1.0
+      version: 1.1.0
+    typescript:
+      specifier: ^5.9.3
+      version: 5.9.3
+
 overrides:
   fsevents: '>= 2.0.0'
 
@@ -206,28 +233,28 @@ importers:
         version: 0.8.5
     devDependencies:
       '@eslint-sets/eslint-config':
-        specifier: ^6.2.0
+        specifier: 'catalog:'
         version: 6.2.0(@typescript-eslint/types@8.57.1)(@typescript-eslint/utils@8.57.1(eslint@9.39.4(jiti@2.6.1))(typescript@5.9.3))(eslint-import-resolver-node@0.3.9)(eslint@9.39.4(jiti@2.6.1))(prettier@3.7.4)(ts-api-utils@2.4.0(typescript@5.9.3))(typescript@5.9.3)
       '@types/node':
-        specifier: ^24.10.2
+        specifier: 'catalog:'
         version: 24.10.2
       '@types/shelljs':
-        specifier: ^0.8.17
+        specifier: 'catalog:'
         version: 0.8.17
       cross-env:
-        specifier: ^7.0.3
+        specifier: 'catalog:'
         version: 7.0.3
       eslint:
-        specifier: ^9.39.4
+        specifier: 'catalog:'
         version: 9.39.4(jiti@2.6.1)
       madge:
-        specifier: ^8.0.0
+        specifier: 'catalog:'
         version: 8.0.0(typescript@5.9.3)
       tsnd:
-        specifier: ^1.1.0
+        specifier: 'catalog:'
         version: 1.1.0
       typescript:
-        specifier: ^5.9.3
+        specifier: 'catalog:'
         version: 5.9.3
 
   packages/build:
@@ -261,28 +288,28 @@ importers:
         version: 0.8.5
     devDependencies:
       '@eslint-sets/eslint-config':
-        specifier: ^6.2.0
+        specifier: 'catalog:'
         version: 6.2.0(@typescript-eslint/types@8.57.1)(@typescript-eslint/utils@8.57.1(eslint@9.39.4(jiti@2.6.1))(typescript@5.9.3))(eslint-import-resolver-node@0.3.9)(eslint@9.39.4(jiti@2.6.1))(prettier@3.7.4)(ts-api-utils@2.4.0(typescript@5.9.3))(typescript@5.9.3)
       '@types/node':
-        specifier: ^24.10.2
+        specifier: 'catalog:'
         version: 24.10.2
       '@types/shelljs':
-        specifier: ^0.8.17
+        specifier: 'catalog:'
         version: 0.8.17
       cross-env:
-        specifier: ^7.0.3
+        specifier: 'catalog:'
         version: 7.0.3
       eslint:
-        specifier: ^9.39.4
+        specifier: 'catalog:'
         version: 9.39.4(jiti@2.6.1)
       madge:
-        specifier: ^8.0.0
+        specifier: 'catalog:'
         version: 8.0.0(typescript@5.9.3)
       tsnd:
-        specifier: ^1.1.0
+        specifier: 'catalog:'
         version: 1.1.0
       typescript:
-        specifier: ^5.9.3
+        specifier: 'catalog:'
         version: 5.9.3
 
   packages/cache:
@@ -304,28 +331,28 @@ importers:
         version: 0.8.5
     devDependencies:
       '@eslint-sets/eslint-config':
-        specifier: ^6.2.0
+        specifier: 'catalog:'
         version: 6.2.0(@typescript-eslint/types@8.57.1)(@typescript-eslint/utils@8.57.1(eslint@9.39.4(jiti@2.6.1))(typescript@5.9.3))(eslint-import-resolver-node@0.3.9)(eslint@9.39.4(jiti@2.6.1))(prettier@3.7.4)(ts-api-utils@2.4.0(typescript@5.9.3))(typescript@5.9.3)
       '@types/node':
-        specifier: ^24.10.2
+        specifier: 'catalog:'
         version: 24.10.2
       '@types/shelljs':
-        specifier: ^0.8.17
+        specifier: 'catalog:'
         version: 0.8.17
       cross-env:
-        specifier: ^7.0.3
+        specifier: 'catalog:'
         version: 7.0.3
       eslint:
-        specifier: ^9.39.4
+        specifier: 'catalog:'
         version: 9.39.4(jiti@2.6.1)
       madge:
-        specifier: ^8.0.0
+        specifier: 'catalog:'
         version: 8.0.0(typescript@5.9.3)
       tsnd:
-        specifier: ^1.1.0
+        specifier: 'catalog:'
         version: 1.1.0
       typescript:
-        specifier: ^5.9.3
+        specifier: 'catalog:'
         version: 5.9.3
 
   packages/core:
@@ -365,28 +392,28 @@ importers:
         version: 0.8.5
     devDependencies:
       '@eslint-sets/eslint-config':
-        specifier: ^6.2.0
+        specifier: 'catalog:'
         version: 6.2.0(@typescript-eslint/types@8.57.1)(@typescript-eslint/utils@8.57.1(eslint@9.39.4(jiti@2.6.1))(typescript@5.9.3))(eslint-import-resolver-node@0.3.9)(eslint@9.39.4(jiti@2.6.1))(prettier@3.7.4)(ts-api-utils@2.4.0(typescript@5.9.3))(typescript@5.9.3)
       '@types/node':
-        specifier: ^24.10.2
+        specifier: 'catalog:'
         version: 24.10.2
       '@types/shelljs':
-        specifier: ^0.8.17
+        specifier: 'catalog:'
         version: 0.8.17
       cross-env:
-        specifier: ^7.0.3
+        specifier: 'catalog:'
         version: 7.0.3
       eslint:
-        specifier: ^9.39.4
+        specifier: 'catalog:'
         version: 9.39.4(jiti@2.6.1)
       madge:
-        specifier: ^8.0.0
+        specifier: 'catalog:'
         version: 8.0.0(typescript@5.9.3)
       tsnd:
-        specifier: ^1.1.0
+        specifier: 'catalog:'
         version: 1.1.0
       typescript:
-        specifier: ^5.9.3
+        specifier: 'catalog:'
         version: 5.9.3
 
   packages/docs:
@@ -396,19 +423,19 @@ importers:
         version: 5.23.1
     devDependencies:
       '@eslint-sets/eslint-config':
-        specifier: ^6.2.0
+        specifier: 'catalog:'
         version: 6.2.0(@typescript-eslint/types@8.57.1)(@typescript-eslint/utils@8.57.1(eslint@9.39.4(jiti@2.6.1))(typescript@5.9.3))(eslint-import-resolver-node@0.3.9)(eslint@9.39.4(jiti@2.6.1))(prettier@3.7.4)(ts-api-utils@2.4.0(typescript@5.9.3))(typescript@5.9.3)
       '@types/node':
-        specifier: ^24.10.2
+        specifier: 'catalog:'
         version: 24.10.2
       eslint:
-        specifier: ^9.39.4
+        specifier: 'catalog:'
         version: 9.39.4(jiti@2.6.1)
       tsnd:
-        specifier: ^1.1.0
+        specifier: 'catalog:'
         version: 1.1.0
       typescript:
-        specifier: ^5.9.3
+        specifier: 'catalog:'
         version: 5.9.3
       vitepress:
         specifier: 1.6.4
@@ -439,28 +466,28 @@ importers:
         version: 3.0.0
     devDependencies:
       '@eslint-sets/eslint-config':
-        specifier: ^6.2.0
+        specifier: 'catalog:'
         version: 6.2.0(@typescript-eslint/types@8.57.1)(@typescript-eslint/utils@8.57.1(eslint@9.39.4(jiti@2.6.1))(typescript@5.9.3))(eslint-import-resolver-node@0.3.9)(eslint@9.39.4(jiti@2.6.1))(prettier@3.7.4)(ts-api-utils@2.4.0(typescript@5.9.3))(typescript@5.9.3)
       '@types/node':
-        specifier: ^24.10.2
+        specifier: 'catalog:'
         version: 24.10.2
       '@types/shelljs':
-        specifier: ^0.8.17
+        specifier: 'catalog:'
         version: 0.8.17
       cross-env:
-        specifier: ^7.0.3
+        specifier: 'catalog:'
         version: 7.0.3
       eslint:
-        specifier: ^9.39.4
+        specifier: 'catalog:'
         version: 9.39.4(jiti@2.6.1)
       madge:
-        specifier: ^8.0.0
+        specifier: 'catalog:'
         version: 8.0.0(typescript@5.9.3)
       tsnd:
-        specifier: ^1.1.0
+        specifier: 'catalog:'
         version: 1.1.0
       typescript:
-        specifier: ^5.9.3
+        specifier: 'catalog:'
         version: 5.9.3
 
   packages/gitmars:
@@ -521,28 +548,28 @@ importers:
         version: 0.8.5
     devDependencies:
       '@eslint-sets/eslint-config':
-        specifier: ^6.2.0
+        specifier: 'catalog:'
         version: 6.2.0(@typescript-eslint/types@8.57.1)(@typescript-eslint/utils@8.57.1(eslint@9.39.4(jiti@2.6.1))(typescript@5.9.3))(eslint-import-resolver-node@0.3.9)(eslint@9.39.4(jiti@2.6.1))(prettier@3.7.4)(ts-api-utils@2.4.0(typescript@5.9.3))(typescript@5.9.3)
       '@types/columnify':
         specifier: ^1.5.4
         version: 1.5.4
       '@types/node':
-        specifier: ^24.10.2
+        specifier: 'catalog:'
         version: 24.10.2
       '@types/shelljs':
-        specifier: ^0.8.17
+        specifier: 'catalog:'
         version: 0.8.17
       cross-env:
-        specifier: ^7.0.3
+        specifier: 'catalog:'
         version: 7.0.3
       eslint:
-        specifier: ^9.39.4
+        specifier: 'catalog:'
         version: 9.39.4(jiti@2.6.1)
       tsnd:
-        specifier: ^1.1.0
+        specifier: 'catalog:'
         version: 1.1.0
       typescript:
-        specifier: ^5.9.3
+        specifier: 'catalog:'
         version: 5.9.3
 
   packages/go:
@@ -561,28 +588,28 @@ importers:
         version: 3.3.1
     devDependencies:
       '@eslint-sets/eslint-config':
-        specifier: ^6.2.0
+        specifier: 'catalog:'
         version: 6.2.0(@typescript-eslint/types@8.57.1)(@typescript-eslint/utils@8.57.1(eslint@9.39.4(jiti@2.6.1))(typescript@5.9.3))(eslint-import-resolver-node@0.3.9)(eslint@9.39.4(jiti@2.6.1))(prettier@3.7.4)(ts-api-utils@2.4.0(typescript@5.9.3))(typescript@5.9.3)
       '@types/inquirer':
         specifier: ^9.0.9
         version: 9.0.9
       '@types/node':
-        specifier: ^24.10.2
+        specifier: 'catalog:'
         version: 24.10.2
       cross-env:
-        specifier: ^7.0.3
+        specifier: 'catalog:'
         version: 7.0.3
       eslint:
-        specifier: ^9.39.4
+        specifier: 'catalog:'
         version: 9.39.4(jiti@2.6.1)
       madge:
-        specifier: ^8.0.0
+        specifier: 'catalog:'
         version: 8.0.0(typescript@5.9.3)
       tsnd:
-        specifier: ^1.1.0
+        specifier: 'catalog:'
         version: 1.1.0
       typescript:
-        specifier: ^5.9.3
+        specifier: 'catalog:'
         version: 5.9.3
 
   packages/hook:
@@ -613,28 +640,28 @@ importers:
         version: 0.8.5
     devDependencies:
       '@eslint-sets/eslint-config':
-        specifier: ^6.2.0
+        specifier: 'catalog:'
         version: 6.2.0(@typescript-eslint/types@8.57.1)(@typescript-eslint/utils@8.57.1(eslint@9.39.4(jiti@2.6.1))(typescript@5.9.3))(eslint-import-resolver-node@0.3.9)(eslint@9.39.4(jiti@2.6.1))(prettier@3.7.4)(ts-api-utils@2.4.0(typescript@5.9.3))(typescript@5.9.3)
       '@types/node':
-        specifier: ^24.10.2
+        specifier: 'catalog:'
         version: 24.10.2
       '@types/shelljs':
-        specifier: ^0.8.17
+        specifier: 'catalog:'
         version: 0.8.17
       cross-env:
-        specifier: ^7.0.3
+        specifier: 'catalog:'
         version: 7.0.3
       eslint:
-        specifier: ^9.39.4
+        specifier: 'catalog:'
         version: 9.39.4(jiti@2.6.1)
       madge:
-        specifier: ^8.0.0
+        specifier: 'catalog:'
         version: 8.0.0(typescript@5.9.3)
       tsnd:
-        specifier: ^1.1.0
+        specifier: 'catalog:'
         version: 1.1.0
       typescript:
-        specifier: ^5.9.3
+        specifier: 'catalog:'
         version: 5.9.3
 
   packages/utils:
@@ -674,7 +701,7 @@ importers:
         version: 0.8.5
     devDependencies:
       '@eslint-sets/eslint-config':
-        specifier: ^6.2.0
+        specifier: 'catalog:'
         version: 6.2.0(@typescript-eslint/types@8.57.1)(@typescript-eslint/utils@8.57.1(eslint@9.39.4(jiti@2.6.1))(typescript@5.9.3))(eslint-import-resolver-node@0.3.9)(eslint@9.39.4(jiti@2.6.1))(prettier@3.7.4)(ts-api-utils@2.4.0(typescript@5.9.3))(typescript@5.9.3)
       '@types/cross-spawn':
         specifier: ^6.0.6
@@ -683,28 +710,28 @@ importers:
         specifier: ^4.1.12
         version: 4.1.12
       '@types/node':
-        specifier: ^24.10.2
+        specifier: 'catalog:'
         version: 24.10.2
       '@types/qrcode':
         specifier: ^1.5.6
         version: 1.5.6
       '@types/shelljs':
-        specifier: ^0.8.17
+        specifier: 'catalog:'
         version: 0.8.17
       cross-env:
-        specifier: ^7.0.3
+        specifier: 'catalog:'
         version: 7.0.3
       eslint:
-        specifier: ^9.39.4
+        specifier: 'catalog:'
         version: 9.39.4(jiti@2.6.1)
       madge:
-        specifier: ^8.0.0
+        specifier: 'catalog:'
         version: 8.0.0(typescript@5.9.3)
       tsnd:
-        specifier: ^1.1.0
+        specifier: 'catalog:'
         version: 1.1.0
       typescript:
-        specifier: ^5.9.3
+        specifier: 'catalog:'
         version: 5.9.3
 
 packages:
@@ -2142,14 +2169,6 @@ packages:
   '@inquirer/type@1.5.5':
     resolution: {integrity: sha512-MzICLu4yS7V8AA61sANROZ9vT1H3ooca5dSmI1FjZkzq7o/koMsRfQSzRtFo+F3Ao4Sf1C0bpLKejpKB/+j6MA==}
     engines: {node: '>=18'}
-
-  '@isaacs/balanced-match@4.0.1':
-    resolution: {integrity: sha512-yzMTt9lEb8Gv7zRioUilSglI0c0smZ9k5D65677DLWLtWJaXIS3CqcGyUFByYKlnUj6TkjLVs54fBl6+TiGQDQ==}
-    engines: {node: 20 || >=22}
-
-  '@isaacs/brace-expansion@5.0.0':
-    resolution: {integrity: sha512-ZT55BDLV0yv0RBm2czMiZ+SqCGO7AvmOM3G/w2xhVPH+te0aKgFjmBvGlL1dH+ql2tgGO3MVrbb3jCKyvpgnxA==}
-    engines: {node: 20 || >=22}
 
   '@isaacs/cliui@8.0.2':
     resolution: {integrity: sha512-O8jcjabXaleOG9DQ0+ARXWZBTfnP4WNAqzuiJK7ll44AmxGKv/J2M4TPjxjY3znBCfvBXFzucm1twdyFybFqEA==}
@@ -3882,9 +3901,6 @@ packages:
 
   copy-to@2.0.1:
     resolution: {integrity: sha512-3DdaFaU/Zf1AnpLiFDeNCD4TOWe3Zl2RZaTzUvWiIk5ERzcCodOE20Vqq4fzCbNoHURFHT4/us/Lfq+S2zyY4w==}
-
-  core-js-compat@3.47.0:
-    resolution: {integrity: sha512-IGfuznZ/n7Kp9+nypamBhvwdwLsW6KC8IOaURw2doAK5e98AG3acVLdh0woOnEqCfUtS+Vu882JE4k/DAm3ItQ==}
 
   core-js-compat@3.49.0:
     resolution: {integrity: sha512-VQXt1jr9cBz03b331DFDCCP90b3fanciLkgiOoy8SBHy06gNf+vQ1A3WFLqG7I8TipYIKeYK9wxd0tUrvHcOZA==}
@@ -6000,10 +6016,6 @@ packages:
     resolution: {integrity: sha512-I9jwMn07Sy/IwOj3zVkVik2JTvgpaykDZEigL6Rx6N9LbMywwUSMtxET+7lVoDLLd3O3IXwJwvuuns8UB/HeAg==}
     engines: {node: '>=4'}
 
-  minimatch@10.1.1:
-    resolution: {integrity: sha512-enIvLvRAFZYXJzkCYG5RKmPfrFArdLv+R+lbQ53BmIMLIry74bjKzX6iHAm8WYamJkhSSEabrWN5D97XnKObjQ==}
-    engines: {node: 20 || >=22}
-
   minimatch@10.2.3:
     resolution: {integrity: sha512-Rwi3pnapEqirPSbWbrZaa6N3nmqq4Xer/2XooiOKyV3q12ML06f7MOuc5DVH8ONZIFhwIYQ3yzPH4nt7iWHaTg==}
     engines: {node: 18 || 20 || >=22}
@@ -6148,11 +6160,6 @@ packages:
 
   nanoid@3.3.11:
     resolution: {integrity: sha512-N8SpfPUnUp1bK+PMYW8qSWdl9U+wwNWI4QKxOYDy9JAro3WMX7p2OeVRF9v+347pnakNevPmiHhNmZ2HbFA76w==}
-    engines: {node: ^10 || ^12 || ^13.7 || ^14 || >=15.0.1}
-    hasBin: true
-
-  nanoid@3.3.8:
-    resolution: {integrity: sha512-WNLf5Sd8oZxOm+TzppcYk8gVOgP+l58xNy58D0nbUnOxOWRWvlcCV4kUF7ltmI6PsrLl/BgKEyS4mqsGChFN0w==}
     engines: {node: ^10 || ^12 || ^13.7 || ^14 || >=15.0.1}
     hasBin: true
 
@@ -6485,10 +6492,6 @@ packages:
     resolution: {integrity: sha512-Xa4Nw17FS9ApQFJ9umLiJS4orGjm7ZzwUrwamcGQuHSzDyth9boKDaycYdDcZDuqYATXw4HFXgaqWTctW/v1HA==}
     engines: {node: '>=16 || 14 >=14.18'}
 
-  path-scurry@2.0.0:
-    resolution: {integrity: sha512-ypGJsmGtdXUOeM5u93TyeIEfEhM6s+ljAhrk5vAvSx8uyY/02OvrZnA0YNGUrPXfpJMgI1ODd3nwz8Npx4O4cg==}
-    engines: {node: 20 || >=22}
-
   path-scurry@2.0.2:
     resolution: {integrity: sha512-3O/iVVsJAPsOnpwWIeD+d6z/7PmqApyQePUtCndjatj/9I5LylHvt5qluFaBT3I5h3r1ejfR056c+FCv+NnNXg==}
     engines: {node: 18 || 20 || >=22}
@@ -6615,10 +6618,6 @@ packages:
     engines: {node: '>=10'}
     peerDependencies:
       postcss: ^8.2.9
-
-  postcss@8.4.49:
-    resolution: {integrity: sha512-OCVPnIObs4N29kxTjzLfUryOkvZEq+pf8jTF0lg8E7uETuWHA+v7j3c/xJmiqpX450191LlmZfUKkXxkTry7nA==}
-    engines: {node: ^10 || ^12 || >=14}
 
   postcss@8.5.6:
     resolution: {integrity: sha512-3Ybi1tAuwAP9s0r1UQ2J4n5Y0G05bJkpUIO0/bI9MhwmD70S5aTWbXGBwxHrelT+XM1k6dM0pk+SwNkpTRN7Pg==}
@@ -9712,12 +9711,6 @@ snapshots:
     dependencies:
       mute-stream: 1.0.0
 
-  '@isaacs/balanced-match@4.0.1': {}
-
-  '@isaacs/brace-expansion@5.0.0':
-    dependencies:
-      '@isaacs/balanced-match': 4.0.1
-
   '@isaacs/cliui@8.0.2':
     dependencies:
       string-width: 5.1.2
@@ -10681,7 +10674,7 @@ snapshots:
       globby: 11.1.0
       is-glob: 4.0.3
       minimatch: 9.0.5
-      semver: 7.6.3
+      semver: 7.7.4
       ts-api-utils: 1.4.3(typescript@5.9.3)
     optionalDependencies:
       typescript: 5.9.3
@@ -11646,10 +11639,6 @@ snapshots:
 
   copy-to@2.0.1: {}
 
-  core-js-compat@3.47.0:
-    dependencies:
-      browserslist: 4.28.1
-
   core-js-compat@3.49.0:
     dependencies:
       browserslist: 4.28.1
@@ -11819,11 +11808,11 @@ snapshots:
     dependencies:
       node-source-walk: 7.0.0
 
-  detective-postcss@7.0.0(postcss@8.4.49):
+  detective-postcss@7.0.0(postcss@8.5.6):
     dependencies:
       is-url: 1.2.4
-      postcss: 8.4.49
-      postcss-values-parser: 6.0.2(postcss@8.4.49)
+      postcss: 8.5.6
+      postcss-values-parser: 6.0.2(postcss@8.5.6)
 
   detective-sass@6.0.0:
     dependencies:
@@ -11849,7 +11838,7 @@ snapshots:
   detective-vue2@2.1.0(typescript@5.9.3):
     dependencies:
       '@dependents/detective-less': 5.0.0
-      '@vue/compiler-sfc': 3.5.13
+      '@vue/compiler-sfc': 3.5.25
       detective-es6: 5.0.0
       detective-sass: 6.0.0
       detective-scss: 5.0.0
@@ -12077,7 +12066,7 @@ snapshots:
     dependencies:
       esbuild: 0.27.4
       node-fetch: 3.3.2
-      semver: 7.6.3
+      semver: 7.7.4
 
   esbuild-openbsd-64@0.14.54:
     optional: true
@@ -12255,7 +12244,7 @@ snapshots:
     dependencies:
       debug: 3.2.7
       is-core-module: 2.16.1
-      resolve: 1.22.10
+      resolve: 1.22.11
     transitivePeerDependencies:
       - supports-color
     optional: true
@@ -12638,7 +12627,7 @@ snapshots:
       '@eslint-community/eslint-utils': 4.9.1(eslint@9.39.4(jiti@2.6.1))
       ci-info: 4.3.1
       clean-regexp: 1.0.0
-      core-js-compat: 3.47.0
+      core-js-compat: 3.49.0
       eslint: 9.39.4(jiti@2.6.1)
       esquery: 1.7.0
       globals: 15.15.0
@@ -12906,7 +12895,7 @@ snapshots:
       enhanced-resolve: 5.18.0
       module-definition: 6.0.0
       module-lookup-amd: 9.0.2
-      resolve: 1.22.10
+      resolve: 1.22.11
       resolve-dependency-path: 4.0.0
       sass-lookup: 6.0.1
       stylus-lookup: 6.0.0
@@ -13148,10 +13137,10 @@ snapshots:
     dependencies:
       foreground-child: 3.3.1
       jackspeak: 4.1.1
-      minimatch: 10.1.1
-      minipass: 7.1.2
+      minimatch: 10.2.4
+      minipass: 7.1.3
       package-json-from-dist: 1.0.1
-      path-scurry: 2.0.0
+      path-scurry: 2.0.2
 
   glob@13.0.6:
     dependencies:
@@ -14422,10 +14411,6 @@ snapshots:
 
   min-indent@1.0.1: {}
 
-  minimatch@10.1.1:
-    dependencies:
-      '@isaacs/brace-expansion': 5.0.0
-
   minimatch@10.2.3:
     dependencies:
       brace-expansion: 5.0.4
@@ -14576,8 +14561,6 @@ snapshots:
 
   nanoid@3.3.11: {}
 
-  nanoid@3.3.8: {}
-
   napi-postinstall@0.3.4: {}
 
   natural-compare@1.4.0: {}
@@ -14636,7 +14619,7 @@ snapshots:
 
   node-source-walk@7.0.0:
     dependencies:
-      '@babel/parser': 7.28.5
+      '@babel/parser': 7.29.2
 
   nopt@6.0.0:
     dependencies:
@@ -14978,11 +14961,6 @@ snapshots:
       lru-cache: 10.4.3
       minipass: 7.1.2
 
-  path-scurry@2.0.0:
-    dependencies:
-      lru-cache: 11.0.2
-      minipass: 7.1.2
-
   path-scurry@2.0.2:
     dependencies:
       lru-cache: 11.0.2
@@ -15087,18 +15065,12 @@ snapshots:
       util-deprecate: 1.0.2
     optional: true
 
-  postcss-values-parser@6.0.2(postcss@8.4.49):
+  postcss-values-parser@6.0.2(postcss@8.5.6):
     dependencies:
       color-name: 1.1.4
       is-url-superb: 4.0.0
-      postcss: 8.4.49
+      postcss: 8.5.6
       quote-unquote: 1.0.0
-
-  postcss@8.4.49:
-    dependencies:
-      nanoid: 3.3.8
-      picocolors: 1.1.1
-      source-map-js: 1.2.1
 
   postcss@8.5.6:
     dependencies:
@@ -15115,7 +15087,7 @@ snapshots:
       detective-amd: 6.0.0
       detective-cjs: 6.0.0
       detective-es6: 5.0.0
-      detective-postcss: 7.0.0(postcss@8.4.49)
+      detective-postcss: 7.0.0(postcss@8.5.6)
       detective-sass: 6.0.0
       detective-scss: 5.0.0
       detective-stylus: 5.0.0
@@ -15123,7 +15095,7 @@ snapshots:
       detective-vue2: 2.1.0(typescript@5.9.3)
       module-definition: 6.0.0
       node-source-walk: 7.0.0
-      postcss: 8.4.49
+      postcss: 8.5.6
       typescript: 5.9.3
     transitivePeerDependencies:
       - supports-color
@@ -16599,7 +16571,7 @@ snapshots:
       eslint-visitor-keys: 3.4.3
       espree: 9.6.1
       esquery: 1.7.0
-      lodash: 4.17.21
+      lodash: 4.17.23
       semver: 7.7.4
     transitivePeerDependencies:
       - supports-color

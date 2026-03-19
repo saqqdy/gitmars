@@ -26,7 +26,7 @@ export interface GitmarsOptionArgsType {
 	required: boolean
 	name: string
 	variadic: boolean
-	validator?: (val: string, opts: object, cb: Function) => void
+	validator?: (val: string, opts: object, cb: AnyFunction) => void
 	transformer?: (val: string, answers: object, flags: object, options: GitmarsOptionArgsType) => void
 	description?: string
 	defaultValue?: any
@@ -48,7 +48,7 @@ export interface GitmarsOptionOptionsType {
 	value?: any
 	recommend?: boolean
 	options?: Array<string | number>
-	validator?: (val: string, opts: object, cb: Function) => void
+	validator?: (val: string, opts: object, cb: AnyFunction) => void
 	transformer?: (
 		val: string,
 		answers: object,
@@ -63,10 +63,10 @@ export interface GitmarsOptionType {
 	short?: string | null
 	args: GitmarsOptionArgsType[]
 	options: GitmarsOptionOptionsType[]
-	validatorOpts?: (val: any, opts: object, cb: Function) => void
-	validatorArgs?: (val: any, opts: object, cb: Function) => void
-	transformOpts?: (val: any, opts: object, cb: Function) => void
-	transformArgs?: (val: any, opts: object, cb: Function) => void
+	validatorOpts?: (val: any, opts: object, cb: AnyFunction) => void
+	validatorArgs?: (val: any, opts: object, cb: AnyFunction) => void
+	transformOpts?: (val: any, opts: object, cb: AnyFunction) => void
+	transformArgs?: (val: any, opts: object, cb: AnyFunction) => void
 }
 
 export interface GitmarsMultiOptionType {

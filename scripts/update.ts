@@ -53,7 +53,7 @@ async function updatePackageJSON() {
 async function run() {
 	await updatePackageJSON()
 	await promises.copyFile('./CONTRIBUTING.md', './packages/contributing.md')
-	execSync('pnpm run prettier')
+	execSync('pnpm run lint')
 }
 
 run()

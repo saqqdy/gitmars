@@ -19,7 +19,7 @@ function getCommand(cwd: string, hookName: string) {
  * @param env - environment
  * @returns status - 0|1 return status
  */
-function runCommand(cwd: string, hookName: string, cmd: string, env: any) {
+function runCommand(cwd: string, hookName: string, cmd: string, env: any): ShellCode {
 	console.info(`gitmars > ${hookName} (node ${process.version})`)
 	const { status } = spawnSync('sh', ['-c', cmd], {
 		cwd,
@@ -41,7 +41,7 @@ function runCommand(cwd: string, hookName: string, cmd: string, env: any) {
 		return 1
 	}
 
-	return status || 0
+	return (status || 0) as ShellCode
 }
 /**
  * 运行主程序
@@ -49,8 +49,7 @@ function runCommand(cwd: string, hookName: string, cmd: string, env: any) {
  * @returns status - 0|1 return status
  */
 function start(
-	// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-	// @ts-expect-error
+	// @ts-expect-error - process.argv may not have all elements
 	[, , hookName = '', ...GITMARS_GIT_PARAMS],
 	{ cwd = process.cwd() } = {},
 ): ShellCode {
@@ -64,8 +63,6 @@ function start(
 		env.GITMARS_GIT_PARAMS = GITMARS_GIT_PARAMS.join(' ')
 	}
 	if (command) {
-		// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-		// @ts-expect-error
 		return runCommand(cwd, hookName, command, env)
 	}
 

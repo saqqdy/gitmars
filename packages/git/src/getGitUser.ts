@@ -8,10 +8,9 @@ const { t } = lang
 /**
  * Get git token from git config
  *
- * @param throwOnError - throw on token is null, default: true
  * @returns - token
  */
-export function getGitToken(throwOnError = true): string {
+export function getGitToken(): string {
 	const { stdout } = spawnSync('git', ['config', 'user.token'])
 
 	debug('git.token', stdout)

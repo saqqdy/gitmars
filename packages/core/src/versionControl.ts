@@ -1,6 +1,6 @@
 import type { VersionControlType } from './types'
 import { createRequire } from 'node:module'
-// import { version } from '../package.json' assert { type: 'json' }
+// import { version } from '../package.json' with { type: 'json' }
 import { getPkgInfo } from '@gitmars/cache'
 import { debug } from '@gitmars/utils'
 import chalk from 'chalk'
@@ -58,9 +58,7 @@ export async function isNeedUpgrade(type?: VersionControlType): Promise<boolean>
 
 	return (
 		(type === 'patch' &&
-		  ['prerelease', 'major', 'premajor', 'minor', 'preminor', 'patch', 'prepatch'].includes(
-		  	semver,
-		  )) ||
+		  ['prerelease', 'major', 'premajor', 'minor', 'preminor', 'patch', 'prepatch'].includes(semver)) ||
 		  (type === 'minor' &&
 		    ['prerelease', 'major', 'premajor', 'minor', 'preminor'].includes(semver)) ||
 		    (type === 'major' && ['prerelease', 'major', 'premajor'].includes(semver))

@@ -1,4 +1,4 @@
-import fs from 'node:fs'
+import { promises as fsPromises, writeFileSync as writeFileSyncNode } from 'node:fs'
 import chalk from 'chalk'
 import ora from 'ora'
 import sh from 'shelljs'
@@ -16,15 +16,9 @@ export interface GitmarsCacheFileDescriptionType {
 /**
  * 写文件
  */
-export function writeFile(url: string, data: string): Promise<Error | boolean> {
-	return new Promise((resolve, reject) => {
-		fs.writeFile(url, data, (err: any) => {
-			if (err) {
-				reject(new Error(t('File write error')))
-			} else {
-				resolve(true)
-			}
-		})
+export function writeFile(url: string, data: string): Promise<boolean> {
+	return fsPromises.writeFile(url, data).then(() => true).catch(() => {
+		throw new Error(t('File write error'))
 	})
 }
 
@@ -32,7 +26,7 @@ export function writeFile(url: string, data: string): Promise<Error | boolean> {
  * 同步写入文件
  */
 export function writeFileSync(url: string, data: string, options?: any): void {
-	fs.writeFileSync(url, data, {
+	writeFileSyncNode(url, data, {
 		mode: 0o0755,
 		...options,
 	})

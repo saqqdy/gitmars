@@ -2,7 +2,7 @@
 	"name": "@gitmars/docs",
 	"description": "gitmars文档库",
 	"type": "module",
-	"version": "7.7.0",
+	"version": "7.8.0",
 	"private": false,
 	"main": "./dist/index.cjs.js",
 	"module": "./dist/index.esm-bundler.js",
@@ -27,11 +27,11 @@
 		"js-cool": "^5.23.1"
 	},
 	"devDependencies": {
-		"@eslint-sets/eslint-config": "^6.2.0",
-		"@types/node": "^24.10.2",
-		"eslint": "^9.39.4",
-		"tsnd": "^1.1.0",
-		"typescript": "^5.9.3",
+		"@eslint-sets/eslint-config": "catalog:",
+		"@types/node": "catalog:",
+		"eslint": "catalog:",
+		"tsnd": "catalog:",
+		"typescript": "catalog:",
 		"vitepress": "1.6.4"
 	},
 	"sideEffects": false,

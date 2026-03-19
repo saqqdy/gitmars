@@ -1,7 +1,7 @@
 {
 	"name": "@gitmars/hook",
 	"description": "gitmars hook",
-	"version": "7.7.0",
+	"version": "7.8.0",
 	"private": false,
 	"main": "./dist/index.cjs.js",
 	"module": "./dist/index.esm-bundler.js",
@@ -39,14 +39,14 @@
 		"shelljs": "^0.8.5"
 	},
 	"devDependencies": {
-		"@eslint-sets/eslint-config": "^6.2.0",
-		"@types/node": "^24.10.2",
-		"@types/shelljs": "^0.8.17",
-		"cross-env": "^7.0.3",
-		"eslint": "^9.39.4",
-		"madge": "^8.0.0",
-		"tsnd": "^1.1.0",
-		"typescript": "^5.9.3"
+		"@eslint-sets/eslint-config": "catalog:",
+		"@types/node": "catalog:",
+		"@types/shelljs": "catalog:",
+		"cross-env": "catalog:",
+		"eslint": "catalog:",
+		"madge": "catalog:",
+		"tsnd": "catalog:",
+		"typescript": "catalog:"
 	},
 	"sideEffects": false,
 	"keywords": [

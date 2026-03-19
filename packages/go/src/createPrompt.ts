@@ -46,8 +46,7 @@ export interface PromptOptionInputType {
  */
 function createPrompt(
 	command: string,
-	// eslint-disable-next-line @typescript-eslint/no-unused-vars
-	{ options, validator, transform }: PromptConfigType,
+	{ options, validator, transform: _transform }: PromptConfigType,
 	type: string,
 ) {
 	if (type === 'checkbox') {

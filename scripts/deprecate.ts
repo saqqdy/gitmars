@@ -1,5 +1,5 @@
 import { execSync } from 'node:child_process'
-import consola from 'consola'
+import { consola } from 'consola'
 import { packages } from '../build/packages'
 
 let [, , versionText, description] = process.argv
