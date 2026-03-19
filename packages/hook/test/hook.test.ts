@@ -1,5 +1,54 @@
-import { describe, expect, it } from 'vitest'
+import { afterEach, describe, expect, it, vi } from 'vitest'
+import checkGitDirEnv from '../src/checkGitDirEnv.js'
 import { isGhooks, isGitmars, isHusky, isPreCommit, isYorkie } from '../src/getHookType.js'
+import getPackageManager from '../src/getPackageManager.js'
+
+// Mock dependencies
+vi.mock('@gitmars/utils', () => ({
+	debug: vi.fn(),
+	debugWarn: vi.fn(),
+	debugError: vi.fn(),
+	isDebug: false,
+	useLocale: vi.fn(() => ({
+		t: (key: string) => key,
+		lang: 'en-US',
+		locale: {},
+	})),
+	spawnSync: vi.fn(() => ({ stdout: '', status: 0 })),
+}))
+
+vi.mock('@gitmars/git', () => ({
+	getGitRevParse: vi.fn(() => ({
+		gitDir: '/tmp/.git',
+		root: '/tmp',
+		prefix: '',
+		gitCommonDir: '/tmp/.git',
+		gitHookDir: '/tmp/.git/hooks',
+		cdup: '',
+	})),
+	getGitVersion: vi.fn(() => '2.39.0'),
+	getGitConfig: vi.fn(() => ({
+		gitUrl: 'git@github.com:test/project.git',
+		appName: 'project',
+	})),
+	readPkg: vi.fn(() => ({
+		name: 'gitmars',
+		version: '1.0.0',
+		author: 'test',
+		homepage: 'https://github.com/test/gitmars',
+	})),
+	getConfig: vi.fn(() => ({
+		hooks: {
+			'pre-commit': 'npm test',
+		},
+	})),
+}))
+
+vi.mock('shelljs', () => ({
+	default: {
+		echo: vi.fn(),
+	},
+}))
 
 describe('getHookType', () => {
 	describe('isHusky', () => {
@@ -16,6 +65,10 @@ describe('getHookType', () => {
 		it('should handle empty string', () => {
 			expect(isHusky('')).toBeFalsy()
 		})
+
+		it('should handle whitespace-only string', () => {
+			expect(isHusky('   ')).toBeFalsy()
+		})
 	})
 
 	describe('isGitmars', () => {
@@ -30,6 +83,10 @@ describe('getHookType', () => {
 
 		it('should handle empty string', () => {
 			expect(isGitmars('')).toBeFalsy()
+		})
+
+		it('should handle whitespace-only string', () => {
+			expect(isGitmars('   ')).toBeFalsy()
 		})
 	})
 
@@ -46,6 +103,10 @@ describe('getHookType', () => {
 		it('should handle empty string', () => {
 			expect(isYorkie('')).toBeFalsy()
 		})
+
+		it('should handle whitespace-only string', () => {
+			expect(isYorkie('   ')).toBeFalsy()
+		})
 	})
 
 	describe('isGhooks', () => {
@@ -60,6 +121,10 @@ describe('getHookType', () => {
 
 		it('should handle empty string', () => {
 			expect(isGhooks('')).toBeFalsy()
+		})
+
+		it('should handle whitespace-only string', () => {
+			expect(isGhooks('   ')).toBeFalsy()
 		})
 	})
 
@@ -76,5 +141,142 @@ describe('getHookType', () => {
 		it('should handle empty string', () => {
 			expect(isPreCommit('')).toBeFalsy()
 		})
+
+		it('should handle whitespace-only string', () => {
+			expect(isPreCommit('   ')).toBeFalsy()
+		})
+	})
+})
+
+describe('getPackageManager', () => {
+	const originalUserAgent = process.env.npm_config_user_agent
+
+	afterEach(() => {
+		process.env.npm_config_user_agent = originalUserAgent
+	})
+
+	it('should return undefined when no user agent', () => {
+		delete process.env.npm_config_user_agent
+		const result = getPackageManager()
+
+		expect(result).toBeUndefined()
+	})
+
+	it('should parse npm user agent', () => {
+		process.env.npm_config_user_agent = 'npm/8.19.2 node/v18.12.1 darwin x64'
+		const result = getPackageManager()
+
+		expect(result).toBeDefined()
+		expect(result?.name).toBe('npm')
+		expect(result?.version).toBe('8.19.2')
+	})
+
+	it('should parse yarn user agent', () => {
+		process.env.npm_config_user_agent = 'yarn/1.22.19 npm/? node/v18.12.1 darwin x64'
+		const result = getPackageManager()
+
+		expect(result).toBeDefined()
+		expect(result?.name).toBe('yarn')
+		expect(result?.version).toBe('1.22.19')
+	})
+
+	it('should parse pnpm user agent', () => {
+		process.env.npm_config_user_agent = 'pnpm/7.26.0 npm/? node/v18.12.1 darwin x64'
+		const result = getPackageManager()
+
+		expect(result).toBeDefined()
+		expect(result?.name).toBe('pnpm')
+		expect(result?.version).toBe('7.26.0')
+	})
+})
+
+describe('checkGitDirEnv', () => {
+	it('should not throw when GIT_DIR is not set', () => {
+		delete process.env.GIT_DIR
+
+		expect(() => checkGitDirEnv()).not.toThrow()
+	})
+
+	it('should not throw when GIT_DIR is set', () => {
+		process.env.GIT_DIR = '/tmp/.git'
+
+		expect(() => checkGitDirEnv()).not.toThrow()
+
+		delete process.env.GIT_DIR
+	})
+})
+
+describe('module exports', () => {
+	it('should export getHookType functions', async () => {
+		const mod = await import('../src/getHookType.js')
+
+		expect(mod.isHusky).toBeDefined()
+		expect(mod.isGitmars).toBeDefined()
+		expect(mod.isYorkie).toBeDefined()
+		expect(mod.isGhooks).toBeDefined()
+		expect(mod.isPreCommit).toBeDefined()
+	})
+
+	it('should export createHooks', async () => {
+		const mod = await import('../src/index.js')
+
+		expect(mod.createHooks).toBeDefined()
+		expect(typeof mod.createHooks).toBe('function')
+	})
+
+	it('should export removeHooks', async () => {
+		const mod = await import('../src/index.js')
+
+		expect(mod.removeHooks).toBeDefined()
+		expect(typeof mod.removeHooks).toBe('function')
+	})
+
+	it('should export createHookShell', async () => {
+		const mod = await import('../src/index.js')
+
+		expect(mod.createHookShell).toBeDefined()
+		expect(typeof mod.createHookShell).toBe('function')
+	})
+
+	it('should export removeHookShell', async () => {
+		const mod = await import('../src/index.js')
+
+		expect(mod.removeHookShell).toBeDefined()
+		expect(typeof mod.removeHookShell).toBe('function')
+	})
+
+	it('should export createLocalShell', async () => {
+		const mod = await import('../src/index.js')
+
+		expect(mod.createLocalShell).toBeDefined()
+		expect(typeof mod.createLocalShell).toBe('function')
+	})
+
+	it('should export removeLocalShell', async () => {
+		const mod = await import('../src/index.js')
+
+		expect(mod.removeLocalShell).toBeDefined()
+		expect(typeof mod.removeLocalShell).toBe('function')
+	})
+
+	it('should export init', async () => {
+		const mod = await import('../src/index.js')
+
+		expect(mod.init).toBeDefined()
+		expect(typeof mod.init).toBe('function')
+	})
+
+	it('should export remove', async () => {
+		const mod = await import('../src/index.js')
+
+		expect(mod.remove).toBeDefined()
+		expect(typeof mod.remove).toBe('function')
+	})
+
+	it('should export run', async () => {
+		const mod = await import('../src/index.js')
+
+		expect(mod.run).toBeDefined()
+		expect(typeof mod.run).toBe('function')
 	})
 })

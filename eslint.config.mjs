@@ -6,6 +6,8 @@ export default eslintSets({
 		'packages/**/dist',
 		'packages/**/es',
 		'packages/docs/.vitepress',
+		'*.bak',
+		'*_bak',
 	],
 	markdown: false,
 	rules: {
