@@ -6,7 +6,12 @@
 2. Added `catalog` configuration to `pnpm-workspace.yaml` for unified dependency versions
 3. Changed publish script from `npm publish` to `pnpm publish` for automatic workspace protocol conversion
 4. Added `NPM_TOKEN` environment variable to GitHub Actions workflow
-5. Fixed lint errors across multiple files
+5. Fixed lint errors across multiple files:
+   - Removed mixed spaces/tabs indentation
+   - Fixed unused variables and parameters
+   - Replaced `Function` type with `AnyFunction` interface
+   - Fixed labeled statements usage
+   - Used `fs.promises.writeFile` instead of callback-based `fs.writeFile`
 6. Extracted common `AnyFunction` type for callback function signatures
 7. Upgraded dependencies
 

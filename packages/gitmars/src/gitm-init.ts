@@ -1,3 +1,4 @@
+#!/usr/bin/env ts-node
 import fs from 'node:fs'
 import { getGitRevParse, getIsGitProject } from '@gitmars/git'
 import { editor, input } from '@inquirer/prompts'

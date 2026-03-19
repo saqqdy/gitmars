@@ -1,3 +1,4 @@
+#!/usr/bin/env ts-node
 import type { CommandType, FetchDataType, GitmarsOptionOptionsType } from './types'
 import { createRequire } from 'node:module'
 import { getUserInfo } from '@gitmars/api'

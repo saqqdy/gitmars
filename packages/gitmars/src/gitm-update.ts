@@ -1,3 +1,4 @@
+#!/usr/bin/env ts-node
 import type { CommandType, GitmarsOptionOptionsType } from './types'
 import { isNeedUpgrade, queue, upgradeGitmars } from '@gitmars/core'
 import {

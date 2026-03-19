@@ -1,3 +1,4 @@
+#!/usr/bin/env ts-node
 import type { GitmarsOptionOptionsType } from './types'
 import { run } from '@gitmars/hook'
 import { createArgs } from '@gitmars/utils'

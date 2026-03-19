@@ -1,3 +1,4 @@
+#!/usr/bin/env ts-node
 import type { GitmarsOptionOptionsType } from './types'
 import { getCurrentBranch } from '@gitmars/git'
 import { createArgs } from '@gitmars/utils'

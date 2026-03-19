@@ -1,3 +1,4 @@
+#!/usr/bin/env ts-node
 import { getConfig, getCurrentBranch } from '@gitmars/git'
 import { spawnSync } from '@gitmars/utils'
 import chalk from 'chalk'

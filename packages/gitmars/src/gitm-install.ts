@@ -1,3 +1,4 @@
+#!/usr/bin/env ts-node
 import type { GitmarsOptionOptionsType, PackageVersionTag } from './types'
 import { createArgs, echo, spawnSync } from '@gitmars/utils'
 import chalk from 'chalk'

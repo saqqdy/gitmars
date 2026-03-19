@@ -1,3 +1,4 @@
+#!/usr/bin/env ts-node
 import type { GitmarsOptionOptionsType } from './types'
 import { sendGroupMessage } from '@gitmars/core'
 import { createArgs } from '@gitmars/utils'

@@ -1,3 +1,4 @@
+#!/usr/bin/env ts-node
 import type { GitLogsType } from '@gitmars/git'
 import type { GitmarsOptionOptionsType } from './types'
 import { getGitLogs, getIsGitProject } from '@gitmars/git'

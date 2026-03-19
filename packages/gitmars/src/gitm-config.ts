@@ -1,3 +1,4 @@
+#!/usr/bin/env ts-node
 import type { GitmarsConfigProperty } from '@gitmars/build'
 import { getConfig, getGitRevParse, getIsGitProject } from '@gitmars/git'
 import { writeFile } from '@gitmars/utils'

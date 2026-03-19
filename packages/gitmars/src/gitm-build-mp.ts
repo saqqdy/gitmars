@@ -1,3 +1,4 @@
+#!/usr/bin/env ts-node
 import type { ApolloBranchList } from '@gitmars/build'
 import type { GitmarsOptionOptionsType } from './types'
 import { getBuildConfig, getProjectOption, runJenkins } from '@gitmars/build'

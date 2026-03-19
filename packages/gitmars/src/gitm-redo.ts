@@ -1,3 +1,4 @@
+#!/usr/bin/env ts-node
 import type { RevertCacheType } from '@gitmars/cache'
 import type { CommandType, GitmarsOptionOptionsType } from './types'
 import { delRevertCache, getRevertCache } from '@gitmars/cache'

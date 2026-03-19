@@ -1,3 +1,4 @@
+#!/usr/bin/env ts-node
 import type { GitmarsOptionOptionsType } from './types'
 import { cleanBuildConfig } from '@gitmars/build'
 import { cleanCache, cleanPkgInfo } from '@gitmars/cache'

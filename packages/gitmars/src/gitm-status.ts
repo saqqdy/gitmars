@@ -1,3 +1,4 @@
+#!/usr/bin/env ts-node
 import type { GitmarsOptionOptionsType, GitStatusInfoType } from './types'
 import { getCurrentBranch, getGitStatus, getIsGitProject } from '@gitmars/git'
 import { createArgs, echo } from '@gitmars/utils'

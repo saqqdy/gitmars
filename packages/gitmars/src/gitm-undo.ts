@@ -1,3 +1,4 @@
+#!/usr/bin/env ts-node
 import type { RevertCacheType } from '@gitmars/cache'
 import type { GitLogKeysType, GitLogsType } from '@gitmars/git'
 import type { CommandType, GitmarsOptionOptionsType } from './types'

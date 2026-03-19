@@ -1,3 +1,4 @@
+#!/usr/bin/env ts-node
 import { createRequire } from 'node:module'
 import { echo, spawnSync } from '@gitmars/utils'
 import chalk from 'chalk'

@@ -1,3 +1,4 @@
+#!/usr/bin/env ts-node
 import type { GitmarsBranchType, GitmarsOptionOptionsType } from './types'
 import {
 	fetch,

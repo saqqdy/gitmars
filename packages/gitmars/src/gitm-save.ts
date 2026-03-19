@@ -1,3 +1,4 @@
+#!/usr/bin/env ts-node
 import type { CommandType, GitmarsOptionOptionsType } from './types'
 import { queue } from '@gitmars/core'
 import { getCurrentBranch, getIsGitProject } from '@gitmars/git'

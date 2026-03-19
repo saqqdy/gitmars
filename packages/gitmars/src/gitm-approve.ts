@@ -1,3 +1,4 @@
+#!/usr/bin/env ts-node
 import type { FetchDataType, GitmarsOptionOptionsType } from './types'
 import {
 	acceptMergeRequest,
