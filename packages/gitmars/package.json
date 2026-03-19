@@ -78,10 +78,12 @@
 		"@types/columnify": "^1.5.4",
 		"@types/node": "catalog:",
 		"@types/shelljs": "catalog:",
+		"@vitest/coverage-v8": "catalog:",
 		"cross-env": "catalog:",
 		"eslint": "catalog:",
 		"tsnd": "catalog:",
-		"typescript": "catalog:"
+		"typescript": "catalog:",
+		"vitest": "catalog:"
 	},
 	"sideEffects": false,
 	"keywords": [

@@ -32,7 +32,7 @@
 		"eslint": "catalog:",
 		"tsnd": "catalog:",
 		"typescript": "catalog:",
-		"vitepress": "1.6.4"
+		"vitepress": "catalog:"
 	},
 	"sideEffects": false,
 	"keywords": [

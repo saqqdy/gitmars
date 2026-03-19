@@ -84,12 +84,6 @@ export const packages: PackageManifest[] = [
 		browser: false,
 		display: 'gitmars文档库',
 	},
-	{
-		name: 'monorepo',
-		pkgName: '@gitmars/monorepo',
-		build: false,
-		display: 'gitmars monorepo',
-	},
 ]
 
 export const names = packages.map(({ name }) => name)
