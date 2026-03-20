@@ -155,9 +155,10 @@ describe('log module', () => {
 
 			expect(() =>
 				setLog({
-					level: 'error',
-					message: 'test message',
-					data: {},
+					command: 'git status',
+					status: 0,
+					stdout: '',
+					stderr: '',
 				}),
 			).not.toThrow()
 		})

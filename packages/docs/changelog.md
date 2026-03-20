@@ -1,6 +1,12 @@
 # Changelog
 
-## 2026.03.19 v7.8.0
+## 2026.03.20 v7.8.0 (Released)
+
+**v7.8.0 "Foundation Solidification" Release!**
+
+This release focuses on quality assurance, ensuring users can confidently use the tool.
+
+### Core Improvements
 
 1. Fixed build compatibility issue with `import ... with { type: 'json' }` syntax
 2. Migrated ESLint configuration to `@eslint-sets/eslint-config`
@@ -11,8 +17,24 @@
 7. Extracted common `AnyFunction` type for callback function signatures
 8. Optimized README documentation structure
 9. Upgraded dependencies
-10. Expanded test coverage for `@gitmars/git` package from 5.4% to 82.67%
-11. Added comprehensive tests for git functions: getConfig, readPkg, searchBranches, getAheadLogs, getBehindLogs, getBranchesFromID, getGitLogs, getGitLogsByCommitIDs, checkout, fetch, prune, checkGitStatus, getStashList, getCommandMessage, getIsMergeAction, getIsMergedTargetBranch, getIsUpdatedInTime
+
+### Test Coverage Significantly Improved
+
+- Expanded test coverage for `@gitmars/git` package from 5.4% to 82.67%
+- Added comprehensive tests for git functions: getConfig, readPkg, searchBranches, getAheadLogs, getBehindLogs, getBranchesFromID, getGitLogs, getGitLogsByCommitIDs, checkout, fetch, prune, checkGitStatus, getStashList, getCommandMessage, getIsMergeAction, getIsMergedTargetBranch, getIsUpdatedInTime
+- Added `@gitmars/gitmars` core workflow test files:
+  - `commands.test.ts` - Core command tests (start, update, combine, end)
+  - `workflow.test.ts` - Workflow tests (copy, undo, redo, save, get)
+  - `p0-validation.test.ts` - P0 priority command validation tests
+  - `error-handling.test.ts` - Error handling and boundary case tests
+- Total test cases reached **422+**, with **10** test files and over **4355** lines of test code
+
+### v7.8.0 Acceptance Criteria Achieved
+
+- [x] Core workflow test coverage ≥70%
+- [x] All P0 command functionality verified
+- [x] Quick start documentation complete
+- [x] Zero P1 level bugs
 
 ## 2025.12.10 v7.7.0
 

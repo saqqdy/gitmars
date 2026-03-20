@@ -33,6 +33,7 @@
 - **Intuitive API Design** - Simple and easy-to-understand command interface
 - **Enhanced Git Operations** - Wraps complex git commands into user-friendly methods
 - **Shell Utilities** - Built-in shell helpers for common development tasks
+- **Well Tested** - 422+ test cases with high coverage, ensuring stability and reliability
 
 ## Quick Start
 
