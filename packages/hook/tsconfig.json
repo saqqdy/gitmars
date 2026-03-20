@@ -11,5 +11,6 @@
 		"emitDeclarationOnly": true,
 		"outDir": "temp",
 		"sourceMap": true
-	}
+	},
+	"exclude": ["test", "node_modules", "dist", "temp"]
 }
