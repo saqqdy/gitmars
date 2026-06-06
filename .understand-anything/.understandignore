@@ -1,0 +1,58 @@
+# .understandignore — patterns for files/dirs to exclude from analysis
+# Syntax: same as .gitignore (globs, # comments, ! negation, trailing / for dirs)
+# Lines below are suggestions — uncomment to activate.
+# Use ! prefix to force-include something excluded by defaults.
+#
+# Built-in defaults (always excluded unless negated):
+#   node_modules/, .git/, dist/, build/, obj/, *.lock, *.min.js, etc.
+#
+# --- From .gitignore (uncomment to exclude) ---
+
+# .pnp
+# .pnp.js
+# lib/
+# es/
+# app/
+# dist_electron/
+# *.tsbuildinfo
+# packages/gitmars/es/
+# packages/gitmars/lib/
+# .temp/
+# **/cache/cache/*
+# !**/cache/cache/.gitkeep
+# npm-debug.log*
+# yarn-debug.log*
+# yarn-error.log*
+# /tests/e2e/reports/
+# selenium-debug.log
+# stats.html
+# .env.local
+# .env.development.local
+# .env.test.local
+# .env.production.local
+# *.suo
+# *.ntvs*
+# *.njsproj
+# *.sln
+# *.sw*
+# .DS_Store
+# Thumbs.db
+# gitmarsconfig.json
+# .gitmarsrc
+# .claude/
+# *.bak
+# *_bak
+# *.bak.js
+# *.bak.mjs
+# *.http
+
+# --- Detected directories (uncomment to exclude) ---
+
+# docs/
+# scripts/
+
+# --- Test file patterns (uncomment to exclude) ---
+
+# *.test.*
+# *.spec.*
+# *.snap
