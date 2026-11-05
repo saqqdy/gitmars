@@ -6,6 +6,23 @@ export interface GitmarsConfigApisBuildConfigType {
 	params?: Record<string, string | number | boolean | null>
 }
 
+/**
+ * Build secret config.
+ *
+ * Stored under the buildSecret field of .gitmarsrc. Supports both the project root
+ * and the global ~/.gitmarsrc; project-level entries take precedence over global
+ * ones (project fields override global fields of the same name).
+ * Sensitive data is provided here rather than via the build config API.
+ * Note: per-env Jenkins tokens are NOT secret and are still returned via the API.
+ */
+export interface BuildSecretType {
+	username?: string
+	password?: string
+	miniprogramToken?: string
+	miniprogramSession?: string
+	gitNotificationGroupUrl?: string | string[]
+}
+
 export interface GitmarsConfigType {
 	master: string
 	develop: string
@@ -25,6 +42,7 @@ export interface GitmarsConfigType {
 		token: string
 	}
 	apis?: Record<string, GitmarsConfigApisBuildConfigType>
+	buildSecret?: BuildSecretType
 	api?: string
 	gitHost?: string
 	gitID?: string
@@ -65,14 +83,14 @@ export interface ApolloConfigProjectMiniprogram {
 export interface ApolloConfigProjectType {
 	name: string
 	project: string
-	token?: string
+	schema?: string
 	apps?: string[]
 	miniprogram?: ApolloConfigProjectMiniprogram[]
 }
 
 export interface ApolloConfigBranchType {
 	line: string
-	token: string
+	schema: string
 	list: ApolloConfigProjectType[]
 }
 
@@ -84,7 +102,7 @@ export type ApolloConfigType = {
 	miniprogramDomain?: string
 	miniprogramToken?: string
 	miniprogramSession?: string
-	template: string // 不带参数
-	templateWithParam: string // 带参数
-	gitNotificationGroupUrl?: string | string[] // 推送群消息的api
+	template: string // Without parameters
+	templateWithParam: string // With parameters
+	gitNotificationGroupUrl?: string | string[] // API for pushing group messages
 }

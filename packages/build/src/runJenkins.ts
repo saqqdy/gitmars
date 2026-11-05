@@ -17,9 +17,9 @@ export interface RunJenkinsOptionType {
 }
 
 /**
- * 调起Jenkins构建
+ * Trigger a Jenkins build
  *
- * @param option - 配置
+ * @param option - Configuration
  */
 async function runJenkins({
 	env,
@@ -69,7 +69,7 @@ async function runJenkins({
 			{
 				line: cfg.line,
 				project: p.project,
-				token: p.token || cfg.token,
+				token: p.schema || cfg.schema,
 				app,
 			},
 		),

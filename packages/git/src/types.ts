@@ -85,6 +85,23 @@ export interface GitmarsConfigApisBuildConfigType {
 	params?: Record<string, string | number | boolean | null>
 }
 
+/**
+ * Build secret config.
+ *
+ * Stored under the buildSecret field of .gitmarsrc. Supports both the project root
+ * and the global ~/.gitmarsrc; project-level entries take precedence over global
+ * ones (project fields override global fields of the same name).
+ * Sensitive data is provided here rather than via the build config API.
+ * Note: per-env Jenkins tokens are NOT secret and are still returned via the API.
+ */
+export interface BuildSecretType {
+	username?: string
+	password?: string
+	miniprogramToken?: string
+	miniprogramSession?: string
+	gitNotificationGroupUrl?: string | string[]
+}
+
 export interface GitmarsConfigType {
 	master: string
 	develop: string
@@ -104,6 +121,7 @@ export interface GitmarsConfigType {
 		token: string
 	}
 	apis?: Record<string, GitmarsConfigApisBuildConfigType>
+	buildSecret?: BuildSecretType
 	api?: string
 	gitHost?: string
 	gitID?: string
