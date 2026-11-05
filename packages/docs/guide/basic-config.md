@@ -152,22 +152,17 @@ Apollo build project config reference
 
 ```json
 {
-  "username": "jenkins_username",
-  "password": "jenkins_password",
   "miniprogramDomain": "miniprogram domain",
-  "miniprogramToken": "miniprogram token",
-  "miniprogramSession": "sessionID",
   "template": "http://www.jenkins.com/view/${line}/job/${project}/build?token=${token}", // without parameters
   "templateWithParam": "http://www.jenkins.com/view/${line}/job/${project}/buildWithParameters?token=${token}&build_app=${app}", // with parameters
-  "gitNotificationGroupUrl": "https://www.dingding.com/robot/webhook/send?type=0&token=xxxxxxxx", // API for pushing group messages
   "dev": {
     "line": "git_dev",
-    "token": "dev_token",
+    "schema": "dev_token",
     "list": [
       {
         "name": "project1",
         "project": "git_project1",
-        "token": "" // This token has higher priority than the token above
+        "schema": "" // This schema has higher priority than the one above
       },
       {
         "name": "project2",
@@ -179,7 +174,7 @@ Apollo build project config reference
   },
   "bug": {
     "line": "git_bug",
-    "token": "bug_token",
+    "schema": "bug_token",
     "list": [
       {
         "name": "project1",
@@ -195,7 +190,7 @@ Apollo build project config reference
   },
   "prod": {
     "line": "git_prod",
-    "token": "prod_token",
+    "schema": "prod_token",
     "list": [
       {
         "name": "project1",
@@ -211,6 +206,70 @@ Apollo build project config reference
   }
 }
 ```
+
+### buildSecret
+
+> Added in v7.9.0
+
+Sensitive data used by build commands. These fields are **no longer returned by the
+`buildConfig` API**; they must be placed in `.gitmarsrc` instead. See
+[Global and project config](#global-and-project-config) for where to put them.
+
+- Type: `Object`
+- Default: ``
+- Required: No
+- Fields:
+
+| Field | Description |
+|---|---|
+| `username` | Jenkins basic-auth username |
+| `password` | Jenkins basic-auth password |
+| `miniprogramToken` | Miniprogram API authorization token |
+| `miniprogramSession` | Miniprogram API session cookie |
+| `gitNotificationGroupUrl` | Webhook URL(s) for group notifications; string or array |
+
+> Note: per-environment Jenkins tokens are **not** secret. They stay in the build
+> config API response and were renamed from `token` to `schema` in v7.9.0.
+> The URL template placeholder `${token}` is unchanged.
+
+Example:
+
+```json
+{
+  "buildSecret": {
+    "username": "jenkins_username",
+    "password": "jenkins_password",
+    "miniprogramToken": "",
+    "miniprogramSession": "sessionID",
+    "gitNotificationGroupUrl": "https://www.dingding.com/robot/webhook/send?type=0&token=xxxxxxxx"
+  }
+}
+```
+
+Keep this file private (recommended mode `0600`) and never commit it.
+
+### Global and project config
+
+> Added in v7.9.0
+
+Gitmars config is discovered through `cosmiconfig` search places — any supported
+config filename/format works (`.gitmarsrc`, `.gitmarsrc.json`, `.gitmarsrc.js`,
+`.config/gitmarsrc`, a `gitmars` field in `package.json`, etc.). The name
+`.gitmarsrc` is **not** hardcoded. Two layers are merged:
+
+1. Global layer — searched from the home directory
+2. Project layer — searched from the project root, **overrides the global one**
+
+The merge is a shallow `Object.assign`: project-level top-level keys replace global
+ones of the same name. To override `buildSecret` in a project, provide the complete
+block — overriding a single nested field is not supported.
+
+Both layers are read through `cosmiconfig`; the global layer uses `search()` from
+the home directory, the project layer uses `search()` from the project root.
+
+**Scope guideline:** project-specific values such as `gitID` must live in the
+project-level file only. Shared, non-sensitive defaults (branch names, `gitHost`,
+`apis`) are good candidates for the global file.
 
 ### hooks
 

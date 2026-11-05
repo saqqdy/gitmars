@@ -1,5 +1,14 @@
 # 更新日志
 
+## 2026.11.04 v7.9.0
+
+1. 安全加固：构建敏感数据（`username`、`password`、`miniprogramToken`、`miniprogramSession`、`gitNotificationGroupUrl`）不再由 `buildConfig` 接口返回，改到 gitmars 配置文件的 `buildSecret` 中配置
+2. gitmars 配置新增 home 目录全局层，与项目根目录配置合并（项目级优先）。两层均通过 `cosmiconfig` 的搜索位置发现，支持其全部配置名与格式，不限定 `.gitmarsrc` 文件名
+3. 构建配置写入本地缓存前剥离敏感字段，敏感数据不落盘
+4. 各环境 Jenkins token 字段名由 `token` 改为 `schema`（`dev`/`bug`/`prod`）；URL 模板中的 `${token}` 占位符不变
+
+**从 7.8.0 升级**：把上述 5 个敏感字段从接口响应迁到 `buildSecret`，各环境块的 `token` 改名为 `schema`，`gitID` 保持项目级，并执行 `gitm clean` 清理缓存的构建配置。详见[参数说明](/zh/guide/basic-config)。
+
 ## 2026.03.19 v7.8.0
 
 1. 修复 `import ... with { type: 'json' }` 语法的构建兼容性问题

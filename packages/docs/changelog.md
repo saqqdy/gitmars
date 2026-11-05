@@ -1,5 +1,14 @@
 # Changelog
 
+## 2026.11.04 v7.9.0
+
+1. Security: build secrets (`username`, `password`, `miniprogramToken`, `miniprogramSession`, `gitNotificationGroupUrl`) are no longer returned by the `buildConfig` API; configure them under `buildSecret` in a gitmars config file
+2. Gitmars config now supports a global layer in the home directory merged with the project-root layer (project level wins). Both layers use `cosmiconfig` search places, so any supported config filename/format works — `.gitmarsrc` is not hardcoded
+3. Sensitive fields are stripped before the build config is written to the local cache
+4. Per-environment Jenkins tokens renamed from `token` to `schema` in `dev`/`bug`/`prod` blocks; the `${token}` URL template placeholder is unchanged
+
+**Upgrading from 7.8.0:** move the five sensitive fields from the API response into `buildSecret`, rename `token` to `schema` in every environment block, keep `gitID` project-only, and run `gitm clean` to clear cached build configs. See the [config reference](/guide/basic-config) for details.
+
 ## 2026.03.20 v7.8.0 (Released)
 
 **v7.8.0 "Foundation Solidification" Release!**

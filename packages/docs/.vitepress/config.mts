@@ -16,6 +16,7 @@ export default defineConfig({
 				nav: [
 					{ text: 'Home', link: '/' },
 					{ text: 'Guide', link: '/guide/' },
+					{ text: 'Config', link: '/config/' },
 					{ text: 'API', link: '/api/' },
 					{ text: 'Examples', link: '/example/' },
 					{
@@ -35,6 +36,12 @@ export default defineConfig({
 								{ text: 'Getting Started', link: '/guide/getting-start' },
 								{ text: 'Basic Config', link: '/guide/basic-config' },
 							],
+						},
+					],
+					'/config/': [
+						{
+							text: 'Configuration',
+							items: [{ text: 'Overview', link: '/config/' }],
 						},
 					],
 					'/api/': [
@@ -152,6 +159,7 @@ export default defineConfig({
 				nav: [
 					{ text: '首页', link: '/zh/' },
 					{ text: '指南', link: '/zh/guide/' },
+					{ text: '配置', link: '/zh/config/' },
 					{ text: 'API', link: '/zh/api/' },
 					{ text: '示例', link: '/zh/example/' },
 					{
@@ -171,6 +179,12 @@ export default defineConfig({
 								{ text: '快速上手', link: '/zh/guide/getting-start' },
 								{ text: '基本配置', link: '/zh/guide/basic-config' },
 							],
+						},
+					],
+					'/zh/config/': [
+						{
+							text: '配置',
+							items: [{ text: '概览', link: '/zh/config/' }],
 						},
 					],
 					'/zh/api/': [

@@ -152,22 +152,17 @@ apollo 构建项目配置参考
 
 ```json
 {
-  "username": "jenkins_username",
-  "password": "jenkins_password",
   "miniprogramDomain": "miniprogram domain",
-  "miniprogramToken": "miniprogram token",
-  "miniprogramSession": "sessionID",
   "template": "http://www.jenkins.com/view/${line}/job/${project}/build?token=${token}", // 不带参数
   "templateWithParam": "http://www.jenkins.com/view/${line}/job/${project}/buildWithParameters?token=${token}&build_app=${app}", // 带参数
-  "gitNotificationGroupUrl": "https://www.dingding.com/robot/webhook/send?type=0&token=xxxxxxxx", // 推送群消息的api
   "dev": {
     "line": "git_dev",
-    "token": "dev_token",
+    "schema": "dev_token",
     "list": [
       {
         "name": "project1",
         "project": "git_project1",
-        "token": "" // 这个token的优先级比上一层的token高
+        "schema": "" // 这个schema的优先级比上一层的schema高
       },
       {
         "name": "project2",
@@ -179,7 +174,7 @@ apollo 构建项目配置参考
   },
   "bug": {
     "line": "git_bug",
-    "token": "bug_token",
+    "schema": "bug_token",
     "list": [
       {
         "name": "project1",
@@ -195,7 +190,7 @@ apollo 构建项目配置参考
   },
   "prod": {
     "line": "git_prod",
-    "token": "prod_token",
+    "schema": "prod_token",
     "list": [
       {
         "name": "project1",
@@ -211,6 +206,64 @@ apollo 构建项目配置参考
   }
 }
 ```
+
+### buildSecret
+
+> 7.9.0 新增
+
+构建命令使用的敏感数据。这些字段**不再由 `buildConfig` 接口返回**，必须改到
+`.gitmarsrc` 中配置。放置位置参见[全局配置与项目配置](#全局配置与项目配置)。
+
+- 类型：`Object`
+- 默认：``
+- 必填：否
+- 字段：
+
+| 字段 | 说明 |
+|---|---|
+| `username` | Jenkins basic 认证用户名 |
+| `password` | Jenkins basic 认证密码 |
+| `miniprogramToken` | 小程序接口鉴权 token |
+| `miniprogramSession` | 小程序接口会话 cookie |
+| `gitNotificationGroupUrl` | 群消息推送 webhook 地址，字符串或数组 |
+
+> 注意：各环境的 Jenkins token **不属于敏感数据**，仍由构建配置接口返回，
+> 7.9.0 起字段名从 `token` 改为 `schema`。URL 模板中的 `${token}` 占位符不变。
+
+示例：
+
+```json
+{
+  "buildSecret": {
+    "username": "jenkins_username",
+    "password": "jenkins_password",
+    "miniprogramToken": "",
+    "miniprogramSession": "sessionID",
+    "gitNotificationGroupUrl": "https://www.dingding.com/robot/webhook/send?type=0&token=xxxxxxxx"
+  }
+}
+```
+
+请妥善保管该文件（建议权限 `0600`），切勿提交到仓库。
+
+### 全局配置与项目配置
+
+> 7.9.0 新增
+
+配置通过 `cosmiconfig` 的搜索位置发现，支持其全部配置名与格式（`.gitmarsrc`、
+`.gitmarsrc.json`、`.gitmarsrc.js`、`.config/gitmarsrc`、`package.json` 中的
+`gitmars` 字段等），**不限定** `.gitmarsrc` 文件名。两层合并：
+
+1. 全局层 —— 从 home 目录搜索
+2. 项目层 —— 从项目根目录搜索，**覆盖全局层**
+
+合并采用浅层 `Object.assign`：项目级顶层字段覆盖全局同名顶层字段。
+若要在项目级覆盖 `buildSecret`，需提供完整配置块，不支持只覆盖其中某个字段。
+
+两层均通过 `cosmiconfig` 读取：全局层从 home 目录 `search()`，项目层从项目根目录 `search()`。
+
+**作用域建议**：`gitID` 等项目专属值只能放在项目级文件；分支名、`gitHost`、
+`apis` 等共享的非敏感默认值适合放全局文件。
 
 ### hooks
 

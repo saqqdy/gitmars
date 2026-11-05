@@ -72,6 +72,31 @@ npm install -g gitmars
 yarn global add gitmars
 ```
 
+## 配置
+
+> **完整说明：** [参数说明](http://www.saqqdy.com/gitmars/zh/guide/basic-config.html)
+
+配置通过 `cosmiconfig` 分两层发现并合并：home 目录全局层 + 项目根目录层（项目级优先）。
+支持其全部配置名与格式，`.gitmarsrc` 只是约定名称，不限定文件名。
+
+**7.9.0 起**，构建敏感数据不再由构建配置接口返回，需放到配置文件的 `buildSecret` 中，
+并妥善保管该文件：
+
+```json
+{
+  "buildSecret": {
+    "username": "",
+    "password": "",
+    "miniprogramToken": "",
+    "miniprogramSession": "",
+    "gitNotificationGroupUrl": ""
+  }
+}
+```
+
+切勿提交该文件，建议权限 `0600`。`gitID` 等项目专属值只能放在项目级配置。
+从 7.8.0 升级请参考[更新日志](CHANGELOG.md)中的迁移步骤。
+
 ## 工作流模式
 
 ### 双主干分支模式

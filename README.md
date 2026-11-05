@@ -72,6 +72,33 @@ npm install -g gitmars
 yarn global add gitmars
 ```
 
+## Configuration
+
+> **Full reference:** [Configuration Reference](http://www.saqqdy.com/gitmars/guide/basic-config.html)
+
+Gitmars config is discovered via `cosmiconfig` in two merged layers: a global layer
+in your home directory and a project-root layer (project level wins). Any supported
+config filename/format works — `.gitmarsrc` is just the conventional name.
+
+**Since v7.9.0**, build secrets are no longer returned by the build config API.
+Put them under `buildSecret` in a config file and keep the file private:
+
+```json
+{
+  "buildSecret": {
+    "username": "",
+    "password": "",
+    "miniprogramToken": "",
+    "miniprogramSession": "",
+    "gitNotificationGroupUrl": ""
+  }
+}
+```
+
+Never commit this file; recommended mode is `0600`. Project-specific values such as
+`gitID` belong in the project-level config only. Upgrading from 7.8.0? See the
+[changelog](CHANGELOG.md) for the migration steps.
+
 ## Workflow Models
 
 ### Dual Main Branch Mode
