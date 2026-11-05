@@ -48,7 +48,7 @@ options.forEach((o: GitmarsOptionOptionsType) => {
 })
 // .option('-t, --tag <tag>', t('Create branch from tag'), '')
 program.action(async (type: string, name: string, opt: GitmStartOption) => {
-	// 检测是否需要升级版本
+	// Check whether an upgrade is required
 	const needUpgrade = await isNeedUpgrade(config.versionControlType)
 
 	needUpgrade && upgradeGitmars()
@@ -60,7 +60,7 @@ program.action(async (type: string, name: string, opt: GitmStartOption) => {
 		sh.echo(red(`${t('type only allows input')}: ${JSON.stringify(opts)}`))
 		process.exit(1)
 	}
-	// 指定从tag拉取分支时，仅支持创建bugfix分支
+	// When branching from a tag, only bugfix branches are supported
 	if (opt.tag && type !== 'bugfix') {
 		sh.echo(
 			red(

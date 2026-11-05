@@ -40,7 +40,7 @@ export async function isNeedUpgrade(type?: VersionControlType): Promise<boolean>
 	//     // compareVers = versions.filter(
 	//     //     (item: string) => /^1\./.test(item) && !item.match(/[a-z]+/g)
 	//     // )
-	//     // // 有落后middle以上的版本需要更新版本
+	//     // // Versions behind middle need an update
 	//     // for (let ver of versions) {
 	//     //     if (/^1\./.test(ver) && parseFloat(ver) > parseFloat(ver)) {
 	//     //         return true

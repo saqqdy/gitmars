@@ -72,19 +72,19 @@ program.action(async (commitid: string[], opts: GitmCopyOption) => {
 	const branches = searchBranches()
 
 	if (commitid.length > 0) {
-		// 传入了commitIDs
+		// commitIDs were passed
 		logList = getGitLogsByCommitIDs({ commitIDs: commitid, keys })
 	} else {
-		// 没有传入commitIDs，展示日志列表给用户选择
+		// When no commitIDs are passed, show the log list for the user to choose from
 		logList = getGitLogs({
 			lastet: opts.lastet,
 			limit: opts.limit,
 			noMerges: !opts.merges,
 			keys,
 		})
-		// 没有查询到日志
+		// No logs found
 		if (logList.length === 0) {
-			// 没有查找到任何记录
+			// No records found
 			echo(
 				yellow(
 					t(
@@ -95,7 +95,7 @@ program.action(async (commitid: string[], opts: GitmCopyOption) => {
 			process.exit(0)
 		}
 	}
-	// 多条记录
+	// Multiple records
 	const [, commitIDs = []] = await to(
 		checkbox<string>({
 			message: t('Please select the commit record to copy'),
@@ -113,7 +113,7 @@ program.action(async (commitid: string[], opts: GitmCopyOption) => {
 		}),
 	)
 
-	// 没有选择任何记录
+	// No record selected
 	if (commitIDs.length === 0) {
 		echo(yellow(t('No commit record selected, process has exited')))
 		process.exit(0)
@@ -140,7 +140,7 @@ program.action(async (commitid: string[], opts: GitmCopyOption) => {
 	if (opts.push) cmd.push('git push')
 	cmd.push(`git switch ${current}`)
 
-	// 执行
+	// Execute
 	queue(cmd)
 })
 program.parse(process.argv)

@@ -14,7 +14,7 @@ export interface GitmarsCacheFileDescriptionType {
 }
 
 /**
- * 写文件
+ * Write a file
  */
 export function writeFile(url: string, data: string): Promise<boolean> {
 	return fsPromises.writeFile(url, data).then(() => true).catch(() => {
@@ -23,7 +23,7 @@ export function writeFile(url: string, data: string): Promise<boolean> {
 }
 
 /**
- * 同步写入文件
+ * Write a file synchronously
  */
 export function writeFileSync(url: string, data: string, options?: any): void {
 	writeFileSyncNode(url, data, {

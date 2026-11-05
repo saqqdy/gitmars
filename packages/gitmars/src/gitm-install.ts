@@ -68,7 +68,7 @@ program.action(
 				cmdAdd = [opt.client, ['install', '-g', `${pluginName}@${version}`]]
 				break
 		}
-		// 这一行后面准备删掉
+		// This line is slated for removal
 		if (!opt.registry && opt.mirror) {
 			opt.registry = 'https://registry.npmmirror.com'
 		}

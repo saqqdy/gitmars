@@ -1,9 +1,9 @@
 import getGitLogs from './getGitLogs'
 
 /**
- * 获取主干分支推送的内容是否是merge内容，暂时只检测最后一条记录
+ * Check whether the pushed content on the trunk branch is a merge; only the latest commit is checked for now
  *
- * @returns isMergeAction - 是否merge
+ * @returns isMergeAction - Whether the push is a merge
  */
 function getIsMergeAction(): boolean {
 	const currentLogs = getGitLogs({

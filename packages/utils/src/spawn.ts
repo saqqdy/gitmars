@@ -4,11 +4,11 @@ import { debug } from './debug'
 import stringify from './stringify'
 
 /**
- * 异步执行脚本
+ * Run a script asynchronously
  *
- * @param client - 执行脚本的宿主，名称
+ * @param client - Name of the script runner
  * @param argv - Parameters
- * @param options - 透传配置
+ * @param options - Options forwarded to the caller
  * @returns result - Return execution results
  */
 export function spawn(
@@ -44,11 +44,11 @@ export function spawn(
 }
 
 /**
- * 同步执行脚本
+ * Run a script synchronously
  *
- * @param client - 执行脚本的宿主，名称
+ * @param client - Name of the script runner
  * @param argv - Parameters
- * @param options - 透传配置
+ * @param options - Options forwarded to the caller
  * @returns result - Return execution results
  */
 export function spawnSync(

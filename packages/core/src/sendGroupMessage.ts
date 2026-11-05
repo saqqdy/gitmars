@@ -8,10 +8,10 @@ import lang from './lang'
 const { t } = lang
 
 /**
- * 发送群消息
+ * Send a group message
  *
- * @param message - 消息
- * @param cfg - 配置
+ * @param message - Message
+ * @param cfg - Configuration
  */
 async function sendGroupMessage(message: string, url = ''): Promise<void> {
 	let urls: string[] = [],
@@ -19,7 +19,7 @@ async function sendGroupMessage(message: string, url = ''): Promise<void> {
 
 	if (url) urls = url.split(',')
 	else {
-		// 没有传入url，从配置中取
+		// Fall back to the configured URL when none is passed
 		config = (await getBuildConfig()) as ApolloConfigType
 		if (config.gitNotificationGroupUrl) {
 			urls = urls.concat(config.gitNotificationGroupUrl)

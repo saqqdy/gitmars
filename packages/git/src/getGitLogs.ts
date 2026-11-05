@@ -3,26 +3,26 @@ import { debug, getSeconds, spawnSync } from '@gitmars/utils'
 import GitLogsFormatter from './gitLogsFormatter'
 
 export interface GetGitLogsOption {
-	// 限制显示最近多长时间的日志
+	// Limit logs to a recent time window
 	lastet?: string
-	// 限制数量
+	// Maximum number of entries
 	limit?: number
 	// Attached parameters
 	params?: string
 	// Fields to be returned
 	keys?: GitLogKeysType[]
-	// 是否排除merge记录
+	// Whether to exclude merge commits
 	noMerges?: boolean
-	// 筛选关键词
+	// Filter by keyword
 	grep?: string
-	// 筛选提交人
+	// Filter by author
 	author?: string
-	// 要查询的分支
+	// Branch to query
 	branch?: string
 }
 
 /**
- * 获取日志
+ * Get logs
  *
  * @param option - Parameters
  * @returns logsList - Return array

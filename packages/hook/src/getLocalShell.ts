@@ -3,11 +3,11 @@ import getHookComment from './getHookComment'
 const hookComment = getHookComment()
 
 /**
- * 获取本地脚本
+ * Get the local shell script
  *
  * @param pmName - pmName
  * @param relativeUserPkgDir - relativeUserPkgDir
- * @returns shell - 脚本
+ * @returns shell - The shell script
  */
 function getLocalShell(pmName: string, relativeUserPkgDir: string): string {
 	return `${hookComment}

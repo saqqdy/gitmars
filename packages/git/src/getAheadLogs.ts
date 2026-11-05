@@ -3,9 +3,9 @@ import fetch from './fetch'
 import getCurrentBranch from './getCurrentBranch'
 
 /**
- * 获取当前本地分支领先远程的日志
+ * Get commits the local branch is ahead of the remote
  *
- * @returns aheadLogs - 日志
+ * @returns aheadLogs - The list of commits
  */
 function getAheadLogs(): string[] {
 	const current = getCurrentBranch()

@@ -11,9 +11,9 @@ function getCommand(cwd: string, hookName: string) {
 	return config && config.hooks && config.hooks[hookName]
 }
 /**
- * 执行脚本
+ * Run the script
  *
- * @param cwd - 当前工作目录
+ * @param cwd - Current working directory
  * @param hookName - hookName
  * @param cmd - command
  * @param env - environment
@@ -44,7 +44,7 @@ function runCommand(cwd: string, hookName: string, cmd: string, env: any): Shell
 	return (status || 0) as ShellCode
 }
 /**
- * 运行主程序
+ * Run the main program
  *
  * @returns status - 0|1 return status
  */

@@ -1,10 +1,10 @@
 import { format } from 'node:util'
 
 /**
- * 读取gitmars在线版本列表
+ * Print a formatted message to stdout
  *
- * @param name - 需要查询的内容
- * @returns message - arr Return the configuration object
+ * @param message - Message to print
+ * @returns void
  */
 function echo(message: string): void {
 	let output = format(message)

@@ -1,8 +1,8 @@
 /**
- * 传入字符串转换成时间（秒）
+ * Convert a duration string to seconds
  *
- * @param str - 时间字符串
- * @returns seconds - 时间（秒）
+ * @param str - Time string
+ * @returns seconds - Time in seconds
  */
 function getSeconds(str: string): number | null {
 	const match = String(str).match(/^(\d+)([a-zA-Z]+)$/)

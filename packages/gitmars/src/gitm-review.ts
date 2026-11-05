@@ -52,7 +52,7 @@ options.forEach((o: GitmarsOptionOptionsType) => {
 program.action(async (opt: GitmReviewOption): Promise<void> => {
 	const mrList = await getMergeRequestList({ state: opt.state })
 
-	// 没有任何记录
+	// No records
 	if (mrList.length === 0) {
 		echo(yellow(t('No merge request record found, process has exited')))
 		process.exit(0)
@@ -118,7 +118,7 @@ program.action(async (opt: GitmReviewOption): Promise<void> => {
 		}),
 	)
 
-	// 开始执行操作
+	// Start executing the operation
 	for (const iid of iids) {
 		const { source_branch, target_branch } = mrList.find((item: any) => item.iid === iid)
 
@@ -151,7 +151,7 @@ program.action(async (opt: GitmReviewOption): Promise<void> => {
 						.replace(/\n(\+.+)/g, (m: string, p1: string) => `\n${green(p1)}`),
 				)
 			}
-			// 日志
+			// Logs
 			const notes = (
 				(await getMergeRequestNotesList({
 					iid,
@@ -188,7 +188,7 @@ program.action(async (opt: GitmReviewOption): Promise<void> => {
 			)
 			echo(green(t('Merge request {id}: Deleted', { id: iid })))
 		} else if (accept === 3) {
-			// 删除
+			// Delete
 			await updateMergeRequest({
 				iid,
 				data: { state_event: 'close' },
@@ -204,7 +204,7 @@ program.action(async (opt: GitmReviewOption): Promise<void> => {
 			)
 			echo(green(t('Merge request {id}: Closed', { id: iid })))
 		} else if (accept === 2) {
-			// 评论
+			// Comment
 			const [, note = ''] = await to(
 				input({
 					message: t('Enter the comment content'),

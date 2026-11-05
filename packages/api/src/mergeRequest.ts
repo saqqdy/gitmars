@@ -238,7 +238,7 @@ export async function acceptMergeRequest({ iid }: { iid: number | string }) {
 }
 
 /**
- * 更新合并请求
+ * Update a merge request
  *
  * @param option - options
  * @returns command

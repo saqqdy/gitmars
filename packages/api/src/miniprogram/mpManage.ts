@@ -9,7 +9,7 @@ export interface GetAuditStatus extends WeiXinComponentCommonResult {
 	reason?: string
 }
 /**
- * 获取代码审核状态
+ * Get the code review status
  *
  * @param authorizer_appid - authorizer appid
  * @returns data
@@ -28,7 +28,7 @@ export interface GetTrialQrCodeOptions {
 	path?: string
 }
 /**
- * 获取体验二维码
+ * Get the trial QR code
  *
  * @param options - options
  * @returns data
@@ -46,7 +46,7 @@ export function getTrialQrCode<T extends GetTrialQrCodeOptions>(options: T) {
 }
 
 /**
- * 撤回审核
+ * Withdraw a review
  *
  * @param authorizer_appid - authorizer appid
  * @returns data
@@ -79,7 +79,7 @@ export interface SubmitAudit extends WeiXinComponentCommonResult {
 	auditid: number
 }
 /**
- * 提交代码审核
+ * Submit code for review
  *
  * @param options - options
  * @returns data
@@ -95,7 +95,7 @@ export type GetTester = Array<{
 	userstr: string
 }>
 /**
- * 获取体验者
+ * Get testers
  *
  * @param options - options
  * @returns data
@@ -115,7 +115,7 @@ export interface BindTesterOptions {
 	wechatid: string
 }
 /**
- * 绑定体验者
+ * Bind a tester
  *
  * @param options - options
  * @returns data
@@ -137,7 +137,7 @@ export interface UnbindTesterOptions {
 	userstr: string
 }
 /**
- * 解绑体验者
+ * Unbind a tester
  *
  * @param options - options
  * @returns data

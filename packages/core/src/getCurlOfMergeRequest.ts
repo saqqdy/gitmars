@@ -4,7 +4,7 @@ import { encodeUnicode } from '@gitmars/utils'
 const config = getConfig()
 
 /**
- * 获取发起merge请求的脚本字符串
+ * Build the shell command for creating a merge request
  *
  * @param option - options
  * @returns command

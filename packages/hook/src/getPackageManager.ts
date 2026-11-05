@@ -3,9 +3,9 @@ export interface PmFromUserAgentType {
 	version: string
 }
 /**
- * 获取本地使用的包管理工具
+ * Detect the package manager used locally
  *
- * @returns userAgent - 返回PmFromUserAgent
+ * @returns userAgent - The detected package manager
  */
 function getPackageManager(): PmFromUserAgentType | undefined {
 	if (!process.env.npm_config_user_agent) {
@@ -16,7 +16,7 @@ function getPackageManager(): PmFromUserAgentType | undefined {
 }
 
 /**
- * 读取UA里面的pm
+ * Read the package manager from the user agent
  *
  * @param userAgent - userAgent
  * @returns userAgent - PmFromUserAgentType

@@ -4,9 +4,9 @@ import { isFileExist } from '@gitmars/utils'
 import sh from 'shelljs'
 
 /**
- * 获取未执行脚本列表
+ * Get the list of pending scripts
  *
- * @returns arr - 待执行指令列表
+ * @returns arr - List of commands to execute
  */
 export function getCommandCache() {
 	const { gitDir } = getGitRevParse()
@@ -27,9 +27,9 @@ export function getCommandCache() {
 }
 
 /**
- * 存储未执行脚本列表
+ * Store the list of pending scripts
  *
- * @param rest - 待执行指令列表
+ * @param rest - List of commands to execute
  */
 export function setCommandCache(rest: Array<CommandType | string | string[]>): void {
 	const { gitDir } = getGitRevParse()
@@ -45,7 +45,7 @@ export function setCommandCache(rest: Array<CommandType | string | string[]>): v
 }
 
 /**
- * 清除队列缓存
+ * Clear the queue cache
  */
 export function cleanCommandCache(): void {
 	setCommandCache([])

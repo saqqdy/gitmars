@@ -9,10 +9,10 @@ const { gitDir } = getGitRevParse()
 const GITMARS_REVERT_CACHE_FILE = `${gitDir}/gitmarsreverts.json`
 
 /**
- * 获取revert缓存
+ * Get the revert cache
  *
- * @param branch - 分支名
- * @returns reverts - revert缓存列表
+ * @param branch - Branch name
+ * @returns reverts - List of revert cache entries
  */
 export function getRevertCache(branch?: string) {
 	let reverts: RevertCacheType[] = []
@@ -31,9 +31,9 @@ export function getRevertCache(branch?: string) {
 }
 
 /**
- * 存储未执行脚本列表
+ * Store the revert cache
  *
- * @param reverts - revert缓存列表
+ * @param reverts - List of revert cache entries
  */
 export function setRevertCache(reverts: Array<RevertCacheType>): void {
 	sh.touch(GITMARS_REVERT_CACHE_FILE)
@@ -41,10 +41,10 @@ export function setRevertCache(reverts: Array<RevertCacheType>): void {
 }
 
 /**
- * 设置revert缓存
+ * Add revert cache entries
  *
- * @param revertCaches - revert缓存列表
- * @returns result - 执行结果
+ * @param revertCaches - List of revert cache entries
+ * @returns void
  */
 export function addRevertCache(revertCaches: RevertCacheType | RevertCacheType[]): void {
 	if (!Array.isArray(revertCaches)) revertCaches = [revertCaches]
@@ -58,10 +58,10 @@ export function addRevertCache(revertCaches: RevertCacheType | RevertCacheType[]
 		)
 
 		if (_index === -1) {
-			// 第一次revert
+			// First revert
 			_cacheList.push(revertCaches[len])
 		} else {
-			// revert后的第二次revert
+			// Second revert after the first one
 			// reverts.splice(_index, 1)
 		}
 	}
@@ -69,7 +69,7 @@ export function addRevertCache(revertCaches: RevertCacheType | RevertCacheType[]
 }
 
 /**
- * 移除缓存
+ * Remove the revert cache
  */
 export function delRevertCache(commitIDs: string | string[]): void {
 	if (!Array.isArray(commitIDs)) commitIDs = [commitIDs]
@@ -89,7 +89,7 @@ export function delRevertCache(commitIDs: string | string[]): void {
 }
 
 /**
- * 清除队列缓存
+ * Clear the revert cache
  */
 export function cleanRevertCache(): void {
 	setRevertCache([])

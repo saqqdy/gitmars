@@ -2,12 +2,12 @@ import { debug, spawnSync } from '@gitmars/utils'
 import getCurrentBranch from './getCurrentBranch'
 
 /**
- * 获取是否合并过dev
+ * Check whether dev has been merged
  *
- * @param branch - 待检测分支名
- * @param targetBranch - 目标分支
- * @param option - 参数
- * @returns isMergedTargetBranch - 是否合并过
+ * @param branch - Branch to check
+ * @param targetBranch - Target branch
+ * @param option - Options
+ * @returns isMergedTargetBranch - Whether the target branch has been merged
  */
 function getIsMergedTargetBranch(
 	branch: string,
@@ -16,9 +16,9 @@ function getIsMergedTargetBranch(
 		remote = false,
 		noMerges = true,
 	}: {
-		// 是否查询远程，默认：false
+		// Whether to query the remote, defaults to false
 		remote?: boolean
-		// 是否排除merges类型，默认：true
+		// Whether to exclude merge commits, defaults to true
 		noMerges?: boolean
 	},
 ): boolean {

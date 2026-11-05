@@ -16,9 +16,9 @@ import { resolve } from 'node:path'
 import getGitRevParse from './getGitRevParse'
 
 /**
- * 读取配置
+ * Read package.json
  *
- * @param dir - 项目目录
+ * @param dir - Project directory
  * @returns config - package.json
  */
 function readPkg(dir?: string): AnyObject {

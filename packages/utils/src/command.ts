@@ -1,10 +1,10 @@
 import type { GitmarsOptionArgsType } from './types'
 
 /**
- * 生成参数
+ * Build command arguments
  *
  * @param args - GitmarsOptionArgs
- * @return options - Parameters
+ * @returns options - Parameters
  */
 export function createArgs(args: GitmarsOptionArgsType[]): string {
 	const argArr: string[] = []

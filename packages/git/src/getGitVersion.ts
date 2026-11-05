@@ -6,9 +6,9 @@ import lang from './lang'
 const { t } = lang
 
 /**
- * 获取git版本
+ * Get the git version
  *
- * @returns version - 返回版本号
+ * @returns version - The detected version
  */
 function getGitVersion(): string | void {
 	const { stdout } = spawnSync('git', ['--version'])

@@ -5,11 +5,11 @@ import lang from './lang'
 const { t } = lang
 
 export interface PromptConfigType {
-	// 配置参数
+	// Configuration options
 	options: GitmarsOptionArgsType[] | GitmarsOptionOptionsType[]
-	// 校验器
+	// Validator
 	validator?: (val: string, opts: object, cb: any) => void
-	// 参数转换
+	// Value transform
 	transform?: (val: string, opts: object, cb: any) => void
 }
 
@@ -37,12 +37,12 @@ export interface PromptOptionInputType {
 }
 
 /**
- * 创建promot参数
+ * Create prompt options
  *
- * @param command - 指令名称
- * @param config - 配置
- * @param type - 类型checkbox/input/list
- * @returns prompt - 返回prompt
+ * @param command - Command name
+ * @param config - Configuration
+ * @param type - One of checkbox/input/list
+ * @returns prompt - The prompt object
  */
 function createPrompt(
 	command: string,
@@ -85,7 +85,7 @@ function createPrompt(
 
 		;(options as GitmarsOptionArgsType[]).forEach(
 			({ validator: childValidator, transformer, ...opts }) => {
-				// 优先使用每个参数设置的校验
+				// Prefer the validator defined on each option
 				if (childValidator) validator = childValidator
 				const cfg: PromptOptionInputType = {
 					type: 'input',

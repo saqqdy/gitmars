@@ -220,7 +220,7 @@ program.action(async (type: string, name: string, opt: GitmEndOption): Promise<v
 		isNeedCombineBugfix,
 	} of pendingBranches) {
 		if (opt.combine && isNeedCombineDevelop) {
-			// 需要合并代码到dev
+			// Code needs to be merged into dev
 			cmd.push(
 				'git fetch',
 				`git switch ${config.develop}`,
@@ -253,7 +253,7 @@ program.action(async (type: string, name: string, opt: GitmEndOption): Promise<v
 				`git switch ${branchName}`,
 			)
 		}
-		// support分支需要合到bugfix
+		// support branches must be merged into bugfix
 		if (type === 'support' && opt.combine && isNeedCombineBugfix) {
 			if (!level || level < 3) {
 				cmd.push(
@@ -342,7 +342,7 @@ program.action(async (type: string, name: string, opt: GitmEndOption): Promise<v
 			}
 		}
 		if (!opt.combine || !isNeedCombineBase) {
-			// 不合并代码
+			// Do not merge code
 			cmd.push(`git switch ${config.develop}`, `git branch -D ${branchName}`, {
 				cmd: 'git remote prune origin',
 				config: {
@@ -351,7 +351,7 @@ program.action(async (type: string, name: string, opt: GitmEndOption): Promise<v
 					fail: t('Failed to clean up remote branch, please follow the prompts'),
 				},
 			})
-			// 判断远程是否存在分支
+			// Check whether the branch exists on the remote
 			if (isRemoteBranchExist) {
 				cmd.push({
 					cmd: `git push origin --delete ${branchName}`,
@@ -363,7 +363,7 @@ program.action(async (type: string, name: string, opt: GitmEndOption): Promise<v
 				})
 			}
 		} else {
-			// 需要合并代码
+			// Code needs to be merged
 			if (!level || level < 3) {
 				cmd.push(
 					'git fetch',
@@ -405,7 +405,7 @@ program.action(async (type: string, name: string, opt: GitmEndOption): Promise<v
 						},
 					},
 				)
-				// 判断远程是否存在分支
+				// Check whether the branch exists on the remote
 				if (isRemoteBranchExist) {
 					cmd.push({
 						cmd: `git push origin --delete ${branchName}`,

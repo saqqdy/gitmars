@@ -49,18 +49,18 @@ program.action(async (commitid: string[], opt: GitmRedoOption) => {
 
 	mode = ` -m ${Math.abs(Number(opt.mode || 1))}`
 	if (commitid.length > 0) {
-		// 传入了commitIDs
+		// commitIDs were passed
 		revertCache = revertCache.filter(item =>
 			commitid.some(id => item.after['%H']!.includes(id)),
 		)
 	}
-	// 没有查询到日志
+	// No logs found
 	if (revertCache.length === 0) {
-		// 没有查找到任何记录
+		// No records found
 		echo(yellow(t('No recoverable undo logs found, process exited')))
 		process.exit(0)
 	}
-	// 多条记录
+	// Multiple records
 	const [, commitIDs = []] = await to(
 		checkbox({
 			message: t('Please select the undo record to restore'),
@@ -78,12 +78,12 @@ program.action(async (commitid: string[], opt: GitmRedoOption) => {
 		}),
 	)
 
-	// 没有选择任何记录
+	// No record selected
 	if (commitIDs.length === 0) {
 		echo(yellow(t('No logs selected, process has exited')))
 		process.exit(0)
 	}
-	// 筛选被选择的记录
+	// Filter the selected records
 	revertCache = revertCache.filter(item => commitIDs.includes(item.after['%H']!))
 	cmd = revertCache.map(item => ({
 		cmd: `git revert -s --no-edit ${item.after['%H']}${mode}`,
@@ -95,7 +95,7 @@ program.action(async (commitid: string[], opt: GitmRedoOption) => {
 			fail: t('An error has occurred, please follow the prompts'),
 		},
 	}))
-	// 执行
+	// Execute
 	queue(cmd).then(() => {
 		delRevertCache(commitIDs)
 	})

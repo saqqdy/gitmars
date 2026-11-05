@@ -80,7 +80,7 @@ program.action(async (type: string | string[], name: string, opt: GitmUpdateOpti
 		if (!type) type = allow.join(',')
 		branchList = searchBranches({ type })
 	} else if (!type || !name) {
-		// type或name没传
+		// type or name was not passed
 		const current = getCurrentBranch()
 
 		;[type, ..._nameArr] = current.split('/')
@@ -104,7 +104,7 @@ program.action(async (type: string | string[], name: string, opt: GitmUpdateOpti
 		}
 		branchList = branchList.concat(current)
 	} else if (!allow.includes(type as string)) {
-		// 传了type和name，但是不合法
+		// type and name were passed but are invalid
 		sh.echo(red(`${t('type only allows input')}: ${JSON.stringify(allow)}`))
 		process.exit(1)
 	} else {

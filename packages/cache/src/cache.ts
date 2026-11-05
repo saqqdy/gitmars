@@ -12,36 +12,36 @@ export type TimestampType = Record<string, number> & {
 }
 
 /**
- * 获取缓存是否过期
+ * Check whether the cache has expired
  *
- * @param name - 缓存名称
- * @param time - 过期时长，默认24 * 60 * 60 * 1000
- * @returns isCacheExpired - 返回是否过期
+ * @param name - Cache name
+ * @param time - Expiration duration, defaults to 24 * 60 * 60 * 1000
+ * @returns isCacheExpired - Whether the cache has expired
  */
 export function isCacheExpired(name: keyof TimestampType, time: number = 24 * 60 * 60 * 1000) {
 	const now = new Date().getTime()
 	let timestamp: TimestampType = {}
 
 	if (!name) throw t('Please pass in the name')
-	// 没有找到缓存文件
+	// Cache file not found
 	if (!isFileExist(resolve(`${CACHE_PATH}timestamp.json`))) return true
-	// 从文件读取时间戳
+	// Read the timestamp from the file
 	timestamp = require(resolve(`${CACHE_PATH}timestamp.json`))
 
 	return !timestamp[name] || now - timestamp[name]! >= time
 }
 
 /**
- * 更新缓存
+ * Update the cache
  *
- * @param name - 缓存名称
+ * @param name - Cache name
  */
 export async function updateCacheTime(name: keyof TimestampType) {
 	const now = new Date().getTime()
 	let timestamp: TimestampType = {}
 
 	if (!name) throw t('Please pass in the name')
-	// 没有找到缓存文件
+	// Cache file not found
 	if (isFileExist(resolve(`${CACHE_PATH}timestamp.json`))) {
 		timestamp = require(resolve(`${CACHE_PATH}timestamp.json`))
 	}

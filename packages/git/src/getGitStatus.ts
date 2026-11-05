@@ -3,10 +3,10 @@ import type { GitStatusInfoType } from './types'
 import { debug, spawnSync } from '@gitmars/utils'
 
 /**
- * 获取分支状态
+ * Get the working tree status
  *
- * @param config - spawn配置
- * @returns gitStatus - git状态
+ * @param config - spawn options
+ * @returns gitStatus - The git status
  */
 function getGitStatus(config: SpawnOptions = {}): GitStatusInfoType {
 	const { stdout } = spawnSync('git', ['status', '-s', '--no-column'], config)

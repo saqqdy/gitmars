@@ -11,11 +11,11 @@ export interface CommandNeedInput {
 }
 
 /**
- * 执行问答程序
+ * Run the interactive prompt
  *
  * @public
- * @param config - 配置
- * @returns result - 返回指令结果Promise
+ * @param config - Configuration
+ * @returns result - A promise resolving to the command result
  */
 async function getCommand({
 	command,
@@ -27,11 +27,11 @@ async function getCommand({
 	transformArgs,
 }: GitmarsOptionType) {
 	let params: string[] = [],
-		needInput: CommandNeedInput[] = [] // 需要输入参数值的列表
+		needInput: CommandNeedInput[] = [] // List of options requiring input
 
-	// 第一步：args参数
+	// Step 1: args options
 	if (options.length > 0) {
-		// 是否需要执行第一步checkbox选择：1. options全部参数都需要输入值；2. 全部参数都是recommend为true，满足这两个条件则不走checkbox。
+		// Skip step 1 (checkbox) when either every option requires a value or every option is recommend: true
 		const needStep1 = options.some(
 			option => (!option.optional && !option.required) || !option.recommend,
 		)
@@ -54,7 +54,7 @@ async function getCommand({
 				const option = options.find(opt => opt.long === prop)
 
 				if (option && (option.optional || option.required)) {
-					// 必填<>或者不必填[]
+					// Required <> or optional []
 					needInput.push({
 						required: option.required,
 						name: option.long,
@@ -78,7 +78,7 @@ async function getCommand({
 			})
 		}
 	}
-	// 第二步：command参数
+	// Step 2: command options
 	if (args.length > 0) {
 		const answer2 = await inquirer.prompt(
 			createPrompt(
@@ -94,7 +94,7 @@ async function getCommand({
 
 		params = (Object.values(answer2) as string[]).concat(params)
 	}
-	// 第三步：args参数需要传参的部分
+	// Step 3: args options that require a value
 	if (needInput.length > 0) {
 		const answer3 = await inquirer.prompt(
 			createPrompt(command, { options: needInput }, 'input'),

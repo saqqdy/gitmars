@@ -93,7 +93,7 @@ program
 		t('Administrator functions, including actions for bugfixing and releasing release branches'),
 	)
 
-// 自定义帮助
+// Custom help
 program.on('--help', () => {
 	echo(t('Use Case'))
 	echo('  $ gitm init')
@@ -101,7 +101,7 @@ program.on('--help', () => {
 	echo('  $ gitm -h')
 })
 
-// 映射不存在的指令
+// Map unknown commands
 program.on('command:*', (types: string[], opts: string[]) => {
 	const cmd = [
 		'init',

@@ -1,7 +1,7 @@
 import { spawnSync } from '@gitmars/utils'
 
 /**
- * 获取当前分支
+ * Get the current branch
  *
  * @returns - Return name
  */

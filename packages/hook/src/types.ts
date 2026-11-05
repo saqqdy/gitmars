@@ -1,2 +1,2 @@
-// 127和128是git个别场景的执行结果值
+// 127 and 128 are exit codes git returns in certain scenarios
 export type ShellCode = 0 | 1 | 127 | 128

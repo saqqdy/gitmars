@@ -4,19 +4,19 @@ import getCurrentBranch from './getCurrentBranch'
 import getGitLogs from './getGitLogs'
 
 export interface IsUpdatedInTimeConfigType {
-	// 最近几天的日志，可以是10s/2m/2h/3d/4M/5y
+	// Logs from a recent period, e.g. 10s/2m/2h/3d/4M/5y
 	lastet: string
-	// 日志数量限制
+	// Maximum number of logs
 	limit?: number
-	// 目标分支
+	// Target branch
 	branch: string
 }
 
 /**
- * 获取一周内是否同步过上游分支代码
+ * Check whether the upstream branch was synced within the last week
  *
  * @param option - Parameters
- * @returns isMergedTargetBranch - 是否合并过
+ * @returns isUpdated - Whether the upstream branch was synced in time
  */
 function getIsUpdatedInTime({ lastet, limit, branch }: IsUpdatedInTimeConfigType): boolean {
 	let isUpdated = false

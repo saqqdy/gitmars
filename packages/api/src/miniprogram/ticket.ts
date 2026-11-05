@@ -3,7 +3,7 @@ import { post } from '../request/miniprogram'
 const URL_PREFIX = '/api/component/weixin/ticket'
 
 /**
- * 生成授权码
+ * Generate an authorization code
  *
  * @param options - options
  * @returns data

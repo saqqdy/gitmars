@@ -105,7 +105,7 @@ program.action(async (project: string, opt: GitmBuildOption): Promise<void> => {
 		// no apps means no-need to enter app name
 	}
 
-	// 有opt.data时强制确认
+	// Force confirmation when opt.data is present
 	if (!_confirm || (opt.data && opt.data !== '{}')) {
 		let message = `${yellow(t('Please double check the following build parameters'))}\n${t(
 			'Project Name',

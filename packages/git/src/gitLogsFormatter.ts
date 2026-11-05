@@ -71,9 +71,9 @@ class GitLogsFormatter {
 	}
 
 	/**
-	 * 获取format
+	 * Build the format string
 	 *
-	 * @param keys - 需要返回的数据key
+	 * @param keys - Keys to include in the result
 	 * @returns format - string
 	 */
 	getFormat(keys: GitLogKeysType[]): string {
@@ -85,9 +85,9 @@ class GitLogsFormatter {
 	}
 
 	/**
-	 * 获取日志
+	 * Get logs
 	 *
-	 * @returns config - GitProjectConfigType
+	 * @returns logs - A list of parsed git logs
 	 */
 	getLogs(stdout: string): GitLogsType[] {
 		const list: GitLogsType[] = []

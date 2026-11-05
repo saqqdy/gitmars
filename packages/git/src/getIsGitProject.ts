@@ -1,9 +1,9 @@
 import { debug, spawnSync } from '@gitmars/utils'
 
 /**
- * 获取当前是否git项目目录
+ * Check whether the current directory is a git repository
  *
- * @returns isGitProject - 返回是否git项目目录
+ * @returns isGitProject - Whether the current directory is a git repository
  */
 function getIsGitProject(): boolean {
 	const { stdout } = spawnSync('git', ['rev-parse', '--is-inside-work-tree'])

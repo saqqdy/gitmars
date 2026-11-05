@@ -8,9 +8,9 @@ const { t } = lang
 const { gitDir } = getGitRevParse()
 
 /**
- * 存储错误日志
+ * Store the error log
  *
- * @param log - 错误日志
+ * @param log - Error log
  */
 export function setLog(log: GitmarsLogType): void {
 	sh.touch(`${gitDir}/.gitmarslog`)
@@ -24,7 +24,7 @@ export function setLog(log: GitmarsLogType): void {
 }
 
 /**
- * 清理log
+ * Clear logs
  */
 export function cleanLog() {
 	removeFile({

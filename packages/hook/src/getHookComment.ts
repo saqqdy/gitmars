@@ -4,9 +4,9 @@ const { gitUrl } = getGitConfig()
 const { root } = getGitRevParse()
 
 /**
- * 生成hook注释，广告
+ * Generate the hook header comment
  *
- * @returns comment - 返回注释
+ * @returns comment - The generated comment
  */
 function getHookComment(): string {
 	// const pkgHomepage = process.env.npm_package_homepage

@@ -4,10 +4,10 @@ import lang from './lang'
 const { t } = lang
 
 /**
- * 获取通用的指令提示信息
+ * Get the common command messages
  *
- * @param cmd - 指令
- * @returns commandMessage - 指令提示信息
+ * @param cmd - Command
+ * @returns commandMessage - Command messages
  */
 function getCommandMessage(cmd: string | string[]): CommandMessageType {
 	const msg = {} as CommandMessageType

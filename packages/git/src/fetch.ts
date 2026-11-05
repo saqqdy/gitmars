@@ -1,7 +1,7 @@
 import { debug, spawnSync } from '@gitmars/utils'
 
 /**
- * 同步远程版本
+ * Fetch from the remote
  */
 function fetch(): void {
 	debug('fetch', 'fetch success')

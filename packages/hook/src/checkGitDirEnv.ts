@@ -4,7 +4,7 @@ import lang from './lang'
 const { t } = lang
 
 /**
- * 检查git环境变量
+ * Check git environment variables
  */
 function checkGitDirEnv(): void {
 	if (process.env.GIT_DIR) {

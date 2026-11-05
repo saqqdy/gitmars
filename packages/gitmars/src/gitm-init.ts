@@ -20,7 +20,7 @@ const { root } = getGitRevParse()
 
 /**
  * gitm init
- * 初始化gitmars配置
+ * Initialize the gitmars config
  */
 program
 	.name('gitm init')

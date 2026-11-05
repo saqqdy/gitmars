@@ -3,11 +3,9 @@ import fetch from './fetch'
 import getCurrentBranch from './getCurrentBranch'
 
 /**
- * 获取当前本地分支落后远程的日志
+ * Get commits the local branch is behind the remote
  *
- * @param branch - 待检测分支名
- * @param targetBranch - 目标分支
- * @returns behindLogs - 是否
+ * @returns behindLogs - Commits the local branch is behind by
  */
 function getBehindLogs(): string[] {
 	const current = getCurrentBranch()

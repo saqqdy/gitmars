@@ -1,7 +1,7 @@
 /**
- * 中文转unicode
+ * Convert between characters and unicode escapes
  *
- * @param str - 字符串
+ * @param str - String
  * @returns code - Return string
  */
 export function encodeUnicode(str: string): string {
@@ -15,9 +15,9 @@ export function encodeUnicode(str: string): string {
 }
 
 /**
- * 中文转unicode
+ * Convert between characters and unicode escapes
  *
- * @param str - 字符串
+ * @param str - String
  * @returns code - Return string
  */
 export function decodeUnicode(str: string): string {

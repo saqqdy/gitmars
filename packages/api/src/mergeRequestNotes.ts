@@ -11,7 +11,7 @@ const MERGE_REQUESTS_NOTES_URL = `${config.gitHost}/api/v4/projects/${config.git
 const token = getGitToken()
 
 /**
- * 发起远程合并请求日志
+ * Create a remote merge request log
  *
  * @param option - options
  * @returns command
@@ -46,7 +46,7 @@ export async function createMergeRequestNotes({
 }
 
 /**
- * 获取远程合并请求日志列表
+ * Get remote merge request logs
  *
  * @param option - options
  * @returns command
@@ -81,7 +81,7 @@ export async function getMergeRequestNotesList({
 }
 
 /**
- * 获取远程合并请求日志详情
+ * Get details of a remote merge request log
  *
  * @param option - options
  * @returns command
@@ -112,7 +112,7 @@ export async function getMergeRequestNotesDetail({
 }
 
 /**
- * 更新合并请求日志
+ * Update a merge request log
  *
  * @param option - options
  * @returns command
@@ -146,7 +146,7 @@ export async function updateMergeRequestNotes({
 }
 
 /**
- * 删除合并请求日志
+ * Delete a merge request log
  *
  * @param option - options
  * @returns command

@@ -5,9 +5,9 @@ import getHookComment from './getHookComment'
 import { SH_PATH } from './paths'
 
 /**
- * 生成hook主程序
+ * Generate the hook entry script
  *
- * @returns arr 返回对象
+ * @returns shell - The generated hook shell script
  */
 function getHookShell(): string {
 	const pkg = readPkg()

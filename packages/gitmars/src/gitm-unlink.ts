@@ -23,7 +23,7 @@ program.action((name: string) => {
 	const npmClient = sh.which('yarn') ? 'yarn' : 'npm'
 
 	if (!name) {
-		// 解除当前包的软链
+		// Unlink the current package
 		spawnSync(npmClient, ['unlink'])
 		sh.echo(t('Processing completed'))
 		process.exit(0)

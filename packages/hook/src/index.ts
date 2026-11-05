@@ -36,12 +36,12 @@ const gitVersion = getGitVersion()
 const config = getConfig()
 
 /**
- * 创建git钩子
+ * Create git hooks
  *
- * @param dir - 目标目录，默认gitHookDir
+ * @param dir - Target directory, defaults to gitHookDir
  */
 export function createHooks(dir: string = gitHookDir): void {
-	// 创建hook文件方法
+	// Helper that creates a hook file
 	const writeHook = (filename: string, shell: string): void => {
 		fs.writeFileSync(filename, shell, 'utf-8')
 		fs.chmodSync(filename, 0o0755)
@@ -57,17 +57,17 @@ ${getHookComment()}
 . "$(dirname "$0")/gitmars.sh"`
 		const name = path.basename(filename)
 
-		// 检查hook文件是否已存在
+		// Check whether the hook file already exists
 		if (fs.existsSync(filename)) {
 			const hook = fs.readFileSync(filename, 'utf-8')
 
-			// 合并
+			// Merge
 			if (getHookType.isGhooks(hook)) {
 				console.info(t('Merge existing ghooks hooks: {name}', { name }))
 
 				return writeHook(filename, hookShell)
 			}
-			// 合并
+			// Merge
 			if (getHookType.isPreCommit(hook)) {
 				console.info(
 					t('Merge existing pre-commit hooks: {name}', {
@@ -77,7 +77,7 @@ ${getHookComment()}
 
 				return writeHook(filename, hookShell)
 			}
-			// 更新
+			// Update
 			if (
 				getHookType.isGitmars(hook) ||
 				getHookType.isHusky(hook) ||
@@ -85,7 +85,7 @@ ${getHookComment()}
 			) {
 				return writeHook(filename, hookShell)
 			}
-			// 跳过
+			// Skip
 			console.info(
 				t('Skip existing git hooks: {name}', {
 					name,
@@ -94,15 +94,15 @@ ${getHookComment()}
 
 			return
 		}
-		// 如果不存在钩子，创建
+		// Create the hook when it does not exist
 		writeHook(filename, hookShell)
 	})
 }
 
 /**
- * 创建git钩子
+ * Remove git hooks
  *
- * @param dir - 目标目录，默认gitHookDir
+ * @param dir - Target directory, defaults to gitHookDir
  * @returns result - boolean|void
  */
 export function removeHooks(dir: string = gitHookDir): boolean | void {
@@ -124,9 +124,9 @@ export function removeHooks(dir: string = gitHookDir): boolean | void {
 }
 
 /**
- * 创建主程序
+ * Create the main program
  *
- * @param dir - 目标目录，默认gitHookDir
+ * @param dir - Target directory, defaults to gitHookDir
  */
 export function createHookShell(dir: string = gitHookDir): void {
 	const filename = path.join(dir, 'gitmars.sh')
@@ -136,9 +136,9 @@ export function createHookShell(dir: string = gitHookDir): void {
 }
 
 /**
- * 移除主程序
+ * Remove the main program
  *
- * @param dir - 目标目录，默认gitHookDir
+ * @param dir - Target directory, defaults to gitHookDir
  */
 export function removeHookShell(dir: string = gitHookDir): void {
 	const filename = path.join(dir, 'gitmars.sh')
@@ -147,11 +147,11 @@ export function removeHookShell(dir: string = gitHookDir): void {
 }
 
 /**
- * 创建本地脚本
+ * Create the local shell script
  *
- * @param dir - 目标目录，默认gitHookDir
- * @param pmName - 包管理工具名称
- * @param relativeUserPkgDir - 用户包相对路径
+ * @param dir - Target directory, defaults to gitHookDir
+ * @param pmName - Package manager name
+ * @param relativeUserPkgDir - Relative path to the user package
  */
 export function createLocalShell(
 	dir: string = gitHookDir,
@@ -165,9 +165,9 @@ export function createLocalShell(
 }
 
 /**
- * 移除本地脚本
+ * Remove the local shell script
  *
- * @param dir - 目标目录，默认gitHookDir
+ * @param dir - Target directory, defaults to gitHookDir
  */
 export function removeLocalShell(dir: string = gitHookDir): void {
 	const filename = path.join(dir, 'gitmars.local.sh')
@@ -176,18 +176,18 @@ export function removeLocalShell(dir: string = gitHookDir): void {
 }
 
 /**
- * 初始化钩子
+ * Initialize hooks
  */
 export function init(): void {
 	const gitVersionIsNew = gitVersion && compareVersion(gitVersion, '2.13.0') > -1
 
-	// 集成环境不安装
+	// Skip installation in CI environments
 	if (ciInfo.isCI && config.skipCI) {
 		console.info(t('Continuous integration environment, skip hook installation'))
 
 		return
 	}
-	// 如果没有hooks文件夹，创建
+	// Create the hooks directory when missing
 	if (!fs.existsSync(gitHookDir)) {
 		fs.mkdirSync(gitHookDir)
 	}
@@ -199,7 +199,7 @@ export function init(): void {
 		)
 		process.exit(0)
 	}
-	// git版本过旧
+	// Git version is too old
 	if (!gitVersionIsNew) {
 		sh.echo(
 			chalk.yellow(
@@ -217,7 +217,7 @@ export function init(): void {
 }
 
 /**
- * 移除钩子
+ * Remove hooks
  */
 export function remove(): void {
 	removeHooks()

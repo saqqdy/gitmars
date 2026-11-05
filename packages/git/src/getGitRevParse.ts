@@ -11,10 +11,10 @@ export interface GitProjectRevParseType {
 }
 
 /**
- * 获取git路径
+ * Get the git repository paths
  *
- * @param cwd - 当前工作目录
- * @returns gitRevParse - 返回对象GitProjectRevParseType
+ * @param cwd - Current working directory
+ * @returns gitRevParse - A GitProjectRevParseType object
  */
 function getGitRevParse(cwd: string = process.cwd()): GitProjectRevParseType {
 	const { stdout } = spawnSync(

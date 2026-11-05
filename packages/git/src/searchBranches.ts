@@ -9,7 +9,7 @@ export interface SearchBranchesMapType {
 }
 
 /**
- * 搜索分支
+ * Search branches
  *
  * @param opt - Filtering parameters
  * @returns branches - return array

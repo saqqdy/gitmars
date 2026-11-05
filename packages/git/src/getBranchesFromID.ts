@@ -1,11 +1,11 @@
 import { debug, spawnSync } from '@gitmars/utils'
 
 /**
- * 获取包含commitID的分支
+ * Get branches containing a commit ID
  *
  * @param commitID - commitID
- * @param remote - 是否检测远程
- * @returns branches - 返回分支列表
+ * @param remote - Whether to check the remote
+ * @returns branches - The list of branches
  */
 function getBranchesFromID(commitID: string, remote = false): string[] {
 	const { stdout } = spawnSync('git', [

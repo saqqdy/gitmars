@@ -7,9 +7,9 @@ export interface GitProjectConfigType {
 }
 
 /**
- * 获取git配置
+ * Get the git config
  *
- * @param cwd - 当前工作目录
+ * @param cwd - Current working directory
  * @returns config - GitProjectConfigType
  */
 function getGitConfig(cwd: string = process.cwd()): GitProjectConfigType {

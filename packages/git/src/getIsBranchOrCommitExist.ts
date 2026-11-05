@@ -2,10 +2,10 @@ import { spawnSync } from '@gitmars/utils'
 import getCurrentBranch from './getCurrentBranch'
 
 /**
- * 获取是否存在某个分支
+ * Check whether a branch exists
  *
- * @param name - 分支名称
- * @param remote - 是否查询远程，默认：false
+ * @param name - Branch name
+ * @param remote - Whether to query the remote, defaults to false
  * @returns isBranchOrCommitExist - return true/false
  */
 function getIsBranchOrCommitExist(name?: string | null, remote = false): boolean {

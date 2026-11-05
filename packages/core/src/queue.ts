@@ -30,12 +30,12 @@ export function wait(
 	list: Array<CommandType | string | string[] | string[]>,
 	fun: QueueStartFunction,
 ) {
-	// 最后一条指令，执行完成之后退出递归
+	// Exit the recursion after the last command completes
 	if (list.length === 0) {
 		fun()
 	} else {
 		fun(list[0], (kill = false) => {
-			// 强制中断
+			// Force abort
 			if (kill) return
 			list.shift()
 			wait(list, fun)
@@ -44,15 +44,15 @@ export function wait(
 }
 
 /**
- * 脚本执行主程序
+ * Run the script queue
  *
- * @param list - 脚本序列
+ * @param list - Script sequence
  * @returns promise - QueueReturnsType
  */
 export function queue(list: Array<CommandType | string | string[]>): Promise<QueueReturnsType[]> {
 	const spinner = ora()
 
-	// 处理脚本执行成功
+	// Handle a successful script run
 	function onSuccess(msg: CommandMessageType, cfg: CommandTypeCmd['config'], cb?: WaitCallback) {
 		const _message = cfg.success || msg.success || t('Processing complete')
 
@@ -120,7 +120,7 @@ export function queue(list: Array<CommandType | string | string[]>): Promise<Que
 				})
 
 			_message && spinner.warn(chalk.yellow(_message))
-			cb && cb() // 回调，继续执行下一条
+			cb && cb() // Callback, continue with the next line
 		}
 	}
 
@@ -143,7 +143,7 @@ export function queue(list: Array<CommandType | string | string[]>): Promise<Que
 			else if (command instanceof Object) {
 				// Incoming objects: { cmd: '', config: {} }
 				if ('message' in command) {
-					// message优先，输出消息
+					// Prefer `message` when printing output
 					message = command.message
 				} else {
 					cfg = Object.assign(cfg, command.config || {})

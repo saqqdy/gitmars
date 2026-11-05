@@ -12,7 +12,7 @@ export interface GetGitLogsByCommitIDsOptions {
 }
 
 /**
- * 获取日志
+ * Get logs
  *
  * @param option - Parameters
  * @returns logsList - Return array

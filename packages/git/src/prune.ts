@@ -1,7 +1,7 @@
 import { debug, spawnSync } from '@gitmars/utils'
 
 /**
- * 清理已删除的远程分支
+ * Prune remote branches that have been deleted
  */
 function prune(): void {
 	debug('prune', 'prune remote success')

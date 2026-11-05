@@ -10,15 +10,15 @@ const { t } = lang
 const require = createRequire(import.meta.url)
 
 /**
- * 读取gitmars在线版本列表
+ * Get the online version list of gitmars
  *
- * @param name - 需要查询的内容
- * @returns info - arr Return the configuration object
+ * @param name - Content to query
+ * @returns info - The package info, or a specific property when name is passed
  */
 export async function getPkgInfo(name?: string): Promise<any | void> {
 	let packageInfo
 
-	// 有配置文件且没有过期，返回配置
+	// Return the cached info when it exists and has not expired
 	if (
 		!isCacheExpired('packageInfoTime') &&
 		isFileExist(resolve(`${CACHE_PATH}packageInfo.json`))
@@ -41,7 +41,7 @@ export async function getPkgInfo(name?: string): Promise<any | void> {
 }
 
 /**
- * 清理pkgInfo缓存
+ * Clear the pkgInfo cache
  */
 export function cleanPkgInfo() {
 	removeFile({

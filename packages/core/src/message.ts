@@ -8,10 +8,10 @@ import sendGroupMessage from './sendGroupMessage'
 const { t } = lang
 
 /**
- * 解析模板数据
+ * Parse template data
  *
- * @param type - 类型
- * @returns message - 数据
+ * @param type - Type
+ * @returns message - The parsed data
  */
 export function getMessage(type: string): string {
 	const { root } = getGitRevParse()
@@ -45,9 +45,9 @@ export function getMessage(type: string): string {
 }
 
 /**
- * 发送消息
+ * Send a message
  *
- * @param msg - 消息
+ * @param msg - Message
  */
 export async function postMessage(msg = ''): Promise<void> {
 	const config = getConfig()
