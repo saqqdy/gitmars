@@ -2,7 +2,7 @@
 	"name": "@gitmars/docs",
 	"description": "gitmars文档库",
 	"type": "module",
-	"version": "7.8.0",
+	"version": "7.9.0",
 	"private": false,
 	"main": "./dist/index.cjs.js",
 	"module": "./dist/index.esm-bundler.js",
