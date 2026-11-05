@@ -1,13 +1,68 @@
 # Changelog
 
-## 2026.11.04 v7.9.0
+## 2026.11.04 v7.9.0 (Unreleased)
 
-1. Security: build secrets (`username`, `password`, `miniprogramToken`, `miniprogramSession`, `gitNotificationGroupUrl`) are no longer returned by the `buildConfig` API; configure them under `buildSecret` in a gitmars config file
-2. Gitmars config now supports a global layer in the home directory merged with the project-root layer (project level wins). Both layers use `cosmiconfig` search places, so any supported config filename/format works — `.gitmarsrc` is not hardcoded
-3. Sensitive fields are stripped before the build config is written to the local cache
-4. Per-environment Jenkins tokens renamed from `token` to `schema` in `dev`/`bug`/`prod` blocks; the `${token}` URL template placeholder is unchanged
+**Security: build secrets no longer returned by the config API**
 
-**Upgrading from 7.8.0:** move the five sensitive fields from the API response into `buildSecret`, rename `token` to `schema` in every environment block, keep `gitID` project-only, and run `gitm clean` to clear cached build configs. See the [config reference](/guide/basic-config) for details.
+### Breaking Changes
+
+1. `username`, `password`, `miniprogramToken`, `miniprogramSession`, `gitNotificationGroupUrl` are no longer read from the `buildConfig` API response. They must be configured under `buildSecret` in `.gitmarsrc`.
+2. Per-environment Jenkins tokens in the build config were renamed from `token` to `schema` for `dev`/`bug`/`prod`. Project-level overrides use `schema` too. The URL template placeholder `${token}` is unchanged.
+
+### Features
+
+1. Gitmars config now supports a global layer in the home directory merged with the project-root layer (project level wins). Both layers are discovered through `cosmiconfig` search places, so any supported config filename/format works (`.gitmarsrc`, `.gitmarsrc.json`, `.gitmarsrc.js`, etc.) — the name `.gitmarsrc` is not hardcoded.
+2. Sensitive fields are injected from `buildSecret` before `getBuildConfig()` returns, and stripped before the config is written to the local cache — secrets are never persisted to cache files.
+3. Added `buildSecret` type definitions in `@gitmars/git` and `@gitmars/build`.
+
+### Upgrading from 7.8.0 to 7.9.0
+
+**Step 1 — Move secrets out of the build config API response.**
+
+In 7.8.0 the `buildConfig` API (or Apollo) returned these fields directly. In 7.9.0 they are ignored even if the API still returns them; configure them under `buildSecret` in a gitmars config file instead:
+
+| 7.8.0 (API response) | 7.9.0 (config file) |
+|---|---|
+| `username` | `buildSecret.username` |
+| `password` | `buildSecret.password` |
+| `miniprogramToken` | `buildSecret.miniprogramToken` |
+| `miniprogramSession` | `buildSecret.miniprogramSession` |
+| `gitNotificationGroupUrl` | `buildSecret.gitNotificationGroupUrl` |
+
+```json
+{
+  "buildSecret": {
+    "username": "jenkins_username",
+    "password": "jenkins_password",
+    "miniprogramToken": "",
+    "miniprogramSession": "sessionID",
+    "gitNotificationGroupUrl": "https://..."
+  }
+}
+```
+
+Put this in the project-root config file, or in a global config in your home directory to share it across projects. Set the file mode to `0600` and never commit it.
+
+**Step 2 — Rename `token` to `schema` in the build config.**
+
+Per-environment Jenkins tokens stay in the API response but were renamed. Update every `dev` / `bug` / `prod` block and any per-project override:
+
+```diff
+- "dev":  { "line": "git_alpha", "token": "wojiayunalpha", "list": [...] }
++ "dev":  { "line": "git_alpha", "schema": "wojiayunalpha", "list": [...] }
+```
+
+The URL templates (`template`, `templateWithParam`) keep the `${token}` placeholder — no change needed there.
+
+**Step 3 — Remove `gitID` from any global config.**
+
+`gitID` is per-project. If you previously placed it in a global config, move it to the project-root config; a global value would leak into other projects.
+
+**Step 4 — Clear the build config cache.**
+
+Run `gitm clean` (or delete `buildConfig*.json` from the gitmars cache) so cached configs are refetched without the old sensitive fields.
+
+**Backward compatibility:** non-sensitive fields (project lists, `line`, templates) are still read from the API/Apollo as before; `buildSecret` overrides only the fields it defines.
 
 ## 2026.03.20 v7.8.0 (Released)
 
